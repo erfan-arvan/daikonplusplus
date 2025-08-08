@@ -12,17 +12,16 @@ public class Invariant {
   private final String expression;
 
   /** Whether this invariant has been falsified by dynamic evidence. */
-  private boolean falsified;
+  private boolean falsified = false;
 
   /**
-   * Constructs a new invariant with the given expression. By default, it is assumed to be valid
-   * (not falsified).
+   * Constructs a new invariant with the given expression. The invariant is initially not marked as
+   * falsified.
    *
    * @param expression The Java-style Boolean expression representing the invariant.
    */
   public Invariant(String expression) {
     this.expression = expression;
-    this.falsified = false;
   }
 
   /** Returns the invariant expression string. */
@@ -40,11 +39,6 @@ public class Invariant {
     this.falsified = true;
   }
 
-  /** Clears the falsified flag (i.e., marks it as valid again). */
-  public void resetFalsified() {
-    this.falsified = false;
-  }
-
   /** Returns a string representation (with optional status). */
   @Override
   public String toString() {
@@ -53,7 +47,7 @@ public class Invariant {
 
   @Override
   public boolean equals(Object o) {
-    if (!(o instanceof Invariant other)) return false;
+    if (!(o instanceof edu.njit.jerse.daikonplusplus.inv.Invariant other)) return false;
     return Objects.equals(this.expression, other.expression) && this.falsified == other.falsified;
   }
 
