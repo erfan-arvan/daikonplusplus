@@ -1,7 +1,6 @@
 package edu.njit.jerse.daikonplusplus.inv;
 
 import java.util.Objects;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
@@ -11,7 +10,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 public class Invariant {
 
   /** The actual invariant expression, e.g., "x > 0". */
-  private final @NonNull String expression;
+  private final String expression;
 
   /** Whether this invariant has been falsified by dynamic evidence. */
   private boolean falsified = false;
@@ -22,7 +21,7 @@ public class Invariant {
    *
    * @param expression The Java-style Boolean expression representing the invariant.
    */
-  public Invariant(@NonNull String expression) {
+  public Invariant(String expression) {
     this.expression = expression;
   }
 
