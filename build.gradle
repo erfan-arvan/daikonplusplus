@@ -1,6 +1,7 @@
 plugins {
     id 'com.diffplug.spotless' version '6.25.0'
     id 'application'
+    id 'org.checkerframework' version '0.6.56'
 }
 
 repositories {
@@ -20,6 +21,8 @@ application {
 dependencies {
     implementation 'com.google.guava:guava:32.1.1-jre'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    checkerFramework 'org.checkerframework:checker:3.49.5'
+    compileOnly 'org.checkerframework:checker-qual:3.49.5'
 }
 
 test {
@@ -33,6 +36,15 @@ spotless {
     }
 }
 
+checkerFramework {
+    checkers = [
+        'org.checkerframework.checker.nullness.NullnessChecker',
+        'org.checkerframework.checker.interning.InterningChecker'
+    ]
+    
+    // Exclude test files from analysis
+    excludeTests = true
+}
+
 // Automatically apply formatting when building
 build.dependsOn 'spotlessApply'
-
