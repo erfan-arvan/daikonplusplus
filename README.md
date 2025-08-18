@@ -65,7 +65,7 @@ If your build produces a standalone JAR (e.g., `build/libs/daikonplusplus-all.ja
 |---|---:|---|
 | `DP_OPENAI_API_KEY` | — | **Required.** OpenAI API key. |
 | `DP_OPENAI_MODEL` | gpt-4.1-mini (example) | Model used for invariant generation. |
-| `DP_INCLUDE_BODY` | `0` | `1` to send **full method bodies** to the LLM as context. |
+| `DP_INCLUDE_BODY` | `1` | `1` to send **full method bodies** to the LLM as context. |
 | `DP_THREADS` | (CPU cores) | Max CPU threads for scanning/injection. |
 | `DP_LLM_MAX_CONCURRENCY` | 4–8 | Caps concurrent LLM calls to avoid throttling. |
 | `DP_LLM_REQ_TIMEOUT_SEC` | 45 | Per-request timeout for a single program point. |
