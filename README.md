@@ -12,6 +12,25 @@ Daikon++ instruments Java programs to check candidate invariants at **method ent
 
 ---
 
+# Build the fat JAR
+./gradlew clean shadowJar
+# → builds: build/libs/daikonplusplus.jar
+
+# Run it (set your API key first)
+export OPENAI_API_KEY=sk-...your-key...
+
+# CLI:
+# java -jar build/libs/daikonplusplus.jar <srcRoot> <classpath> <mainClass> [maxK] [-- program args...]
+
+# Notes:
+# - <classpath>: use ":" on macOS/Linux, ";" on Windows. Use "." if no external deps.
+# - <mainClass>: fully qualified (e.g., com.example.Main). Use "Main" for default package.
+
+# Example:
+java -jar build/libs/daikonplusplus.jar /path/to/project/src . com.example.Main 5 -- foo bar
+
+---
+
 ## CLI
 
 The fat-jar CLI is:
