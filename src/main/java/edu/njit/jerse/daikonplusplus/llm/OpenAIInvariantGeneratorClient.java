@@ -1,5 +1,7 @@
 package edu.njit.jerse.daikonplusplus.llm;
 
+import static edu.njit.jerse.daikonplusplus.util.DpFlags.*;
+
 import com.fasterxml.jackson.annotation.JsonClassDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.github.javaparser.StaticJavaParser;
@@ -13,12 +15,10 @@ import com.openai.models.chat.completions.StructuredChatCompletionCreateParams;
 import edu.njit.jerse.daikonplusplus.model.InvariantSpec;
 import edu.njit.jerse.daikonplusplus.model.ProgramPoint;
 import edu.njit.jerse.daikonplusplus.model.ProgramPointKind;
-import static edu.njit.jerse.daikonplusplus.util.DpFlags.*;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
@@ -86,45 +86,48 @@ public final class OpenAIInvariantGeneratorClient {
    * @return a list of syntactically valid {@link InvariantSpec}s (may be empty)
    */
   public List<InvariantSpec> proposeInvariants(
-          ProgramPoint point, Map<String,String> inScopeNames, @org.checkerframework.checker.nullness.qual.Nullable String methodBody) {
+      ProgramPoint point,
+      Map<String, String> inScopeNames,
+      @org.checkerframework.checker.nullness.qual.Nullable String methodBody) {
 
     final boolean isExit = point.kind() == ProgramPointKind.METHOD_EXIT;
 
     try {
       // ----- Build messages -----
       final String system = systemMessage();
-      final String user = isExit
+      final String user =
+          isExit
               ? userMessageForExit(point, inScopeNames, maxInvariants, methodBody)
               : userMessageForEntry(point, inScopeNames, maxInvariants, methodBody);
       if (DEBUG) {
         System.out.println("[DP] LLM REQUEST → " + point.kind() + " :: " + point.elementId());
         if (!inScopeNames.isEmpty()) {
-          System.out.println("[DP] Scope for " + point.kind() + " :: " + point.elementId()
-                  + " → " + inScopeNames);
+          System.out.println(
+              "[DP] Scope for " + point.kind() + " :: " + point.elementId() + " → " + inScopeNames);
         }
       }
 
       // ----- Structured request -----
       StructuredChatCompletionCreateParams<InvariantsOut> params =
-              ChatCompletionCreateParams.builder()
-                      .model(model)
-                      .responseFormat(InvariantsOut.class, JsonSchemaLocalValidation.YES)
-                      .addSystemMessage(system)
-                      .addUserMessage(user)
-                      .build();
+          ChatCompletionCreateParams.builder()
+              .model(model)
+              .responseFormat(InvariantsOut.class, JsonSchemaLocalValidation.YES)
+              .addSystemMessage(system)
+              .addUserMessage(user)
+              .build();
 
       // NOTE: the return type is StructuredChatCompletion<InvariantsOut>
       StructuredChatCompletion<InvariantsOut> completion =
-              client.chat().completions().create(params);
+          client.chat().completions().create(params);
 
       // Flatten all items (don't limit yet; we limit after filtering)
       List<InvariantsOut.Item> items =
-              completion.choices().stream()
-                      .flatMap(c -> c.message().content().stream())       // List<InvariantsOut>
-                      .filter(Objects::nonNull)
-                      .flatMap(out -> out.invariants.stream())            // Stream<Item>
-                      .filter(Objects::nonNull)
-                      .collect(java.util.stream.Collectors.toList());
+          completion.choices().stream()
+              .flatMap(c -> c.message().content().stream()) // List<InvariantsOut>
+              .filter(Objects::nonNull)
+              .flatMap(out -> out.invariants.stream()) // Stream<Item>
+              .filter(Objects::nonNull)
+              .collect(java.util.stream.Collectors.toList());
 
       // ----- Parse + quality filter + dedup + post-limit -----
       List<InvariantSpec> kept = new ArrayList<>(Math.min(items.size(), maxInvariants));
@@ -142,8 +145,8 @@ public final class OpenAIInvariantGeneratorClient {
 
         // quality filter (unless bypassed by env)
         if (!NO_QF) {
-          if (!edu.njit.jerse.daikonplusplus.llm.InvariantQualityFilter
-                  .keep(expr, inScopeNames, isExit)) {
+          if (!edu.njit.jerse.daikonplusplus.llm.InvariantQualityFilter.keep(
+              expr, inScopeNames, isExit)) {
             if (DEBUG) System.out.println("[DP-LLM] drop(filter " + point.kind() + "): " + expr);
             continue;
           }
@@ -154,24 +157,31 @@ public final class OpenAIInvariantGeneratorClient {
 
         // Always produce a NON-NULL meta map
         final Map<String, String> metaMap =
-                (it.meta == null || it.meta.isEmpty())
-                        ? java.util.Collections.emptyMap()
-                        : it.meta.stream()
-                        .filter(kv -> kv != null && kv.key != null && kv.value != null)
-                        .collect(
-                                java.util.stream.Collectors.toMap(
-                                        kv -> kv.key, kv -> kv.value, (a, b) -> a, java.util.LinkedHashMap::new));
+            (it.meta == null || it.meta.isEmpty())
+                ? java.util.Collections.emptyMap()
+                : it.meta.stream()
+                    .filter(kv -> kv != null && kv.key != null && kv.value != null)
+                    .collect(
+                        java.util.stream.Collectors.toMap(
+                            kv -> kv.key,
+                            kv -> kv.value,
+                            (a, b) -> a,
+                            java.util.LinkedHashMap::new));
 
-        kept.add(new InvariantSpec(expr,
-                (it.rationale == null ? "" : it.rationale),
-                metaMap));
+        kept.add(new InvariantSpec(expr, (it.rationale == null ? "" : it.rationale), metaMap));
 
         if (kept.size() >= maxInvariants) break; // limit AFTER filtering
       }
 
       if (DEBUG) {
-        System.out.println("[DP] LLM RESPONSE  " + point.kind()
-                + " :: " + point.elementId() + " → " + kept.size() + " specs");
+        System.out.println(
+            "[DP] LLM RESPONSE  "
+                + point.kind()
+                + " :: "
+                + point.elementId()
+                + " → "
+                + kept.size()
+                + " specs");
         for (String ex : seenExprs) System.out.println("[DP]   • " + ex);
       }
 
@@ -179,15 +189,17 @@ public final class OpenAIInvariantGeneratorClient {
 
     } catch (Exception e) {
       if (DEBUG) {
-        System.err.println("[DP-LLM] error for " + point.kind() + " :: "
-                + point.elementId() + " → " + e.getMessage());
+        System.err.println(
+            "[DP-LLM] error for "
+                + point.kind()
+                + " :: "
+                + point.elementId()
+                + " → "
+                + e.getMessage());
       }
       return java.util.List.of();
     }
   }
-
-
-
 
   // ---------- Prompt helpers ----------
 
@@ -214,44 +226,51 @@ public final class OpenAIInvariantGeneratorClient {
         "  constrain nullness, ranges, sizes, ordering, or cross-variable relations.");
   }
 
-  private String userMessageForEntry(ProgramPoint pt, Map<String,String> scope, int k,
-                                     @org.checkerframework.checker.nullness.qual.Nullable String methodBody) {
+  private String userMessageForEntry(
+      ProgramPoint pt,
+      Map<String, String> scope,
+      int k,
+      @org.checkerframework.checker.nullness.qual.Nullable String methodBody) {
     StringBuilder sb = new StringBuilder();
     sb.append("PROGRAM POINT: ").append(pt.elementId()).append(" [METHOD_ENTRY]\n");
     sb.append("You may reference ONLY these names:\n");
-    scope.forEach((n,t) -> sb.append("- ").append(n).append(" : ").append(t).append("\n"));
+    scope.forEach((n, t) -> sb.append("- ").append(n).append(" : ").append(t).append("\n"));
     sb.append("\nSTRICT RULES:\n")
-            .append("- Return single-line Java boolean expressions only.\n")
-            .append("- NO streams/lambdas/method refs; NO new helpers; NO side effects.\n")
-            .append("- Use short-circuit null checks to avoid NPEs.\n")
-            .append("- Do NOT reference locals or fields not listed above.\n");
+        .append("- Return single-line Java boolean expressions only.\n")
+        .append("- NO streams/lambdas/method refs; NO new helpers; NO side effects.\n")
+        .append("- Use short-circuit null checks to avoid NPEs.\n")
+        .append("- Do NOT reference locals or fields not listed above.\n");
     if (methodBody != null && !methodBody.isBlank()) {
       sb.append("\nMETHOD SOURCE (abridged; for context only — do NOT reference locals):\n")
-              .append(methodBody).append("\n");
+          .append(methodBody)
+          .append("\n");
     }
     sb.append("\nReturn up to ").append(k).append(" expressions.");
     return sb.toString();
   }
 
-  private String userMessageForExit(ProgramPoint pt, Map<String,String> scope, int k,
-                                    @org.checkerframework.checker.nullness.qual.Nullable String methodBody) {
+  private String userMessageForExit(
+      ProgramPoint pt,
+      Map<String, String> scope,
+      int k,
+      @org.checkerframework.checker.nullness.qual.Nullable String methodBody) {
     StringBuilder sb = new StringBuilder();
     sb.append("PROGRAM POINT: ").append(pt.elementId()).append(" [METHOD_EXIT]\n");
     sb.append("You may reference ONLY these names (params and 'result' if non-void):\n");
-    scope.forEach((n,t) -> sb.append("- ").append(n).append(" : ").append(t).append("\n"));
+    scope.forEach((n, t) -> sb.append("- ").append(n).append(" : ").append(t).append("\n"));
     sb.append("\nSTRICT RULES:\n")
-            .append("- Prefer relations involving 'result' and parameters.\n")
-            .append("- NO streams/lambdas/method refs; NO new helpers; NO side effects.\n")
-            .append("- Use short-circuit null checks; single-line booleans only.\n")
-            .append("- Do NOT reference locals or fields not listed above.\n");
+        .append("- Prefer relations involving 'result' and parameters.\n")
+        .append("- NO streams/lambdas/method refs; NO new helpers; NO side effects.\n")
+        .append("- Use short-circuit null checks; single-line booleans only.\n")
+        .append("- Do NOT reference locals or fields not listed above.\n");
     if (methodBody != null && !methodBody.isBlank()) {
       sb.append("\nMETHOD SOURCE (abridged; for context only — do NOT reference locals):\n")
-              .append(methodBody).append("\n");
+          .append(methodBody)
+          .append("\n");
     }
     sb.append("\nReturn up to ").append(k).append(" expressions.");
     return sb.toString();
   }
-
 
   // ---------- Utility ----------
 

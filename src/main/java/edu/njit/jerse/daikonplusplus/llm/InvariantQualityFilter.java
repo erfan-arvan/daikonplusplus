@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
- * Conservative, deterministic filters for LLM-proposed invariants.
- * Goal: reject expressions that are likely to be useless or break compilation/runtime.
+ * Conservative, deterministic filters for LLM-proposed invariants. Goal: reject expressions that
+ * are likely to be useless or break compilation/runtime.
  */
 public final class InvariantQualityFilter {
 
@@ -16,53 +16,64 @@ public final class InvariantQualityFilter {
 
   // ---------- Trivial / always-true patterns ----------
   private static final Pattern TAUTOLOGY_SIMPLE =
-          Pattern.compile("^\\s*!\\s*(.+)\\s*\\|\\|\\s*\\1\\s*$"); // "!X || X"
+      Pattern.compile("^\\s*!\\s*(.+)\\s*\\|\\|\\s*\\1\\s*$"); // "!X || X"
   private static final Set<String> ALWAYS_TRUE_LITERALS = Set.of("true", "(true)");
   private static final Pattern ALWAYS_TRUE_RANGES =
-          Pattern.compile("\\b(?:Integer\\.(?:MAX|MIN)_VALUE|Long\\.(?:MAX|MIN)_VALUE)\\b");
+      Pattern.compile("\\b(?:Integer\\.(?:MAX|MIN)_VALUE|Long\\.(?:MAX|MIN)_VALUE)\\b");
   private static final Pattern NONNEG_LENGTH =
-          Pattern.compile("\\b(length|size)\\s*\\(\\)\\s*>=\\s*0\\b");
+      Pattern.compile("\\b(length|size)\\s*\\(\\)\\s*>=\\s*0\\b");
   private static final Pattern BOOL_EQ =
-          Pattern.compile("\\b==\\s*(true|false)\\b|\\b!=\\s*(true|false)\\b");
+      Pattern.compile("\\b==\\s*(true|false)\\b|\\b!=\\s*(true|false)\\b");
 
   // ---------- Structural / syntax constraints ----------
   private static final Pattern BARE_ASSIGN = Pattern.compile("(?<![!<>=])=(?!=)");
   private static final Pattern ILLEGAL_CHARS = Pattern.compile("[;{}]"); // keep single-expression
   private static final Pattern WORD = Pattern.compile("\\b([A-Za-z_][A-Za-z0-9_]*)\\b");
   private static final Pattern NULL_CMP =
-          Pattern.compile("\\b([A-Za-z_][A-Za-z0-9_]*)\\b\\s*(==|!=)\\s*null\\b");
+      Pattern.compile("\\b([A-Za-z_][A-Za-z0-9_]*)\\b\\s*(==|!=)\\s*null\\b");
 
   // ---------- Ban constructs that require imports or helpers ----------
-  private static final String[] FORBIDDEN_SUBSTRINGS = new String[] {
-          "IntStream", ".stream(", "Stream<", "Collectors", "Optional",
-          "->", "::",                     // lambdas, method refs
-          "Arrays.stream", "Pattern", "Matcher",
-          "existsOutOfOrder",            // invented helper from LLM
-          "System.exit", "Runtime.getRuntime", "new ", " class ",
-          "throw ", "catch ("            // avoid nested try/catch in expr
-  };
+  private static final String[] FORBIDDEN_SUBSTRINGS =
+      new String[] {
+        "IntStream",
+        ".stream(",
+        "Stream<",
+        "Collectors",
+        "Optional",
+        "->",
+        "::", // lambdas, method refs
+        "Arrays.stream",
+        "Pattern",
+        "Matcher",
+        "existsOutOfOrder", // invented helper from LLM
+        "System.exit",
+        "Runtime.getRuntime",
+        "new ",
+        " class ",
+        "throw ",
+        "catch (" // avoid nested try/catch in expr
+      };
 
   // Allow known safe JDK utility qualifiers
-  private static final Set<String> ALLOWED_PREFIXES = Set.of(
-          "Math.", "Integer.", "Long.", "Double.", "Short.", "Byte.", "Character.", "Objects."
-  );
+  private static final Set<String> ALLOWED_PREFIXES =
+      Set.of("Math.", "Integer.", "Long.", "Double.", "Short.", "Byte.", "Character.", "Objects.");
 
   /** Old signature kept for compatibility (ENTRY semantics). */
   public static boolean keep(@NonNull String exprString, Map<String, String> inScope) {
-    return keep(exprString, inScope, /*isExit=*/false);
+    return keep(exprString, inScope, /* isExit= */ false);
   }
 
   /**
    * Main filter.
    *
    * @param exprString raw expression text
-   * @param inScope varName -> declared type (best-effort). If non-void EXIT, caller should include "result".
+   * @param inScope varName -> declared type (best-effort). If non-void EXIT, caller should include
+   *     "result".
    * @param isExit true iff the program point is METHOD_EXIT
    * @return true if the expression should be kept
    */
-  public static boolean keep(@NonNull String exprString,
-                             Map<String, String> inScope,
-                             boolean isExit) {
+  public static boolean keep(
+      @NonNull String exprString, Map<String, String> inScope, boolean isExit) {
     String e = exprString.trim();
     if (e.isEmpty()) return false;
 
@@ -78,7 +89,7 @@ public final class InvariantQualityFilter {
 
     // 2) Structural constraints
     if (ILLEGAL_CHARS.matcher(e).find()) return false; // no blocks or statements
-    if (BARE_ASSIGN.matcher(e).find()) return false;   // no assignments
+    if (BARE_ASSIGN.matcher(e).find()) return false; // no assignments
 
     // 3) No heavy/fragile constructs that add imports or helper needs
     for (String bad : FORBIDDEN_SUBSTRINGS) {
@@ -106,8 +117,19 @@ public final class InvariantQualityFilter {
 
     // 7) Light "unknown identifier" screen
     Set<String> known = new HashSet<>(inScope.keySet());
-    known.addAll(Set.of("null", "true", "false", "Math", "Integer", "Long", "Double",
-            "Short", "Byte", "Character", "Objects"));
+    known.addAll(
+        Set.of(
+            "null",
+            "true",
+            "false",
+            "Math",
+            "Integer",
+            "Long",
+            "Double",
+            "Short",
+            "Byte",
+            "Character",
+            "Objects"));
     boolean allowLib = ALLOWED_PREFIXES.stream().anyMatch(e::contains);
 
     Matcher m = WORD.matcher(e);
@@ -120,9 +142,15 @@ public final class InvariantQualityFilter {
       int pos = m.start();
       if (pos > 0 && e.charAt(pos - 1) == '.') continue;
       // Allow permitted library qualifiers
-      if (allowLib && (w.equals("Math") || w.equals("Integer") || w.equals("Objects")
-              || w.equals("Long") || w.equals("Double") || w.equals("Short")
-              || w.equals("Byte") || w.equals("Character"))) {
+      if (allowLib
+          && (w.equals("Math")
+              || w.equals("Integer")
+              || w.equals("Objects")
+              || w.equals("Long")
+              || w.equals("Double")
+              || w.equals("Short")
+              || w.equals("Byte")
+              || w.equals("Character"))) {
         continue;
       }
       // Unknown standalone symbol → reject
@@ -154,7 +182,13 @@ public final class InvariantQualityFilter {
 
   private static boolean isPrimitiveTypeName(String t) {
     // best-effort for names we see from JavaParser: exact primitive names
-    return t.equals("boolean") || t.equals("byte") || t.equals("short") || t.equals("int")
-            || t.equals("long") || t.equals("char") || t.equals("float") || t.equals("double");
+    return t.equals("boolean")
+        || t.equals("byte")
+        || t.equals("short")
+        || t.equals("int")
+        || t.equals("long")
+        || t.equals("char")
+        || t.equals("float")
+        || t.equals("double");
   }
 }

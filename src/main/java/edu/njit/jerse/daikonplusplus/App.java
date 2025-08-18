@@ -20,12 +20,9 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
-import java.util.concurrent.atomic.AtomicInteger;
-
 
 /**
  * CLI entrypoint for Daikon++ (METHOD_ENTRY only) with compile-and-run.
@@ -55,7 +52,8 @@ public final class App {
   private static final boolean DEBUG = "1".equals(System.getenv("DP_DEBUG"));
 
   // At top-level in App:
-  private static final java.util.Set<String> RUN_DEDUP = java.util.concurrent.ConcurrentHashMap.newKeySet();
+  private static final java.util.Set<String> RUN_DEDUP =
+      java.util.concurrent.ConcurrentHashMap.newKeySet();
 
   private static String keyFor(ProgramPoint pt, String expr) {
     String norm = expr.trim().replaceAll("\\s+", " "); // normalize whitespace
@@ -72,7 +70,6 @@ public final class App {
           "Usage: java -jar daikonplusplus.jar <srcRoot> <classpath> <mainClass> [maxK] [-- program args...]");
       System.exit(2);
     }
-
 
     int i = 0;
     final Path userSrcRoot = Path.of(args[i++]).toAbsolutePath().normalize();
@@ -137,27 +134,35 @@ public final class App {
     int received = 0;
     int totalSpecs = 0;
 
-// Environment-configurable timeouts
+    // Environment-configurable timeouts
     final long totalTimeoutSec =
-            Long.parseLong(Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "180")); // 3 min
+        Long.parseLong(
+            Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "180")); // 3 min
     final long pollStepMs =
-            Long.parseLong(Objects.requireNonNullElse(System.getenv("DP_LLM_POLL_STEP_MS"), "1500"));
+        Long.parseLong(Objects.requireNonNullElse(System.getenv("DP_LLM_POLL_STEP_MS"), "1500"));
 
     final long deadlineNs = System.nanoTime() + TimeUnit.SECONDS.toNanos(totalTimeoutSec);
     while (received < submitted) {
       long remainingNs = deadlineNs - System.nanoTime();
       if (remainingNs <= 0) {
-        System.err.println("LLM phase timed out; proceeding with completed tasks: "
-                + received + "/" + submitted);
+        System.err.println(
+            "LLM phase timed out; proceeding with completed tasks: " + received + "/" + submitted);
         break;
       }
       Future<List<InvariantRecord>> f =
-              ecs.poll(Math.min(remainingNs, TimeUnit.MILLISECONDS.toNanos(pollStepMs)),
-                      TimeUnit.NANOSECONDS);
+          ecs.poll(
+              Math.min(remainingNs, TimeUnit.MILLISECONDS.toNanos(pollStepMs)),
+              TimeUnit.NANOSECONDS);
 
       if (f == null) {
-        System.out.println("... waiting on LLM tasks: " + received + "/" + submitted
-                + " done (" + TimeUnit.NANOSECONDS.toSeconds(remainingNs) + "s left)");
+        System.out.println(
+            "... waiting on LLM tasks: "
+                + received
+                + "/"
+                + submitted
+                + " done ("
+                + TimeUnit.NANOSECONDS.toSeconds(remainingNs)
+                + "s left)");
         continue;
       }
 
@@ -167,18 +172,21 @@ public final class App {
         if (recs == null || recs.isEmpty()) continue;
         totalSpecs += recs.size();
         Path file = srcRoot.resolve(recs.get(0).sourceFile()).normalize();
-        byFile.computeIfAbsent(file, __ -> Collections.synchronizedList(new ArrayList<>()))
-                .addAll(recs);
+        byFile
+            .computeIfAbsent(file, __ -> Collections.synchronizedList(new ArrayList<>()))
+            .addAll(recs);
       } catch (ExecutionException ee) {
         received++;
         Throwable cause = ee.getCause();
-        String msg = (cause == null) ? ee.toString()
+        String msg =
+            (cause == null)
+                ? ee.toString()
                 : (cause.getMessage() == null ? cause.toString() : cause.getMessage());
         System.err.println("LLM task failed: " + msg);
       }
     }
 
-// Cancel any stragglers so we don't hang
+    // Cancel any stragglers so we don't hang
     for (Future<List<InvariantRecord>> f : allFutures) {
       if (!f.isDone()) f.cancel(true);
     }
@@ -187,11 +195,17 @@ public final class App {
     System.out.println(">>> Proposed invariant expressions (post-parse filter): " + totalSpecs);
     System.out.println(">>> Files to inject: " + byFile.size());
 
-// Optional: show how many ENTRY/EXIT we actually got
-    long injectEntry = byFile.values().stream().flatMap(List::stream)
-            .filter(r -> r.point().kind()==ProgramPointKind.METHOD_ENTRY).count();
-    long injectExit = byFile.values().stream().flatMap(List::stream)
-            .filter(r -> r.point().kind()==ProgramPointKind.METHOD_EXIT).count();
+    // Optional: show how many ENTRY/EXIT we actually got
+    long injectEntry =
+        byFile.values().stream()
+            .flatMap(List::stream)
+            .filter(r -> r.point().kind() == ProgramPointKind.METHOD_ENTRY)
+            .count();
+    long injectExit =
+        byFile.values().stream()
+            .flatMap(List::stream)
+            .filter(r -> r.point().kind() == ProgramPointKind.METHOD_EXIT)
+            .count();
     System.out.println(">>> To inject — ENTRY: " + injectEntry + "  EXIT: " + injectExit);
 
     // --- Phase 2: Injection (parallel)
@@ -281,12 +295,12 @@ public final class App {
   // ----- helpers -----
 
   private static List<InvariantRecord> processPoint(
-          ProgramPoint point,
-          Path srcRoot,
-          OpenAIInvariantGeneratorClient llm,
-          InvariantRegistry registry) {
+      ProgramPoint point,
+      Path srcRoot,
+      OpenAIInvariantGeneratorClient llm,
+      InvariantRegistry registry) {
     try {
-      Map<String,String> inScope = extractScope(point, srcRoot);
+      Map<String, String> inScope = extractScope(point, srcRoot);
       Optional<String> body = extractMethodBodyRaw(point, srcRoot);
       List<InvariantSpec> specs = llm.proposeInvariants(point, inScope, body.orElse(null));
 
@@ -301,7 +315,8 @@ public final class App {
         String key = keyFor(point, spec.expression());
         if (!RUN_DEDUP.add(key)) continue; // skip duplicates within this run
 
-        InvariantRecord rec = new InvariantRecord(java.util.UUID.randomUUID(), spec, point, fileRel, now);
+        InvariantRecord rec =
+            new InvariantRecord(java.util.UUID.randomUUID(), spec, point, fileRel, now);
         // REGISTRY-LEVEL DEDUP (below) will also stop duplicates across runs
         registry.appendIfNew(rec);
         out.add(rec);
@@ -312,7 +327,6 @@ public final class App {
       return List.of();
     }
   }
-
 
   private static Map<String, String> extractMethodEntryScope(ProgramPoint point, Path srcRoot)
       throws IOException {
@@ -479,26 +493,35 @@ public final class App {
   }
 
   private static Optional<String> extractMethodBodyAbridged(ProgramPoint point, Path srcRoot)
-          throws IOException {
+      throws IOException {
     if (!"1".equals(System.getenv("DP_INCLUDE_BODY"))) return Optional.empty();
 
     int maxChars = 2000;
-    try { maxChars = Math.max(200, Integer.parseInt(
-            java.util.Objects.requireNonNullElse(System.getenv("DP_BODY_MAX_CHARS"), "2000"))); }
-    catch (NumberFormatException ignore) {}
+    try {
+      maxChars =
+          Math.max(
+              200,
+              Integer.parseInt(
+                  java.util.Objects.requireNonNullElse(
+                      System.getenv("DP_BODY_MAX_CHARS"), "2000")));
+    } catch (NumberFormatException ignore) {
+    }
 
     Path file = srcRoot.resolve(point.elementId().filePath()).normalize();
     com.github.javaparser.ast.CompilationUnit cu = StaticJavaParser.parse(file);
     final String targetDesc = point.elementId().jvmDescriptor();
 
     for (com.github.javaparser.ast.body.ClassOrInterfaceDeclaration cls :
-            cu.findAll(com.github.javaparser.ast.body.ClassOrInterfaceDeclaration.class)) {
+        cu.findAll(com.github.javaparser.ast.body.ClassOrInterfaceDeclaration.class)) {
       java.util.Optional<com.github.javaparser.ast.body.MethodDeclaration> maybe =
-              cls.getMethods().stream()
-                      .filter(m -> m.getBody().isPresent())
-                      .filter(m -> edu.njit.jerse.daikonplusplus.parse.MethodSignatureUtil
-                              .jvmDescriptorBestEffort(m).equals(targetDesc))
-                      .findFirst();
+          cls.getMethods().stream()
+              .filter(m -> m.getBody().isPresent())
+              .filter(
+                  m ->
+                      edu.njit.jerse.daikonplusplus.parse.MethodSignatureUtil
+                          .jvmDescriptorBestEffort(m)
+                          .equals(targetDesc))
+              .findFirst();
       if (maybe.isPresent()) {
         String raw = maybe.get().getBody().get().toString(); // includes braces
         // strip comments & squeeze whitespace; keep it short for tokens
@@ -514,7 +537,7 @@ public final class App {
   }
 
   private static Optional<String> extractMethodBodyRaw(ProgramPoint point, Path srcRoot)
-          throws IOException {
+      throws IOException {
     if (!"1".equals(System.getenv("DP_INCLUDE_BODY"))) return Optional.empty();
 
     Path file = srcRoot.resolve(point.elementId().filePath()).normalize();
@@ -523,22 +546,25 @@ public final class App {
 
     for (ClassOrInterfaceDeclaration cls : cu.findAll(ClassOrInterfaceDeclaration.class)) {
       Optional<MethodDeclaration> maybe =
-              cls.getMethods().stream()
-                      .filter(m -> m.getBody().isPresent())
-                      .filter(m -> edu.njit.jerse.daikonplusplus.parse.MethodSignatureUtil
-                              .jvmDescriptorBestEffort(m).equals(targetDesc))
-                      .findFirst();
+          cls.getMethods().stream()
+              .filter(m -> m.getBody().isPresent())
+              .filter(
+                  m ->
+                      edu.njit.jerse.daikonplusplus.parse.MethodSignatureUtil
+                          .jvmDescriptorBestEffort(m)
+                          .equals(targetDesc))
+              .findFirst();
       if (maybe.isPresent()) {
         // tokenRange -> original tokens, including comments & whitespace
-        return maybe.get()
-                .getBody().get()
-                .getTokenRange()
-                .map(tr -> Optional.of(tr.toString()))
-                .orElseGet(() -> Optional.of(maybe.get().getBody().get().toString()));
+        return maybe
+            .get()
+            .getBody()
+            .get()
+            .getTokenRange()
+            .map(tr -> Optional.of(tr.toString()))
+            .orElseGet(() -> Optional.of(maybe.get().getBody().get().toString()));
       }
     }
     return Optional.empty();
   }
-
-
 }

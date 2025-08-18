@@ -43,7 +43,7 @@ public final class InvariantRegistry {
     try {
       for (String line : Files.readAllLines(jsonl, StandardCharsets.UTF_8)) {
         if (line == null || line.isBlank()) continue;
-        Map<String,String> m = parseFlatJson(line);
+        Map<String, String> m = parseFlatJson(line);
         String kind = m.getOrDefault("kind", "METHOD_ENTRY");
         String element = m.getOrDefault("element", "");
         String expr = m.getOrDefault("expr", "").trim().replaceAll("\\s+", " ");
@@ -70,8 +70,11 @@ public final class InvariantRegistry {
       final @Nullable Path parent = jsonl.getParent();
       if (parent != null) Files.createDirectories(parent);
       try (BufferedWriter w =
-                   Files.newBufferedWriter(
-                           jsonl, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
+          Files.newBufferedWriter(
+              jsonl,
+              StandardCharsets.UTF_8,
+              StandardOpenOption.CREATE,
+              StandardOpenOption.APPEND)) {
         w.write(toJson(rec));
         w.newLine();
       }
