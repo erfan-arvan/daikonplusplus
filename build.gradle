@@ -2,7 +2,11 @@ plugins {
     id 'com.diffplug.spotless' version '6.25.0'
     id 'application'
     id 'org.checkerframework' version '0.6.56'
+    id 'com.github.johnrengelman.shadow' version '8.1.1' // <— fat JAR
 }
+
+group = 'edu.njit.jerse'
+version = '0.1.0'
 
 repositories {
     mavenCentral()
@@ -20,9 +24,25 @@ application {
 
 dependencies {
     implementation 'com.google.guava:guava:32.1.1-jre'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    implementation 'com.github.javaparser:javaparser-core:3.26.2'
+
+    implementation 'com.openai:openai-java:3.0.3'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.18.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.18.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.18.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2'
+
+    implementation 'org.slf4j:slf4j-api:2.0.16'
+    runtimeOnly  'org.slf4j:slf4j-simple:2.0.16'
+
     checkerFramework 'org.checkerframework:checker:3.49.5'
-    compileOnly 'org.checkerframework:checker-qual:3.49.5'
+    compileOnly      'org.checkerframework:checker-qual:3.49.5'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
 }
 
 test {
@@ -41,10 +61,21 @@ checkerFramework {
         'org.checkerframework.checker.nullness.NullnessChecker',
         'org.checkerframework.checker.interning.InterningChecker'
     ]
-    
-    // Exclude test files from analysis
     excludeTests = true
 }
 
-// Automatically apply formatting when building
 build.dependsOn 'spotlessApply'
+
+// shadow (fat JAR)
+tasks.named('shadowJar') {
+    archiveBaseName.set('daikonplusplus')
+    archiveVersion.set('')
+    archiveClassifier.set('')
+
+    manifest {
+        attributes 'Main-Class': application.mainClass.get()
+    }
+}
+
+build.dependsOn tasks.named('shadowJar')
+
