@@ -14,7 +14,7 @@ import java.util.List;
 public final class JavaRunner {
   private JavaRunner() {}
 
-  /** Joins classpath segments using the platform-specific separator. */
+  /** joins classpath segments using the platform-specific separator. */
   public static String joinCp(String... parts) {
     String sep = System.getProperty("path.separator");
     StringBuilder sb = new StringBuilder();
@@ -33,7 +33,7 @@ public final class JavaRunner {
   public static void compile(Path srcRoot, Path classesDir, String classpath) throws Exception {
     Files.createDirectories(classesDir);
 
-    // Gather source files and write an @argfile to avoid arg-length limits
+    // gather source files and write an @argfile to avoid arg-length limits
     List<Path> sources = new ArrayList<>();
     try (var walk = Files.walk(srcRoot)) {
       walk.filter(p -> p.toString().endsWith(".java")).forEach(sources::add);
@@ -70,7 +70,8 @@ public final class JavaRunner {
   /** Runs {@code java -cp classpath mainClass [args...]} and captures stdout to {@code runLog}. */
   public static void run(String mainClass, String classpath, List<String> args, Path runLog)
       throws Exception {
-    // Ensure the log directory exists; handle the case where runLog has no parent
+    // ensure the log directory exists; handle the case where runLog has no
+    // parent
     Path parent = runLog.getParent();
     Path logDir = (parent != null) ? parent : Path.of(".");
     Files.createDirectories(logDir);

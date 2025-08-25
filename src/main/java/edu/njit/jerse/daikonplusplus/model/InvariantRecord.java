@@ -41,7 +41,7 @@ public final class InvariantRecord {
     return createdAt;
   }
 
-  /** Human label like: {id} a.b.C#m(int):void [METHOD_ENTRY] -> expr */
+  /** human readable label: {id} a.b.C#m(int):void [METHOD_ENTRY] -> expr */
   public String humanLabel() {
     return id + " " + point.elementId() + " [" + point.kind() + "] -> " + spec.expression();
   }

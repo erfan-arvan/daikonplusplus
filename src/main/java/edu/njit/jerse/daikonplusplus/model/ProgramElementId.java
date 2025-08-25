@@ -7,11 +7,11 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Stable identity for any program element (method, field, loop, etc.).
  *
  * <p>For the current implementation we focus on methods; however, this type is general so we can
- * later add fields/loops without redesign.
+ * later add other program points without redesign.
  */
 public final class ProgramElementId {
-  private final String packageName; // e.g., "a.b.c" (empty if default)
-  private final String topLevelClass; // e.g., "Foo"
+  private final String packageName;
+  private final String topLevelClass;
   private final String nestedClassPath; // e.g., "Inner$More" or ""
   private final String filePath; // project-relative or absolute
   private final String jvmDescriptor; // for methods: "m(int,java.lang.String):void"
@@ -63,7 +63,7 @@ public final class ProgramElementId {
     return jvmDescriptor;
   }
 
-  /** Human-readable label like: a.b.C$Inner#m(int):void */
+  /** human-readable label like: a.b.C$Inner#m(int):void */
   @Override
   public String toString() {
     String cls = nestedClassPath.isEmpty() ? topLevelClass : topLevelClass + "$" + nestedClassPath;

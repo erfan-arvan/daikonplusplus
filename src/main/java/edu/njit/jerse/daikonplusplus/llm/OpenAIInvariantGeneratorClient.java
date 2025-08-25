@@ -23,7 +23,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * OpenAI-backed invariant generator that asks a ChatGPT model to produce structured invariants for
- * a given program point (METHOD_ENTRY in this phase).
+ * a given program point.
  *
  * <p>This client uses OpenAI Structured Outputs so that the model's response must conform exactly
  * to the {@link InvariantsOut} JSON schema derived from the nested DTO classes below.
@@ -50,6 +50,8 @@ public final class OpenAIInvariantGeneratorClient {
   final boolean DEBUG = debug();
   final boolean NO_QF = noQualityFilter();
 
+  private final List<String> classpathEntries;
+
   /**
    * Creates a new generator using env vars for credentials and a default model.
    *
@@ -60,6 +62,7 @@ public final class OpenAIInvariantGeneratorClient {
     final @Nullable String envModel = System.getenv("DP_OPENAI_MODEL");
     this.model = resolveModel(envModel).orElse(ChatModel.GPT_4_1_MINI);
     this.maxInvariants = Math.max(1, maxInvariants);
+    this.classpathEntries = Collections.emptyList();
   }
 
   /**
@@ -72,16 +75,25 @@ public final class OpenAIInvariantGeneratorClient {
     this.client = OpenAIOkHttpClient.fromEnv();
     this.model = Objects.requireNonNull(model);
     this.maxInvariants = Math.max(1, maxInvariants);
+    this.classpathEntries = Collections.emptyList();
+  }
+
+  public OpenAIInvariantGeneratorClient(int maxInvariants, List<String> classpathEntries) {
+    this.client = OpenAIOkHttpClient.fromEnv();
+    final @Nullable String envModel = System.getenv("DP_OPENAI_MODEL");
+    this.model = resolveModel(envModel).orElse(ChatModel.GPT_4_1_MINI);
+    this.maxInvariants = Math.max(1, maxInvariants);
+    this.classpathEntries =
+        (classpathEntries == null) ? Collections.emptyList() : List.copyOf(classpathEntries);
   }
 
   /**
    * Proposes invariants for the provided program point.
    *
-   * <p><b>Contract:</b> Currently supports {@link ProgramPointKind#METHOD_ENTRY}. The {@code
-   * inScopeNames} map should contain variable names and their Java types that are in scope at the
-   * entry point (e.g., parameters).
+   * <p><b>Contract:</b> The {@code inScopeNames} map should contain variable names and their Java
+   * types that are in scope at the entry point (e.g., parameters).
    *
-   * @param point METHOD_ENTRY point to analyze
+   * @param point program point to analyze
    * @param inScopeNames map of varName -> fully-qualified or best-effort type
    * @return a list of syntactically valid {@link InvariantSpec}s (may be empty)
    */
@@ -93,7 +105,7 @@ public final class OpenAIInvariantGeneratorClient {
     final boolean isExit = point.kind() == ProgramPointKind.METHOD_EXIT;
 
     try {
-      // ----- Build messages -----
+      // ----- build messages -----
       final String system = systemMessage();
       final String user =
           isExit
@@ -107,7 +119,7 @@ public final class OpenAIInvariantGeneratorClient {
         }
       }
 
-      // ----- Structured request -----
+      // ----- structured request -----
       StructuredChatCompletionCreateParams<InvariantsOut> params =
           ChatCompletionCreateParams.builder()
               .model(model)
@@ -116,11 +128,10 @@ public final class OpenAIInvariantGeneratorClient {
               .addUserMessage(user)
               .build();
 
-      // NOTE: the return type is StructuredChatCompletion<InvariantsOut>
       StructuredChatCompletion<InvariantsOut> completion =
           client.chat().completions().create(params);
 
-      // Flatten all items (don't limit yet; we limit after filtering)
+      // flatten all items (don't limit yet; we limit after filtering)
       List<InvariantsOut.Item> items =
           completion.choices().stream()
               .flatMap(c -> c.message().content().stream()) // List<InvariantsOut>
@@ -129,7 +140,7 @@ public final class OpenAIInvariantGeneratorClient {
               .filter(Objects::nonNull)
               .collect(java.util.stream.Collectors.toList());
 
-      // ----- Parse + quality filter + dedup + post-limit -----
+      // ----- parse + quality filter + dedup + post-limit -----
       List<InvariantSpec> kept = new ArrayList<>(Math.min(items.size(), maxInvariants));
       java.util.LinkedHashSet<String> seenExprs = new java.util.LinkedHashSet<>();
 
@@ -145,8 +156,7 @@ public final class OpenAIInvariantGeneratorClient {
 
         // quality filter (unless bypassed by env)
         if (!NO_QF) {
-          if (!edu.njit.jerse.daikonplusplus.llm.InvariantQualityFilter.keep(
-              expr, inScopeNames, isExit)) {
+          if (!InvariantQualityFilter.keep(expr, inScopeNames, isExit, this.classpathEntries)) {
             if (DEBUG) System.out.println("[DP-LLM] drop(filter " + point.kind() + "): " + expr);
             continue;
           }
@@ -155,7 +165,7 @@ public final class OpenAIInvariantGeneratorClient {
         // dedup by expression text
         if (!seenExprs.add(expr)) continue;
 
-        // Always produce a NON-NULL meta map
+        // always produce a NON-NULL meta map
         final Map<String, String> metaMap =
             (it.meta == null || it.meta.isEmpty())
                 ? java.util.Collections.emptyMap()
@@ -201,7 +211,7 @@ public final class OpenAIInvariantGeneratorClient {
     }
   }
 
-  // ---------- Prompt helpers ----------
+  // ---------- prompt helpers ----------
 
   private static String systemMessage() {
     return String.join(
@@ -215,7 +225,7 @@ public final class OpenAIInvariantGeneratorClient {
         "- No side effects.",
         "- Prefer short-circuit patterns to avoid NPE (e.g., x != null && x.length > 0).",
         "- Avoid heavy operations (streams/regex) unless essential.",
-        // new constraints that cut fluff:
+        // cut fluff:
         "- DO NOT emit tautologies (e.g., A || !A, true).",
         "- DO NOT emit invariants that are always true by type/range, e.g.:",
         "  - a <= Integer.MAX_VALUE, a >= Integer.MIN_VALUE",
@@ -289,7 +299,6 @@ public final class OpenAIInvariantGeneratorClient {
 
   private static Optional<ChatModel> resolveModel(@Nullable String maybe) {
     if (maybe == null || maybe.isBlank()) return Optional.empty();
-    // Allow a few common aliases; fall back to a safe default if unknown.
     String m = maybe.trim().toLowerCase(Locale.ROOT);
     switch (m) {
       case "gpt-4.1":
@@ -308,9 +317,8 @@ public final class OpenAIInvariantGeneratorClient {
   }
 
   // ---------- Structured Outputs DTOs ----------
-  // NOTE: Avoid Map fields here; OpenAI's schema subset treats Map like a class
-  // without named properties, which fails validation. Use a list of key/value pairs.
-  // See SDK docs on supported JSON Schema constraints.
+  // NOTE: we should avoid Map fields here; OpenAI's schema subset treats Map
+  // like a class without named properties, which fails validation.
 
   @JsonClassDescription("A list of invariant proposals for a program point.")
   public static final class InvariantsOut {
@@ -328,7 +336,7 @@ public final class OpenAIInvariantGeneratorClient {
       @JsonPropertyDescription("Optional metadata as key/value pairs.")
       public List<KV> meta;
 
-      /** No-args ctor required by deserializer; initialize fields for CF. */
+      // initialize fields for CF
       public Item() {
         this.expression = "";
         this.rationale = "";
@@ -341,14 +349,14 @@ public final class OpenAIInvariantGeneratorClient {
       public String key;
       public String value;
 
-      /** No-args ctor required by deserializer; initialize fields for CF. */
+      // initialize fields for CF
       public KV() {
         this.key = "";
         this.value = "";
       }
     }
 
-    /** No-args ctor for top-level container. */
+    // No-args ctor for top-level container
     public InvariantsOut() {
       this.invariants = Collections.emptyList();
     }

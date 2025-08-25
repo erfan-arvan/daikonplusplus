@@ -17,11 +17,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-/**
- * Performs source-to-source injection of invariant guards using JavaParser.
- *
- * <p>This version injects METHOD_ENTRY guards only, placing checks at the top of method bodies.
- */
+// Performs source-to-source injection of invariant guards using JavaParser.
+
 public final class JavaParserInjector {
 
   private final FileWriteCoordinator coordinator;

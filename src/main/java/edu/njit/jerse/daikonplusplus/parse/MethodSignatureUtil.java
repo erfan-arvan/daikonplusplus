@@ -11,8 +11,8 @@ public final class MethodSignatureUtil {
   /**
    * Builds a stable descriptor like: {@code m(int,java.lang.String):void}.
    *
-   * <p>Requires symbol resolution for precise FQNs; if unavailable, falls back to simple type names
-   * which are still stable within a project.
+   * <p>Requires symbol resolution for precise FQNs; if unavailable, falls back to simple type
+   * names.
    */
   public static String jvmDescriptor(ResolvedMethodDeclaration rmd) {
     String params =
@@ -25,7 +25,7 @@ public final class MethodSignatureUtil {
     return rmd.getName() + "(" + params + "):" + ret;
   }
 
-  /** Best-effort descriptor without full resolution (less precise, but stable enough). */
+  /** Best-effort descriptor without full resolution */
   public static String jvmDescriptorBestEffort(MethodDeclaration md) {
     String params =
         md.getParameters().stream()

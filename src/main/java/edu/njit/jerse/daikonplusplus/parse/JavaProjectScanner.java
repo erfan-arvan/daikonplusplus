@@ -13,7 +13,8 @@ import java.util.List;
 /**
  * Walks a Java source tree and emits {@link ProgramPoint}s.
  *
- * <p>This version emits only {@link ProgramPointKind#METHOD_ENTRY} for each method with a body.
+ * <p>This version emits only {@link ProgramPointKind#METHOD_ENTRY} and {@link
+ * ProgramPointKind#METHOD_EXIT} for each method with a body.
  */
 public final class JavaProjectScanner {
 

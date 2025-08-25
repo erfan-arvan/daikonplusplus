@@ -4,7 +4,7 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
-import edu.njit.jerse.daikonplusplus.config.DpConfig;
+import edu.njit.jerse.daikonplusplus.config.*;
 import edu.njit.jerse.daikonplusplus.inject.FileWriteCoordinator;
 import edu.njit.jerse.daikonplusplus.inject.JavaParserInjector;
 import edu.njit.jerse.daikonplusplus.llm.OpenAIInvariantGeneratorClient;
@@ -25,7 +25,7 @@ import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 /**
- * CLI entrypoint for Daikon++ (METHOD_ENTRY only) with compile-and-run.
+ * CLI entrypoint for Daikon++ with compile-and-run.
  *
  * <h2>Usage</h2>
  *
@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  * }</pre>
  *
  * <ul>
- *   <li><b>srcRoot</b>: path to Java sources that were instrumented
+ *   <li><b>srcRoot</b>: path to Java sources
  *   <li><b>classpath</b>: paths needed to compile/run (use {@code :} on Unix/macOS, {@code ;} on
  *       Windows). You do NOT need to include this tool's own JAR; it is auto-appended.
  *   <li><b>mainClass</b>: e.g., {@code com.example.Main}
@@ -49,9 +49,11 @@ import java.util.stream.Collectors;
  */
 public final class App {
 
-  private static final boolean DEBUG = "1".equals(System.getenv("DP_DEBUG"));
+  private static final DpConfig CFG = DpConfig.fromEnv();
 
-  // At top-level in App:
+  private static final boolean DEBUG = CFG.debug();
+
+  // at top-level in App
   private static final java.util.Set<String> RUN_DEDUP =
       java.util.concurrent.ConcurrentHashMap.newKeySet();
 
@@ -79,10 +81,10 @@ public final class App {
     }
 
     // make a clean working copy and use that for the rest of the pipeline
-    final Path srcRoot = prepareWorkingCopy(userSrcRoot); // <-- NEW
+    final Path srcRoot = prepareWorkingCopy(userSrcRoot);
 
     final String userClasspath = args[i++]; // colon/semicolon separated
-    final String mainClass = args[i++]; // e.g., com.example.Main
+    final String mainClass = args[i++];
     final int maxK =
         (i < args.length && !args[i].equals("--")) ? Math.max(1, Integer.parseInt(args[i++])) : 5;
 
@@ -91,13 +93,19 @@ public final class App {
       for (i = i + 1; i < args.length; i++) programArgs.add(args[i]);
     }
 
+    // Build the classpath entries list from the userClasspath string (for semantic filtering)
+    final List<String> filterCp = new ArrayList<>();
+    for (String part : userClasspath.split(java.io.File.pathSeparator)) {
+      if (part != null && !part.isBlank()) filterCp.add(part);
+    }
+
     if (!Files.isDirectory(srcRoot)) {
       System.err.println("Not a directory: " + srcRoot);
       System.exit(2);
     }
 
     final DpConfig cfg = DpConfig.fromEnv();
-    if ("1".equals(System.getenv("DP_REGISTRY_RESET"))) {
+    if (CFG.registryReset()) {
       try {
         java.nio.file.Files.deleteIfExists(cfg.registryPath());
         System.out.println(">>> Registry reset: " + cfg.registryPath().toAbsolutePath());
@@ -107,7 +115,7 @@ public final class App {
     }
 
     final JavaProjectScanner scanner = new JavaProjectScanner();
-    final OpenAIInvariantGeneratorClient llm = new OpenAIInvariantGeneratorClient(maxK);
+    final OpenAIInvariantGeneratorClient llm = new OpenAIInvariantGeneratorClient(maxK, filterCp);
     final InvariantRegistry registry = new InvariantRegistry(cfg.registryPath());
     final JavaParserInjector injector = new JavaParserInjector(new FileWriteCoordinator());
 
@@ -120,7 +128,7 @@ public final class App {
     System.out.println(
         ">>> Points — ENTRY: " + nEntry + "  EXIT: " + nExit + "  TOTAL: " + points.size());
 
-    // --- Phase 1: Parallel LLM proposals (timeout + progress + cancellation)
+    // --- Phase 1: parallel LLM proposals (timeout + progress + cancellation)
     final ExecutorService pool = Executors.newFixedThreadPool(cfg.threads());
     final CompletionService<List<InvariantRecord>> ecs = new ExecutorCompletionService<>(pool);
     final List<Future<List<InvariantRecord>>> allFutures = new ArrayList<>();
@@ -195,7 +203,7 @@ public final class App {
     System.out.println(">>> Proposed invariant expressions (post-parse filter): " + totalSpecs);
     System.out.println(">>> Files to inject: " + byFile.size());
 
-    // Optional: show how many ENTRY/EXIT we actually got
+    // show how many ENTRY/EXIT we actually got
     long injectEntry =
         byFile.values().stream()
             .flatMap(List::stream)
@@ -238,7 +246,7 @@ public final class App {
     injPool.shutdown();
     System.out.println(">>> Injection done. Updated files: " + injectedFiles);
 
-    // --- Phase 3: Compile with javac and run with java
+    // --- Phase 3: compile with javac and run with java
     final Path classesDir = srcRoot.resolve("daikonpp-classes"); // output dir for compiled classes
     final String selfCp =
         System.getProperty("java.class.path"); // include our runtime (InvariantLogger)
@@ -257,7 +265,7 @@ public final class App {
     }
     System.out.println(">>> Run log — EXIT events: " + exitLines);
 
-    // --- Phase 4: Parse run log → falsified → held
+    // --- Phase 4: parse run log and generate the results
     final Set<UUID> falsified = LogParser.readFalsifiedIds(runLog);
     final Map<UUID, RecordLite> all = parseRegistryLite(cfg.registryPath());
 
@@ -280,7 +288,7 @@ public final class App {
     System.out.println(">>> Registry: " + cfg.registryPath().toAbsolutePath());
     System.out.println(">>> Run log: " + runLog.toAbsolutePath());
 
-    if (!"1".equals(System.getenv("DP_KEEP_WORK"))) {
+    if (!CFG.keepWork()) {
       try {
         deleteTree(srcRoot);
         System.out.println(">>> Cleaned working copy: " + srcRoot);
@@ -311,13 +319,13 @@ public final class App {
       String fileRel = point.elementId().filePath();
 
       for (InvariantSpec spec : specs) {
-        // RUN-LEVEL DEDUP
+        // run-level dedup
         String key = keyFor(point, spec.expression());
         if (!RUN_DEDUP.add(key)) continue; // skip duplicates within this run
 
         InvariantRecord rec =
             new InvariantRecord(java.util.UUID.randomUUID(), spec, point, fileRel, now);
-        // REGISTRY-LEVEL DEDUP (below) will also stop duplicates across runs
+        // registry-level dedup
         registry.appendIfNew(rec);
         out.add(rec);
       }
@@ -354,7 +362,7 @@ public final class App {
     return Map.of();
   }
 
-  /** Minimal registry view for reporting without full object re-hydration. */
+  /** registry view for reporting without full object re-hydration. */
   private static Map<UUID, RecordLite> parseRegistryLite(Path registryJsonl) {
     Map<UUID, RecordLite> out = new HashMap<>();
     if (!Files.exists(registryJsonl)) return out;
@@ -443,7 +451,7 @@ public final class App {
     return workRoot;
   }
 
-  /** Recursively copy one tree to another (preserves structure & attrs). */
+  /** Recursively copy one tree to another */
   private static void copyTree(Path from, Path to) throws IOException {
     Files.createDirectories(to);
     Files.walkFileTree(
@@ -494,7 +502,7 @@ public final class App {
 
   private static Optional<String> extractMethodBodyAbridged(ProgramPoint point, Path srcRoot)
       throws IOException {
-    if (!"1".equals(System.getenv("DP_INCLUDE_BODY"))) return Optional.empty();
+    if (!CFG.includeBody()) return Optional.empty();
 
     int maxChars = 2000;
     try {
@@ -538,7 +546,7 @@ public final class App {
 
   private static Optional<String> extractMethodBodyRaw(ProgramPoint point, Path srcRoot)
       throws IOException {
-    if (!"1".equals(System.getenv("DP_INCLUDE_BODY"))) return Optional.empty();
+    if (!CFG.includeBody()) return Optional.empty();
 
     Path file = srcRoot.resolve(point.elementId().filePath()).normalize();
     CompilationUnit cu = StaticJavaParser.parse(file);

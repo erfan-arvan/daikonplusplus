@@ -18,12 +18,12 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 /**
  * Append-only registry for invariants. Uses a simple JSONL format per line.
  *
- * <p>For higher concurrency or querying, consider migrating to SQLite.
+ * <p>TODO: For higher concurrency or querying, consider migrating to SQLite.
  */
 public final class InvariantRegistry {
   private final Path jsonl;
 
-  // NEW: in-memory index of (kind|element|expr) we've already seen in this file
+  // in-memory index of (kind|element|expr)
   private final java.util.Set<String> seenKeys = java.util.concurrent.ConcurrentHashMap.newKeySet();
 
   public InvariantRegistry(Path jsonl) {
@@ -31,13 +31,13 @@ public final class InvariantRegistry {
     buildExistingIndex(); // <- NEW
   }
 
-  // NEW: create a canonical key
+  // create a canonical key
   private static String keyOf(InvariantRecord r) {
     String norm = r.spec().expression().trim().replaceAll("\\s+", " ");
     return r.point().kind().name() + "|" + r.point().elementId().toString() + "|" + norm;
   }
 
-  // NEW: pre-load keys from existing registry file
+  // pre-load keys from existing registry file
   private void buildExistingIndex() {
     if (!Files.exists(jsonl)) return;
     try {
@@ -52,19 +52,19 @@ public final class InvariantRegistry {
         }
       }
     } catch (IOException ignore) {
-      // If we can't index, we just won't dedup historical lines.
+      // if we can't index, we just won't dedup historical lines.
     }
   }
 
-  /** NEW: Append only if this (kind|element|expr) hasn't been seen in this registry file. */
+  /** Append only if this (kind|element|expr) hasn't been seen in this registry file. */
   public synchronized void appendIfNew(InvariantRecord rec) {
     String key = keyOf(rec);
-    if (seenKeys.contains(key)) return; // skip duplicate across runs
+    // skip duplicate across runs
+    if (seenKeys.contains(key)) return;
     append(rec); // write line
     seenKeys.add(key);
   }
 
-  /** Existing append(...) stays the same (writes one JSONL line). */
   public synchronized void append(InvariantRecord rec) {
     try {
       final @Nullable Path parent = jsonl.getParent();
@@ -96,7 +96,7 @@ public final class InvariantRegistry {
     }
   }
 
-  // --- Minimal JSON (hand-rolled) ---
+  // --- Minimal JSON ---
 
   private String toJson(InvariantRecord r) {
     StringBuilder sb = new StringBuilder();
@@ -121,18 +121,19 @@ public final class InvariantRegistry {
     return s.replace("\\", "\\\\").replace("\"", "\\\"");
   }
 
-  // NOTE: For brevity we only parse essential fields back; meta is ignored in this skeleton.
+  // for brevity we only parse essential fields back; meta is ignored in this
+  // skeleton.
   private InvariantRecord fromJson(String json) {
     Map<String, String> m = parseFlatJson(json);
 
-    // Required fields — explicit checks to satisfy Checker
+    // required fields
     String idStr = m.get("id");
     if (idStr == null) throw new IllegalArgumentException("registry line missing 'id'");
     String createdAtStr = m.get("createdAt");
     if (createdAtStr == null)
       throw new IllegalArgumentException("registry line missing 'createdAt'");
 
-    // Optional fields with defaults
+    // optional fields with defaults
     String expr = (m.get("expr") == null) ? "" : m.get("expr");
     String kindStr = (m.get("kind") == null) ? "METHOD_ENTRY" : m.get("kind");
     String element = (m.get("element") == null) ? "" : m.get("element");
@@ -141,7 +142,7 @@ public final class InvariantRegistry {
     UUID id = UUID.fromString(idStr);
     java.time.Instant ts = java.time.Instant.parse(createdAtStr);
 
-    // Rebuild a NON-NULL ProgramElementId from the serialized label + file
+    // rebuild a NON-NULL ProgramElementId from the serialized label + file
     ProgramElementId peid = parseElementIdFromLabel(element, file);
     ProgramPointKind kind = ProgramPointKind.valueOf(kindStr);
     ProgramPoint point = new ProgramPointImpl(peid, kind);
@@ -157,7 +158,7 @@ public final class InvariantRegistry {
   private ProgramElementId parseElementIdFromLabel(String label, String filePath) {
     if (label == null) label = "";
 
-    // Split "qualifiedClass#descriptor"
+    // split "qualifiedClass#descriptor"
     String classPart;
     String descriptor;
     int hash = label.lastIndexOf('#');
@@ -169,7 +170,7 @@ public final class InvariantRegistry {
       descriptor = "<?>"; // fallback if missing
     }
 
-    // Split package vs. class (last dot)
+    // split package vs. class (last dot)
     String pkg;
     String classQualified;
     int lastDot = classPart.lastIndexOf('.');
@@ -181,7 +182,7 @@ public final class InvariantRegistry {
       classQualified = classPart;
     }
 
-    // Split top-level vs nested ($-separated)
+    // split top-level vs nested ($-separated)
     String topLevelClass;
     String nestedPath;
     int dollar = classQualified.indexOf('$');
@@ -193,14 +194,14 @@ public final class InvariantRegistry {
       nestedPath = "";
     }
 
-    // Ensure non-empty descriptor
+    // ensure non-empty descriptor
     if (descriptor == null || descriptor.isBlank()) descriptor = "<?>";
 
     return ProgramElementId.forMethod(pkg, topLevelClass, nestedPath, filePath, descriptor);
   }
 
   private Map<String, String> parseFlatJson(String json) {
-    // Extremely small parser for {"k":"v",...} without escaped commas (we escaped quotes only).
+    // small parser for {"k":"v",...} without escaped commas (we escaped quotes only).
     Map<String, String> out = new HashMap<>();
     String inner = json.trim();
     if (inner.startsWith("{")) inner = inner.substring(1);

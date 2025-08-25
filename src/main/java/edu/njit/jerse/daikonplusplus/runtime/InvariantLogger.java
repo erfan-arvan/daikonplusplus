@@ -15,7 +15,7 @@ public final class InvariantLogger {
    * @param element human-readable element label (e.g., a.b.C#m(int):void)
    * @param file source file path
    * @param expr original expression string
-   * @param phase "ENTRY" (future: "EXIT", etc.)
+   * @param phase "ENTRY" or "EXIT"
    * @param error empty for a normal falsification; otherwise, throwable class name
    */
   public static void fail(

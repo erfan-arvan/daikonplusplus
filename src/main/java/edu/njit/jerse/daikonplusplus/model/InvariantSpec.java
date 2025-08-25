@@ -20,12 +20,12 @@ public final class InvariantSpec {
     return expression;
   }
 
-  /** Optional free-text explanation. */
+  /** optional free-text explanation. */
   public String rationale() {
     return rationale;
   }
 
-  /** Optional metadata key/value pairs. */
+  /** optional metadata key/value pairs. */
   public Map<String, String> meta() {
     return meta;
   }
