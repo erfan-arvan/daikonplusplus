@@ -247,7 +247,7 @@ public final class App {
     final String fullCompileCp = JavaRunner.joinCp(selfCp, userClasspath);
     final String fullRunCp = JavaRunner.joinCp(selfCp, classesDir.toString(), userClasspath);
 
-    JavaRunner.compile(srcRoot, classesDir, fullCompileCp);
+    JavaRunner.compileWithAutoFilter(srcRoot, classesDir, fullCompileCp, /*maxPasses*/ 10);
     final Path runLog = srcRoot.resolve("daikonpp-run.log");
     JavaRunner.run(mainClass, fullRunCp, programArgs, runLog);
 
