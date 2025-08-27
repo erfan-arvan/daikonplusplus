@@ -500,7 +500,7 @@ public final class JavaParserInjector {
   private static String collapseOnelineRegions(String src) {
     String s = src;
 
-    // Pass 1: collapse our explicit marker regions, if they survived printing.
+    // Pass 1: collapse our explicit marker regions.
     {
       Pattern p =
           Pattern.compile(
@@ -518,7 +518,7 @@ public final class JavaParserInjector {
       s = buf.toString();
     }
 
-    // Pass 2: collapse any injected try/catch that uses our exVar pattern, even without markers.
+    // Pass 2: collapse any injected try/catch using our __dp_ex_ pattern (defensive).
     {
       Pattern p =
           Pattern.compile(
@@ -534,8 +534,32 @@ public final class JavaParserInjector {
       s = buf.toString();
     }
 
-    // Pass 3: if a solitary '}' follows on the next line, bring it up to the same line.
-    s = s.replaceAll("(?m)([;\\}])\\s*\\R\\s*\\}", "$1 }");
+    // Pass 3 (SAFE): comment-aware brace hoist (optional; remove entirely if not needed).
+    {
+      String[] lines = s.split("\\R", -1);
+      List<String> out = new ArrayList<>(lines.length);
+      for (int i = 0; i < lines.length; i++) {
+        String line = lines[i];
+        if (i + 1 < lines.length) {
+          String next = lines[i + 1];
+          String trimmedNext = next.trim();
+          boolean nextIsSoloBrace = trimmedNext.equals("}");
+          boolean lineIsLineComment = line.trim().startsWith("//");
+          boolean lineEndsBlockComment = line.trim().endsWith("*/");
+
+          if (!lineIsLineComment && !lineEndsBlockComment && nextIsSoloBrace) {
+            String trimmed = line.trim();
+            if (trimmed.endsWith(";") || trimmed.endsWith("}")) {
+              out.add(line + " }");
+              i++; // consume the brace line
+              continue;
+            }
+          }
+        }
+        out.add(line);
+      }
+      s = String.join(System.lineSeparator(), out);
+    }
 
     return s;
   }
