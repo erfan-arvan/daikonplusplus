@@ -8,6 +8,7 @@ import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.ReturnStmt;
 import com.github.javaparser.ast.stmt.Statement;
+import com.github.javaparser.printer.lexicalpreservation.LexicalPreservingPrinter;
 import edu.njit.jerse.daikonplusplus.model.InvariantRecord;
 import edu.njit.jerse.daikonplusplus.model.InvariantSpec;
 import edu.njit.jerse.daikonplusplus.model.ProgramPointKind;
@@ -16,22 +17,42 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-// Performs source-to-source injection of invariant guards using JavaParser.
-
+/**
+ * Performs source-to-source injection of invariant guards using JavaParser.
+ *
+ * <p>This utility parses a Java source file, locates method bodies, and injects try/catch-wrapped
+ * invariant checks at method entry and exit points. All writes are coordinated via {@link
+ * FileWriteCoordinator} to avoid concurrent edits.
+ *
+ * <p><strong>Logging:</strong> When a check fails or throws, a single-line JSON record is printed
+ * to {@link System#out}.
+ */
 public final class JavaParserInjector {
 
   private final FileWriteCoordinator coordinator;
 
+  /**
+   * Creates an injector that serializes writes through the given coordinator.
+   *
+   * @param coordinator file-write coordinator used to serialize updates
+   */
   public JavaParserInjector(FileWriteCoordinator coordinator) {
     this.coordinator = coordinator;
   }
 
   /**
-   * Injects all entry-point invariants for a given source file.
+   * Injects all <em>entry-point</em> invariants for a given source file.
    *
-   * @param file the source file to update
-   * @param recordsForThisFile invariants that live in this file (ENTRY only)
+   * <p>For each method with one or more {@code METHOD_ENTRY} invariants, this method prepends
+   * one-line try/catch guards to the beginning of the method body.
+   *
+   * @param file the Java source file to update (on disk)
+   * @param recordsForThisFile invariants whose {@code sourceFile()} equals {@code file}; only
+   *     {@code METHOD_ENTRY} records are considered
+   * @throws Exception if parsing, transformation, or writing the file fails
    */
   public void injectEntryGuards(Path file, List<InvariantRecord> recordsForThisFile)
       throws Exception {
@@ -40,7 +61,7 @@ public final class JavaParserInjector {
     coordinator.withFileLock(
         file,
         () -> {
-          CompilationUnit cu = StaticJavaParser.parse(file);
+          CompilationUnit cu = LexicalPreservingPrinter.setup(StaticJavaParser.parse(file));
 
           // Group invariants by method descriptor for efficient insertion.
           Map<String, List<InvariantRecord>> byMethod = new HashMap<>();
@@ -72,7 +93,7 @@ public final class JavaParserInjector {
 
                     NodeList<Statement> guardStmts = new NodeList<>();
                     for (InvariantRecord rec : list) {
-                      guardStmts.add(guardStatement(rec, "ENTRY"));
+                      guardStmts.add(guardStatementWithEnVarOneLine(rec, "ENTRY"));
                     }
 
                     NodeList<Statement> newStmts = new NodeList<>();
@@ -81,19 +102,25 @@ public final class JavaParserInjector {
                     body.setStatements(newStmts);
                   });
 
-          String updated = cu.toString();
-          Files.writeString(file, updated, StandardCharsets.UTF_8);
+          String printed = LexicalPreservingPrinter.print(cu);
+          Files.writeString(file, collapseOnelineRegions(printed), StandardCharsets.UTF_8);
           return null;
         });
   }
 
   /**
-   * Generates a try/catch-wrapped invariant check for the given record.
+   * Generates a (multiline) try/catch-wrapped invariant check for a method <em>entry</em> point.
    *
-   * <p>The logger is referenced by its fully-qualified name to avoid import churn.
+   * <p>The emitted statement validates the invariant expression at the start of the method. If
+   * evaluation is false or throws, a structured single-line JSON record is printed to {@link
+   * System#out}. A unique catch variable name derived from the invariant id is used to avoid
+   * collisions with local variables.
+   *
+   * @param rec the invariant to check
+   * @param phase a short label recorded in the JSON (e.g., {@code "ENTRY"})
+   * @return a parsed JavaParser {@link Statement} representing the guard
    */
-  private com.github.javaparser.ast.stmt.Statement guardStatement(
-      InvariantRecord rec, String phase) {
+  private Statement guardStatementWithEnVar(InvariantRecord rec, String phase) {
     final String expr = rec.spec().expression();
     final String id = rec.id().toString();
     // unique catch var per invariant to dodge any local name collisions
@@ -147,17 +174,47 @@ public final class JavaParserInjector {
     return com.github.javaparser.StaticJavaParser.parseStatement(code);
   }
 
+  /**
+   * Escapes a string for safe embedding inside a Java string literal that itself will be emitted
+   * into source and used inside a JSON string field.
+   *
+   * <p>This replaces backslashes and double quotes with escaped forms.
+   *
+   * @param s input string
+   * @return escaped string
+   */
   private static String esc(String s) {
     return s.replace("\\", "\\\\").replace("\"", "\\\"");
   }
 
+  /**
+   * Injects both <em>entry</em> and <em>exit</em> invariants for the given source file.
+   *
+   * <p><strong>Entry:</strong> For each method, emits guards at the beginning of the body. <br>
+   * <strong>Exit:</strong> For each {@code return}:
+   *
+   * <ul>
+   *   <li>If the return has an expression, the expression is hoisted to a fresh temporary
+   *       (idempotently), exit guards are evaluated using that temporary (with occurrences of
+   *       {@code result} rewritten), then the temporary is returned.
+   *   <li>If the return is {@code void}, guards are placed before the {@code return;}.
+   *   <li>For {@code void} methods with fall-through, guards are appended in tail position.
+   * </ul>
+   *
+   * <p>Multiple guards are supported; each catch variable name is made unique.
+   *
+   * @param file the Java source file to update (on disk)
+   * @param recordsForThisFile invariants whose {@code sourceFile()} equals {@code file}; both
+   *     {@code METHOD_ENTRY} and {@code METHOD_EXIT} are considered
+   * @throws Exception if parsing, transformation, or writing the file fails
+   */
   public void injectGuards(Path file, List<InvariantRecord> recordsForThisFile) throws Exception {
     if (recordsForThisFile == null || recordsForThisFile.isEmpty()) return;
 
     coordinator.withFileLock(
         file,
         () -> {
-          CompilationUnit cu = StaticJavaParser.parse(file);
+          CompilationUnit cu = LexicalPreservingPrinter.setup(StaticJavaParser.parse(file));
 
           // Group by method descriptor + kind
           Map<String, List<InvariantRecord>> entryByM = new HashMap<>();
@@ -185,7 +242,7 @@ public final class JavaParserInjector {
                       for (var rec : entries) {
                         String exVar =
                             "__dp_ex_" + rec.id().toString().replace("-", "") + "_en" + (idx++);
-                        guards.add(guardStatementWithExVar(rec, "ENTRY", exVar));
+                        guards.add(guardStatementWithExVarOneLine(rec, "ENTRY", exVar));
                       }
                       NodeList<Statement> newStmts = new NodeList<>();
                       newStmts.addAll(guards);
@@ -229,7 +286,8 @@ public final class JavaParserInjector {
                                     + "_"
                                     + (g++);
                             block.add(
-                                guardStatementWithExVar(rewriteResult(rec, tmp), "EXIT", exVar));
+                                guardStatementWithExVarOneLine(
+                                    rewriteResult(rec, tmp), "EXIT", exVar));
                           }
 
                           // Return the temp
@@ -244,7 +302,7 @@ public final class JavaParserInjector {
                           for (var rec : exits) {
                             String exVar =
                                 "__dp_ex_" + rec.id().toString().replace("-", "") + "_exV_" + (g++);
-                            block.add(guardStatementWithExVar(rec, "EXIT", exVar));
+                            block.add(guardStatementWithExVarOneLine(rec, "EXIT", exVar));
                           }
                           block.add(StaticJavaParser.parseStatement("return;"));
                           ret.replace(new BlockStmt(block));
@@ -266,23 +324,31 @@ public final class JavaParserInjector {
                                     + rec.id().toString().replace("-", "")
                                     + "_tail_"
                                     + (g++);
-                            body.addStatement(guardStatementWithExVar(rec, "EXIT", exVar));
+                            body.addStatement(guardStatementWithExVarOneLine(rec, "EXIT", exVar));
                           }
                         }
                       }
                     }
                   });
 
-          Files.writeString(file, cu.toString(), StandardCharsets.UTF_8);
+          String printed = LexicalPreservingPrinter.print(cu);
+          Files.writeString(file, collapseOnelineRegions(printed), StandardCharsets.UTF_8);
           return null;
         });
   }
 
-  private static String escape(String s) {
-    return s.replace("\\", "\\\\").replace("\"", "\\\"");
-  }
-
-  // build a guard, with a UNIQUE catch var
+  /**
+   * Builds a (multiline) try/catch guard for <em>entry or exit</em> sites using a supplied,
+   * already-unique catch variable name.
+   *
+   * <p>This variant is primarily used for EXIT instrumentation where multiple guards may be emitted
+   * around the same return site and the caller controls the uniqueness scheme.
+   *
+   * @param rec the invariant to check
+   * @param phase phase label recorded in the JSON (e.g., {@code "ENTRY"} or {@code "EXIT"})
+   * @param exVar the exact catch variable identifier to use
+   * @return a parsed JavaParser {@link Statement} representing the guard
+   */
   private Statement guardStatementWithExVar(InvariantRecord rec, String phase, String exVar) {
     final String expr = rec.spec().expression();
     final String id = rec.id().toString();
@@ -335,7 +401,155 @@ public final class JavaParserInjector {
     return StaticJavaParser.parseStatement(code);
   }
 
-  // rewrite 'result' to the given tmp var
+  /**
+   * Builds a <em>one-line</em> try/catch guard for a method <em>entry</em> point, deriving a unique
+   * catch variable from the invariant id.
+   *
+   * <p>Functionally equivalent to {@link #guardStatementWithEnVar(InvariantRecord, String)}, but
+   * the generated source has no newlines.
+   *
+   * @param rec the invariant to check
+   * @param phase phase label recorded in the JSON (typically {@code "ENTRY"})
+   * @return a parsed JavaParser {@link Statement} representing the guard
+   */
+
+  // ENTRY one-liner (auto exVar from id), wrapped in markers
+  private static Statement guardStatementWithEnVarOneLine(InvariantRecord rec, String phase) {
+    final String expr = rec.spec().expression();
+    final String id = rec.id().toString();
+    final String exVar = "__dp_ex_" + id.replace("-", "");
+    final String code =
+        "/*__DP_ONELINE_BEGIN__*/"
+            + "try{if(!("
+            + expr
+            + ")){System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
+            + "\\\"id\\\":\\\""
+            + id
+            + "\\\",\\\"element\\\":\\\""
+            + esc(rec.point().elementId().toString())
+            + "\\\",\\\"file\\\":\\\""
+            + esc(rec.sourceFile())
+            + "\\\",\\\"expr\\\":\\\""
+            + esc(expr)
+            + "\\\",\\\"phase\\\":\\\""
+            + phase
+            + "\\\",\\\"error\\\":\\\"\\\"}\");}}"
+            + "catch(Throwable "
+            + exVar
+            + "){System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
+            + "\\\"id\\\":\\\""
+            + id
+            + "\\\",\\\"element\\\":\\\""
+            + esc(rec.point().elementId().toString())
+            + "\\\",\\\"file\\\":\\\""
+            + esc(rec.sourceFile())
+            + "\\\",\\\"expr\\\":\\\""
+            + esc(expr)
+            + "\\\",\\\"phase\\\":\\\""
+            + phase
+            + "\\\",\\\"error\\\":\\\"\"+"
+            + exVar
+            + ".toString().replace(\"\\\\\", \"\\\\\\\\\").replace(\"\\\"\",\"\\\\\\\"\")+\"\\\"}\");}"
+            + "/*__DP_ONELINE_END__*/";
+    return StaticJavaParser.parseStatement(code);
+  }
+
+  // ENTRY/EXIT one-liner (caller supplies unique exVar), wrapped in markers
+  private static Statement guardStatementWithExVarOneLine(
+      InvariantRecord rec, String phase, String exVar) {
+    final String expr = rec.spec().expression();
+    final String id = rec.id().toString();
+    final String code =
+        "/*__DP_ONELINE_BEGIN__*/"
+            + "try{if(!("
+            + expr
+            + ")){System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
+            + "\\\"id\\\":\\\""
+            + id
+            + "\\\",\\\"element\\\":\\\""
+            + esc(rec.point().elementId().toString())
+            + "\\\",\\\"file\\\":\\\""
+            + esc(rec.sourceFile())
+            + "\\\",\\\"expr\\\":\\\""
+            + esc(expr)
+            + "\\\",\\\"phase\\\":\\\""
+            + phase
+            + "\\\",\\\"error\\\":\\\"\\\"}\");}}"
+            + "catch(Throwable "
+            + exVar
+            + "){System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
+            + "\\\"id\\\":\\\""
+            + id
+            + "\\\",\\\"element\\\":\\\""
+            + esc(rec.point().elementId().toString())
+            + "\\\",\\\"file\\\":\\\""
+            + esc(rec.sourceFile())
+            + "\\\",\\\"expr\\\":\\\""
+            + esc(expr)
+            + "\\\",\\\"phase\\\":\\\""
+            + phase
+            + "\\\",\\\"error\\\":\\\"\"+"
+            + exVar
+            + ".toString().replace(\"\\\\\", \"\\\\\\\\\").replace(\"\\\"\",\"\\\\\\\"\")+\"\\\"}\");}"
+            + "/*__DP_ONELINE_END__*/";
+    return StaticJavaParser.parseStatement(code);
+  }
+
+  // Collapse marked regions + pull a following '}' up onto the same line.
+  @SuppressWarnings({"nullness", "regexp"})
+  private static String collapseOnelineRegions(String src) {
+    String s = src;
+
+    // Pass 1: collapse our explicit marker regions, if they survived printing.
+    {
+      Pattern p =
+          Pattern.compile(
+              "/\\*__DP_ONELINE_BEGIN__\\*/\\s*(.*?)\\s*/\\*__DP_ONELINE_END__\\*/",
+              Pattern.DOTALL);
+      Matcher m = p.matcher(s);
+      StringBuffer buf = new StringBuffer();
+      while (m.find()) {
+        String inner = m.group(1);
+        if (inner == null) inner = "";
+        inner = inner.replaceAll("\\s+", " ").trim();
+        m.appendReplacement(buf, Matcher.quoteReplacement(inner));
+      }
+      m.appendTail(buf);
+      s = buf.toString();
+    }
+
+    // Pass 2: collapse any injected try/catch that uses our exVar pattern, even without markers.
+    {
+      Pattern p =
+          Pattern.compile(
+              "(?s)try\\s*\\{\\s*.*?\\}\\s*catch\\s*\\(\\s*Throwable\\s+__dp_ex_[A-Za-z0-9_]+\\s*\\)\\s*\\{\\s*.*?\\}");
+      Matcher m = p.matcher(s);
+      StringBuffer buf = new StringBuffer();
+      while (m.find()) {
+        String seg = m.group();
+        String collapsed = seg.replaceAll("\\s+", " ").trim();
+        m.appendReplacement(buf, Matcher.quoteReplacement(collapsed));
+      }
+      m.appendTail(buf);
+      s = buf.toString();
+    }
+
+    // Pass 3: if a solitary '}' follows on the next line, bring it up to the same line.
+    s = s.replaceAll("(?m)([;\\}])\\s*\\R\\s*\\}", "$1 }");
+
+    return s;
+  }
+
+  /**
+   * Rewrites occurrences of the Daikon-style placeholder {@code result} in the invariant expression
+   * to refer to a supplied temporary variable name.
+   *
+   * <p>Used during EXIT instrumentation when hoisting return expressions.
+   *
+   * @param rec the original invariant record
+   * @param tmpVar the temporary variable name that stands for the return value
+   * @return a new {@link InvariantRecord} with the expression rewritten
+   */
   private InvariantRecord rewriteResult(InvariantRecord rec, String tmpVar) {
     String expr = rec.spec().expression().replaceAll("\\bresult\\b", tmpVar);
     InvariantSpec spec = new InvariantSpec(expr, rec.spec().rationale(), rec.spec().meta());
