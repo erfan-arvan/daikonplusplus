@@ -269,10 +269,7 @@ public final class JavaParserInjector {
 
                           NodeList<Statement> block = new NodeList<>();
                           if (!alreadyHoisted) {
-                            // First time we see this return: hoist to a fresh temp
-                            block.add(
-                                StaticJavaParser.parseStatement(
-                                    "final var " + tmp + " = (" + rhs + ");"));
+                            block.add(makeHoistedTemp(md, tmp, oe.get()));
                           }
 
                           // Add EXIT guards referencing tmp (rewrite 'result' -> tmp)
@@ -578,5 +575,29 @@ public final class JavaParserInjector {
     String expr = rec.spec().expression().replaceAll("\\bresult\\b", tmpVar);
     InvariantSpec spec = new InvariantSpec(expr, rec.spec().rationale(), rec.spec().meta());
     return new InvariantRecord(rec.id(), spec, rec.point(), rec.sourceFile(), rec.createdAt());
+  }
+
+  /**
+   * Constructs a hoisted temporary variable declaration for a return expression.
+   *
+   * <p>This is used when instrumenting method exit points: the original return expression is
+   * evaluated once and stored in a uniquely named local variable. All exit invariants then
+   * reference this temporary.
+   *
+   * <p>Special care is required when the return expression is the literal {@code null}: Java cannot
+   * infer the type of {@code var} from {@code null}. In that case, the method return type is
+   * inserted explicitly as a cast, ensuring the generated statement compiles.
+   *
+   * @param md the method being instrumented (provides the declared return type)
+   * @param tmp the unique temporary variable name
+   * @param rhs the expression being hoisted (the original return expression)
+   * @return a parsed {@link Statement} declaring the temporary variable
+   */
+  private static Statement makeHoistedTemp(MethodDeclaration md, String tmp, Expression rhs) {
+    if (rhs.isNullLiteralExpr()) {
+      String retType = md.getType().toString();
+      return StaticJavaParser.parseStatement("final var " + tmp + " = (" + retType + ") null;");
+    }
+    return StaticJavaParser.parseStatement("final var " + tmp + " = (" + rhs + ");");
   }
 }
