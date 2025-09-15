@@ -210,7 +210,9 @@ public final class JavaParserInjector {
     final String id = rec.id().toString();
     final String code =
         "/*__DP_ONELINE_BEGIN__*/"
-            + "try{System.out.println(\\\"INV_EXD:\" + id + \"\\\");if(!("
+            + "try{System.out.println(\"INV_EXD:"
+            + id
+            + "\");if(!("
             + expr
             + ")){System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
             + "\\\"id\\\":\\\""
