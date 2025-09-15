@@ -49,30 +49,39 @@ public final class LogParser {
    * invariant was executed at least once.
    */
   /**
-   * Reads a log file and returns the set of IDs that appeared in INV_EXD markers,
-   * meaning the invariant was executed at least once.
+   * Reads a log file and returns the set of IDs that appeared in INV_EXD markers, meaning the
+   * invariant was executed at least once.
    *
-   * Accepts lines containing:  INV_EXD:<uuid>
-   * Ignores surrounding text and multiple markers per line.
+   * <p>Accepts lines containing: INV_EXD:<uuid> Ignores surrounding text and multiple markers per
+   * line.
+   */
+  /**
+   * Reads a log file and returns the set of IDs that appeared in INV_EXD markers, meaning the
+   * invariant was executed at least once.
+   *
+   * <p>Accepts lines containing: INV_EXD:<uuid> Ignores surrounding text and multiple markers per
+   * line.
    */
   public static Set<UUID> readExecutedIds(Path logFile) {
     Set<UUID> out = new HashSet<>();
     if (!Files.exists(logFile)) return out;
 
     // Exact UUID shape: 8-4-4-4-12 (hex only)
-    final Pattern p = Pattern.compile(
-            "INV_EXD:([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})"
-    );
+    final Pattern p =
+        Pattern.compile(
+            "INV_EXD:([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})");
 
     try {
       for (String ln : Files.readAllLines(logFile, StandardCharsets.UTF_8)) {
         Matcher m = p.matcher(ln);
         while (m.find()) {
           String idStr = m.group(1);
-          try {
-            out.add(UUID.fromString(idStr));
-          } catch (IllegalArgumentException ignore) {
-            // skip malformed ID
+          if (idStr != null) {
+            try {
+              out.add(UUID.fromString(idStr));
+            } catch (IllegalArgumentException ignore) {
+              // skip malformed ID
+            }
           }
         }
       }
@@ -81,7 +90,6 @@ public final class LogParser {
     }
     return out;
   }
-
 
   /**
    * Scans instrumented source files for lines commented out due to javac errors. Returns the set of
