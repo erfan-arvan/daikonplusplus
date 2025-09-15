@@ -48,21 +48,31 @@ public final class LogParser {
    * Reads a log file and returns the set of IDs that appeared in INV_EXD markers, meaning the
    * invariant was executed at least once.
    */
+  /**
+   * Reads a log file and returns the set of IDs that appeared in INV_EXD markers,
+   * meaning the invariant was executed at least once.
+   *
+   * Accepts lines containing:  INV_EXD:<uuid>
+   * Ignores surrounding text and multiple markers per line.
+   */
   public static Set<UUID> readExecutedIds(Path logFile) {
     Set<UUID> out = new HashSet<>();
     if (!Files.exists(logFile)) return out;
-    final Pattern p = Pattern.compile("\\bINV_EXD:([0-9a-fA-F\\-]{36})\\b");
+
+    // Exact UUID shape: 8-4-4-4-12 (hex only)
+    final Pattern p = Pattern.compile(
+            "INV_EXD:([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})"
+    );
+
     try {
-      List<String> lines = Files.readAllLines(logFile, StandardCharsets.UTF_8);
-      for (String ln : lines) {
+      for (String ln : Files.readAllLines(logFile, StandardCharsets.UTF_8)) {
         Matcher m = p.matcher(ln);
         while (m.find()) {
-          final String g = m.group(1); // may be null per annotations
-          if (g == null) continue;
+          String idStr = m.group(1);
           try {
-            out.add(UUID.fromString(g));
+            out.add(UUID.fromString(idStr));
           } catch (IllegalArgumentException ignore) {
-            // ignore malformed UUIDs
+            // skip malformed ID
           }
         }
       }
@@ -71,6 +81,7 @@ public final class LogParser {
     }
     return out;
   }
+
 
   /**
    * Scans instrumented source files for lines commented out due to javac errors. Returns the set of
