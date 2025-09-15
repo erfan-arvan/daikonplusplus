@@ -261,24 +261,117 @@ public final class App {
 
     // --- Phase 4: parse run log and generate the results
     final Set<UUID> falsified = LogParser.readFalsifiedIds(runLog);
+    final Set<UUID> executed = LogParser.readExecutedIds(runLog);
+    final Set<UUID> nonCompiled = LogParser.readNonCompiledIds(srcRoot);
+
     final Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> all =
         parseRegistryLite(cfg.registryPath());
 
-    // held = all - falsified
+    // compiled = all − nonCompiled
+    final Set<UUID> compiledIds = new HashSet<>(all.keySet());
+    compiledIds.removeAll(nonCompiled);
+
+    // observed-held = executed − falsified   (only those we observed to run and not fail)
     Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> heldByMethod = new TreeMap<>();
-    for (edu.njit.jerse.daikonplusplus.App.RecordLite r : all.values()) {
-      if (!falsified.contains(r.id)) {
+    // falsified ∩ all (to ignore any stray ids not in registry)
+    Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> falsByMethod = new TreeMap<>();
+    // never-executed = compiled − executed
+    Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> neverExecByMethod =
+        new TreeMap<>();
+    // executed (any outcome) by method (optional)
+    Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> execByMethod = new TreeMap<>();
+    // compiled by method (optional)
+    Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> compiledByMethod =
+        new TreeMap<>();
+
+    for (var r : all.values()) {
+      boolean isCompiled = compiledIds.contains(r.id);
+      boolean wasExecuted = executed.contains(r.id);
+      boolean wasFalsified = falsified.contains(r.id);
+
+      if (isCompiled) {
+        compiledByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
+      }
+      if (wasExecuted) {
+        execByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
+      }
+
+      if (wasExecuted && !wasFalsified) {
         heldByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
+      } else if (wasFalsified) {
+        falsByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
+      } else if (isCompiled && !wasExecuted) {
+        // count as never-executed only if it actually compiled
+        neverExecByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
       }
     }
 
-    System.out.println(">>> HELD invariants by method (ENTRY & EXIT):");
+    // (Optional) quick totals
+    int heldCount = heldByMethod.values().stream().mapToInt(List::size).sum();
+    int falsCount = falsByMethod.values().stream().mapToInt(List::size).sum();
+    int neverExecCount = neverExecByMethod.values().stream().mapToInt(List::size).sum();
+    int compiledCount = compiledByMethod.values().stream().mapToInt(List::size).sum();
+    int executedCount = execByMethod.values().stream().mapToInt(List::size).sum();
+
+    System.out.println(
+        ">>> Totals: "
+            + "all="
+            + all.size()
+            + " compiled="
+            + compiledCount
+            + " non-compiled="
+            + nonCompiled.size()
+            + " executed="
+            + executedCount
+            + " falsified="
+            + falsCount
+            + " observed-held="
+            + heldCount
+            + " never-executed="
+            + neverExecCount);
+
+    // Report (keep your existing sections)
+    System.out.println(">>> OBSERVED-HELD invariants by method (ENTRY & EXIT):");
     for (var e : heldByMethod.entrySet()) {
       System.out.println("  - " + e.getKey());
       for (var r : e.getValue()) {
         System.out.println("      [" + r.kind + "] " + r.id + " :: " + r.expr);
       }
     }
+
+    System.out.println(">>> FALSIFIED invariants by method (ENTRY & EXIT):");
+    for (var e : falsByMethod.entrySet()) {
+      System.out.println("  - " + e.getKey());
+      for (var r : e.getValue()) {
+        System.out.println("      [" + r.kind + "] " + r.id + " :: " + r.expr);
+      }
+    }
+
+    System.out.println(">>> NEVER-EXECUTED invariants by method (compiled but never observed):");
+    for (var e : neverExecByMethod.entrySet()) {
+      System.out.println("  - " + e.getKey());
+      for (var r : e.getValue()) {
+        System.out.println("      [" + r.kind + "] " + r.id + " :: " + r.expr);
+      }
+    }
+
+    // ---- NEW: End-of-report ID summaries ----
+
+    // HELD∩EXECUTED∩COMPILED (held is already a subset of executed; we also intersect with
+    // compiled)
+    Set<UUID> heldExecCompiled = new HashSet<>(compiledIds);
+    heldExecCompiled.retainAll(executed);
+    heldExecCompiled.removeAll(falsified);
+
+    // Pretty-print helpers
+    java.util.function.Function<Set<UUID>, String> idsToLine =
+        s ->
+            s.stream().map(UUID::toString).sorted().reduce((a, b) -> a + ", " + b).orElse("(none)");
+
+    System.out.println(">>> SUMMARY (IDs)");
+    System.out.println("  COMPILED IDs: " + idsToLine.apply(compiledIds));
+    System.out.println("  EXECUTED IDs: " + idsToLine.apply(executed));
+    System.out.println("  HELD∩EXECUTED∩COMPILED IDs: " + idsToLine.apply(heldExecCompiled));
 
     System.out.println(">>> Registry: " + cfg.registryPath().toAbsolutePath());
     System.out.println(">>> Run log: " + runLog.toAbsolutePath());

@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Parses stdout logs emitted by {@code InvariantLogger.fail(...)}. Collects the set of invariant
@@ -39,6 +41,72 @@ public final class LogParser {
     } catch (IOException e) {
       throw new RuntimeException("Failed to read run log: " + e.getMessage(), e);
     }
+    return out;
+  }
+
+  /**
+   * Reads a log file and returns the set of IDs that appeared in INV_EXD markers, meaning the
+   * invariant was executed at least once.
+   */
+  public static Set<UUID> readExecutedIds(Path logFile) {
+    Set<UUID> out = new HashSet<>();
+    if (!Files.exists(logFile)) return out;
+    final Pattern p = Pattern.compile("\\bINV_EXD:([0-9a-fA-F\\-]{36})\\b");
+    try {
+      List<String> lines = Files.readAllLines(logFile, StandardCharsets.UTF_8);
+      for (String ln : lines) {
+        Matcher m = p.matcher(ln);
+        while (m.find()) {
+          final String g = m.group(1); // may be null per annotations
+          if (g == null) continue;
+          try {
+            out.add(UUID.fromString(g));
+          } catch (IllegalArgumentException ignore) {
+            // ignore malformed UUIDs
+          }
+        }
+      }
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to read run log: " + e.getMessage(), e);
+    }
+    return out;
+  }
+
+  /**
+   * Scans instrumented source files for lines commented out due to javac errors. Returns the set of
+   * IDs marked with //Failed Invariant in Compilation: ...
+   */
+  public static Set<UUID> readNonCompiledIds(Path srcRoot) {
+    Set<UUID> out = new HashSet<>();
+    if (!Files.exists(srcRoot)) return out;
+
+    final Pattern p = Pattern.compile("\\\"id\\\\\":\\\\\"([0-9a-fA-F\\-]{36})\\\\\\\"");
+
+    try (var walk = Files.walk(srcRoot)) {
+      walk.filter(pth -> pth.toString().endsWith(".java"))
+          .forEach(
+              pth -> {
+                try {
+                  for (String ln : Files.readAllLines(pth, StandardCharsets.UTF_8)) {
+                    if (!ln.contains("//Failed Invariant in Compilation:")) continue;
+                    Matcher m = p.matcher(ln);
+                    while (m.find()) {
+                      final String g = m.group(1); // may be null per annotations
+                      if (g == null) continue;
+                      try {
+                        out.add(UUID.fromString(g));
+                      } catch (IllegalArgumentException ignore) {
+                      }
+                    }
+                  }
+                } catch (IOException ioe) {
+                  System.err.println("    ! Failed to scan " + pth + ": " + ioe.getMessage());
+                }
+              });
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to walk source tree: " + e.getMessage(), e);
+    }
+
     return out;
   }
 }

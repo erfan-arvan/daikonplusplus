@@ -95,8 +95,7 @@ public final class JavaProjectScanner {
                                           new ProgramPointImpl(
                                               peid, ProgramPointKind.METHOD_ENTRY));
                                       points.add(
-                                          new ProgramPointImpl(
-                                              peid, ProgramPointKind.METHOD_EXIT)); // ← add EXIT
+                                          new ProgramPointImpl(peid, ProgramPointKind.METHOD_EXIT));
                                     });
                           });
                 } catch (Exception e) {

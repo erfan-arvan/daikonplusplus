@@ -239,7 +239,7 @@ public final class JavaRunner {
     }
   }
 
-  // --- NEW: comment a single source line if it looks like an injected one-liner ---
+  // comment a single source line if it looks like an injected one-liner ---
   private static int commentInvariantLine(Path file, int lineNumber, String reason) {
     try {
       if (!Files.isRegularFile(file)) return 0;
