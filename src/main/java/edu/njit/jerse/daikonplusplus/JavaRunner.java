@@ -68,29 +68,66 @@ public final class JavaRunner {
   }
 
   /** Runs {@code java -cp classpath mainClass [args...]} and captures stdout to {@code runLog}. */
-  public static void run(String mainClass, String classpath, List<String> args, Path runLog)
+  public static void run(String mainClass, String classpath, List<String> args, Path logFile)
       throws Exception {
-    // ensure the log directory exists; handle the case where runLog has no
-    // parent
-    Path parent = runLog.getParent();
-    Path logDir = (parent != null) ? parent : Path.of(".");
-    Files.createDirectories(logDir);
-
-    String javaExe = toolPath("java");
+    // Ensure parent dir exists even if logFile has no parent
+    Path parent = logFile.getParent();
+    Files.createDirectories(parent == null ? Path.of(".") : parent);
 
     List<String> cmd = new ArrayList<>();
-    cmd.add(javaExe);
+    cmd.add(toolPath("java"));
+    cmd.add("-Dfile.encoding=UTF-8");
+    cmd.add("-Xshare:off");
     cmd.add("-cp");
     cmd.add(classpath);
     cmd.add(mainClass);
     cmd.addAll(args);
 
-    Path errLog = logDir.resolve("daikonpp-run.err");
     System.out.println(">>> Running with java: " + String.join(" ", cmd));
-    runProcess(cmd, Path.of("."), runLog, errLog, false);
+
+    ProcessBuilder pb = new ProcessBuilder(cmd);
+    pb.redirectErrorStream(true); // merge stderr into stdout
+    Process p = pb.start();
+
+    // Stream stdout+stderr into the log file
+    try (var in = p.getInputStream();
+        var out =
+            Files.newOutputStream(
+                logFile, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
+      pump(in, out); // copy all bytes
+    }
+
+    int code = p.waitFor();
+
+    // If it failed, stamp the exit code, so we can see it in the run log
+    if (code != 0) {
+      Files.writeString(
+          logFile,
+          System.lineSeparator() + "[DP] Child JVM exit code: " + code + System.lineSeparator(),
+          StandardOpenOption.CREATE,
+          StandardOpenOption.APPEND);
+    }
+
+    // Final sanity: make it obvious if nothing was produced
+    if (Files.size(logFile) == 0L) {
+      Files.writeString(
+          logFile,
+          "[DP] WARNING: child JVM produced no output (stdout/stderr). "
+              + "Check mainClass/classpath or early crashes.",
+          StandardOpenOption.CREATE,
+          StandardOpenOption.APPEND);
+    }
   }
 
   // ---- internals ----
+
+  private static void pump(java.io.InputStream in, java.io.OutputStream out)
+      throws java.io.IOException {
+    byte[] buf = new byte[8192];
+    int n;
+    while ((n = in.read(buf)) != -1) out.write(buf, 0, n);
+    out.flush();
+  }
 
   private static String toolPath(String base) {
     String ext = isWindows() ? ".exe" : "";
