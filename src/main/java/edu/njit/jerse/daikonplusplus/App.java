@@ -283,6 +283,9 @@ public final class App {
     // compiled by method (optional)
     Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> compiledByMethod =
         new TreeMap<>();
+    // failed-to-compile (injected but javac rejected them and we commented them out)
+    Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> failedCompileByMethod =
+        new TreeMap<>();
 
     for (var r : all.values()) {
       boolean isCompiled = compiledIds.contains(r.id);
@@ -291,7 +294,10 @@ public final class App {
 
       if (isCompiled) {
         compiledByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
+      } else if (nonCompiled.contains(r.id)) {
+        failedCompileByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
       }
+
       if (wasExecuted) {
         execByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
       }
@@ -306,7 +312,7 @@ public final class App {
       }
     }
 
-    // (Optional) quick totals
+    // quick totals
     int heldCount = heldByMethod.values().stream().mapToInt(List::size).sum();
     int falsCount = falsByMethod.values().stream().mapToInt(List::size).sum();
     int neverExecCount = neverExecByMethod.values().stream().mapToInt(List::size).sum();
@@ -330,7 +336,7 @@ public final class App {
             + " never-executed="
             + neverExecCount);
 
-    // Report (keep your existing sections)
+    // Report
     System.out.println(">>> OBSERVED-HELD invariants by method (ENTRY & EXIT):");
     for (var e : heldByMethod.entrySet()) {
       System.out.println("  - " + e.getKey());
@@ -347,6 +353,14 @@ public final class App {
       }
     }
 
+    System.out.println(">>> FAILED-TO-COMPILE invariants by method:");
+    for (var e : failedCompileByMethod.entrySet()) {
+      System.out.println("  - " + e.getKey());
+      for (var r : e.getValue()) {
+        System.out.println("      [" + r.kind + "] " + r.id + " :: " + r.expr);
+      }
+    }
+
     System.out.println(">>> NEVER-EXECUTED invariants by method (compiled but never observed):");
     for (var e : neverExecByMethod.entrySet()) {
       System.out.println("  - " + e.getKey());
@@ -355,7 +369,7 @@ public final class App {
       }
     }
 
-    // ---- NEW: End-of-report ID summaries ----
+    // End-of-report ID summaries
 
     // HELD∩EXECUTED∩COMPILED (held is already a subset of executed; we also intersect with
     // compiled)
