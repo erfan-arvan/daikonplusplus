@@ -280,10 +280,6 @@ public final class OpenAIInvariantGeneratorClient {
     }
   }
 
-  private static String opt(String s) {
-    return s == null ? "" : s.trim();
-  }
-
   private static Optional<ChatModel> resolveModel(@Nullable String maybe) {
     if (maybe == null || maybe.isBlank()) return Optional.empty();
     String m = maybe.trim().toLowerCase(Locale.ROOT);

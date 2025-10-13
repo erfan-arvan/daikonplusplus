@@ -26,47 +26,6 @@ public final class JavaRunner {
     return sb.toString();
   }
 
-  /**
-   * Compiles all {@code .java} files under {@code srcRoot} to {@code classesDir} with {@code -cp
-   * classpath}.
-   */
-  public static void compile(Path srcRoot, Path classesDir, String classpath) throws Exception {
-    Files.createDirectories(classesDir);
-
-    // gather source files and write an @argfile to avoid arg-length limits
-    List<Path> sources = new ArrayList<>();
-    try (var walk = Files.walk(srcRoot)) {
-      walk.filter(p -> p.toString().endsWith(".java")).forEach(sources::add);
-    }
-
-    if (sources.isEmpty()) {
-      throw new IllegalStateException("No .java files found under " + srcRoot);
-    }
-
-    Path argFile = classesDir.resolve("dp_sources.txt");
-    try (PrintWriter pw =
-        new PrintWriter(Files.newBufferedWriter(argFile, StandardCharsets.UTF_8))) {
-      for (Path s : sources) pw.println(s.toAbsolutePath().normalize());
-    }
-
-    String javacExe = toolPath("javac");
-    List<String> cmd = new ArrayList<>();
-    cmd.add(javacExe);
-    cmd.add("-encoding");
-    cmd.add("UTF-8");
-    cmd.add("-g");
-    cmd.add("-cp");
-    cmd.add(classpath);
-    cmd.add("-d");
-    cmd.add(classesDir.toString());
-    cmd.add("@" + argFile.toString());
-
-    Path outLog = classesDir.resolve("dp-javac.out");
-    Path errLog = classesDir.resolve("dp-javac.err");
-    System.out.println(">>> Compiling with javac: " + String.join(" ", cmd));
-    runProcess(cmd, srcRoot, outLog, errLog, true);
-  }
-
   /** Runs {@code java -cp classpath mainClass [args...]} and captures stdout to {@code runLog}. */
   public static void run(String mainClass, String classpath, List<String> args, Path logFile)
       throws Exception {
@@ -143,23 +102,16 @@ public final class JavaRunner {
     return System.getProperty("os.name").toLowerCase().contains("win");
   }
 
-  private static void runProcess(
-      List<String> cmd, Path workDir, Path outLog, Path errLog, boolean failOnNonZero)
-      throws Exception {
-    ProcessBuilder pb = new ProcessBuilder(cmd);
-    pb.directory(workDir.toFile());
-    pb.redirectOutput(outLog.toFile());
-    pb.redirectError(errLog.toFile());
-    Process p = pb.start();
-    int code = p.waitFor();
-    if (failOnNonZero && code != 0) {
-      String err = Files.exists(errLog) ? Files.readString(errLog) : "";
-      throw new RuntimeException(
-          cmd.get(0) + " exited with " + code + (err.isBlank() ? "" : ("\n" + err)));
-    }
-  }
-
-  // --- NEW: compile with iterative filtering of failing 1-line invariants ---
+  /**
+   * Compiles all Java files under {@code srcRoot}, automatically commenting out one-line invariants
+   * that cause compilation errors. Repeats until successful or {@code maxPasses} is reached.
+   *
+   * @param srcRoot source root containing .java files
+   * @param classesDir output directory for compiled classes
+   * @param classpath classpath for javac
+   * @param maxPasses maximum number of compile attempts
+   * @throws Exception if I/O fails or compilation still fails after max passes
+   */
   public static void compileWithAutoFilter(
       Path srcRoot, Path classesDir, String classpath, int maxPasses) throws Exception {
 
@@ -290,7 +242,7 @@ public final class JavaRunner {
       // Heuristics: treat as our one-line invariant if it contains our signatures
       boolean looksLikeInvariant =
           trimmed.startsWith("try { if (!(")
-              || // your one-liner pattern
+              || // one-liner pattern
               trimmed.contains("\"type\\\":\\\"INV_FAIL\\\"")
               || // the JSON marker
               trimmed.contains("/*__DP_ONELINE_BEGIN__*/")
@@ -309,8 +261,7 @@ public final class JavaRunner {
         return 0;
       }
 
-      // Replace the whole line with one comment, keeping original inline after the reason.
-      // (Requested style: inline comment that carries the original invariant text)
+      // Replace the whole line with one comment, keeping original inline after the reason
       String commented = "//Failed Invariant in Compilation: " + reason + " :: " + src.trim();
       lines.set(idx, commented);
 
@@ -325,7 +276,7 @@ public final class JavaRunner {
     }
   }
 
-  // --- NEW: non-throwing process runner so we can loop ---
+  // non-throwing process runner so we can loop ---
   private static int runProcessNoThrow(List<String> cmd, Path workDir, Path outLog, Path errLog)
       throws Exception {
     ProcessBuilder pb = new ProcessBuilder(cmd);

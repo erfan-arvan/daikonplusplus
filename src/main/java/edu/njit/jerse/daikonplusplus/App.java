@@ -53,17 +53,12 @@ public final class App {
 
   private static final boolean DEBUG = CFG.debug();
 
-  // at top-level in App
   private static final java.util.Set<String> RUN_DEDUP =
       java.util.concurrent.ConcurrentHashMap.newKeySet();
 
   private static String keyFor(ProgramPoint pt, String expr) {
     String norm = expr.trim().replaceAll("\\s+", " "); // normalize whitespace
     return pt.kind().name() + "|" + pt.elementId().toString() + "|" + norm;
-  }
-
-  private static void dbg(String msg) {
-    if (DEBUG) System.out.println("[DP] " + msg);
   }
 
   public static void main(String[] args) throws Exception {
@@ -136,7 +131,7 @@ public final class App {
     int received = 0;
     int totalSpecs = 0;
 
-    // Environment-configurable timeouts
+    // environment-configurable timeouts
     final long totalTimeoutSec =
         Long.parseLong(
             Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "180")); // 3 min
@@ -188,7 +183,7 @@ public final class App {
       }
     }
 
-    // Cancel any stragglers so we don't hang
+    // cancel any stragglers so we don't hang
     for (Future<List<InvariantRecord>> f : allFutures) {
       if (!f.isDone()) f.cancel(true);
     }
@@ -602,50 +597,6 @@ public final class App {
             return FileVisitResult.CONTINUE;
           }
         });
-  }
-
-  private static Optional<String> extractMethodBodyAbridged(ProgramPoint point, Path srcRoot)
-      throws IOException {
-    if (!CFG.includeBody()) return Optional.empty();
-
-    int maxChars = 2000;
-    try {
-      maxChars =
-          Math.max(
-              200,
-              Integer.parseInt(
-                  java.util.Objects.requireNonNullElse(
-                      System.getenv("DP_BODY_MAX_CHARS"), "2000")));
-    } catch (NumberFormatException ignore) {
-    }
-
-    Path file = srcRoot.resolve(point.elementId().filePath()).normalize();
-    com.github.javaparser.ast.CompilationUnit cu = StaticJavaParser.parse(file);
-    final String targetDesc = point.elementId().jvmDescriptor();
-
-    for (com.github.javaparser.ast.body.ClassOrInterfaceDeclaration cls :
-        cu.findAll(com.github.javaparser.ast.body.ClassOrInterfaceDeclaration.class)) {
-      java.util.Optional<com.github.javaparser.ast.body.MethodDeclaration> maybe =
-          cls.getMethods().stream()
-              .filter(m -> m.getBody().isPresent())
-              .filter(
-                  m ->
-                      edu.njit.jerse.daikonplusplus.parse.MethodSignatureUtil
-                          .jvmDescriptorBestEffort(m)
-                          .equals(targetDesc))
-              .findFirst();
-      if (maybe.isPresent()) {
-        String raw = maybe.get().getBody().get().toString(); // includes braces
-        // strip comments & squeeze whitespace; keep it short for tokens
-        String noBlock = raw.replaceAll("(?s)/\\*.*?\\*/", "").replaceAll("(?m)//.*$", "");
-        String squeezed = noBlock.replaceAll("\\s+", " ").trim();
-        if (squeezed.length() > maxChars) {
-          squeezed = squeezed.substring(0, maxChars) + " …";
-        }
-        return Optional.of(squeezed);
-      }
-    }
-    return Optional.empty();
   }
 
   private static Optional<String> extractMethodBodyRaw(ProgramPoint point, Path srcRoot)
