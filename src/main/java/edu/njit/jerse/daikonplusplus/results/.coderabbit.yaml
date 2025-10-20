@@ -1,0 +1,17 @@
+reviews:
+  auto_review: true        # Enable auto reviews on all branches
+  review_status: false     # Disable the “Review skipped” status message
+  branches:
+    include:
+      - "*"                # Review all branches
+  summary: true            # Post summary comments
+  inline_comments: true    # Allow inline suggestions
+
+features:
+  generate_unit_tests: true
+  explain_changes: true
+  summarize_pr: true
+
+language_model:
+  provider: openai
+  model: gpt-4o-mini       # Or gpt-4o for more depth
