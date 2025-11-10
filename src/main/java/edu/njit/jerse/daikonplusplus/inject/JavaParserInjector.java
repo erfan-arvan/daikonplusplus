@@ -85,15 +85,27 @@ public final class JavaParserInjector {
         () -> {
           CompilationUnit cu = LexicalPreservingPrinter.setup(StaticJavaParser.parse(file));
 
-          // Group by method descriptor + kind
+          // Group by method descriptor + kind (store both resolved and simple-name variants)
           Map<String, List<InvariantRecord>> entryByM = new HashMap<>();
           Map<String, List<InvariantRecord>> exitByM = new HashMap<>();
+          java.util.function.Function<String, String> toSimple =
+              d ->
+                  d.replaceAll("\\b([A-Za-z_]\\w*)(?:\\.[A-Za-z_]\\w*)+\\b", "$1")
+                      .replace("java.lang.", "");
+
           for (var rec : recordsForThisFile) {
             String key = rec.point().elementId().jvmDescriptor();
+            String keySimple = toSimple.apply(key);
             if (rec.point().kind() == ProgramPointKind.METHOD_ENTRY) {
               entryByM.computeIfAbsent(key, __ -> new ArrayList<>()).add(rec);
+              if (!keySimple.equals(key)) {
+                entryByM.computeIfAbsent(keySimple, __ -> new ArrayList<>()).add(rec);
+              }
             } else if (rec.point().kind() == ProgramPointKind.METHOD_EXIT) {
               exitByM.computeIfAbsent(key, __ -> new ArrayList<>()).add(rec);
+              if (!keySimple.equals(key)) {
+                exitByM.computeIfAbsent(keySimple, __ -> new ArrayList<>()).add(rec);
+              }
             }
           }
 
@@ -101,10 +113,13 @@ public final class JavaParserInjector {
               .forEach(
                   md -> {
                     final String desc = MethodSignatureUtil.jvmDescriptorBestEffort(md);
+                    final String descSimple = toSimple.apply(desc);
                     final BlockStmt body = md.getBody().orElseThrow();
 
                     // ---- ENTRY: prepend guards (simple; may duplicate on re-runs)
-                    List<InvariantRecord> entries = entryByM.get(desc);
+                    List<InvariantRecord> entries =
+                        entryByM.get(desc) != null ? entryByM.get(desc) : entryByM.get(descSimple);
+
                     if (entries != null && !entries.isEmpty()) {
                       NodeList<Statement> guards = new NodeList<>();
                       int idx = 0;
@@ -120,7 +135,9 @@ public final class JavaParserInjector {
                     }
 
                     // ---- EXIT: before every return (idempotent) + tail for void fallthrough
-                    List<InvariantRecord> exits = exitByM.get(desc);
+                    List<InvariantRecord> exits =
+                        exitByM.get(desc) != null ? exitByM.get(desc) : exitByM.get(descSimple);
+
                     if (exits != null && !exits.isEmpty()) {
                       final boolean isVoid = md.getType().isVoidType();
                       final int[] counter = {0}; // unique temp names per return

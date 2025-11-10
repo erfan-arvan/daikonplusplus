@@ -112,3 +112,94 @@ Console output includes the scan summary, LLM progress, injection/compile/run su
     >>> Run log: /abs/path/to/daikonpp-run.log
 
 ---
+
+# E2E Test Suite (Record → Replay)
+
+The end-to-end tests verify that Daikon++ produces stable results by comparing pipeline outputs
+against versioned snapshots.  
+
+The workflow:
+1. **Record** snapshots with real LLM calls (writes `expected/` + cassettes)
+2. **Replay** offline in tests (no network)
+
+---
+
+## Directory structure
+
+```
+src/test/resources/daikonpp-pipeline/<case>/
+  ├─ input/              # Java sources for the case
+  ├─ expected/           # registry.jsonl, outcomes.jsonl
+  └─ config.json         # optional: {"mainClass":"…","maxK":5}
+
+src/test/cassettes/      # replay data for offline tests
+```
+
+---
+
+## Running tests (offline replay)
+
+Simply run:
+
+```bash
+./gradlew test        # all tests
+./gradlew e2e         # only E2E suite
+./gradlew e2e -Ddp.cases=00-baseline,01-regression
+```
+
+Gradle automatically sets:
+- `DP_DISABLE_REAL_LLM=1`  
+- `DP_LLM_CASSETTES=src/test/cassettes`
+
+No manual flag management required.
+
+---
+
+## Recording snapshots (real LLM calls)
+
+Use the provided scripts. They **temporarily enable real LLM calls**, rebuild the expected outputs,
+and update the cassettes.
+
+```bash
+# Record a single case
+./scripts/record_one.sh 00-baseline
+
+# Record all cases that have input/
+./scripts/record_all.sh
+```
+
+Outputs:
+- `expected/registry.jsonl` and `expected/outcomes.jsonl`
+- Updated cassette JSON files under `src/test/cassettes/`
+
+Commit both directories after verifying the results.
+
+---
+
+## Adding a new test case
+
+1. Create a folder:
+   ```
+   src/test/resources/daikonpp-pipeline/02-new-case/
+     ├─ input/          # Java files
+     └─ config.json     # optional
+   ```
+2. Run:
+   ```bash
+   ./scripts/record_one.sh 02-new-case
+   ./gradlew e2e -Ddp.cases=02-new-case
+   ```
+3. Commit updated `expected/` and cassette files.
+
+---
+
+## Troubleshooting
+
+- **Missing cassette directory:**  
+  `mkdir -p src/test/cassettes`
+
+- **Empty outcomes:**  
+  Make sure the app writes to the correct `-Ddp.outcomes` path.
+
+- **Unexpected diffs after prompt/code changes:**  
+  Re-record affected cases and commit updated snapshots.

@@ -6,16 +6,11 @@ import java.util.Map;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-/**
- * Central configuration for Daikon++.
- *
- * <p>Immutable; values are loaded from system properties and/or environment variables. System
- * properties take precedence over environment variables, which in turn fall back to sensible
- * defaults
- */
+/** Central configuration for Daikon++. Immutable; props override env, env overrides defaults. */
 public final class DpConfig {
   private final int threads;
   private final Path registryPath;
+  private final Path outcomesPath;
 
   private final boolean includeBody;
   private final boolean registryReset;
@@ -25,12 +20,14 @@ public final class DpConfig {
   private DpConfig(
       int threads,
       Path registryPath,
+      Path outcomesPath,
       boolean includeBody,
       boolean registryReset,
       boolean debug,
       boolean keepWork) {
     this.threads = threads;
     this.registryPath = registryPath;
+    this.outcomesPath = outcomesPath;
     this.includeBody = includeBody;
     this.registryReset = registryReset;
     this.debug = debug;
@@ -45,6 +42,11 @@ public final class DpConfig {
   /** path to the JSONL registry */
   public Path registryPath() {
     return registryPath;
+  }
+
+  /** path to the JSONL outcomes (compiled/executed/verdict) */
+  public Path outcomesPath() {
+    return outcomesPath;
   }
 
   /** whether to include full method bodies in LLM prompts */
@@ -68,34 +70,50 @@ public final class DpConfig {
   }
 
   /** Convenience factory reading sane defaults from properties/env. */
-  public static edu.njit.jerse.daikonplusplus.config.DpConfig fromEnv() {
+  public static DpConfig fromEnv() {
     Map<String, String> env = System.getenv();
 
-    int threads = Math.max(2, Runtime.getRuntime().availableProcessors());
+    int threads =
+        Math.max(
+            2,
+            getInt2(
+                "dp.threads",
+                "DP_THREADS",
+                /* def= */ Runtime.getRuntime().availableProcessors(),
+                env));
 
-    // system property wins, then env var, then default
-    // -Ddp.registry=/path/file.jsonl  OR  export DP_REGISTRY=/path/file.jsonl
-    @Nullable String regProp = System.getProperty("dp.registry");
-    @Nullable String regEnv = env.get("DP_REGISTRY");
-    String regChosen = firstNonBlank(regProp, regEnv, "build/daikonpp_registry.jsonl");
-    Path reg = Path.of(regChosen);
+    // -Ddp.registry=/path/file.jsonl OR DP_REGISTRY=/path/file.jsonl
+    String regChosen =
+        firstNonBlank(
+            System.getProperty("dp.registry"),
+            env.get("DP_REGISTRY"),
+            "build/daikonpp_registry.jsonl");
+    Path reg = Path.of(regChosen).toAbsolutePath().normalize();
 
-    // feature flags default to true unless explicitly disabled.
-    boolean includeBody = getBool("DP_INCLUDE_BODY", env, /*default*/ true);
-    boolean registryReset = getBool("DP_REGISTRY_RESET", env, /*default*/ true);
-    boolean debug = getBool("DP_DEBUG", env, /*default*/ true);
-    boolean keepWork = getBool("DP_KEEP_WORK", env, /*default*/ true);
+    // -Ddp.outcomes=/path/file.jsonl OR DP_OUTCOMES=/path/file.jsonl
+    String outChosen =
+        firstNonBlank(
+            System.getProperty("dp.outcomes"),
+            env.get("DP_OUTCOMES"),
+            "build/daikonpp_outcomes.jsonl");
+    Path out = Path.of(outChosen).toAbsolutePath().normalize();
 
-    return new edu.njit.jerse.daikonplusplus.config.DpConfig(
-        threads, reg, includeBody, registryReset, debug, keepWork);
+    // feature flags (props override env). Support both dp.flag and DP_FLAG.
+    boolean includeBody = getBool2("dp.includeBody", "DP_INCLUDE_BODY", /*def*/ true, env);
+    boolean registryReset = getBool2("dp.registryReset", "DP_REGISTRY_RESET", /*def*/ true, env);
+    boolean debug = getBool2("dp.debug", "DP_DEBUG", /*def*/ true, env);
+    boolean keepWork = getBool2("dp.keepWork", "DP_KEEP_WORK", /*def*/ true, env);
+
+    return new DpConfig(threads, reg, out, includeBody, registryReset, debug, keepWork);
   }
 
-  private static boolean getBool(String key, Map<String, String> env, boolean def) {
-    // System property wins over env; both fall back to default.
-    @Nullable String v = System.getProperty(key);
-    if (v == null) v = env.get(key);
-    if (v == null) return def;
+  // ---- helpers ----
 
+  private static boolean getBool2(
+      String sysKey, String envKey, boolean def, Map<String, String> env) {
+    String v = System.getProperty(sysKey);
+    if (v == null) v = env.get(envKey);
+    if (v == null) return def;
     switch (v.trim().toLowerCase(Locale.ROOT)) {
       case "1":
       case "true":
@@ -109,6 +127,17 @@ public final class DpConfig {
         return false;
       default:
         return def;
+    }
+  }
+
+  private static int getInt2(String sysKey, String envKey, int def, Map<String, String> env) {
+    String v = System.getProperty(sysKey);
+    if (v == null) v = env.get(envKey);
+    if (v == null || v.isBlank()) return def;
+    try {
+      return Integer.parseInt(v.trim());
+    } catch (NumberFormatException nfe) {
+      return def;
     }
   }
 

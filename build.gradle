@@ -42,16 +42,51 @@ dependencies {
     checkerFramework 'org.checkerframework:checker:3.49.5'
     compileOnly      'org.checkerframework:checker-qual:3.49.5'
 
+    // --- TEST ONLY ---
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
-      testImplementation "org.mockito:mockito-core:5.13.0"
+    testImplementation "org.mockito:mockito-core:5.13.0"
 }
 
-test {
-  useJUnitPlatform()
-  testLogging {
-    events "passed", "skipped", "failed"
-    showStandardStreams = true
-  }
+// In build.gradle
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+    }
+
+    // Prefer repo-stable cassettes under src/test/cassettes.
+    def cassetteDir = providers
+            .environmentVariable("DP_LLM_CASSETTES")
+            .orElse("$projectDir/src/test/cassettes")
+            .get()
+
+    environment "DP_LLM_CASSETTES", cassetteDir
+    environment "DP_DISABLE_REAL_LLM", "1"   // offline, pure replay
+}
+
+// Convenience task to run only the E2E regression class
+tasks.register("e2e", Test) {
+    useJUnitPlatform()
+    include "**/PipelineE2ETest.class"
+    environment "DP_DISABLE_REAL_LLM", "1"
+    workingDir = rootDir
+}
+
+tasks.named("e2e").configure {
+    def cassetteDir = providers
+            .environmentVariable("DP_LLM_CASSETTES")
+            .orElse("$projectDir/src/test/cassettes")
+            .get()
+
+    environment "DP_LLM_CASSETTES", cassetteDir
+    environment "DP_DISABLE_REAL_LLM", "1"
+}
+
+
+tasks.withType(Test).configureEach {
+    workingDir = rootDir
 }
 
 spotless {
@@ -69,21 +104,21 @@ checkerFramework {
     excludeTests = true
 }
 
-build.dependsOn 'spotlessApply'
+// Run Spotless before every Java compile/test task
+tasks.withType(JavaCompile).configureEach { dependsOn tasks.named("spotlessApply") }
+tasks.withType(Test).configureEach { dependsOn tasks.named("spotlessApply") }
+
+tasks.named("jar") { configure { enabled = false } }
+
+tasks.named("assemble") { dependsOn tasks.named("shadowJar") }
 
 // shadow (fat JAR)
 tasks.named('shadowJar') {
     archiveBaseName.set('daikonplusplus')
     archiveVersion.set('')
     archiveClassifier.set('')
-
-    manifest {
-        attributes 'Main-Class': application.mainClass.get()
-    }
-}
-
-tasks.named('shadowJar') {
-    dependsOn test
+    manifest { attributes 'Main-Class': application.mainClass.get() }
+    dependsOn tasks.test // ensure tests (replay) pass before packaging
 }
 
 build.dependsOn tasks.named('shadowJar')

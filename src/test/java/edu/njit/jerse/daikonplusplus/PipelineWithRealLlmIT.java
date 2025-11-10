@@ -3,6 +3,7 @@ package edu.njit.jerse.daikonplusplus;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+import edu.njit.jerse.daikonplusplus.llm.LlmInvariantGenerator;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.file.*;
@@ -14,9 +15,8 @@ import org.junit.jupiter.api.io.TempDir;
 
 /**
  * End-to-end integration test that runs the full Daikon++ pipeline using the real OpenAI API
- * through {@link edu.njit.jerse.daikonplusplus.llm.OpenAIInvariantGeneratorClient}. The test
- * exercises all major phases, including LLM invariant generation, injection, compilation,
- * execution, and reporting.
+ * through {@link LlmInvariantGenerator}. The test exercises all major phases, including LLM
+ * invariant generation, injection, compilation, execution, and reporting.
  *
  * <p>This test is disabled by default. To enable it, set the following environment variables:
  *

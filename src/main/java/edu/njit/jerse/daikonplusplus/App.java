@@ -7,7 +7,7 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 import edu.njit.jerse.daikonplusplus.config.*;
 import edu.njit.jerse.daikonplusplus.inject.FileWriteCoordinator;
 import edu.njit.jerse.daikonplusplus.inject.JavaParserInjector;
-import edu.njit.jerse.daikonplusplus.llm.OpenAIInvariantGeneratorClient;
+import edu.njit.jerse.daikonplusplus.llm.LlmInvariantGenerator;
 import edu.njit.jerse.daikonplusplus.model.*;
 import edu.njit.jerse.daikonplusplus.parse.JavaProjectScanner;
 import edu.njit.jerse.daikonplusplus.parse.MethodSignatureUtil;
@@ -104,7 +104,7 @@ public final class App {
     }
 
     final JavaProjectScanner scanner = new JavaProjectScanner();
-    final OpenAIInvariantGeneratorClient llm = new OpenAIInvariantGeneratorClient(maxK);
+    final LlmInvariantGenerator llm = new LlmInvariantGenerator(maxK);
     final InvariantRegistry registry = new InvariantRegistry(cfg.registryPath());
     final JavaParserInjector injector = new JavaParserInjector(new FileWriteCoordinator());
 
@@ -266,6 +266,35 @@ public final class App {
     final Set<UUID> compiledIds = new HashSet<>(all.keySet());
     compiledIds.removeAll(nonCompiled);
 
+    // compute a verdict for every known record and persist outcomes
+    Map<UUID, InvariantRegistry.Outcome> outcomes = new HashMap<>();
+    for (var e : all.entrySet()) {
+      UUID id = e.getKey();
+      boolean compiled = compiledIds.contains(id);
+      boolean exec = executed.contains(id);
+
+      InvariantRegistry.Verdict verdict;
+      if (nonCompiled.contains(id)) {
+        verdict = InvariantRegistry.Verdict.FAILED_TO_COMPILE;
+      } else if (exec && falsified.contains(id)) {
+        verdict = InvariantRegistry.Verdict.FALSIFIED;
+      } else if (exec) {
+        verdict = InvariantRegistry.Verdict.HELD;
+      } else if (compiled) {
+        verdict = InvariantRegistry.Verdict.NEVER_EXECUTED;
+      } else {
+        verdict =
+            InvariantRegistry.Verdict
+                .PROPOSED; // seen in registry but neither compiled nor executed
+      }
+
+      outcomes.put(id, new InvariantRegistry.Outcome(compiled, exec, verdict));
+    }
+
+    // Persist outcomes to a sidecar JSONL (e.g., build/daikonpp_outcomes.jsonl)
+    InvariantRegistry.writeOutcomes(cfg.outcomesPath(), outcomes);
+    System.out.println(">>> Outcomes: " + cfg.outcomesPath().toAbsolutePath());
+
     // observed-held = executed − falsified   (only those we observed to run and not fail)
     Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> heldByMethod = new TreeMap<>();
     // falsified ∩ all (to ignore any stray ids not in registry)
@@ -383,6 +412,7 @@ public final class App {
     System.out.println("  HELD∩EXECUTED∩COMPILED IDs: " + idsToLine.apply(heldExecCompiled));
 
     System.out.println(">>> Registry: " + cfg.registryPath().toAbsolutePath());
+    System.out.println(">>> Outcomes: " + cfg.outcomesPath().toAbsolutePath());
     System.out.println(">>> Run log: " + runLog.toAbsolutePath());
 
     if (!CFG.keepWork()) {
@@ -400,10 +430,7 @@ public final class App {
   // ----- helpers -----
 
   private static List<InvariantRecord> processPoint(
-      ProgramPoint point,
-      Path srcRoot,
-      OpenAIInvariantGeneratorClient llm,
-      InvariantRegistry registry) {
+      ProgramPoint point, Path srcRoot, LlmInvariantGenerator llm, InvariantRegistry registry) {
     try {
       Map<String, String> inScope = extractScope(point, srcRoot);
       Optional<String> body = extractMethodBodyRaw(point, srcRoot);

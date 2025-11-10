@@ -10,10 +10,8 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
-import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Append-only registry for invariants. Uses a simple JSONL format per line.
@@ -21,53 +19,64 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * <p>TODO: For higher concurrency or querying, consider migrating to SQLite.
  */
 public final class InvariantRegistry {
+  /** Life-cycle status of each invariant record. */
+  public enum Verdict {
+    PROPOSED,
+    COMPILED,
+    EXECUTED,
+    HELD,
+    FALSIFIED,
+    NEVER_EXECUTED,
+    FAILED_TO_COMPILE
+  }
+
+  /** Simple immutable structure to update outcomes after execution. */
+  public static final class Outcome {
+    public final boolean compiled;
+    public final boolean executed;
+    public final Verdict verdict;
+
+    public Outcome(boolean compiled, boolean executed, Verdict verdict) {
+      this.compiled = compiled;
+      this.executed = executed;
+      this.verdict = verdict;
+    }
+  }
+
   private final Path jsonl;
 
-  // in-memory index of (kind|element|expr)
-  private final java.util.Set<String> seenKeys = java.util.concurrent.ConcurrentHashMap.newKeySet();
+  // in-memory index of (kind|element|expr), shared across runs for dedup
+  private final Set<String> seenKeys = java.util.concurrent.ConcurrentHashMap.newKeySet();
 
   public InvariantRegistry(Path jsonl) {
     this.jsonl = jsonl;
-    buildExistingIndex(); // <- NEW
-  }
-
-  // create a canonical key
-  private static String keyOf(InvariantRecord r) {
-    String norm = r.spec().expression().trim().replaceAll("\\s+", " ");
-    return r.point().kind().name() + "|" + r.point().elementId().toString() + "|" + norm;
-  }
-
-  // pre-load keys from existing registry file
-  private void buildExistingIndex() {
-    if (!Files.exists(jsonl)) return;
+    // Ensure file exists so empty runs still have a tangible artifact
     try {
-      for (String line : Files.readAllLines(jsonl, StandardCharsets.UTF_8)) {
-        if (line == null || line.isBlank()) continue;
-        Map<String, String> m = parseFlatJson(line);
-        String kind = m.getOrDefault("kind", "METHOD_ENTRY");
-        String element = m.getOrDefault("element", "");
-        String expr = m.getOrDefault("expr", "").trim().replaceAll("\\s+", " ");
-        if (!expr.isEmpty() && !element.isEmpty()) {
-          seenKeys.add(kind + "|" + element + "|" + expr);
-        }
+      Path parent = jsonl.getParent();
+      if (parent != null) Files.createDirectories(parent);
+      if (!Files.exists(jsonl)) {
+        Files.createFile(jsonl);
       }
-    } catch (IOException ignore) {
-      // if we can't index, we just won't dedup historical lines.
+    } catch (IOException ioe) {
+      throw new RuntimeException("Failed to init registry file: " + ioe.getMessage(), ioe);
     }
+    buildExistingIndex();
   }
+
+  // ----- Append & read -----
 
   /** Append only if this (kind|element|expr) hasn't been seen in this registry file. */
   public synchronized void appendIfNew(InvariantRecord rec) {
     String key = keyOf(rec);
-    // skip duplicate across runs
-    if (seenKeys.contains(key)) return;
-    append(rec); // write line
+    if (seenKeys.contains(key)) return; // skip duplicate across runs
+    append(rec);
     seenKeys.add(key);
   }
 
+  /** Append the record to the registry JSONL. */
   public synchronized void append(InvariantRecord rec) {
     try {
-      final @Nullable Path parent = jsonl.getParent();
+      Path parent = jsonl.getParent();
       if (parent != null) Files.createDirectories(parent);
       try (BufferedWriter w =
           Files.newBufferedWriter(
@@ -83,7 +92,7 @@ public final class InvariantRegistry {
     }
   }
 
-  /** Loads all records in memory. */
+  /** Loads all records in memory keyed by UUID. */
   public Map<UUID, InvariantRecord> loadAll() {
     if (!Files.exists(jsonl)) return Map.of();
     try {
@@ -96,7 +105,78 @@ public final class InvariantRegistry {
     }
   }
 
-  // --- Minimal JSON ---
+  // ----- Outcomes writing -----
+
+  /** Backward-compatible: write outcomes next to the registry as a sidecar file. */
+  public static void writeOutcomes(Path outPath, Map<UUID, Outcome> outcomes) {
+    Objects.requireNonNull(outPath, "outPath");
+    try {
+      Path parent = outPath.getParent();
+      if (parent != null) Files.createDirectories(parent);
+
+      try (BufferedWriter w =
+          Files.newBufferedWriter(
+              outPath,
+              StandardCharsets.UTF_8,
+              StandardOpenOption.CREATE,
+              StandardOpenOption.TRUNCATE_EXISTING)) {
+
+        if (outcomes != null && !outcomes.isEmpty()) {
+          for (var e : outcomes.entrySet()) {
+            UUID id = e.getKey();
+            Outcome o = e.getValue();
+            // write real booleans, not strings
+            w.write(
+                "{\"id\":\""
+                    + id
+                    + "\","
+                    + "\"compiled\":"
+                    + o.compiled
+                    + ","
+                    + "\"executed\":"
+                    + o.executed
+                    + ","
+                    + "\"verdict\":\""
+                    + o.verdict.name()
+                    + "\"}");
+            w.newLine();
+          }
+        }
+      }
+    } catch (IOException ioe) {
+      throw new RuntimeException(
+          "Failed to write outcomes to " + outPath + ": " + ioe.getMessage(), ioe);
+    }
+  }
+
+  // ----- Internal helpers -----
+
+  // Create a canonical key for dedup
+  private static String keyOf(InvariantRecord r) {
+    String norm = r.spec().expression().trim().replaceAll("\\s+", " ");
+    return r.point().kind().name() + "|" + r.point().elementId().toString() + "|" + norm;
+  }
+
+  // Pre-load keys from existing registry file to dedup across runs
+  private void buildExistingIndex() {
+    if (!Files.exists(jsonl)) return;
+    try {
+      for (String line : Files.readAllLines(jsonl, StandardCharsets.UTF_8)) {
+        if (line == null || line.isBlank()) continue;
+        Map<String, String> m = parseFlatJson(line);
+        String kind = m.getOrDefault("kind", "METHOD_ENTRY");
+        String element = m.getOrDefault("element", "");
+        String expr = m.getOrDefault("expr", "").trim().replaceAll("\\s+", " ");
+        if (!expr.isEmpty() && !element.isEmpty()) {
+          seenKeys.add(kind + "|" + element + "|" + expr);
+        }
+      }
+    } catch (IOException ignore) {
+      // If we can't index, we just won't dedup historical lines.
+    }
+  }
+
+  // --- Minimal JSON (string-only for registry lines) ---
 
   private String toJson(InvariantRecord r) {
     StringBuilder sb = new StringBuilder();
@@ -121,19 +201,19 @@ public final class InvariantRegistry {
     return s.replace("\\", "\\\\").replace("\"", "\\\"");
   }
 
-  // for brevity we only parse essential fields back; meta is ignored in this
-  // skeleton.
+  // For brevity we parse essential fields back; meta fields may be ignored here.
   private InvariantRecord fromJson(String json) {
     Map<String, String> m = parseFlatJson(json);
 
-    // required fields
+    // required
     String idStr = m.get("id");
     if (idStr == null) throw new IllegalArgumentException("registry line missing 'id'");
+
     String createdAtStr = m.get("createdAt");
     if (createdAtStr == null)
       throw new IllegalArgumentException("registry line missing 'createdAt'");
 
-    // optional fields with defaults
+    // optional with defaults
     String expr = (m.get("expr") == null) ? "" : m.get("expr");
     String kindStr = (m.get("kind") == null) ? "METHOD_ENTRY" : m.get("kind");
     String element = (m.get("element") == null) ? "" : m.get("element");
@@ -188,7 +268,7 @@ public final class InvariantRegistry {
     int dollar = classQualified.indexOf('$');
     if (dollar >= 0) {
       topLevelClass = classQualified.substring(0, dollar);
-      nestedPath = classQualified.substring(dollar + 1); // keep '$' out; we store just the path
+      nestedPath = classQualified.substring(dollar + 1);
     } else {
       topLevelClass = classQualified.isEmpty() ? "<?>" : classQualified;
       nestedPath = "";
@@ -201,7 +281,7 @@ public final class InvariantRegistry {
   }
 
   private Map<String, String> parseFlatJson(String json) {
-    // small parser for {"k":"v",...} without escaped commas (we escaped quotes only).
+    // tiny parser for {"k":"v",...} without escaped commas (we escape quotes only)
     Map<String, String> out = new HashMap<>();
     String inner = json.trim();
     if (inner.startsWith("{")) inner = inner.substring(1);

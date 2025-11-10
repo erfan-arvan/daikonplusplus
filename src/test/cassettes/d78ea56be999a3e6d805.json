@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The String array args passed to main is always non-null by the JVM.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "args is non-null"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "args length is non-negative"
+    } ]
+  } ]
+}
