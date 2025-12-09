@@ -64,32 +64,83 @@ public final class App {
   public static void main(String[] args) throws Exception {
     if (args.length < 3) {
       System.err.println(
-          "Usage: java -jar daikonplusplus.jar <srcRoot> <classpath> <mainClass> [maxK] [-- program args...]");
+          "Usage:\n"
+              + "  Single-root (legacy):\n"
+              + "    java -jar daikonplusplus.jar <srcRoot> <classpath> <mainClass> [maxK] [-- program args...]\n"
+              + "  Split main/test:\n"
+              + "    java -jar daikonplusplus.jar <mainSrcRoot> <testSrcRoot> "
+              + "<mainClasspath> <testClasspath> <testMainClass> [maxK] [-- program args...]");
       System.exit(2);
+    }
+
+    // Decide whether we are in split main/test mode or single-root mode.
+    boolean splitMode = false;
+    if (args.length >= 5) {
+      Path maybeMain = Path.of(args[0]).toAbsolutePath().normalize();
+      Path maybeTest = Path.of(args[1]).toAbsolutePath().normalize();
+      if (Files.isDirectory(maybeMain) && Files.isDirectory(maybeTest)) {
+        splitMode = true;
+      }
     }
 
     int i = 0;
-    final Path userSrcRoot = Path.of(args[i++]).toAbsolutePath().normalize();
-    if (!Files.isDirectory(userSrcRoot)) {
-      System.err.println("Not a directory: " + userSrcRoot);
-      System.exit(2);
+
+    final Path userMainSrcRoot;
+    final Path userTestSrcRoot;
+    final String mainClasspath;
+    final String testClasspath;
+    final String entryClass; // main program or test runner
+
+    if (splitMode) {
+      // New mode: <mainSrcRoot> <testSrcRoot> <mainCp> <testCp> <testMainClass> ...
+      userMainSrcRoot = Path.of(args[i++]).toAbsolutePath().normalize();
+      userTestSrcRoot = Path.of(args[i++]).toAbsolutePath().normalize();
+      if (!Files.isDirectory(userMainSrcRoot)) {
+        System.err.println("Not a directory (main sources): " + userMainSrcRoot);
+        System.exit(2);
+      }
+      if (!Files.isDirectory(userTestSrcRoot)) {
+        System.err.println("Not a directory (test sources): " + userTestSrcRoot);
+        System.exit(2);
+      }
+
+      mainClasspath = args[i++];
+      testClasspath = args[i++];
+      entryClass = args[i++]; // test entrypoint
+    } else {
+      // Legacy mode: <srcRoot> <classpath> <mainClass> ...
+      userMainSrcRoot = Path.of(args[i++]).toAbsolutePath().normalize();
+      if (!Files.isDirectory(userMainSrcRoot)) {
+        System.err.println("Not a directory: " + userMainSrcRoot);
+        System.exit(2);
+      }
+      userTestSrcRoot = userMainSrcRoot; // same tree
+      mainClasspath = args[i++]; // only one classpath is provided
+      testClasspath = ""; // unused in this mode
+      entryClass = args[i++]; // original main class
     }
 
-    // make a clean working copy and use that for the rest of the pipeline
-    final Path srcRoot = prepareWorkingCopy(userSrcRoot);
-
-    final String userClasspath = args[i++]; // colon/semicolon separated
-    final String mainClass = args[i++];
     final int maxK =
         (i < args.length && !args[i].equals("--")) ? Math.max(1, Integer.parseInt(args[i++])) : 5;
 
     final List<String> programArgs = new ArrayList<>();
     if (i < args.length && args[i].equals("--")) {
-      for (i = i + 1; i < args.length; i++) programArgs.add(args[i]);
+      for (i = i + 1; i < args.length; i++) {
+        programArgs.add(args[i]);
+      }
     }
 
-    if (!Files.isDirectory(srcRoot)) {
-      System.err.println("Not a directory: " + srcRoot);
+    // Prepare working copies
+    final Path mainSrcRoot = prepareWorkingCopy(userMainSrcRoot);
+    final Path testSrcRoot =
+        splitMode ? prepareWorkingCopy(userTestSrcRoot) : mainSrcRoot; // shared in single-root mode
+
+    if (!Files.isDirectory(mainSrcRoot)) {
+      System.err.println("Not a directory (main working copy): " + mainSrcRoot);
+      System.exit(2);
+    }
+    if (!Files.isDirectory(testSrcRoot)) {
+      System.err.println("Not a directory (test working copy): " + testSrcRoot);
       System.exit(2);
     }
 
@@ -108,8 +159,9 @@ public final class App {
     final InvariantRegistry registry = new InvariantRegistry(cfg.registryPath());
     final JavaParserInjector injector = new JavaParserInjector(new FileWriteCoordinator());
 
-    System.out.println(">>> Scanning sources under (WORKING COPY): " + srcRoot);
-    final List<ProgramPoint> points = scanner.scanMethodEntryExit(srcRoot);
+    // Scan only MAIN sources for program points
+    System.out.println(">>> Scanning MAIN sources under (WORKING COPY): " + mainSrcRoot);
+    final List<ProgramPoint> points = scanner.scanMethodEntryExit(mainSrcRoot);
 
     long nEntry = points.stream().filter(p -> p.kind() == ProgramPointKind.METHOD_ENTRY).count();
     long nExit = points.stream().filter(p -> p.kind() == ProgramPointKind.METHOD_EXIT).count();
@@ -117,13 +169,13 @@ public final class App {
     System.out.println(
         ">>> Points — ENTRY: " + nEntry + "  EXIT: " + nExit + "  TOTAL: " + points.size());
 
-    // --- Phase 1: parallel LLM proposals (timeout + progress + cancellation)
+    // --- Phase 1: parallel LLM proposals ---
     final ExecutorService pool = Executors.newFixedThreadPool(cfg.threads());
     final CompletionService<List<InvariantRecord>> ecs = new ExecutorCompletionService<>(pool);
     final List<Future<List<InvariantRecord>>> allFutures = new ArrayList<>();
 
     for (ProgramPoint pt : points) {
-      allFutures.add(ecs.submit(() -> processPoint(pt, srcRoot, llm, registry)));
+      allFutures.add(ecs.submit(() -> processPoint(pt, mainSrcRoot, llm, registry)));
     }
 
     final Map<Path, List<InvariantRecord>> byFile = new ConcurrentHashMap<>();
@@ -131,10 +183,9 @@ public final class App {
     int received = 0;
     int totalSpecs = 0;
 
-    // environment-configurable timeouts
     final long totalTimeoutSec =
         Long.parseLong(
-            Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "180")); // 3 min
+            Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "180"));
     final long pollStepMs =
         Long.parseLong(Objects.requireNonNullElse(System.getenv("DP_LLM_POLL_STEP_MS"), "1500"));
 
@@ -164,11 +215,11 @@ public final class App {
       }
 
       try {
-        List<InvariantRecord> recs = f.get(); // already completed
+        List<InvariantRecord> recs = f.get();
         received++;
         if (recs == null || recs.isEmpty()) continue;
         totalSpecs += recs.size();
-        Path file = srcRoot.resolve(recs.get(0).sourceFile()).normalize();
+        Path file = mainSrcRoot.resolve(recs.get(0).sourceFile()).normalize();
         byFile
             .computeIfAbsent(file, __ -> Collections.synchronizedList(new ArrayList<>()))
             .addAll(recs);
@@ -183,16 +234,14 @@ public final class App {
       }
     }
 
-    // cancel any stragglers so we don't hang
     for (Future<List<InvariantRecord>> f : allFutures) {
       if (!f.isDone()) f.cancel(true);
     }
-    pool.shutdownNow(); // interrupt lingering calls
+    pool.shutdownNow();
 
     System.out.println(">>> Proposed invariant expressions (post-parse filter): " + totalSpecs);
-    System.out.println(">>> Files to inject: " + byFile.size());
+    System.out.println(">>> Files to inject (MAIN only): " + byFile.size());
 
-    // show how many ENTRY/EXIT we actually got
     long injectEntry =
         byFile.values().stream()
             .flatMap(List::stream)
@@ -205,7 +254,7 @@ public final class App {
             .count();
     System.out.println(">>> To inject — ENTRY: " + injectEntry + "  EXIT: " + injectExit);
 
-    // --- Phase 2: Injection (parallel)
+    // --- Phase 2: Injection on MAIN working copy ---
     final ExecutorService injPool = Executors.newFixedThreadPool(Math.min(cfg.threads(), 8));
     final List<Future<?>> injFutures = new ArrayList<>();
     for (Map.Entry<Path, List<InvariantRecord>> e : byFile.entrySet()) {
@@ -233,18 +282,47 @@ public final class App {
       }
     }
     injPool.shutdown();
-    System.out.println(">>> Injection done. Updated files: " + injectedFiles);
+    System.out.println(">>> Injection done. Updated MAIN files: " + injectedFiles);
 
-    // --- Phase 3: compile with javac and run with java
-    final Path classesDir = srcRoot.resolve("daikonpp-classes"); // output dir for compiled classes
-    final String selfCp =
-        System.getProperty("java.class.path"); // include our runtime (InvariantLogger)
-    final String fullCompileCp = JavaRunner.joinCp(selfCp, userClasspath);
-    final String fullRunCp = JavaRunner.joinCp(selfCp, classesDir.toString(), userClasspath);
+    // --- Phase 3: compile and run ---
 
-    JavaRunner.compileWithAutoFilter(srcRoot, classesDir, fullCompileCp, /*maxPasses*/ 10);
-    final Path runLog = srcRoot.resolve("daikonpp-run.log");
-    JavaRunner.run(mainClass, fullRunCp, programArgs, runLog);
+    final Path classesDir = mainSrcRoot.resolve("daikonpp-classes");
+    final String selfCp = System.getProperty("java.class.path");
+
+    final String fullRunCp;
+    if (splitMode) {
+      // Compile main with its own classpath
+      JavaRunner.compileWithAutoFilter(
+          mainSrcRoot, userMainSrcRoot, classesDir, mainClasspath, /*maxPasses*/ 10);
+      System.out.println(">>> Main compilation phase finished successfully");
+
+      // Compile tests against compiled main classes plus both classpaths
+      final String testCompileCp =
+          JavaRunner.joinCp(classesDir.toString(), mainClasspath, testClasspath);
+      JavaRunner.compileWithAutoFilter(
+          testSrcRoot, userTestSrcRoot, classesDir, testCompileCp, /*maxPasses*/ 0);
+      System.out.println(">>> Test compilation phase finished successfully");
+
+      fullRunCp = JavaRunner.joinCp(selfCp, classesDir.toString(), mainClasspath, testClasspath);
+    } else {
+      // Single-root: one compilation of the whole tree using the provided classpath
+      JavaRunner.compileWithAutoFilter(
+          mainSrcRoot, userMainSrcRoot, classesDir, mainClasspath, /*maxPasses*/ 10);
+      System.out.println(">>> Compilation phase finished successfully");
+      fullRunCp = JavaRunner.joinCp(selfCp, classesDir.toString(), mainClasspath);
+    }
+
+    final Path runLog = mainSrcRoot.resolve("daikonpp-run.log");
+
+    // Optional external runner: if DP_EXTERNAL_RUNNER is set, use that instead of JavaRunner.run
+    String externalRunner = System.getenv("DP_EXTERNAL_RUNNER");
+    if (externalRunner != null && !externalRunner.isBlank()) {
+      System.out.println("[DP] Using external test runner (DP_EXTERNAL_RUNNER): " + externalRunner);
+      JavaRunner.runExternalShell(externalRunner, mainSrcRoot, fullRunCp, runLog);
+    } else {
+      // Default behavior: run the given entryClass via JavaRunner
+      JavaRunner.run(entryClass, fullRunCp, programArgs, runLog);
+    }
 
     long exitLines = 0;
     try {
@@ -254,19 +332,18 @@ public final class App {
     }
     System.out.println(">>> Run log — EXIT events: " + exitLines);
 
-    // --- Phase 4: parse run log and generate the results
+    // --- Phase 4: parse run log and generate the results (same as before) ---
+
     final Set<UUID> falsified = LogParser.readFalsifiedIds(runLog);
     final Set<UUID> executed = LogParser.readExecutedIds(runLog);
-    final Set<UUID> nonCompiled = LogParser.readNonCompiledIds(srcRoot);
+    final Set<UUID> nonCompiled = LogParser.readNonCompiledIds(mainSrcRoot);
 
     final Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> all =
         parseRegistryLite(cfg.registryPath());
 
-    // compiled = all − nonCompiled
     final Set<UUID> compiledIds = new HashSet<>(all.keySet());
     compiledIds.removeAll(nonCompiled);
 
-    // compute a verdict for every known record and persist outcomes
     Map<UUID, InvariantRegistry.Outcome> outcomes = new HashMap<>();
     for (var e : all.entrySet()) {
       UUID id = e.getKey();
@@ -283,31 +360,22 @@ public final class App {
       } else if (compiled) {
         verdict = InvariantRegistry.Verdict.NEVER_EXECUTED;
       } else {
-        verdict =
-            InvariantRegistry.Verdict
-                .PROPOSED; // seen in registry but neither compiled nor executed
+        verdict = InvariantRegistry.Verdict.PROPOSED;
       }
 
       outcomes.put(id, new InvariantRegistry.Outcome(compiled, exec, verdict));
     }
 
-    // Persist outcomes to a sidecar JSONL (e.g., build/daikonpp_outcomes.jsonl)
     InvariantRegistry.writeOutcomes(cfg.outcomesPath(), outcomes);
     System.out.println(">>> Outcomes: " + cfg.outcomesPath().toAbsolutePath());
 
-    // observed-held = executed − falsified   (only those we observed to run and not fail)
     Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> heldByMethod = new TreeMap<>();
-    // falsified ∩ all (to ignore any stray ids not in registry)
     Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> falsByMethod = new TreeMap<>();
-    // never-executed = compiled − executed
     Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> neverExecByMethod =
         new TreeMap<>();
-    // executed (any outcome) by method (optional)
     Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> execByMethod = new TreeMap<>();
-    // compiled by method (optional)
     Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> compiledByMethod =
         new TreeMap<>();
-    // failed-to-compile (injected but javac rejected them and we commented them out)
     Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> failedCompileByMethod =
         new TreeMap<>();
 
@@ -331,12 +399,10 @@ public final class App {
       } else if (wasFalsified) {
         falsByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
       } else if (isCompiled && !wasExecuted) {
-        // count as never-executed only if it actually compiled
         neverExecByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
       }
     }
 
-    // quick totals
     int heldCount = heldByMethod.values().stream().mapToInt(List::size).sum();
     int falsCount = falsByMethod.values().stream().mapToInt(List::size).sum();
     int neverExecCount = neverExecByMethod.values().stream().mapToInt(List::size).sum();
@@ -360,7 +426,6 @@ public final class App {
             + " never-executed="
             + neverExecCount);
 
-    // Report
     System.out.println(">>> OBSERVED-HELD invariants by method (ENTRY & EXIT):");
     for (var e : heldByMethod.entrySet()) {
       System.out.println("  - " + e.getKey());
@@ -393,15 +458,10 @@ public final class App {
       }
     }
 
-    // End-of-report ID summaries
-
-    // HELD∩EXECUTED∩COMPILED (held is already a subset of executed; we also intersect with
-    // compiled)
     Set<UUID> heldExecCompiled = new HashSet<>(compiledIds);
     heldExecCompiled.retainAll(executed);
     heldExecCompiled.removeAll(falsified);
 
-    // Pretty-print helpers
     java.util.function.Function<Set<UUID>, String> idsToLine =
         s ->
             s.stream().map(UUID::toString).sorted().reduce((a, b) -> a + ", " + b).orElse("(none)");
@@ -417,13 +477,20 @@ public final class App {
 
     if (!CFG.keepWork()) {
       try {
-        deleteTree(srcRoot);
-        System.out.println(">>> Cleaned working copy: " + srcRoot);
+        deleteTree(mainSrcRoot);
+        if (splitMode && !testSrcRoot.equals(mainSrcRoot)) {
+          deleteTree(testSrcRoot);
+        }
+        System.out.println(">>> Cleaned working copy(ies)");
       } catch (IOException ioe) {
         System.err.println("Warning: failed to delete working copy: " + ioe.getMessage());
       }
     } else {
-      System.out.println(">>> Keeping working copy (DP_KEEP_WORK=1): " + srcRoot);
+      System.out.println(">>> Keeping working copy(ies) (DP_KEEP_WORK=1):");
+      System.out.println("    main: " + mainSrcRoot);
+      if (splitMode) {
+        System.out.println("    test: " + testSrcRoot);
+      }
     }
   }
 

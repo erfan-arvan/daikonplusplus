@@ -2,8 +2,11 @@ plugins {
     id 'com.diffplug.spotless' version '6.25.0'
     id 'application'
     id 'org.checkerframework' version '0.6.56'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    // Shadow fork with newer ASM
+    id 'io.github.goooler.shadow' version '8.1.8'
 }
+
+
 
 group = 'edu.njit.jerse'
 version = '0.1.0'
@@ -45,7 +48,13 @@ dependencies {
     // --- TEST ONLY ---
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     testImplementation "org.mockito:mockito-core:5.13.0"
+
+    // --- CFTestRunner compile-only deps (provided by CF at runtime) ---
+    compileOnly "io.github.classgraph:classgraph:4.8.184"
+    compileOnly "junit:junit:4.13.2"
 }
+
+
 
 // In build.gradle
 
@@ -112,13 +121,22 @@ tasks.named("jar") { configure { enabled = false } }
 
 tasks.named("assemble") { dependsOn tasks.named("shadowJar") }
 
-// shadow (fat JAR)
+
+
 tasks.named('shadowJar') {
     archiveBaseName.set('daikonplusplus')
     archiveVersion.set('')
     archiveClassifier.set('')
+
     manifest { attributes 'Main-Class': application.mainClass.get() }
-    dependsOn tasks.test // ensure tests (replay) pass before packaging
+
+    // Shade/relocate JavaParser so CF can't see our version
+    relocate 'com.github.javaparser', 'edu.njit.jerse.daikonplusplus.shaded.javaparser'
+
+    // Ensure tests (replay) pass before packaging
+    dependsOn tasks.test
 }
+
+
 
 build.dependsOn tasks.named('shadowJar')
