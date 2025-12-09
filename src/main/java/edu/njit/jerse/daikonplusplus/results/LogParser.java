@@ -1,10 +1,10 @@
 package edu.njit.jerse.daikonplusplus.results;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -24,44 +24,30 @@ public final class LogParser {
   public static Set<UUID> readFalsifiedIds(Path logFile) {
     Set<UUID> out = new HashSet<>();
     if (!Files.exists(logFile)) return out;
-    try {
-      List<String> lines = Files.readAllLines(logFile, StandardCharsets.UTF_8);
-      for (String ln : lines) {
+
+    try (BufferedReader br = Files.newBufferedReader(logFile, StandardCharsets.UTF_8)) {
+      String ln;
+      while ((ln = br.readLine()) != null) {
         if (!ln.contains("\"type\":\"INV_FAIL\"")) continue;
         int i = ln.indexOf("\"id\":\"");
         if (i < 0) continue;
         int j = ln.indexOf("\"", i + 6);
         if (j < 0) continue;
+
         String idStr = ln.substring(i + 6, j).replace("\\\"", "\"").replace("\\\\", "\\");
         try {
           out.add(UUID.fromString(idStr));
         } catch (IllegalArgumentException ignore) {
+          // skip malformed IDs
         }
       }
     } catch (IOException e) {
       throw new RuntimeException("Failed to read run log: " + e.getMessage(), e);
     }
+
     return out;
   }
 
-  /**
-   * Reads a log file and returns the set of IDs that appeared in INV_EXD markers, meaning the
-   * invariant was executed at least once.
-   */
-  /**
-   * Reads a log file and returns the set of IDs that appeared in INV_EXD markers, meaning the
-   * invariant was executed at least once.
-   *
-   * <p>Accepts lines containing: INV_EXD:<uuid> Ignores surrounding text and multiple markers per
-   * line.
-   */
-  /**
-   * Reads a log file and returns the set of IDs that appeared in INV_EXD markers, meaning the
-   * invariant was executed at least once.
-   *
-   * <p>Accepts lines containing: INV_EXD:<uuid> Ignores surrounding text and multiple markers per
-   * line.
-   */
   /**
    * Reads a log file and returns the set of IDs that appeared in INV_EXD markers, meaning the
    * invariant was executed at least once.
@@ -75,12 +61,12 @@ public final class LogParser {
 
     // UUID regex: 8-4-4-4-12
     final Pattern p =
-        Pattern.compile(
-            "INV_EXD:([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})");
+            Pattern.compile(
+                    "INV_EXD:([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})");
 
-    try {
-      List<String> lines = Files.readAllLines(logFile, StandardCharsets.UTF_8);
-      for (String ln : lines) {
+    try (BufferedReader br = Files.newBufferedReader(logFile, StandardCharsets.UTF_8)) {
+      String ln;
+      while ((ln = br.readLine()) != null) {
         Matcher m = p.matcher(ln);
         while (m.find()) {
           String idStr = m.group(1);
@@ -96,6 +82,7 @@ public final class LogParser {
     } catch (IOException e) {
       throw new RuntimeException("Failed to read run log: " + e.getMessage(), e);
     }
+
     return out;
   }
 
@@ -111,25 +98,28 @@ public final class LogParser {
 
     try (var walk = Files.walk(srcRoot)) {
       walk.filter(pth -> pth.toString().endsWith(".java"))
-          .forEach(
-              pth -> {
-                try {
-                  for (String ln : Files.readAllLines(pth, StandardCharsets.UTF_8)) {
-                    if (!ln.contains("//Failed Invariant in Compilation:")) continue;
-                    Matcher m = p.matcher(ln);
-                    while (m.find()) {
-                      final String g = m.group(1); // may be null per annotations
-                      if (g == null) continue;
-                      try {
-                        out.add(UUID.fromString(g));
-                      } catch (IllegalArgumentException ignore) {
-                      }
-                    }
-                  }
-                } catch (IOException ioe) {
-                  System.err.println("    ! Failed to scan " + pth + ": " + ioe.getMessage());
-                }
-              });
+              .forEach(
+                      pth -> {
+                        try (BufferedReader br =
+                                     Files.newBufferedReader(pth, StandardCharsets.UTF_8)) {
+                          String ln;
+                          while ((ln = br.readLine()) != null) {
+                            if (!ln.contains("//Failed Invariant in Compilation:")) continue;
+                            Matcher m = p.matcher(ln);
+                            while (m.find()) {
+                              final String g = m.group(1); // may be null per annotations
+                              if (g == null) continue;
+                              try {
+                                out.add(UUID.fromString(g));
+                              } catch (IllegalArgumentException ignore) {
+                                // skip malformed
+                              }
+                            }
+                          }
+                        } catch (IOException ioe) {
+                          System.err.println("    ! Failed to scan " + pth + ": " + ioe.getMessage());
+                        }
+                      });
     } catch (IOException e) {
       throw new RuntimeException("Failed to walk source tree: " + e.getMessage(), e);
     }
