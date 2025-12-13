@@ -61,8 +61,8 @@ public final class LogParser {
 
     // UUID regex: 8-4-4-4-12
     final Pattern p =
-            Pattern.compile(
-                    "INV_EXD:([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})");
+        Pattern.compile(
+            "INV_EXD:([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})");
 
     try (BufferedReader br = Files.newBufferedReader(logFile, StandardCharsets.UTF_8)) {
       String ln;
@@ -98,28 +98,27 @@ public final class LogParser {
 
     try (var walk = Files.walk(srcRoot)) {
       walk.filter(pth -> pth.toString().endsWith(".java"))
-              .forEach(
-                      pth -> {
-                        try (BufferedReader br =
-                                     Files.newBufferedReader(pth, StandardCharsets.UTF_8)) {
-                          String ln;
-                          while ((ln = br.readLine()) != null) {
-                            if (!ln.contains("//Failed Invariant in Compilation:")) continue;
-                            Matcher m = p.matcher(ln);
-                            while (m.find()) {
-                              final String g = m.group(1); // may be null per annotations
-                              if (g == null) continue;
-                              try {
-                                out.add(UUID.fromString(g));
-                              } catch (IllegalArgumentException ignore) {
-                                // skip malformed
-                              }
-                            }
-                          }
-                        } catch (IOException ioe) {
-                          System.err.println("    ! Failed to scan " + pth + ": " + ioe.getMessage());
-                        }
-                      });
+          .forEach(
+              pth -> {
+                try (BufferedReader br = Files.newBufferedReader(pth, StandardCharsets.UTF_8)) {
+                  String ln;
+                  while ((ln = br.readLine()) != null) {
+                    if (!ln.contains("//Failed Invariant in Compilation:")) continue;
+                    Matcher m = p.matcher(ln);
+                    while (m.find()) {
+                      final String g = m.group(1); // may be null per annotations
+                      if (g == null) continue;
+                      try {
+                        out.add(UUID.fromString(g));
+                      } catch (IllegalArgumentException ignore) {
+                        // skip malformed
+                      }
+                    }
+                  }
+                } catch (IOException ioe) {
+                  System.err.println("    ! Failed to scan " + pth + ": " + ioe.getMessage());
+                }
+              });
     } catch (IOException e) {
       throw new RuntimeException("Failed to walk source tree: " + e.getMessage(), e);
     }

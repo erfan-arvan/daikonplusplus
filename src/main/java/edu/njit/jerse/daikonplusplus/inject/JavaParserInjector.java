@@ -198,7 +198,7 @@ public final class JavaParserInjector {
     // Build the try/catch as a Statement (no markers in the code string)
     String tryCode =
         "try {\n"
-            + "  System.out.println(\"INV_EXD:"
+            + "  edu.njit.jerse.daikonplusplus.runtime.InvariantExecTracker.executed(\""
             + id
             + "\");\n"
             + "  if (!("
