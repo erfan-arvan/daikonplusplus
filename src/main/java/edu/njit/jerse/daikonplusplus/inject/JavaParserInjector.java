@@ -25,7 +25,13 @@ public final class JavaParserInjector {
   }
 
   private static String esc(String s) {
-    return s.replace("\\", "\\\\").replace("\"", "\\\"");
+    if (s == null) return "";
+    return s
+            .replace("\\", "\\\\")
+            .replace("\"", "\\\"")
+            .replace("\n", "\\n")
+            .replace("\r", "\\r")
+            .replace("\t", "\\t");
   }
 
   public void injectGuards(Path file, List<InvariantRecord> records) throws Exception {
