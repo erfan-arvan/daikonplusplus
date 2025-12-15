@@ -26,12 +26,11 @@ public final class JavaParserInjector {
 
   private static String esc(String s) {
     if (s == null) return "";
-    return s
-            .replace("\\", "\\\\")
-            .replace("\"", "\\\"")
-            .replace("\n", "\\n")
-            .replace("\r", "\\r")
-            .replace("\t", "\\t");
+    return s.replace("\\", "\\\\")
+        .replace("\"", "\\\"")
+        .replace("\n", "\\n")
+        .replace("\r", "\\r")
+        .replace("\t", "\\t");
   }
 
   public void injectGuards(Path file, List<InvariantRecord> records) throws Exception {
@@ -204,9 +203,17 @@ public final class JavaParserInjector {
     // Build the try/catch as a Statement (no markers in the code string)
     String tryCode =
         "try {\n"
-            + "  edu.njit.jerse.daikonplusplus.runtime.InvariantExecTracker.executed(\""
+            + "  final String __dp_k = \"DP_INV_EXD_"
+            + id
+            + "\";\n"
+            + "  synchronized (System.getProperties()) {\n"
+            + "    if (System.getProperty(__dp_k) == null) {\n"
+            + "      System.setProperty(__dp_k, \"1\");\n"
+            + "      System.out.println(\"INV_EXD:"
             + id
             + "\");\n"
+            + "    }\n"
+            + "  }\n"
             + "  if (!("
             + expr
             + ")) {\n"
