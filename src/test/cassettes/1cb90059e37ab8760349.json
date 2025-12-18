@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "Method entry always has non-null args array.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length cannot be negative.",
+    "meta" : [ {
+      "key" : "array-length",
+      "value" : "non-negative"
+    } ]
+  } ]
+}

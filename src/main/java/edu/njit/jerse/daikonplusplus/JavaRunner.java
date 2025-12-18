@@ -34,20 +34,22 @@ public final class JavaRunner {
     cmd.addAll(args);
 
     ProcessBuilder pb = new ProcessBuilder(cmd);
+
+    // Merge stderr into stdout
     pb.redirectErrorStream(true);
+
+    // Let the OS write directly to the file (shows progress as it runs)
+    pb.redirectOutput(ProcessBuilder.Redirect.to(logFile.toFile()));
+
     Process p = pb.start();
-
-    try (var in = p.getInputStream();
-        var out =
-            Files.newOutputStream(
-                logFile, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
-      in.transferTo(out);
-    }
-
     int code = p.waitFor();
+
     if (code != 0) {
       Files.writeString(
-          logFile, "\n[DP] Child JVM exit code: " + code + "\n", StandardOpenOption.APPEND);
+          logFile,
+          "\n[DP] Child JVM exit code: " + code + "\n",
+          StandardOpenOption.CREATE,
+          StandardOpenOption.APPEND);
     }
   }
 
@@ -395,39 +397,43 @@ public final class JavaRunner {
     return sb.toString();
   }
 
-  public static void runExternalShell(
-      String shellCommand, Path workDir, String fullRunCp, Path runLog)
+  public static void runExternalScript(Path script, Path workDir, String fullRunCp, Path runLog)
       throws IOException, InterruptedException {
 
-    // We run through bash -lc so the user can pass a whole command string
-    ProcessBuilder pb = new ProcessBuilder("bash", "-lc", shellCommand);
-
-    // Run in the working copy, so relative paths in the script make sense
-    pb.directory(workDir.toFile());
-
-    // Optionally export the classpath if the user script wants to use it
-    Map<String, String> env = pb.environment();
-    env.putIfAbsent("DP_DAIKONPP_CLASSPATH", fullRunCp);
-
-    Process p = pb.start();
-
-    try (var in = new java.io.BufferedInputStream(p.getInputStream());
-        var err = new java.io.BufferedInputStream(p.getErrorStream());
-        var out =
-            Files.newOutputStream(
-                runLog,
-                java.nio.file.StandardOpenOption.CREATE,
-                java.nio.file.StandardOpenOption.TRUNCATE_EXISTING,
-                java.nio.file.StandardOpenOption.WRITE)) {
-
-      // Simple: merge stdout + stderr into one log file
-      in.transferTo(out);
-      err.transferTo(out);
+    if (!Files.isRegularFile(script)) {
+      throw new IllegalArgumentException("[DP] External runner script not found: " + script);
     }
 
+    if (!Files.isExecutable(script)) {
+      throw new IllegalArgumentException(
+          "[DP] External runner script is not executable: "
+              + script
+              + " (did you forget chmod +x?)");
+    }
+
+    Files.createDirectories(Optional.ofNullable(runLog.getParent()).orElse(Path.of(".")));
+
+    ProcessBuilder pb = new ProcessBuilder(script.toAbsolutePath().toString());
+
+    // Run inside the instrumented working copy
+    pb.directory(workDir.toFile());
+
+    // Export classpath for the script
+    Map<String, String> env = pb.environment();
+    env.put("DP_DAIKONPP_CLASSPATH", fullRunCp);
+
+    // Merge stdout + stderr
+    pb.redirectErrorStream(true);
+    pb.redirectOutput(runLog.toFile());
+
+    Process p = pb.start();
     int exit = p.waitFor();
+
     if (exit != 0) {
-      throw new RuntimeException("[DP] External runner exited with code " + exit);
+      Files.writeString(
+          runLog,
+          "\n[DP] External runner exited with code " + exit + "\n",
+          StandardOpenOption.APPEND);
     }
   }
 }

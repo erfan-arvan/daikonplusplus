@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 || b != 0",
+    "rationale" : "b is an integer, so it must be either zero or non-zero.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "b is an int and either zero or non-zero"
+    } ]
+  }, {
+    "expression" : "b == 0 || b != 0",
+    "rationale" : "b can only be zero or non-zero, no other values possible.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "no other possibilities for b"
+    } ]
+  }, {
+    "expression" : "b == 0 || (a / b) <= Integer.MAX_VALUE",
+    "rationale" : "When b is not zero, a divided by b is within int range.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "division result fits in int when b != 0"
+    } ]
+  }, {
+    "expression" : "b == 0 || (a / b) >= Integer.MIN_VALUE",
+    "rationale" : "The result of division is always within int bounds if b != 0.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "division result is bounded by int range"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No constraints on a or b besides division safety.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "method has no preconditions on a and b except b==0 check"
+    } ]
+  } ]
+}

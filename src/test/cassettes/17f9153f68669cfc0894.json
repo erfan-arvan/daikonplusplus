@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The args parameter is typically not null at program start.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "args is not null"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always non-negative.",
+    "meta" : [ {
+      "key" : "length",
+      "value" : "non-negative array length"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "The method returns void; no result variable.",
+    "meta" : [ {
+      "key" : "method_behaviour",
+      "value" : "method returns void, so no 'result'"
+    } ]
+  } ]
+}

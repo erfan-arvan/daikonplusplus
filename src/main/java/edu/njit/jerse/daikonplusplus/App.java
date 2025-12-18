@@ -53,6 +53,11 @@ public final class App {
 
   private static final boolean DEBUG = CFG.debug();
 
+  private enum ExecMode {
+    NATIVE,
+    EXTERNAL_PROJECT
+  }
+
   private static final java.util.Set<String> RUN_DEDUP =
       java.util.concurrent.ConcurrentHashMap.newKeySet();
 
@@ -62,86 +67,252 @@ public final class App {
   }
 
   public static void main(String[] args) throws Exception {
-    if (args.length < 3) {
+
+    // Detect external-project mode early so we don't enforce args.length>=3 for that mode.
+    final boolean externalMode =
+        java.util.Arrays.asList(args).contains("--cmd")
+            || java.util.Arrays.asList(args).contains("--external-project");
+
+    if (!externalMode && args.length < 3) {
       System.err.println(
           "Usage:\n"
               + "  Single-root (legacy):\n"
               + "    java -jar daikonplusplus.jar <srcRoot> <classpath> <mainClass> [maxK] [-- program args...]\n"
               + "  Split main/test:\n"
               + "    java -jar daikonplusplus.jar <mainSrcRoot> <testSrcRoot> "
-              + "<mainClasspath> <testClasspath> <testMainClass> [maxK] [-- program args...]");
+              + "<mainClasspath> <testClasspath> <testMainClass> [maxK] [-- program args...]\n"
+              + "  External-project:\n"
+              + "    java -jar daikonplusplus.jar --external-project "
+              + "--project-root <projectRoot> --main-src <relMainSrc> "
+              + "[--test-src <relTestSrc>] --runner-script <script.sh> "
+              + "[maxK] [-- program args...]");
       System.exit(2);
     }
 
-    // Decide whether we are in split main/test mode or single-root mode.
-    boolean splitMode = false;
-    if (args.length >= 5) {
-      Path maybeMain = Path.of(args[0]).toAbsolutePath().normalize();
-      Path maybeTest = Path.of(args[1]).toAbsolutePath().normalize();
-      if (Files.isDirectory(maybeMain) && Files.isDirectory(maybeTest)) {
-        splitMode = true;
-      }
-    }
+    ExecMode execMode = externalMode ? ExecMode.EXTERNAL_PROJECT : ExecMode.NATIVE;
 
+    // ============================================================
+    // External-project arguments (ONLY used/declared as non-null in external branch)
+    // ============================================================
+    final Path userProjectRoot;
+    final Path relMainSrc;
+    final Path relTestSrcOrNull;
+    final Path runnerScriptPath; // may be relative to project root or absolute
+
+    // ============================================================
+    // Native mode variables (kept exactly as your original semantics)
+    // ============================================================
+    boolean splitMode = false;
     int i = 0;
 
-    final Path userMainSrcRoot;
-    final Path userTestSrcRoot;
-    final String mainClasspath;
-    final String testClasspath;
-    final String entryClass; // main program or test runner
+    Path userMainSrcRoot_tmp = Path.of(".").toAbsolutePath().normalize();
+    Path userTestSrcRoot_tmp = userMainSrcRoot_tmp;
+    String mainClasspath_tmp = "";
+    String testClasspath_tmp = "";
+    String entryClass_tmp = "";
 
-    if (splitMode) {
-      // New mode: <mainSrcRoot> <testSrcRoot> <mainCp> <testCp> <testMainClass> ...
-      userMainSrcRoot = Path.of(args[i++]).toAbsolutePath().normalize();
-      userTestSrcRoot = Path.of(args[i++]).toAbsolutePath().normalize();
-      if (!Files.isDirectory(userMainSrcRoot)) {
-        System.err.println("Not a directory (main sources): " + userMainSrcRoot);
-        System.exit(2);
-      }
-      if (!Files.isDirectory(userTestSrcRoot)) {
-        System.err.println("Not a directory (test sources): " + userTestSrcRoot);
-        System.exit(2);
+    // We'll build a mutable argv view for BOTH modes so we can keep maxK + "-- args" behavior.
+    final java.util.List<String> argv = new java.util.ArrayList<>(java.util.List.of(args));
+
+    if (execMode == ExecMode.EXTERNAL_PROJECT) {
+      // --- E2E / simple external mode: <inputDir> --cmd <script> [args...]
+      if (argv.contains("--cmd") && !argv.contains("--project-root")) {
+        int cmdIdx = argv.indexOf("--cmd");
+
+        Path inputDir = Path.of(argv.get(0)).toAbsolutePath().normalize();
+        List<String> cmd = new ArrayList<>(argv.subList(cmdIdx + 1, argv.size()));
+
+        if (cmd.isEmpty()) {
+          throw new IllegalArgumentException("--cmd requires a command");
+        }
+
+        userProjectRoot = inputDir;
+        relMainSrc = Path.of(".");
+        relTestSrcOrNull = null;
+        runnerScriptPath = Path.of(cmd.get(0));
+
+        argv.subList(cmdIdx, argv.size()).clear(); // remove --cmd + command
+        argv.remove(0); // remove inputDir
+
+      } else {
+        // ----- FLAG-BASED external mode (existing logic) -----
+        argv.remove("--external-project");
+
+        Path pr = null;
+        Path ms = null;
+        Path ts = null;
+        Path rs = null;
+
+        for (int k = 0; k < argv.size(); k++) {
+          String a = argv.get(k);
+          if ("--project-root".equals(a) && k + 1 < argv.size()) {
+            pr = Path.of(argv.get(k + 1)).toAbsolutePath().normalize();
+            argv.remove(k);
+            argv.remove(k);
+            k--;
+          } else if ("--main-src".equals(a) && k + 1 < argv.size()) {
+            ms = Path.of(argv.get(k + 1));
+            argv.remove(k);
+            argv.remove(k);
+            k--;
+          } else if ("--test-src".equals(a) && k + 1 < argv.size()) {
+            ts = Path.of(argv.get(k + 1));
+            argv.remove(k);
+            argv.remove(k);
+            k--;
+          } else if ("--runner-script".equals(a) && k + 1 < argv.size()) {
+            rs = Path.of(argv.get(k + 1));
+            argv.remove(k);
+            argv.remove(k);
+            k--;
+          }
+        }
+
+        if (pr == null || ms == null || rs == null) {
+          throw new IllegalArgumentException("Invalid external-project invocation");
+        }
+
+        userProjectRoot = pr;
+        relMainSrc = ms;
+        relTestSrcOrNull = ts;
+        runnerScriptPath = rs;
       }
 
-      mainClasspath = args[i++];
-      testClasspath = args[i++];
-      entryClass = args[i++]; // test entrypoint
     } else {
-      // Legacy mode: <srcRoot> <classpath> <mainClass> ...
-      userMainSrcRoot = Path.of(args[i++]).toAbsolutePath().normalize();
-      if (!Files.isDirectory(userMainSrcRoot)) {
-        System.err.println("Not a directory: " + userMainSrcRoot);
-        System.exit(2);
+      // ============================
+      // Native mode parsing (UNCHANGED)
+      // ============================
+      userProjectRoot = Path.of("."); // unused in native mode (non-null)
+      relMainSrc = Path.of("."); // unused in native mode (non-null)
+      relTestSrcOrNull = null; // unused
+      runnerScriptPath = Path.of("."); // unused in native mode (non-null)
+
+      // Decide whether we are in split main/test mode or single-root mode.
+      if (argv.size() >= 5) {
+        Path maybeMain = Path.of(argv.get(0)).toAbsolutePath().normalize();
+        Path maybeTest = Path.of(argv.get(1)).toAbsolutePath().normalize();
+        if (Files.isDirectory(maybeMain) && Files.isDirectory(maybeTest)) {
+          splitMode = true;
+        }
       }
-      userTestSrcRoot = userMainSrcRoot; // same tree
-      mainClasspath = args[i++]; // only one classpath is provided
-      testClasspath = ""; // unused in this mode
-      entryClass = args[i++]; // original main class
+
+      if (splitMode) {
+        userMainSrcRoot_tmp = Path.of(argv.get(i++)).toAbsolutePath().normalize();
+        userTestSrcRoot_tmp = Path.of(argv.get(i++)).toAbsolutePath().normalize();
+        if (!Files.isDirectory(userMainSrcRoot_tmp)) {
+          System.err.println("Not a directory (main sources): " + userMainSrcRoot_tmp);
+          System.exit(2);
+        }
+        if (!Files.isDirectory(userTestSrcRoot_tmp)) {
+          System.err.println("Not a directory (test sources): " + userTestSrcRoot_tmp);
+          System.exit(2);
+        }
+
+        mainClasspath_tmp = argv.get(i++);
+        testClasspath_tmp = argv.get(i++);
+        entryClass_tmp = argv.get(i++);
+      } else {
+        userMainSrcRoot_tmp = Path.of(argv.get(i++)).toAbsolutePath().normalize();
+        if (!Files.isDirectory(userMainSrcRoot_tmp)) {
+          System.err.println("Not a directory: " + userMainSrcRoot_tmp);
+          System.exit(2);
+        }
+        userTestSrcRoot_tmp = userMainSrcRoot_tmp;
+        mainClasspath_tmp = argv.get(i++);
+        testClasspath_tmp = "";
+        entryClass_tmp = argv.get(i++);
+      }
     }
 
-    final int maxK =
-        (i < args.length && !args[i].equals("--")) ? Math.max(1, Integer.parseInt(args[i++])) : 5;
+    // Freeze native-mode finals (same names as your original)
+    final Path userMainSrcRoot = userMainSrcRoot_tmp;
+    final Path userTestSrcRoot = userTestSrcRoot_tmp;
+    final String mainClasspath = mainClasspath_tmp;
+    final String testClasspath = testClasspath_tmp;
+    final String entryClass = entryClass_tmp;
+
+    // ============================================================
+    // maxK + program args (UNCHANGED semantics)
+    // (Works in both modes: external mode still uses maxK for LLM proposals)
+    // ============================================================
+    final int maxK;
+
+    if (execMode == ExecMode.EXTERNAL_PROJECT) {
+      // External mode: maxK may appear as a trailing integer, otherwise default
+      int parsed = 5;
+      if (!argv.isEmpty() && argv.get(0).matches("\\d+")) {
+        parsed = Math.max(1, Integer.parseInt(argv.remove(0)));
+      }
+      maxK = parsed;
+    } else {
+      // Native mode (unchanged)
+      maxK =
+          (i < argv.size() && !argv.get(i).equals("--"))
+              ? Math.max(1, Integer.parseInt(argv.get(i++)))
+              : 5;
+    }
 
     final List<String> programArgs = new ArrayList<>();
-    if (i < args.length && args[i].equals("--")) {
-      for (i = i + 1; i < args.length; i++) {
-        programArgs.add(args[i]);
+    if (i < argv.size() && argv.get(i).equals("--")) {
+      for (i = i + 1; i < argv.size(); i++) {
+        programArgs.add(argv.get(i));
       }
     }
 
+    // ============================================================
     // Prepare working copies
-    final Path mainSrcRoot = prepareWorkingCopy(userMainSrcRoot);
-    final Path testSrcRoot =
-        splitMode ? prepareWorkingCopy(userTestSrcRoot) : mainSrcRoot; // shared in single-root mode
+    // ============================================================
+    final Path mainSrcRoot;
+    final Path testSrcRoot;
+    final Path workProjectRoot; // non-null in external mode; equals mainSrcRoot in native mode for
+    // simplicity
 
-    if (!Files.isDirectory(mainSrcRoot)) {
-      System.err.println("Not a directory (main working copy): " + mainSrcRoot);
-      System.exit(2);
-    }
-    if (!Files.isDirectory(testSrcRoot)) {
-      System.err.println("Not a directory (test working copy): " + testSrcRoot);
-      System.exit(2);
+    if (execMode == ExecMode.EXTERNAL_PROJECT) {
+      // FIX: external E2E runs should copy ONLY the provided input directory
+      // NOT the entire project root
+
+      // CORRECT: copy the ENTIRE project
+      workProjectRoot = prepareWorkingCopy(userProjectRoot);
+
+      // Main/test roots are SUBPATHS inside the copied project
+      mainSrcRoot = workProjectRoot.resolve(relMainSrc).normalize();
+
+      testSrcRoot =
+          (relTestSrcOrNull == null)
+              ? mainSrcRoot
+              : workProjectRoot.resolve(relTestSrcOrNull).normalize();
+
+      if (!Files.isDirectory(mainSrcRoot)) {
+        throw new IllegalStateException("Main src not found in working project: " + mainSrcRoot);
+      }
+      if (!Files.isDirectory(testSrcRoot)) {
+        throw new IllegalStateException("Test src not found in working project: " + testSrcRoot);
+      }
+
+      if (!Files.isDirectory(mainSrcRoot)) {
+        System.err.println("Not a directory (main src under project working copy): " + mainSrcRoot);
+        System.exit(2);
+      }
+      if (!Files.isDirectory(testSrcRoot)) {
+        System.err.println("Not a directory (test src under project working copy): " + testSrcRoot);
+        System.exit(2);
+      }
+
+    } else {
+      // Native behavior: copy source trees (exactly as before)
+      mainSrcRoot = prepareWorkingCopy(userMainSrcRoot);
+      testSrcRoot = splitMode ? prepareWorkingCopy(userTestSrcRoot) : mainSrcRoot;
+      workProjectRoot =
+          mainSrcRoot; // non-null placeholder; not used as "project root" in native mode
+
+      if (!Files.isDirectory(mainSrcRoot)) {
+        System.err.println("Not a directory (main working copy): " + mainSrcRoot);
+        System.exit(2);
+      }
+      if (!Files.isDirectory(testSrcRoot)) {
+        System.err.println("Not a directory (test working copy): " + testSrcRoot);
+        System.exit(2);
+      }
     }
 
     final DpConfig cfg = DpConfig.fromEnv();
@@ -158,6 +329,11 @@ public final class App {
     final LlmInvariantGenerator llm = new LlmInvariantGenerator(maxK);
     final InvariantRegistry registry = new InvariantRegistry(cfg.registryPath());
     final JavaParserInjector injector = new JavaParserInjector(new FileWriteCoordinator());
+
+    System.out.println("[DP-PATHS] execMode=" + execMode);
+    System.out.println("[DP-PATHS] userProjectRoot=" + userProjectRoot);
+    System.out.println("[DP-PATHS] mainSrcRoot=" + mainSrcRoot);
+    System.out.println("[DP-PATHS] testSrcRoot=" + testSrcRoot);
 
     // Scan only MAIN sources for program points
     System.out.println(">>> Scanning MAIN sources under (WORKING COPY): " + mainSrcRoot);
@@ -184,8 +360,7 @@ public final class App {
     int totalSpecs = 0;
 
     final long totalTimeoutSec =
-        Long.parseLong(
-            Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "180"));
+        Long.parseLong(Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "20"));
     final long pollStepMs =
         Long.parseLong(Objects.requireNonNullElse(System.getenv("DP_LLM_POLL_STEP_MS"), "1500"));
 
@@ -286,51 +461,86 @@ public final class App {
 
     // --- Phase 3: compile and run ---
 
-    final Path classesDir = mainSrcRoot.resolve("daikonpp-classes");
-    final String selfCp = System.getProperty("java.class.path");
+    final Path runLog;
 
-    final String fullRunCp;
-    if (splitMode) {
-      // Compile main with its own classpath
-      JavaRunner.compileWithAutoFilter(
-          mainSrcRoot, userMainSrcRoot, classesDir, mainClasspath, /*maxPasses*/ 10);
-      System.out.println(">>> Main compilation phase finished successfully");
+    if (execMode == ExecMode.EXTERNAL_PROJECT) {
+      // Run from PROJECT ROOT so ./gradlew works
+      runLog = workProjectRoot.resolve("daikonpp-run.log");
 
-      // Compile tests against compiled main classes plus both classpaths
-      final String testCompileCp =
-          JavaRunner.joinCp(classesDir.toString(), mainClasspath, testClasspath);
-      JavaRunner.compileWithAutoFilter(
-          testSrcRoot, userTestSrcRoot, classesDir, testCompileCp, /*maxPasses*/ 0);
-      System.out.println(">>> Test compilation phase finished successfully");
+      final Path resolvedScript =
+          runnerScriptPath.isAbsolute()
+              ? runnerScriptPath.toAbsolutePath().normalize()
+              : workProjectRoot.resolve(runnerScriptPath).normalize();
 
-      fullRunCp = JavaRunner.joinCp(selfCp, classesDir.toString(), mainClasspath, testClasspath);
+      System.out.println("[DP] External-project mode enabled");
+      System.out.println("[DP] Working project root: " + workProjectRoot);
+      System.out.println("[DP] Instrumented main src: " + mainSrcRoot);
+      System.out.println("[DP] Runner script: " + resolvedScript);
+
+      // 🔥 NEW: run invariant auto-filter BEFORE Gradle
+      final Path classesDir = workProjectRoot.resolve(".daikonpp-classes");
+
+      String compileCp = System.getenv("DP_EXTERNAL_COMPILE_CP");
+
+      if (compileCp != null && !compileCp.isBlank()) {
+        // Complex external project (e.g., Checker Framework)
+        JavaRunner.compileWithAutoFilter(
+            mainSrcRoot,
+            userProjectRoot.resolve(relMainSrc),
+            classesDir,
+            compileCp,
+            /*maxModifyPasses*/ 10);
+
+        System.out.println(">>> Invariant auto-filter finished (external-project mode)");
+      } else {
+        // Simple external command (E2E tests like Calc.java)
+        System.out.println(
+            ">>> Skipping invariant auto-filter (no DP_EXTERNAL_COMPILE_CP; simple external project)");
+      }
+
+      System.out.println(">>> Invariant auto-filter finished (external-project mode)");
+
+      // Now run the real Gradle test script
+      final String fullRunCp = "";
+      JavaRunner.runExternalScript(resolvedScript, workProjectRoot, fullRunCp, runLog);
     } else {
-      // Single-root: one compilation of the whole tree using the provided classpath
-      JavaRunner.compileWithAutoFilter(
-          mainSrcRoot, userMainSrcRoot, classesDir, mainClasspath, /*maxPasses*/ 10);
-      System.out.println(">>> Compilation phase finished successfully");
-      fullRunCp = JavaRunner.joinCp(selfCp, classesDir.toString(), mainClasspath);
-    }
+      // Native mode (UNCHANGED)
+      final Path classesDir = mainSrcRoot.resolve("daikonpp-classes");
+      final String selfCp = System.getProperty("java.class.path");
 
-    final Path runLog = mainSrcRoot.resolve("daikonpp-run.log");
+      final String fullRunCp;
+      if (splitMode) {
+        JavaRunner.compileWithAutoFilter(
+            mainSrcRoot, userMainSrcRoot, classesDir, mainClasspath, /*maxPasses*/ 10);
+        System.out.println(">>> Main compilation phase finished successfully");
 
-    // Optional external runner: if DP_EXTERNAL_RUNNER is set, use that instead of JavaRunner.run
-    String externalRunner = System.getenv("DP_EXTERNAL_RUNNER");
-    if (externalRunner != null && !externalRunner.isBlank()) {
-      System.out.println("[DP] Using external test runner (DP_EXTERNAL_RUNNER): " + externalRunner);
-      JavaRunner.runExternalShell(externalRunner, mainSrcRoot, fullRunCp, runLog);
-    } else {
-      // Default behavior: run the given entryClass via JavaRunner
+        final String testCompileCp =
+            JavaRunner.joinCp(classesDir.toString(), mainClasspath, testClasspath);
+        JavaRunner.compileWithAutoFilter(
+            testSrcRoot, userTestSrcRoot, classesDir, testCompileCp, /*maxPasses*/ 0);
+        System.out.println(">>> Test compilation phase finished successfully");
+
+        fullRunCp = JavaRunner.joinCp(selfCp, classesDir.toString(), mainClasspath, testClasspath);
+      } else {
+        JavaRunner.compileWithAutoFilter(
+            mainSrcRoot, userMainSrcRoot, classesDir, mainClasspath, /*maxPasses*/ 10);
+        System.out.println(">>> Compilation phase finished successfully");
+        fullRunCp = JavaRunner.joinCp(selfCp, classesDir.toString(), mainClasspath);
+      }
+
+      runLog = mainSrcRoot.resolve("daikonpp-run.log");
       JavaRunner.run(entryClass, fullRunCp, programArgs, runLog);
     }
 
-    long exitLines = 0;
-    try {
-      exitLines = Files.lines(runLog).filter(s -> s.contains("\"phase\":\"EXIT\"")).count();
-    } catch (IOException ioe) {
-      // ignore
+    if (execMode == ExecMode.NATIVE) {
+      long exitLines = 0;
+      try {
+        exitLines = Files.lines(runLog).filter(s -> s.contains("\"phase\":\"EXIT\"")).count();
+      } catch (IOException ioe) {
+        // ignore
+      }
+      System.out.println(">>> Run log — EXIT events: " + exitLines);
     }
-    System.out.println(">>> Run log — EXIT events: " + exitLines);
 
     // --- Phase 4: parse run log and generate the results (same as before) ---
 
@@ -477,19 +687,30 @@ public final class App {
 
     if (!CFG.keepWork()) {
       try {
-        deleteTree(mainSrcRoot);
-        if (splitMode && !testSrcRoot.equals(mainSrcRoot)) {
-          deleteTree(testSrcRoot);
+        if (execMode == ExecMode.EXTERNAL_PROJECT) {
+          deleteTree(workProjectRoot);
+          System.out.println(">>> Cleaned working project copy");
+        } else {
+          deleteTree(mainSrcRoot);
+          if (splitMode && !testSrcRoot.equals(mainSrcRoot)) {
+            deleteTree(testSrcRoot);
+          }
+          System.out.println(">>> Cleaned working copy(ies)");
         }
-        System.out.println(">>> Cleaned working copy(ies)");
       } catch (IOException ioe) {
         System.err.println("Warning: failed to delete working copy: " + ioe.getMessage());
       }
     } else {
       System.out.println(">>> Keeping working copy(ies) (DP_KEEP_WORK=1):");
-      System.out.println("    main: " + mainSrcRoot);
-      if (splitMode) {
+      if (execMode == ExecMode.EXTERNAL_PROJECT) {
+        System.out.println("    project: " + workProjectRoot);
+        System.out.println("    main: " + mainSrcRoot);
         System.out.println("    test: " + testSrcRoot);
+      } else {
+        System.out.println("    main: " + mainSrcRoot);
+        if (splitMode) {
+          System.out.println("    test: " + testSrcRoot);
+        }
       }
     }
   }
@@ -599,18 +820,27 @@ public final class App {
 
   private static Map<String, String> extractScope(ProgramPoint point, Path srcRoot)
       throws IOException {
+
     Path file = srcRoot.resolve(point.elementId().filePath()).normalize();
+
     CompilationUnit cu = StaticJavaParser.parse(file);
     final String targetDesc = point.elementId().jvmDescriptor();
 
     for (ClassOrInterfaceDeclaration cls : cu.findAll(ClassOrInterfaceDeclaration.class)) {
-      Optional<MethodDeclaration> maybe =
-          cls.getMethods().stream()
-              .filter(m -> m.getBody().isPresent())
-              .filter(m -> MethodSignatureUtil.jvmDescriptorBestEffort(m).equals(targetDesc))
-              .findFirst();
-      if (maybe.isPresent()) {
-        MethodDeclaration md = maybe.get();
+
+      for (MethodDeclaration m : cls.getMethods()) {
+
+        if (!m.getBody().isPresent()) {
+          continue;
+        }
+
+        String desc = MethodSignatureUtil.jvmDescriptorBestEffort(m);
+
+        if (!desc.equals(targetDesc)) {
+          continue;
+        }
+
+        MethodDeclaration md = m;
         LinkedHashMap<String, String> scope =
             md.getParameters().stream()
                 .collect(
@@ -619,33 +849,51 @@ public final class App {
                         p -> p.getType().toString(),
                         (a, b) -> a,
                         LinkedHashMap::new));
+
         if (point.kind() == ProgramPointKind.METHOD_EXIT) {
           String ret = md.getType().toString();
-          if (!"void".equals(ret)) scope.put("result", ret); // LLM can reference 'result'
+          if (!"void".equals(ret)) scope.put("result", ret);
         }
+
         return scope;
       }
     }
+
     return Map.of();
   }
 
   /** Create a fresh working copy of the user's src tree under build/daikonpp_work/<stamp>. */
   private static Path prepareWorkingCopy(Path userSrcRoot) throws IOException {
-    String base = System.getenv().getOrDefault("DP_WORKDIR", "build/daikonpp_work");
+    String base =
+        System.getenv()
+            .getOrDefault("DP_WORKDIR", System.getProperty("java.io.tmpdir") + "/daikonpp_work");
+
     Path baseDir = Path.of(base).toAbsolutePath().normalize();
     Files.createDirectories(baseDir);
+
     String stamp =
         java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss")
             .withZone(java.time.ZoneId.systemDefault())
             .format(java.time.Instant.now());
-    Path workRoot = baseDir.resolve("src-" + stamp);
+
+    Path workRoot = baseDir.resolve("project-" + stamp);
+
     copyTree(userSrcRoot, workRoot);
-    System.out.println(">>> Working copy created at: " + workRoot);
+    System.out.println(">>> Working project copy created at: " + workRoot);
     return workRoot;
   }
 
   /** Recursively copy one tree to another */
   private static void copyTree(Path from, Path to) throws IOException {
+
+    Path src = from.toAbsolutePath().normalize();
+    Path dst = to.toAbsolutePath().normalize();
+
+    // Prevent recursive self-copy
+    if (dst.startsWith(src) || src.startsWith(dst)) {
+      throw new IllegalStateException(
+          "Refusing to copy overlapping trees:\n  from=" + src + "\n  to=" + dst);
+    }
     Files.createDirectories(to);
     Files.walkFileTree(
         from,

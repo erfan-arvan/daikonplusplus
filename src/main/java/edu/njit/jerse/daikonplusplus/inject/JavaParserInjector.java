@@ -6,6 +6,7 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.stmt.*;
+import com.github.javaparser.ast.type.PrimitiveType;
 import com.github.javaparser.printer.lexicalpreservation.LexicalPreservingPrinter;
 import edu.njit.jerse.daikonplusplus.model.InvariantRecord;
 import edu.njit.jerse.daikonplusplus.model.InvariantSpec;
@@ -47,22 +48,13 @@ public final class JavaParserInjector {
           Map<String, List<InvariantRecord>> entryMap = new HashMap<>();
           Map<String, List<InvariantRecord>> exitMap = new HashMap<>();
 
-          java.util.function.Function<String, String> simple =
-              d ->
-                  d.replaceAll("\\b([A-Za-z_]\\w*)(?:\\.[A-Za-z_]\\w*)+\\b", "$1")
-                      .replace("java.lang.", "");
-
           // Group invariants by descriptor / simple descriptor
           for (InvariantRecord r : records) {
             String key = r.point().elementId().jvmDescriptor();
-            String keySimple = simple.apply(key);
             Map<String, List<InvariantRecord>> target =
                 (r.point().kind() == ProgramPointKind.METHOD_ENTRY) ? entryMap : exitMap;
 
             target.computeIfAbsent(key, __ -> new ArrayList<>()).add(r);
-            if (!key.equals(keySimple)) {
-              target.computeIfAbsent(keySimple, __ -> new ArrayList<>()).add(r);
-            }
           }
 
           // For each method, attach entry/exit invariants if present
@@ -72,17 +64,9 @@ public final class JavaParserInjector {
             }
 
             String desc = MethodSignatureUtil.jvmDescriptorBestEffort(md);
-            String descSimple = simple.apply(desc);
 
             List<InvariantRecord> entries = entryMap.get(desc);
-            if (entries == null) {
-              entries = entryMap.get(descSimple);
-            }
-
             List<InvariantRecord> exits = exitMap.get(desc);
-            if (exits == null) {
-              exits = exitMap.get(descSimple);
-            }
 
             if (entries != null && !entries.isEmpty()) {
               injectEntry(md, entries);
@@ -152,7 +136,6 @@ public final class JavaParserInjector {
 
     Expression rhs = ret.getExpression().get();
 
-    // Lambdas/method refs are dangerous to hoist → skip instrumentation for this return
     if (rhs.isLambdaExpr() || rhs.isMethodReferenceExpr()) {
       return ret.clone();
     }
@@ -169,7 +152,9 @@ public final class JavaParserInjector {
       block.addStatement(guardStatement(rewritten, "EXIT", exVar));
     }
 
+    // Return with correct type
     block.addStatement(new ReturnStmt(new NameExpr(tmp)));
+
     return block;
   }
 
@@ -185,11 +170,26 @@ public final class JavaParserInjector {
   }
 
   private Statement hoistTemp(MethodDeclaration md, String tmp, Expression rhs) {
+    String type = md.getType().toString();
+
     if (rhs.isNullLiteralExpr()) {
-      String t = md.getType().toString();
-      return StaticJavaParser.parseStatement("final var " + tmp + " = (" + t + ") null;");
+      return StaticJavaParser.parseStatement("final " + type + " " + tmp + " = null;");
     }
-    return StaticJavaParser.parseStatement("final var " + tmp + " = (" + rhs.toString() + ");");
+
+    return StaticJavaParser.parseStatement("final " + type + " " + tmp + " = " + rhs + ";");
+  }
+
+  private static String boxedType(PrimitiveType pt) {
+    return switch (pt.getType()) {
+      case BOOLEAN -> "Boolean";
+      case BYTE -> "Byte";
+      case SHORT -> "Short";
+      case INT -> "Integer";
+      case LONG -> "Long";
+      case CHAR -> "Character";
+      case FLOAT -> "Float";
+      case DOUBLE -> "Double";
+    };
   }
 
   // ======================================================================================

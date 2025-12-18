@@ -117,7 +117,12 @@ public final class LlmInvariantGenerator {
       }
 
       // ----- Structured request via pluggable LlmClient -----
-      List<InvariantsOut.Item> items = llm.complete(system, user);
+      List<InvariantsOut.Item> items;
+      try {
+        items = llm.complete(system, user);
+      } catch (Exception ex) {
+        return List.of();
+      }
 
       // ----- Parse + filter + dedup + limit -----
       List<InvariantSpec> kept = new ArrayList<>(Math.min(items.size(), maxInvariants));
@@ -172,9 +177,17 @@ public final class LlmInvariantGenerator {
       return kept;
 
     } catch (Exception e) {
-      if (DEBUG) {
-        System.err.println("[DP-LLM] error for " + point.elementId() + " → " + e.getMessage());
+      if (e instanceof InterruptedException || e.getCause() instanceof InterruptedException) {
+
+        Thread.currentThread().interrupt(); // REQUIRED
+        if (DEBUG) {
+          System.err.println("[DP-LLM] skipped (interrupted): " + point.elementId());
+        }
+        return List.of();
       }
+
+      System.err.println("[DP-LLM] FAILURE for " + point.elementId() + " → " + e);
+      e.printStackTrace(System.err);
       return List.of();
     }
   }

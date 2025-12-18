@@ -207,7 +207,30 @@ public class PipelineE2ETest {
 
     Properties prev = snapshotAndSetCaseProps(buildRegistry, buildOutcomes);
     try {
-      List<String> args = List.of(inputDir.toString(), "", cfg.mainClass, String.valueOf(cfg.maxK));
+      List<String> args;
+
+      if ("external".equals(cfg.execMode)) {
+        assertFalse(cfg.command.isEmpty(), "External mode requires command");
+
+        args =
+            List.of(
+                "--external-project",
+                "--project-root",
+                inputDir.toString(),
+                "--main-src",
+                ".",
+                "--runner-script",
+                "run.sh");
+
+      } else {
+        args = List.of(inputDir.toString(), "", cfg.mainClass, String.valueOf(cfg.maxK));
+      }
+
+      for (int ai = 0; ai < args.size(); ai++) {
+        System.out.println("  [" + ai + "] = '" + args.get(ai) + "'");
+      }
+      System.out.println("=====================");
+
       App.main(args.toArray(new String[0]));
 
       assertTrue(Files.exists(buildRegistry), "Pipeline produced no registry at " + buildRegistry);
@@ -335,15 +358,16 @@ public class PipelineE2ETest {
 
   /** Minimal per-case configuration. */
   private static final class CfgLite {
-    /** Fully-qualified main class to execute (e.g., {@code com.example.Main}). */
     final String mainClass;
-
-    /** Max K (domain-specific pipeline parameter). */
     final int maxK;
+    final String execMode; // "native" | "external"
+    final List<String> command; // only for external
 
-    CfgLite(String mainClass, int maxK) {
+    CfgLite(String mainClass, int maxK, String execMode, List<String> command) {
       this.mainClass = mainClass;
       this.maxK = maxK;
+      this.execMode = execMode;
+      this.command = command;
     }
   }
 
@@ -359,12 +383,33 @@ public class PipelineE2ETest {
   private static CfgLite loadCfg(Path jsonPath) throws IOException {
     String mainClass = "com.example.Main";
     int maxK = 5;
+    String execMode = "native";
+    List<String> command = List.of();
+
     if (Files.isRegularFile(jsonPath)) {
       JsonNode j = OM.readTree(jsonPath.toFile());
-      if (j.hasNonNull("mainClass")) mainClass = j.get("mainClass").asText();
-      if (j.hasNonNull("maxK")) maxK = j.get("maxK").asInt(5);
+
+      if (j.hasNonNull("mainClass")) {
+        mainClass = j.get("mainClass").asText();
+      }
+
+      if (j.hasNonNull("maxK")) {
+        maxK = j.get("maxK").asInt(5);
+      }
+
+      if (j.hasNonNull("execMode")) {
+        execMode = j.get("execMode").asText();
+      }
+
+      if (j.hasNonNull("command")) {
+        command = new ArrayList<>();
+        for (JsonNode c : j.get("command")) {
+          command.add(c.asText());
+        }
+      }
     }
-    return new CfgLite(mainClass, maxK);
+
+    return new CfgLite(mainClass, maxK, execMode, command);
   }
 
   // ---------- System property scoping ----------
