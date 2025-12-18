@@ -203,60 +203,34 @@ public final class JavaParserInjector {
     // Build the try/catch as a Statement (no markers in the code string)
     String tryCode =
         "try {\n"
-            // ---------------- INV_EXD (print once) ----------------
-            + "  final String __dp_k = \"DP_INV_EXD_"
+            + "  final java.util.Properties __dp_props = System.getProperties();\n"
+
+            // ---------------- EXECUTED (print once) ----------------
+            + "  final String __dp_k_exd = \"DP_INV_EXD_"
             + id
             + "\";\n"
-            + "  synchronized (System.getProperties()) {\n"
-            + "    if (System.getProperty(__dp_k) == null) {\n"
-            + "      System.setProperty(__dp_k, \"1\");\n"
-            + "      System.out.println(\"INV_EXD:"
+            + "  if (__dp_props.putIfAbsent(__dp_k_exd, \"1\") == null) {\n"
+            + "    System.out.println(\"INV_EXD:"
             + id
             + "\");\n"
-            + "    }\n"
             + "  }\n"
 
-            // ---------------- INV_FAIL (false case, print once) ----------------
-            + "  if (!("
+            // ---------------- CHECK INVARIANT ----------------
+            + "  boolean __dp_ok;\n"
+            + "  try {\n"
+            + "    __dp_ok = ("
             + expr
-            + ")) {\n"
+            + ");\n"
+            + "  } catch (Throwable __dp_inner) {\n"
+            + "    __dp_ok = false;\n"
+            + "  }\n"
+
+            // ---------------- FAILED (print once) ----------------
+            + "  if (!__dp_ok) {\n"
             + "    final String __dp_k_fail = \"DP_INV_FAIL_"
             + id
             + "\";\n"
-            + "    synchronized (System.getProperties()) {\n"
-            + "      if (System.getProperty(__dp_k_fail) == null) {\n"
-            + "        System.setProperty(__dp_k_fail, \"1\");\n"
-            + "        System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
-            + "\\\"id\\\":\\\""
-            + id
-            + "\\\","
-            + "\\\"element\\\":\\\""
-            + esc(rec.point().elementId().toString())
-            + "\\\","
-            + "\\\"file\\\":\\\""
-            + esc(rec.sourceFile())
-            + "\\\","
-            + "\\\"expr\\\":\\\""
-            + esc(expr)
-            + "\\\","
-            + "\\\"phase\\\":\\\""
-            + phase
-            + "\\\","
-            + "\\\"error\\\":\\\"\\\"}\");\n"
-            + "      }\n"
-            + "    }\n"
-            + "  }\n"
-
-            // ---------------- INV_FAIL (exception case, print once) ----------------
-            + "} catch (Throwable "
-            + exVar
-            + ") {\n"
-            + "  final String __dp_k_fail = \"DP_INV_FAIL_"
-            + id
-            + "\";\n"
-            + "  synchronized (System.getProperties()) {\n"
-            + "    if (System.getProperty(__dp_k_fail) == null) {\n"
-            + "      System.setProperty(__dp_k_fail, \"1\");\n"
+            + "    if (__dp_props.putIfAbsent(__dp_k_fail, \"1\") == null) {\n"
             + "      System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
             + "\\\"id\\\":\\\""
             + id
@@ -273,11 +247,37 @@ public final class JavaParserInjector {
             + "\\\"phase\\\":\\\""
             + phase
             + "\\\","
-            + "\\\"error\\\":\\\"\"+"
+            + "\\\"error\\\":\\\"\\\"}\");\n"
+            + "    }\n"
+            + "  }\n"
+            + "} catch (Throwable "
+            + exVar
+            + ") {\n"
+            + "  final java.util.Properties __dp_props = System.getProperties();\n"
+            + "  final String __dp_k_fail = \"DP_INV_FAIL_"
+            + id
+            + "\";\n"
+            + "  if (__dp_props.putIfAbsent(__dp_k_fail, \"1\") == null) {\n"
+            + "    System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
+            + "\\\"id\\\":\\\""
+            + id
+            + "\\\","
+            + "\\\"element\\\":\\\""
+            + esc(rec.point().elementId().toString())
+            + "\\\","
+            + "\\\"file\\\":\\\""
+            + esc(rec.sourceFile())
+            + "\\\","
+            + "\\\"expr\\\":\\\""
+            + esc(expr)
+            + "\\\","
+            + "\\\"phase\\\":\\\""
+            + phase
+            + "\\\","
+            + "\\\"error\\\":\\\"\" + "
             + exVar
             + ".toString().replace(\"\\\\\",\"\\\\\\\\\").replace(\"\\\"\",\"\\\\\\\"\")"
-            + "+\"\\\"}\");\n"
-            + "    }\n"
+            + " + \"\\\"}\");\n"
             + "  }\n"
             + "}\n";
 
