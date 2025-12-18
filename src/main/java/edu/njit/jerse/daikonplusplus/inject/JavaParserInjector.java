@@ -203,17 +203,11 @@ public final class JavaParserInjector {
     // Build the try/catch as a Statement (no markers in the code string)
     String tryCode =
         "try {\n"
-            + "  final java.util.Properties __dp_props = System.getProperties();\n"
 
-            // ---------------- EXECUTED (print once) ----------------
-            + "  final String __dp_k_exd = \"DP_INV_EXD_"
-            + id
-            + "\";\n"
-            + "  if (__dp_props.putIfAbsent(__dp_k_exd, \"1\") == null) {\n"
-            + "    System.out.println(\"INV_EXD:"
+            // ---------------- EXECUTED (EVERY TIME) ----------------
+            + "  System.out.println(\"INV_EXD:"
             + id
             + "\");\n"
-            + "  }\n"
 
             // ---------------- CHECK INVARIANT ----------------
             + "  boolean __dp_ok;\n"
@@ -225,13 +219,9 @@ public final class JavaParserInjector {
             + "    __dp_ok = false;\n"
             + "  }\n"
 
-            // ---------------- FAILED (print once) ----------------
+            // ---------------- FAILED (EVERY TIME) ----------------
             + "  if (!__dp_ok) {\n"
-            + "    final String __dp_k_fail = \"DP_INV_FAIL_"
-            + id
-            + "\";\n"
-            + "    if (__dp_props.putIfAbsent(__dp_k_fail, \"1\") == null) {\n"
-            + "      System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
+            + "    System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
             + "\\\"id\\\":\\\""
             + id
             + "\\\","
@@ -248,17 +238,11 @@ public final class JavaParserInjector {
             + phase
             + "\\\","
             + "\\\"error\\\":\\\"\\\"}\");\n"
-            + "    }\n"
             + "  }\n"
             + "} catch (Throwable "
             + exVar
             + ") {\n"
-            + "  final java.util.Properties __dp_props = System.getProperties();\n"
-            + "  final String __dp_k_fail = \"DP_INV_FAIL_"
-            + id
-            + "\";\n"
-            + "  if (__dp_props.putIfAbsent(__dp_k_fail, \"1\") == null) {\n"
-            + "    System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
+            + "  System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
             + "\\\"id\\\":\\\""
             + id
             + "\\\","
@@ -278,7 +262,6 @@ public final class JavaParserInjector {
             + exVar
             + ".toString().replace(\"\\\\\",\"\\\\\\\\\").replace(\"\\\"\",\"\\\\\\\"\")"
             + " + \"\\\"}\");\n"
-            + "  }\n"
             + "}\n";
 
     Statement tryStmt = StaticJavaParser.parseStatement(tryCode);
