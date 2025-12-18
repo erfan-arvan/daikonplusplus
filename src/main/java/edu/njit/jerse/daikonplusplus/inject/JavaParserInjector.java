@@ -203,6 +203,7 @@ public final class JavaParserInjector {
     // Build the try/catch as a Statement (no markers in the code string)
     String tryCode =
         "try {\n"
+            // ---------------- INV_EXD (print once) ----------------
             + "  final String __dp_k = \"DP_INV_EXD_"
             + id
             + "\";\n"
@@ -214,10 +215,18 @@ public final class JavaParserInjector {
             + "\");\n"
             + "    }\n"
             + "  }\n"
+
+            // ---------------- INV_FAIL (false case, print once) ----------------
             + "  if (!("
             + expr
             + ")) {\n"
-            + "    System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
+            + "    final String __dp_k_fail = \"DP_INV_FAIL_"
+            + id
+            + "\";\n"
+            + "    synchronized (System.getProperties()) {\n"
+            + "      if (System.getProperty(__dp_k_fail) == null) {\n"
+            + "        System.setProperty(__dp_k_fail, \"1\");\n"
+            + "        System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
             + "\\\"id\\\":\\\""
             + id
             + "\\\","
@@ -234,11 +243,21 @@ public final class JavaParserInjector {
             + phase
             + "\\\","
             + "\\\"error\\\":\\\"\\\"}\");\n"
+            + "      }\n"
+            + "    }\n"
             + "  }\n"
+
+            // ---------------- INV_FAIL (exception case, print once) ----------------
             + "} catch (Throwable "
             + exVar
             + ") {\n"
-            + "  System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
+            + "  final String __dp_k_fail = \"DP_INV_FAIL_"
+            + id
+            + "\";\n"
+            + "  synchronized (System.getProperties()) {\n"
+            + "    if (System.getProperty(__dp_k_fail) == null) {\n"
+            + "      System.setProperty(__dp_k_fail, \"1\");\n"
+            + "      System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
             + "\\\"id\\\":\\\""
             + id
             + "\\\","
@@ -258,6 +277,8 @@ public final class JavaParserInjector {
             + exVar
             + ".toString().replace(\"\\\\\",\"\\\\\\\\\").replace(\"\\\"\",\"\\\\\\\"\")"
             + "+\"\\\"}\");\n"
+            + "    }\n"
+            + "  }\n"
             + "}\n";
 
     Statement tryStmt = StaticJavaParser.parseStatement(tryCode);
