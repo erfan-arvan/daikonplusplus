@@ -203,13 +203,54 @@ public final class JavaParserInjector {
     // Build the try/catch as a Statement (no markers in the code string)
     String tryCode =
         "try {\n"
+            // --------- register shutdown hook once per JVM ---------
+            + "  final java.util.Properties __dp_props = System.getProperties();\n"
+            + "  if (__dp_props.getProperty(\"DP_INV_HOOK\") == null) {\n"
+            + "    synchronized (__dp_props) {\n"
+            + "      if (__dp_props.getProperty(\"DP_INV_HOOK\") == null) {\n"
+            + "        __dp_props.setProperty(\"DP_INV_HOOK\", \"1\");\n"
+            + "        java.lang.Runtime.getRuntime().addShutdownHook(new java.lang.Thread(() -> {\n"
+            + "          try {\n"
+            + "            final java.util.Properties __p = System.getProperties();\n"
+            + "            final String __dirStr = __p.getProperty(\"DP_INV_DIR\");\n"
+            + "            if (__dirStr == null || __dirStr.isBlank()) return;\n"
+            + "            final java.nio.file.Path __dir = java.nio.file.Paths.get(__dirStr);\n"
+            + "            java.nio.file.Files.createDirectories(__dir);\n"
+            + "            final long __pid = java.lang.ProcessHandle.current().pid();\n"
+            + "            final String __name = \"dp-events-\" + __pid + \"-\" + java.util.UUID.randomUUID() + \".log\";\n"
+            + "            final java.nio.file.Path __out = __dir.resolve(__name);\n"
+            + "            final java.lang.StringBuilder __sb = new java.lang.StringBuilder();\n"
+            + "            for (String __k : __p.stringPropertyNames()) {\n"
+            + "              if (__k.startsWith(\"DP_INV_EXD_\")) {\n"
+            + "                __sb.append(\"INV_EXD:\").append(__k.substring(\"DP_INV_EXD_\".length())).append('\\n');\n"
+            + "              } else if (__k.startsWith(\"DP_INV_FAIL_JSON_\")) {\n"
+            + "                final String __v = __p.getProperty(__k);\n"
+            + "                if (__v != null && !__v.isBlank()) __sb.append(__v).append('\\n');\n"
+            + "              }\n"
+            + "            }\n"
+            + "            if (__sb.length() > 0) {\n"
+            + "              java.nio.file.Files.writeString(\n"
+            + "                __out,\n"
+            + "                __sb.toString(),\n"
+            + "                java.nio.charset.StandardCharsets.UTF_8,\n"
+            + "                java.nio.file.StandardOpenOption.CREATE,\n"
+            + "                java.nio.file.StandardOpenOption.APPEND);\n"
+            + "            }\n"
+            + "          } catch (Throwable __ignore) {\n"
+            + "            // never crash shutdown\n"
+            + "          }\n"
+            + "        }));\n"
+            + "      }\n"
+            + "    }\n"
+            + "  }\n"
 
-            // ---------------- EXECUTED (EVERY TIME) ----------------
-            + "  System.out.println(\"INV_EXD:"
+            // --------- per-invariant: mark executed (once) ---------
+            + "  final String __dp_id = \""
             + id
-            + "\");\n"
+            + "\";\n"
+            + "  __dp_props.putIfAbsent(\"DP_INV_EXD_\" + __dp_id, \"1\");\n"
 
-            // ---------------- CHECK INVARIANT ----------------
+            // --------- evaluate invariant safely ---------
             + "  boolean __dp_ok;\n"
             + "  try {\n"
             + "    __dp_ok = ("
@@ -219,10 +260,13 @@ public final class JavaParserInjector {
             + "    __dp_ok = false;\n"
             + "  }\n"
 
-            // ---------------- FAILED (EVERY TIME) ----------------
+            // --------- if fails: record fail JSON once ---------
             + "  if (!__dp_ok) {\n"
-            + "    System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
-            + "\\\"id\\\":\\\""
+            + "    final String __dp_fail_key = \"DP_INV_FAIL_\" + __dp_id;\n"
+            + "    if (__dp_props.putIfAbsent(__dp_fail_key, \"1\") == null) {\n"
+            + "      __dp_props.setProperty(\n"
+            + "        \"DP_INV_FAIL_JSON_\" + __dp_id,\n"
+            + "        \"{\\\"type\\\":\\\"INV_FAIL\\\",\\\"id\\\":\\\""
             + id
             + "\\\","
             + "\\\"element\\\":\\\""
@@ -237,13 +281,24 @@ public final class JavaParserInjector {
             + "\\\"phase\\\":\\\""
             + phase
             + "\\\","
-            + "\\\"error\\\":\\\"\\\"}\");\n"
+            + "\\\"error\\\":\\\"\\\"}\"\n"
+            + "      );\n"
+            + "    }\n"
             + "  }\n"
+
+            // --------- outer catch: record fail JSON once (with error) ---------
             + "} catch (Throwable "
             + exVar
             + ") {\n"
-            + "  System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
-            + "\\\"id\\\":\\\""
+            + "  final java.util.Properties __dp_props = System.getProperties();\n"
+            + "  final String __dp_id = \""
+            + id
+            + "\";\n"
+            + "  final String __dp_fail_key = \"DP_INV_FAIL_\" + __dp_id;\n"
+            + "  if (__dp_props.putIfAbsent(__dp_fail_key, \"1\") == null) {\n"
+            + "    __dp_props.setProperty(\n"
+            + "      \"DP_INV_FAIL_JSON_\" + __dp_id,\n"
+            + "      (\"{\\\"type\\\":\\\"INV_FAIL\\\",\\\"id\\\":\\\""
             + id
             + "\\\","
             + "\\\"element\\\":\\\""
@@ -261,7 +316,9 @@ public final class JavaParserInjector {
             + "\\\"error\\\":\\\"\" + "
             + exVar
             + ".toString().replace(\"\\\\\",\"\\\\\\\\\").replace(\"\\\"\",\"\\\\\\\"\")"
-            + " + \"\\\"}\");\n"
+            + " + \"\\\"}\")\n"
+            + "    );\n"
+            + "  }\n"
             + "}\n";
 
     Statement tryStmt = StaticJavaParser.parseStatement(tryCode);

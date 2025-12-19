@@ -28,6 +28,8 @@ public final class JavaRunner {
     cmd.add(tool("java"));
     cmd.add("-Dfile.encoding=UTF-8");
     cmd.add("-Xshare:off");
+    Path logDir = Optional.ofNullable(logFile.getParent()).orElse(Path.of("."));
+    cmd.add("-DDP_INV_DIR=" + logDir.resolve(".daikonpp-events").toAbsolutePath());
     cmd.add("-cp");
     cmd.add(classpath);
     cmd.add(mainClass);
@@ -51,6 +53,9 @@ public final class JavaRunner {
           StandardOpenOption.CREATE,
           StandardOpenOption.APPEND);
     }
+
+    Path invDir = logDir.resolve(".daikonpp-events");
+    appendDpEvents(invDir, logFile);
   }
 
   /**
@@ -421,6 +426,25 @@ public final class JavaRunner {
     // Export classpath for the script
     Map<String, String> env = pb.environment();
     env.put("DP_DAIKONPP_CLASSPATH", fullRunCp);
+    env.put("DP_RUN_LOG", runLog.toAbsolutePath().toString());
+
+    Path invDir = workDir.resolve(".daikonpp-events");
+    Files.createDirectories(invDir);
+
+    // 1️⃣ Keep env var (harmless, useful for debugging)
+    env.put("DP_INV_DIR", invDir.toAbsolutePath().toString());
+
+    // 2️⃣ CRITICAL: force JVM args for *plain java* commands
+    String jvmArgs = "-DDP_INV_DIR=" + invDir.toAbsolutePath();
+
+    // If script uses JAVA_OPTS (very common)
+    env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + jvmArgs).trim());
+
+    // If script uses _JAVA_OPTIONS (also common)
+    env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + jvmArgs).trim());
+
+    // If script uses Gradle
+    env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + jvmArgs).trim());
 
     // Merge stdout + stderr
     pb.redirectErrorStream(true);
@@ -429,11 +453,46 @@ public final class JavaRunner {
     Process p = pb.start();
     int exit = p.waitFor();
 
+    appendDpEvents(workDir.resolve(".daikonpp-events"), runLog);
+
     if (exit != 0) {
       Files.writeString(
           runLog,
           "\n[DP] External runner exited with code " + exit + "\n",
           StandardOpenOption.APPEND);
+    }
+  }
+
+  private static void appendDpEvents(Path invDir, Path runLog) {
+    try {
+      if (!Files.isDirectory(invDir)) return;
+
+      // append in a deterministic order
+      List<Path> files = new ArrayList<>();
+      try (var s = Files.list(invDir)) {
+        s.filter(
+                p -> {
+                  Path name = p.getFileName();
+                  return name != null && name.toString().startsWith("dp-events-");
+                })
+            .sorted()
+            .forEach(files::add);
+      }
+
+      if (files.isEmpty()) return;
+
+      Files.writeString(
+          runLog,
+          "\n[DP] === invariant events (merged) ===\n",
+          StandardOpenOption.CREATE,
+          StandardOpenOption.APPEND);
+
+      for (Path f : files) {
+        Files.writeString(
+            runLog, Files.readString(f, StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+      }
+
+    } catch (Exception ignored) {
     }
   }
 }
