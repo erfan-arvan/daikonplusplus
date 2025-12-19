@@ -17,6 +17,8 @@ public final class JavaRunner {
   private static final String BLOCK_BEGIN = "__DP_INVARIANT_BEGIN__";
   private static final String BLOCK_END = "__DP_INVARIANT_END__";
 
+  private static final long EXTERNAL_RUN_TIMEOUT_MINUTES = 20;
+
   private JavaRunner() {}
 
   public static void run(String mainClass, String classpath, List<String> args, Path logFile)
@@ -451,9 +453,35 @@ public final class JavaRunner {
     pb.redirectOutput(runLog.toFile());
 
     Process p = pb.start();
-    int exit = p.waitFor();
 
-    appendDpEvents(workDir.resolve(".daikonpp-events"), runLog);
+    boolean finished =
+        p.waitFor(EXTERNAL_RUN_TIMEOUT_MINUTES, java.util.concurrent.TimeUnit.MINUTES);
+
+    if (!finished) {
+      // ---- TIMEOUT HANDLING ----
+      p.destroyForcibly();
+
+      Files.writeString(
+          runLog,
+          "\n[DP] External runner TIMED OUT after " + EXTERNAL_RUN_TIMEOUT_MINUTES + " minutes\n",
+          StandardOpenOption.CREATE,
+          StandardOpenOption.APPEND);
+
+      // Flush whatever invariant events we have
+      appendDpEvents(invDir, runLog);
+
+      Files.writeString(
+          runLog,
+          "[DP] Partial invariant data written due to timeout\n",
+          StandardOpenOption.APPEND);
+
+      return; // IMPORTANT: stop here
+    }
+
+    // ---- NORMAL EXIT ----
+    int exit = p.exitValue();
+
+    appendDpEvents(invDir, runLog);
 
     if (exit != 0) {
       Files.writeString(
