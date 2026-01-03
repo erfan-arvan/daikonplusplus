@@ -39,13 +39,48 @@ public final class JavaRunner {
 
     ProcessBuilder pb = new ProcessBuilder(cmd);
 
-    // Merge stderr into stdout
     pb.redirectErrorStream(true);
-
-    // Let the OS write directly to the file (shows progress as it runs)
-    pb.redirectOutput(ProcessBuilder.Redirect.to(logFile.toFile()));
-
     Process p = pb.start();
+
+    long deadline =
+            System.nanoTime()
+                    + java.util.concurrent.TimeUnit.MINUTES.toNanos(EXTERNAL_RUN_TIMEOUT_MINUTES);
+
+    try (
+            BufferedReader r =
+                    new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
+            BufferedWriter w =
+                    Files.newBufferedWriter(
+                            logFile,
+                            StandardCharsets.UTF_8,
+                            StandardOpenOption.CREATE,
+                            StandardOpenOption.APPEND)) {
+
+      String line;
+
+      while (true) {
+        while (r.ready() && (line = r.readLine()) != null) {
+          w.write(line);
+          w.newLine();
+          w.flush();
+        }
+
+        if (!p.isAlive()) break;
+
+        if (System.nanoTime() > deadline) {
+          w.write(
+                  "[DP] Runner TIMED OUT after " + EXTERNAL_RUN_TIMEOUT_MINUTES + " minutes");
+          w.newLine();
+          w.flush();
+          p.destroyForcibly();
+          break;
+        }
+
+        Thread.sleep(100);
+      }
+    }
+
+
     int code = p.waitFor();
 
     if (code != 0) {
@@ -448,38 +483,55 @@ public final class JavaRunner {
     // If script uses Gradle
     env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + jvmArgs).trim());
 
-    // Merge stdout + stderr
     pb.redirectErrorStream(true);
-    pb.redirectOutput(runLog.toFile());
-
     Process p = pb.start();
 
-    boolean finished =
-        p.waitFor(EXTERNAL_RUN_TIMEOUT_MINUTES, java.util.concurrent.TimeUnit.MINUTES);
+    long deadline =
+            System.nanoTime()
+                    + java.util.concurrent.TimeUnit.MINUTES.toNanos(EXTERNAL_RUN_TIMEOUT_MINUTES);
 
-    if (!finished) {
-      // ---- TIMEOUT HANDLING ----
-      p.destroyForcibly();
+    try (
+            BufferedReader r =
+                    new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
+            BufferedWriter w =
+                    Files.newBufferedWriter(
+                            runLog,
+                            StandardCharsets.UTF_8,
+                            StandardOpenOption.CREATE,
+                            StandardOpenOption.APPEND)) {
 
-      Files.writeString(
-          runLog,
-          "\n[DP] External runner TIMED OUT after " + EXTERNAL_RUN_TIMEOUT_MINUTES + " minutes\n",
-          StandardOpenOption.CREATE,
-          StandardOpenOption.APPEND);
+      String line;
 
-      // Flush whatever invariant events we have
-      appendDpEvents(invDir, runLog);
+      while (true) {
+        // stream output LIVE
+        while (r.ready() && (line = r.readLine()) != null) {
+          w.write(line);
+          w.newLine();
+          w.flush(); // 🔥 THIS is why you used to see test names
+        }
 
-      Files.writeString(
-          runLog,
-          "[DP] Partial invariant data written due to timeout\n",
-          StandardOpenOption.APPEND);
+        if (!p.isAlive()) break;
 
-      return; // IMPORTANT: stop here
+        if (System.nanoTime() > deadline) {
+          w.write(
+                  "[DP] External runner TIMED OUT after "
+                          + EXTERNAL_RUN_TIMEOUT_MINUTES
+                          + " minutes");
+          w.newLine();
+          w.flush();
+
+          try { p.getOutputStream().close(); } catch (Exception ignored) {}
+          p.destroyForcibly();
+          break;
+        }
+
+
+        Thread.sleep(100);
+      }
     }
 
     // ---- NORMAL EXIT ----
-    int exit = p.exitValue();
+    int exit = p.isAlive() ? -1 : p.exitValue();
 
     appendDpEvents(invDir, runLog);
 
