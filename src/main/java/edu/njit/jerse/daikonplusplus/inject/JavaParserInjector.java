@@ -21,6 +21,8 @@ public final class JavaParserInjector {
 
   private final FileWriteCoordinator coordinator;
 
+  final int __dp_limit = 20;
+
   public JavaParserInjector(FileWriteCoordinator coordinator) {
     this.coordinator = coordinator;
   }
@@ -250,14 +252,27 @@ public final class JavaParserInjector {
             + "\";\n"
             + "  __dp_props.putIfAbsent(\"DP_INV_EXD_\" + __dp_id, \"1\");\n"
 
-            // --------- evaluate invariant safely ---------
-            + "  boolean __dp_ok;\n"
-            + "  try {\n"
-            + "    __dp_ok = ("
+            // --------- evaluate invariant safely (with depth guard) ---------
+            + "  boolean __dp_ok = true;\n"
+            + "  final ThreadLocal<Integer> __dp_depth =\n"
+            + "    (ThreadLocal<Integer>) __dp_props.computeIfAbsent(\n"
+            + "      \"DP_INV_DEPTH\", __ -> ThreadLocal.withInitial(() -> 0));\n"
+            + "  int __dp_d = __dp_depth.get();\n"
+            + "  if (__dp_d > "
+            + __dp_limit
+            + ") {\n"
+            + "    __dp_ok = true; // skip invariant to avoid re-entrancy\n"
+            + "  } else {\n"
+            + "    __dp_depth.set(__dp_d + 1);\n"
+            + "    try {\n"
+            + "      __dp_ok = ("
             + expr
             + ");\n"
-            + "  } catch (Throwable __dp_inner) {\n"
-            + "    __dp_ok = false;\n"
+            + "    } catch (Throwable __dp_inner) {\n"
+            + "      __dp_ok = false;\n"
+            + "    } finally {\n"
+            + "      __dp_depth.set(__dp_d);\n"
+            + "    }\n"
             + "  }\n"
 
             // --------- if fails: record fail JSON once ---------
