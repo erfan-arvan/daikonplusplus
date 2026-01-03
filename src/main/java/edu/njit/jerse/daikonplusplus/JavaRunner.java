@@ -17,7 +17,7 @@ public final class JavaRunner {
   private static final String BLOCK_BEGIN = "__DP_INVARIANT_BEGIN__";
   private static final String BLOCK_END = "__DP_INVARIANT_END__";
 
-  private static final long EXTERNAL_RUN_TIMEOUT_MINUTES = 20;
+  private static final long EXTERNAL_RUN_TIMEOUT_MINUTES = 1440;
 
   private JavaRunner() {}
 
