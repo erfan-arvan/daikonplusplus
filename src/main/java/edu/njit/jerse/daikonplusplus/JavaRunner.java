@@ -43,18 +43,17 @@ public final class JavaRunner {
     Process p = pb.start();
 
     long deadline =
-            System.nanoTime()
-                    + java.util.concurrent.TimeUnit.MINUTES.toNanos(EXTERNAL_RUN_TIMEOUT_MINUTES);
+        System.nanoTime()
+            + java.util.concurrent.TimeUnit.MINUTES.toNanos(EXTERNAL_RUN_TIMEOUT_MINUTES);
 
-    try (
-            BufferedReader r =
-                    new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
-            BufferedWriter w =
-                    Files.newBufferedWriter(
-                            logFile,
-                            StandardCharsets.UTF_8,
-                            StandardOpenOption.CREATE,
-                            StandardOpenOption.APPEND)) {
+    try (BufferedReader r =
+            new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
+        BufferedWriter w =
+            Files.newBufferedWriter(
+                logFile,
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.APPEND)) {
 
       String line;
 
@@ -68,8 +67,7 @@ public final class JavaRunner {
         if (!p.isAlive()) break;
 
         if (System.nanoTime() > deadline) {
-          w.write(
-                  "[DP] Runner TIMED OUT after " + EXTERNAL_RUN_TIMEOUT_MINUTES + " minutes");
+          w.write("[DP] Runner TIMED OUT after " + EXTERNAL_RUN_TIMEOUT_MINUTES + " minutes");
           w.newLine();
           w.flush();
           p.destroyForcibly();
@@ -79,7 +77,6 @@ public final class JavaRunner {
         Thread.sleep(100);
       }
     }
-
 
     int code = p.waitFor();
 
@@ -487,18 +484,17 @@ public final class JavaRunner {
     Process p = pb.start();
 
     long deadline =
-            System.nanoTime()
-                    + java.util.concurrent.TimeUnit.MINUTES.toNanos(EXTERNAL_RUN_TIMEOUT_MINUTES);
+        System.nanoTime()
+            + java.util.concurrent.TimeUnit.MINUTES.toNanos(EXTERNAL_RUN_TIMEOUT_MINUTES);
 
-    try (
-            BufferedReader r =
-                    new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
-            BufferedWriter w =
-                    Files.newBufferedWriter(
-                            runLog,
-                            StandardCharsets.UTF_8,
-                            StandardOpenOption.CREATE,
-                            StandardOpenOption.APPEND)) {
+    try (BufferedReader r =
+            new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
+        BufferedWriter w =
+            Files.newBufferedWriter(
+                runLog,
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.APPEND)) {
 
       String line;
 
@@ -514,17 +510,17 @@ public final class JavaRunner {
 
         if (System.nanoTime() > deadline) {
           w.write(
-                  "[DP] External runner TIMED OUT after "
-                          + EXTERNAL_RUN_TIMEOUT_MINUTES
-                          + " minutes");
+              "[DP] External runner TIMED OUT after " + EXTERNAL_RUN_TIMEOUT_MINUTES + " minutes");
           w.newLine();
           w.flush();
 
-          try { p.getOutputStream().close(); } catch (Exception ignored) {}
+          try {
+            p.getOutputStream().close();
+          } catch (Exception ignored) {
+          }
           p.destroyForcibly();
           break;
         }
-
 
         Thread.sleep(100);
       }

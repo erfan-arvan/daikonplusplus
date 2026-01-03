@@ -90,6 +90,8 @@ public final class App {
     }
 
     ExecMode execMode = externalMode ? ExecMode.EXTERNAL_PROJECT : ExecMode.NATIVE;
+    System.out.println("🔥 EXEC MODE = " + execMode);
+
 
     // ============================================================
     // External-project arguments (ONLY used/declared as non-null in external branch)
