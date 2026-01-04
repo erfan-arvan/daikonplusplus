@@ -204,112 +204,15 @@ public final class JavaParserInjector {
 
     // Build the try/catch as a Statement (no markers in the code string)
     String tryCode =
-        "try {\n"
-            // --------- get system properties ---------
-            + "  final java.util.Properties __dp_props = System.getProperties();\n"
-            + "  final String __dp_id = \""
-            + id
-            + "\";\n"
-            + "  __dp_props.putIfAbsent(\"DP_INV_EXD_\" + __dp_id, \"1\");\n"
-
-            // --------- register shutdown hook once per JVM ---------
-            + "  if (__dp_props.getProperty(\"DP_INV_HOOK\") == null) {\n"
-            + "    synchronized (__dp_props) {\n"
-            + "      if (__dp_props.getProperty(\"DP_INV_HOOK\") == null) {\n"
-            + "        __dp_props.setProperty(\"DP_INV_HOOK\", \"1\");\n"
-            + "        Runtime.getRuntime().addShutdownHook(new Thread(() -> {\n"
-            + "          try {\n"
-            + "            java.util.Properties __p = System.getProperties();\n"
-            + "            String __dirStr = __p.getProperty(\"DP_INV_DIR\");\n"
-            + "            if (__dirStr == null || __dirStr.isBlank()) return;\n"
-            + "            java.nio.file.Path __dir = java.nio.file.Paths.get(__dirStr);\n"
-            + "            java.nio.file.Files.createDirectories(__dir);\n"
-            + "            long __pid = ProcessHandle.current().pid();\n"
-            + "            java.nio.file.Path __out = __dir.resolve(\n"
-            + "              \"dp-events-\" + __pid + \"-\" + java.util.UUID.randomUUID() + \".log\");\n"
-            + "            StringBuilder __sb = new StringBuilder();\n"
-            + "            for (String __k : __p.stringPropertyNames()) {\n"
-            + "              if (__k.startsWith(\"DP_INV_EXD_\")) {\n"
-            + "                __sb.append(\"INV_EXD:\")\n"
-            + "                  .append(__k.substring(\"DP_INV_EXD_\".length()))\n"
-            + "                  .append('\\n');\n"
-            + "              } else if (__k.startsWith(\"DP_INV_FAIL_JSON_\")) {\n"
-            + "                String __v = __p.getProperty(__k);\n"
-            + "                if (__v != null && !__v.isBlank()) __sb.append(__v).append('\\n');\n"
-            + "              }\n"
-            + "            }\n"
-            + "            if (__sb.length() > 0)\n"
-            + "              java.nio.file.Files.writeString(\n"
-            + "                __out,\n"
-            + "                __sb.toString(),\n"
-            + "                java.nio.charset.StandardCharsets.UTF_8,\n"
-            + "                java.nio.file.StandardOpenOption.CREATE,\n"
-            + "                java.nio.file.StandardOpenOption.APPEND);\n"
-            + "          } catch (Throwable __ignore) {}\n"
-            + "        }));\n"
-            + "      }\n"
-            + "    }\n"
-            + "  }\n"
-
-            // --------- evaluate invariant safely (DEPTH GUARD) ---------
-            + "  boolean __dp_ok = true;\n"
-            + "  ThreadLocal<Integer> __dp_depth =\n"
-            + "    (ThreadLocal<Integer>) __dp_props.computeIfAbsent(\n"
-            + "      \"DP_INV_DEPTH\", __ -> ThreadLocal.withInitial(() -> 0));\n"
-            + "  int __dp_d = __dp_depth.get();\n"
-            + "  if (__dp_d < "
-            + __dp_limit
-            + ") {\n"
-            + "    __dp_depth.set(__dp_d + 1);\n"
-            + "    try {\n"
-            + "      __dp_ok = ("
-            + expr
-            + ");\n"
-            + "    } catch (Throwable __dp_inner) {\n"
-            + "      __dp_ok = false;\n"
-            + "    } finally {\n"
-            + "      __dp_depth.set(__dp_d);\n"
-            + "    }\n"
-            + "  }\n"
-
-            // --------- record failure once ---------
-            + "  if (!__dp_ok) {\n"
-            + "    String __failKey = \"DP_INV_FAIL_\" + __dp_id;\n"
-            + "    if (__dp_props.putIfAbsent(__failKey, \"1\") == null) {\n"
-            + "      __dp_props.setProperty(\n"
-            + "        \"DP_INV_FAIL_JSON_\" + __dp_id,\n"
-            + "        \"{\\\"type\\\":\\\"INV_FAIL\\\",\\\"id\\\":\\\""
-            + id
-            + "\\\",\\\"element\\\":\\\""
-            + esc(rec.point().elementId().toString())
-            + "\\\",\\\"file\\\":\\\""
-            + esc(rec.sourceFile())
-            + "\\\",\\\"expr\\\":\\\""
-            + esc(expr)
-            + "\\\",\\\"phase\\\":\\\""
-            + phase
-            + "\\\"}\");\n"
-            + "    }\n"
-            + "  }\n"
-
-            // --------- outer safety catch ---------
-            + "} catch (Throwable "
-            + exVar
-            + ") {\n"
-            + "  java.util.Properties __p = System.getProperties();\n"
-            + "  if (__p.putIfAbsent(\"DP_INV_FAIL_"
-            + id
-            + "\", \"1\") == null) {\n"
-            + "    __p.setProperty(\"DP_INV_FAIL_JSON_"
-            + id
-            + "\",\n"
-            + "      \"{\\\"type\\\":\\\"INV_CRASH\\\",\\\"id\\\":\\\""
-            + id
-            + "\\\",\\\"error\\\":\\\"\" + "
-            + exVar
-            + ".toString() + \"\\\"}\");\n"
-            + "  }\n"
-            + "}\n";
+            "try {\n"
+                    + "  java.util.Properties __dp_props = System.getProperties();\n"
+                    + "  __dp_props.putIfAbsent(\n"
+                    + "    \"DP_INV_EXEC_\" + \"" + id + "\",\n"
+                    + "    \"" + esc(expr) + "\"\n"
+                    + "  );\n"
+                    + "} catch (Throwable " + exVar + ") {\n"
+                    + "  // swallow\n"
+                    + "}\n";
 
     Statement tryStmt = StaticJavaParser.parseStatement(tryCode);
 
