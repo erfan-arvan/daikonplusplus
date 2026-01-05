@@ -361,7 +361,8 @@ public final class App {
     int totalSpecs = 0;
 
     final long totalTimeoutSec =
-        Long.parseLong(Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "20"));
+        Long.parseLong(
+            Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "300"));
     final long pollStepMs =
         Long.parseLong(Objects.requireNonNullElse(System.getenv("DP_LLM_POLL_STEP_MS"), "1500"));
 
