@@ -1,0 +1,21 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The parameter args is typically non-null at program entry or exit in main.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "args is not null"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always non-negative.",
+    "meta" : [ {
+      "key" : "array length",
+      "value" : "args length is non-negative"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Main method does not return a value (void). No result to relate.",
+    "meta" : [ ]
+  } ]
+}

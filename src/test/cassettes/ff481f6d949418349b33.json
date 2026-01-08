@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method throws if value is null, so result cannot be null.",
+    "meta" : [ {
+      "key" : "nonnull",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "Method throws if value is empty, so result length is positive.",
+    "meta" : [ {
+      "key" : "length",
+      "value" : "positive"
+    } ]
+  }, {
+    "expression" : "result == value",
+    "rationale" : "Method returns the original value reference unchanged.",
+    "meta" : [ {
+      "key" : "identity",
+      "value" : "true"
+    } ]
+  } ]
+}

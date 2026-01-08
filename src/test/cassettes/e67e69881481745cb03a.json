@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "Method entry points usually have non-null array parameters.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "args is not null at method entry"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always non-negative.",
+    "meta" : [ {
+      "key" : "array",
+      "value" : "length non-negative"
+    } ]
+  }, {
+    "expression" : "args == null || args.length >= 0",
+    "rationale" : "Ensures no NullPointerException on args length access if null.",
+    "meta" : [ {
+      "key" : "defensive",
+      "value" : "safe check for args nullness and length"
+    } ]
+  }, {
+    "expression" : "args == null || (args.length == 0 || args.length > 0)",
+    "rationale" : "Covers all length cases safely with null check.",
+    "meta" : [ {
+      "key" : "logical",
+      "value" : "args length covers all possibilities"
+    } ]
+  }, {
+    "expression" : "args == null || (args != null)",
+    "rationale" : "A trivial nullness check to show args can be null or not.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "redundant but valid"
+    } ]
+  } ]
+}
