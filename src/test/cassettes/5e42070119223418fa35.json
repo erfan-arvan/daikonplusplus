@@ -1,17 +1,17 @@
 {
   "invariants" : [ {
     "expression" : "args != null",
-    "rationale" : "The method main receives a String array, which is never null when invoked by the JVM.",
+    "rationale" : "The main method is called with a non-null args array.",
     "meta" : [ {
       "key" : "nullness",
-      "value" : "args is not null"
+      "value" : "non-null"
     } ]
   }, {
     "expression" : "args.length >= 0",
     "rationale" : "Array length in Java is always non-negative.",
     "meta" : [ {
       "key" : "range",
-      "value" : "args length is non-negative"
+      "value" : "length non-negative"
     } ]
   } ]
 }

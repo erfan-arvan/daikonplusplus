@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "b != null && b.doubleValue() != 0.0",
+    "rationale" : "Division by zero is prevented by this check, so b must not be null or zero.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "essential for safe division"
+    } ]
+  }, {
+    "expression" : "a != null",
+    "rationale" : "Input 'a' must not be null for the method to work.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "a instanceof Integer || a instanceof Double",
+    "rationale" : "Only Integer and Double types are supported for safe division.",
+    "meta" : [ {
+      "key" : "typeConstraint",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "b instanceof Integer || b instanceof Double",
+    "rationale" : "Parameter 'b' must be of compatible numeric type.",
+    "meta" : [ {
+      "key" : "typeConstraint",
+      "value" : "true"
+    } ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The main method is invoked by the JVM with a (possibly empty) non-null array.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "args is non-null array"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always zero or more.",
+    "meta" : [ {
+      "key" : "arrayLength",
+      "value" : "non-negative length"
+    } ]
+  }, {
+    "expression" : "args.length <= Integer.MAX_VALUE",
+    "rationale" : "Array length is bounded by Integer.MAX_VALUE.",
+    "meta" : [ {
+      "key" : "arrayLength",
+      "value" : "bounded by max int"
+    } ]
+  } ]
+}

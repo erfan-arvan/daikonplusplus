@@ -1,29 +1,17 @@
 {
   "invariants" : [ {
-    "expression" : "b != 0",
-    "rationale" : "The method handles the case b == 0 explicitly, suggesting b is typically non-zero at method entry for safe division.",
+    "expression" : "true",
+    "rationale" : "At method entrance, no constraints on integer parameters a and b.",
     "meta" : [ {
-      "key" : "likely",
-      "value" : "true"
+      "key" : "note",
+      "value" : "No restrictions at method entry for parameters a and b."
     } ]
   }, {
-    "expression" : "a != Integer.MIN_VALUE",
-    "rationale" : "a can be any int, including Integer.MIN_VALUE, but this value is special for return in division by zero case.",
+    "expression" : "b != Integer.MIN_VALUE",
+    "rationale" : "b is an int, so not necessarily equal to Integer.MIN_VALUE, but it's possible. No definitive invariant here.",
     "meta" : [ {
-      "key" : "possible",
-      "value" : "true"
+      "key" : "range",
+      "value" : "b is int"
     } ]
-  }, {
-    "expression" : "b <= Integer.MAX_VALUE",
-    "rationale" : "b is an int, so it cannot be greater than Integer.MAX_VALUE.",
-    "meta" : [ ]
-  }, {
-    "expression" : "b >= Integer.MIN_VALUE",
-    "rationale" : "b is an int, so it cannot be less than Integer.MIN_VALUE.",
-    "meta" : [ ]
-  }, {
-    "expression" : "a <= Integer.MAX_VALUE",
-    "rationale" : "a is an int, so it cannot be greater than Integer.MAX_VALUE.",
-    "meta" : [ ]
   } ]
 }

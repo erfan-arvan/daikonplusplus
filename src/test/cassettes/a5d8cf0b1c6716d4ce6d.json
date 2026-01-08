@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "Method parameters in Java are non-null unless explicitly allowed, so args should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "args is not null at method entry"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length in Java is always non-negative.",
+    "meta" : [ {
+      "key" : "length",
+      "value" : "args length non-negative"
+    } ]
+  }, {
+    "expression" : "args.length == 0 || args[0] != null",
+    "rationale" : "If args has length > 0, the first element may be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "args[0] may be non-null if array length > 0"
+    } ]
+  }, {
+    "expression" : "args.length == 0 || args[0] == null || args[0] instanceof String",
+    "rationale" : "Elements of String[] are either null or instances of String.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "args elements are Strings or null"
+    } ]
+  } ]
+}

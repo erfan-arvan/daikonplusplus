@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "If divisor is zero, the method returns Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "likely",
+      "value" : "When b==0, method returns Integer.MIN_VALUE"
+    } ]
+  }, {
+    "expression" : "b != 0 || result <= 0",
+    "rationale" : "When b is zero, result is Integer.MIN_VALUE which is negative.",
+    "meta" : [ {
+      "key" : "derived",
+      "value" : "Integer.MIN_VALUE is negative"
+    } ]
+  }, {
+    "expression" : "b != 0 && result * b == a",
+    "rationale" : "When b is nonzero, result times b equals a (integer division definition).",
+    "meta" : [ {
+      "key" : "division",
+      "value" : "standard integer division property"
+    } ]
+  }, {
+    "expression" : "b != 0",
+    "rationale" : "Only when b is not zero do we perform division and return a/b.",
+    "meta" : [ {
+      "key" : "division",
+      "value" : "division only happens if b is non-zero"
+    } ]
+  }, {
+    "expression" : "b == 0 || (result == a / b)",
+    "rationale" : "If b is nonzero, result equals a divided by b.",
+    "meta" : [ {
+      "key" : "correctness",
+      "value" : "result equals integer division of a by b when b is not zero"
+    } ]
+  } ]
+}

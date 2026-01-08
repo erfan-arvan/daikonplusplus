@@ -67,6 +67,8 @@ public final class App {
   }
 
   public static void main(String[] args) throws Exception {
+    // reset per pipeline invocation
+    RUN_DEDUP.clear();
 
     // Detect external-project mode early so we don't enforce args.length>=3 for that mode.
     final boolean externalMode =

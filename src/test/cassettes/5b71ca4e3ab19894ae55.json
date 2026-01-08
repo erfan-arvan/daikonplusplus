@@ -1,29 +1,38 @@
 {
   "invariants" : [ {
     "expression" : "b != 0 || result == Integer.MIN_VALUE",
-    "rationale" : "When divisor b is zero, method returns Integer.MIN_VALUE.",
+    "rationale" : "The result is Integer.MIN_VALUE only if divisor b is zero.",
     "meta" : [ {
-      "key" : "source",
-      "value" : "this ensures safe divide returns MIN_VALUE when divisor is zero"
+      "key" : "proof",
+      "value" : "When b is zero, method returns Integer.MIN_VALUE."
     } ]
   }, {
     "expression" : "b != 0 || result == Integer.MIN_VALUE",
-    "rationale" : "Directly matches method logic.",
-    "meta" : [ ]
-  }, {
-    "expression" : "b != 0 && result * b == a",
-    "rationale" : "When b is not zero, result times b equals dividend a.",
+    "rationale" : "Result encodes special value when division by zero occurs.",
     "meta" : [ {
-      "key" : "notes",
-      "value" : "no remainder division assumed"
+      "key" : "equivalence",
+      "value" : "Same as previous, emphasizing conditional equivalence."
     } ]
   }, {
-    "expression" : "b == 0 || (result * b <= a + (b > 0 ? b - 1 : 1 - b))",
-    "rationale" : "Result is consistent with integer division truncation.",
-    "meta" : [ ]
+    "expression" : "b != 0 && result * b == a",
+    "rationale" : "When divisor is nonzero, result times divisor equals numerator truncated.",
+    "meta" : [ {
+      "key" : "proof",
+      "value" : "If b != 0, result is integer division a/b, so result*b equals the quotient times divisor."
+    } ]
+  }, {
+    "expression" : "b == 0 || result * b == a",
+    "rationale" : "Combining cases into one invariant.",
+    "meta" : [ {
+      "key" : "logic",
+      "value" : "Equivalent to previous expression."
+    } ]
   }, {
     "expression" : "result != Integer.MIN_VALUE || b == 0",
-    "rationale" : "If result is MIN_VALUE then b must have been zero.",
-    "meta" : [ ]
+    "rationale" : "Special value indicates division by zero condition.",
+    "meta" : [ {
+      "key" : "contrapositive",
+      "value" : "If result equals special value, then divisor is zero."
+    } ]
   } ]
 }

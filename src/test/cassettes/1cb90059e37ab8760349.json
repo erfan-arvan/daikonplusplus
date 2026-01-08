@@ -1,17 +1,17 @@
 {
   "invariants" : [ {
     "expression" : "args != null",
-    "rationale" : "Method entry always has non-null args array.",
+    "rationale" : "Method parameter arrays are typically non-null at program entry.",
     "meta" : [ {
       "key" : "nullness",
-      "value" : "non-null"
+      "value" : "args is non-null at method entry"
     } ]
   }, {
     "expression" : "args.length >= 0",
-    "rationale" : "Array length cannot be negative.",
+    "rationale" : "Java arrays have non-negative length.",
     "meta" : [ {
-      "key" : "array-length",
-      "value" : "non-negative"
+      "key" : "array",
+      "value" : "args length is non-negative"
     } ]
   } ]
 }

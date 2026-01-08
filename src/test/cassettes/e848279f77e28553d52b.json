@@ -1,24 +1,24 @@
 {
   "invariants" : [ {
     "expression" : "args != null",
-    "rationale" : "The args array is never null at the main method entry.",
+    "rationale" : "Method main is always called with a non-null array.",
     "meta" : [ {
-      "key" : "nonNull",
-      "value" : "args is never null at method entry"
+      "key" : "null-safety",
+      "value" : "args is guaranteed non-null at method entry"
     } ]
   }, {
     "expression" : "args.length >= 0",
-    "rationale" : "Array length is always non-negative.",
+    "rationale" : "Arrays in Java have non-negative length.",
     "meta" : [ {
-      "key" : "length",
+      "key" : "array-length",
       "value" : "args length is non-negative"
     } ]
   }, {
-    "expression" : "args != null && args.length >= 0",
-    "rationale" : "Both the non-nullness and length constraints on the args array.",
+    "expression" : "args.length == 0 || args.length >= 0",
+    "rationale" : "Java array lengths are zero or positive.",
     "meta" : [ {
-      "key" : "combined",
-      "value" : "args not null and length non-negative"
+      "key" : "length-property",
+      "value" : "length is integer and can't be negative"
     } ]
   } ]
 }

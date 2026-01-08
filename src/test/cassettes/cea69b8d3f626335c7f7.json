@@ -1,17 +1,31 @@
 {
   "invariants" : [ {
     "expression" : "args != null",
-    "rationale" : "Java main method args parameter is always non-null by specification.",
+    "rationale" : "Java main method args is never null but can be empty.",
     "meta" : [ {
       "key" : "nullness",
-      "value" : "args is non-null at method entry"
+      "value" : "args is not null on method entry"
     } ]
   }, {
     "expression" : "args.length >= 0",
-    "rationale" : "Array length in Java is always non-negative.",
+    "rationale" : "Array length cannot be negative.",
     "meta" : [ {
-      "key" : "array length",
-      "value" : "args has non-negative length"
+      "key" : "size",
+      "value" : "args array non-negative length"
+    } ]
+  }, {
+    "expression" : "args.length <= 1000",
+    "rationale" : "Typical main args length is small, so an upper bound of 1000 is plausible.",
+    "meta" : [ {
+      "key" : "size_bound",
+      "value" : "args length is reasonably bounded"
+    } ]
+  }, {
+    "expression" : "args.length == 0 || args[0] != null",
+    "rationale" : "Args elements are usually non-null if present.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "elements may be non-null if present"
     } ]
   } ]
 }

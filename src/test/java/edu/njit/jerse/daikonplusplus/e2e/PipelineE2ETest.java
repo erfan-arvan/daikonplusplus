@@ -11,8 +11,8 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.*;
-import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.TestFactory;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * End-to-end regression test runner.
@@ -58,14 +58,7 @@ public class PipelineE2ETest {
 
   private static final ObjectMapper M = new ObjectMapper();
 
-  /**
-   * Discovers runnable cases and produces one dynamic test per case.
-   *
-   * @return a stream of dynamic tests, one per discovered case
-   * @throws IOException if listing or probing the cases directory fails
-   */
-  @TestFactory
-  Stream<DynamicTest> runAllCases() throws IOException {
+  static Stream<Path> caseProvider() throws IOException {
     assertTrue(Files.isDirectory(CASES_ROOT), "Missing cases root: " + CASES_ROOT);
 
     // --- Deterministic replay guards ---
@@ -73,16 +66,12 @@ public class PipelineE2ETest {
         firstNonBlank(
             System.getProperty("DP_DISABLE_REAL_LLM"), System.getenv("DP_DISABLE_REAL_LLM"), "");
     assertTrue(
-        isTruthy(disableReal),
-        "DP_DISABLE_REAL_LLM must be truthy for deterministic replay.\n"
-            + "Run via Gradle (./gradlew test) or set DP_DISABLE_REAL_LLM=1.");
+        isTruthy(disableReal), "DP_DISABLE_REAL_LLM must be truthy for deterministic replay.");
 
     String casEnv =
         firstNonBlank(
             System.getProperty("DP_LLM_CASSETTES"), System.getenv("DP_LLM_CASSETTES"), "");
-    assertFalse(
-        casEnv.isBlank(),
-        "DP_LLM_CASSETTES must be set to your cassette directory (e.g., src/test/cassettes).");
+    assertFalse(casEnv.isBlank(), "DP_LLM_CASSETTES must be set.");
 
     Path cassetteDir = Paths.get(casEnv).toAbsolutePath().normalize();
     assertTrue(
@@ -91,25 +80,23 @@ public class PipelineE2ETest {
 
     final Set<String> onlyCases = parseCaseFilter(System.getProperty("dp.cases", "").trim());
 
-    final List<Path> caseDirs;
     try (Stream<Path> s = Files.list(CASES_ROOT)) {
-      caseDirs =
+      List<Path> cases =
           s.filter(Files::isDirectory)
               .filter(PipelineE2ETest::hasInputAndExpected)
               .filter(p -> onlyCases.isEmpty() || onlyCases.contains(p.getFileName().toString()))
               .sorted(Comparator.comparing(p -> p.getFileName().toString()))
               .collect(Collectors.toList());
-    }
-    assertFalse(
-        caseDirs.isEmpty(),
-        "No runnable cases under: "
-            + CASES_ROOT
-            + (onlyCases.isEmpty() ? "" : " matching filter " + onlyCases));
 
-    return caseDirs.stream()
-        .map(
-            dir ->
-                DynamicTest.dynamicTest(dir.getFileName().toString(), () -> runCaseCompare(dir)));
+      assertFalse(cases.isEmpty(), "No runnable E2E cases found");
+      return cases.stream();
+    }
+  }
+
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("caseProvider")
+  void runCase(Path caseDir) throws Exception {
+    runCaseCompare(caseDir);
   }
 
   // ---------- Small helpers (env parsing, filtering) ----------

@@ -1,24 +1,24 @@
 {
   "invariants" : [ {
     "expression" : "result != null",
-    "rationale" : "Method throws if value is null, so result cannot be null.",
+    "rationale" : "The method throws if value is null, so the returned result is non-null.",
     "meta" : [ {
-      "key" : "nonnull",
-      "value" : "true"
+      "key" : "nullness",
+      "value" : "result is non-null"
     } ]
   }, {
     "expression" : "result.length() > 0",
-    "rationale" : "Method throws if value is empty, so result length is positive.",
+    "rationale" : "The method throws if value is empty, so the returned result has length > 0.",
     "meta" : [ {
       "key" : "length",
-      "value" : "positive"
+      "value" : "result length is positive"
     } ]
   }, {
     "expression" : "result == value",
-    "rationale" : "Method returns the original value reference unchanged.",
+    "rationale" : "The method returns the input value if it is non-null and non-empty.",
     "meta" : [ {
       "key" : "identity",
-      "value" : "true"
+      "value" : "result equals input parameter"
     } ]
   } ]
 }

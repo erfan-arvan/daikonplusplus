@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 || (a / b) * b == a",
+    "rationale" : "If b is not zero, integer division and multiplication reconstruct the original numerator without remainder.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "correctness"
+    } ]
+  }, {
+    "expression" : "a >= Integer.MIN_VALUE",
+    "rationale" : "a is an int and thus always within Integer.MIN_VALUE and Integer.MAX_VALUE.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "range"
+    } ]
+  }, {
+    "expression" : "b >= Integer.MIN_VALUE && b <= Integer.MAX_VALUE",
+    "rationale" : "b is an int, always within int bounds.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "range"
+    } ]
+  }, {
+    "expression" : "b == 0 || b != 0",
+    "rationale" : "While tautological, it indicates variable b is an int and non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "tautology"
+    } ]
+  } ]
+}

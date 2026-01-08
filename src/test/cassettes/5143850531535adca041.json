@@ -1,38 +1,31 @@
 {
   "invariants" : [ {
-    "expression" : "b == 0 || b != 0",
-    "rationale" : "b is an integer, so it must be either zero or non-zero.",
+    "expression" : "b != 0",
+    "rationale" : "The method avoids division by zero by returning early if b is zero.",
     "meta" : [ {
-      "key" : "reason",
-      "value" : "b is an int and either zero or non-zero"
+      "key" : "justification",
+      "value" : "Division by zero is checked and handled by returning Integer.MIN_VALUE, so normal division only occurs if b != 0"
     } ]
   }, {
-    "expression" : "b == 0 || b != 0",
-    "rationale" : "b can only be zero or non-zero, no other values possible.",
+    "expression" : "a <= Integer.MAX_VALUE",
+    "rationale" : "By definition, 'a' as an int is within Integer.MIN_VALUE and Integer.MAX_VALUE.",
     "meta" : [ {
-      "key" : "reason",
-      "value" : "no other possibilities for b"
+      "key" : "range",
+      "value" : "true"
     } ]
   }, {
-    "expression" : "b == 0 || (a / b) <= Integer.MAX_VALUE",
-    "rationale" : "When b is not zero, a divided by b is within int range.",
+    "expression" : "b <= Integer.MAX_VALUE",
+    "rationale" : "By definition, 'b' as an int is within integer bounds.",
     "meta" : [ {
-      "key" : "reason",
-      "value" : "division result fits in int when b != 0"
+      "key" : "range",
+      "value" : "true"
     } ]
   }, {
-    "expression" : "b == 0 || (a / b) >= Integer.MIN_VALUE",
-    "rationale" : "The result of division is always within int bounds if b != 0.",
+    "expression" : "b != Integer.MIN_VALUE",
+    "rationale" : "Any int except Integer.MIN_VALUE, which might affect division corner cases, is possible.",
     "meta" : [ {
-      "key" : "reason",
-      "value" : "division result is bounded by int range"
-    } ]
-  }, {
-    "expression" : "true",
-    "rationale" : "No constraints on a or b besides division safety.",
-    "meta" : [ {
-      "key" : "reason",
-      "value" : "method has no preconditions on a and b except b==0 check"
+      "key" : "bounds",
+      "value" : "true"
     } ]
   } ]
 }

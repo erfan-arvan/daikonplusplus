@@ -1,17 +1,17 @@
 {
   "invariants" : [ {
     "expression" : "value != null",
-    "rationale" : "Method throws if value is null, so at entry it is non-null.",
+    "rationale" : "The method throws an exception if value is null, so at entry it must be non-null.",
     "meta" : [ {
       "key" : "nullness",
       "value" : "non-null"
     } ]
   }, {
     "expression" : "value.length() > 0",
-    "rationale" : "Method throws if value.length() == 0, so at entry length is positive.",
+    "rationale" : "The method throws if value.length() == 0, so length must be positive.",
     "meta" : [ {
-      "key" : "length",
-      "value" : "> 0"
+      "key" : "size",
+      "value" : "positive"
     } ]
   } ]
 }

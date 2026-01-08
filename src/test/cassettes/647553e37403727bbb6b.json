@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "Main method args are typically non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "args must be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always non-negative.",
+    "meta" : [ {
+      "key" : "array-length",
+      "value" : "Length is non-negative"
+    } ]
+  }, {
+    "expression" : "args.length <= Integer.MAX_VALUE",
+    "rationale" : "Array length is bounded by max int.",
+    "meta" : [ {
+      "key" : "array-length",
+      "value" : "Length is at most Integer.MAX_VALUE"
+    } ]
+  } ]
+}

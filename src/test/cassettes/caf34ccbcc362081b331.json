@@ -1,38 +1,38 @@
 {
   "invariants" : [ {
-    "expression" : "b == 0 || result * b == a",
-    "rationale" : "If b is not zero, the result is a divided by b, so multiplying result by b gives back a.",
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "If b is zero, method returns Integer.MIN_VALUE.",
     "meta" : [ {
-      "key" : "relation",
-      "value" : "result corresponds to division a / b"
+      "key" : "origin",
+      "value" : "method logic"
     } ]
   }, {
     "expression" : "b != 0 || result == Integer.MIN_VALUE",
-    "rationale" : "When b is zero, the method returns Integer.MIN_VALUE.",
+    "rationale" : "Result is Integer.MIN_VALUE only when b is zero.",
     "meta" : [ {
-      "key" : "special-case",
-      "value" : "division by zero"
+      "key" : "origin",
+      "value" : "return condition"
     } ]
   }, {
-    "expression" : "b != 0 || result <= 0",
-    "rationale" : "If division by zero occurs, result is Integer.MIN_VALUE, which is negative.",
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "If division safe, result equals a/b, else Integer.MIN_VALUE.",
     "meta" : [ {
-      "key" : "overflow-behavior",
-      "value" : "Integer.MIN_VALUE is negative"
+      "key" : "origin",
+      "value" : "method return"
     } ]
   }, {
-    "expression" : "result == Integer.MIN_VALUE || (b != 0 && (a / b) == result)",
-    "rationale" : "The only way result differs from a / b is when b is zero.",
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Result is the division if b not zero, otherwise special value.",
     "meta" : [ {
-      "key" : "correctness",
-      "value" : "result equals division or min value if division by zero"
+      "key" : "origin",
+      "value" : "safeDivide return"
     } ]
   }, {
-    "expression" : "result == Integer.MIN_VALUE || (b != 0 && b * result <= a)",
-    "rationale" : "Result is integer division quotient; multiplied by divisor, result does not exceed a if b positive.",
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Invariant relates b being zero to special return value.",
     "meta" : [ {
-      "key" : "approximation",
-      "value" : "division result times divisor less or equal to dividend"
+      "key" : "origin",
+      "value" : "division return"
     } ]
   } ]
 }
