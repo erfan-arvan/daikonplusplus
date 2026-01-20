@@ -1,6 +1,6 @@
 package com.example;
 
-public class Calc<T extends Number> {
+public class Calc2<T extends Number> {
 
   public T safeDivide(T a, T b) {
     if (b.doubleValue() == 0.0) {
@@ -19,11 +19,11 @@ public class Calc<T extends Number> {
   }
 
   public static void main(String[] args) {
-    Calc<Integer> ci = new Calc<>();
+    Calc2<Integer> ci = new Calc2<>();
     System.out.println(ci.safeDivide(10, 2));
     System.out.println(ci.safeDivide(10, 0));
 
-    Calc<Double> cd = new Calc<>();
+    Calc2<Double> cd = new Calc2<>();
     System.out.println(cd.safeDivide(10.0, 2.0));
     System.out.println(cd.safeDivide(10.0, 0.0));
   }

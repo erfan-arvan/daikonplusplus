@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "Program args array is not null at main method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "args is not null"
+    } ]
+  }, {
+    "expression" : "result == null || true",
+    "rationale" : "The main method is void; result is not defined, so no relation.",
+    "meta" : [ {
+      "key" : "result",
+      "value" : "result is void, no direct relation"
+    } ]
+  } ]
+}

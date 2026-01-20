@@ -70,6 +70,12 @@ public final class App {
     // reset per pipeline invocation
     RUN_DEDUP.clear();
 
+    final Path externalMainCompileScript =
+        Optional.ofNullable(System.getenv("DP_COMPILE_MAIN_SCRIPT")).map(Path::of).orElse(null);
+
+    final Path externalTestCompileScript =
+        Optional.ofNullable(System.getenv("DP_COMPILE_TEST_SCRIPT")).map(Path::of).orElse(null);
+
     // Detect external-project mode early so we don't enforce args.length>=3 for that mode.
     final boolean externalMode =
         java.util.Arrays.asList(args).contains("--cmd")
@@ -364,7 +370,7 @@ public final class App {
 
     final long totalTimeoutSec =
         Long.parseLong(
-            Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "300"));
+            Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "1000"));
     final long pollStepMs =
         Long.parseLong(Objects.requireNonNullElse(System.getenv("DP_LLM_POLL_STEP_MS"), "1500"));
 
@@ -484,23 +490,14 @@ public final class App {
       // 🔥 NEW: run invariant auto-filter BEFORE Gradle
       final Path classesDir = workProjectRoot.resolve(".daikonpp-classes");
 
-      String compileCp = System.getenv("DP_EXTERNAL_COMPILE_CP");
-
-      if (compileCp != null && !compileCp.isBlank()) {
-        // Complex external project (e.g., Checker Framework)
-        JavaRunner.compileWithAutoFilter(
-            mainSrcRoot,
-            userProjectRoot.resolve(relMainSrc),
-            classesDir,
-            compileCp,
-            /*maxModifyPasses*/ 10);
-
-        System.out.println(">>> Invariant auto-filter finished (external-project mode)");
-      } else {
-        // Simple external command (E2E tests like Calc.java)
-        System.out.println(
-            ">>> Skipping invariant auto-filter (no DP_EXTERNAL_COMPILE_CP; simple external project)");
-      }
+      runAutoFilterCompile(
+          workProjectRoot,
+          mainSrcRoot,
+          userProjectRoot.resolve(relMainSrc),
+          classesDir,
+          Objects.requireNonNullElse(System.getenv("DP_EXTERNAL_COMPILE_CP"), ""),
+          10,
+          externalMainCompileScript);
 
       System.out.println(">>> Invariant auto-filter finished (external-project mode)");
 
@@ -514,20 +511,41 @@ public final class App {
 
       final String fullRunCp;
       if (splitMode) {
-        JavaRunner.compileWithAutoFilter(
-            mainSrcRoot, userMainSrcRoot, classesDir, mainClasspath, /*maxPasses*/ 10);
+        runAutoFilterCompile(
+            workProjectRoot,
+            mainSrcRoot,
+            userMainSrcRoot,
+            classesDir,
+            mainClasspath,
+            10,
+            externalMainCompileScript);
+
         System.out.println(">>> Main compilation phase finished successfully");
 
         final String testCompileCp =
             JavaRunner.joinCp(classesDir.toString(), mainClasspath, testClasspath);
-        JavaRunner.compileWithAutoFilter(
-            testSrcRoot, userTestSrcRoot, classesDir, testCompileCp, /*maxPasses*/ 0);
+        runAutoFilterCompile(
+            workProjectRoot,
+            testSrcRoot,
+            userTestSrcRoot,
+            classesDir,
+            testCompileCp,
+            0,
+            externalTestCompileScript);
+
         System.out.println(">>> Test compilation phase finished successfully");
 
         fullRunCp = JavaRunner.joinCp(selfCp, classesDir.toString(), mainClasspath, testClasspath);
       } else {
-        JavaRunner.compileWithAutoFilter(
-            mainSrcRoot, userMainSrcRoot, classesDir, mainClasspath, /*maxPasses*/ 10);
+        runAutoFilterCompile(
+            workProjectRoot,
+            mainSrcRoot,
+            userMainSrcRoot,
+            classesDir,
+            mainClasspath,
+            10,
+            externalMainCompileScript);
+
         System.out.println(">>> Compilation phase finished successfully");
         fullRunCp = JavaRunner.joinCp(selfCp, classesDir.toString(), mainClasspath);
       }
@@ -975,5 +993,25 @@ public final class App {
       }
     }
     return Optional.empty();
+  }
+
+  private static void runAutoFilterCompile(
+      Path workProjectRoot,
+      Path srcRoot,
+      Path userSrcRoot,
+      Path classesDir,
+      String classpath,
+      int maxPasses,
+      @org.checkerframework.checker.nullness.qual.Nullable Path externalCompileScript)
+      throws Exception {
+
+    if (externalCompileScript != null) {
+      // User-provided compile script IS the compiler
+      ExternalCompileRunner.compileWithAutoFilter(
+          workProjectRoot, externalCompileScript, maxPasses);
+    } else {
+      // Native javac-based autofilter
+      JavaRunner.compileWithAutoFilter(srcRoot, userSrcRoot, classesDir, classpath, maxPasses);
+    }
   }
 }

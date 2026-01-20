@@ -1,38 +1,38 @@
 {
   "invariants" : [ {
     "expression" : "b != 0 || result == Integer.MIN_VALUE",
-    "rationale" : "The result is Integer.MIN_VALUE only if divisor b is zero.",
+    "rationale" : "When b is zero, result is Integer.MIN_VALUE for safe divide.",
     "meta" : [ {
-      "key" : "proof",
-      "value" : "When b is zero, method returns Integer.MIN_VALUE."
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "b != 0 || result != Integer.MIN_VALUE",
+    "rationale" : "Contrapositive: if result is Integer.MIN_VALUE, b must be zero.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "low"
+    } ]
+  }, {
+    "expression" : "b != 0 && result == a / b",
+    "rationale" : "When b is not zero, result is the integer division of a by b.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
     } ]
   }, {
     "expression" : "b != 0 || result == Integer.MIN_VALUE",
-    "rationale" : "Result encodes special value when division by zero occurs.",
+    "rationale" : "Either b is not zero or the result is error value.",
     "meta" : [ {
-      "key" : "equivalence",
-      "value" : "Same as previous, emphasizing conditional equivalence."
+      "key" : "confidence",
+      "value" : "high"
     } ]
   }, {
-    "expression" : "b != 0 && result * b == a",
-    "rationale" : "When divisor is nonzero, result times divisor equals numerator truncated.",
+    "expression" : "b != 0 || (result == Integer.MIN_VALUE)",
+    "rationale" : "Consistent safeDivide behavior for division by zero.",
     "meta" : [ {
-      "key" : "proof",
-      "value" : "If b != 0, result is integer division a/b, so result*b equals the quotient times divisor."
-    } ]
-  }, {
-    "expression" : "b == 0 || result * b == a",
-    "rationale" : "Combining cases into one invariant.",
-    "meta" : [ {
-      "key" : "logic",
-      "value" : "Equivalent to previous expression."
-    } ]
-  }, {
-    "expression" : "result != Integer.MIN_VALUE || b == 0",
-    "rationale" : "Special value indicates division by zero condition.",
-    "meta" : [ {
-      "key" : "contrapositive",
-      "value" : "If result equals special value, then divisor is zero."
+      "key" : "confidence",
+      "value" : "high"
     } ]
   } ]
 }

@@ -1,17 +1,38 @@
 {
   "invariants" : [ {
-    "expression" : "true",
-    "rationale" : "At method entrance, no constraints on integer parameters a and b.",
+    "expression" : "b != 0",
+    "rationale" : "Since method handles divide by zero case, b might be zero or not, but at entry, no guarantee b != 0",
     "meta" : [ {
-      "key" : "note",
-      "value" : "No restrictions at method entry for parameters a and b."
+      "key" : "expectedPrecondition",
+      "value" : "method will not perform division by zero if this holds"
     } ]
   }, {
-    "expression" : "b != Integer.MIN_VALUE",
-    "rationale" : "b is an int, so not necessarily equal to Integer.MIN_VALUE, but it's possible. No definitive invariant here.",
+    "expression" : "a >= Integer.MIN_VALUE",
+    "rationale" : "a is an int, so always >= Integer.MIN_VALUE",
     "meta" : [ {
-      "key" : "range",
-      "value" : "b is int"
+      "key" : "rangeCheck",
+      "value" : "int minimum bound"
+    } ]
+  }, {
+    "expression" : "a <= Integer.MAX_VALUE",
+    "rationale" : "a is an int, so always <= Integer.MAX_VALUE",
+    "meta" : [ {
+      "key" : "rangeCheck",
+      "value" : "int maximum bound"
+    } ]
+  }, {
+    "expression" : "b >= Integer.MIN_VALUE",
+    "rationale" : "b is an int, always >= Integer.MIN_VALUE",
+    "meta" : [ {
+      "key" : "rangeCheck",
+      "value" : "int minimum bound"
+    } ]
+  }, {
+    "expression" : "b <= Integer.MAX_VALUE",
+    "rationale" : "b is an int, always <= Integer.MAX_VALUE",
+    "meta" : [ {
+      "key" : "rangeCheck",
+      "value" : "int maximum bound"
     } ]
   } ]
 }

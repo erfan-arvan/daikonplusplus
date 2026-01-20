@@ -27,6 +27,13 @@
 #   DP_DISABLE_REAL_LLM If set to 1, disables real LLM calls (should be UNSET for recording)
 #
 # -----------------------------------------------------------------------------
+########################################
+# HARD RESET: force native execution
+########################################
+unset DP_COMPILE_MAIN_SCRIPT
+unset DP_COMPILE_TEST_SCRIPT
+unset DP_EXTERNAL_COMPILE_CP
+
 set -euo pipefail
 
 if [[ $# -ne 1 ]]; then

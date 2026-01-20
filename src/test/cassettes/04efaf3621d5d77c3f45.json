@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "(b != null) && (b.doubleValue() != 0.0) ? (result != null) : (result == null)",
+    "rationale" : "The method returns null if b is zero, otherwise result is non-null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result is null if divisor b is zero to avoid division by zero"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "If the method does not throw and returns normally, result is non-null (since b != 0).",
+    "meta" : [ {
+      "key" : "non-null-result",
+      "value" : "result is only non-null if division occurs"
+    } ]
+  }, {
+    "expression" : "(a instanceof Integer) ? (result instanceof Integer) : true",
+    "rationale" : "When a is an Integer, the result is also an Integer.",
+    "meta" : [ {
+      "key" : "type-preservation",
+      "value" : "result type matches input type when a is Integer"
+    } ]
+  }, {
+    "expression" : "(a instanceof Double) ? (result instanceof Double) : true",
+    "rationale" : "When a is a Double, the result is also a Double.",
+    "meta" : [ {
+      "key" : "type-preservation",
+      "value" : "result type matches input type when a is Double"
+    } ]
+  }, {
+    "expression" : "(result != null) ? (a.doubleValue() == b.doubleValue() * result.doubleValue()) : true",
+    "rationale" : "Result represents a / b if result is not null.",
+    "meta" : [ {
+      "key" : "mathematical-relationship",
+      "value" : "result is the quotient of a and b"
+    } ]
+  } ]
+}

@@ -1,38 +1,31 @@
 {
   "invariants" : [ {
     "expression" : "name == null || name.length() >= 0",
-    "rationale" : "If name is not null, its length is non-negative.",
+    "rationale" : "If name is not null, its length is nonnegative.",
     "meta" : [ {
       "key" : "nullness",
-      "value" : "name"
+      "value" : "name may be null"
+    }, {
+      "key" : "property",
+      "value" : "string length nonnegative"
     } ]
   }, {
     "expression" : "x >= Integer.MIN_VALUE",
-    "rationale" : "x is an int, so it cannot be less than Integer.MIN_VALUE.",
+    "rationale" : "x is an int, so within full integer range.",
     "meta" : [ {
       "key" : "range",
-      "value" : "x"
+      "value" : "x is int"
     } ]
   }, {
-    "expression" : "name == null || !name.isEmpty() || name.length() == 0",
-    "rationale" : "If name is not null, length is >= 0; covering empty string case.",
-    "meta" : [ {
-      "key" : "stringLength",
-      "value" : "name"
-    } ]
-  }, {
-    "expression" : "name == null || name.length() <= Integer.MAX_VALUE",
-    "rationale" : "name.length() returns an int bounded by Integer.MAX_VALUE.",
+    "expression" : "x <= Integer.MAX_VALUE",
+    "rationale" : "x is an int, so within full integer range.",
     "meta" : [ {
       "key" : "range",
-      "value" : "name.length()"
+      "value" : "x is int"
     } ]
   }, {
-    "expression" : "true",
-    "rationale" : "Always true to represent a trivial invariant if no other precise invariant applies.",
-    "meta" : [ {
-      "key" : "baseline",
-      "value" : "trivial"
-    } ]
+    "expression" : "name != null || name == null",
+    "rationale" : "name is either null or not null; this is tautological but valid.",
+    "meta" : [ ]
   } ]
 }
