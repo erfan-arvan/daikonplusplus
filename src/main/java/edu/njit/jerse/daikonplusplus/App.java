@@ -325,18 +325,23 @@ public final class App {
     }
 
     final DpConfig cfg = DpConfig.fromEnv();
-    if (CFG.registryReset()) {
+    if (CFG.registryReset() && System.getenv("DP_REGISTRY_IN") == null) {
       try {
-        java.nio.file.Files.deleteIfExists(cfg.registryPath());
+        Files.deleteIfExists(cfg.registryPath());
         System.out.println(">>> Registry reset: " + cfg.registryPath().toAbsolutePath());
-      } catch (java.io.IOException ioe) {
+      } catch (IOException ioe) {
         System.err.println("Warning: couldn't delete registry: " + ioe.getMessage());
       }
     }
 
     final JavaProjectScanner scanner = new JavaProjectScanner();
     final LlmInvariantGenerator llm = new LlmInvariantGenerator(maxK);
-    final InvariantRegistry registry = new InvariantRegistry(cfg.registryPath());
+    String regInEnv = System.getenv("DP_REGISTRY_IN");
+
+    final InvariantRegistry registry =
+        (regInEnv != null && !regInEnv.isBlank())
+            ? new InvariantRegistry(Path.of(regInEnv).toAbsolutePath().normalize())
+            : new InvariantRegistry(cfg.registryPath());
     final JavaParserInjector injector = new JavaParserInjector(new FileWriteCoordinator());
 
     System.out.println("[DP-PATHS] execMode=" + execMode);
@@ -571,7 +576,10 @@ public final class App {
     final Set<UUID> nonCompiled = LogParser.readNonCompiledIds(mainSrcRoot);
 
     final Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> all =
-        parseRegistryLite(cfg.registryPath());
+        parseRegistryLite(
+            (regInEnv != null && !regInEnv.isBlank())
+                ? Path.of(regInEnv).toAbsolutePath().normalize()
+                : cfg.registryPath());
 
     final Set<UUID> compiledIds = new HashSet<>(all.keySet());
     compiledIds.removeAll(nonCompiled);
@@ -741,6 +749,9 @@ public final class App {
 
   private static List<InvariantRecord> processPoint(
       ProgramPoint point, Path srcRoot, LlmInvariantGenerator llm, InvariantRegistry registry) {
+    boolean readOnlyRegistry =
+        System.getenv("DP_REGISTRY_READONLY") != null || System.getenv("DP_REGISTRY_IN") != null;
+
     try {
       Map<String, String> inScope = extractScope(point, srcRoot);
       Optional<String> body = extractMethodBodyRaw(point, srcRoot);
@@ -757,10 +768,17 @@ public final class App {
         String key = keyFor(point, spec.expression());
         if (!RUN_DEDUP.add(key)) continue; // skip duplicates within this run
 
-        InvariantRecord rec =
-            new InvariantRecord(java.util.UUID.randomUUID(), spec, point, fileRel, now);
+        UUID id =
+            readOnlyRegistry
+                ? registry.findExistingId(point, spec.expression()).orElseGet(UUID::randomUUID)
+                : UUID.randomUUID();
+
+        InvariantRecord rec = new InvariantRecord(id, spec, point, fileRel, now);
+
         // registry-level dedup
-        registry.appendIfNew(rec);
+        if (!readOnlyRegistry) {
+          registry.appendIfNew(rec);
+        }
         out.add(rec);
       }
       return out;

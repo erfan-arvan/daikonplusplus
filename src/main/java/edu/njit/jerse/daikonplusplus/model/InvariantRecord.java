@@ -11,6 +11,7 @@ public final class InvariantRecord {
   private final ProgramPoint point;
   private final String sourceFile;
   private final Instant createdAt;
+  
 
   public InvariantRecord(
       UUID id, InvariantSpec spec, ProgramPoint point, String sourceFile, Instant createdAt) {

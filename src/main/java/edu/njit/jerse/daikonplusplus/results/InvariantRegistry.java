@@ -298,4 +298,29 @@ public final class InvariantRegistry {
     }
     return out;
   }
+
+  public Optional<UUID> findExistingId(ProgramPoint pt, String expr) {
+    String norm = expr.trim().replaceAll("\\s+", " ");
+    String key = pt.kind().name() + "|" + pt.elementId().toString() + "|" + norm;
+
+    if (!seenKeys.contains(key)) return Optional.empty();
+
+    // slow but acceptable: scan file once
+    try {
+      for (String line : Files.readAllLines(jsonl, StandardCharsets.UTF_8)) {
+        if (line.contains("\"expr\":\"" + expr.replace("\"", "\\\"") + "\"")
+            && line.contains("\"element\":\"" + pt.elementId() + "\"")
+            && line.contains("\"kind\":\"" + pt.kind().name() + "\"")) {
+          return Optional.of(
+              UUID.fromString(
+                  line.substring(
+                      line.indexOf("\"id\":\"") + 6,
+                      line.indexOf("\"", line.indexOf("\"id\":\"") + 6))));
+        }
+      }
+    } catch (IOException ignore) {
+    }
+
+    return Optional.empty();
+  }
 }
