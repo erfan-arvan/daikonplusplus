@@ -12,6 +12,7 @@ import edu.njit.jerse.daikonplusplus.model.InvariantRecord;
 import edu.njit.jerse.daikonplusplus.model.InvariantSpec;
 import edu.njit.jerse.daikonplusplus.model.ProgramPointKind;
 import edu.njit.jerse.daikonplusplus.parse.MethodSignatureUtil;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,6 +40,10 @@ public final class JavaParserInjector {
   public void injectGuards(Path file, List<InvariantRecord> records) throws Exception {
     if (records == null || records.isEmpty()) {
       return;
+    }
+
+    if (!Files.isRegularFile(file)) {
+      throw new IOException("injectGuards: source file not found: " + file);
     }
 
     coordinator.withFileLock(

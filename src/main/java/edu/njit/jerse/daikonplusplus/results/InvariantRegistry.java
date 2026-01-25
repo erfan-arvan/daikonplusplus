@@ -105,6 +105,10 @@ public final class InvariantRegistry {
     }
   }
 
+  public List<InvariantRecord> loadAllAsList() {
+    return new ArrayList<>(loadAll().values());
+  }
+
   // ----- Outcomes writing -----
 
   /** Backward-compatible: write outcomes next to the registry as a sidecar file. */
@@ -160,15 +164,24 @@ public final class InvariantRegistry {
   // Pre-load keys from existing registry file to dedup across runs
   private void buildExistingIndex() {
     if (!Files.exists(jsonl)) return;
+
     try {
       for (String line : Files.readAllLines(jsonl, StandardCharsets.UTF_8)) {
         if (line == null || line.isBlank()) continue;
-        Map<String, String> m = parseFlatJson(line);
-        String kind = m.getOrDefault("kind", "METHOD_ENTRY");
-        String element = m.getOrDefault("element", "");
-        String expr = m.getOrDefault("expr", "").trim().replaceAll("\\s+", " ");
-        if (!expr.isEmpty() && !element.isEmpty()) {
-          seenKeys.add(kind + "|" + element + "|" + expr);
+
+        try {
+          com.fasterxml.jackson.databind.JsonNode n = OM.readTree(line);
+
+          String kind = n.has("kind") ? n.get("kind").asText() : "METHOD_ENTRY";
+          String element = n.has("element") ? n.get("element").asText() : "";
+          String expr = n.has("expr") ? n.get("expr").asText().trim().replaceAll("\\s+", " ") : "";
+
+          if (!expr.isEmpty() && !element.isEmpty()) {
+            seenKeys.add(kind + "|" + element + "|" + expr);
+          }
+
+        } catch (Exception ignore) {
+          // ignore malformed historical lines
         }
       }
     } catch (IOException ignore) {
@@ -202,33 +215,31 @@ public final class InvariantRegistry {
   }
 
   // For brevity we parse essential fields back; meta fields may be ignored here.
+  private static final com.fasterxml.jackson.databind.ObjectMapper OM =
+      new com.fasterxml.jackson.databind.ObjectMapper();
+
   private InvariantRecord fromJson(String json) {
-    Map<String, String> m = parseFlatJson(json);
+    try {
+      com.fasterxml.jackson.databind.JsonNode n = OM.readTree(json);
 
-    // required
-    String idStr = m.get("id");
-    if (idStr == null) throw new IllegalArgumentException("registry line missing 'id'");
+      UUID id = UUID.fromString(n.get("id").asText());
+      java.time.Instant ts = java.time.Instant.parse(n.get("createdAt").asText());
 
-    String createdAtStr = m.get("createdAt");
-    if (createdAtStr == null)
-      throw new IllegalArgumentException("registry line missing 'createdAt'");
+      String expr = n.has("expr") ? n.get("expr").asText() : "";
+      String kindStr = n.has("kind") ? n.get("kind").asText() : "METHOD_ENTRY";
+      String element = n.has("element") ? n.get("element").asText() : "";
+      String file = n.has("file") ? n.get("file").asText() : "";
 
-    // optional with defaults
-    String expr = (m.get("expr") == null) ? "" : m.get("expr");
-    String kindStr = (m.get("kind") == null) ? "METHOD_ENTRY" : m.get("kind");
-    String element = (m.get("element") == null) ? "" : m.get("element");
-    String file = (m.get("file") == null) ? "" : m.get("file");
+      ProgramElementId peid = parseElementIdFromLabel(element, file);
+      ProgramPointKind kind = ProgramPointKind.valueOf(kindStr);
+      ProgramPoint point = new ProgramPointImpl(peid, kind);
 
-    UUID id = UUID.fromString(idStr);
-    java.time.Instant ts = java.time.Instant.parse(createdAtStr);
+      InvariantSpec spec = new InvariantSpec(expr, "", java.util.Collections.emptyMap());
+      return new InvariantRecord(id, spec, point, file, ts);
 
-    // rebuild a NON-NULL ProgramElementId from the serialized label + file
-    ProgramElementId peid = parseElementIdFromLabel(element, file);
-    ProgramPointKind kind = ProgramPointKind.valueOf(kindStr);
-    ProgramPoint point = new ProgramPointImpl(peid, kind);
-
-    InvariantSpec spec = new InvariantSpec(expr, "", java.util.Collections.emptyMap());
-    return new InvariantRecord(id, spec, point, file, ts);
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to parse registry line as JSON: " + json, e);
+    }
   }
 
   /**

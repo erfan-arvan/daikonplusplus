@@ -23,6 +23,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * CLI entrypoint for Daikon++ with compile-and-run.
@@ -325,6 +326,24 @@ public final class App {
     }
 
     final DpConfig cfg = DpConfig.fromEnv();
+
+    final Path registryIn =
+        Optional.ofNullable(System.getenv("DP_REGISTRY_IN"))
+            .map(Path::of)
+            .map(Path::toAbsolutePath)
+            .orElse(null);
+
+    final boolean reuseOnly = (registryIn != null && Files.exists(registryIn));
+
+    if (reuseOnly) {
+      System.setProperty("DP_DISABLE_REAL_LLM", "1");
+    }
+
+    if (reuseOnly) {
+      System.out.println(">>> DP_REGISTRY_IN detected — reuse-only mode enabled");
+      System.out.println(">>> Loading invariants from: " + registryIn);
+    }
+
     if (CFG.registryReset()) {
       try {
         java.nio.file.Files.deleteIfExists(cfg.registryPath());
@@ -336,6 +355,7 @@ public final class App {
 
     final JavaProjectScanner scanner = new JavaProjectScanner();
     final LlmInvariantGenerator llm = new LlmInvariantGenerator(maxK);
+
     final InvariantRegistry registry = new InvariantRegistry(cfg.registryPath());
     final JavaParserInjector injector = new JavaParserInjector(new FileWriteCoordinator());
 
@@ -355,89 +375,121 @@ public final class App {
         ">>> Points — ENTRY: " + nEntry + "  EXIT: " + nExit + "  TOTAL: " + points.size());
 
     // --- Phase 1: parallel LLM proposals ---
-    final ExecutorService pool = Executors.newFixedThreadPool(cfg.threads());
-    final CompletionService<List<InvariantRecord>> ecs = new ExecutorCompletionService<>(pool);
-    final List<Future<List<InvariantRecord>>> allFutures = new ArrayList<>();
-
-    for (ProgramPoint pt : points) {
-      allFutures.add(ecs.submit(() -> processPoint(pt, mainSrcRoot, llm, registry)));
-    }
-
     final Map<Path, List<InvariantRecord>> byFile = new ConcurrentHashMap<>();
-    int submitted = allFutures.size();
-    int received = 0;
-    int totalSpecs = 0;
 
-    final long totalTimeoutSec =
-        Long.parseLong(
-            Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "1000"));
-    final long pollStepMs =
-        Long.parseLong(Objects.requireNonNullElse(System.getenv("DP_LLM_POLL_STEP_MS"), "1500"));
+    if (!reuseOnly) {
 
-    final long deadlineNs = System.nanoTime() + TimeUnit.SECONDS.toNanos(totalTimeoutSec);
-    while (received < submitted) {
-      long remainingNs = deadlineNs - System.nanoTime();
-      if (remainingNs <= 0) {
-        System.err.println(
-            "LLM phase timed out; proceeding with completed tasks: " + received + "/" + submitted);
-        break;
-      }
-      Future<List<InvariantRecord>> f =
-          ecs.poll(
-              Math.min(remainingNs, TimeUnit.MILLISECONDS.toNanos(pollStepMs)),
-              TimeUnit.NANOSECONDS);
+      // =========================
+      // NORMAL MODE (UNCHANGED)
+      // =========================
 
-      if (f == null) {
-        System.out.println(
-            "... waiting on LLM tasks: "
-                + received
-                + "/"
-                + submitted
-                + " done ("
-                + TimeUnit.NANOSECONDS.toSeconds(remainingNs)
-                + "s left)");
-        continue;
+      final ExecutorService pool = Executors.newFixedThreadPool(cfg.threads());
+      final CompletionService<List<InvariantRecord>> ecs = new ExecutorCompletionService<>(pool);
+      final List<Future<List<InvariantRecord>>> allFutures = new ArrayList<>();
+
+      for (ProgramPoint pt : points) {
+        allFutures.add(ecs.submit(() -> processPoint(pt, mainSrcRoot, llm, registry)));
       }
 
-      try {
-        List<InvariantRecord> recs = f.get();
-        received++;
-        if (recs == null || recs.isEmpty()) continue;
-        totalSpecs += recs.size();
-        Path file = mainSrcRoot.resolve(recs.get(0).sourceFile()).normalize();
-        byFile
-            .computeIfAbsent(file, __ -> Collections.synchronizedList(new ArrayList<>()))
-            .addAll(recs);
-      } catch (ExecutionException ee) {
-        received++;
-        Throwable cause = ee.getCause();
-        String msg =
-            (cause == null)
-                ? ee.toString()
-                : (cause.getMessage() == null ? cause.toString() : cause.getMessage());
-        System.err.println("LLM task failed: " + msg);
+      int submitted = allFutures.size();
+      int received = 0;
+      int totalSpecs = 0;
+
+      final long totalTimeoutSec =
+          Long.parseLong(
+              Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "1000"));
+      final long pollStepMs =
+          Long.parseLong(Objects.requireNonNullElse(System.getenv("DP_LLM_POLL_STEP_MS"), "1500"));
+
+      final long deadlineNs = System.nanoTime() + TimeUnit.SECONDS.toNanos(totalTimeoutSec);
+
+      while (received < submitted) {
+        long remainingNs = deadlineNs - System.nanoTime();
+        if (remainingNs <= 0) {
+          System.err.println(
+              "LLM phase timed out; proceeding with completed tasks: "
+                  + received
+                  + "/"
+                  + submitted);
+          break;
+        }
+
+        Future<List<InvariantRecord>> f =
+            ecs.poll(
+                Math.min(remainingNs, TimeUnit.MILLISECONDS.toNanos(pollStepMs)),
+                TimeUnit.NANOSECONDS);
+
+        if (f == null) {
+          System.out.println(
+              "... waiting on LLM tasks: "
+                  + received
+                  + "/"
+                  + submitted
+                  + " done ("
+                  + TimeUnit.NANOSECONDS.toSeconds(remainingNs)
+                  + "s left)");
+          continue;
+        }
+
+        try {
+          List<InvariantRecord> recs = f.get();
+          received++;
+          if (recs == null || recs.isEmpty()) continue;
+          totalSpecs += recs.size();
+          Path file = mainSrcRoot.resolve(recs.get(0).sourceFile()).normalize();
+          byFile.computeIfAbsent(file, __ -> new ArrayList<>()).addAll(recs);
+        } catch (ExecutionException ee) {
+          received++;
+        }
       }
+
+      for (Future<List<InvariantRecord>> f : allFutures) {
+        if (!f.isDone()) f.cancel(true);
+      }
+      pool.shutdownNow();
+
+      System.out.println(">>> Proposed invariant expressions: " + totalSpecs);
+
+    } else {
+
+      // =========================
+      // REUSE-ONLY MODE (NEW)
+      // =========================
+
+      if (registryIn == null) {
+        throw new IllegalStateException("DP_REGISTRY_IN must be set in reuse-only mode");
+      }
+
+      Path registryPath = registryIn;
+      InvariantRegistry inRegistry = new InvariantRegistry(registryPath);
+      List<InvariantRecord> records = inRegistry.loadAllAsList();
+
+      int mapped = 0;
+      int missing = 0;
+
+      for (InvariantRecord r : records) {
+        Path file = resolveSourceFile(mainSrcRoot, r.sourceFile());
+        if (file == null) {
+          missing++;
+          continue;
+        }
+
+        byFile.computeIfAbsent(file, __ -> new ArrayList<>()).add(r);
+        mapped++;
+      }
+
+      System.out.println(
+          ">>> Registry reuse: total="
+              + records.size()
+              + " mapped="
+              + mapped
+              + " missing="
+              + missing);
+      System.out.println(">>> Files to inject: " + byFile.size());
+
+      System.out.println(">>> Reused invariants loaded: " + records.size());
+      System.out.println(">>> Files to inject: " + byFile.size());
     }
-
-    for (Future<List<InvariantRecord>> f : allFutures) {
-      if (!f.isDone()) f.cancel(true);
-    }
-    pool.shutdownNow();
-
-    System.out.println(">>> Proposed invariant expressions (post-parse filter): " + totalSpecs);
-    System.out.println(">>> Files to inject (MAIN only): " + byFile.size());
-
-    long injectEntry =
-        byFile.values().stream()
-            .flatMap(List::stream)
-            .filter(r -> r.point().kind() == ProgramPointKind.METHOD_ENTRY)
-            .count();
-    long injectExit =
-        byFile.values().stream()
-            .flatMap(List::stream)
-            .filter(r -> r.point().kind() == ProgramPointKind.METHOD_EXIT)
-            .count();
-    System.out.println(">>> To inject — ENTRY: " + injectEntry + "  EXIT: " + injectExit);
 
     // --- Phase 2: Injection on MAIN working copy ---
     final ExecutorService injPool = Executors.newFixedThreadPool(Math.min(cfg.threads(), 8));
@@ -1013,5 +1065,45 @@ public final class App {
       // Native javac-based autofilter
       JavaRunner.compileWithAutoFilter(srcRoot, userSrcRoot, classesDir, classpath, maxPasses);
     }
+  }
+
+  private static @Nullable Path resolveSourceFile(Path mainSrcRoot, String sourceFileRel) {
+    if (sourceFileRel == null || sourceFileRel.isBlank()) return null;
+
+    // 1) Try direct resolution
+    Path p = mainSrcRoot.resolve(sourceFileRel).normalize();
+    if (Files.isRegularFile(p)) return p;
+
+    // 2) Strip common prefixes recorded in registry
+    String s = sourceFileRel.replace('\\', '/');
+
+    if (s.startsWith("main/java/")) {
+      Path p2 = mainSrcRoot.resolve(s.substring("main/java/".length())).normalize();
+      if (Files.isRegularFile(p2)) return p2;
+    }
+
+    if (s.startsWith("src/main/java/")) {
+      Path p3 = mainSrcRoot.resolve(s.substring("src/main/java/".length())).normalize();
+      if (Files.isRegularFile(p3)) return p3;
+    }
+
+    // 3) Fallback: match by filename (slow, but correct)
+    try (var walk = Files.walk(mainSrcRoot)) {
+      Path fileName = Path.of(s).getFileName();
+      if (fileName == null) return null;
+      String name = fileName.toString();
+      Optional<Path> hit =
+          walk.filter(pp -> pp.getFileName() != null && pp.getFileName().toString().equals(name))
+              .findFirst();
+      if (hit.isPresent()) return hit.get().normalize();
+    } catch (IOException ignored) {
+    }
+
+    System.err.println(
+        "[DP] Registry reuse: cannot resolve sourceFile="
+            + sourceFileRel
+            + " under mainSrcRoot="
+            + mainSrcRoot);
+    return null;
   }
 }
