@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "Typically, jobId is expected to be a valid non-null identifier for cancelling a job.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "jobId parameter should not be null at method entry"
+    } ]
+  }, {
+    "expression" : "jobId.length() > 0",
+    "rationale" : "A jobId used to identify a job is usually expected to be a non-empty string.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "jobId is expected to be a non-empty string"
+    } ]
+  } ]
+}

@@ -1,0 +1,22 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "Since the method returns the input list 'records' directly, 'result' must be reference-equal to 'records'.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result and records are both non-null or both null"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "If the method returns 'records' and the method can return only 'records', then 'result' is non-null if and only if 'records' is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.size() == records.size()",
+    "rationale" : "If 'result' is not null (and equals 'records'), its size must be the same as the input 'records' list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "As a parameter named outputPartitions usually denotes a positive number of output partitions.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,34 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Option which should never be null; the result is a non-null Option instance.",
+    "meta" : [ {
+      "key" : "level",
+      "value" : "strong"
+    }, {
+      "key" : "reason",
+      "value" : "Method returns an Option wrapping a result, so result itself should not be null"
+    } ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "The result is an Option and must either be present or not; this tautology confirms result is a well-formed Option.",
+    "meta" : [ {
+      "key" : "level",
+      "value" : "trivial"
+    } ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "Parameter indexInstantTime is used as an argument to execute(), it should be non-null for proper indexing.",
+    "meta" : [ {
+      "key" : "level",
+      "value" : "strong"
+    } ]
+  }, {
+    "expression" : "!result.isPresent() || (result.get() != null)",
+    "rationale" : "If the Option result is present, the contained HoodieIndexCommitMetadata must not be null.",
+    "meta" : [ {
+      "key" : "level",
+      "value" : "normal"
+    } ]
+  } ]
+}

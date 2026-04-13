@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "sortMode != null",
+    "rationale" : "The switch statement on sortMode suggests it must not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "sortMode is not null"
+    } ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "The method only handles NONE and GLOBAL_SORT values, others lead to an exception.",
+    "meta" : [ {
+      "key" : "enum_range",
+      "value" : "sortMode is one of the known handled enum values"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is a parameter and should be non-null to perform operations.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeClient should not be null on method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a commit timestamp string and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime should not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is the list of records to upsert and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecordInputs should not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs.size() >= 0",
+    "rationale" : "List size is always non-negative by definition.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "List size non-negative"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is typically a timestamp string and should not be empty.",
+    "meta" : [ {
+      "key" : "string",
+      "value" : "instantTime is a non-empty string"
+    } ]
+  } ]
+}

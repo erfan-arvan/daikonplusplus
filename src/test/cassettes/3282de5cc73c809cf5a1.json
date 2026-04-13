@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context object is expected to be provided when scheduling indexing.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context_non_null"
+    } ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "Instant time string for indexing should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "indexInstantTime_non_null"
+    } ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "The list of partitions to index should be initialized.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionsToIndex_non_null"
+    } ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "The list of partition paths should be initialized.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionPaths_non_null"
+    } ]
+  }, {
+    "expression" : "partitionsToIndex.isEmpty() == false || partitionPaths.isEmpty() == false",
+    "rationale" : "At least one of the partitionsToIndex or partitionPaths should be non-empty to have indexing work to do.",
+    "meta" : [ {
+      "key" : "nonempty_condition",
+      "value" : "at_least_one_partition_to_index"
+    } ]
+  } ]
+}

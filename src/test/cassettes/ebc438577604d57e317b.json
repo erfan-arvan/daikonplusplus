@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The input parameter 'records' is expected to be non-null when the method is entered.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records is not null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The input parameter 'instantTime' is expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of the list 'records' must be zero or greater.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "records size is non-negative"
+    } ]
+  } ]
+}

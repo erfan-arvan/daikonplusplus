@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitions != null",
+    "rationale" : "Method contract likely expects non-null partitions list.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitions is not null at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is expected to be a valid string representing an instant.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is expected to be a valid HoodieEngineContext object.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is not null"
+    } ]
+  }, {
+    "expression" : "partitions.size() >= 0",
+    "rationale" : "List size cannot be negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "partitions size is non-negative"
+    } ]
+  }, {
+    "expression" : "partitions == null || partitions.stream().allMatch(p -> p != null)",
+    "rationale" : "partitions should contain non-null strings if not null.",
+    "meta" : [ {
+      "key" : "element_nullness",
+      "value" : "all elements in partitions are non-null if partitions is not null"
+    } ]
+  } ]
+}

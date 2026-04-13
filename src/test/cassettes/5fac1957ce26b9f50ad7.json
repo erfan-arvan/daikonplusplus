@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || !result.isEmpty()",
+    "rationale" : "The returned partition column name can be null or a non-empty string.",
+    "meta" : [ {
+      "key" : "style",
+      "value" : "null-or-nonempty"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The parameter config is expected to be non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result == null || result instanceof String",
+    "rationale" : "The result is either null or a string since getProperty returns String or null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "String"
+    } ]
+  } ]
+}

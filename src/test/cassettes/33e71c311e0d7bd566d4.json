@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieRestoreMetadata object, so result should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is expected to be a valid timestamp string.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "parameter is not null"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp == null || savepointToRestoreTimestamp.length() > 0",
+    "rationale" : "savepointToRestoreTimestamp can be null or a non-empty string representing a timestamp.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "parameter is null or non-empty"
+    } ]
+  }, {
+    "expression" : "result.getRestoreInstantTimestamp() == null || result.getRestoreInstantTimestamp().equals(restoreInstantTimestamp)",
+    "rationale" : "If result contains a restore instant timestamp, it should match the input restoreInstantTimestamp.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "result timestamp matches parameter if not null"
+    } ]
+  }, {
+    "expression" : "result.getSavepointToRestoreTimestamp() == null || result.getSavepointToRestoreTimestamp().equals(savepointToRestoreTimestamp)",
+    "rationale" : "If result contains a savepointToRestoreTimestamp, it should be equal to the input savepointToRestoreTimestamp.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "result savepoint matches parameter if not null"
+    } ]
+  } ]
+}

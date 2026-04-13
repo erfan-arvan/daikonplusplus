@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is a parameter and expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "inputRecords is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a parameter and expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "configuredParallelism >= 0",
+    "rationale" : "Configured parallelism typically represents thread count or partitions, which cannot be negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "configuredParallelism is non-negative"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is a required parameter and expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "table is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is a required parameter and expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config is non-null at method entry"
+    } ]
+  } ]
+}

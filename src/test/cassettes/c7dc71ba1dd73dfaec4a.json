@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Iterator, which should not be null to indicate successful update handling.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "!result.hasNext() || (instantTime != null && fileId != null)",
+    "rationale" : "If the result iterator has elements, the instantTime and fileId parameters should be non-null as they identify the update context.",
+    "meta" : [ {
+      "key" : "parameters",
+      "value" : "instantTime and fileId are non-null when result is not empty"
+    } ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The map of new records to update should not be null for processing updates.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "keyToNewRecords parameter is non-null"
+    } ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "The existing data file should be present to perform the update operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "oldDataFile parameter is non-null"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is required to locate targeted data partitions for update.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionPath parameter is non-null"
+    } ]
+  } ]
+}

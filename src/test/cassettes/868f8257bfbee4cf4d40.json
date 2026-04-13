@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write status list inside the result should be non-null to indicate write results.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses list is not null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "List size cannot be negative, so always >= 0.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "writeStatuses list size is non-negative"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is generally not null when performing commit actions.",
+    "meta" : [ {
+      "key" : "nonnull_parameter",
+      "value" : "instantTime should not be null"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "keys parameter should not be null to identify records for deletion.",
+    "meta" : [ {
+      "key" : "nonnull_parameter",
+      "value" : "keys should not be null"
+    } ]
+  } ]
+}

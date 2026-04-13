@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List collected from a stream, which is guaranteed non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input parameter list is not changed and assumed non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records is not null"
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The sorted result is a reorder of the input list, so sizes must be equal.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "result and records have same size"
+    } ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Output partitions is expected to be a positive integer as it presumably represents partition count.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "outputPartitions is positive"
+    } ]
+  } ]
+}

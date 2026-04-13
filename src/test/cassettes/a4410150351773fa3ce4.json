@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is an Option wrapping a possible HoodieRestorePlan, should never be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp == null || !restoreInstantTimestamp.isEmpty()",
+    "rationale" : "restoreInstantTimestamp is a String parameter, commonly expected to be non-null and non-empty if not null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "restoreInstantTimestamp may be null or non-empty"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp == null || !savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "savepointToRestoreTimestamp is a String parameter, commonly expected to be non-null and non-empty if not null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "savepointToRestoreTimestamp may be null or non-empty"
+    } ]
+  }, {
+    "expression" : "result.isPresent() == (result.get() != null)",
+    "rationale" : "If the Option is present, then get() returns non-null, otherwise get() would not be valid.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "Option semantics"
+    } ]
+  } ]
+}

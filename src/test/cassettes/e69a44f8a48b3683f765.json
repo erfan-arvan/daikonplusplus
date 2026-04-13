@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a HoodieWriteMetadata object, which should not be null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned HoodieWriteMetadata should contain a non-null list of WriteStatus objects.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "WriteStatuses list is non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the WriteStatus list should always be zero or more.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "non-negative"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null || result.getWriteStatuses().isEmpty()",
+    "rationale" : "If there are no prepped records, then the list of WriteStatus is likely empty.",
+    "meta" : [ {
+      "key" : "precondition-relation",
+      "value" : "If no input records, results should be empty"
+    } ]
+  } ]
+}

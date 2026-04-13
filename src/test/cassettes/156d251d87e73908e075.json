@@ -1,0 +1,28 @@
+{
+  "invariants" : [ {
+    "expression" : "metrics != null",
+    "rationale" : "metrics is always assigned either Option.of(...) or Option.empty(), so it's never null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "metrics is assigned either Option.of(...) or Option.empty()"
+    } ]
+  }, {
+    "expression" : "metrics.isPresent() == metadataWriteConfig.isMetricsOn()",
+    "rationale" : "metrics is present if and only if metadataWriteConfig.isMetricsOn() returns true.",
+    "meta" : [ {
+      "key" : "correspondence",
+      "value" : "metrics presence corresponds to isMetricsOn flag"
+    } ]
+  }, {
+    "expression" : "metadataWriteConfig != null",
+    "rationale" : "metadataWriteConfig is used to get configuration, so it cannot be null here.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "Assumed from method context and usage."
+    } ]
+  }, {
+    "expression" : "metrics.isPresent() || !metrics.isPresent()",
+    "rationale" : "Metrics presence is a boolean state — this is a tautological invariant describing its boolean nature.",
+    "meta" : [ ]
+  } ]
+}

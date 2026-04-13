@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context object should be provided to perform operations in the environment.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null"
+    } ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "The cleanInstantTime string is likely a timestamp or identifier and should not be null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "cleanInstantTime is non-null"
+    } ]
+  }, {
+    "expression" : "!cleanInstantTime.isEmpty()",
+    "rationale" : "The cleanInstantTime should represent a valid time, hence should not be empty.",
+    "meta" : [ {
+      "key" : "emptiness",
+      "value" : "cleanInstantTime is non-empty"
+    } ]
+  } ]
+}

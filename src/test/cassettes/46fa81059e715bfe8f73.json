@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "executor == null || executor != null",
+    "rationale" : "executor is initialized to null and later assigned; thus, it is either null or not-null at method entry.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "This expression always true, confirms executor is either null or not null"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No other variables are in scope to refine refinement; trivial true expression.",
+    "meta" : [ {
+      "key" : "tautology",
+      "value" : "True is always true"
+    } ]
+  }, {
+    "expression" : "hoodieConfig != null",
+    "rationale" : "hoodieConfig is presumably a field and should not be null to call getSchema().",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "hoodieConfig is used without checking before calling getSchema()"
+    } ]
+  }, {
+    "expression" : "inputItr != null",
+    "rationale" : "inputItr is presumably a field or parameter and should not be null to create executor.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "inputItr is passed to ExecutorFactory.create and must not be null."
+    } ]
+  }, {
+    "expression" : "getInsertHandler() != null",
+    "rationale" : "Assuming getInsertHandler() returns a handler used in ExecutorFactory.create and must not be null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "getInsertHandler method returns a non-null handler."
+    } ]
+  } ]
+}

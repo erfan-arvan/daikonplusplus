@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is an Option, which is typically a non-null wrapper around a potentially null String",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null Option instance"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient parameter is expected to be non-null for proper metadata table initialization",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "metaClient is not null"
+    } ]
+  } ]
+}

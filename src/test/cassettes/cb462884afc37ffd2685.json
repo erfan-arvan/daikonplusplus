@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "props != null",
+    "rationale" : "The method expects a valid TypedProperties object to create a KeyGenerator.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "props must not be null at method entry"
+    } ]
+  }, {
+    "expression" : "props.size() >= 0",
+    "rationale" : "The size of properties should never be negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "size non-negative"
+    } ]
+  }, {
+    "expression" : "props.getProperty(\"hoodie.datasource.write.recordkey.field\") != null || props.getProperty(\"key.generator.class\") != null",
+    "rationale" : "At least one key generation property must be set for creating KeyGenerator.",
+    "meta" : [ {
+      "key" : "configuration",
+      "value" : "key generator configuration present"
+    } ]
+  }, {
+    "expression" : "props.isEmpty() == false",
+    "rationale" : "Creating a KeyGenerator with empty properties is unlikely to be meaningful.",
+    "meta" : [ {
+      "key" : "non_empty",
+      "value" : "props should not be empty"
+    } ]
+  } ]
+}

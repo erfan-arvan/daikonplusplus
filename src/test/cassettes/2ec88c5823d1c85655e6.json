@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely used as a timestamp or identifier, usually required to be non-null.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "instantTime is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "keys is expected to be a collection of keys to delete, must not be null.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "keys is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config object should be present to configure the delete action.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "config is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table object should be present to perform delete action on.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "table is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "The method is an instance method; 'this' is always non-null.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "this context is non-null"
+    } ]
+  } ]
+}

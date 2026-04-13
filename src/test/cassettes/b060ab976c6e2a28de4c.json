@@ -1,0 +1,41 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a map, so the result should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "!result.containsKey(null)",
+    "rationale" : "Map keys represent partition paths, which should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(key -> key != null && !key.isEmpty())",
+    "rationale" : "Partition paths as keys should be non-null and non-empty strings.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "Hypothetical, not to use streams"
+    }, {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "Each value list in the map should be non-null.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "Hypothetical, no streams allowed"
+    } ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "Parameter writeResult is always passed and non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  } ]
+}

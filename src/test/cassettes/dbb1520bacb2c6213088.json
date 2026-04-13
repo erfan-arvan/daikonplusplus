@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result must be non-null when exiting.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null on method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list inside the result should be non-null to represent the write results.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "WriteStatuses list is non-null"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "Bulk insert operation results typically have at least one write status item.",
+    "meta" : [ {
+      "key" : "non-empty",
+      "value" : "WriteStatuses list is expected to contain entries"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Instant time parameter used for commit must be non-null and non-empty.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "instantTime"
+    } ]
+  } ]
+}

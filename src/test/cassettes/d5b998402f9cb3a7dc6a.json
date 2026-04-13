@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "smallFiles != null",
+    "rationale" : "Must not be null to stream over smallFiles.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "smallFiles is not null"
+    } ]
+  }, {
+    "expression" : "smallFiles.isEmpty() || smallFiles.get(0) != null",
+    "rationale" : "If smallFiles is not empty, first element should not be null to call getFileId().",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "first element not null if list is not empty"
+    } ]
+  }, {
+    "expression" : "smallFiles.stream().allMatch(sf -> sf != null && sf.location != null)",
+    "rationale" : "All smallFile instances and their location fields must be non-null to call getFileId() safely.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "all smallFile and location are not null"
+    } ]
+  }, {
+    "expression" : "smallFiles.size() >= 0",
+    "rationale" : "List size must be at least zero.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "list size non-negative"
+    } ]
+  }, {
+    "expression" : "smallFiles.stream().allMatch(sf -> sf.location.getFileId() != null)",
+    "rationale" : "The getFileId() should never return null for valid smallFile entries.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "fileId is not null"
+    } ]
+  } ]
+}

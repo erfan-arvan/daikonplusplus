@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The method parameter writeMetadata is expected to be non-null as a part of method contract.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The parameter writeMetadata is likely never null at method entry."
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "At method entry, the internal list may be non-null but this indicates a potential check.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "writeMetadata's internal list is initialized or can be null."
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().isEmpty() || writeMetadata.getWriteStatuses().size() >= 0",
+    "rationale" : "The list size of write statuses is always zero or positive.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The list size is always >= 0."
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No state constraints since the method returns empty map.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The method simply returns emptyMap, no state dependencies."
+    } ]
+  } ]
+}

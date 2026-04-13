@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieMergeHandle object, so the result should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null after method exit"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time parameter is required to create the HoodieMergeHandle and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is a valid non-null string"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "PartitionPath parameter is expected to be non-null as part of the key for the handle.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionPath is non-null"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId parameter must be non-null since it identifies the file for the merge handle.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "fileId is non-null"
+    } ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The map of new records must be non-null to pass into the merge handle creation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "keyToNewRecords is non-null"
+    } ]
+  } ]
+}

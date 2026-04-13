@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "InstantTime represents the commit id and is required for commit operations.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime should be non-null as it's a commit timestamp string."
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of keys to delete must be provided to proceed.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Input keys to delete should not be null."
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The config parameter provides essential settings for the delete operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Configuration must exist to access parallelism and other deletion settings."
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table parameter is critical for retrieving index and tagging records.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Table reference is required for index tag and other table operations."
+    } ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "deleteExecutor performs the underlying delete action and validations.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Executor must be present to execute delete or save metadata."
+    } ]
+  } ]
+}

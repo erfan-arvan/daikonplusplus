@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null result regardless of input.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is assigned before method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The result's write statuses list is set either to deleteExecutor's execution output or to an empty list, never null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses non-null after assignment"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of keys to delete is passed as a non-null parameter.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "keys is a method parameter"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit instant time string is a required parameter and not null.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "instantTime is a method parameter"
+    } ]
+  }, {
+    "expression" : "result.getIndexLookupDuration() != null",
+    "rationale" : "If the deletion executes, the index lookup duration is set on the result before return.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "Index lookup duration set on result"
+    } ]
+  } ]
+}

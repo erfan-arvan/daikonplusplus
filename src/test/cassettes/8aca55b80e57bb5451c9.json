@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is expected to be non-null when retrieving insert buckets.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "partitionPath is a string, length is always >= 0.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "string_length"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty() || partitionPath == null",
+    "rationale" : "partitionPath can be empty or null but this distinguishes the cases.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "emptiness"
+    } ]
+  } ]
+}

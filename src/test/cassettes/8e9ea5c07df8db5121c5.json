@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The config parameter is used without null checks, so it is expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config must not be null at method entry"
+    } ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "Properties from config.getProps() are used to create the key generator, so it must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config.getProps() should not be null"
+    } ]
+  }, {
+    "expression" : "config.populateMetaFields() == true || config.populateMetaFields() == false",
+    "rationale" : "The method populateMetaFields() returns a boolean used in a conditional.",
+    "meta" : [ {
+      "key" : "boolean",
+      "value" : "populateMetaFields() returns a boolean"
+    } ]
+  } ]
+}

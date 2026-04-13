@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List<HoodieRecord<T>> that is expected to be non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "result must not be null at method exit"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Method processes the input records list, which should be non-null.",
+    "meta" : [ {
+      "key" : "input-null-check",
+      "value" : "records parameter must be non-null"
+    } ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "The deduplication process returns a list no larger than the original records list.",
+    "meta" : [ {
+      "key" : "size-relation",
+      "value" : "size of deduplicated list is at most input list size"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "The parallelism parameter controls concurrency and should be positive.",
+    "meta" : [ {
+      "key" : "parameter-constraint",
+      "value" : "parallelism must be positive integer"
+    } ]
+  }, {
+    "expression" : "orderingFieldNames != null",
+    "rationale" : "Ordering fields array is used in record reduction and should be non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "orderingFieldNames must not be null"
+    } ]
+  } ]
+}

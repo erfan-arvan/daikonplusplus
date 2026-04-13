@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result list of WriteStatus should not be null after the delete operation.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "result is returned WriteStatus List"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The keys list parameter is expected to be non-null when delete is called.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "keys parameter"
+    } ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "The number of WriteStatus entries should not exceed the number of keys processed.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "result size less or equal to keys size"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "The instantTime string should be non-empty to represent a valid instant for delete operations.",
+    "meta" : [ {
+      "key" : "non-empty",
+      "value" : "instantTime parameter"
+    } ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "The keys list size should be non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "keys non-negative size"
+    } ]
+  } ]
+}

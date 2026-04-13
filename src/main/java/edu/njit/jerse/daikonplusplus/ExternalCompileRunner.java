@@ -59,12 +59,22 @@ public final class ExternalCompileRunner {
       }
 
       String err = Files.exists(errLog) ? Files.readString(errLog, StandardCharsets.UTF_8) : "";
+      System.out.println("\n[DP-DEBUG] ===== RAW COMPILER OUTPUT =====");
+      System.out.println(err.length() > 1500 ? err.substring(0, 1500) + "\n...[truncated]" : err);
+      System.out.println("[DP-DEBUG] =================================\n");
 
       Path seen = workProjectRoot.resolve("dp-autofilter-seen.txt");
       Files.writeString(seen, err, StandardCharsets.UTF_8);
       System.out.println("[DP] wrote autofilter input to " + seen);
 
       List<JError> errors = InvariantAutoFilterUtil.parseExternalCompilerErrors(err);
+
+      System.out.println("[DP-DEBUG] Parsed errors count = " + errors.size());
+
+      for (int i = 0; i < Math.min(errors.size(), 10); i++) {
+        JError e = errors.get(i);
+        System.out.println("[DP-DEBUG] ERROR[" + i + "] → " + e.file + ":" + e.line);
+      }
 
       if (errors.isEmpty()) {
         throw new RuntimeException(
@@ -83,8 +93,6 @@ public final class ExternalCompileRunner {
 
       for (JError je : errors) {
         Path file = normalizeCompilerPath(je.file);
-
-        System.out.println("[DP] error file exists? " + Files.exists(file) + " :: " + file);
 
         System.out.println("[DP] error file exists? " + Files.exists(file) + " :: " + file);
 

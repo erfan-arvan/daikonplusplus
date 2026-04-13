@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List, either the input 'records' or a sorted version, so result should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null after method"
+    } ]
+  }, {
+    "expression" : "result == records",
+    "rationale" : "The method returns the same list 'records' object as result, not a new list.",
+    "meta" : [ {
+      "key" : "equality",
+      "value" : "result equals input parameter records"
+    } ]
+  }, {
+    "expression" : "!result.isEmpty() || records.isEmpty()",
+    "rationale" : "If input 'records' is empty, the method returns it directly, so result is empty only if records is empty.",
+    "meta" : [ {
+      "key" : "emptiness",
+      "value" : "emptiness preserved"
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The method does not add or remove elements, so the size of result equals size of records.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "size preserved"
+    } ]
+  }, {
+    "expression" : "result.get(0).getKey().getRecordKey().compareTo(result.get(result.size()-1).getKey().getRecordKey()) <= 0",
+    "rationale" : "The method sorts records by record key in ascending order, so result is sorted by record key.",
+    "meta" : [ {
+      "key" : "ordering",
+      "value" : "result is sorted by record key ascending"
+    } ]
+  } ]
+}

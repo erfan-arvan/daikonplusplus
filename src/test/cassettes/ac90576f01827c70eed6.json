@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The config parameter should not be null at method entry for valid table creation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "The storageConf parameter should not be null to provide necessary storage configs.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "skipValidation == true || skipValidation == false",
+    "rationale" : "skipValidation is a boolean parameter, so it is either true or false.",
+    "meta" : [ {
+      "key" : "boolean",
+      "value" : "boolean parameter"
+    } ]
+  } ]
+}

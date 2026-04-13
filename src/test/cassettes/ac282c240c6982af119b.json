@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The 'tag' method returns a list collected from a stream, thus it should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null after method execution"
+    } ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The parameter 'dedupedRecords' is expected to be non-null for tagging records.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Input list is non-null"
+    } ]
+  }, {
+    "expression" : "result.size() == dedupedRecords.size()",
+    "rationale" : "The tagLocation method preserves the number of records, so the output list size should match input list size.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "size of result equals input list size"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The execution context is expected to be non-null when calling this method.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table parameter must be non-null to access index and perform tagging.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "table is non-null"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is likely required for executing the insert operation and should not be null.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "context is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a String timestamp and presumably required for operation time identification.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "instantTime must not be null"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records list is required to perform insert overwrite and should not be null.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "records list must not be null"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The list size should always be zero or positive.",
+    "meta" : [ {
+      "key" : "Range",
+      "value" : "records.size() is non-negative"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty() || records.isEmpty()",
+    "rationale" : "Records list can be either empty or non-empty, but is valid in both cases.",
+    "meta" : [ {
+      "key" : "Trivial",
+      "value" : "Illustrates potential emptiness state"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is passed as a String to the executor and expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "commitInstant == null || commitInstant instanceof HoodieInstant",
+    "rationale" : "commitInstant is either null or an instance of HoodieInstant as per method signature.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "HoodieInstant"
+    } ]
+  }, {
+    "expression" : "deleteInstants == true || deleteInstants == false",
+    "rationale" : "deleteInstants is a primitive boolean parameter, so always true or false.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "boolean"
+    } ]
+  }, {
+    "expression" : "skipLocking == true || skipLocking == false",
+    "rationale" : "skipLocking is a primitive boolean parameter, so always true or false.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "boolean"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a parameter of type HoodieEngineContext and expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  } ]
+}

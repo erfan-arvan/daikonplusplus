@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a non-null HoodieWriteMetadata instance on exit.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "records != null || (result.getWriteStatuses() == null || result.getWriteStatuses().isEmpty())",
+    "rationale" : "If input records are null, result's write statuses should be null or empty.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Result should contain a non-null list of WriteStatus instances.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty() || result.getWriteStatuses().isEmpty()",
+    "rationale" : "If input records are empty, the write statuses list in result is expected to be empty.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time parameter is expected to be non-null at method exit.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  } ]
+}

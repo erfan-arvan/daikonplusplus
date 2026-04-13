@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method requires a valid HoodieEngineContext to execute clustering.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "context parameter should not be null at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a non-null identifier for the clustering operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime parameter should not be null"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option types are non-null wrappers, never null themselves.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Option extraMetadata should never be null; it can be Option.empty()"
+    } ]
+  }, {
+    "expression" : "!extraMetadata.isPresent() || extraMetadata.get() != null",
+    "rationale" : "Option when present wraps a non-null Map of extra metadata.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "If extraMetadata is present, the underlying Map should not be null"
+    } ]
+  } ]
+}

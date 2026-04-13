@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Stream object, which is typically non-null.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "The stream result is never null as it is returned from a method call."
+    } ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Assuming the method expects a non-null partition to process.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "partition is a String parameter, generally non-null for valid calls."
+    } ]
+  }, {
+    "expression" : "!result.anyMatch(slice -> slice == null)",
+    "rationale" : "Filter produces a stream of FileSlice objects; none should be null.",
+    "meta" : [ {
+      "key" : "no-null-elements",
+      "value" : "Elements in result stream are non-null"
+    } ]
+  }, {
+    "expression" : "result.allMatch(slice -> slice.getBaseFile().map(file -> file.getFileSize() < getWriteConfig().getClusteringSmallFileLimit()).orElse(true))",
+    "rationale" : "Per filter logic, each FileSlice returned has basefile size less than the small file limit.",
+    "meta" : [ {
+      "key" : "size-limit",
+      "value" : "Each basefile size is less than clustering small file limit"
+    } ]
+  }, {
+    "expression" : "partition instanceof String",
+    "rationale" : "Parameter partition is declared as String",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "partition is string"
+    } ]
+  } ]
+}

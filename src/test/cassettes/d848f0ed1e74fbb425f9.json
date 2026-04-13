@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method uses checkState to ensure result is not null before returning.",
+    "meta" : [ {
+      "key" : "point",
+      "value" : "METHOD_EXIT"
+    } ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "The method uses checkState to ensure result is not empty before returning.",
+    "meta" : [ {
+      "key" : "point",
+      "value" : "METHOD_EXIT"
+    } ]
+  }, {
+    "expression" : "result.size() > 0",
+    "rationale" : "Equivalent to !result.isEmpty(), size is positive.",
+    "meta" : [ {
+      "key" : "point",
+      "value" : "METHOD_EXIT"
+    } ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The method parameter 'key' is expected to be non-null as it represents a property key.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "value == null || value instanceof String",
+    "rationale" : "'value' can be null or a String; no other types expected.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Method is a no-op, so no side effects or changes expected.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "method is noop"
+    } ]
+  } ]
+}

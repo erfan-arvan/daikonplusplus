@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Parameter instantTime should be non-null to represent a valid commit time.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "partitionRecordsMap should be non-null because a commit with no map likely doesn't make sense.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionRecordsMap is not null"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet().stream().allMatch(k -> k != null) == false || partitionRecordsMap != null",
+    "rationale" : "Keys in the map should be non-null if partitionRecordsMap is non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionRecordsMap keys are non-null if map is not null"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime usually represents a timestamp string, expected to be non-empty.",
+    "meta" : [ {
+      "key" : "nonEmpty",
+      "value" : "instantTime is non-empty string"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap.isEmpty() || partitionRecordsMap.values().stream().allMatch(v -> v != null) == false",
+    "rationale" : "Values in the partitionRecordsMap should be non-null for a valid commit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "values of partitionRecordsMap are non-null if map is non-empty"
+    } ]
+  } ]
+}

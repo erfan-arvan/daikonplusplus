@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the output of execute(), which is expected to be a valid HoodieCleanMetadata object.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "ensures the result is not null"
+    } ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "cleanInstantTime is used directly in executor creation, so it must be non-null at method exit.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.getCleanInstantTime() == cleanInstantTime",
+    "rationale" : "The result's clean instant time should match the input parameter as the metadata corresponds to that clean instant.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "equality to parameter"
+    } ]
+  }, {
+    "expression" : "result.getTotalFilesDeleted() >= 0",
+    "rationale" : "The total number of files deleted as part of cleaning should be zero or positive.",
+    "meta" : [ {
+      "key" : "value-range",
+      "value" : "non-negative"
+    } ]
+  }, {
+    "expression" : "result.getTotalPartitionsDeleted() >= 0",
+    "rationale" : "The total number of partitions deleted should be zero or positive.",
+    "meta" : [ {
+      "key" : "value-range",
+      "value" : "non-negative"
+    } ]
+  } ]
+}

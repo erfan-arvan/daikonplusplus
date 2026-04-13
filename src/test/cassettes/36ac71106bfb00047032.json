@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is expected to be a valid object passed to the method.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Context engine context should not be null on method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is expected to be non-null to represent a valid timestamp.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "InstantTime string should not be null on method entry"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Parameters of type Option should not be null to allow safe usage.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The Option container for extraMetadata must not be null"
+    } ]
+  }, {
+    "expression" : "!extraMetadata.isEmpty() || extraMetadata.isEmpty()",
+    "rationale" : "Option can only be empty or contain a value; this is tautologically true but useful for reasoning.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "extraMetadata must be either empty or non-empty Option"
+    } ]
+  } ]
+}

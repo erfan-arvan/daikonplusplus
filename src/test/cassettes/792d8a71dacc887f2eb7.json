@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The config is required for building the metaClient and thus must not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "config parameter should not be null at method entry"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is used to get storage configuration and must not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "context parameter should not be null at method entry"
+    } ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "The base path string from config should not be null to create metaClient.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "config.getBasePath is used to set base path for metaClient"
+    } ]
+  }, {
+    "expression" : "config.getConsistencyGuardConfig() != null",
+    "rationale" : "A consistency guard config is likely required for metaClient construction.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Used to set consistency guard config for metaClient"
+    } ]
+  }, {
+    "expression" : "config.getTimeGeneratorConfig() != null",
+    "rationale" : "A time generator config is provided from config and should not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Used to set time generator config for metaClient"
+    } ]
+  } ]
+}

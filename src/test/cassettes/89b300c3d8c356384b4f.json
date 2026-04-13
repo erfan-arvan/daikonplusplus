@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Supplier is created in the method and never null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method returns a non-null Supplier instance."
+    } ]
+  }, {
+    "expression" : "result.get() == -1",
+    "rationale" : "The Supplier was created to return -1 unconditionally.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Supplier always returns -1."
+    } ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a valid HoodieTable instance, not null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null after method exit"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Input parameter config must be non-null for the method to succeed.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config is non-null parameter"
+    } ]
+  }, {
+    "expression" : "result.getConfig().equals(config)",
+    "rationale" : "The returned HoodieTable should correspond to the provided config.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "result configuration matches input config"
+    } ]
+  } ]
+}

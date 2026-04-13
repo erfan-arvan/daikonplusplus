@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of getUpsertPartitioner(profile), which is expected to be non-null as a valid Partitioner.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "not_null"
+    } ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The passed parameter profile is expected to be non-null to compute a Partitioner.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "parameter_not_null"
+    } ]
+  }, {
+    "expression" : "result instanceof Partitioner",
+    "rationale" : "The returned result is of type Partitioner as per method signature.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "expected_return_type"
+    } ]
+  } ]
+}

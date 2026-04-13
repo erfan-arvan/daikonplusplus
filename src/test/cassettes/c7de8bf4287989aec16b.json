@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodieWriteMetadata instance from execute(), so result should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null after method execution"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is a parameter passed in and is expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "input parameter"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a parameter and unlikely to be null given its usage in the method.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "input parameter"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata typically contains a non-null list of WriteStatus objects.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "write statuses list"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() <= preppedRecords.size()",
+    "rationale" : "The result write statuses correspond to actions on preppedRecords, so cannot exceed their count.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "number of write statuses not more than prepped records"
+    } ]
+  } ]
+}

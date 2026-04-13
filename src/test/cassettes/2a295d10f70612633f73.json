@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionFilePathAndSizeTriplet != null",
+    "rationale" : "The List parameter is expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "The HoodieIndexDefinition parameter is expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The HoodieTableMetaClient parameter is expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "parallelism >= 0",
+    "rationale" : "Parallelism is a thread count or parallel count, thus non-negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "non-negative"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime String parameter should not be null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  } ]
+}

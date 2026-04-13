@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null Supplier<Long> instance.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null at method exit"
+    } ]
+  }, {
+    "expression" : "result.get() != null",
+    "rationale" : "The Supplier returns a non-null Long value (0L).",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Supplier.get() returns non-null Long"
+    } ]
+  }, {
+    "expression" : "result.get().longValue() == 0L",
+    "rationale" : "The Supplier always supplies 0L as specified by the method implementation.",
+    "meta" : [ {
+      "key" : "value",
+      "value" : "Supplier always returns long value 0"
+    } ]
+  }, {
+    "expression" : "result.get() instanceof Long",
+    "rationale" : "The Supplier.get() method returns a Long object.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result.get() returns Long"
+    } ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient parameter should not be null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "metaClient is not null"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The columnsToIndex parameter should not be null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "columnsToIndex is not null"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "A list's size is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "columnsToIndex has non-negative size"
+    } ]
+  }, {
+    "expression" : "!columnsToIndex.contains(null)",
+    "rationale" : "The list should not contain null elements at method entry.",
+    "meta" : [ {
+      "key" : "element nullness",
+      "value" : "columnsToIndex does not contain null elements"
+    } ]
+  } ]
+}

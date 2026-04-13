@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null || activeModule == null",
+    "rationale" : "The parameter activeModule is passed to the method and can be either null or not null, so this trivial disjunction always holds.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "always true"
+    } ]
+  }, {
+    "expression" : "activityDescription != null || activityDescription == null",
+    "rationale" : "The parameter activityDescription can be any String including null, so this trivial disjunction always holds.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "always true"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Method has no operation, so by exit any condition that always holds can be considered invariant.",
+    "meta" : [ {
+      "key" : "alwaysTrue",
+      "value" : "no operation method"
+    } ]
+  } ]
+}

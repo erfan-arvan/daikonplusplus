@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient must be non-null to invoke methods on it.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "parameterNotNull"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime must be non-null as it is used to identify the commit instant.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "parameterNotNull"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs must be non-null since it is passed for bulk insert.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "parameterNotNull"
+    } ]
+  }, {
+    "expression" : "writeStatusJavaRDD != null",
+    "rationale" : "Result of bulkInsertPreppedRecords should be non-null list of WriteStatus objects.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "postcondition"
+    } ]
+  }, {
+    "expression" : "!preppedRecordInputs.isEmpty() == !writeStatusJavaRDD.isEmpty()",
+    "rationale" : "If there are prepped records, write status list should not be empty and vice versa.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "sizeRelation"
+    } ]
+  } ]
+}

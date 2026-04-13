@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method parameter is expected to be non-null at method entry to proceed with execution.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecords is likely non-null at method entry"
+    } ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty()",
+    "rationale" : "Typically, the records to be processed are expected to be non-empty at the method entry for meaningful commit action execution.",
+    "meta" : [ {
+      "key" : "collection",
+      "value" : "preppedRecords"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "Collection size is always non-negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "size non-negative"
+    } ]
+  } ]
+}

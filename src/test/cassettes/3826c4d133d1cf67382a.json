@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The data parameter should not be null when the method is entered.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "data is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "zeroValue parameter is used as the identity for the reduction and thus should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "zeroValue is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "seqOp function should not be null since it's used in reduction.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "seqOp is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "combOp function should not be null since it's used in reduction.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "combOp is expected to be non-null"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is typically expected to be non-null for execution.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context must not be null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a String timestamp and should never be null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime must not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The list of records to upsert should not be null when passed in.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecords must not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List size is always >= 0.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "size is non-negative"
+    } ]
+  }, {
+    "expression" : "!preppedRecords.contains(null)",
+    "rationale" : "Each record in the list is expected to be valid non-null HoodieRecord",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records in the list are non-null"
+    } ]
+  } ]
+}

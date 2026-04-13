@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required parameter representing the commit timestamp and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a key in a singleton map and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionPath is non-null"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records contains the data to commit and should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records is non-null"
+    } ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "The indexParser is used for parsing file group indexes and should not be null for proper operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "indexParser is non-null"
+    } ]
+  } ]
+}

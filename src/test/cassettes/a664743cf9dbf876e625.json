@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Option, which is typically non-null to avoid NullPointerExceptions.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result is an Option and never null"
+    } ]
+  }, {
+    "expression" : "!result.isPresent()",
+    "rationale" : "The method always returns Option.empty(), so result should never be present.",
+    "meta" : [ {
+      "key" : "method-behavior",
+      "value" : "always returns Option.empty()"
+    } ]
+  } ]
+}

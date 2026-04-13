@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a list of file IDs, which is expected to be non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "result must not be null at method exit"
+    } ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "File IDs in the result list are expected to be non-null strings.",
+    "meta" : [ {
+      "key" : "element-null-check",
+      "value" : "result elements are non-null"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath parameter must be non-null to retrieve file slices.",
+    "meta" : [ {
+      "key" : "parameter-non-null",
+      "value" : "partitionPath is used to fetch file slices"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A list's size is always zero or more.",
+    "meta" : [ {
+      "key" : "size-non-negative",
+      "value" : "List size cannot be negative"
+    } ]
+  }, {
+    "expression" : "new java.util.HashSet<>(result).size() == result.size()",
+    "rationale" : "The method collects distinct file IDs from file slices.",
+    "meta" : [ {
+      "key" : "distinctness",
+      "value" : "result contains distinct file IDs"
+    } ]
+  } ]
+}

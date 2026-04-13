@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodieWriteMetadata object, so result is expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null after method execution"
+    } ]
+  }, {
+    "expression" : "records != null || result.getWriteStatuses() == null",
+    "rationale" : "If records is null, the write statuses in result may be null; otherwise, they are expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "conditional"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Since we have records list input, the result generally contains a list of WriteStatus.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses is non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() == (records != null ? records.size() : 0)",
+    "rationale" : "The number of WriteStatus in the result should correspond to the number of records upserted.",
+    "meta" : [ {
+      "key" : "size-relation",
+      "value" : "writeStatuses size matches records size"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used as a commit instant and expected to be a meaningful string.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "instantTime is non-null and non-empty string"
+    } ]
+  } ]
+}

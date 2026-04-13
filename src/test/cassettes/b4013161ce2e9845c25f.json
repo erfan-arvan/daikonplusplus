@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The list of input records should be provided when bulk inserting.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "inputRecords is not null at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be a valid string identifying the commit instant.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table reference must exist to perform the bulk insert.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "table is not null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The write configuration is necessary to control bulk insert parameters.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config is not null"
+    } ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "The optional user defined partitioner is guaranteed non-null, although it may be empty.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "userDefinedBulkInsertPartitioner is not null"
+    } ]
+  } ]
+}

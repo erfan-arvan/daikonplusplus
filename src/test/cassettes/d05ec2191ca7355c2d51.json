@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The config parameter is expected to be non-null for the method to perform its operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config is not null at method entry"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is expected to be non-null to create the HoodieTable.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is not null at method entry"
+    } ]
+  } ]
+}

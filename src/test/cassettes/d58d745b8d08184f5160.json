@@ -1,0 +1,35 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Method parameter lists are usually non-null at entry to avoid NullPointerExceptions.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "columnsToIndex is declared as List<String> parameter.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "List<String>"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "size_nonnegative"
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || !columnsToIndex.contains(null)",
+    "rationale" : "It's common for a list of column names to not contain null strings.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "no_null_elements"
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.stream().allMatch(s -> s != null && !s.isEmpty()) == false",
+    "rationale" : "Skipped due to lambda usage.",
+    "meta" : [ ]
+  } ]
+}

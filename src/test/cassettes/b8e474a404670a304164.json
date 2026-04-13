@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "The input metadata parameter must be non-null to call methods on it.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "metadata is non-null input parameter"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null cloned metadata object wrapping a list.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is the method return value"
+    } ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "The method uses metadata.getWriteStatuses() without null checks, so it must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "getWriteStatuses() return"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() == metadata.getWriteStatuses().collectAsList().size()",
+    "rationale" : "The result contains a list with the same size as the collected write statuses list from the input metadata.",
+    "meta" : [ {
+      "key" : "size relation",
+      "value" : "result wraps a list cloned from metadata.writeStatuses"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The result.getWriteStatuses() must be non-null as it returns the cloned list.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result.getWriteStatuses() return"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The execution context must be non-null for the method to proceed.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instant time string is needed for commit actions.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is typically a timestamp string and should not be null"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Upsert must operate on a possibly empty but non-null list of records.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records list must not be null although it can be empty"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always non-negative by definition.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "records size is non-negative"
+    } ]
+  }, {
+    "expression" : "records != null && (!records.isEmpty() || records.isEmpty())",
+    "rationale" : "Records list is either empty or not, but not null, guarding against NullPointerException.",
+    "meta" : [ {
+      "key" : "tautology_check",
+      "value" : "ensures records is checked for null before usage"
+    } ]
+  } ]
+}

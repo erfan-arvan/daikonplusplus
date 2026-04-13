@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The method uses writeMetadata immediately after, so it should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeMetadata is not null at method entry"
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "The code calls collectAsList() on it, so it must not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeMetadata.getWriteStatuses() is not null"
+    } ]
+  }, {
+    "expression" : "transformedWriteStatuses != null",
+    "rationale" : "The collectAsList() returns a List, which is assumed non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "transformedWriteStatuses is not null after collectAsList()"
+    } ]
+  }, {
+    "expression" : "transformedWriteStatuses instanceof List",
+    "rationale" : "The variable's type declaration is List<WriteStatus>.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "transformedWriteStatuses is a List"
+    } ]
+  }, {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "clusteringPlan is needed to produce writeMetadata, so assume non-null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "clusteringPlan parameter is not null"
+    } ]
+  } ]
+}

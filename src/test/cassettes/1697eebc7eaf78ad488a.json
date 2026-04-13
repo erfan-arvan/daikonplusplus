@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method sets metadata on the result object, so result must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses should be available to build metadata.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses not null"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "Metadata is built from the write statuses, so they are expected to contain some entries.",
+    "meta" : [ {
+      "key" : "nonempty",
+      "value" : "writeStatuses list is non-empty"
+    } ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "Partition to replace file IDs mapping is used when building the metadata.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionToReplaceFileIds not null"
+    } ]
+  } ]
+}

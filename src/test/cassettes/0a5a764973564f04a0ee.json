@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null iterator, either from Collections.singletonList or from a new JavaLazyInsertIterable instance.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null at method exit"
+    } ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result.hasNext()",
+    "rationale" : "If recordItr is not empty, result iterator should have at least one element.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "result aligns with recordItr content"
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The return type of the method is Iterator<List<WriteStatus>> and result must be an instance of Iterator.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result is an Iterator"
+    } ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is used in the JavaLazyInsertIterable constructor and is expected to be non-null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "idPfx is non-null"
+    } ]
+  }, {
+    "expression" : "idPfx.length() > 0 || idPfx == null",
+    "rationale" : "In the method code no explicit check for null but idPfx is used, thus it must be either empty or null logically but mostly non-null.",
+    "meta" : [ {
+      "key" : "len_or_null",
+      "value" : "idPfx length positive or null"
+    } ]
+  } ]
+}

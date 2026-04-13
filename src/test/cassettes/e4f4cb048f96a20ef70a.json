@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The parameter preppedRecords is expected to be a non-null list of records to insert.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecords is checked for null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a timestamp string and should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime should not be null"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner == null || bulkInsertPartitioner.isPresent()",
+    "rationale" : "bulkInsertPartitioner is an Option type and can be absent or present, but may also be null.",
+    "meta" : [ {
+      "key" : "option",
+      "value" : "bulkInsertPartitioner may be null or contain a value"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "preppedRecords is a List, so size is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "Lists have non-negative sizes"
+    } ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "instantTime is expected to be a valid string representing time.",
+    "meta" : [ {
+      "key" : "string",
+      "value" : "instantTime is not empty"
+    } ]
+  } ]
+}

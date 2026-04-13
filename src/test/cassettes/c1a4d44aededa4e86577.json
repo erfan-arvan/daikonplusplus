@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new instance from eager with an empty list, so the result is never null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Since the returned HoodieData is created from an empty list, it should be empty.",
+    "meta" : [ {
+      "key" : "emptiness",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.count() == 0",
+    "rationale" : "The underlying data is empty, so the count of elements is zero.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "0"
+    } ]
+  } ]
+}

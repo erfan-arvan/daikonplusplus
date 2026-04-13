@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result object is returned and should not be null as the method does not support partition deletion but returns metadata.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null on method exit"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The input context parameter must be non-null for the operation to begin.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "input parameter"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter must not be null as it represents the commit time.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "input parameter"
+    } ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The partitions list parameter must not be null for the method to proceed.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "input parameter"
+    } ]
+  }, {
+    "expression" : "partitions.size() >= 0",
+    "rationale" : "The size of partitions list cannot be negative and should be zero or more.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "partitions size non-negative"
+    } ]
+  } ]
+}

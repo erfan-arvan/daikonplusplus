@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null list as it is the result of streaming and filtering hoodieRecords.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Method expects a non-null list of hoodieRecords as input.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "parameter is not null"
+    } ]
+  }, {
+    "expression" : "result.size() <= hoodieRecords.size()",
+    "rationale" : "Filtering from hoodieRecords can only reduce the size, not increase it.",
+    "meta" : [ {
+      "key" : "size relation",
+      "value" : "result size less or equal to input size"
+    } ]
+  }, {
+    "expression" : "!result.isEmpty() == !hoodieRecords.stream().anyMatch(r -> !r.isCurrentLocationKnown())",
+    "rationale" : "Result contains only records whose current location is not known.",
+    "meta" : [ {
+      "key" : "filter correctness",
+      "value" : "result is empty iff no records have unknown current location"
+    } ]
+  }, {
+    "expression" : "forall(int i = 0; i < result.size(); i++) { !result.get(i).isCurrentLocationKnown() }",
+    "rationale" : "The filtered list contains only records with unknown current location.",
+    "meta" : [ {
+      "key" : "element property",
+      "value" : "all records in result have unknown current location"
+    } ]
+  } ]
+}

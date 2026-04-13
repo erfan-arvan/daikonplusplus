@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is typically a timestamp string, expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime must not be null"
+    } ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition is an Integer id, likely a required parameter.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partition must not be null"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is an iterator over records, expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "recordItr must not be null"
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner instance is expected to be provided and not null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitioner must not be null"
+    } ]
+  }, {
+    "expression" : "partition >= 0",
+    "rationale" : "Partition index is typically non-negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "partition is non-negative"
+    } ]
+  } ]
+}

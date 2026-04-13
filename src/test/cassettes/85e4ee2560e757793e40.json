@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the sorted records list, which is non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null on return"
+    } ]
+  }, {
+    "expression" : "result == records",
+    "rationale" : "The method returns the same List instance that was passed as 'records' after sorting it.",
+    "meta" : [ {
+      "key" : "aliasing",
+      "value" : "result and records refer to the same list instance"
+    } ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partitions count is expected to be positive for repartitioning.",
+    "meta" : [ {
+      "key" : "parameter constraint",
+      "value" : "outputPartitions is a positive integer"
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Sorting does not change the number of records.",
+    "meta" : [ {
+      "key" : "size invariance",
+      "value" : "Size of result list equals size of input list"
+    } ]
+  } ]
+}

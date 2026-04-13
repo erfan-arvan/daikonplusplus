@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be non-null as it represents a timestamp for the operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is a timestamp string, likely always non-null on method entry."
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should be non-null since it identifies the partition involved in the update handle.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPath typically identifies a partition and should be non-null."
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId must be non-null since it identifies the target file for update.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "fileId uniquely identifies the file and should not be null."
+    } ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "keyToNewRecords should be non-null as it holds the new records keyed by record key.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Map of records to update should not be null."
+    } ]
+  }, {
+    "expression" : "dataFileToBeMerged == null || dataFileToBeMerged.getFileId().equals(fileId)",
+    "rationale" : "If dataFileToBeMerged exists, it should correspond to the input fileId parameter.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "If dataFileToBeMerged is non-null, its fileId should match the fileId parameter."
+    } ]
+  } ]
+}

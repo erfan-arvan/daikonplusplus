@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method returns a List<WriteStatus>, result should never be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null at method exit"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "As a method parameter representing input records, preppedRecords is assumed non-null when processing.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecords is non-null"
+    } ]
+  }, {
+    "expression" : "result.size() == preppedRecords.size()",
+    "rationale" : "Typically, for each inserted HoodieRecord, there is a corresponding WriteStatus in the result.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "output size equals input size"
+    } ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "Each WriteStatus in the result list should be valid and non-null.",
+    "meta" : [ {
+      "key" : "content",
+      "value" : "no null elements in result"
+    } ]
+  }, {
+    "expression" : "!preppedRecords.contains(null)",
+    "rationale" : "The input list of records should not contain nulls for the insertion to be valid.",
+    "meta" : [ {
+      "key" : "content",
+      "value" : "no null elements in preppedRecords"
+    } ]
+  } ]
+}

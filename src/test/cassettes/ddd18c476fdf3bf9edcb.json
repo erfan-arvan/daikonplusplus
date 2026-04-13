@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieIndex instance, never null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The parameter config is non-null to access its methods safely.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config is non-null"
+    } ]
+  }, {
+    "expression" : "!StringUtils.isNullOrEmpty(config.getIndexClass()) || result instanceof HoodieIndex",
+    "rationale" : "The result is always an instance of HoodieIndex if indexClass is empty or null.",
+    "meta" : [ {
+      "key" : "implication",
+      "value" : "if config.getIndexClass is null or empty, result is a subtype of HoodieIndex"
+    } ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The returned HoodieIndex was constructed with the given config, so it holds a reference to it.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "result was constructed using config"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieSimpleIndex || result instanceof HoodieGlobalSimpleIndex || result instanceof HoodieInMemoryHashIndex || result instanceof HoodieBloomIndex",
+    "rationale" : "The returned index is always one of the known HoodieIndex subclasses.",
+    "meta" : [ {
+      "key" : "type_invariants",
+      "value" : "result is one of the supported index subclasses"
+    } ]
+  } ]
+}

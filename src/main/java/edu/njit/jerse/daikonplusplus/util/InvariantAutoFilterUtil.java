@@ -25,18 +25,20 @@ public final class InvariantAutoFilterUtil {
     List<JError> out = new ArrayList<>();
     if (stderr == null) return out;
 
-    Matcher m =
-        Pattern.compile("^\\s*(.*\\.java):(\\d+):\\s+error:\\s+(.*)$", Pattern.MULTILINE)
-            .matcher(stderr);
+    // Pattern 1: javac / gradle style
+    Pattern p1 =
+        Pattern.compile(
+            "^\\s*(?:\\[[^]]+\\]\\s*)?(.+\\.java):(\\d+)(?::\\d+)?:", Pattern.MULTILINE);
 
-    while (m.find()) {
-      String file = m.group(1);
-      String lineStr = m.group(2);
-      String msg = m.group(3);
+    Matcher m1 = p1.matcher(stderr);
 
-      if (file == null || lineStr == null || msg == null) {
-        continue;
-      }
+    while (m1.find()) {
+      String file = m1.group(1);
+      String lineStr = m1.group(2);
+
+      if (file == null || lineStr == null) continue;
+
+      file = file.trim();
 
       int line;
       try {
@@ -45,7 +47,32 @@ public final class InvariantAutoFilterUtil {
         continue;
       }
 
-      out.add(new JError(file, line, msg));
+      out.add(new JError(file, line, ""));
+    }
+
+    // Pattern 2: Maven style ([line,column])
+    Pattern p2 =
+        Pattern.compile(
+            "^\\s*(?:\\[[^]]+\\]\\s*)?(.+\\.java):\\[(\\d+),(\\d+)\\]", Pattern.MULTILINE);
+
+    Matcher m2 = p2.matcher(stderr);
+
+    while (m2.find()) {
+      String file = m2.group(1);
+      String lineStr = m2.group(2);
+
+      if (file == null || lineStr == null) continue;
+
+      file = file.trim();
+
+      int line;
+      try {
+        line = Integer.parseInt(lineStr);
+      } catch (NumberFormatException e) {
+        continue;
+      }
+
+      out.add(new JError(file, line, ""));
     }
 
     return out;
@@ -89,23 +116,21 @@ public final class InvariantAutoFilterUtil {
     List<JError> out = new ArrayList<>();
     if (output == null || output.isEmpty()) return out;
 
-    // Matches:
-    // [javac] /path/File.java:123: error: message
-    // /path/File.java:123: error: message
-    Pattern p =
+    // ---- Pattern 1: javac / gradle / ant ----
+    // Examples:
+    // File.java:123: error: ...
+    // [javac] File.java:123: ...
+    Pattern p1 =
         Pattern.compile(
-            "^\\s*(?:\\[[^]]+\\]\\s*)?(.+\\.java):(\\d+):\\s+error:\\s+(.*)$", Pattern.MULTILINE);
+            "^\\s*(?:\\[[^]]+\\]\\s*)?(.+\\.java):(\\d+)(?::\\d+)?:", Pattern.MULTILINE);
 
-    Matcher m = p.matcher(output);
+    Matcher m1 = p1.matcher(output);
 
-    while (m.find()) {
-      String file = m.group(1);
-      String lineStr = m.group(2);
-      String msg = m.group(3);
+    while (m1.find()) {
+      String file = m1.group(1);
+      String lineStr = m1.group(2);
 
-      if (file == null || lineStr == null || msg == null) {
-        continue;
-      }
+      if (file == null || lineStr == null) continue;
 
       file = file.trim();
 
@@ -116,7 +141,34 @@ public final class InvariantAutoFilterUtil {
         continue;
       }
 
-      out.add(new JError(file, line, msg.trim()));
+      out.add(new JError(file, line, ""));
+    }
+
+    // ---- Pattern 2: Maven ([line,column]) ----
+    // Example:
+    // [ERROR] File.java:[1062,47] ...
+    Pattern p2 =
+        Pattern.compile(
+            "^\\s*(?:\\[[^]]+\\]\\s*)?(.+\\.java):\\[(\\d+),(\\d+)\\]", Pattern.MULTILINE);
+
+    Matcher m2 = p2.matcher(output);
+
+    while (m2.find()) {
+      String file = m2.group(1);
+      String lineStr = m2.group(2);
+
+      if (file == null || lineStr == null) continue;
+
+      file = file.trim();
+
+      int line;
+      try {
+        line = Integer.parseInt(lineStr);
+      } catch (NumberFormatException e) {
+        continue;
+      }
+
+      out.add(new JError(file, line, ""));
     }
 
     return out;

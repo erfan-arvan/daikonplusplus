@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "The parameter keys is expected to be non-null as it is a method argument representing the keys list.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "parameters"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The parameter table is expected to be non-null as it is a method argument representing the HoodieTable instance.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "parameters"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically a positive integer indicating the level of parallelism for processing.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "parameters"
+    } ]
+  }, {
+    "expression" : "table.getIndex() != null",
+    "rationale" : "The table's index should not be null since the code calls table.getIndex().isGlobal() without null checks.",
+    "meta" : [ {
+      "key" : "safe_call",
+      "value" : "method-internal"
+    } ]
+  }, {
+    "expression" : "parallelism <= keys.size() || keys.size() == 0",
+    "rationale" : "Parallelism is often meant to be less than or equal to the size of the input collection, or keys could be empty.",
+    "meta" : [ {
+      "key" : "size_restriction",
+      "value" : "possible parallelism limit"
+    } ]
+  } ]
+}

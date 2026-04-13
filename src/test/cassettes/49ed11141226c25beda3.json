@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of an execute() method, which presumably returns a non-null HoodieRestoreMetadata object.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "The restoreInstantTimestamp parameter is likely required and non-null to perform the restore operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp == null || !savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "If savepointToRestoreTimestamp is provided, it should not be empty.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "nullable but non-empty if not null"
+    } ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "restoreInstantTimestamp is expected to be a non-empty timestamp string.",
+    "meta" : [ {
+      "key" : "length",
+      "value" : "> 0"
+    } ]
+  }, {
+    "expression" : "result.getRestoreInstantTimestamp() != null && result.getRestoreInstantTimestamp().equals(restoreInstantTimestamp)",
+    "rationale" : "The restore metadata likely contains the restore instant timestamp that matches the input parameter.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "result timestamp matches parameter"
+    } ]
+  } ]
+}

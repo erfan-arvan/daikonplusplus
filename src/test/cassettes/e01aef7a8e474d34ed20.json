@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method sets fields on result, so it must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result should be non-null at method exit"
+    } ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is used without null checks in the method.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses parameter should be non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method sets writeStatuses into result, so it should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses field in result should be non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() > 0",
+    "rationale" : "Index update sets the write statuses list which should be non-empty after update.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "There is at least one write status after update"
+    } ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "The method sets index update duration, so it should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "indexUpdateDuration field should be non-null"
+    } ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method uses config to create the index, so config should not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method parameter must not be null for creation."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is provided as parameter and should not be null for operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method parameter must not be null for execution context."
+    } ]
+  } ]
+}

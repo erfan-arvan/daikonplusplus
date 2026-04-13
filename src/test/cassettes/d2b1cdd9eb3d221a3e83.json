@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents a time string likely required for commit operations and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime must be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "keys represent the records or keys to delete and are required for execution.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "keys must be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context provides execution environment details and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context must be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config holds configuration parameters required during commit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config must be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table represents the target table object and must be available for commit actions.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "table must be non-null at method entry"
+    } ]
+  } ]
+}

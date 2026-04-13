@@ -106,10 +106,16 @@ public final class JavaRunner {
 
     Files.createDirectories(classesDir);
 
+    System.out.println("[DP] compileWithAutoFilter START");
+    System.out.println("[DP] workSrcRoot = " + workSrcRoot.toAbsolutePath());
+    System.out.println("[DP] originalSrcRoot = " + originalSrcRoot.toAbsolutePath());
+
     List<Path> sources = new ArrayList<>();
     try (var walk = Files.walk(workSrcRoot)) {
       walk.filter(p -> p.toString().endsWith(".java")).forEach(sources::add);
     }
+
+    System.out.println("[DP] Found Java sources: " + sources.size());
 
     if (sources.isEmpty()) {
       throw new RuntimeException("No Java sources under " + workSrcRoot);
@@ -142,20 +148,50 @@ public final class JavaRunner {
     int maxTotalPasses = maxModifyPasses + 20;
 
     while (true) {
+
+      System.out.println("\n[DP] ===== PASS " + pass + " =====");
+
       boolean inModifyPhase = pass <= maxModifyPasses;
+      System.out.println("[DP] inModifyPhase = " + inModifyPhase);
 
       int code = runProcess(base, workSrcRoot, outLog, errLog);
-      if (code == 0) return;
+      System.out.println("[DP] javac exit code = " + code);
+
+      if (code == 0) {
+        System.out.println("[DP] Compilation SUCCESS");
+        return;
+      }
 
       String err = Files.exists(errLog) ? Files.readString(errLog) : "";
+
+      System.out.println("[DP] --- RAW STDERR (first 1000 chars) ---");
+      System.out.println(err.length() > 1000 ? err.substring(0, 1000) + "\n...[truncated]" : err);
+      System.out.println("[DP] -------------------------------------");
+
       List<JError> errors = InvariantAutoFilterUtil.parseErrors(err);
 
+      System.out.println("[DP] Parsed errors count = " + errors.size());
+      for (JError e : errors) {
+        System.out.println("[DP] ERROR → " + e.file + ":" + e.line);
+      }
+
       int touched = 0;
+
+      Set<String> seen = new HashSet<>();
+
       for (JError je : errors) {
-        Path file = Path.of(je.file);
+
+        String key = je.file + ":" + je.line;
+        if (!seen.add(key)) continue;
+
+        Path file = Path.of(je.file).toAbsolutePath().normalize();
+
+        System.out.println("[DP] Processing → " + file + ":" + je.line);
 
         if (inModifyPhase) {
           int removed = removeInvariantRegion(file, je.line);
+          System.out.println("[DP]   removeInvariantRegion → " + removed);
+
           if (removed > 0) {
             touched += removed;
             continue;
@@ -163,10 +199,15 @@ public final class JavaRunner {
         }
 
         int restored = restoreOriginalFile(file, workSrcRoot, originalSrcRoot);
+        System.out.println("[DP]   restoreOriginalFile → " + restored);
+
         touched += restored;
       }
 
+      System.out.println("[DP] touched = " + touched);
+
       if (touched == 0) {
+        System.out.println("[DP] ❌ NO PROGRESS THIS PASS");
         throw new RuntimeException("javac failed with no progress:\n" + firstErrorMsg(errors));
       }
 

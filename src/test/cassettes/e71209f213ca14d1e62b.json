@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is likely required for operation and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is expected to be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "Method likely requires restoreInstantTimestamp to be specified.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "restoreInstantTimestamp is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "restoreInstantTimestamp should contain a valid timestamp string.",
+    "meta" : [ {
+      "key" : "emptiness",
+      "value" : "restoreInstantTimestamp is not empty"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp == null || !savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "If savepointToRestoreTimestamp is provided, it should be a non-empty string.",
+    "meta" : [ {
+      "key" : "emptiness",
+      "value" : "savepointToRestoreTimestamp is either null or non-empty string"
+    } ]
+  } ]
+}

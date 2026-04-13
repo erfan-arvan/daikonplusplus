@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Pair object combining partitionPathStatMap and globalStat.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method returns a non-null Pair."
+    } ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "partitionPathStatMap is always instantiated before returning as part of result.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The map holding statistics per partition is initialized and returned."
+    } ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "globalStat is always instantiated and returned as the right element of the Pair.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The global workload stat object is initialized and returned."
+    } ]
+  }, {
+    "expression" : "inputRecords == null || result.getLeft().keySet().containsAll(inputRecords.stream().map(r -> r.getPartitionPath()).collect(java.util.stream.Collectors.toSet()))",
+    "rationale" : "partitionPathStatMap is populated based on inputRecords partitions. If inputRecords is null, no grouping.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "All partition paths in inputRecords should be represented or inputRecords is null."
+    } ]
+  }, {
+    "expression" : "result.getRight().getUpdateCount() >= 0 && result.getRight().getInsertCount() >= 0",
+    "rationale" : "WorkloadStat accumulates counts of updates and inserts, which are never negative.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Global workload stat counts cannot be negative."
+    } ]
+  } ]
+}

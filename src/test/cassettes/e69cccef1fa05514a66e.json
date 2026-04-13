@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The config parameter should be non-null to safely call methods on it.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "parameter is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "Properties object is generally expected to be non-null to get properties from.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "getProps should return non-null Properties object"
+    } ]
+  }, {
+    "expression" : "config.getProps().getProperty(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key()) == null || config.getProps().getProperty(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key()).length() >= 0",
+    "rationale" : "The returned property may be null or a non-null string.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Result may be null or a String"
+    } ]
+  } ]
+}

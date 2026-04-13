@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "commit operations require a valid instant time string identifier.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime should not be null at method entry"
+    } ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The list of write statuses should be provided for a commit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses list is non-null on method entry"
+    } ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "Commit action type string must be specified.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "commitActionType is not null"
+    } ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "Map of replaced file IDs per partition must be provided (can be empty).",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionToReplacedFileIds map is non-null"
+    } ]
+  }, {
+    "expression" : "extraMetadata == null || extraMetadata.isDefined()",
+    "rationale" : "extraMetadata is an optional parameter, null or containing a map.",
+    "meta" : [ {
+      "key" : "OptionUsage",
+      "value" : "extraMetadata may be none or defined"
+    } ]
+  } ]
+}

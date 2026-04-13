@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Parameter context should not be null for method to execute properly.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null on method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be provided as a non-null string indicating the compaction instant time.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null on method entry"
+    } ]
+  }, {
+    "expression" : "extraMetadata == null || extraMetadata.isDefined() || extraMetadata.isEmpty()",
+    "rationale" : "extraMetadata is an Option and might be empty or defined.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "extraMetadata may be null or empty"
+    } ]
+  }, {
+    "expression" : "extraMetadata == null || extraMetadata.get() instanceof Map",
+    "rationale" : "extraMetadata, if present, contains a Map<String,String>.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "extraMetadata contents should be Map if defined"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime should not be an empty string, as it's expected to represent a valid timestamp.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "instantTime is a non-empty string"
+    } ]
+  } ]
+}

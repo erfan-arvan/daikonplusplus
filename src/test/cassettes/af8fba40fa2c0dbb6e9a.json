@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Map generated from data, so result should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The input data list should not be null when this method is called.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Since each element of data maps to at most one entry in result, result size cannot exceed data size.",
+    "meta" : [ {
+      "key" : "cardinality",
+      "value" : "upper bound"
+    } ]
+  }, {
+    "expression" : "parallelism == null || parallelism > 0",
+    "rationale" : "If parallelism is specified, it's expected to be positive or null.",
+    "meta" : [ {
+      "key" : "validity",
+      "value" : "positive when specified"
+    } ]
+  }, {
+    "expression" : "result.keySet().stream().noneMatch(k -> k == null)",
+    "rationale" : "Map keys generated from func should be non-null as map keys typically are not null.",
+    "meta" : [ {
+      "key" : "keys",
+      "value" : "non-null"
+    } ]
+  } ]
+}

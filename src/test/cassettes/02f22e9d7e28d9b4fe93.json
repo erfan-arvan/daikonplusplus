@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of the method is a non-null HoodieWriteMetadata object.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result is returned from execute() call, presumably non-null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Input parameter preppedRecords is expected to be non-null when passed to the method.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "preppedRecords is method parameter of type List"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus inside result is expected to be non-null as per the type.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "result corresponds to HoodieWriteMetadata<List<WriteStatus>>"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() <= preppedRecords.size()",
+    "rationale" : "The number of write statuses returned should not exceed the number of input records.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "result sized write statuses correspond to prepped records"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime string parameter is presumably non-null for commit operations.",
+    "meta" : [ {
+      "key" : "input_param",
+      "value" : "instantTime"
+    } ]
+  } ]
+}

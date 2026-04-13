@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is required and expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "The compactionInstantTime String parameter is expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "!compactionInstantTime.isEmpty()",
+    "rationale" : "The compactionInstantTime string should not be empty at method entry.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : ">0"
+    } ]
+  } ]
+}

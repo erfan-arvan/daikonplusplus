@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "The storage configuration should be provided before creating the writer.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "conf is expected to be non-null on method entry"
+    } ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "The write configuration is required for creating the writer.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "writeConfig is expected to be non-null on method entry"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context must be present to proceed.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "context is expected to be non-null on method entry"
+    } ]
+  }, {
+    "expression" : "inflightInstantTimestamp == null || inflightInstantTimestamp.isPresent() == true",
+    "rationale" : "Option may be null or contain a timestamp.",
+    "meta" : [ {
+      "key" : "NullableOption",
+      "value" : "inflightInstantTimestamp may be null or present"
+    } ]
+  } ]
+}

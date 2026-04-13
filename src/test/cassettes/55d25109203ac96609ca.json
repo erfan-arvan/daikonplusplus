@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "totalBuckets >= 0",
+    "rationale" : "Number of partitions is usually non-negative.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "totalBuckets"
+    } ]
+  }, {
+    "expression" : "totalBuckets <= Integer.MAX_VALUE",
+    "rationale" : "totalBuckets being an int cannot exceed Integer.MAX_VALUE.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "totalBuckets"
+    } ]
+  } ]
+}

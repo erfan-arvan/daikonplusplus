@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a list, using Collections.emptyList(), which is non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is never null"
+    } ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "The return type is List<Integer>, and the returned value is always a List.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result is always a List<Integer>"
+    } ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "Since the method returns Collections.emptyList(), the result is always an empty list.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "result is empty"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator<List<WriteStatus>> when it completes normally.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Parameter partition is used as an Integer key and should be non-null for method logic to progress.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partition is not null at method exit"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is expected to be non-null as it typically represents a timestamp string.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "result.hasNext() || !result.hasNext()",
+    "rationale" : "We cannot infer the contents of result but it supports Iterator interface correctly.",
+    "meta" : [ {
+      "key" : "no assumptions",
+      "value" : "result may be empty or non-empty"
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The partitioner parameter must be non-null since it is casted and used without null checks inside the method.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitioner is not null"
+    } ]
+  } ]
+}

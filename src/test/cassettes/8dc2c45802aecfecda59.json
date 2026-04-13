@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List<V>, so the result should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null after the method returns"
+    } ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each entry in result corresponds to a reduced group of mapped pairs, which cannot exceed the number of input elements.",
+    "meta" : [ {
+      "key" : "sizeRelation",
+      "value" : "result size is at most data size"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "parallelism typically controls parallel stream execution and should be positive.",
+    "meta" : [ {
+      "key" : "parameterConstraint",
+      "value" : "parallelism must be positive"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method operates on data.stream(), so data should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "data parameter is non-null"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List size cannot be negative",
+    "meta" : [ {
+      "key" : "sizeRelation",
+      "value" : "result size is non-negative"
+    } ]
+  } ]
+}

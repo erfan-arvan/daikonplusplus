@@ -1,0 +1,10 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method always throws an exception, it does not return normally, so the result is always null at method exit.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always throws HoodieNotSupportedException, so it never returns a result."
+    } ]
+  } ]
+}

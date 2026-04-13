@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method is called with a list of records; assuming non-null is reasonable.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records should not be null"
+    } ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "The number of partitions should be a positive integer.",
+    "meta" : [ {
+      "key" : "valueRange",
+      "value" : "outputPartitions must be positive"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty() || records.isEmpty()",
+    "rationale" : "The records list is either empty or not, establishing a boolean condition.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "records is a list so can be empty or not"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always zero or positive.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "List size is non-negative"
+    } ]
+  }, {
+    "expression" : "outputPartitions <= Integer.MAX_VALUE",
+    "rationale" : "outputPartitions is an int parameter and thus bounded.",
+    "meta" : [ {
+      "key" : "valueRange",
+      "value" : "outputPartitions is within int range"
+    } ]
+  } ]
+}

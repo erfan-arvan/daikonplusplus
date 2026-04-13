@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a non-null context to perform index operations.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is not null"
+    } ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "The indexInstantTime string must be non-null to specify the instant for indexing.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "indexInstantTime is not null"
+    } ]
+  }, {
+    "expression" : "indexInstantTime.length() > 0",
+    "rationale" : "The instant time should be a non-empty string representing a time.",
+    "meta" : [ {
+      "key" : "string",
+      "value" : "indexInstantTime is non-empty"
+    } ]
+  } ]
+}

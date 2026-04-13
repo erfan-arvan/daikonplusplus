@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method returns a new instance of HoodieJavaCopyOnWriteTable or HoodieJavaMergeOnReadTable, result is never null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Method parameter config is used to construct result and expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config is not null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Method parameter context is used to construct result and expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is not null"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Method parameter metaClient is used to determine table type and construct result and expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "metaClient is not null"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "Result is an instance of either HoodieJavaCopyOnWriteTable or HoodieJavaMergeOnReadTable which both extend HoodieJavaTable.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result is subtype of HoodieJavaTable"
+    } ]
+  } ]
+}

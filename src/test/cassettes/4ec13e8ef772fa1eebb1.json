@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is required and should not be null on method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null on method entry"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is expected to be a valid non-null string representing time.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "restoreInstantTimestamp is non-null on method entry"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp should be non-null, representing a timestamp string.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "savepointToRestoreTimestamp is non-null on method entry"
+    } ]
+  } ]
+}

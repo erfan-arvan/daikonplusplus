@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method parameter inputRecords should not be null on entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "inputRecords is not null on method entry"
+    } ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "List sizes are always zero or positive.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "inputRecords size is non-negative"
+    } ]
+  }, {
+    "expression" : "inputRecords != null && inputRecords.stream().noneMatch(r -> r == null)",
+    "rationale" : "Input records typically do not contain null elements.",
+    "meta" : [ {
+      "key" : "elementNullness",
+      "value" : "inputRecords contains no null elements"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The data list must be non-null to perform foreach iteration.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "data is non-null"
+    } ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "Consumer must be non-null to apply operation on elements.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "consumer is non-null"
+    } ]
+  }, {
+    "expression" : "parallelism >= 0",
+    "rationale" : "Parallelism represents count of parallel threads, non-negative by definition.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "parallelism is non-negative"
+    } ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List size is always zero or more.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "size of data is non-negative"
+    } ]
+  }, {
+    "expression" : "data.size() == 0 || parallelism > 0",
+    "rationale" : "If data is not empty, parallelism should be positive to process data.",
+    "meta" : [ {
+      "key" : "conditional",
+      "value" : "parallelism positive if data is not empty"
+    } ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method parameter preppedRecords should be non-null when the method is entered.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecords is non-null on method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Method parameter instantTime should be non-null when the method is entered.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null on method entry"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "preppedRecords has non-negative size"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is expected to be a valid instant represented by a non-empty string.",
+    "meta" : [ {
+      "key" : "length",
+      "value" : "instantTime is a non-empty string"
+    } ]
+  } ]
+}

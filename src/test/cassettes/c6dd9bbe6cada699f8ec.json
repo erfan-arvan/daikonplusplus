@@ -1,0 +1,32 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext parameter is expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is not null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string parameter should not be null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "The HoodieInstant parameter must be non-null to specify the rollback instant.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantToRollback is not null"
+    } ]
+  }, {
+    "expression" : "true == skipTimelinePublish || false == skipTimelinePublish",
+    "rationale" : "skipTimelinePublish is a boolean parameter always either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true == shouldRollbackUsingMarkers || false == shouldRollbackUsingMarkers",
+    "rationale" : "shouldRollbackUsingMarkers is a boolean parameter always either true or false.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the output of bulkInsert which is expected to be a non-null list.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "The method returns a non-null list of WriteStatus."
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List sizes are always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "The result list size is non-negative."
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "The inputRecords parameter is required and should not be null for the clustering operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Input parameter is expected to be non-null."
+    } ]
+  }, {
+    "expression" : "numOutputGroups >= 0",
+    "rationale" : "The parallelism parameter numOutputGroups is expected to be zero or positive.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "The number of output groups is non-negative."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents a commit instant time string that should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Instant time string is not null."
+    } ]
+  } ]
+}

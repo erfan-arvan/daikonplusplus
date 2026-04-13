@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List, which is assumed to be non-null upon normal completion.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method uses partitionPath to get file slices; typically partitionPath is required and non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionPath is not null"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> id != null)",
+    "rationale" : "File IDs collected from file slices are expected to be non-null strings.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "no null elements in result"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List size is always zero or positive.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "result size is non-negative"
+    } ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The returned list is collected after distinct operation, so elements are unique.",
+    "meta" : [ {
+      "key" : "distinctness",
+      "value" : "all elements are distinct"
+    } ]
+  } ]
+}

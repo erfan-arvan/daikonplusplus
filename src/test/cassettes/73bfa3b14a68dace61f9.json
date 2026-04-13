@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is typically a non-null string representing a timestamp.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime must be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords collection passed to write method must not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "inputRecords must be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is expected to be provided for the operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context must be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table instance is required to perform write operations.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "table must be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "configuration object must be non-null to retrieve settings.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config must be non-null at method entry"
+    } ]
+  } ]
+}

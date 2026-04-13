@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodiePairData instance, so the result should never be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The method returns a HoodiePairData wrapping an empty list, so it must be empty.",
+    "meta" : [ {
+      "key" : "emptiness",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.count() == 0",
+    "rationale" : "Since the collection is empty, the count of pairs must be zero.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "0"
+    } ]
+  }, {
+    "expression" : "result.sizeInBytes() == 0",
+    "rationale" : "Empty HoodiePairData should have a size in bytes equal to zero.",
+    "meta" : [ {
+      "key" : "sizeInBytes",
+      "value" : "0"
+    } ]
+  }, {
+    "expression" : "result.getNumPartitions() >= 0",
+    "rationale" : "Number of partitions should be non-negative; likely zero or more.",
+    "meta" : [ {
+      "key" : "numPartitions",
+      "value" : "non-negative"
+    } ]
+  } ]
+}

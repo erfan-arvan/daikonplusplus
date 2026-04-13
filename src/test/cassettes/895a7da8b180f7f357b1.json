@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is generally required for execution and should not be null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context must not be null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter represents a commit instant and should always be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime must not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The list of preppedRecords should not be null when invoking insertPrepped.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecords must not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "The size of the list is always non-negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "sizeNonNegative"
+    } ]
+  } ]
+}

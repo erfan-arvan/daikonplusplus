@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The factory method is expected to return a valid HoodieIndex instance.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null after creation"
+    } ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "Input configuration is not null as it should be provided by the caller.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "input parameter"
+    } ]
+  }, {
+    "expression" : "result.getConfig() == writeConfig || result.getConfig() != null",
+    "rationale" : "The created HoodieIndex should hold or reference a configuration related to the provided writeConfig, ensuring linkage.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "result is related to writeConfig"
+    } ]
+  }, {
+    "expression" : "result != null && writeConfig != null",
+    "rationale" : "Both parameters and result are expected to be non-null for correct indexing.",
+    "meta" : [ {
+      "key" : "combined_nullness",
+      "value" : "both non-null"
+    } ]
+  } ]
+}

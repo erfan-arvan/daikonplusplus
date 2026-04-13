@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "Since method throws exception if profile is null, at method exit it must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "profile is checked for null before method exit"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new JavaUpsertPartitioner instance so result is non-null.",
+    "meta" : [ {
+      "key" : "postcondition",
+      "value" : "method never returns null"
+    } ]
+  }, {
+    "expression" : "result instanceof Partitioner",
+    "rationale" : "The method's return type is Partitioner and returns instance of subclass.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result is a Partitioner"
+    } ]
+  } ]
+}

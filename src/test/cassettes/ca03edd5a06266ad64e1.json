@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Option<HoodieCleanerPlan>, which, by definition, should never be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null after method execution"
+    } ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "Option must either contain a value or be empty, so this expression always holds.",
+    "meta" : [ {
+      "key" : "logic",
+      "value" : "result contains either presence or absence of value"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Parameters should not be null according to typical Java practice; correct usage assumes a valid Option.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "extraMetadata parameter is not null"
+    } ]
+  }, {
+    "expression" : "result.isPresent() == true || result.isPresent() == false",
+    "rationale" : "Ensures presence value is a boolean.",
+    "meta" : [ {
+      "key" : "logic",
+      "value" : "standard Option presence check"
+    } ]
+  }, {
+    "expression" : "result.isPresent() == (result.get() != null)",
+    "rationale" : "If the Option is non-empty, the contained HoodieCleanerPlan should not be null.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "If Option is present, its contained value is not null"
+    } ]
+  } ]
+}

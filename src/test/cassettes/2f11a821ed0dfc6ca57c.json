@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method uses 'context' to create a RunCompactionActionExecutor, so it must not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Non-null execution context required for compaction"
+    } ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "compactionInstantTime is used as a parameter for RunCompactionActionExecutor and should not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Compaction instant time must be defined"
+    } ]
+  } ]
+}

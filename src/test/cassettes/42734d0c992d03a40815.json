@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeConfig != null",
+    "rationale" : "The writeConfig parameter is expected to be non-null when createIndex is called.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeConfig is never null at method entry"
+    } ]
+  }, {
+    "expression" : "writeConfig.getSomeField() != null",
+    "rationale" : "Assuming some important configuration field in writeConfig must be non-null for index creation.",
+    "meta" : [ {
+      "key" : "nonnullField",
+      "value" : "SomeField"
+    } ]
+  }, {
+    "expression" : "writeConfig.getParallelism() > 0",
+    "rationale" : "The parallelism setting in writeConfig should be positive to create an index.",
+    "meta" : [ {
+      "key" : "positiveValue",
+      "value" : "parallelism"
+    } ]
+  }, {
+    "expression" : "writeConfig.getIndexType() != null",
+    "rationale" : "The index type must be specified in the config to create the proper index.",
+    "meta" : [ {
+      "key" : "nonnullField",
+      "value" : "indexType"
+    } ]
+  }, {
+    "expression" : "writeConfig.isIndexEnabled() == true",
+    "rationale" : "Index creation only occurs if indexing is enabled in the configuration.",
+    "meta" : [ {
+      "key" : "booleanFlag",
+      "value" : "indexEnabled"
+    } ]
+  } ]
+}
