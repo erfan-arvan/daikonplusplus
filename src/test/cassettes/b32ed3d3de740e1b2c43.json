@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of collecting a stream, which should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == data.size()",
+    "rationale" : "Map produces one output per input, preserving size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "A stream pipeline is constructed on 'data'; it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "'func' is invoked for each input element, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallel streams require positive parallelism; likely enforced upstream.",
+    "meta" : [ ]
+  } ]
+}

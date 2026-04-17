@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs a new TableWriteStats object and returns it, so result should never be null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "Ensures that the method's return value is not null."
+    } ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The method dereferences writeMetadata to obtain write statuses, so writeMetadata must not be null.",
+    "meta" : [ {
+      "key" : "input_non_null",
+      "value" : "Ensures input parameter writeMetadata is not null."
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "Because the code calls .stream() on getWriteStatuses(), the list returned must not be null.",
+    "meta" : [ {
+      "key" : "input_inner_non_null",
+      "value" : "Ensures the list of WriteStatus inside writeMetadata is not null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatusStats().size() == writeMetadata.getWriteStatuses().size()",
+    "rationale" : "The method maps each WriteStatus to a Stat, so both lists should have equal size.",
+    "meta" : [ {
+      "key" : "size_consistency",
+      "value" : "Result stats list size equals the input write statuses list size"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatusStats().stream().allMatch(stat -> stat != null)",
+    "rationale" : "Each WriteStatus's stat is mapped to the result, which should not contain null elements.",
+    "meta" : [ {
+      "key" : "non_null_stats",
+      "value" : "All stats in the result are non-null."
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && b.doubleValue() != 0.0",
+    "rationale" : "Method guards against division by zero, so if result is non-null, b is not zero.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method returns null only if denominator b is zero, otherwise result is non-null."
+    } ]
+  }, {
+    "expression" : "(a instanceof Integer) == (result instanceof Integer)",
+    "rationale" : "If a is Integer, then result is Integer after division.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result type matches input type for Integer instances."
+    } ]
+  }, {
+    "expression" : "(a instanceof Double) == (result instanceof Double)",
+    "rationale" : "If a is Double, then result is Double after division.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result type matches input type for Double instances."
+    } ]
+  }, {
+    "expression" : "result.doubleValue() == a.doubleValue() / b.doubleValue()",
+    "rationale" : "Result is the quotient of a and b as double value.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result represents division of a by b using their double values."
+    } ]
+  }, {
+    "expression" : "b.doubleValue() != 0.0",
+    "rationale" : "The denominator is not zero when method returns a non-null result.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Division by zero is prevented by returning null early."
+    } ]
+  } ]
+}

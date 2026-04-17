@@ -6,6 +6,10 @@ import com.fasterxml.jackson.annotation.JsonClassDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.github.javaparser.StaticJavaParser;
 import com.openai.models.ChatModel;
+import edu.njit.jerse.daikonplusplus.llm.prompt.Prompt;
+import edu.njit.jerse.daikonplusplus.llm.prompt.PromptContext;
+import edu.njit.jerse.daikonplusplus.llm.prompt.PromptStrategy;
+import edu.njit.jerse.daikonplusplus.llm.prompt.PromptStrategyFactory;
 import edu.njit.jerse.daikonplusplus.model.InvariantSpec;
 import edu.njit.jerse.daikonplusplus.model.ProgramPoint;
 import edu.njit.jerse.daikonplusplus.model.ProgramPointKind;
@@ -50,6 +54,12 @@ public final class LlmInvariantGenerator {
   /** Quality filter disable flag (from {@link edu.njit.jerse.daikonplusplus.util.DpFlags}). */
   final boolean NO_QF = noQualityFilter();
 
+  private final PromptStrategy promptStrategy;
+
+  private static boolean printedModelOnce = false;
+
+  private static boolean printedStrategyOnce = false;
+
   /**
    * Creates a new generator using environment variables for configuration.
    *
@@ -60,6 +70,7 @@ public final class LlmInvariantGenerator {
   public LlmInvariantGenerator(int maxInvariants) {
     this.maxInvariants = Math.max(1, maxInvariants);
     this.llm = buildLlmFromEnv();
+    this.promptStrategy = PromptStrategyFactory.create();
   }
 
   /**
@@ -74,6 +85,7 @@ public final class LlmInvariantGenerator {
   public LlmInvariantGenerator(ChatModel model, int maxInvariants) {
     this.maxInvariants = Math.max(1, maxInvariants);
     this.llm = buildLlmFromEnv(model);
+    this.promptStrategy = PromptStrategyFactory.create();
   }
 
   /**
@@ -86,33 +98,59 @@ public final class LlmInvariantGenerator {
   public LlmInvariantGenerator(LlmClient llm, int maxInvariants) {
     this.llm = Objects.requireNonNull(llm);
     this.maxInvariants = Math.max(1, maxInvariants);
+    this.promptStrategy = PromptStrategyFactory.create();
   }
 
   /**
    * Generates candidate invariants for a given program point using the selected LLM backend.
    *
    * @param point program point to analyze
-   * @param inScopeNames map of variable name → type (in-scope at the point)
    * @param methodBody optional method body (for context only)
    * @return a list of syntactically valid and quality-filtered {@link InvariantSpec}s
    */
   public List<InvariantSpec> proposeInvariants(
-      ProgramPoint point, Map<String, String> inScopeNames, @Nullable String methodBody) {
+      ProgramPoint point,
+      Map<String, String> inScope,
+      String methodBody,
+      String methodJavadoc,
+      String enclosingClassDoc,
+      String typeDoc,
+      String callSiteContext,
+      String inputOutputExamples,
+      String calleeInfo) {
 
     final boolean isExit = point.kind() == ProgramPointKind.METHOD_EXIT;
 
     try {
-      // ----- Build system and user messages -----
-      final String system = systemMessage();
-      final String user =
-          isExit
-              ? userMessageForExit(point, inScopeNames, maxInvariants, methodBody)
-              : userMessageForEntry(point, inScopeNames, maxInvariants, methodBody);
+
+      // ----- Build prompt via strategy -----
+      PromptContext ctx =
+          new PromptContext(
+              point,
+              inScope,
+              methodBody,
+              methodJavadoc,
+              enclosingClassDoc,
+              typeDoc,
+              callSiteContext,
+              inputOutputExamples,
+              calleeInfo,
+              maxInvariants);
+
+      Prompt prompt = promptStrategy.buildPrompt(ctx);
+
+      final String system = prompt.systemMessage();
+      final String user = prompt.userMessage();
+
+      if (!printedStrategyOnce) {
+        printedStrategyOnce = true;
+        System.out.println("[DP-LLM] Strategy: " + promptStrategy.name());
+      }
 
       if (DEBUG) {
         System.out.println("[DP] LLM REQUEST → " + point.kind() + " :: " + point.elementId());
-        if (!inScopeNames.isEmpty()) {
-          System.out.println("[DP] Scope: " + inScopeNames);
+        if (!inScope.isEmpty()) {
+          System.out.println("[DP] Scope: " + inScope);
         }
       }
 
@@ -133,13 +171,21 @@ public final class LlmInvariantGenerator {
         if (expr.isEmpty()) continue;
 
         // Skip unparseable expressions
-        if (!isParsableExpression(expr)) {
+        Optional<String> parsed = parseableExpression(expr);
+
+        if (parsed.isEmpty()) {
           if (DEBUG) System.out.println("[DP-LLM] drop(parse): " + expr);
           continue;
         }
 
+        if (!expr.equals(parsed.get()) && DEBUG) {
+          System.out.println("[DP-LLM] salvage(parse): " + parsed.get());
+        }
+
+        expr = parsed.get();
+
         // Skip low-quality ones unless filter disabled
-        if (!NO_QF && !InvariantQualityFilter.keep(expr, inScopeNames, isExit)) {
+        if (!NO_QF && !InvariantQualityFilter.keep(expr, inScope, isExit)) {
           if (DEBUG) System.out.println("[DP-LLM] drop(filter): " + expr);
           continue;
         }
@@ -179,7 +225,7 @@ public final class LlmInvariantGenerator {
     } catch (Exception e) {
       if (e instanceof InterruptedException || e.getCause() instanceof InterruptedException) {
 
-        Thread.currentThread().interrupt(); // REQUIRED
+        Thread.currentThread().interrupt();
         if (DEBUG) {
           System.err.println("[DP-LLM] skipped (interrupted): " + point.elementId());
         }
@@ -190,66 +236,6 @@ public final class LlmInvariantGenerator {
       e.printStackTrace(System.err);
       return List.of();
     }
-  }
-
-  // =====================================================================
-  // Prompt construction
-  // =====================================================================
-
-  /** Returns the standard system message shared by all prompts. */
-  private static String systemMessage() {
-    return String.join(
-        "\n",
-        "You are a program analysis assistant.",
-        "Given a Java program point, propose useful boolean invariants.",
-        "Rules:",
-        "- Return ONLY JSON matching the provided schema.",
-        "- Expressions must be valid Java boolean expressions at the point.",
-        "- Use only listed in-scope names (e.g., parameters, 'this', fields if stated).",
-        "- Avoid side effects, new helpers, and tautologies.",
-        "- Prefer nullness, range, size, and ordering relations.");
-  }
-
-  /** Builds the user message for a method entry program point. */
-  private String userMessageForEntry(
-      ProgramPoint pt, Map<String, String> scope, int k, @Nullable String methodBody) {
-    StringBuilder sb = new StringBuilder();
-    sb.append("PROGRAM POINT: ").append(pt.elementId()).append(" [METHOD_ENTRY]\n");
-    sb.append("You may reference ONLY these names:\n");
-    scope.forEach((n, t) -> sb.append("- ").append(n).append(" : ").append(t).append("\n"));
-    sb.append(
-        "\nSTRICT RULES:\n"
-            + "- Single-line Java boolean expressions only.\n"
-            + "- No streams/lambdas/method refs; no side effects.\n"
-            + "- Use short-circuit null checks.\n");
-    if (methodBody != null && !methodBody.isBlank()) {
-      sb.append("\nMETHOD SOURCE (abridged, do NOT reference locals):\n")
-          .append(methodBody)
-          .append("\n");
-    }
-    sb.append("\nReturn up to ").append(k).append(" expressions.");
-    return sb.toString();
-  }
-
-  /** Builds the user message for a method exit program point. */
-  private String userMessageForExit(
-      ProgramPoint pt, Map<String, String> scope, int k, @Nullable String methodBody) {
-    StringBuilder sb = new StringBuilder();
-    sb.append("PROGRAM POINT: ").append(pt.elementId()).append(" [METHOD_EXIT]\n");
-    sb.append("You may reference ONLY these names (params + 'result' if non-void):\n");
-    scope.forEach((n, t) -> sb.append("- ").append(n).append(" : ").append(t).append("\n"));
-    sb.append(
-        "\nSTRICT RULES:\n"
-            + "- Prefer relations involving 'result' and parameters.\n"
-            + "- No streams/lambdas/method refs; no side effects.\n"
-            + "- Use short-circuit null checks.\n");
-    if (methodBody != null && !methodBody.isBlank()) {
-      sb.append("\nMETHOD SOURCE (abridged, do NOT reference locals):\n")
-          .append(methodBody)
-          .append("\n");
-    }
-    sb.append("\nReturn up to ").append(k).append(" expressions.");
-    return sb.toString();
   }
 
   // =====================================================================
@@ -264,6 +250,43 @@ public final class LlmInvariantGenerator {
     } catch (Exception ex) {
       return false;
     }
+  }
+
+  private static Optional<String> parseableExpression(String expr) {
+    if (expr == null || expr.isBlank()) return Optional.empty();
+
+    String trimmed = expr.trim();
+
+    try {
+      StaticJavaParser.parseExpression(trimmed);
+      return Optional.of(trimmed);
+    } catch (Exception ex) {
+      // Try sanitization
+      String cleaned = sanitizeExpression(trimmed);
+
+      if (!cleaned.equals(trimmed)) {
+        try {
+          StaticJavaParser.parseExpression(cleaned);
+          return Optional.of(cleaned);
+        } catch (Exception ignored) {
+          // fall through
+        }
+      }
+
+      return Optional.empty();
+    }
+  }
+
+  private static String sanitizeExpression(String expr) {
+    String e = expr.trim();
+
+    // remove trailing junk like }, ], commas
+    e = e.replaceAll("[,}\\]]+$", "").trim();
+
+    // remove markdown leftovers
+    e = e.replace("```java", "").replace("```", "").trim();
+
+    return e;
   }
 
   /** Resolves model name string to a {@link ChatModel}. */
@@ -302,7 +325,13 @@ public final class LlmInvariantGenerator {
    */
   private static LlmClient buildLlmFromEnv() {
     final @Nullable String envModel = System.getenv("DP_OPENAI_MODEL");
-    ChatModel model = resolveModel(envModel).orElse(ChatModel.GPT_4_1_MINI);
+    ChatModel model = resolveModel(envModel).orElse(ChatModel.GPT_4_1);
+
+    if (!printedModelOnce) {
+      printedModelOnce = true;
+      System.out.println("[DP-LLM] Using model: " + model);
+    }
+
     return buildLlmFromEnv(model);
   }
 

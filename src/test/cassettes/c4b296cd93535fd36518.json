@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && instantTime.isPresent()",
+    "rationale" : "instantTime is expected to be present when initializing the metadata table.",
+    "meta" : [ {
+      "key" : "nullSafe",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient must be non-null to initialize the metadata table.",
+    "meta" : [ {
+      "key" : "nullSafe",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "metaClient.getMetaPath() != null",
+    "rationale" : "metaClient's meta path should be initialized.",
+    "meta" : [ {
+      "key" : "nullSafe",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!instantTime.isPresent() || instantTime.get().length() > 0",
+    "rationale" : "If instantTime is present, it should not be empty.",
+    "meta" : [ {
+      "key" : "conditional",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "metaClient should have a valid table configuration.",
+    "meta" : [ {
+      "key" : "nullSafe",
+      "value" : "true"
+    } ]
+  } ]
+}

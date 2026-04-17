@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a non-null HoodieWriteMetadata indicating the result of the upsert.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result is guaranteed non-null after method call"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input records list is required for upsert, assumed non-null.",
+    "meta" : [ {
+      "key" : "parameter-non-null",
+      "value" : "records list must be provided"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is necessary string timestamp that should never be null.",
+    "meta" : [ {
+      "key" : "parameter-non-null",
+      "value" : "instantTime must be specified"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned HoodieWriteMetadata should contain write statuses.",
+    "meta" : [ {
+      "key" : "result-content-consistency",
+      "value" : "write statuses should be present"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() <= records.size()",
+    "rationale" : "Write statuses generally correspond to the records that were upserted, so count should not exceed input record count.",
+    "meta" : [ {
+      "key" : "result-records-consistency",
+      "value" : "write statuses are at most the number of input records"
+    } ]
+  } ]
+}

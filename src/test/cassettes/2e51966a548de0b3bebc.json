@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects to use preppedRecords as a list, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed into several downstream functions that rely on its value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed as an Option to other methods and is expected to be not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java due to the API contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner instanceof Option",
+    "rationale" : "bulkInsertPartitioner is expected to be an Option by method signature and is used as such in method calls.",
+    "meta" : [ ]
+  } ]
+}

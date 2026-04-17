@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method expects a HoodieEngineContext object to be passed.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "context is an input parameter, generally expected non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a timestamp identifier and should be defined.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime likely used for timestamp; should be non-null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is a list parameter expected to be initialized.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Input list of prepped records should not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.get(0) != null",
+    "rationale" : "If preppedRecords is not empty, its first element should be a valid object.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "if not empty, first record is non-null"
+    } ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context must be an instance of HoodieEngineContext as declared.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "context is declared as HoodieEngineContext"
+    } ]
+  } ]
+}

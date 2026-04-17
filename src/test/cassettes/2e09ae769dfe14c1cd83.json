@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "result is directly created and returned by HoodieListData.lazy, which is expected to return a non-null instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == records.size()",
+    "rationale" : "HoodieListData.lazy(records) is expected to wrap the list such that the count in result matches the size of the input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Method is expected to work with non-null input; likely a precondition, but remains valid at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(records)",
+    "rationale" : "Since HoodieListData.lazy creates a data structure that delegates to 'records', collecting back into a list should yield the original records list (by equality of contents).",
+    "meta" : [ ]
+  } ]
+}

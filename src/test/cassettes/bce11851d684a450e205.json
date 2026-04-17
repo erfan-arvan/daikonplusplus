@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method delegates return value from handleUpsertPartition, which should return a non-null iterator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition ID should be assigned and not null for insert partition operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A commit action must have a valid instant time. This is required by Hudi's operation semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "A partitioner object is required to carry out partitioning which precedes any insertion logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The record iterator for incoming records to insert is mandatory and should not be null.",
+    "meta" : [ ]
+  } ]
+}

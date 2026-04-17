@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires the context to perform engine operations, so it is likely assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "cleanInstantTime is used for identifying the instant of the clean action and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!cleanInstantTime.isEmpty()",
+    "rationale" : "cleanInstantTime is intended to be a valid instant and should not be an empty string.",
+    "meta" : [ ]
+  } ]
+}

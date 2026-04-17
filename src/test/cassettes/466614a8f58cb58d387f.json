@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The method parameter is expected to be non-null at the start of the method.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "writeMetadata is a parameter and must not be null at method entry"
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() == null || writeMetadata.getWriteStatuses() instanceof List",
+    "rationale" : "The type of writeMetadata.getWriteStatuses() must conform to the expected generic type.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "writeMetadata.getWriteStatuses() should be either null or a List of WriteStatus"
+    } ]
+  } ]
+}

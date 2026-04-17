@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method operates on instantTime, and passing null may violate preconditions in downstream methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "Empty strings for instantTime are typically not meaningful as instant identifiers and may be guarded against in APIs dealing with instants.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() == instantTime.length()",
+    "rationale" : "Instant identifiers are typically expected to be free of leading and trailing whitespace.",
+    "meta" : [ ]
+  } ]
+}

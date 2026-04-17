@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b != 0",
+    "rationale" : "Since b==0 case returns early, at method exit b must be non-zero.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method returns Integer.MIN_VALUE only when b == 0, but this is method exit before return, so b != 0."
+    } ]
+  }, {
+    "expression" : "result == a / b",
+    "rationale" : "Method divides a by b and returns that as result when b != 0.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Result is assigned by dividing a by b when b is not zero."
+    } ]
+  }, {
+    "expression" : "b != Integer.MIN_VALUE",
+    "rationale" : "b is non-zero and normal divisor; no overflow caused by b.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "To avoid division overflow or invalid division from the value of b."
+    } ]
+  }, {
+    "expression" : "a == result * b + a % b",
+    "rationale" : "Dividing a by b produces quotient result and remainder a % b satisfying this equation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Standard integer division and remainder relation."
+    } ]
+  }, {
+    "expression" : "result == a / b",
+    "rationale" : "Direct from method return when b != 0.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Result equals to integer division of a by b."
+    } ]
+  } ]
+}

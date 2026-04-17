@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method is called with inputRecords, which should not be null for correct processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object and should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The return type is explicitly HoodieWriteMetadata, so result should be an instance of it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() method on HoodieWriteMetadata should return a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "getWriteStatuses() must return a List, as per the generic signature.",
+    "meta" : [ ]
+  } ]
+}

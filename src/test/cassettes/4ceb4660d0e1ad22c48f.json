@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "The method parameter args is a valid non-null array at method exit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is the parameter array and should not be null or have negative length."
+    } ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "Ensure args is an array.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args should be an array type."
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "args.length must be >= 0 by Java array contract.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Array length is always non-negative."
+    } ]
+  } ]
+}

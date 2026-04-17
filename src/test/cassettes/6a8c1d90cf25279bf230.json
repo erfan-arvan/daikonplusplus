@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient must be non-null to call upsertPreppedRecords and commit methods.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "writeClient is a necessary client instance"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime must be non-null to represent a valid commit timestamp.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "instantTime is a valid timestamp string"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs should be non-null to pass as input for upsert.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "Input list of records to be prepped before upsert"
+    } ]
+  }, {
+    "expression" : "writeStatusJavaRDD != null",
+    "rationale" : "writeStatusJavaRDD is the result of upsertPreppedRecords and should be non-null when commit is called.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "writeStatusJavaRDD is the returned result of upsertPreppedRecords"
+    } ]
+  }, {
+    "expression" : "!preppedRecordInputs.isEmpty()",
+    "rationale" : "Prepped record inputs should not be empty to perform a meaningful upsert.",
+    "meta" : [ {
+      "key" : "non-empty",
+      "value" : "Records to write should exist before upsert"
+    } ]
+  } ]
+}

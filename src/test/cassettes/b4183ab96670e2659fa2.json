@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is used to construct the JavaBulkInsertPreppedDeltaCommitActionExecutor, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed as an argument to the constructor and likely represents a commit or transaction time, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is passed directly into the constructor and should not be null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  } ]
+}

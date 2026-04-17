@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null ",
+    "rationale" : "Ensure the delete operation produces a valid write metadata result.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "The method returns a HoodieWriteMetadata object, so result should not be null."
+    } ]
+  }, {
+    "expression" : "keys != null && !keys.isEmpty()",
+    "rationale" : "Deleting requires at least one key to operate on.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Delete operation should be invoked with a non-empty list of keys."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime is used to mark the commit and should be valid.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "instantTime should represent a valid commit timestamp string."
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The delete operation returns write statuses describing the outcome.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "The write statuses list inside the result should be initialized."
+    } ]
+  } ]
+}

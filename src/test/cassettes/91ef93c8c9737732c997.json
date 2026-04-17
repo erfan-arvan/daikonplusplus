@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of '.execute()', which should not be null if execution completes normally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "Keys are passed directly to the action executor and should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to construct the action executor and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is needed by the action executor and is required for operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() method on HoodieWriteMetadata should return a non-null list if result is not null.",
+    "meta" : [ ]
+  } ]
+}

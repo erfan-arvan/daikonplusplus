@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The return value of IOUtils.runMerge is expected to be a non-null Iterator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is required for getUpdateHandle and runMerge calls; a null fileId would likely result in an exception before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "oldDataFile is required for constructing the HoodieMergeHandle and is thus expected to be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "keyToNewRecords must be non-null to perform an update operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed into both getUpdateHandle and runMerge; these operations are not meaningful with a null value.",
+    "meta" : [ ]
+  } ]
+}

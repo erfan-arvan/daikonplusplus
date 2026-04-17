@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null && !preppedRecords.isEmpty()",
+    "rationale" : "The method expects a list of prepped records to insert, so it is likely non-null and non-empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "At method entry, preppedRecords should be non-null and non-empty for insert operation."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime represents commit time and is likely non-null and non-empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The instantTime parameter should be a non-null and non-empty string indicating the commit time."
+    } ]
+  }, {
+    "expression" : "preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Ensuring all elements are non-null is a typical invariant before processing records.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Each record in preppedRecords should be non-null."
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() > 0",
+    "rationale" : "Insert operation requires at least one prepped record.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The list should contain at least one element to perform insertion."
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime must be a valid, non-empty string.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime string length must be positive to represent a valid commit timestamp."
+    } ]
+  } ]
+}

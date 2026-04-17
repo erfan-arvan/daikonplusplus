@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Engine context should be non-null for a meaningful bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid (non-null) instant time is required for the insertion operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The list of records cannot be null in a bulkInsert operation, as it forms the data payload.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "If the records list is empty, its size should be zero or positive (true for any List, but specifically highlights expectation for software contracts).",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option<BulkInsertPartitioner> should not be null, even if it wraps an empty value, for API consistency.",
+    "meta" : [ ]
+  } ]
+}

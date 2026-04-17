@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method createTableAndValidate is expected to return a valid HoodieTable instance.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "Ensures the returned HoodieTable object is not null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Method parameter config is expected to be non-null during method execution.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "config is never null at method exit"
+    } ]
+  }, {
+    "expression" : "result.getBasePath() != null",
+    "rationale" : "A valid HoodieTable should have a non-null base path.",
+    "meta" : [ {
+      "key" : "state_property",
+      "value" : "Base path of HoodieTable should be set"
+    } ]
+  }, {
+    "expression" : "result.getTableConfig() != null",
+    "rationale" : "Valid HoodieTable typically has a non-null table configuration.",
+    "meta" : [ {
+      "key" : "state_property",
+      "value" : "Table config within HoodieTable should be non-null"
+    } ]
+  } ]
+}

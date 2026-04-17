@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieJavaTable.create likely returns a constructed table and should not return null for valid input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The HoodieTable instance is created with the given config, suggesting an internal reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getContext() == context",
+    "rationale" : "Context is passed during creation and is likely retained by the constructed HoodieTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "The static create method used is HoodieJavaTable.create, so result should have this type.",
+    "meta" : [ ]
+  } ]
+}

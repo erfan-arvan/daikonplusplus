@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args instanceof String[]",
+    "rationale" : "The method parameter args should be a non-null String array at the method entry.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "args != null"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length for args is always non-negative.",
+    "meta" : [ {
+      "key" : "array_length",
+      "value" : "non_negative"
+    } ]
+  }, {
+    "expression" : "! (args.length < 0)",
+    "rationale" : "Array length cannot be negative, this is a restatement that length is not negative.",
+    "meta" : [ {
+      "key" : "redundancy",
+      "value" : "no_negative_length"
+    } ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "args must be an array since it is declared as String[].",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "args is array"
+    } ]
+  }, {
+    "expression" : "java.util.Objects.equals(args.getClass().getComponentType(), String.class)",
+    "rationale" : "args array should be an array of Strings.",
+    "meta" : [ {
+      "key" : "component_type",
+      "value" : "String"
+    } ]
+  } ]
+}

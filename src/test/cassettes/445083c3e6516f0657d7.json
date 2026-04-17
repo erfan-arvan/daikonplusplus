@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Supplier instance.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "null check"
+    } ]
+  }, {
+    "expression" : "result.get() == 0",
+    "rationale" : "The Supplier returned by the method always supplies 0.",
+    "meta" : [ {
+      "key" : "behavior",
+      "value" : "constant supplier"
+    } ]
+  }, {
+    "expression" : "result.get() instanceof Integer",
+    "rationale" : "The Supplier returns an Integer as declared.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "type correctness"
+    } ]
+  } ]
+}

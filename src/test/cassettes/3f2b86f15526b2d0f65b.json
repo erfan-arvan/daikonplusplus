@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed to getLatestFileSlices and typically should not be null for meaningful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "An empty partition path is likely not meaningful and usually methods expect a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.trim().length() > 0",
+    "rationale" : "partitionPath should not be just whitespace for proper table operations.",
+    "meta" : [ ]
+  } ]
+}

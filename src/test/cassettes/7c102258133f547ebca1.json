@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The method passes preppedRecordInputs to writeClient.upsertPreppedRecords, which presumably does not expect null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to both upsertPreppedRecords and commit, meaning it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is dereferenced for two method calls; it must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.size() >= 0",
+    "rationale" : "A list's size is always non-negative, but including this form avoids trivial tautology by including isEmpty check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecordInputs.isEmpty() || preppedRecordInputs.size() == 0",
+    "rationale" : "If the list is empty, then size is 0, reflecting the contract of the List interface.",
+    "meta" : [ ]
+  } ]
+}

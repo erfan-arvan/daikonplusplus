@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method parameter config is expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "config is a method parameter and assumed non-null"
+    } ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "The properties of config should be non-null for key generator creation.",
+    "meta" : [ {
+      "key" : "api-usage",
+      "value" : "getProps likely returns properties required for key generation"
+    } ]
+  }, {
+    "expression" : "config.populateMetaFields() == true || config.populateMetaFields() == false",
+    "rationale" : "populateMetaFields returns a boolean value at method entry.",
+    "meta" : [ {
+      "key" : "boolean",
+      "value" : "populateMetaFields returns a boolean"
+    } ]
+  }, {
+    "expression" : "config.getProps().isEmpty() == false",
+    "rationale" : "Properties should not be empty to create a valid key generator.",
+    "meta" : [ {
+      "key" : "likely-nonempty",
+      "value" : "Key generator creation likely requires non-empty properties"
+    } ]
+  } ]
+}

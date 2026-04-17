@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inFlightInstantTimestamp != null || inFlightInstantTimestamp == null",
+    "rationale" : "inFlightInstantTimestamp is an Option<String>, so it can be non-null or null safely.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "inFlightInstantTimestamp is defined and can be either null or non-null"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a passed parameter and used for metadata operations, must not be null.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "metaClient must be non-null to operate on"
+    } ]
+  }, {
+    "expression" : "inFlightInstantTimestamp.isPresent() || !inFlightInstantTimestamp.isPresent()",
+    "rationale" : "inFlightInstantTimestamp is an Option, so it is either present or not present.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "Valid calls on Option to check presence or absence"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "Assuming metaClient initializes table config on construction.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "metaClient should have loaded its table config"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig().getTableName() != null",
+    "rationale" : "The table config should have a valid table name string.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "Table name within config should be set"
+    } ]
+  } ]
+}

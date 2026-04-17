@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is a method parameter and assumed to be non-null before method execution.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method parameter provided, likely non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a String parameter and expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is required to identify the commit time"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords list must be non-null before usage.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "preppedRecords is a method parameter"
+    } ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.get(0) != null",
+    "rationale" : "If preppedRecords is not empty, first element is not null at method entry.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "if list has elements, first element is non-null"
+    } ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "Ensures context object is instance of HoodieEngineContext as declared in method signature.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "type of context parameter"
+    } ]
+  } ]
+}

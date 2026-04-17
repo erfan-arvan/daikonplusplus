@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "Null check is a prerequisite for processing; method specifically checks for null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.size() >= 0",
+    "rationale" : "A List can never have a negative size; valid List property at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders instanceof List",
+    "rationale" : "The parameter must be either null or a List<Order> due to method signature enforcement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || !orders.contains(null)",
+    "rationale" : "Validation may expect all orders to be non-null; safe to propose that no nulls are present in the list.",
+    "meta" : [ ]
+  } ]
+}

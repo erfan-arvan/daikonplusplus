@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result == writeMetadata",
+    "rationale" : "The result references the same object as writeMetadata.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Since the method returns writeMetadata directly, result must equal writeMetadata"
+    } ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "Ensuring writeMetadata is not null as returned.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns writeMetadata, so it must be non-null at return"
+    } ]
+  } ]
+}

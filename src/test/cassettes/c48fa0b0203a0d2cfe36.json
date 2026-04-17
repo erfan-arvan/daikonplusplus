@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "The args array is always initialized and can legally have zero or more elements.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The args array is non-null with non-negative length as main parameter."
+    } ]
+  }, {
+    "expression" : "Foo.bar(2, \"hi\") != null",
+    "rationale" : "The method Foo.bar is likely designed to return a non-null result for these inputs.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method Foo.bar returns a value (likely a String) that is non-null."
+    } ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "args is declared as a String[].",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is an array of Strings; therefore its class is an array type."
+    } ]
+  }, {
+    "expression" : "args instanceof Object[]",
+    "rationale" : "In Java, String[] inherits from Object[].",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is a String array, which is also an Object array."
+    } ]
+  }, {
+    "expression" : "Foo.bar(2, \"hi\") instanceof String",
+    "rationale" : "Method bar returns a String type value in this usage.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Foo.bar likely returns a String value."
+    } ]
+  } ]
+}

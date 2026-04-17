@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method delegates to CleanActionExecutor.execute(), which is expected to return a HoodieCleanMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "Parameter cleanInstantTime is passed directly to the CleanActionExecutor constructor and may be required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Parameter context is directly forwarded and likely required for cleaning operations; null would likely result in error.",
+    "meta" : [ ]
+  } ]
+}

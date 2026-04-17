@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "price >= 0.0",
+    "rationale" : "Price values are typically non-negative, especially when representing monetary amounts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Double.isFinite(price)",
+    "rationale" : "The input price should be a finite number for correct computation of the discount.",
+    "meta" : [ ]
+  }, {
+    "expression" : "price != Double.NaN",
+    "rationale" : "NaN values as price input would make the discounted calculation meaningless.",
+    "meta" : [ ]
+  } ]
+}

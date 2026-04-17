@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a valid records List as input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition count should be positive for repartitioning to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A List's size() method always returns a non-negative value.",
+    "meta" : [ ]
+  } ]
+}

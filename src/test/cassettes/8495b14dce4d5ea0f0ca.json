@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null HoodieWriteMetadata object upon successful completion.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Input list of prepped records should not be null as it is used in the delete operation.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents the commit instant and is required, thus should not be null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus inside result should not be null to reflect proper operation outcomes.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() <= preppedRecords.size()",
+    "rationale" : "Number of write statuses should not exceed the number of records processed.",
+    "meta" : [ {
+      "key" : "sizeCheck",
+      "value" : "true"
+    } ]
+  } ]
+}

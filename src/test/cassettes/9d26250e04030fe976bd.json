@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The input list must not be null for the repartitionRecords method to work.",
+    "meta" : [ {
+      "key" : "null check",
+      "value" : "records is expected to be non-null for sorting"
+    } ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Number of output partitions should be a positive number.",
+    "meta" : [ {
+      "key" : "positive partitions",
+      "value" : "outputPartitions should be positive for valid partitioning"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty() || records.isEmpty()",
+    "rationale" : "Technically a tautology but implies records can be empty or non-empty.",
+    "meta" : [ {
+      "key" : "list emptiness",
+      "value" : "records can be either empty or non-empty"
+    } ]
+  }, {
+    "expression" : "records instanceof java.util.List",
+    "rationale" : "The parameter records is of type List.",
+    "meta" : [ {
+      "key" : "type check",
+      "value" : "records is a List"
+    } ]
+  }, {
+    "expression" : "outputPartitions == ((Integer) outputPartitions).intValue()",
+    "rationale" : "Ensures outputPartitions is an integer.",
+    "meta" : [ {
+      "key" : "type invariant",
+      "value" : "outputPartitions is an int primitive"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "orders must be non-null for the method to complete without exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o != null)",
+    "rationale" : "Every order in the list must be non-null on normal exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getQuantity() > 0)",
+    "rationale" : "Every order's quantity must be strictly positive when the method returns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getUnitPrice() >= 0)",
+    "rationale" : "Each order must have a non-negative unit price for successful method completion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().noneMatch(o -> o == null || o.getQuantity() <= 0 || o.getUnitPrice() < 0)",
+    "rationale" : "No order in the list fails the validity checks imposed by the method.",
+    "meta" : [ ]
+  } ]
+}

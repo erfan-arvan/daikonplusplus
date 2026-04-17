@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null && outputPartitions >= 0",
+    "rationale" : "records list is expected to be non-null to call isEmpty and sort; outputPartitions is non-negative as a count of partitions.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "records != null to safely call methods"
+    } ]
+  }, {
+    "expression" : "records.stream().allMatch(record -> record != null)",
+    "rationale" : "Each record in records list is expected to be a non-null HoodieRecord.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "records content is non-null"
+    } ]
+  }, {
+    "expression" : "outputPartitions <= records.size() + 1",
+    "rationale" : "Number of output partitions typically does not exceed the number of records plus one.",
+    "meta" : [ {
+      "key" : "count_limit",
+      "value" : "outputPartitions controlled relative to records size"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size always non-negative.",
+    "meta" : [ {
+      "key" : "list_size",
+      "value" : "size non-negative"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty() || records.isEmpty()",
+    "rationale" : "Trivially true invariant but redundant so generally not used.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "always true"
+    } ]
+  } ]
+}

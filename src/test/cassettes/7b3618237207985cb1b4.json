@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "The restoreInstantTimestamp parameter is likely required for correct restore operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "The savepointToRestoreTimestamp parameter is likely expected to be provided for restoring from a specific savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is needed for the execution of the restore operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "A non-empty restoreInstantTimestamp is likely required for identifying the instant to restore.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "A non-empty savepointToRestoreTimestamp is likely necessary for identifying the savepoint to restore.",
+    "meta" : [ ]
+  } ]
+}

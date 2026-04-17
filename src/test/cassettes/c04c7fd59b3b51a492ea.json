@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs and returns a HoodieData instance via HoodieListData.eager.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is used in writeStatuses.collectAsList() and must be non-null for safe execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to updateLocation and used as an argument, so must be non-null for method to complete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is passed to both updateLocation and HoodieListData.eager, so must be non-null for valid method execution.",
+    "meta" : [ ]
+  } ]
+}

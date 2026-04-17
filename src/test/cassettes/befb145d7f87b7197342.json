@@ -1,0 +1,35 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of the method should not be null as it returns a HoodieWriteMetadata object.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus in HoodieWriteMetadata should not be null to indicate progress information.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "result.getMetrics() != null",
+    "rationale" : "Metrics data should be available in the result object upon method exit.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "result.getCommitMetadata() == null || result.getCommitMetadata().getPartitionsWritten() != null",
+    "rationale" : "If commitMetadata is present, partitionsWritten should be non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The list size of write statuses is non-negative as it is a list.",
+    "meta" : [ ]
+  } ]
+}

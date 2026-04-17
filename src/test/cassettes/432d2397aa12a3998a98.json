@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of bulkInsert, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "The parallelism (numOutputGroups) for clustering should always be greater than zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null && !inputRecords.isEmpty()",
+    "rationale" : "Clustering is performed only when there are input records to cluster.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupIdList != null",
+    "rationale" : "fileGroupIdList is a required input to clustering and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= inputRecords.size()",
+    "rationale" : "Each WriteStatus in result typically corresponds to a group of input records, so the number of WriteStatus entries cannot exceed the total number of input records.",
+    "meta" : [ ]
+  } ]
+}

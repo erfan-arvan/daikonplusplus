@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Method accesses writeStatuses, so it is likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result is dereferenced multiple times early in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof List",
+    "rationale" : "Type of writeStatuses as a List is expected by method signature.",
+    "meta" : [ ]
+  } ]
+}

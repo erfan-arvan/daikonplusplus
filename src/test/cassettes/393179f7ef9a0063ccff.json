@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method operates on records, which are assumed to be non-null for method logic to work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "It is standard for partition counts to be positive in repartition-style methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || outputPartitions <= records.size()",
+    "rationale" : "If records is non-empty, it's common to expect no more output partitions than input records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= Integer.MAX_VALUE",
+    "rationale" : "outputPartitions should be within the int range, and this asserts its upper bound for valid input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "Sorting/partition logic on records assumes no element in records is null.",
+    "meta" : [ ]
+  } ]
+}

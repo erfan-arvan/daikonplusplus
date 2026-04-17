@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context must be provided to perform upsert",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be a valid string timestamp for the operation",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords must not be null as it contains data to upsert",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "List size is non-negative by Java specification",
+    "meta" : [ {
+      "key" : "size_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "hoodieRecords instanceof java.util.List",
+    "rationale" : "hoodieRecords is declared as List type",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "true"
+    } ]
+  } ]
+}

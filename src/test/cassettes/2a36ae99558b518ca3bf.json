@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodieWriteMetadata object, so result should never be null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "result is non-null at method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "writeStatuses are set from a non-null list converted via HoodieListData.eager, so result.getWriteStatuses() should be non-null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "writeStatuses inside result cannot be null"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "Since clusteringPlan.getInputGroups() is iterated and statuses collected, writeStatuses list should not be empty.",
+    "meta" : [ {
+      "key" : "nonEmpty",
+      "value" : "writeStatuses obtained from clustering groups"
+    } ]
+  }, {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "clusteringPlan parameter must be valid to run clustering successfully.",
+    "meta" : [ {
+      "key" : "parameterNonNull",
+      "value" : "Parameter clusteringPlan assumed non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in clustering calls and should be non-null.",
+    "meta" : [ {
+      "key" : "parameterNonNull",
+      "value" : "instantTime provided is not null"
+    } ]
+  } ]
+}

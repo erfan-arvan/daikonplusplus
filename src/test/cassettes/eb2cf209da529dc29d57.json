@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null HoodieData<WriteStatus>.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns a non-null HoodieData<WriteStatus>."
+    } ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Input parameter is expected to be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Input parameter is expected to be non-null as it is used in the method."
+    } ]
+  }, {
+    "expression" : "result.getClass().getName().contains(\"HoodieData\")",
+    "rationale" : "Result should be a HoodieData object.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result should be a HoodieData object."
+    } ]
+  }, {
+    "expression" : "result != writeStatuses",
+    "rationale" : "Result is a transformed version of the input writeStatuses.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result is a transformed version of the input writeStatuses."
+    } ]
+  }, {
+    "expression" : "result.collectAsList().size() == writeStatuses.collectAsList().size()",
+    "rationale" : "Number of WriteStatus elements remains constant.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The number of WriteStatus elements remains the same after updateLocation."
+    } ]
+  } ]
+}

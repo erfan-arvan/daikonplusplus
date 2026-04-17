@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null",
+    "rationale" : "Ensures the parameter is non-null, which may be required for field or method access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getQuantity() >= 0",
+    "rationale" : "Quantity in an order is usually non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price is typically non-negative for customer orders.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getQuantity() == a.quantity",
+    "rationale" : "Assumes getQuantity() is a simple accessor for the 'quantity' field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getUnitPrice() == a.unitPrice",
+    "rationale" : "Assumes getUnitPrice() is a simple accessor for the 'unitPrice' field.",
+    "meta" : [ ]
+  } ]
+}

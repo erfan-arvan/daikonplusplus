@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of metadata.clone, which should not be null if clone and collectAsList are correctly implemented.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata != null",
+    "rationale" : "Parameter 'metadata' is directly dereferenced and used, so it must be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The returned object is created by metadata.clone, and the method's static typing ensures this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != metadata",
+    "rationale" : "metadata.clone creates a new HoodieWriteMetadata instance, so result should not be the same object as metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "result is constructed with a List<WriteStatus> from collectAsList, hence result.getWriteStatuses() should be a List.",
+    "meta" : [ ]
+  } ]
+}

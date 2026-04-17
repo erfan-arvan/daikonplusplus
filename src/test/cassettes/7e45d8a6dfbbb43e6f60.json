@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A well-behaved method returning an Option type should not return null; Option encapsulates the null-check semantically.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "indexInstantTime parameter is likely required to identify the index operation and passed to the executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required execution context and necessary for creating the RunIndexActionExecutor, suggesting it is non-null.",
+    "meta" : [ ]
+  } ]
+}

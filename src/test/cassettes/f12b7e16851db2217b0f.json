@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "profile.getInputPartitionPathStatMap() != null && !profile.getInputPartitionPathStatMap().isEmpty()",
+    "rationale" : "Input partition path stat map should not be null or empty after processing updates.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "Output partition path stat map should be initialized before method exit.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().entrySet().stream().allMatch(e -> e.getValue() != null)",
+    "rationale" : "Each entry in input map must have non-null WorkloadStat.",
+    "meta" : [ {
+      "key" : "streamAllowed",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!profile.hasOutputWorkLoadStats() || profile.getOutputPartitionPathStatMap().keySet().containsAll(profile.getInputPartitionPathStatMap().keySet())",
+    "rationale" : "If output workload stats exist, output map keys should include input map keys.",
+    "meta" : [ {
+      "key" : "conditional",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().entrySet().stream().allMatch(e -> e.getValue().getUpdateLocationToCount() != null)",
+    "rationale" : "Each WorkloadStat in input map must have a non-null update location to count map.",
+    "meta" : [ {
+      "key" : "streamAllowed",
+      "value" : "true"
+    } ]
+  } ]
+}

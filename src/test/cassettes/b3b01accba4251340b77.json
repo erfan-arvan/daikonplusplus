@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partition != null",
+    "rationale" : "partition is a required parameter to identify the partition for which file slices will be clustered.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partition.isEmpty()",
+    "rationale" : "partition should not be an empty string, as it likely represents a meaningful path or identifier.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null && key instanceof Pair<?, ?> ",
+    "rationale" : "The key is cast to Pair<HoodieKey, Option<HoodieRecordLocation>>, so it must be non-null and instance of Pair",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "type-check"
+    } ]
+  }, {
+    "expression" : "((Pair<?, ?>)key).getLeft() != null",
+    "rationale" : "The left element of the Pair (HoodieKey) is accessed, so it must be non-null.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "((Pair<?, ?>)key).getLeft().getRecordKey() != null",
+    "rationale" : "A method getRecordKey is called on the left object, so getRecordKey() result is likely non-null or at least safely called.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "method-call-safety"
+    } ]
+  }, {
+    "expression" : "((Pair<?, ?>)key).getRight() == null || ((Pair<?, ?>)key).getRight().isPresent() || !((Pair<?, ?>)key).getRight().isPresent()",
+    "rationale" : "Right side is an Option, so isPresent() must be callable; no forced assumption about presence is made.",
+    "meta" : [ {
+      "key" : "logical",
+      "value" : "trivially-true"
+    } ]
+  }, {
+    "expression" : "(!(key instanceof Pair)) || key == null || ((Pair<?, ?>)key).getRight() == null || ((Pair<?, ?>)key).getRight().isPresent() || ((Pair<?, ?>)key).getRight().isPresent() == false",
+    "rationale" : "Covers all conditions for right Option presence state.",
+    "meta" : [ {
+      "key" : "boolean-permissive",
+      "value" : "covers all conditions"
+    } ]
+  } ]
+}

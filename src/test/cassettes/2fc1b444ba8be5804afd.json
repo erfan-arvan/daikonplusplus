@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Map is always initialized, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "The writeResult parameter is always present and should be non-null when method completes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.keySet().stream().allMatch(k -> k != null && result.get(k) != null)",
+    "rationale" : "All keys and their values in the returned map, if any, are non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "All map values are non-null Lists, as populated from either empty or mapped sources.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(k -> k instanceof String)",
+    "rationale" : "All map keys are Strings as per declared Map type.",
+    "meta" : [ ]
+  } ]
+}

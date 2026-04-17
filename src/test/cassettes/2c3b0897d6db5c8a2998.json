@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a (possibly empty) List, so the result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == records",
+    "rationale" : "The method returns the original records list in all cases, never a new list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The returned list is always the same reference as 'records', so their size must be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || result.isEmpty()",
+    "rationale" : "If input 'records' is empty, the returned list (alias: result) is also empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result is always a List according to the method signature and implementation.",
+    "meta" : [ ]
+  } ]
+}

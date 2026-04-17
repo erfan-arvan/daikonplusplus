@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == order.getQuantity() * order.getUnitPrice()",
+    "rationale" : "The return value is always the product computed based on order fields as shown by the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "Assuming getQuantity() and getUnitPrice() are always non-negative for a valid order, the result (price) should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == ((double) order.getQuantity()) * order.getUnitPrice()",
+    "rationale" : "Explicit casting: demonstrates the precision expected in multiplication involving int and double.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "An order quantity should not be negative according to normal business logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "A unit price for an order is normally never negative; ensures meaningful pricing.",
+    "meta" : [ ]
+  } ]
+}

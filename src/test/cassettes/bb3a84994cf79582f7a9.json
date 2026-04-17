@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null || columnsToIndex == null",
+    "rationale" : "Method has no operations; therefore, columnsToIndex remains as received, which may be null or non-null.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "No operation performed, so input state remains unchanged."
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a method parameter likely required and non-null.",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "metaClient is a parameter and is expected to be non-null."
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "columnsToIndex is a List; size is always non-negative; may be empty or contain elements.",
+    "meta" : [ {
+      "key" : "general",
+      "value" : "columnsToIndex can be empty or non-empty; size is non-negative."
+    } ]
+  }, {
+    "expression" : "(columnsToIndex == null) || (columnsToIndex != null)",
+    "rationale" : "Trivially true to represent possible states of columnsToIndex.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "Always true by Java semantics."
+    } ]
+  } ]
+}

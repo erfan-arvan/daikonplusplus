@@ -1,0 +1,29 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, which should not be null at method exit.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus inside result should be initialized.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "There should be at least one WriteStatus item after execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getStatus() != null)",
+    "rationale" : "Each WriteStatus should have a non-null status attribute.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getCommitted() == true",
+    "rationale" : "The write metadata should indicate the commit was successful.",
+    "meta" : [ ]
+  } ]
+}

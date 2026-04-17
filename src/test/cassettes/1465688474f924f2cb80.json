@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is the aggregate of data using seqOp and combOp starting from zeroValue, so if zeroValue is non-null and operations are correctly defined, result should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The reduce operation over data with zeroValue and Functions should not produce null if zeroValue and functions are non-null."
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Always true invariant placeholder in case other invariants are not applicable.",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "trivial invariant for any state"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The parameter data must not be null to perform aggregation.",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "parameter non-nullity"
+    } ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "zeroValue used as initial in reduce should not be null to ensure safe aggregation.",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "parameter non-nullity"
+    } ]
+  }, {
+    "expression" : "result.equals(data.collectAsList().stream().reduce(zeroValue, (a, b) -> seqOp.apply(a, b), (a, b) -> combOp.apply(a, b)))",
+    "rationale" : "By the method's return, the result equals the reduce call over the collected list with the given functions.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result matches the value produced by reduce."
+    } ]
+  } ]
+}

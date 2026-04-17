@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a collected list, so result should be non-null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Ensures the result list is non-null before method exit"
+    } ]
+  }, {
+    "expression" : "result.size() == data.size()",
+    "rationale" : "The map operation applies func to each element of data producing result of equal length.",
+    "meta" : [ {
+      "key" : "size-check",
+      "value" : "Result list should have the same size as input data list"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter should be positive for parallel stream execution.",
+    "meta" : [ {
+      "key" : "parameter-condition",
+      "value" : "parallelism must be positive"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method uses data stream, so data must be non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "Input data list should be non-null"
+    } ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The mapping function must be provided and non-null to apply mapping.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "Function to map data should be non-null"
+    } ]
+  } ]
+}

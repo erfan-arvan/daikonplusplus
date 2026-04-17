@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns a HoodieWriteMetadata object, so result should not be null."
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The parameter hoodieRecords is passed to the executor and likely must be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The parameter hoodieRecords is passed to the executor and likely must be non-null."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to the executor and should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is passed to the executor and should not be null."
+    } ]
+  }, {
+    "expression" : "!hoodieRecords.isEmpty()",
+    "rationale" : "The upsert operation typically requires at least one record.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The upsert operation typically requires at least one record."
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The result should contain a non-null list of write statuses.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result should contain a non-null list of write statuses."
+    } ]
+  } ]
+}

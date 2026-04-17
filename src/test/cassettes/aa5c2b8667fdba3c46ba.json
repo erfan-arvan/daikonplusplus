@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a list collected from stream operations, so result should not be null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result is expected to be non-null after collecting results"
+    } ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Since result is reduced by keys from data, its size cannot exceed the original data size.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "reduction may reduce number of elements"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "The parallelism parameter commonly must be positive to enable parallel stream processing.",
+    "meta" : [ {
+      "key" : "method_parameter",
+      "value" : "parallelism must be positive for parallel processing"
+    } ]
+  }, {
+    "expression" : "mapToPairFunc != null",
+    "rationale" : "The mapToPairFunc is used in mapping, so it must be non-null.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "mapToPairFunc must be non-null to perform mapping"
+    } ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "Reduction function is passed and used, so cannot be null.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "reduceFunc must be non-null for reduction"
+    } ]
+  } ]
+}

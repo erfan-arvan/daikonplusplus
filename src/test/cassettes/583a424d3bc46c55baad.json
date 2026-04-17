@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List<String>, which is expected to be non-null when the method exits.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result must be non-null because method returns a List<String>."
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(fileId -> fileId != null)",
+    "rationale" : "File IDs collected from getFileId() should be non-null strings.",
+    "meta" : [ {
+      "key" : "element-non-null",
+      "value" : "All elements in result are non-null."
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(fileId -> !fileId.isEmpty())",
+    "rationale" : "File identifiers are typically non-empty strings.",
+    "meta" : [ {
+      "key" : "non-empty-strings",
+      "value" : "Each fileId should be a non-empty string."
+    } ]
+  }, {
+    "expression" : "new HashSet<>(result).size() == result.size()",
+    "rationale" : "Method applies distinct() so result list should have unique file IDs.",
+    "meta" : [ {
+      "key" : "distinctness",
+      "value" : "Result list contains distinct elements."
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "Result is a list; its size must be >= 0.",
+    "meta" : [ {
+      "key" : "size-non-negative",
+      "value" : "List size is never negative."
+    } ]
+  } ]
+}

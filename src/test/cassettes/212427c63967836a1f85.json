@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == true || result == false",
+    "rationale" : "The method returns a boolean so result must be either true or false.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result must be boolean as the method returns boolean."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The method uses instantTime to commit, so it is expected to be non-null on exit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Instant time should never be null when commit completes."
+    } ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method processes writeStatuses so this list must be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "writeStatuses list should be initialized before commit."
+    } ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "The method uses commitActionType as part of its commit logic.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Commit action type should be non-null during commit."
+    } ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds is used in commit; thus it is expected to be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Map of replaced file Ids must be initialized."
+    } ]
+  } ]
+}

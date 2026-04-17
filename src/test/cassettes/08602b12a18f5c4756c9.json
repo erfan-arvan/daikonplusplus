@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null",
+    "rationale" : "Method will throw a NullPointerException if a is null, so valid callers likely always provide non-null a.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != null",
+    "rationale" : "Method will throw a NullPointerException if b is null, so valid callers likely always provide non-null b.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getClass().equals(b.getClass())",
+    "rationale" : "Method assumes that a and b are of the same numeric type, as division and type checks are made based on 'a'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a instanceof Integer || a instanceof Double",
+    "rationale" : "Method only supports Integer and Double types; else, it throws an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a instanceof Integer == b instanceof Integer",
+    "rationale" : "Implies both a and b are either both Integer or neither, which is required for division without exception.",
+    "meta" : [ ]
+  } ]
+}

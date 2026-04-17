@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Ensures the Option<String> parameter is not null to allow safe usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Ensures the HoodieTableMetaClient is provided and available for the metadata table initialization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isPresent() || instantTime.get() != null",
+    "rationale" : "If an instantTime value is present, then the encapsulated String is non-null.",
+    "meta" : [ ]
+  } ]
+}

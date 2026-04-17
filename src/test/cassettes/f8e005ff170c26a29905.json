@@ -1,0 +1,41 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null && func != null && parallelism > 0",
+    "rationale" : "data and func must be non-null because they are used in processing and parallelism must be positive to define a level of parallel processing",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "parameters data and func checked for null"
+    }, {
+      "key" : "parallelism",
+      "value" : "parallelism must be positive for parallel execution"
+    } ]
+  }, {
+    "expression" : "data instanceof List",
+    "rationale" : "data is declared as List<I>, so it is an instance of List maintaining API contracts",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "data must be a List interface implementation"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "parallelism level should be positive defining the maximum degree of parallelism allowed",
+    "meta" : [ {
+      "key" : "parallelism",
+      "value" : "parallelism should be positive"
+    } ]
+  }, {
+    "expression" : "func instanceof SerializableFunction",
+    "rationale" : "func is typed as SerializableFunction<I, O> and must adhere to this interface",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "func must be instance of SerializableFunction"
+    } ]
+  }, {
+    "expression" : "!data.isEmpty() || data.isEmpty()",
+    "rationale" : "covers all possibilities in data state at method entry",
+    "meta" : [ {
+      "key" : "non-restrictive",
+      "value" : "data list is either empty or not"
+    } ]
+  } ]
+}

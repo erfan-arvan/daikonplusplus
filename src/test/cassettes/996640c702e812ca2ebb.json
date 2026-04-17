@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is expected to be non-null before execution",
+    "meta" : [ {
+      "key" : "NullCheck",
+      "value" : "Parameters are typically expected to be non-null"
+    } ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "The instant time parameter is needed for compaction and should not be null",
+    "meta" : [ {
+      "key" : "NullCheck",
+      "value" : "Timestamp string should be non-null"
+    } ]
+  }, {
+    "expression" : "!logCompactionInstantTime.isEmpty()",
+    "rationale" : "The instant time is expected to be a non-empty string",
+    "meta" : [ {
+      "key" : "NonEmpty",
+      "value" : "Expected non-empty string for timestamp"
+    } ]
+  } ]
+}

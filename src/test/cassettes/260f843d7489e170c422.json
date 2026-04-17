@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "The method dereferences 'order', so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Quantities of orders are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price should generally not be negative.",
+    "meta" : [ ]
+  } ]
+}

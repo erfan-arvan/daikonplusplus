@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is used unguarded in the method, implying it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "inFlightInstantTimestamp is passed to method calls and expected to be a non-null Option.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "metaClient.reloadTableConfig() is called, suggesting table config must be non-null.",
+    "meta" : [ ]
+  } ]
+}

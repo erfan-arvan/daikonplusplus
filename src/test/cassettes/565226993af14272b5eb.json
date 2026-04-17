@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config must be non-null to create a HoodieJavaTable",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "config is a parameter and expected to be non-null for table creation"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context must be non-null to create a HoodieJavaTable",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "context is a parameter and expected to be non-null for table creation"
+    } ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "Base path is essential for table metadata client construction",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "base path must be non-null to initialize HoodieTableMetaClient"
+    } ]
+  }, {
+    "expression" : "config.getConsistencyGuardConfig() != null",
+    "rationale" : "Consistency guard config must exist to build meta client",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Consistency guard config is required for meta client creation"
+    } ]
+  }, {
+    "expression" : "config.getTimeGeneratorConfig() != null",
+    "rationale" : "Time generator config must exist to build meta client",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Time generator config is required for meta client creation"
+    } ]
+  } ]
+}

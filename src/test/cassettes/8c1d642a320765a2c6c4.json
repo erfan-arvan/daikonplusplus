@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string typically represents a commit or action time and is expected to be non-null for a valid upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "A non-null list of records to be upserted is required for the method operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method requires a valid HoodieEngineContext to execute its tasks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.size() >= 0",
+    "rationale" : "If the list is non-null, its size is always non-negative as per List contract.",
+    "meta" : [ ]
+  } ]
+}

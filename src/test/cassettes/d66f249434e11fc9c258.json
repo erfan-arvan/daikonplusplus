@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "partitionPath is expected to be a valid, non-empty string representing a partition path.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "fileSlices should be initialized (non-null) for the method to process clustering groups.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null Pair as per its contract.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.getRight() instanceof Boolean",
+    "rationale" : "The second element in the Pair indicates a Boolean flag as per the return type.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The first element in the Pair is a Stream of HoodieClusteringGroup and should be non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  } ]
+}

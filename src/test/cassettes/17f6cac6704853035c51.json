@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter should not be null at the method exit since it is a method argument.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The context parameter is assumed non-null as it is used in the method"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is expected to be non-null because it is mandatory for the method's logic, even though the method throws an exception.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is a method parameter expected to be non-null"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null && instantTime != null && userDefinedBulkInsertPartitioner != null",
+    "rationale" : "At method entry, all parameters are expected to be non-null because the method uses them directly.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "parameters must not be null as expected for method entry."
+    } ]
+  }, {
+    "expression" : "!records.isEmpty()",
+    "rationale" : "Bulk insert typically requires at least one record to insert.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "bulk insert assumes non-empty records list"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instantTime string generally holds a meaningful non-empty timestamp.",
+    "meta" : [ {
+      "key" : "validity",
+      "value" : "instantTime is likely a timestamp string and should be non-empty"
+    } ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner.isPresent() || !userDefinedBulkInsertPartitioner.isPresent()",
+    "rationale" : "The Option object must be either present or not present.",
+    "meta" : [ {
+      "key" : "state",
+      "value" : "userDefinedBulkInsertPartitioner is a proper Option object"
+    } ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "The list of records should not contain null elements to avoid NullPointerExceptions.",
+    "meta" : [ {
+      "key" : "content-check",
+      "value" : "no null records inside list"
+    } ]
+  } ]
+}

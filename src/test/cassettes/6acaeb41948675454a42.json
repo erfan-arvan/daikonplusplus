@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "(b == 0) == (result == Integer.MIN_VALUE)",
+    "rationale" : "If and only if b is zero, the result is Integer.MIN_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(b != 0) == (result == a / b)",
+    "rationale" : "If and only if b is not zero, the result is a / b.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((b != 0) && (result * b == a - (a % b)))",
+    "rationale" : "If b is not zero, result equals a/b, hence result*b equals a minus the remainder of integer division.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == Integer.MIN_VALUE) || (b != 0)",
+    "rationale" : "If result is not Integer.MIN_VALUE, then b must not be zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(b == 0) || (result == a / b)",
+    "rationale" : "If b is not zero, result must be a / b; otherwise, b is zero.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a ReaderContextFactory; likely non-null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "result"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Parameter metaClient is expected to be non-null for proper execution.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "metaClient"
+    } ]
+  }, {
+    "expression" : "result instanceof ReaderContextFactory",
+    "rationale" : "Result should always be of type ReaderContextFactory.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "result"
+    } ]
+  }, {
+    "expression" : "metaClient.getClass() != null",
+    "rationale" : "metaClient is a valid object with class info.",
+    "meta" : [ {
+      "key" : "classCheck",
+      "value" : "metaClient"
+    } ]
+  }, {
+    "expression" : "result.equals(result)",
+    "rationale" : "Result is a consistent object reference.",
+    "meta" : [ {
+      "key" : "reflexive",
+      "value" : "result"
+    } ]
+  } ]
+}

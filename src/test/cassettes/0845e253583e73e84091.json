@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && !result.contains(null)",
+    "rationale" : "The method reduces keyed records and filters out nulls, resulting in a non-null list with no null elements.",
+    "meta" : [ {
+      "key" : "non-null-elements",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "Deduplication reduces or keeps the number of records but never increases it.",
+    "meta" : [ {
+      "key" : "size-constraint",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is a positive integer controlling concurrency.",
+    "meta" : [ {
+      "key" : "parameter-bound",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "index != null",
+    "rationale" : "The index parameter is used and expected to be non-null.",
+    "meta" : [ {
+      "key" : "non-null-parameter",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "schemaStr != null && !schemaStr.isEmpty()",
+    "rationale" : "Schema string is parsed, so it should be non-null and non-empty.",
+    "meta" : [ {
+      "key" : "schema-string-validity",
+      "value" : "true"
+    } ]
+  } ]
+}

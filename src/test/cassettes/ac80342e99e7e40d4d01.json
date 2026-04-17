@@ -1,0 +1,21 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "The cacheKey parameter is likely non-null for caching operations.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "safe to access cacheKey"
+    } ]
+  }, {
+    "expression" : "ids >= 0",
+    "rationale" : "ids usually represent counts and should not be negative.",
+    "meta" : [ {
+      "key" : "nonNegative",
+      "value" : "ids count"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Method has no operation, so state is unchanged and any invariant trivially holds.",
+    "meta" : [ ]
+  } ]
+}

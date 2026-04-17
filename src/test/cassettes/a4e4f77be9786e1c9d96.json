@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null accumulator object, as it delegates to a static factory method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieAtomicLongAccumulator",
+    "rationale" : "The method specifically returns the result of HoodieAtomicLongAccumulator.create(), so it is guaranteed the result is an instance of that class.",
+    "meta" : [ ]
+  } ]
+}

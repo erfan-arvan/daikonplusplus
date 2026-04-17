@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method assumes 'result' is not null, as it is immediately dereferenced (result.getWriteStatuses()) without a null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The first operation on 'result' is result.getWriteStatuses().stream(), indicating that getWriteStatuses() is expected to return a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty() || result.getWriteStatuses().isEmpty()",
+    "rationale" : "This is always true for any list; included for completeness as a property of lists returned by getWriteStatuses().",
+    "meta" : [ ]
+  } ]
+}

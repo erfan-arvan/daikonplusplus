@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "It's likely that the instantTime parameter represents a meaningful timestamp and should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The partitions parameter is a collection that will be operated upon, and it should not be null at entry to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitions.isEmpty()",
+    "rationale" : "It is likely that deletePartitions is typically called with at least one partition to delete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "If instantTime is meant to represent a temporal marker, it is likely required to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.stream().allMatch(java.util.Objects::nonNull)",
+    "rationale" : "The list of partitions should not contain null elements to ensure safe processing within the method.",
+    "meta" : [ ]
+  } ]
+}

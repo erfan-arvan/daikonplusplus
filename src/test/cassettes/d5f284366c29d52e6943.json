@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method immediately casts context to HoodieJavaEngineContext, which is unsafe if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to other objects and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords is required for bulk insert; passing null likely leads to failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hoodieRecords.isEmpty()",
+    "rationale" : "A bulk insert operation typically expects at least one record to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option should not be null to properly represent presence/absence of a partitioner object.",
+    "meta" : [ ]
+  } ]
+}

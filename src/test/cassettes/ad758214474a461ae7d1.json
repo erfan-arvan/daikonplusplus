@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "If 'orders' were null, a NullPointerException would occur before this point, so it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o != null)",
+    "rationale" : "The method throws for any null element, so all orders must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getQuantity() > 0)",
+    "rationale" : "The method throws if any order has quantity <= 0, so all orders must have positive quantity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getUnitPrice() >= 0)",
+    "rationale" : "The method throws if any order has negative unit price, so all orders must have unit price >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().noneMatch(o -> o == null || o.getQuantity() <= 0 || o.getUnitPrice() < 0)",
+    "rationale" : "Reinforces that no order in the list fails the validation criteria enforced in this method.",
+    "meta" : [ ]
+  } ]
+}

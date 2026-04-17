@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method expects a List<Order> and does not itself check for null, so null should not be passed in.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders instanceof List",
+    "rationale" : "orders should be a List implementation, given the declared parameter type.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method assigns a non-null instance to result before returning.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result checked for null before return"
+    } ]
+  }, {
+    "expression" : "result instanceof JavaUpsertPartitioner",
+    "rationale" : "Since result is assigned after casting from super.getUpsertPartitioner, it should be an instance of JavaUpsertPartitioner.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "result is assigned from a cast to JavaUpsertPartitioner"
+    } ]
+  }, {
+    "expression" : "result.equals(this.partitioner)",
+    "rationale" : "The method returns this.partitioner which is assigned to result.",
+    "meta" : [ {
+      "key" : "state-consistency",
+      "value" : "result should be equal to this.partitioner"
+    } ]
+  } ]
+}

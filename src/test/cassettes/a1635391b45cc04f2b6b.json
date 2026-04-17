@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "writeConfig != null",
+    "rationale" : "The method parameter writeConfig must be non-null to proceed.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "writeConfig.getBasePath() != null",
+    "rationale" : "The base path in writeConfig should be set before creating an index.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!writeConfig.getBasePath().isEmpty()",
+    "rationale" : "The base path should not be an empty string.",
+    "meta" : [ {
+      "key" : "empty-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "writeConfig.getIndexType() != null",
+    "rationale" : "The index type must be specified in the write configuration.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  } ]
+}

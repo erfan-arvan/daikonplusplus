@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b != 0 || (b == 0)",
+    "rationale" : "b can be zero or any integer at method entry.",
+    "meta" : [ {
+      "key" : "meaning",
+      "value" : "b can be zero or not zero before the method starts"
+    } ]
+  }, {
+    "expression" : "a >= Integer.MIN_VALUE",
+    "rationale" : "Integer a is a primitive int; it cannot be less than Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "range_check",
+      "value" : "a is an int so it's at least Integer.MIN_VALUE"
+    } ]
+  }, {
+    "expression" : "b != 0 || b == 0",
+    "rationale" : "b is an int parameter, so it is either zero or not.",
+    "meta" : [ {
+      "key" : "exhaustiveness",
+      "value" : "b either equals zero or does not."
+    } ]
+  }, {
+    "expression" : "b != 0 || b == 0",
+    "rationale" : "This is a trivial invariant about the parameter b.",
+    "meta" : [ {
+      "key" : "base_case",
+      "value" : "b is either zero or not."
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "This is always true.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "always true at method entry"
+    } ]
+  } ]
+}

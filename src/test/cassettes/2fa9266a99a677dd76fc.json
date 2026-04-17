@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new instance of AvroReaderContextFactory, which is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof AvroReaderContextFactory",
+    "rationale" : "The return statement always constructs and returns an AvroReaderContextFactory.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((AvroReaderContextFactory)result).getMetaClient() == metaClient",
+    "rationale" : "The AvroReaderContextFactory is constructed with metaClient, so its internal reference should match.",
+    "meta" : [ ]
+  } ]
+}

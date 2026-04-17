@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since collectAsList returns a List, result is expected to be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The method returns the result of records.collectAsList(), which should not be null"
+    } ]
+  }, {
+    "expression" : "result.size() == records.count()",
+    "rationale" : "collectAsList converts HoodieData to a List retaining all elements, so sizes match.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The size of the collected list equals the count of records."
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Method does not handle null records, implies records is non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Input parameter must not be null for method to function."
+    } ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "result is declared as List<HoodieRecord> so instanceof List should hold.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method return type is List<HoodieRecord>"
+    } ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "Invariants about the content of result list, assuming HoodieData does not hold null elements.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "HoodieData.collectAsList() should produce a list of non-null HoodieRecord elements"
+    } ]
+  } ]
+}

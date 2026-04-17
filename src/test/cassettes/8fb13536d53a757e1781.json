@@ -1,0 +1,25 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is typically required and should be non-null at method entry.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "context is a method parameter and guaranteed non-null if annotated or by API contract"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The Option type for extraMetadata implies the object itself is non-null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "extraMetadata is a method parameter and must not be null as an Option type"
+    } ]
+  }, {
+    "expression" : "!extraMetadata.isEmpty() || extraMetadata.isEmpty()",
+    "rationale" : "Extra metadata is present or not, it's a valid Option object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "Option can contain a Map or be empty, representing presence or absence of metadata.",
+    "meta" : [ ]
+  } ]
+}

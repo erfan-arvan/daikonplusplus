@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "(b == 0) == (result == Integer.MIN_VALUE)",
+    "rationale" : "At method exit, if b is zero, result equals Integer.MIN_VALUE; otherwise, result equals a / b.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "result is Integer.MIN_VALUE if and only if b is zero"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "To avoid division by zero, when b is zero, result is Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "If b is zero, then result equals Integer.MIN_VALUE"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Same as previous, simple form.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "When b is zero, result is Integer.MIN_VALUE"
+    } ]
+  }, {
+    "expression" : "b != 0 && result == a / b",
+    "rationale" : "When denominator is non-zero, safeDivide returns a / b.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "When b is not zero, result is a / b"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Consistency of result with division by zero case.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Indicates fallback when divisor is zero"
+    } ]
+  } ]
+}

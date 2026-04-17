@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is required to perform rollback actions and is typically non-null in this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "A rollback operation should refer to a valid instant, so the instant time string should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A specific HoodieInstant is needed to direct rollback, so it should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "Instant strings are usually non-empty to reference a valid commit or rollback point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant == null || commitInstant.isCompleted() || !commitInstant.isCompleted()",
+    "rationale" : "The state (completed or not) of commitInstant is relevant, and the variable must exist with some completion state if not null.",
+    "meta" : [ ]
+  } ]
+}

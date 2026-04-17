@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used in method calls and should not be null.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "partitionPath must not be null for method operation"
+    } ]
+  }, {
+    "expression" : "partitionPath instanceof String",
+    "rationale" : "partitionPath is declared as a String parameter.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "partitionPath is declared as String"
+    } ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "String length is always non-negative.",
+    "meta" : [ {
+      "key" : "length_check",
+      "value" : "String length is always non-negative"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Method logically operates on non-empty partition path values.",
+    "meta" : [ {
+      "key" : "likely_precondition",
+      "value" : "Non-empty partition path expected"
+    } ]
+  }, {
+    "expression" : "partitionPath.indexOf('\\u0000') == -1",
+    "rationale" : "Partition paths are unlikely to contain null characters for valid processing.",
+    "meta" : [ {
+      "key" : "invariant_assumed",
+      "value" : "partitionPath contains no null character"
+    } ]
+  } ]
+}

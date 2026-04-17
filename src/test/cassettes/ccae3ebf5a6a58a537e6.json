@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "The restore instant timestamp is likely required for restore operations and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "A savepoint to restore to is generally necessary, so null is probably invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "A timestamp for restore should not be the empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "A savepoint timestamp should not be an empty string if a restore is to be scheduled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context object should be non-null to proceed with scheduling restore operations.",
+    "meta" : [ ]
+  } ]
+}

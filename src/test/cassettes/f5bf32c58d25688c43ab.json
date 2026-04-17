@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "In Java, the args parameter in main is always non-null and can be empty but not negative in length.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The args array is never null and has non-negative length at method entry."
+    } ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "At method entry, args is a String array.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The args parameter is an array of String, so its class is an array."
+    } ]
+  }, {
+    "expression" : "args instanceof String[]",
+    "rationale" : "Checking that args is an instance of String[] confirms its expected type.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The args parameter is of type String[]."
+    } ]
+  } ]
+}

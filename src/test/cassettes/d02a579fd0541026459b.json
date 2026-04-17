@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "Input dedupedRecords list must be non-null to allow streaming over it.",
+    "meta" : [ {
+      "key" : "NullSafety",
+      "value" : "dedupedRecords must be non-null as it is used immediately in stream"
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is required to be non-null as it is used to compute partitions.",
+    "meta" : [ {
+      "key" : "NullSafety",
+      "value" : "partitioner must be non-null to be used in getPartition calls"
+    } ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(record -> record != null)",
+    "rationale" : "Each record in dedupedRecords should be non-null to safely call record.getKey() and record.getCurrentLocation() methods.",
+    "meta" : [ {
+      "key" : "NullSafety",
+      "value" : "All elements in dedupedRecords should be non-null to avoid NPEs on getKey()"
+    } ]
+  }, {
+    "expression" : "partitioner.getPartition(new HoodieKey()) >= 0",
+    "rationale" : "Partitioner likely returns non-negative partition indexes for valid keys.",
+    "meta" : [ {
+      "key" : "PartitionValidity",
+      "value" : "partitioner returns non-negative partitions"
+    } ]
+  }, {
+    "expression" : "dedupedRecords.size() >= 0",
+    "rationale" : "List size cannot be negative by definition.",
+    "meta" : [ {
+      "key" : "SizeLowerBound",
+      "value" : "List size is non-negative"
+    } ]
+  } ]
+}

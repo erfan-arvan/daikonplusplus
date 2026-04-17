@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && partition != null && partition instanceof String && result instanceof java.util.stream.Stream<?> ",
+    "rationale" : "Method guarantees that the returned result is a Stream of FileSlice and partition is a non-null string.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.count() >= 0",
+    "rationale" : "Stream count is always non-negative.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "partition.length() >= 0",
+    "rationale" : "String length is never negative.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.noneMatch(slice -> slice == null)",
+    "rationale" : "Result Stream should not contain null FileSlice elements.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.noneMatch(slice -> slice.getBaseFile().map(HoodieBaseFile::getFileSize).orElse(0L) >= getWriteConfig().getClusteringSmallFileLimit())",
+    "rationale" : "By method logic, all FileSlices in the result have base file sizes less than the clustering small file limit.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  } ]
+}

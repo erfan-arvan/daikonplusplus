@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Factory methods are typically expected to return a non-null HoodieIndex instance; null would usually indicate a failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "The 'writeConfig' parameter is used (or passed on), so it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "'result' is returned as HoodieIndex and should be an instance of HoodieIndex.",
+    "meta" : [ ]
+  } ]
+}

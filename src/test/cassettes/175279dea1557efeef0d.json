@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Method parameter should not be null when method is entered.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "param_null_check"
+    } ]
+  }, {
+    "expression" : "config.getIndexClass() == null || !config.getIndexClass().isEmpty()",
+    "rationale" : "The index class string is either null or a non-empty string.",
+    "meta" : [ {
+      "key" : "null_or_not_empty_string",
+      "value" : "config.getIndexClass()"
+    } ]
+  }, {
+    "expression" : "config.getIndexType() != null",
+    "rationale" : "The index type enum should not be null in this config before method execution.",
+    "meta" : [ {
+      "key" : "non_null_enum",
+      "value" : "config.getIndexType()"
+    } ]
+  }, {
+    "expression" : "!(config.getIndexClass() != null && !config.getIndexClass().isEmpty() && config.getIndexType() == null)",
+    "rationale" : "If indexClass is set non-empty then indexType should not be null as a consistent state.",
+    "meta" : [ {
+      "key" : "consistent_config",
+      "value" : "indexClass_and_indexType"
+    } ]
+  }, {
+    "expression" : "config.getIndexType() == HoodieIndexType.SIMPLE || config.getIndexType() == HoodieIndexType.GLOBAL_SIMPLE || config.getIndexType() == HoodieIndexType.INMEMORY || config.getIndexType() == HoodieIndexType.BLOOM",
+    "rationale" : "Index type should be one of the enumerated types handled in the method.",
+    "meta" : [ {
+      "key" : "switch_cases",
+      "value" : "indexType_enum_values"
+    } ]
+  } ]
+}

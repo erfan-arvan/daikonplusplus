@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "sortMode != null",
+    "rationale" : "The switch statement on sortMode requires that sortMode is not null to prevent a NullPointerException.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "sortMode is expected to be non-null for switch to not throw NullPointerException"
+    } ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "The method explicitly only handles two BulkInsertSortMode enum values: NONE and GLOBAL_SORT.",
+    "meta" : [ {
+      "key" : "valid_enum_values",
+      "value" : "The method handles only NONE or GLOBAL_SORT"
+    } ]
+  }, {
+    "expression" : "sortMode.name() != null",
+    "rationale" : "By Java enum contract, name() is non-null for any enum constant.",
+    "meta" : [ {
+      "key" : "enum_property",
+      "value" : "Enum name() method never returns null"
+    } ]
+  } ]
+}

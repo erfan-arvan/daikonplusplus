@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of execute(), which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method is called with preppedRecords, which is passed to the executor; null preppedRecords would likely not be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed directly to the executor and is likely required to be non-null.",
+    "meta" : [ ]
+  } ]
+}

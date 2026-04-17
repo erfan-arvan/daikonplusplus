@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is required as an argument and is used in getUpdateHandle without a null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is required as an argument and is used in logging and getUpdateHandle without a null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed as a parameter and is dereferenced (recordItr.hasNext()) without a preceding null check.",
+    "meta" : [ ]
+  } ]
+}

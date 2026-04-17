@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "The args array is always non-null in Java for the main method.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The main method always receives a non-null String array for arguments."
+    } ]
+  }, {
+    "expression" : "args.length <= 100",
+    "rationale" : "Typical command line arguments do not exceed a certain number of entries.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Reasonable upper bound assumption for command line arguments length."
+    } ]
+  }, {
+    "expression" : "args.length == 0 || args[0] != null",
+    "rationale" : "Arguments passed to main are usually initialized strings or empty strings, not nulls.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If there is at least one argument, the first argument is not null since Java CLI args are usually non-null."
+    } ]
+  } ]
+}

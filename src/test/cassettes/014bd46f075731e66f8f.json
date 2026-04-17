@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely used as an identifier for timeline state transitions, so null values may not be meaningful in this context or could trigger errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "An empty instantTime would not make sense as an identifier and is likely not valid for timeline operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "Ensures that instantTime is not just whitespace, which is typically not valid as a timeline instant representation.",
+    "meta" : [ ]
+  } ]
+}

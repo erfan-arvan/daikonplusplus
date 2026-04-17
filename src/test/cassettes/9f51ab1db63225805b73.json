@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a constant non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(HoodieTimeline.REPLACE_COMMIT_ACTION)",
+    "rationale" : "The return value is always HoodieTimeline.REPLACE_COMMIT_ACTION.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "Since HoodieTimeline.REPLACE_COMMIT_ACTION is a constant String, it is expected to be non-empty.",
+    "meta" : [ ]
+  } ]
+}

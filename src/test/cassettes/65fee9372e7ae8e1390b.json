@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Ensures the method input is not null, as methods generally expect valid parameters.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "The size of a Java List is always non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection size"
+    } ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() == (hoodieRecords.size() == 0)",
+    "rationale" : "When a list is empty, its size is 0 and vice versa.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection interface"
+    } ]
+  } ]
+}

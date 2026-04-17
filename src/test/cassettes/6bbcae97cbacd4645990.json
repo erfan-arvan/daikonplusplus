@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The data parameter must be non-null to call its methods safely.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "data must be non-null for method invocation"
+    } ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "zeroValue is used as the initial value in aggregation and is typically non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "zeroValue used as accumulator base value"
+    } ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "seqOp must not be null since it's used to apply transformation in aggregation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "seqOp function is used for aggregation steps"
+    } ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "combOp must not be null as it combines intermediate aggregation results.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "combOp function is used to combine aggregated results"
+    } ]
+  }, {
+    "expression" : "seqOp.getClass() != null",
+    "rationale" : "seqOp is an object, so its class is always defined.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "seqOp object must have a valid class"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "record != null",
+    "rationale" : "The record parameter should be non-null at method entry to operate safely.",
+    "meta" : [ {
+      "key" : "null check",
+      "value" : "record must not be null to call getComparableSortColumns"
+    } ]
+  }, {
+    "expression" : "record.getRecordKey() != null",
+    "rationale" : "Record key should be non-null for data partitioning and sorting to work correctly.",
+    "meta" : [ {
+      "key" : "method call",
+      "value" : "getRecordKey"
+    } ]
+  }, {
+    "expression" : "record.getPartitionPath() != null",
+    "rationale" : "Partition path of record is likely required and hence non-null.",
+    "meta" : [ {
+      "key" : "method call",
+      "value" : "getPartitionPath"
+    } ]
+  }, {
+    "expression" : "record instanceof HoodieRecord",
+    "rationale" : "The record argument must be an instance of HoodieRecord.",
+    "meta" : [ {
+      "key" : "type check",
+      "value" : "record"
+    } ]
+  }, {
+    "expression" : "record.getData() != null",
+    "rationale" : "Underlying data in the record should be non-null at method entry.",
+    "meta" : [ {
+      "key" : "method call",
+      "value" : "getData"
+    } ]
+  } ]
+}

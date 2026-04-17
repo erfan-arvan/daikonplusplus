@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a key identifier for the commit and should be non-null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a key in Collections.singletonMap, so it must be non-null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records are passed as values in the singletonMap and likely must be non-null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser is a method parameter and may be expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  } ]
+}

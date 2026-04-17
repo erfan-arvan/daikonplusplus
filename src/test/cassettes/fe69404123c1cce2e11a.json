@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "The metadata parameter must be non-null to call methods on it safely.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "null check to avoid NullPointerException"
+    } ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses method should return a non-null HoodieData object representing write statuses.",
+    "meta" : [ {
+      "key" : "method",
+      "value" : "getWriteStatuses"
+    } ]
+  }, {
+    "expression" : "metadata.getWriteStatuses().collectAsList() != null",
+    "rationale" : "The collection of write statuses must be valid and non-null to pass to clone.",
+    "meta" : [ {
+      "key" : "method",
+      "value" : "collectAsList"
+    } ]
+  }, {
+    "expression" : "metadata.getWriteStatuses().count() >= 0",
+    "rationale" : "The count of write statuses is always zero or positive, indicating a valid data state.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "countNonNegative"
+    } ]
+  }, {
+    "expression" : "metadata.getWriteStatuses().count() == metadata.getWriteStatuses().collectAsList().size()",
+    "rationale" : "The count of statuses equals the size of the collected list, ensuring data consistency.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "count matches list size"
+    } ]
+  } ]
+}

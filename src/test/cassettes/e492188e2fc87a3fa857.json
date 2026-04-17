@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieIndex instance, which should not be null if creation was successful.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "writeConfig == config",
+    "rationale" : "The writeConfig parameter is the same as config inside the method; ensures no mutation.",
+    "meta" : [ {
+      "key" : "parameterEquality",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "The result is expected to be an instance of HoodieIndex as per method's return type.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "true"
+    } ]
+  } ]
+}

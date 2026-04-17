@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result must be non-null as it is obtained from the table upsert operation and then processed by postWrite.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result must not be null as it is returned by upsertPrepped and postWrite methods"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as an argument in multiple method calls, so it should not be null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "instantTime is used as input to various methods, so it is assumed non-null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords must be non-null as it is used for the upsert operation.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "preppedRecords is passed to the method and used throughout"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "list_size",
+      "value" : "result list size is non-negative"
+    } ]
+  } ]
+}

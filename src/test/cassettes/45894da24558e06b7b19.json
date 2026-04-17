@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "The method is invoked with an Order instance, and most realistic uses would expect a non-null order argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantity is typically non-negative, representing the count of items in an order.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price in sales is usually non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() == order.quantity",
+    "rationale" : "The getQuantity method likely returns the backing quantity field based on naming.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() == order.unitPrice",
+    "rationale" : "The getUnitPrice method likely returns the unitPrice field; this is inferred from typical Java bean patterns.",
+    "meta" : [ ]
+  } ]
+}

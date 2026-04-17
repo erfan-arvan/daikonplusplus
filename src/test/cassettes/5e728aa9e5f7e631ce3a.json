@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a constructed instance from a non-null static method, so result should not be null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "ensures that the returned HoodiePairData is not null"
+    } ]
+  }, {
+    "expression" : "result.count() == 0",
+    "rationale" : "Because emptyHoodiePairData returns an eager PairData wrapping an empty list, the count of pairs should be zero.",
+    "meta" : [ {
+      "key" : "emptiness",
+      "value" : "the data is empty as it was created from an empty list"
+    } ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Given that the PairData is constructed over an empty list, it should report as empty.",
+    "meta" : [ {
+      "key" : "emptinessPredicate",
+      "value" : "the data structure represents an empty collection"
+    } ]
+  }, {
+    "expression" : "result.collectAsMap().isEmpty()",
+    "rationale" : "The map view of the PairData should have no entries since its source collection is empty.",
+    "meta" : [ {
+      "key" : "emptinessCheck",
+      "value" : "map-based representation is empty"
+    } ]
+  }, {
+    "expression" : "result.collectAsList().isEmpty()",
+    "rationale" : "The list view of the PairData should be empty consistent with the empty input list.",
+    "meta" : [ {
+      "key" : "emptinessList",
+      "value" : "list-based view is empty"
+    } ]
+  } ]
+}

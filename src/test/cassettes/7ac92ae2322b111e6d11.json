@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result should not be null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result must be non-null on method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list inside the result should be non-null.",
+    "meta" : [ {
+      "key" : "non_null_list",
+      "value" : "write statuses list should be initialized"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "A bulk insert resulting in empty write statuses might indicate no writes, which is unlikely.",
+    "meta" : [ {
+      "key" : "non_empty_list",
+      "value" : "write statuses list expected to contain status entries"
+    } ]
+  }, {
+    "expression" : "result.isSuccessful()",
+    "rationale" : "The bulk insert operation typically returns metadata indicating success at method exit.",
+    "meta" : [ {
+      "key" : "success_status",
+      "value" : "operation result expected to be successful"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(WriteStatus::isSuccessful)",
+    "rationale" : "To be successful, all write statuses should indicate success.",
+    "meta" : [ {
+      "key" : "all_successful_write_statuses",
+      "value" : "all individual write statuses should be successful"
+    } ]
+  } ]
+}

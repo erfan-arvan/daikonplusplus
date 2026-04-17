@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "Method expects a non-null order to compute price.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantities are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit prices for products/services are generally non-negative.",
+    "meta" : [ ]
+  } ]
+}

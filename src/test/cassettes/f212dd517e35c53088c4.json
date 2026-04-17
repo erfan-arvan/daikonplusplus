@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List due to Collectors.toList().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(x -> x != null)",
+    "rationale" : "Every fileId in the result list must be non-null as per fg.getFileId().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The use of the distinct() operation guarantees all elements are unique.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || table.getSliceView().getLatestFileSlices(partitionPath).count() == 0",
+    "rationale" : "If the result is empty, getLatestFileSlices yielded no slices for this partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed to the method and required by getLatestFileSlices; null may not be allowed.",
+    "meta" : [ ]
+  } ]
+}

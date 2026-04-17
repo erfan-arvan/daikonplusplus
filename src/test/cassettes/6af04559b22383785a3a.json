@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "Method expects a valid partition path string, thus it should not be null or empty.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPath should be a non-null, non-empty string representing a partition path"
+    } ]
+  }, {
+    "expression" : "partitionPath instanceof String",
+    "rationale" : "The parameter partitionPath is declared as a String.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "String"
+    } ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Assuming partitionPath is non-empty before method execution.",
+    "meta" : [ {
+      "key" : "implication",
+      "value" : "non-empty string"
+    } ]
+  } ]
+}

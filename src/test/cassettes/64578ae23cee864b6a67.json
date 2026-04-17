@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "args array should be non-null as passed in main method arguments.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "args parameter is never null at method entry and remains unchanged"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "The length of the args array is always zero or positive.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "array length is always non-negative"
+    } ]
+  }, {
+    "expression" : "Foo.bar(2, \"hi\") != null",
+    "rationale" : "Since the program prints Foo.bar's result, it is likely not null to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Printed output indicates Foo.bar returns a non-null result"
+    } ]
+  } ]
+}

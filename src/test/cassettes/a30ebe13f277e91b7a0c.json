@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null && schema != null",
+    "rationale" : "Parameters strategyParams and schema should be non-null when method is called.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "parameters must be non-null"
+    } ]
+  }, {
+    "expression" : "strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()) == strategyParams.get(PLAN_STRATEGY_SORT_COLUMNS.key()) != null && !strategyParams.get(PLAN_STRATEGY_SORT_COLUMNS.key()).isEmpty()",
+    "rationale" : "If the plan strategy sort columns key is contained, then its value is non-null and non-empty.",
+    "meta" : [ {
+      "key" : "conditionRelationship",
+      "value" : "containsKey implies non-null and non-empty value"
+    } ]
+  }, {
+    "expression" : "!strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()) || (strategyParams.get(PLAN_STRATEGY_SORT_COLUMNS.key()) != null && !strategyParams.get(PLAN_STRATEGY_SORT_COLUMNS.key()).isEmpty())",
+    "rationale" : "If the sort columns key is present, its value is non-empty string.",
+    "meta" : [ {
+      "key" : "valueCheck",
+      "value" : "safe retrieval and non-empty assertion"
+    } ]
+  }, {
+    "expression" : "schema.equals(HoodieSchemaUtils.addMetadataFields(schema)) || schema != null",
+    "rationale" : "Adding metadata fields to schema does not produce null.",
+    "meta" : [ {
+      "key" : "schemaUpdate",
+      "value" : "metadata fields addition returns non-null schema"
+    } ]
+  }, {
+    "expression" : "strategyParams instanceof Map",
+    "rationale" : "strategyParams parameter is a Map.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "strategyParams is instance of Map"
+    } ]
+  } ]
+}

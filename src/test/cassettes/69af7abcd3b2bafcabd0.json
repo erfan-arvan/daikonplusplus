@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns result, which should be a valid Partitioner.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "getUpsertPartitioner(profile) is assumed to return a non-null Partitioner"
+    } ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The input WorkloadProfile must be non-null for partitioner computation.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method parameter profile is expected to be non-null for the partitioner selection."
+    } ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().contains(\"Partitioner\")",
+    "rationale" : "Result is a Partitioner, so its class name likely contains 'Partitioner'.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result is a Partitioner instance, class name should reflect that."
+    } ]
+  } ]
+}

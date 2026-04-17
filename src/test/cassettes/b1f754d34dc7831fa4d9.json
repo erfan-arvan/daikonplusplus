@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "Method behavior depends on iterating over 'orders', so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o != null)",
+    "rationale" : "The method throws if a null order is encountered; at exit, all orders must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getQuantity() > 0)",
+    "rationale" : "The method throws on any non-positive quantity, so all orders must have positive quantity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getUnitPrice() >= 0)",
+    "rationale" : "The method throws if any order has a negative unit price; all must be zero or positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getQuantity() > 0 && o.getUnitPrice() >= 0 && o != null)",
+    "rationale" : "Combined check: all orders are non-null with positive quantity and non-negative unit price.",
+    "meta" : [ ]
+  } ]
+}

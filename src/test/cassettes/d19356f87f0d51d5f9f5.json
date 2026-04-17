@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "Method parameter args is non-null and its length cannot be negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args array is non-null and length is non-negative at method entry."
+    } ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "args is an array type at method entry.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is a String[] array parameter."
+    } ]
+  }, {
+    "expression" : "args instanceof Object[]",
+    "rationale" : "args is an instance of Object[] due to String[] inheritance.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "String[] extends Object[], so args is instance of Object[] ."
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Array length is always non-negative."
+    } ]
+  } ]
+}

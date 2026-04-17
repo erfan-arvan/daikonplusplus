@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "(b == 0 && result == Integer.MIN_VALUE) || (b != 0 && result == a / b)",
+    "rationale" : "Ensures the returned value matches the logic of safeDivide: Integer.MIN_VALUE if b is zero, else a / b.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns Integer.MIN_VALUE when b is zero; otherwise, it returns the division a / b."
+    } ]
+  }, {
+    "expression" : "b == 0 || b != 0",
+    "rationale" : "Indicates b is always an int; trivial but fundamental domain partition.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "b is always an int, so it must be either zero or non-zero."
+    } ]
+  } ]
+}

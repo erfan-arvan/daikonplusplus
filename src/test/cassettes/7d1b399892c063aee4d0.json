@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is likely required for commit semantics and error reporting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The keys list must exist to perform deletions; the method depends on its contents.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "HoodieWriteConfig is required to decide on deduplication and parallelism.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table reference is essential for index lookups and building HoodieRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "deleteExecutor executes the actual deletion and must be available.",
+    "meta" : [ ]
+  } ]
+}

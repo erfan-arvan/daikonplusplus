@@ -1,0 +1,35 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result should not be null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is a parameter and expected to be non-null before method exit.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "preppedRecords"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a parameter and expected to be non-null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty()",
+    "rationale" : "Typically, upsertPrepped is called with records to upsert, so preppedRecords should not be empty upon method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list inside result should not be null after upsert operation.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result.getWriteStatuses()"
+    } ]
+  } ]
+}

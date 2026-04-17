@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a non-null list of records as input; passing null would likely cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter represents a commit or action time and is expected to be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "The size of a list is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instantTime string is typically expected to be non-empty to represent a valid time for committing inserts.",
+    "meta" : [ ]
+  } ]
+}

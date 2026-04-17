@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is likely required to be non-null to represent a valid table context; null would indicate incorrect usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is expected to be a valid list that may be operated upon elsewhere; a null list could lead to errors.",
+    "meta" : [ ]
+  } ]
+}

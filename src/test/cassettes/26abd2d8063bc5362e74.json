@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method sets the write statuses of result before return, so getWriteStatuses() should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "The index update duration is always set in this method before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() == table.getIndex().updateLocation(HoodieListData.eager(writeStatuses), context, table).collectAsList().size()",
+    "rationale" : "Write statuses are set from the result of updateLocation; their sizes should match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The parameter writeStatuses is used without null checks, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The parameter result is used to set multiple fields; it must not be null.",
+    "meta" : [ ]
+  } ]
+}

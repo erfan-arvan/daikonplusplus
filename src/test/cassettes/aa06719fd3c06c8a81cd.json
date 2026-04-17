@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "A savepoint operation should refer to a specific instant; instantToSavepoint is likely required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "A savepoint should generally track the user performing the operation, so user is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is needed for the savepoint action to be executed; likely should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "The comment provides context for the savepoint and may be required; null checks are prudent.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint.length() > 0",
+    "rationale" : "A valid instant identifier should be a non-empty string, ensuring a valid savepoint target.",
+    "meta" : [ ]
+  } ]
+}

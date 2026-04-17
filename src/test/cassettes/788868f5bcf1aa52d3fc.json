@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is used directly in a constructor call, so it must not be null to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is passed directly to the CopyOnWriteRestoreActionExecutor, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "restoreInstantTimestamp likely represents an instant identifier, which should be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is given to the executor; typically, it should not be null when used to specify a savepoint for restore operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "The savepointToRestoreTimestamp should be a non-empty string identifier, as empty values may not be valid in the restore context.",
+    "meta" : [ ]
+  } ]
+}

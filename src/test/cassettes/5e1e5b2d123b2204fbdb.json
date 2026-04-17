@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null && instantTime != null && preppedRecordInputs != null && fileGroupsIdsToUpdate != null},{",
+    "rationale" : "All parameters are expected to be non-null before method execution.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "All parameters are non-null at method entry to ensure valid operation."
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs.size() >= 0",
+    "rationale" : "List size is never negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "List size is non-negative by definition."
+    } ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate.size() >= 0",
+    "rationale" : "List size is never negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "List size is non-negative by definition."
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Timestamp string is expected to be non-empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Instant time string is expected to be non-empty."
+    } ]
+  } ]
+}

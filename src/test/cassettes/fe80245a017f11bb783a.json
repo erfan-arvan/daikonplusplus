@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The writeClient parameter should be non-null as it is essential for the upsert operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "writeClient parameter must be non-null for method operation"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be non-null as the commit time string is necessary for the operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is a timestamp string indicating commit time"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The list of prepared input records must exist to perform upsert.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "preppedRecordInputs list contains records to upsert"
+    } ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "The file group IDs list must be defined to update corresponding groups.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "fileGroupsIdsToUpdate is required to identify file groups to update"
+    } ]
+  } ]
+}

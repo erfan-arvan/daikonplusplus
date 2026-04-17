@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter should not be null when the method is called.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter must be non-null to identify the operation instant.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "Keys list should be non-null to proceed with the delete operation.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "keys.isEmpty() || keys.size() > 0",
+    "rationale" : "Keys list can be either empty or non-empty, this tautology helps understand the list's valid states.",
+    "meta" : [ {
+      "key" : "logical_tautology",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "keys.stream().allMatch(k -> k != null) == true",
+    "rationale" : "All HoodieKey objects in keys list are non-null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  } ]
+}

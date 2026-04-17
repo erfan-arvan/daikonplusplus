@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null && writeStatus.count() >= 0",
+    "rationale" : "The writeStatus reference should not be null when method returns and its collection count is non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "writeStatus is non-null and its count cannot be negative"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext must be valid before method exit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The engine context should be non-null to perform operations"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration object must exist before the method returns.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "HoodieWriteConfig must be non-null for configuration access"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime string must be valid at method exit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime represents a timestamp string and must not be null or empty"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No operations are performed in this method, so all pre-existing invariants remain valid.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method is a no-op, so state remains unchanged"
+    } ]
+  } ]
+}

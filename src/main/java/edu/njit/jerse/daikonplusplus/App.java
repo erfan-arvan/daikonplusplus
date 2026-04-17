@@ -1,16 +1,15 @@
 package edu.njit.jerse.daikonplusplus;
 
 import com.github.javaparser.StaticJavaParser;
-import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.symbolsolver.JavaSymbolSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.*;
 import edu.njit.jerse.daikonplusplus.config.*;
 import edu.njit.jerse.daikonplusplus.inject.FileWriteCoordinator;
 import edu.njit.jerse.daikonplusplus.inject.JavaParserInjector;
 import edu.njit.jerse.daikonplusplus.llm.LlmInvariantGenerator;
 import edu.njit.jerse.daikonplusplus.model.*;
 import edu.njit.jerse.daikonplusplus.parse.JavaProjectScanner;
-import edu.njit.jerse.daikonplusplus.parse.MethodSignatureUtil;
+import edu.njit.jerse.daikonplusplus.parse.context.ContextUtils;
 import edu.njit.jerse.daikonplusplus.results.InvariantRegistry;
 import edu.njit.jerse.daikonplusplus.results.LogParser;
 import java.io.IOException;
@@ -22,7 +21,6 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.stream.Collectors;
 
 /**
  * CLI entrypoint for Daikon++ with compile-and-run.
@@ -343,6 +341,21 @@ public final class App {
     System.out.println("[DP-PATHS] userProjectRoot=" + userProjectRoot);
     System.out.println("[DP-PATHS] mainSrcRoot=" + mainSrcRoot);
     System.out.println("[DP-PATHS] testSrcRoot=" + testSrcRoot);
+
+    // ============================================================
+    // 🔥 SETUP SYMBOL SOLVER (REQUIRED FOR TYPE RESOLUTION)
+    // ============================================================
+
+    CombinedTypeSolver solver = new CombinedTypeSolver();
+
+    // JDK types
+    solver.add(new ReflectionTypeSolver());
+
+    // Project source (VERY IMPORTANT)
+    solver.add(new JavaParserTypeSolver(mainSrcRoot.toFile()));
+
+    JavaSymbolSolver symbolSolver = new JavaSymbolSolver(solver);
+    StaticJavaParser.getConfiguration().setSymbolResolver(symbolSolver);
 
     // Scan only MAIN sources for program points
     System.out.println(">>> Scanning MAIN sources under (WORKING COPY): " + mainSrcRoot);
@@ -742,9 +755,33 @@ public final class App {
   private static List<InvariantRecord> processPoint(
       ProgramPoint point, Path srcRoot, LlmInvariantGenerator llm, InvariantRegistry registry) {
     try {
-      Map<String, String> inScope = extractScope(point, srcRoot);
-      Optional<String> body = extractMethodBodyRaw(point, srcRoot);
-      List<InvariantSpec> specs = llm.proposeInvariants(point, inScope, body.orElse(null));
+      Map<String, String> inScope = ContextUtils.extractScope(point, srcRoot);
+
+      String methodBody = ContextUtils.extractMethodBodyRaw(point, srcRoot).orElse("");
+
+      String methodJavadoc = ContextUtils.extractMethodJavadoc(point, srcRoot).orElse("");
+
+      String classDoc = ContextUtils.extractClassDocumentation(point, srcRoot).orElse("");
+
+      String typeDoc = ContextUtils.extractTypeDocumentation(point, srcRoot).orElse("");
+
+      String callSite = ContextUtils.extractCallSiteContext(point, srcRoot).orElse("");
+
+      String ioExamples = ContextUtils.extractIOExamples(point, srcRoot).orElse("");
+
+      String CalleeInfo = "";
+
+      List<InvariantSpec> specs =
+          llm.proposeInvariants(
+              point,
+              inScope,
+              methodBody,
+              methodJavadoc,
+              classDoc,
+              typeDoc,
+              callSite,
+              ioExamples,
+              CalleeInfo);
 
       if (specs.isEmpty()) return List.of();
 
@@ -768,32 +805,6 @@ public final class App {
       System.err.println("processPoint error for " + point.elementId() + ": " + e.getMessage());
       return List.of();
     }
-  }
-
-  private static Map<String, String> extractMethodEntryScope(ProgramPoint point, Path srcRoot)
-      throws IOException {
-    Path file = srcRoot.resolve(point.elementId().filePath()).normalize();
-    CompilationUnit cu = StaticJavaParser.parse(file);
-    final String targetDesc = point.elementId().jvmDescriptor();
-
-    for (ClassOrInterfaceDeclaration cls : cu.findAll(ClassOrInterfaceDeclaration.class)) {
-      Optional<MethodDeclaration> maybe =
-          cls.getMethods().stream()
-              .filter(m -> m.getBody().isPresent())
-              .filter(m -> MethodSignatureUtil.jvmDescriptorBestEffort(m).equals(targetDesc))
-              .findFirst();
-      if (maybe.isPresent()) {
-        MethodDeclaration md = maybe.get();
-        return md.getParameters().stream()
-            .collect(
-                Collectors.toMap(
-                    p -> p.getName().asString(),
-                    p -> p.getType().toString(),
-                    (a, b) -> a,
-                    LinkedHashMap::new));
-      }
-    }
-    return Map.of();
   }
 
   /** registry view for reporting without full object re-hydration. */
@@ -838,50 +849,6 @@ public final class App {
       this.kind = kind;
       this.element = element;
     }
-  }
-
-  private static Map<String, String> extractScope(ProgramPoint point, Path srcRoot)
-      throws IOException {
-
-    Path file = srcRoot.resolve(point.elementId().filePath()).normalize();
-
-    CompilationUnit cu = StaticJavaParser.parse(file);
-    final String targetDesc = point.elementId().jvmDescriptor();
-
-    for (ClassOrInterfaceDeclaration cls : cu.findAll(ClassOrInterfaceDeclaration.class)) {
-
-      for (MethodDeclaration m : cls.getMethods()) {
-
-        if (!m.getBody().isPresent()) {
-          continue;
-        }
-
-        String desc = MethodSignatureUtil.jvmDescriptorBestEffort(m);
-
-        if (!desc.equals(targetDesc)) {
-          continue;
-        }
-
-        MethodDeclaration md = m;
-        LinkedHashMap<String, String> scope =
-            md.getParameters().stream()
-                .collect(
-                    Collectors.toMap(
-                        p -> p.getName().asString(),
-                        p -> p.getType().toString(),
-                        (a, b) -> a,
-                        LinkedHashMap::new));
-
-        if (point.kind() == ProgramPointKind.METHOD_EXIT) {
-          String ret = md.getType().toString();
-          if (!"void".equals(ret)) scope.put("result", ret);
-        }
-
-        return scope;
-      }
-    }
-
-    return Map.of();
   }
 
   /** Create a fresh working copy of the user's src tree under build/daikonpp_work/<stamp>. */
@@ -961,38 +928,6 @@ public final class App {
             return FileVisitResult.CONTINUE;
           }
         });
-  }
-
-  private static Optional<String> extractMethodBodyRaw(ProgramPoint point, Path srcRoot)
-      throws IOException {
-    if (!CFG.includeBody()) return Optional.empty();
-
-    Path file = srcRoot.resolve(point.elementId().filePath()).normalize();
-    CompilationUnit cu = StaticJavaParser.parse(file);
-    final String targetDesc = point.elementId().jvmDescriptor();
-
-    for (ClassOrInterfaceDeclaration cls : cu.findAll(ClassOrInterfaceDeclaration.class)) {
-      Optional<MethodDeclaration> maybe =
-          cls.getMethods().stream()
-              .filter(m -> m.getBody().isPresent())
-              .filter(
-                  m ->
-                      edu.njit.jerse.daikonplusplus.parse.MethodSignatureUtil
-                          .jvmDescriptorBestEffort(m)
-                          .equals(targetDesc))
-              .findFirst();
-      if (maybe.isPresent()) {
-        // tokenRange -> original tokens, including comments & whitespace
-        return maybe
-            .get()
-            .getBody()
-            .get()
-            .getTokenRange()
-            .map(tr -> Optional.of(tr.toString()))
-            .orElseGet(() -> Optional.of(maybe.get().getBody().get().toString()));
-      }
-    }
-    return Optional.empty();
   }
 
   private static void runAutoFilterCompile(

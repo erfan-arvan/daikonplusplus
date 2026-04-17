@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method parameter writeStatuses should not be null to avoid NullPointerException when called.",
+    "meta" : [ {
+      "key" : "nullSafety",
+      "value" : "Ensures writeStatuses is not null before usage"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext context should be non-null to pass it safely to updateLocation.",
+    "meta" : [ {
+      "key" : "nullSafety",
+      "value" : "Ensures context is not null"
+    } ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "This parameter is used downstream in updateLocation and should be non-null.",
+    "meta" : [ {
+      "key" : "nullSafety",
+      "value" : "Ensures hoodieTable is not null"
+    } ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "HoodieData collection size should be non-negative by definition.",
+    "meta" : [ {
+      "key" : "collectionSize",
+      "value" : "Collection size is non-negative"
+    } ]
+  } ]
+}

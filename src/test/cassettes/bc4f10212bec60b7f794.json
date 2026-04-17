@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null && !writeStatuses.isEmpty()",
+    "rationale" : "The method updates the index and writeStatuses is used to update location, so it should not be null or empty.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "Ensures writeStatuses list is not null or empty"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The result object is used to set updates and run validations; it must be non-null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "Ensures result object is not null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "After calling setWriteStatuses, the writeStatuses in result should not be null.",
+    "meta" : [ {
+      "key" : "stateCheck",
+      "value" : "Validates that writeStatuses have been set in result"
+    } ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "The partition to replace file IDs map is set via the method getPartitionToReplacedFileIds, so it should not be null.",
+    "meta" : [ {
+      "key" : "stateCheck",
+      "value" : "Partition to replaced file ids is set in result"
+    } ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "The index update duration is set based on Duration.between, so it should not be null.",
+    "meta" : [ {
+      "key" : "stateCheck",
+      "value" : "Index update duration is set in result"
+    } ]
+  } ]
+}

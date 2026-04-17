@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a non-null Option; Option should never be null as per typical usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(scheduleCompactionExecutor.execute())",
+    "rationale" : "The method directly returns the result of the execute() call on scheduleCompactionExecutor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is usually a required argument and is directly passed to the executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is passed to executor and is likely not null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is directly passed to the executor and is required for execution.",
+    "meta" : [ ]
+  } ]
+}

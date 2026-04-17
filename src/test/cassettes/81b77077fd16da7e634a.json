@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The return value should be a non-null string representing the commit action type.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns the commit action type string, which should not be null."
+    } ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "Commit action type string should not be empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Commit action type is expected to be a non-empty string."
+    } ]
+  }, {
+    "expression" : "!result.contains(\"\\n\")",
+    "rationale" : "Commit action type should not contain newline characters.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Commit action type string typically does not contain newline characters."
+    } ]
+  }, {
+    "expression" : "result.equals(\"commit\") || result.equals(\"delta_commit\") || result.equals(\"compaction\") || result.equals(\"clean\")",
+    "rationale" : "The commit action type is one of a specific known set of strings.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Common known commit action types in Hudi."
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0.0",
+    "rationale" : "The total price is computed by accumulating non-negative prices and discounts preserve non-negativity, so result cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || !orders.isEmpty() || result == 0.0",
+    "rationale" : "If orders is null or empty, the method returns 0.0 as per the implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || !orders.isEmpty() || result <= 0.0",
+    "rationale" : "If orders is null or empty, result is always 0.0, so result is also less than or equal to 0.0 in those cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || !orders.isEmpty() || !(result > 0.0)",
+    "rationale" : "Consistent with earlier invariants, further reinforcing that for null/empty input, positive results cannot occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders != null || result == 0.0",
+    "rationale" : "If orders is null, the only possible return value is 0.0.",
+    "meta" : [ ]
+  } ]
+}

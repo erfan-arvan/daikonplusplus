@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "The result is an Option type, so it is always either present or not present.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result is an Option, so it is either present or not."
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The result variable should never be null at method exit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The Option result should never be null."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is assumed to be non-null throughout the method.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The context parameter is required and assumed to be non-null."
+    } ]
+  }, {
+    "expression" : "!extraMetadata.isPresent() || extraMetadata.get() != null",
+    "rationale" : "The Map inside extraMetadata, if present, should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If extraMetadata is present, the contained Map should not be null."
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always assigns and returns a result, regardless of code path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "WriteStatuses are always set before returning the result, either as an actual value or an empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getDeleteShuffleParallelism() > 0",
+    "rationale" : "Parallelism is used for deletion; negative or zero would indicate misconfiguration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "deleteExecutor is invoked in all execution paths; it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "WriteStatuses is a list whose size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

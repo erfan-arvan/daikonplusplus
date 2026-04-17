@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Stream, so result should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "result stream is returned by the method and should not be null"
+    } ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "parallelism is an int parameter representing parallelism level, usually positive.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "parallelism must be positive to make sense for parallel execution"
+    } ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "flatMapToPairFunc is used and expected to be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "flatMapToPairFunc is used in method and should not be null"
+    } ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc is used and expected to be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "reduceFunc is used for reduction and should not be null"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data is a method parameter and expected not to be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "data is an input stream parameter and should not be null"
+    } ]
+  } ]
+}

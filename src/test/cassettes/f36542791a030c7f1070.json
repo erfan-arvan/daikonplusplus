@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The return value 'result' is never null as method returns a non-null string.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method returns either 'fileId' or a call to superclass which returns non-null String"
+    } ]
+  }, {
+    "expression" : "result instanceof String",
+    "rationale" : "The 'result' is of type String.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Return type of the method is String"
+    } ]
+  }, {
+    "expression" : "partitionId >= 0",
+    "rationale" : "The partitionId is non-negative as it usually represents an index or identifier.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Partition ids are typically non-negative"
+    } ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "The returned String should have length greater than zero.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Returned String 'result' is a file id prefix which is non-empty"
+    } ]
+  }, {
+    "expression" : "fileId == null || fileId.equals(result)",
+    "rationale" : "The result equals fileId if fileId is not null; otherwise it is from superclass.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Either fileId is null or fileId equals the returned result"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && result.getWriteStatuses() != null && !result.getWriteStatuses().isEmpty()",
+    "rationale" : "Ensures that the method returns meaningful write statuses indicating some write operations occurred.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "checks that result and internal list are not null or empty"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "Every WriteStatus should have valid statistics indicating the operation result.",
+    "meta" : [ {
+      "key" : "write_status_stat_non_null",
+      "value" : "checks all WriteStatus have non-null stats"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() > 0",
+    "rationale" : "The action produces at least one WriteStatus for delete operations.",
+    "meta" : [ {
+      "key" : "non_empty_write_statuses",
+      "value" : "checks for at least one WriteStatus"
+    } ]
+  }, {
+    "expression" : "result.getPartitionPath() != null",
+    "rationale" : "Result references a non-null partition path related to the writes.",
+    "meta" : [ {
+      "key" : "partition_path_non_null",
+      "value" : "partition path should be present"
+    } ]
+  }, {
+    "expression" : "result.getTotalRecords() >= 0",
+    "rationale" : "Number of total records processed should never be negative.",
+    "meta" : [ {
+      "key" : "total_records_non_negative",
+      "value" : "total records count is non-negative"
+    } ]
+  } ]
+}

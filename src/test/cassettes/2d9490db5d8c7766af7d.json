@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null || activeModule == null",
+    "rationale" : "Since no constraints specify that activeModule must be non-null, it can be either.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "activeModule may be null or non-null"
+    } ]
+  }, {
+    "expression" : "activityDescription != null || activityDescription == null",
+    "rationale" : "No constraints require activityDescription to be non-null.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "activityDescription may be null or non-null"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "At method entry, no side effects or changes have occurred.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "Method entry: no side effects yet"
+    } ]
+  } ]
+}

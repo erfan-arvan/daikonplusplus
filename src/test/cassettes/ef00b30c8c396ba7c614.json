@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Option, which is non-null by construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isMetadataTable() || (result.isPresent() == false)",
+    "rationale" : "If isMetadataTable() is true, the method returns Option.empty(), so result.isPresent() must be false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()) || (result.isPresent() == false)",
+    "rationale" : "If neither method config.isMetadataTableEnabled nor metaClient.getTableConfig().isMetadataTableAvailable is true, result will be Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == ((config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()) && !isMetadataTable() && (isMetadataTableExists || metaClient.getStorage().exists(HoodieTableMetadata.getMetadataTableBasePath(metaClient.getBasePath()))))",
+    "rationale" : "result is Option.of(metadataWriter) only under all these conditions; otherwise Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !((config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()) && !isMetadataTable() && (isMetadataTableExists || metaClient.getStorage().exists(HoodieTableMetadata.getMetadataTableBasePath(metaClient.getBasePath()))))",
+    "rationale" : "If result is not present, then at least one of these enabling conditions must be false.",
+    "meta" : [ ]
+  } ]
+}

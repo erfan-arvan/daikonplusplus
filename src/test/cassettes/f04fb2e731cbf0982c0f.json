@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "result should not be null as it is the returned metadata from the method.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "result"
+    } ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "Instant time should be a valid string indicating the log compaction time.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "logCompactionInstantTime"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus in the result should not be null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "result.getWriteStatuses()"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "The WriteStatus list should contain at least one status after log compaction.",
+    "meta" : [ {
+      "key" : "non-empty",
+      "value" : "result.getWriteStatuses()"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "All elements in the WriteStatus list should be non-null.",
+    "meta" : [ {
+      "key" : "no-null-elements",
+      "value" : "result.getWriteStatuses()"
+    } ]
+  } ]
+}

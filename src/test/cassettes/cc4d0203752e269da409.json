@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime being a timestamp string for the commit action is expected to be non-null.",
+    "meta" : [ {
+      "key" : "null check",
+      "value" : "instantTime used as non-null key parameter"
+    } ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "The partition is an Integer and non-null for meaningful partition identification.",
+    "meta" : [ {
+      "key" : "parameter type",
+      "value" : "partition is an Integer parameter and may be non-null"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The input record iterator is expected to be non-null to iterate over the records.",
+    "meta" : [ {
+      "key" : "null check",
+      "value" : "recordItr is an iterator and should be non-null to iterate records"
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The partitioner is a strategy object expected to be non-null.",
+    "meta" : [ {
+      "key" : "null check",
+      "value" : "partitioner is used for partitioning and expected to be non-null"
+    } ]
+  } ]
+}

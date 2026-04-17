@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Method usage references config without prior null check, so it is likely assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "config.getProps() is passed to createKeyGenerator, so likely assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == true || config.populateMetaFields() == false",
+    "rationale" : "populateMetaFields returns a boolean, so its result must be either true or false (sanity check).",
+    "meta" : [ ]
+  } ]
+}

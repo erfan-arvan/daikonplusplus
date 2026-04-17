@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "(orders == null || orders.isEmpty()) == (result == 0.0)",
+    "rationale" : "If the input list is null or empty, the result is always 0.0.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input-output relationship"
+    } ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "All computed order prices and discounts are non-negative, so the total cannot be negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "result non-negativity"
+    } ]
+  }, {
+    "expression" : "orders == null || !orders.isEmpty() || result == 0.0",
+    "rationale" : "If orders is empty, result is 0.0. Otherwise, result may be positive.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "empty input consistency"
+    } ]
+  }, {
+    "expression" : "orders == null || validateOrders(orders) == null",
+    "rationale" : "If 'orders' is not null and non-empty, validateOrders(orders) must not throw and thus returns null (void).",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "method contract"
+    } ]
+  }, {
+    "expression" : "orders == null || orders.stream().allMatch(order -> computePrice(order) >= 0.0)",
+    "rationale" : "All processed orders must have non-negative computed prices.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "order price non-negativity"
+    } ]
+  } ]
+}

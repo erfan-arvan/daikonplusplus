@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null && columnsToIndex.isEmpty() == false",
+    "rationale" : "Since the method is updating columns, the list should be non-null and non-empty",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "columnsToIndex should not be empty after updateColumnsToIndexWithColStats"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The method requires a non-null HoodieTableMetaClient parameter",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "metaClient is a parameter and expected to be non-null"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The method parameter columnsToIndex is expected to be initialized",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "parameters are expected to be non-null"
+    } ]
+  }, {
+    "expression" : "metaClient.getClass() == HoodieTableMetaClient.class",
+    "rationale" : "The passed object metaClient is exactly of type HoodieTableMetaClient",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "metaClient is an instance of HoodieTableMetaClient"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "The size of the columnsToIndex list is non-negative",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "size cannot be negative"
+    } ]
+  } ]
+}

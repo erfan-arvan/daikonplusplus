@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "A null List would trigger a NullPointerException in the for-each; method assumes non-null input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().noneMatch(o -> o == null)",
+    "rationale" : "Validation ensures no order in the list is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getQuantity() > 0)",
+    "rationale" : "Validation checks that all orders have positive quantity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getUnitPrice() >= 0)",
+    "rationale" : "Validation checks that all orders have non-negative unit price.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.stream().allMatch(o -> o != null && o.getQuantity() > 0 && o.getUnitPrice() >= 0)",
+    "rationale" : "Either the list is empty or all orders in the list are valid as per method contract.",
+    "meta" : [ ]
+  } ]
+}

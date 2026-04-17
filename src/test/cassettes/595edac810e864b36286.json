@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodieData object wrapping an empty list, so the result should not be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result is expected to be non-null as method returns an object"
+    } ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Since the method returns a HoodieData wrapping an empty list, the result should be empty.",
+    "meta" : [ {
+      "key" : "emptiness",
+      "value" : "result is expected to be empty"
+    } ]
+  }, {
+    "expression" : "result.count() == 0",
+    "rationale" : "Because the underlying list is empty, the count of elements in result should be zero.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "result should have zero elements"
+    } ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().equals(\"HoodieListData\")",
+    "rationale" : "The returned object is created by HoodieListData.eager, so the runtime class name should be HoodieListData.",
+    "meta" : [ {
+      "key" : "implementation",
+      "value" : "result should be an instance of HoodieListData"
+    } ]
+  }, {
+    "expression" : "result.iterator().hasNext() == false",
+    "rationale" : "Since the result wraps an empty list, the iterator should have no elements to iterate.",
+    "meta" : [ {
+      "key" : "iterator",
+      "value" : "iterator should have no elements"
+    } ]
+  } ]
+}

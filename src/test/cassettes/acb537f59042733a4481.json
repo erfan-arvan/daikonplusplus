@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Supplier<Long>, so result should never be null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.get() instanceof Long",
+    "rationale" : "The Supplier<Boolean> returns a Long value.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.get().equals(0L)",
+    "rationale" : "The implementation always returns a Supplier that provides 0L.",
+    "meta" : [ {
+      "key" : "constant_return",
+      "value" : "true"
+    } ]
+  } ]
+}

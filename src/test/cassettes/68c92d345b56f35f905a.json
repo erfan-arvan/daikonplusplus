@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method expects a list of records to perform the bulk insert; null is typically not expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "configuredParallelism > 0",
+    "rationale" : "Parallelism should be a positive integer to be meaningful in data processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "A partitioner is needed to redistribute records for insert, implying it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeHandleFactory != null",
+    "rationale" : "A WriteHandleFactory is used to create write handles during insert, and should be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantonTime != null && !instantTime.isEmpty()",
+    "rationale" : "A non-empty instantTime (commit timestamp) is typically required for commit semantics in Hudi.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath determines partition destination; passing null may not be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId uniquely identifies the file to be updated; it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr contains update records; must not be null before method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileId.isEmpty()",
+    "rationale" : "fileId should be non-empty to identify the file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath should be non-empty if provided to specify a valid partition.",
+    "meta" : [ ]
+  } ]
+}

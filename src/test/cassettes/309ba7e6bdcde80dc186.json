@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new instance is always returned by the constructor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof BaseHoodieWriteClient",
+    "rationale" : "The returned object is explicitly typed as BaseHoodieWriteClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaWriteClient",
+    "rationale" : "The method returns new HoodieJavaWriteClient, so the result must be an instance of this class.",
+    "meta" : [ ]
+  } ]
+}

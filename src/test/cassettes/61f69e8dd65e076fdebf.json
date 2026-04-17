@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "commitTimeline != null",
+    "rationale" : "The method expects commitTimeline to be a valid HoodieTimeline for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "As a configuration parameter, hoodieWriteConfig is expected to be non-null for all method logic relying on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() > 0",
+    "rationale" : "A positive file size limit is typical for meaningful partitioning and small file handling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() > 0",
+    "rationale" : "A positive estimation threshold is a reasonable assumption for trigger logic in record sizing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() > 0",
+    "rationale" : "The average record size estimate should be positive in deployment scenarios for size estimation to be valid.",
+    "meta" : [ ]
+  } ]
+}

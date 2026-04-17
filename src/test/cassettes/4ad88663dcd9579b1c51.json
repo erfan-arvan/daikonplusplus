@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Iterator<List<WriteStatus>> only when bucketType is INSERT or UPDATE, and both handleInsert and handleUpdate are expected to return non-null Iterators.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition is used as an argument and dereferenced in the method, particularly in getBucketInfo(partition) and error messages, implying it cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is cast to JavaUpsertPartitioner and used to call getBucketInfo(partition); it must not be null for this method to reach its exit safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to handleInsert or handleUpdate without null checks, so it is expected to be non-null if the method returns normally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in context for upserts (though not directly in the body), and it is typical for commit operations to require a non-null instant identifier.",
+    "meta" : [ ]
+  } ]
+}

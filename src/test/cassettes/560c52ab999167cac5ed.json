@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method immediately checks for null and would return early, so further computation depends on orders not being null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.size() >= 0",
+    "rationale" : "The size of a List in Java is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() == (orders.size() == 0)",
+    "rationale" : "This expresses the semantic relationship between isEmpty() and size() for Lists.",
+    "meta" : [ ]
+  } ]
+}

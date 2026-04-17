@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a new instance, so result should not be null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter should be non-null at method exit.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is a parameter and not expected to be null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "!records.contains(null)",
+    "rationale" : "Records list should not contain null elements.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list inside result should be non-null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "medium"
+    } ]
+  } ]
+}

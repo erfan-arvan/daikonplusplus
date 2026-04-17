@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Regardless of which branch is taken, a new table object is returned, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is dereferenced via metaClient.getTableType(), so it cannot be null at this program point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.TableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.TableType.MERGE_ON_READ",
+    "rationale" : "If the table type is anything else, an exception is thrown and the method does not exit normally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getMetaClient() == metaClient",
+    "rationale" : "Both possible return statements instantiate the table object with the passed metaClient, so result must reference the same metaClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof org.apache.hudi.table.HoodieJavaCopyOnWriteTable || result instanceof org.apache.hudi.table.HoodieJavaMergeOnReadTable",
+    "rationale" : "Only these two types of tables can be returned based on the switch.",
+    "meta" : [ ]
+  } ]
+}

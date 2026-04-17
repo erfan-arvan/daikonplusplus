@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is dereferenced in the method body, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to client method calls, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed to a client method call, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.get(0) instanceof HoodieRecord",
+    "rationale" : "preppedRecordInputs is a List<HoodieRecord>, so if not empty, its elements should be HoodieRecord instances.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime likely encodes a timestamp and should not be empty.",
+    "meta" : [ ]
+  } ]
+}

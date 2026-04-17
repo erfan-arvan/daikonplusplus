@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should not be null as it is used as a parameter in the write method.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is expected to be a valid timestamp string for the write operation."
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "The inputRecords are required for the write operation and should be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "inputRecords should be non-null to provide data for writing."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is typically non-null for the operation environment.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "context must be valid to support the write context."
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Table reference should exist for the write.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "table must be non-null as the write operation targets a specific table."
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Config object is used to access configuration options like shouldCombineBeforeInsert and getInsertShuffleParallelism.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "configuration object should be present for accessing settings."
+    } ]
+  } ]
+}

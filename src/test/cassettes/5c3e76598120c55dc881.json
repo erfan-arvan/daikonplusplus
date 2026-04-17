@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 ? result == Integer.MIN_VALUE : result == a / b",
+    "rationale" : "Reflects the method's core logic: returns Integer.MIN_VALUE when divisor is zero, otherwise returns the quotient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "If b is zero, the result is guaranteed to be Integer.MIN_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b == 0 || result == a / b",
+    "rationale" : "If divisor is not zero, result must equal the division of a by b using integer division.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(b == 0 && result != Integer.MIN_VALUE)",
+    "rationale" : "Ensures that when b is zero, result cannot be anything but Integer.MIN_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != 0 || a != a || result == Integer.MIN_VALUE",
+    "rationale" : "Ensures logical consistency: in all cases where b == 0, the result is Integer.MIN_VALUE.",
+    "meta" : [ ]
+  } ]
+}

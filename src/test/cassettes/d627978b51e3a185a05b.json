@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (order.getQuantity() >= 10)",
+    "rationale" : "The method returns true if and only if order quantity is at least 10.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 10 == result",
+    "rationale" : "The eligibility for discount strictly matches the result returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || order.getQuantity() < 10",
+    "rationale" : "If result is false, then the order quantity must be less than 10.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || order.getQuantity() < 10 == false",
+    "rationale" : "If result is true, order.getQuantity() >= 10; if result is false, order.getQuantity() < 10.",
+    "meta" : [ ]
+  } ]
+}

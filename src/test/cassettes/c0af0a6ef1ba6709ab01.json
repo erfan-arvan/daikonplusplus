@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders == null || !orders.isEmpty()",
+    "rationale" : "The method returns 0.0 if orders is null or empty, otherwise processes non-empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || result >= 0.0",
+    "rationale" : "Total price after processing cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || result == 0.0 || !orders.isEmpty()",
+    "rationale" : "If result is not zero, orders must not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || result == 0.0 || orders.size() > 0",
+    "rationale" : "If the total is nonzero, the list must have at least one order.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders != null || result == 0.0",
+    "rationale" : "If orders is null, the method always returns 0.0.",
+    "meta" : [ ]
+  } ]
+}

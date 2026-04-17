@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "It is common for engine context parameters to be required and non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An instant time string indicating a commit/operation time is likely a required, non-null argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() || !instantTime.isEmpty()",
+    "rationale" : "String parameters may be empty or non-empty, but must be defined (as per nullness invariant).",
+    "meta" : [ ]
+  } ]
+}

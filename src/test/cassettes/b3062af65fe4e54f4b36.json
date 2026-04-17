@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of a .collectAsList() call, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The method invokes methods on 'table', which would throw if 'table' were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method passes 'context' to internal calls, which implies it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "Method calls depend on 'dedupedRecords' being non-null, such as HoodieListData.eager(dedupedRecords).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List.size() is non-negative by definition.",
+    "meta" : [ ]
+  } ]
+}

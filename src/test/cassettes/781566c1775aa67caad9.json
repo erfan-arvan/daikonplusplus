@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "result is used to set commit metadata, so it must be non-null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "ensures result is not null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses is called on result; it must not be null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "ensures safe call to getWriteStatuses"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "CommitUtils.buildMetadata expects a collection of non-null stats.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "each WriteStatus should have non-null stat"
+    } ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "Partition to replace file IDs map is used in metadata building.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "ensures safe use of getPartitionToReplaceFileIds"
+    } ]
+  }, {
+    "expression" : "result.getCommitMetadata().isPresent()",
+    "rationale" : "At method exit, commit metadata is set to a non-empty Option.",
+    "meta" : [ {
+      "key" : "postcondition",
+      "value" : "commit metadata is set"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == -1 || result == x + name.length()",
+    "rationale" : "Method returns -1 if name is null, else returns sum of x and name's length.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Because if name is null, result is -1; otherwise, result is x plus the length of name."
+    } ]
+  }, {
+    "expression" : "(name == null) == (result == -1)",
+    "rationale" : "There is a direct correspondence between name being null and result being -1.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If name is null, result is -1, vice versa."
+    } ]
+  }, {
+    "expression" : "result >= -1",
+    "rationale" : "Result cannot be less than -1 as per method logic.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result is either -1 or a sum of integers, thus at least -1."
+    } ]
+  }, {
+    "expression" : "name != null || result == -1",
+    "rationale" : "Null name leads to result -1.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If name is null, result must be -1."
+    } ]
+  }, {
+    "expression" : "name == null || result >= x",
+    "rationale" : "If name exists, result is at least x.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If name is non-null, result is x plus length of name, which is at least x."
+    } ]
+  } ]
+}

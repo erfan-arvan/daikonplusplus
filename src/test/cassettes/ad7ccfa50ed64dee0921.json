@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Assumes the superclass execute() does not return null; important for stability and idiomatic Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class",
+    "rationale" : "Return type is declared as HoodieWriteMetadata<List<WriteStatus>>, so returned object should match.",
+    "meta" : [ ]
+  } ]
+}

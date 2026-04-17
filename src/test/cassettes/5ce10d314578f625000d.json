@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "(b == 0 && result == Integer.MIN_VALUE) || (b != 0 && result == a / b)",
+    "rationale" : "The method guarantees that if b is zero, result is Integer.MIN_VALUE; otherwise result is a divided by b.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result equals Integer.MIN_VALUE only if b is zero, else result equals a divided by b"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "The method returns Integer.MIN_VALUE precisely when b equals zero.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If b is zero, result must be Integer.MIN_VALUE"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "This invariant ensures the special case for zero divisor is respected.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result equals Integer.MIN_VALUE when b is zero to avoid division by zero"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "If b is zero, method returns Integer.MIN_VALUE; hence the invariant.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Safe divide returns Integer.MIN_VALUE if b is zero."
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "This invariant restates the core contract of the method for b==0.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method's contract specifies Integer.MIN_VALUE return if b is zero."
+    } ]
+  } ]
+}

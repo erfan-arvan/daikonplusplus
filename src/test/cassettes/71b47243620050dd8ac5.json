@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a (possibly empty) List, never null, due to new ArrayList<>();",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed in as a parameter and is required for file lookup; it is not explicitly checked for null, but is assumed to be non-null for file lookup operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf != null)",
+    "rationale" : "All elements added to result (smallFileLocations) are newly created SmallFile objects, so none are null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.stream().allMatch(sf -> sf.sizeBytes < config.getParquetSmallFileLimit())",
+    "rationale" : "Files added to result have size strictly less than the configured small file limit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> partitionPath != null)",
+    "rationale" : "Every SmallFile in the result is by construction from the given partitionPath context, which must be non-null for file operations.",
+    "meta" : [ ]
+  } ]
+}

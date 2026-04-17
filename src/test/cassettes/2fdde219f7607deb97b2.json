@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == order.getQuantity() * order.getUnitPrice()",
+    "rationale" : "This directly reflects the core logic of the computePrice method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "If quantity and unit price are both non-negative, the result should also be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() == 0 || result >= order.getUnitPrice()",
+    "rationale" : "If quantity is zero, result is zero; otherwise, price is at least as large as one unit price.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() == 0.0 || result >= order.getQuantity()",
+    "rationale" : "If unit price is zero, total is zero; otherwise, result is at least quantity for unitPrice >= 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order != null",
+    "rationale" : "Method uses order methods/fields, so a non-null order is required for correct execution.",
+    "meta" : [ ]
+  } ]
+}

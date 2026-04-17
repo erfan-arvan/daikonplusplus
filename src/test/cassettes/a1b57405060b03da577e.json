@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method is about to use 'result', so it must be non-null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "param must be non-null for method execution"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method calls getWriteStatuses on result, implying it should not be null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "to safely call getWriteStatuses on result"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The getWriteStatuses method returns a collection; its size can't be negative.",
+    "meta" : [ {
+      "key" : "collection_size",
+      "value" : "collections size is always non-negative"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream() != null",
+    "rationale" : "Calling stream on a non-null collection produces a non-null stream object.",
+    "meta" : [ {
+      "key" : "stream_check",
+      "value" : "stream returns a non-null stream object"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws instanceof WriteStatus)",
+    "rationale" : "getWriteStatuses() returns a collection of WriteStatus objects, so all elements are instances of WriteStatus.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "all elements should be WriteStatus instances"
+    } ]
+  } ]
+}

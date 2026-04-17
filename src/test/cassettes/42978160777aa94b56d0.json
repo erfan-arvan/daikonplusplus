@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "A valid partitionPath is required for map lookup; this likely holds as a method precondition and throughout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof List",
+    "rationale" : "The result is either the value from the map or null, but if not null, it must be a List as declared.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos.containsKey(partitionPath) == (result != null)",
+    "rationale" : "If the partitionPathToInsertBucketInfos map contains the key, get will return non-null; otherwise, it returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == partitionPathToInsertBucketInfos.get(partitionPath)",
+    "rationale" : "The method implementation directly returns the value from the map for the given key.",
+    "meta" : [ ]
+  } ]
+}

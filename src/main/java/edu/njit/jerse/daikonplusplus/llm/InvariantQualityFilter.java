@@ -15,15 +15,22 @@ public final class InvariantQualityFilter {
   private InvariantQualityFilter() {}
 
   // ---------- trivial / always-true patterns ----------
+  // Detect self-comparisons like x == x, a <= a
+  private static final Pattern SELF_COMPARISON =
+      Pattern.compile("\\b([A-Za-z_][A-Za-z0-9_]*)\\b\\s*(==|!=|<=|>=|<|>)\\s*\\1\\b");
+
+  // Large arbitrary constants (e.g., 1000, 9999)
+  //  private static final Pattern LARGE_CONSTANT = Pattern.compile("\\b\\d{3,}\\b");
   private static final Pattern TAUTOLOGY_SIMPLE =
       Pattern.compile("^\\s*!\\s*(.+)\\s*\\|\\|\\s*\\1\\s*$"); // "!X || X"
   private static final Set<String> ALWAYS_TRUE_LITERALS = Set.of("true", "(true)");
   private static final Pattern ALWAYS_TRUE_RANGES =
-      Pattern.compile("\\b(?:Integer\\.(?:MAX|MIN)_VALUE|Long\\.(?:MAX|MIN)_VALUE)\\b");
-  private static final Pattern NONNEG_LENGTH =
-      Pattern.compile("\\b(length|size)\\s*\\(\\)\\s*>=\\s*0\\b");
-  private static final Pattern BOOL_EQ =
-      Pattern.compile("\\b==\\s*(true|false)\\b|\\b!=\\s*(true|false)\\b");
+      Pattern.compile(
+          ">=\\s*(Integer\\.MIN_VALUE|Long\\.MIN_VALUE)|<=\\s*(Integer\\.MAX_VALUE|Long\\.MAX_VALUE)");
+  //  private static final Pattern NONNEG_LENGTH =
+  //      Pattern.compile("\\b(length|size)\\s*\\(\\)\\s*>=\\s*0\\b");
+  //  private static final Pattern BOOL_EQ =
+  //      Pattern.compile("\\b==\\s*(true|false)\\b|\\b!=\\s*(true|false)\\b");
 
   // ---------- structural / syntax constraints ----------
   private static final Pattern BARE_ASSIGN = Pattern.compile("(?<![!<>=])=(?!=)");
@@ -79,8 +86,12 @@ public final class InvariantQualityFilter {
     if (ALWAYS_TRUE_LITERALS.contains(e)) return false;
     if (TAUTOLOGY_SIMPLE.matcher(e).matches()) return false;
     if (ALWAYS_TRUE_RANGES.matcher(e).find()) return false;
-    if (NONNEG_LENGTH.matcher(e).find()) return false;
-    if (BOOL_EQ.matcher(e).find()) return false; // "... == true/false" or "!= true/false"
+    //    if (NONNEG_LENGTH.matcher(e).find()) return false;
+    //    if (BOOL_EQ.matcher(e).find()) return false; // "... == true/false" or "!= true/false"
+    if (SELF_COMPARISON.matcher(e).find()) return false;
+    if (isTrivialDisjunction(e)) return false;
+
+    //    if (LARGE_CONSTANT.matcher(e).find()) return false;
 
     // 2) structural constraints
     if (ILLEGAL_CHARS.matcher(e).find()) return false; // no blocks or statements
@@ -93,7 +104,11 @@ public final class InvariantQualityFilter {
 
     // 4) must reference at least one in-scope name (wrap keySet for CF
     // compatibility)
+    // Require relationships between variables (not single-variable trivialities)
     if (!mentionsAny(e, new ArrayList<>(inScope.keySet()))) return false;
+
+    // Require relationships between variables (not single-variable trivialities)
+    //    if (!isLikelyMeaningful(e, inScope)) return false;
 
     // 5) for EXIT with non-void methods (caller supplies 'result' in scope),
     // require 'result'
@@ -188,5 +203,27 @@ public final class InvariantQualityFilter {
         || t.equals("char")
         || t.equals("float")
         || t.equals("double");
+  }
+
+  //  private static boolean isLikelyMeaningful(String e, Map<String, String> inScope) {
+  //    int count = 0;
+  //    for (String v : inScope.keySet()) {
+  //      if (containsWord(e, v)) count++;
+  //    }
+  //    return count >= 2; // require at least two variables
+  //  }
+
+  private static final Pattern TRIVIAL_DISJUNCTION_PATTERN =
+      Pattern.compile(
+          "\\b([A-Za-z_][A-Za-z0-9_]*)\\b\\s*(==|!=)\\s*([^|]+)\\|\\|\\s*\\1\\s*(==|!=)\\s*\\3");
+
+  private static boolean isTrivialDisjunction(String e) {
+    Matcher m = TRIVIAL_DISJUNCTION_PATTERN.matcher(e);
+    if (!m.find()) return false;
+
+    String op1 = m.group(2);
+    String op2 = m.group(4);
+
+    return op1 != null && op2 != null && !op1.equals(op2); // == vs !=
   }
 }

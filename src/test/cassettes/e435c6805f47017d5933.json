@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this.partitioner",
+    "rationale" : "The method always returns 'this.partitioner'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaUpsertPartitioner",
+    "rationale" : "The method assigns and returns a JavaUpsertPartitioner instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The profile parameter must be non-null to call super.getUpsertPartitioner(profile).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result should not be null as the method returns a HoodieWriteMetadata object.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The method returns a HoodieWriteMetadata object, so result is expected to be non-null."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter should be non-null as it is used to create the executor.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is passed into constructor and likely required to be non-null."
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The preppedRecords list should be non-null for the delete prepped execution.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "preppedRecords is passed into constructor and expected to be non-null."
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The result of execution should contain a non-null list of write statuses.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The write metadata should have non-null write statuses after execute."
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the write statuses list in result should be zero or more.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "WriteStatuses is a List, can be empty but not negative size."
+    } ]
+  } ]
+}

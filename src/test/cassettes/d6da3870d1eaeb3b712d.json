@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method expects a List of orders; a null argument might not be handled safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o != null)",
+    "rationale" : "The method throws if any order in the list is null, so all elements should be non-null upon correct entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getQuantity() > 0)",
+    "rationale" : "Each order must have a positive quantity, as enforced by the validation logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getUnitPrice() >= 0)",
+    "rationale" : "Each order's unit price must be non-negative to avoid an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.size() >= 0",
+    "rationale" : "A Java List always has a non-negative size; this is a basic property of the List interface.",
+    "meta" : [ ]
+  } ]
+}

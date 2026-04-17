@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Option object, either empty or containing a BaseKeyGenerator.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "!config.populateMetaFields() || result.isEmpty()",
+    "rationale" : "If populateMetaFields() returns true, result is an empty Option.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "result.isEmpty() || result.get() instanceof BaseKeyGenerator",
+    "rationale" : "If result is not empty, it contains a BaseKeyGenerator object.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "!result.isEmpty() || config.populateMetaFields()",
+    "rationale" : "If the result is empty, populateMetaFields() must have returned true.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The config object is used in the method, so it must not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  } ]
+}

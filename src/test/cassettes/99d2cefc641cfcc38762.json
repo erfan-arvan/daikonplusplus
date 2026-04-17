@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the 'records' list, which is explicitly allocated and thus not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method accesses clusteringGroup.getSlices(), so clusteringGroup must not be null prior to method execution and at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to other methods and used as a parameter, so it must not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method always returns a List object (`records`), which is a new ArrayList.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || result.size() == 0",
+    "rationale" : "This statement is trivially true for any list, providing a basic relationship between isEmpty() and size().",
+    "meta" : [ ]
+  } ]
+}

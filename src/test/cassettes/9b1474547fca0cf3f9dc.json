@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null && config.getProps() != null && config.getProps().getProperty(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key()) != null",
+    "rationale" : "The method returns a property string for the partition column, which implies these objects and the property must not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The returned string is obtained from the config properties by the specified key, so all these accesses must be non-null to have a valid return value."
+    } ]
+  }, {
+    "expression" : "config.getProps().containsKey(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key())",
+    "rationale" : "The key for partition path should be in the properties for meaningful result.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Return value depends on the presence of the key in the properties."
+    } ]
+  }, {
+    "expression" : "KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key() != null",
+    "rationale" : "The key used to get the partition column property must be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Key used for property lookup must be non-null."
+    } ]
+  }, {
+    "expression" : "config.getProps().size() > 0",
+    "rationale" : "For this method to return a meaningful partition column name, properties should not be empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Properties should not be empty for partition column retrieval."
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The parameter config is expected non-null to safely perform property retrieval.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Config must be non-null to call its methods safely."
+    } ]
+  } ]
+}

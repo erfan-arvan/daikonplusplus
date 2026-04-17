@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method operates on writeStatuses and calls methods on it, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used as a parameter in further method calls, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is passed into other operations, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof HoodieData",
+    "rationale" : "writeStatuses is typed as HoodieData<WriteStatus> and must be an instance of HoodieData.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable instanceof HoodieTable",
+    "rationale" : "hoodieTable parameter is typed as HoodieTable and should be an instance of HoodieTable.",
+    "meta" : [ ]
+  } ]
+}

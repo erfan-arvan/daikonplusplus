@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "The method relies on 'order' being non-null to safely call its methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Quantity is usually a non-negative value for an order in typical business logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price is expected to be non-negative in a typical order system.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() * order.getUnitPrice() >= 0.0",
+    "rationale" : "If both quantity and unit price are non-negative, their product (the price) will also be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() == order.quantity",
+    "rationale" : "The getQuantity() accessor is expected to return the underlying 'quantity' field.",
+    "meta" : [ ]
+  } ]
+}

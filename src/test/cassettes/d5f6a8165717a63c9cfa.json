@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "Method operates on order, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantities are usually non-negative; negative quantities may not make sense in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit prices are typically non-negative, reflecting real-world business rules.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() * order.getUnitPrice() >= 0.0",
+    "rationale" : "Total price computed as the product of non-negative quantity and unit price should also be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!isEligibleForDiscount(order) || order.getQuantity() > 0)",
+    "rationale" : "Orders eligible for discount likely have a positive quantity.",
+    "meta" : [ ]
+  } ]
+}

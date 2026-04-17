@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "The parameter writeResult should not be null at method entry.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() != null",
+    "rationale" : "Write statuses inside writeResult should be non-null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().size() >= 0",
+    "rationale" : "Write statuses list is non-null and has size zero or more.",
+    "meta" : [ {
+      "key" : "size_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() instanceof List",
+    "rationale" : "The write statuses returned is a List of WriteStatus objects.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "true"
+    } ]
+  } ]
+}

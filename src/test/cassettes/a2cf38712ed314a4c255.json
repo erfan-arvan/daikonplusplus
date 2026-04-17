@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a map which is non-null even if empty.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "result map is never null"
+    } ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.isEmpty() || !result.isEmpty()",
+    "rationale" : "If there are partitionPaths, then result map should not be empty as files should be retrieved.",
+    "meta" : [ {
+      "key" : "result-not-empty",
+      "value" : "If partitionPaths is not null or empty, then result should be non-empty"
+    } ]
+  }, {
+    "expression" : "!result.keySet().stream().anyMatch(key -> key == null)",
+    "rationale" : "Partition paths are non-null strings, so map keys should also be non-null.",
+    "meta" : [ {
+      "key" : "no-null-keys",
+      "value" : "result map keys are partition paths which are non-null"
+    } ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(partitionPaths::contains)",
+    "rationale" : "The keys in the result map should only be partition paths from the input list.",
+    "meta" : [ {
+      "key" : "keys-in-partitionPaths",
+      "value" : "result keys are subset of partitionPaths"
+    } ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "Each partition's value list should be non-null (possibly empty but not null).",
+    "meta" : [ {
+      "key" : "non-null-values",
+      "value" : "Lists of SmallFile objects are non-null"
+    } ]
+  } ]
+}

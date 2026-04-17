@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime, a key parameter, should be non-null for commit operations related to data versioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is expected to be a valid Iterator for processing records and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is required to perform data partitioning and should not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition identifies the data partition and must be non-null for partition-specific operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition instanceof Integer",
+    "rationale" : "partition is expected to always be of type Integer for partition identification.",
+    "meta" : [ ]
+  } ]
+}

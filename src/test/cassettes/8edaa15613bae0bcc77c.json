@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && result.getWriteStatuses() != null && !result.getWriteStatuses().isEmpty()",
+    "rationale" : "The result must have non-null, non-empty write statuses as they are used in the commit call.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Ensures no null or empty write statuses"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "Each WriteStatus must have a non-null stat because commit is called with mapped stats.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "All write statuses have non-null stats"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() > 0",
+    "rationale" : "There must be at least one WriteStatus for meaningful commit operation.",
+    "meta" : [ {
+      "key" : "size-constraint",
+      "value" : "WriteStatuses list is non-empty"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().noneMatch(ws -> ws == null)",
+    "rationale" : "The list of WriteStatuses must not contain null elements.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "No null WriteStatus in the list"
+    } ]
+  } ]
+}

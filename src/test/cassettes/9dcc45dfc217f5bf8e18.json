@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method likely requires a non-null HoodieEngineContext to operate correctly.",
+    "meta" : [ {
+      "key" : "Check",
+      "value" : "Context parameter should not be null for valid execution"
+    } ]
+  }, {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "instantToSavepoint is needed for saving the instant and should be non-null.",
+    "meta" : [ {
+      "key" : "Check",
+      "value" : "The instant to savepoint string should not be null"
+    } ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "User string is required and thus should not be null.",
+    "meta" : [ {
+      "key" : "Check",
+      "value" : "User parameter should not be null"
+    } ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "Comment may be optional but expected to exist, ensuring null safety here.",
+    "meta" : [ {
+      "key" : "Check",
+      "value" : "Comment string is not null"
+    } ]
+  }, {
+    "expression" : "instantToSavepoint.length() > 0",
+    "rationale" : "instantToSavepoint as a key identifier should be non-empty for valid savepoint creation.",
+    "meta" : [ {
+      "key" : "Check",
+      "value" : "The instant string is non-empty"
+    } ]
+  } ]
+}

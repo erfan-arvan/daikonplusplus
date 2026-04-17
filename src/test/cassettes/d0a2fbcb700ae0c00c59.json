@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Iterator, and neither return branch returns null, so result should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is directly passed as a parameter to constructors and super methods; it is expected to be non-null for valid operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The method returns an Iterator<List<WriteStatus>>, so result is always an Iterator.",
+    "meta" : [ ]
+  } ]
+}

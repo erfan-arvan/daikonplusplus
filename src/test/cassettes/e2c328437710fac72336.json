@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter should be non-null for the method to operate correctly.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "context is a method parameter that should not be null"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "The restoreInstantTimestamp string parameter should be non-null when restoring.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "restoreInstantTimestamp should not be null"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp == null || !savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "savepointToRestoreTimestamp can be null or a non-empty string, but empty string is less likely.",
+    "meta" : [ {
+      "key" : "null_or_not_empty",
+      "value" : "savepointToRestoreTimestamp can be null or non-empty"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp.length() > 0",
+    "rationale" : "restoreInstantTimestamp likely should be a non-empty string.",
+    "meta" : [ {
+      "key" : "non_empty_string",
+      "value" : "restoreInstantTimestamp should be non-empty"
+    } ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.equals(savepointToRestoreTimestamp)",
+    "rationale" : "restoreInstantTimestamp and savepointToRestoreTimestamp represent different timestamps and are expected not to be the same.",
+    "meta" : [ {
+      "key" : "distinct_strings",
+      "value" : "restoreInstantTimestamp and savepointToRestoreTimestamp should not be equal"
+    } ]
+  } ]
+}

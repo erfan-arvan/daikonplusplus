@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method getInsertPartitioner uses profile as a parameter, so profile should not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "profile must be non-null to proceed with getInsertPartitioner"
+    } ]
+  }, {
+    "expression" : "profile.getRecords() >= 0",
+    "rationale" : "WorkloadProfile usually should not have negative record counts.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The number of records in the workload profile is non-negative"
+    } ]
+  }, {
+    "expression" : "profile.getTotalBytes() >= 0",
+    "rationale" : "Total size of data cannot be negative.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Total bytes in workload profile should be non-negative"
+    } ]
+  }, {
+    "expression" : "profile.getPartitions().size() > 0",
+    "rationale" : "WorkloadProfile should represent some workload across partitions. At least one partition should be present.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "WorkloadProfile should have at least one partition"
+    } ]
+  }, {
+    "expression" : "profile.getPartitionToRecordsMap() != null",
+    "rationale" : "Mapping of partitions to their record count is necessary for partitioning.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Partition to records map must not be null to partition workload"
+    } ]
+  } ]
+}

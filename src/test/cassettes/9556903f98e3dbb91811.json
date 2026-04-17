@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of another method call, which should not be null if the contract is enforced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input parameter 'records' should not be null as it is directly passed to the underlying call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Input parameter 'instantTime' is required for the internal logic and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(records == null) || result == null",
+    "rationale" : "If 'records' is null, according to the possible defensive behavior, the result might be null (but if 'records' is non-null, result should be non-null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(instantTime == null) || result == null",
+    "rationale" : "If 'instantTime' is null, the result might be null (but if 'instantTime' is non-null, returned result should be non-null).",
+    "meta" : [ ]
+  } ]
+}

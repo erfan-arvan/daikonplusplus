@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator, either from Collections.singletonList(...).iterator() or from IOUtils.runMerge(...).",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument to getUpdateHandle, which is called before return without a null check; likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used in string concatenation for log.info and as an argument in downstream method calls without a null check, so it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result.hasNext()",
+    "rationale" : "If recordItr had no next element, the result is a singleton iterator over a list; otherwise, result is as returned by IOUtils.runMerge, which should also be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || (result.next().isEmpty())",
+    "rationale" : "When recordItr has no next element, the result iterator yields one empty list.",
+    "meta" : [ ]
+  } ]
+}

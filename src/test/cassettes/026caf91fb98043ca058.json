@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned result should not be null as it represents write metadata after successful execution.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result is expected to be non-null before method return"
+    } ]
+  }, {
+    "expression" : "result.isSuccessful()",
+    "rationale" : "The write metadata result is likely expected to indicate a successful write operation.",
+    "meta" : [ {
+      "key" : "method_call",
+      "value" : "isSuccessful()"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list in the result should not be null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "getWriteStatuses()"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The list of write statuses should have zero or more elements, never negative.",
+    "meta" : [ {
+      "key" : "size_check",
+      "value" : "getWriteStatuses().size()"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "Expected that there should be at least one write status after the commit action.",
+    "meta" : [ {
+      "key" : "non_empty",
+      "value" : "getWriteStatuses()"
+    } ]
+  } ]
+}

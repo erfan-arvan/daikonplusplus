@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new HashMap instance, so 'result' cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof java.util.HashMap",
+    "rationale" : "The map is instantiated as a HashMap and always returned as such.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0 || result.size() == 1",
+    "rationale" : "The method puts at most one entry in the map or none at all, so the size can only be 0 or 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.containsKey(null)",
+    "rationale" : "The only possible key is PLAN_STRATEGY_SORT_COLUMNS.key(), which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(k -> k instanceof String)",
+    "rationale" : "All keys put into the map are strings, as defined by the map type and usage.",
+    "meta" : [ ]
+  } ]
+}

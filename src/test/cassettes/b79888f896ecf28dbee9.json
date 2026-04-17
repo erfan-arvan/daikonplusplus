@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && result.size() >= 0",
+    "rationale" : "The result list of WriteStatus is expected to be non-null after a successful insert operation, and its size is non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns a non-null list of WriteStatus objects, possibly empty but not null."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The insert method expects a valid instantTime string for the operation.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The instantTime string is used as the commit time for the insert operation and should be non-null."
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method is called to insert records, so the records list should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The input records list must be provided to perform the insert."
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(ws -> ws != null)",
+    "rationale" : "After insertion, each WriteStatus in the result list corresponds to a processed record and should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Each WriteStatus object in the result list is expected to be non-null."
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Each record sent in the insert corresponds to a WriteStatus result, so their sizes should match.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The number of WriteStatus returned should match the number of input records processed."
+    } ]
+  } ]
+}

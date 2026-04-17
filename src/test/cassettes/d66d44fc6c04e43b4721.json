@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "Configuration should be non-null for creating the writer.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "WriteConfig should be non-null to configure the writer.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is required and should not be null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "inflightInstantTimestamp == null || inflightInstantTimestamp.isPresent()",
+    "rationale" : "inflightInstantTimestamp optionally may have a value or be null, so it must be checked safely.",
+    "meta" : [ {
+      "key" : "nullableOptionCheck",
+      "value" : "true"
+    } ]
+  } ]
+}

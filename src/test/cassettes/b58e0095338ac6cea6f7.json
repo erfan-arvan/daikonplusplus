@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the output of HoodieMergeHandleFactory.create, which should not be null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime is used as an argument for creating a handle and should be non-null and non-empty for valid updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "The fileId is used as an identifier and passed to the factory, so it must be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "partitionPath identifies the partition and is passed to the factory; it must be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "keyToNewRecords is always accessed and passed to the factory, so it should not be null.",
+    "meta" : [ ]
+  } ]
+}

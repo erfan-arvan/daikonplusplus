@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && result.getWriteStatuses() != null && !result.getWriteStatuses().isEmpty()",
+    "rationale" : "At method exit, the result should be a non-null HoodieWriteMetadata with non-empty write statuses indicating the commit action produced output statuses.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "Ensure result and its write statuses are non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "Each WriteStatus in the result typically contains write statistics; this ensures data integrity.",
+    "meta" : [ {
+      "key" : "non_null_stats",
+      "value" : "Each WriteStatus has a non-null write stat"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getWriteErrors().isEmpty())",
+    "rationale" : "Commit action should complete successfully without write errors.",
+    "meta" : [ {
+      "key" : "write_errors_empty",
+      "value" : "All WriteStatuses have no write errors"
+    } ]
+  }, {
+    "expression" : "result.getTotalRecords() >= 0",
+    "rationale" : "Total record count in the write metadata must be zero or positive.",
+    "meta" : [ {
+      "key" : "non_negative_records",
+      "value" : "Total records written cannot be negative"
+    } ]
+  }, {
+    "expression" : "result.isSuccess()",
+    "rationale" : "The commit function's return indicates success of the operation.",
+    "meta" : [ {
+      "key" : "success_flag",
+      "value" : "Commit action result indicates success"
+    } ]
+  } ]
+}

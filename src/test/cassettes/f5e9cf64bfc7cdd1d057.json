@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new JavaUpsertPartitioner instance, so result should never be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result is newly constructed and returned, so cannot be null."
+    } ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "Method throws an exception if profile is null, so at return point it must be non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "The method throws if profile is null, so after method execution it must not be null."
+    } ]
+  }, {
+    "expression" : "result instanceof Partitioner",
+    "rationale" : "The returned object is a subclass of Partitioner.",
+    "meta" : [ {
+      "key" : "type-consistency",
+      "value" : "Result type matches declared return type."
+    } ]
+  } ]
+}

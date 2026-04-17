@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "The args array is provided by the JVM and is never null at program start.",
+    "meta" : [ {
+      "key" : "nullSafety",
+      "value" : "args is not null and length is non-negative"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No variables other than args are in scope to constrain, so true is a safe invariant.",
+    "meta" : [ {
+      "key" : "methodExitInvariant",
+      "value" : "Trivially true at method exit"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs a new HoodieWriteMetadata object to return, so 'result' should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "'table' is accessed unconditionally, so it must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "'executor' is cast to BaseJavaCommitActionExecutor and used, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "'inputRecords' is passed to other methods and used to perform the bulk insert, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "'result' is constructed as a new HoodieWriteMetadata and is returned explicitly.",
+    "meta" : [ ]
+  } ]
+}

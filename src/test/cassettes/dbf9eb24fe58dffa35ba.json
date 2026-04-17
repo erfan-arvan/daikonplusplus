@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List, so result should not be null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "The result list contains file IDs, which should not be null.",
+    "meta" : [ {
+      "key" : "content_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> id instanceof String)",
+    "rationale" : "Each element in the result list should be a String (file ID).",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.size() == smallFiles.size()",
+    "rationale" : "The result list maps one-to-one to smallFiles stream.",
+    "meta" : [ {
+      "key" : "size_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> !id.isEmpty())",
+    "rationale" : "File IDs should not be empty strings.",
+    "meta" : [ {
+      "key" : "content_check",
+      "value" : "true"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method expects a non-null HoodieTableMetaClient instance.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Parameter metaClient should not be null"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The columnsToIndex list is expected to be non-null as input to the method.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Parameter columnsToIndex should not be null"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(col -> col != null && !col.isEmpty())",
+    "rationale" : "The columns to index should be valid strings, thus no null or empty names.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "All strings in columnsToIndex are non-null and non-empty"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "List size cannot be negative.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "List size is non-negative"
+    } ]
+  }, {
+    "expression" : "!columnsToIndex.contains(null)",
+    "rationale" : "Each element in the list should be a valid String, not null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "No null element in the columnsToIndex list"
+    } ]
+  } ]
+}

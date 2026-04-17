@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a valid Supplier, so it should never be null.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "The returned Supplier<Integer> is non-null."
+    } ]
+  }, {
+    "expression" : "result.get() == 0",
+    "rationale" : "The lambda always returns 0, so get() returns 0 at this program point.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "The Supplier always supplies 0."
+    } ]
+  } ]
+}

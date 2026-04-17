@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null HoodieData object wrapping the input list.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input parameter is used as the source, so it should not be null at this point.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The returned HoodieData wraps the exact same number of WriteStatus elements as in the original records list.",
+    "meta" : [ {
+      "key" : "sizeRelation",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!records.contains(null)",
+    "rationale" : "Assuming records list has no null elements for HoodieData wrapping to be safe.",
+    "meta" : [ {
+      "key" : "nullElementCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.get(0).equals(records.get(0)) || records.isEmpty()",
+    "rationale" : "If records is not empty, the first element of result corresponds to the first element of records.",
+    "meta" : [ {
+      "key" : "elementCorrespondence",
+      "value" : "true"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "(b.doubleValue() == 0.0) == (result == null)",
+    "rationale" : "If the denominator is zero, the result is null; otherwise, it's non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(b.doubleValue() != 0.0) == (result != null)",
+    "rationale" : "If the denominator is not zero, the result is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == null) || (a instanceof Integer || a instanceof Double)",
+    "rationale" : "The method only returns a non-null result for Integer or Double types.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result != null) ? (a != null && b != null) : true",
+    "rationale" : "A non-null result is only produced given non-null operands.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == null) || ((a instanceof Integer && result instanceof Integer) || (a instanceof Double && result instanceof Double))",
+    "rationale" : "The result type matches the input type for supported cases when result is not null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The number of partitions returned by the method should never be negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Number of partitions should be non-negative"
+    } ]
+  }, {
+    "expression" : "result == totalBuckets",
+    "rationale" : "The method returns the field 'totalBuckets' which is therefore equal to result.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method returns totalBuckets directly"
+    } ]
+  } ]
+}

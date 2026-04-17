@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since every case returns a new partitioner instance, result cannot be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "All switch cases return a new object, so result should never be null."
+    } ]
+  }, {
+    "expression" : "(sortMode == BulkInsertSortMode.NONE) || (sortMode == BulkInsertSortMode.GLOBAL_SORT)",
+    "rationale" : "Method returns only for these two sortModes; otherwise, it throws exception.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Only these two BulkInsertSortMode values allow method return without an exception."
+    } ]
+  }, {
+    "expression" : "result instanceof BulkInsertPartitioner",
+    "rationale" : "Result is always an instance of BulkInsertPartitioner as returned in switch cases.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Both returned classes extend BulkInsertPartitioner."
+    } ]
+  }, {
+    "expression" : "!(sortMode == BulkInsertSortMode.NONE && result instanceof JavaGlobalSortPartitioner)",
+    "rationale" : "If sortMode is NONE, result is not a JavaGlobalSortPartitioner.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The returned partitioner type depends on sortMode."
+    } ]
+  }, {
+    "expression" : "!(sortMode == BulkInsertSortMode.GLOBAL_SORT && result instanceof JavaNonSortPartitioner)",
+    "rationale" : "If sortMode is GLOBAL_SORT, result is not a JavaNonSortPartitioner.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The returned partitioner type depends on sortMode."
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is constructed and returned, so it should not be null at the method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned HoodieWriteMetadata's write statuses list is derived from a collectAsList(), and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The result's getWriteStatuses() returns the input transformedWriteStatuses, which is a List.",
+    "meta" : [ ]
+  } ]
+}

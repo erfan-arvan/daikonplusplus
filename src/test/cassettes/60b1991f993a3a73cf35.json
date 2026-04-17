@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "Because name is checked for null in the method, if not null, name.length() is non-negative.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Ensures safe access to name.length() only if name != null"
+    } ]
+  }, {
+    "expression" : "x == x",
+    "rationale" : "Trivial invariant that x equals itself.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "Always true"
+    } ]
+  }, {
+    "expression" : "name == null || !name.isEmpty() || name.isEmpty()",
+    "rationale" : "If name is not null, it is either empty or not empty.",
+    "meta" : [ {
+      "key" : "logical",
+      "value" : "Logical tautology"
+    } ]
+  }, {
+    "expression" : "x + (name == null ? 0 : name.length()) >= x",
+    "rationale" : "Since name.length() >= 0 when name != null, sum is >= x.",
+    "meta" : [ {
+      "key" : "arithmetic",
+      "value" : "Non-negativity of name.length()"
+    } ]
+  }, {
+    "expression" : "(name == null) == (name == null)",
+    "rationale" : "Trivial tautology",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "Always true"
+    } ]
+  } ]
+}

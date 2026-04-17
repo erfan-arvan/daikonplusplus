@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Option, which should not be null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "result"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is required for rollback and should not be null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "instantToRollback is an object required for rollback and should not be null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "instantToRollback"
+    } ]
+  }, {
+    "expression" : "!(result.isPresent()) || result.get() != null",
+    "rationale" : "If result is present, the contained HoodieRollbackPlan object should not be null.",
+    "meta" : [ {
+      "key" : "optional-consistency",
+      "value" : "result.get()"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "Method is an instance method and typically profile should not be null at method entry.",
+    "meta" : [ {
+      "key" : "NullSafety",
+      "value" : "Ensures profile is not null before method execution"
+    } ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "Accessing entrySet of this map in method implementation assumes non-null.",
+    "meta" : [ {
+      "key" : "InputMapNonNull",
+      "value" : "Input partition map should be initialized"
+    } ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "Code fetches output map entries and updates it, expecting non-null.",
+    "meta" : [ {
+      "key" : "OutputMapNonNull",
+      "value" : "Output partition map should be initialized"
+    } ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().entrySet().size() >= 0",
+    "rationale" : "Entry set size by definition is zero or more.",
+    "meta" : [ {
+      "key" : "EntrySetSize",
+      "value" : "Entry set size is always non-negative"
+    } ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "Typically if output workload stats exist, the output partition map should be non-null",
+    "meta" : [ {
+      "key" : "Consistency",
+      "value" : "Output workload stats presence aligns with output partition map initialization"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The return statement always returns the input records reference; thus, result == records.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The method returns the passed records list directly, so result equals records."
+    } ]
+  }, {
+    "expression" : "!records.isEmpty()",
+    "rationale" : "Since there is an early return if records is empty, at method exit records is guaranteed not empty.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Because if records were empty, the method would have returned earlier."
+    } ]
+  }, {
+    "expression" : "records.size() == result.size()",
+    "rationale" : "No records are added or removed; the output list has the same size as input.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The method returns the same list reference without modifying its size."
+    } ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "outputPartitions is expected to be a positive integer indicating partition count.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Hypothesized based on typical partition count constraints."
+    } ]
+  }, {
+    "expression" : "records.get(0).getCurrentLocation().getFileId() != null",
+    "rationale" : "Invocation of getFileId() without null checks indicates it is non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Used to compute fileId via HoodieTableMetadataUtil.getFileGroupPrefix without null checks."
+    } ]
+  } ]
+}

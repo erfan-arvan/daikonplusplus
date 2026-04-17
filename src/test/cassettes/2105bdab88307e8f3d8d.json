@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null && preppedRecordInputs != null && instantTime != null && bulkInsertPartitioner != null",
+    "rationale" : "All inputs must be non-null for bulkInsertPreppedRecords and commit to succeed.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "Ensure all input references are non-null before method exit"
+    } ]
+  }, {
+    "expression" : "!preppedRecordInputs.isEmpty()",
+    "rationale" : "Typically, bulk insert is performed on a non-empty list of records.",
+    "meta" : [ {
+      "key" : "input_non_empty",
+      "value" : "preppedRecordInputs should not be empty"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should represent a valid commit time string.",
+    "meta" : [ {
+      "key" : "valid_instantTime",
+      "value" : "instantTime should be a non-empty string"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner.isPresent()",
+    "rationale" : "The partitioner option should be present to perform partitioning during bulk insert.",
+    "meta" : [ {
+      "key" : "partitioner_present",
+      "value" : "bulkInsertPartitioner is present"
+    } ]
+  }, {
+    "expression" : "writeClient != null && writeClient.getClass().getName().contains(\"WriteClient\")",
+    "rationale" : "writeClient should be a valid instance of the expected client class.",
+    "meta" : [ {
+      "key" : "writeClient_type_check",
+      "value" : "writeClient is an instance of BaseHoodieWriteClient subtype"
+    } ]
+  } ]
+}

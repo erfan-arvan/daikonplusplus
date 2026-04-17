@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "(b == 0 && result == Integer.MIN_VALUE) || (b != 0 && result == a / b)",
+    "rationale" : "The method defines that when b is zero, result is Integer.MIN_VALUE, else result is a/b.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "result holds Integer.MIN_VALUE if b is zero, otherwise a divided by b"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "The method ensures that when denominator b is zero, it returns Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If b is zero, the result must be Integer.MIN_VALUE"
+    } ]
+  }, {
+    "expression" : "b == 0 || result * b == a",
+    "rationale" : "If b != 0, result is a/b, so multiplying back by b should equal a.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If b is not zero, then result times b equals a"
+    } ]
+  }, {
+    "expression" : "result != Integer.MIN_VALUE || b == 0",
+    "rationale" : "Matching the method logic, Integer.MIN_VALUE is returned only when b == 0.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If result is Integer.MIN_VALUE, then b must have been zero"
+    } ]
+  }, {
+    "expression" : "result != Integer.MIN_VALUE || b == 0",
+    "rationale" : "Complement to previous invariant, ensures correctness.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If result is not Integer.MIN_VALUE, then b cannot be 0"
+    } ]
+  } ]
+}

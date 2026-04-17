@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is expected to be non-null for the method to proceed.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Ensures context is not null before use"
+    } ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "The compactionInstantTime string must be non-null to properly create the compaction executor.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Ensures compactionInstantTime is not null before use"
+    } ]
+  }, {
+    "expression" : "compactionInstantTime.length() > 0",
+    "rationale" : "The compactionInstantTime parameter typically represents a timestamp string and is expected to be non-empty.",
+    "meta" : [ {
+      "key" : "string-nonempty",
+      "value" : "compactionInstantTime should be a non-empty string"
+    } ]
+  }, {
+    "expression" : "context.getClass().getName().contains(\"HoodieEngineContext\")",
+    "rationale" : "Ensures the context parameter is of the expected type HoodieEngineContext.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "context should be of HoodieEngineContext type"
+    } ]
+  }, {
+    "expression" : "!compactionInstantTime.trim().isEmpty()",
+    "rationale" : "The compactionInstantTime parameter must contain meaningful content and not be just whitespace.",
+    "meta" : [ {
+      "key" : "string-nonempty",
+      "value" : "compactionInstantTime should not be empty or whitespace only"
+    } ]
+  } ]
+}

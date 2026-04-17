@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is likely required for identifying the operation timing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId uniquely identifies a file and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used to locate the data partition and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The method expects to process a map of new records; this should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dataFileToBeMerged != null",
+    "rationale" : "A base file reference is needed for merging; null would likely cause errors downstream.",
+    "meta" : [ ]
+  } ]
+}

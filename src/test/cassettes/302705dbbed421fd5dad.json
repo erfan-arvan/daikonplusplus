@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A non-null HoodieWriteMetadata is expected to be returned on successful completion of execute().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method is declared to return HoodieWriteMetadata<List<WriteStatus>>, so result must be an instance of this type.",
+    "meta" : [ ]
+  } ]
+}

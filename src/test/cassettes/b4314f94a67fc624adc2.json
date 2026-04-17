@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method is called with a non-null clusteringGroup parameter as it's the method argument.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a method parameter and likely required for method logic.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "To safely call getSlices() and chain operations on it, it must be non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!clusteringGroup.getSlices().isEmpty()",
+    "rationale" : "Method likely expects clusteringGroup to have some slices to operate on.",
+    "meta" : [ {
+      "key" : "collection-non-empty",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty string representing a timestamp or version.",
+    "meta" : [ {
+      "key" : "string-length",
+      "value" : "non-empty"
+    } ]
+  } ]
+}

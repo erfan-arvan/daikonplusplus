@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null LinkedHashMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().containsAll(dedupedRecords.stream().map(r -> Integer.valueOf(partitioner.getPartition(Pair.of(r.getKey(), Option.ofNullable(r.getCurrentLocation()))))).collect(java.util.stream.Collectors.toSet()))",
+    "rationale" : "Every record is assigned to a partition and corresponding key appears in result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().flatMap(java.util.Collection::stream).allMatch(r -> dedupedRecords.contains(r))",
+    "rationale" : "All records mapped in the result come from the input dedupedRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().flatMap(java.util.Collection::stream).count() == dedupedRecords.size()",
+    "rationale" : "No records are dropped or duplicated in the final mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(l -> !l.isEmpty())",
+    "rationale" : "Each value list in the result should be non-empty since each partition exists due to input records.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result.isEmpty() == true",
+    "rationale" : "Since the method always returns Option.empty(), result.isEmpty() must be true at method exit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method returns Option.empty(), so result is always empty."
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns Option.empty(), which is a non-null instance, hence result is non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Option.empty() never returns null, so result is non-null."
+    } ]
+  } ]
+}

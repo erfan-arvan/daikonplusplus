@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null && result != null && instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Parameters and result should be non-null, and instantTime should not be empty string upon method exit.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "The result list of WriteStatus should not exceed the input records list size.",
+    "meta" : [ {
+      "key" : "sizeRelation",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List sizes should be non-negative.",
+    "meta" : [ {
+      "key" : "sizeNonNegative",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime should be a non-empty string as per typical usage.",
+    "meta" : [ {
+      "key" : "nonEmpty",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The result list should not be null on method exit.",
+    "meta" : [ {
+      "key" : "resultNonNull",
+      "value" : "true"
+    } ]
+  } ]
+}

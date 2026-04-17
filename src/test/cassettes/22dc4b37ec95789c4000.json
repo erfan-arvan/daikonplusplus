@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid commit must have a specified instant time, which is typically required to identify the commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null && !writeStatuses.isEmpty()",
+    "rationale" : "Committing requires a list of write statuses indicating the results of write operations; it should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "Information about replaced file IDs by partition is usually involved in commit logic and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null && !commitActionType.isEmpty()",
+    "rationale" : "The commit action type string should be non-null and non-empty to correctly specify the type of commit action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The Option parameter wrapping extra metadata should not be null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  } ]
+}

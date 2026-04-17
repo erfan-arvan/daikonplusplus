@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Methods returning Option usually guarantee non-null return to represent absence/presence of value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for CleanPlanActionExecutor instantiation and must not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is passed directly and must be non-null Option.",
+    "meta" : [ ]
+  } ]
+}

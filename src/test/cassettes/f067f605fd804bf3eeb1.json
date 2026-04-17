@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method expects to operate on a WorkloadProfile; null would likely cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext is required for internal processing, and many subsequent operations would assume it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "The set of partition paths is obtained via profile.getPartitionPaths(), which is expected to be non-null for correct processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.getPartitionPaths().isEmpty()",
+    "rationale" : "Processing is loop-based over partition paths, so it is likely expected that the set is non-empty at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "The implementation calls hasOutputWorkLoadStats() prior to accessing getOutputPartitionPathStatMap(); this may indicate an equivalence or expectation that hasOutputWorkLoadStats() implies non-null stats map.",
+    "meta" : [ ]
+  } ]
+}

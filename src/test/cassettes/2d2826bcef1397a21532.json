@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter must be non-null to execute the delete operation.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string must be non-null as it is used as a timestamp identifier.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The keys list must be non-null because it's used to identify records to delete.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "The keys list size is always zero or more.",
+    "meta" : [ {
+      "key" : "size-nonnegative",
+      "value" : "true"
+    } ]
+  } ]
+}

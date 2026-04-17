@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method expects a list of records to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is typically required to identify the commit or operation instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A list's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(preppedRecords instanceof java.util.Set)",
+    "rationale" : "Signature specifies List, so preppedRecords shouldn't be a Set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "An empty instantTime is likely invalid for commit identification.",
+    "meta" : [ ]
+  } ]
+}

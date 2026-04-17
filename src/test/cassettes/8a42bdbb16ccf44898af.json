@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method immediately calls data.stream(), which would throw NullPointerException if data is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "consumer is passed to a wrapper and then applied to elements; must not be null for safe method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "parallelism parameter often represents the minimum number of threads or tasks, which should be at least 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof List",
+    "rationale" : "data is declared as List<I>, guaranteeing it is an instance of List.",
+    "meta" : [ ]
+  } ]
+}

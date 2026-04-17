@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is expected to be a valid, non-null HoodieMergeHandle object corresponding to the merge operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The method returns a HoodieMergeHandle, which should not be null at exit."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime must be a valid string for timing in the Hudi write lifecycle.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is a parameter representing the instant timestamp and should not be null."
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The partition path identifies the partition; it is required and should always be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPath is a parameter indicating the data partition and should not be null."
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "File ID is essential for identifying the target file and must be valid.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "fileId is a parameter identifying the file and should not be null."
+    } ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "Mapping keys to new records is required for the update handle creation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "keyToNewRecords is a parameter map and should not be null."
+    } ]
+  } ]
+}

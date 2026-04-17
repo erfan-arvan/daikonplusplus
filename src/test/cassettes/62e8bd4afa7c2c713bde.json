@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Configuration is typically required for table creation and should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "Storage configuration should be provided for table setup.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "A HoodieWriteConfig usually has a non-null base path, which is essential for a table operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "valid state"
+    } ]
+  }, {
+    "expression" : "config.getTableName() != null",
+    "rationale" : "Table name is a critical parameter in table creation and should be set in the configuration.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "valid state"
+    } ]
+  }, {
+    "expression" : "skipValidation || !skipValidation",
+    "rationale" : "'skipValidation' is a boolean parameter and will always be true or false.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "boolean domain"
+    } ]
+  } ]
+}

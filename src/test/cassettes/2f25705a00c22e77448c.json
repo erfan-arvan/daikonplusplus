@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The checkState guarantees result is not null before method returns.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "ensures result is not null due to checkState"
+    } ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "The checkState ensures the result list is not empty.",
+    "meta" : [ {
+      "key" : "emptiness-check",
+      "value" : "ensures result is not empty due to checkState"
+    } ]
+  }, {
+    "expression" : "result.size() > 0",
+    "rationale" : "If result is not empty, its size is greater than zero.",
+    "meta" : [ {
+      "key" : "size-check",
+      "value" : "alternative check for non-empty list"
+    } ]
+  } ]
+}

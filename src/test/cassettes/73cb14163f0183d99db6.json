@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "triggeringInstantTimestamp != null",
+    "rationale" : "The method wraps the parameter in Option.of(triggeringInstantTimestamp), so it is likely expected to be non-null in most use cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "The method passes failedWritesCleaningPolicy to another method without null checks, suggesting it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "streamingWrites == true || streamingWrites == false",
+    "rationale" : "streamingWrites is a boolean, so it must be either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "autoDetectAndDeleteMetadataPartitions == true || autoDetectAndDeleteMetadataPartitions == false",
+    "rationale" : "autoDetectAndDeleteMetadataPartitions is a boolean, thus must be true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!streamingWrites || autoDetectAndDeleteMetadataPartitions == autoDetectAndDeleteMetadataPartitions",
+    "rationale" : "This is always true but illustrates that streamingWrites and autoDetectAndDeleteMetadataPartitions are independent booleans; no clear relationship in the method context.",
+    "meta" : [ ]
+  } ]
+}

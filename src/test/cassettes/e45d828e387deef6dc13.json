@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null && context != null",
+    "rationale" : "The method entry point ensures the parameters are passed and should not be null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "Parameters are not null"
+    } ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "profile.getPartitionPaths() is used later, so it should not be null at method entry.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "Safe call on profile"
+    } ]
+  }, {
+    "expression" : "!profile.getPartitionPaths().isEmpty()",
+    "rationale" : "Upsert partitioner expects some partitions to process for inserts.",
+    "meta" : [ {
+      "key" : "nonEmpty",
+      "value" : "Assumed non-empty"
+    } ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "profile.hasOutputWorkLoadStats likely indicates if output partition stat map is present.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "Output workload stats consistency"
+    } ]
+  }, {
+    "expression" : "profile.getWorkloadStat(\"partition\") instanceof WorkloadStat",
+    "rationale" : "WorkloadStat must be a valid instance type for workload stats.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "WorkloadStat type sanity"
+    } ]
+  } ]
+}

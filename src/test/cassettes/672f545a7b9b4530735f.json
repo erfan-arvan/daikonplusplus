@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null Supplier instance.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.get() == -1",
+    "rationale" : "The returned Supplier always provides the integer -1.",
+    "meta" : [ {
+      "key" : "methodCall",
+      "value" : "Supplier.get()"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result should never be null; Option types are used to explicitly indicate presence or absence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The parameter 'instantTime' should be non-null as clustering happens at a specific instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method expects a valid HoodieEngineContext for computation; context should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Even if metadata is absent, the Option object representing it should not be null.",
+    "meta" : [ ]
+  } ]
+}

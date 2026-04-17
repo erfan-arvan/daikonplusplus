@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned result should be a non-null HoodieData instance.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The method returns a non-null HoodieData object wrapping the tagged records."
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input data set is likely non-null for the method to process.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Input records parameter is expected to be non-null when used."
+    } ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "The hoodieTable parameter is required and should not be null for indexing.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The HoodieTable instance must be non-null for indexing."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter should be non-null for the method to use.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Context environment is required for processing."
+    } ]
+  }, {
+    "expression" : "result.count() == records.count()",
+    "rationale" : "The operation maps records to tagged records without reducing or enlarging the dataset.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Resulting dataset should have same count of records (tagging location does not add or remove records)."
+    } ]
+  } ]
+}

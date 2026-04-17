@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A non-null context is required for operations to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime likely should be a valid, non-empty string for versioning or transactional integrity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords must be non-null to process deletions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || !preppedRecords.isEmpty()",
+    "rationale" : "If preppedRecords is provided, it should usually contain records to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || instantTime.trim().length() > 0",
+    "rationale" : "If instantTime is set, it should not be just whitespace.",
+    "meta" : [ ]
+  } ]
+}

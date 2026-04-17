@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should not be null because it is used as a key to retrieve from a map.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "To ensure safe map get operation"
+    } ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "String length is always non-negative.",
+    "meta" : [ {
+      "key" : "string_length",
+      "value" : "Partition path string length non-negative"
+    } ]
+  }, {
+    "expression" : "partitionPath.isEmpty() == false || partitionPath.isEmpty() == true",
+    "rationale" : "partitionPath is a valid String reference, so isEmpty returns true or false.",
+    "meta" : [ {
+      "key" : "string_state",
+      "value" : "partitionPath is a valid string"
+    } ]
+  }, {
+    "expression" : "partitionPath != \"\" || partitionPath.equals(\"\")",
+    "rationale" : "partitionPath is not null and either empty or non-empty string.",
+    "meta" : [ {
+      "key" : "string_state",
+      "value" : "partitionPath is a valid string"
+    } ]
+  }, {
+    "expression" : "partitionPath.getClass().getName().equals(\"java.lang.String\")",
+    "rationale" : "partitionPath is a String parameter.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "partitionPath is String type"
+    } ]
+  } ]
+}

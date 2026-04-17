@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && (!result.isPresent() || result.get() != null)",
+    "rationale" : "The result is an Option, which should not be null and if present, the contained HoodieCompactionPlan should not be null.",
+    "meta" : [ {
+      "key" : "nullSafe",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a String parameter expected to be non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullSafe",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is an Option object, expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullSafe",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is an input parameter expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullSafe",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.isPresent() == (result.get() != null)",
+    "rationale" : "Option's isPresent should be true if and only if get is not null.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "true"
+    } ]
+  } ]
+}

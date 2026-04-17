@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result.isPresent() == false || result.get() != null",
+    "rationale" : "If result is present, get() should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If result is present, get() should not return null."
+    } ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "partitionsToIndex should be non-null before returning.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method uses partitionsToIndex to schedule indexing, should not be null."
+    } ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "partitionPaths should be non-null before return.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "partitionPaths used to schedule indexing, expected non-null."
+    } ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "indexInstantTime should be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "indexInstantTime is passed to ScheduleIndexActionExecutor, likely non-null."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context should be non-null before return.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "context used to create ScheduleIndexActionExecutor, non-null expected."
+    } ]
+  } ]
+}

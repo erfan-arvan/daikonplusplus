@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a list instance, even if empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Return value is a List<WriteStatus> per method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!performDedupe || inputRecords != null",
+    "rationale" : "De-duplication is only performed if performDedupe is true, requiring inputRecords to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The size of any Java List is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "configuredParallelism >= 0",
+    "rationale" : "Parallelism is expected to be a non-negative integer as used for partitioning.",
+    "meta" : [ ]
+  } ]
+}

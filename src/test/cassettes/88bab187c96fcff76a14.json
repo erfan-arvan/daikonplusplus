@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "b <= 0 || a / b == a / b",
+    "rationale" : "Division by zero must be guarded; if b is zero, integer division is not performed in the method. This ensures a / b is only evaluated when safe.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true || b != 0",
+    "rationale" : "There are no constraints on parameters at entry; both a and b can take any int value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a == 0 || b != 0 || a / b == 0",
+    "rationale" : "If a is 0, a / b would be zero if b != 0; if b is zero, division is not performed.",
+    "meta" : [ ]
+  } ]
+}

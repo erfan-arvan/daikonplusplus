@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "table != null",
+    "rationale" : "The method operates on the table parameter, which should be non-null.",
+    "meta" : [ {
+      "key" : "null check",
+      "value" : "table is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is used in a method call, so it must be non-null.",
+    "meta" : [ {
+      "key" : "null check",
+      "value" : "pendingCompactionTimeline is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "operationType is checked in an equals call, so it must be non-null.",
+    "meta" : [ {
+      "key" : "null check",
+      "value" : "operationType is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to a method call that likely does not accept null.",
+    "meta" : [ {
+      "key" : "null check",
+      "value" : "instantTime is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "The method throws UnsupportedOperationException if operationType is LOG_COMPACT, so at method entry operationType cannot be LOG_COMPACT.",
+    "meta" : [ {
+      "key" : "method contract",
+      "value" : "Throws exception if operationType equals LOG_COMPACT."
+    } ]
+  } ]
+}

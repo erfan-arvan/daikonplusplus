@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null ",
+    "rationale" : "Since the method returns a constant string HoodieTimeline.REPLACE_COMMIT_ACTION, result cannot be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method returns a constant string, so result is not null"
+    } ]
+  }, {
+    "expression" : "result.equals(HoodieTimeline.REPLACE_COMMIT_ACTION)",
+    "rationale" : "The method always returns HoodieTimeline.REPLACE_COMMIT_ACTION, so result equals it.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method returns that constant"
+    } ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "Since result is a constant non-empty string, its length is greater than zero.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "result is a non-empty constant string"
+    } ]
+  }, {
+    "expression" : "result.startsWith(\"REPLACE_COMMIT\")",
+    "rationale" : "The constant string HoodieTimeline.REPLACE_COMMIT_ACTION starts with \"REPLACE_COMMIT\".",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Constant string prefix"
+    } ]
+  } ]
+}

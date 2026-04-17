@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A successful execution returns a HoodieWriteMetadata instance; null is unlikely barring bugs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The returned value must be a HoodieWriteMetadata object as declared by the method signature.",
+    "meta" : [ ]
+  } ]
+}

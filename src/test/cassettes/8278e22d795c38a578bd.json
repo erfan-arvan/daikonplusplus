@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method return type is HoodieTable, typically non-null when creation succeeds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipValidation || result != null",
+    "rationale" : "If validations are not skipped, a valid table is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The configuration passed to the method is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf == null || storageConf != null",
+    "rationale" : "No constraints on storageConf at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieTable",
+    "rationale" : "The result is of type HoodieTable as per method signature.",
+    "meta" : [ ]
+  } ]
+}

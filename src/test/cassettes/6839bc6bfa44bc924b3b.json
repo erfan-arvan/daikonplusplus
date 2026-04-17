@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null || result == -1",
+    "rationale" : "If name is null, the function always returns -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null || x == x",
+    "rationale" : "When name is null, the only thing guaranteed about parameters is that they are unchanged.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || result == x + name.length()",
+    "rationale" : "If name is not null, result is always x plus name.length().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= -1",
+    "rationale" : "The minimal possible result is -1 (when name==null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || result >= x",
+    "rationale" : "If name is not null, name.length() is at least 0, so result >= x.",
+    "meta" : [ ]
+  } ]
+}

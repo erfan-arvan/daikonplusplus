@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically required to be positive for meaningful parallel computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Many methods processing a collection require that the argument is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size()",
+    "rationale" : "A common practice is not to create more parallel jobs than there are data elements to process.",
+    "meta" : [ ]
+  } ]
+}

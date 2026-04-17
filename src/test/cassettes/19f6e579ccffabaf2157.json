@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null || columnsToIndex == null",
+    "rationale" : "At method entry, the parameter could be either null or non-null, so this trivially holds.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "columnsToIndex could be null or non-null but safe to reference"
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.size() >= 0",
+    "rationale" : "List.size() returns a non-negative integer.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "When columnsToIndex is non-null, size is non-negative"
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || !columnsToIndex.isEmpty() || columnsToIndex.isEmpty()",
+    "rationale" : "For any list, it is either empty or not empty.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "isEmpty covers both empty and non-empty list states"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "The trivial invariant that is always true.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "Always true baseline"
+    } ]
+  } ]
+}

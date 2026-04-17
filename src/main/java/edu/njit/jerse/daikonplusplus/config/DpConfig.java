@@ -1,8 +1,11 @@
 package edu.njit.jerse.daikonplusplus.config;
 
+import edu.njit.jerse.daikonplusplus.parse.context.ContextKind;
 import java.nio.file.Path;
+import java.util.EnumSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -17,6 +20,28 @@ public final class DpConfig {
   private final boolean debug;
   private final boolean keepWork;
 
+  private final @Nullable Set<ContextKind> enabledContexts;
+
+  private DpConfig(
+      int threads,
+      Path registryPath,
+      Path outcomesPath,
+      boolean includeBody,
+      boolean registryReset,
+      boolean debug,
+      boolean keepWork,
+      @Nullable Set<ContextKind> enabledContexts) {
+
+    this.threads = threads;
+    this.registryPath = registryPath;
+    this.outcomesPath = outcomesPath;
+    this.includeBody = includeBody;
+    this.registryReset = registryReset;
+    this.debug = debug;
+    this.keepWork = keepWork;
+    this.enabledContexts = enabledContexts;
+  }
+
   private DpConfig(
       int threads,
       Path registryPath,
@@ -25,13 +50,8 @@ public final class DpConfig {
       boolean registryReset,
       boolean debug,
       boolean keepWork) {
-    this.threads = threads;
-    this.registryPath = registryPath;
-    this.outcomesPath = outcomesPath;
-    this.includeBody = includeBody;
-    this.registryReset = registryReset;
-    this.debug = debug;
-    this.keepWork = keepWork;
+
+    this(threads, registryPath, outcomesPath, includeBody, registryReset, debug, keepWork, null);
   }
 
   /** number of worker threads for parallel processing. */
@@ -104,7 +124,9 @@ public final class DpConfig {
     boolean debug = getBool2("dp.debug", "DP_DEBUG", /*def*/ true, env);
     boolean keepWork = getBool2("dp.keepWork", "DP_KEEP_WORK", /*def*/ true, env);
 
-    return new DpConfig(threads, reg, out, includeBody, registryReset, debug, keepWork);
+    Set<ContextKind> contexts = parseContextKinds(env);
+
+    return new DpConfig(threads, reg, out, includeBody, registryReset, debug, keepWork, contexts);
   }
 
   // ---- helpers ----
@@ -146,5 +168,32 @@ public final class DpConfig {
     if (a != null && !a.isBlank()) return a;
     if (b != null && !b.isBlank()) return b;
     return c;
+  }
+
+  private static @Nullable Set<ContextKind> parseContextKinds(Map<String, String> env) {
+    String v = System.getProperty("dp.contexts");
+    if (v == null) v = env.get("DP_CONTEXTS");
+
+    if (v == null || v.isBlank()) {
+      return null;
+    }
+
+    Set<ContextKind> set = EnumSet.noneOf(ContextKind.class);
+
+    for (String s : v.split(",")) {
+      try {
+        set.add(ContextKind.valueOf(s.trim().toUpperCase()));
+      } catch (IllegalArgumentException ignored) {
+      }
+    }
+
+    return set;
+  }
+
+  public Set<ContextKind> enabledContextsOrDefault() {
+    if (enabledContexts == null || enabledContexts.isEmpty()) {
+      return EnumSet.of(ContextKind.METHOD_BODY, ContextKind.SCOPE);
+    }
+    return enabledContexts;
   }
 }

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "insert operations are typically performed against a non-null commit instant time",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "inserting records requires that the list of records is not null",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "a valid HoodieEngineContext is required for performing engine actions",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "if the records list is empty, its size is zero or greater (basic property of lists)",
+    "meta" : [ ]
+  } ]
+}

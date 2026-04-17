@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter should be a non-null string since it is used to create a new instant.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime must be valid to create the new instant"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "An empty string would not be a valid instant time, so likely it must be non-empty.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime should not be empty to represent a meaningful instant"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The method creates metaClient at the start and uses it, so it should be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "metaClient is created inside the method and should not be null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config should be non-null to avoid null pointer exceptions.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "config is used to check multiWrite configuration"
+    } ]
+  }, {
+    "expression" : "!instantTime.contains(\" \")",
+    "rationale" : "Instant time usually is timestamp string and should not contain spaces.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime should not contain spaces to be a valid timestamp"
+    } ]
+  } ]
+}

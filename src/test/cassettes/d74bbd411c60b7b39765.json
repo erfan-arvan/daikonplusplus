@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "data must be non-null to safely invoke HoodieListData.eager(data)",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "data is not null since it is used directly in method call"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "parallelism is expected to be positive to indicate number of threads or partitions",
+    "meta" : [ {
+      "key" : "positive",
+      "value" : "parallelism should be positive for meaningful parallelization"
+    } ]
+  }, {
+    "expression" : "data instanceof List",
+    "rationale" : "data is declared as List<T>",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "data is expected to be a List of T"
+    } ]
+  }, {
+    "expression" : "parallelism <= Integer.MAX_VALUE",
+    "rationale" : "parallelism being an int should be within valid integer range",
+    "meta" : [ {
+      "key" : "upper-bound",
+      "value" : "parallelism fits within int bounds"
+    } ]
+  }, {
+    "expression" : "!data.isEmpty() || data.isEmpty()",
+    "rationale" : "No further constraints can be inferred about data emptiness",
+    "meta" : [ {
+      "key" : "tautology",
+      "value" : "placeholder for non-redundant expression"
+    } ]
+  } ]
+}

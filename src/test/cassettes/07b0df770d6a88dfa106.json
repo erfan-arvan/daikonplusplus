@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "(name == null) || (name.length() >= 0)",
+    "rationale" : "String length is always nonnegative; guarded for null safety.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "string_length_nonnegative"
+    } ]
+  }, {
+    "expression" : "(name == null) || (name.lastIndexOf(\"\") == name.length())",
+    "rationale" : "For any non-null String, lastIndexOf(\"\") equals its length.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "jdk_spec_lastIndexOf_empty"
+    } ]
+  }, {
+    "expression" : "(name == null) || (name.toCharArray().length == name.length())",
+    "rationale" : "The char array has the same number of UTF-16 code units as String.length().",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "string_toCharArray_length"
+    } ]
+  }, {
+    "expression" : "(name == null) || (name.codePointCount(0, name.length()) <= name.length())",
+    "rationale" : "Code point count over full range is at most the number of UTF-16 code units.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "codepoint_count_leq_length"
+    } ]
+  }, {
+    "expression" : "(name == null) || (name.isEmpty() == (name.length() == 0))",
+    "rationale" : "String.isEmpty() is defined as length() == 0.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "isEmpty_definition"
+    } ]
+  } ]
+}
