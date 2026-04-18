@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "keys should not be null as the method operates on this list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Instant time is typically required and non-empty for versioned operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.isEmpty() || keys.size() >= 0",
+    "rationale" : "If keys is not empty, its size is non-negative, which always holds for Java lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.trim().isEmpty()",
+    "rationale" : "Instant time, if not null, should not be blank after trimming (common requirement for timestamp/version strings).",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys == null || keys.size() >= 0",
+    "rationale" : "If keys is provided, its size is always non-negative for Java lists.",
+    "meta" : [ ]
+  } ]
+}

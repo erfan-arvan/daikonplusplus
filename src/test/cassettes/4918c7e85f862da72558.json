@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Ensures that the required context parameter is provided and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter should not be null, as it represents a timestamp or version string important for operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter should be a non-empty string to represent a meaningful point-in-time for rollback operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "The method is an instance method, so 'this' should always be non-null when the method is called.",
+    "meta" : [ ]
+  } ]
+}

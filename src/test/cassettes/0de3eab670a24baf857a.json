@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is likely intended to be a valid list of records for writing; null input may not be permitted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null execution context is typically required to perform the write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "A valid table reference is necessary to apply the write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Method calls on config are made immediately in the body, so config must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "An operation type is required to define the semantics of the write; null would likely cause errors or unpredictable behavior.",
+    "meta" : [ ]
+  } ]
+}

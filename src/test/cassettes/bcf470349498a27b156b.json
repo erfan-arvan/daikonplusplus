@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a non-null context for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime (non-null) should be provided for scheduling clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is an Option type, which should not be null; null would represent a misused Option.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(extraMetadata.isPresent()) || extraMetadata.get() != null",
+    "rationale" : "If extraMetadata is present, the underlying map must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is expected to be a non-empty string, as it uniquely identifies clustering instants.",
+    "meta" : [ ]
+  } ]
+}

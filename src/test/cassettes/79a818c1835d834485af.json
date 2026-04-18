@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The inputRecords parameter should not be null to allow processing via stream operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Each HoodieRecord in inputRecords should be non-null to prevent NullPointerExceptions in downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "By definition, a List's size() cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(r -> r.getPartitionPath() != null)",
+    "rationale" : "Partition paths are expected to be non-null since they are used as map keys during the profile construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(r -> r.getCurrentLocation() == null || r.getCurrentLocation() instanceof HoodieRecordLocation)",
+    "rationale" : "currentLocation is either null or a HoodieRecordLocation, as per HoodieRecord semantics.",
+    "meta" : [ ]
+  } ]
+}

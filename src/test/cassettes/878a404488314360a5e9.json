@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Data list should not be null as it is about to be streamed over.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "SerializableConsumer is required for element processing and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism degree should be a positive integer in distributed processing contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || data.size() == 0",
+    "rationale" : "This captures the exhaustive possibility for an empty data list, which can aid static reasoning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size() || data.isEmpty()",
+    "rationale" : "Parallelism greater than data size may only be meaningful if data is empty.",
+    "meta" : [ ]
+  } ]
+}

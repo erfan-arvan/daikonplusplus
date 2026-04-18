@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Validates that the input record list is not null, which is important for operations within the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "The number of output partitions is required to be positive for repartitioning tasks to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "Ensures that if records is not empty, its size is positive, which is a property of non-empty lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "When the record list is empty, any output partition count is allowed; otherwise, outputPartitions should not exceed the number of records.",
+    "meta" : [ ]
+  } ]
+}

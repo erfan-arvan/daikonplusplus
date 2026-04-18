@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a newly constructed TableWriteStats object, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats().size() == writeMetadata.getWriteStatuses().size()",
+    "rationale" : "The result's stats are built from mapping each WriteStatus in writeMetadata to its stat, preserving size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats().stream().allMatch(stat -> stat != null)",
+    "rationale" : "The method collects non-null stats from each WriteStatus in writeMetadata, so all elements should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "The method assumes writeMetadata contains only non-null WriteStatus objects for mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats().containsAll(writeMetadata.getWriteStatuses().stream().map(ws -> ws.getStat()).collect(java.util.stream.Collectors.toList()))",
+    "rationale" : "All stats from WriteStatus are directly collected and put into result's stats list.",
+    "meta" : [ ]
+  } ]
+}

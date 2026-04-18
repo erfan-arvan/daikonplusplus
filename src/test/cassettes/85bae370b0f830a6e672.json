@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "numOutputGroups is used for parallelism and bulk insert partitioning; most algorithms expect a positive number of output groups.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null && !inputRecords.isEmpty()",
+    "rationale" : "Clustering typically requires at least one record; an empty input may not trigger clustering actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupIdList != null && fileGroupIdList.size() >= numOutputGroups",
+    "rationale" : "There must be at least as many file groups as output groups for assignment; this ensures a feasible clustering layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "A schema is necessary for writing records during clustering; null schema would cause failures.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "Strategy parameters are used to customize clustering; presence of a map is assumed.",
+    "meta" : [ ]
+  } ]
+}

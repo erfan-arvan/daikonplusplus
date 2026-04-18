@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method expects a non-null clustering group to perform clustering operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "A non-null strategyParams map is required for determining clustering behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used for fetching records and should not be null for proper functioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime should not be an empty string as it identifies the clustering instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.isEmpty() || !strategyParams.isEmpty()",
+    "rationale" : "The method should handle empty and non-empty strategyParams maps; this is just to indicate both cases are possible.",
+    "meta" : [ ]
+  } ]
+}

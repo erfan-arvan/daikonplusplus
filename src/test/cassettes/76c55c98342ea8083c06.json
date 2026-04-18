@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is required for the upsert operation in most data-parallel APIs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime generally represents a commit or operation instant, and should be non-null and non-empty for a valid mutation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records must be non-null to perform an upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "If records is not null, it is likely expected to contain at least one element for an upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || instantTime.trim().length() > 0",
+    "rationale" : "If instantTime is not null, it should be non-blank to represent a meaningful instant.",
+    "meta" : [ ]
+  } ]
+}

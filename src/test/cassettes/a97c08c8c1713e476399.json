@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context should not be null for a table operation involving an engine context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "compactionInstantTime represents an instant and should be set for a compaction operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!compactionInstantTime.isEmpty()",
+    "rationale" : "compactionInstantTime is expected to be a non-empty timestamp string representing the compaction instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime.trim().length() > 0",
+    "rationale" : "compactionInstantTime should be a non-blank string after trimming whitespace.",
+    "meta" : [ ]
+  } ]
+}

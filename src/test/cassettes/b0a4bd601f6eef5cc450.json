@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of JavaHoodieIndexFactory.createIndex, expected to return a non-null HoodieIndex.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "The method is called with a non-null writeConfig parameter, as it is required for index creation.",
+    "meta" : [ ]
+  } ]
+}

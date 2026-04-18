@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns an object of type HoodieWriteMetadata; unless exceptional cases, a successful cluster operation should not return null metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "The clusteringInstantTime parameter is used in the commit action executor and is likely required to be non-null at method entry and exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Ensures that the result conforms to the method's declared return type and provides postcondition type safety.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null context is expected as it is required for execution of clustering actions by the commit action executor.",
+    "meta" : [ ]
+  } ]
+}

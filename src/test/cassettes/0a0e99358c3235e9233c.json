@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Typically, the input list of records for a bulk insert should not be null to proceed with the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An instantTime string representing the timeline instant should be non-null and non-empty for a meaningful commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The HoodieTable instance is essential for performing the bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The HoodieWriteConfig is required to control write behaviors and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "A valid BaseCommitActionExecutor is required for updating index and possibly running validations.",
+    "meta" : [ ]
+  } ]
+}

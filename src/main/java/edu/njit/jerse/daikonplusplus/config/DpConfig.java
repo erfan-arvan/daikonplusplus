@@ -9,18 +9,47 @@ import java.util.Set;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-/** Central configuration for Daikon++. Immutable; props override env, env overrides defaults. */
+/**
+ * Central configuration for Daikon++.
+ *
+ * <p>This class is immutable and resolves configuration values using the following precedence:
+ *
+ * <pre>
+ *   dpconfig.properties (file)
+ *     → System properties (-Ddp.xxx)
+ *     → Environment variables (DP_XXX)
+ *     → Built-in defaults
+ * </pre>
+ *
+ * <p>This preserves backward compatibility while allowing users to define a configuration file
+ * without modifying application code.
+ */
 public final class DpConfig {
+
+  // ---- core ----
   private final int threads;
   private final Path registryPath;
   private final Path outcomesPath;
 
+  // ---- feature flags ----
   private final boolean includeBody;
   private final boolean registryReset;
   private final boolean debug;
   private final boolean keepWork;
+  private final boolean noQualityFilter;
 
-  private final @Nullable Set<ContextKind> enabledContexts;
+  // ---- LLM / limits ----
+  private final int llmTotalTimeoutSec;
+  private final int llmPerReqTimeoutSec;
+  private final int bodyMaxChars;
+
+  // ---- LLM ----
+  private final String openaiModel;
+  private final @Nullable String llmCassettesDir;
+  private final boolean disableRealLlm;
+
+  // ---- context selection ----
+  private final Set<ContextKind> enabledContexts;
 
   private DpConfig(
       int threads,
@@ -30,7 +59,14 @@ public final class DpConfig {
       boolean registryReset,
       boolean debug,
       boolean keepWork,
-      @Nullable Set<ContextKind> enabledContexts) {
+      boolean noQualityFilter,
+      int llmTotalTimeoutSec,
+      int llmPerReqTimeoutSec,
+      int bodyMaxChars,
+      Set<ContextKind> enabledContexts,
+      String openaiModel,
+      @Nullable String llmCassettesDir,
+      boolean disableRealLlm) {
 
     this.threads = threads;
     this.registryPath = registryPath;
@@ -39,103 +75,184 @@ public final class DpConfig {
     this.registryReset = registryReset;
     this.debug = debug;
     this.keepWork = keepWork;
+    this.noQualityFilter = noQualityFilter;
+    this.llmTotalTimeoutSec = llmTotalTimeoutSec;
+    this.llmPerReqTimeoutSec = llmPerReqTimeoutSec;
+    this.bodyMaxChars = bodyMaxChars;
     this.enabledContexts = enabledContexts;
+    this.openaiModel = openaiModel;
+    this.llmCassettesDir = llmCassettesDir;
+    this.disableRealLlm = disableRealLlm;
   }
 
-  private DpConfig(
-      int threads,
-      Path registryPath,
-      Path outcomesPath,
-      boolean includeBody,
-      boolean registryReset,
-      boolean debug,
-      boolean keepWork) {
+  // ---- getters ----
 
-    this(threads, registryPath, outcomesPath, includeBody, registryReset, debug, keepWork, null);
-  }
-
-  /** number of worker threads for parallel processing. */
   public int threads() {
     return threads;
   }
 
-  /** path to the JSONL registry */
   public Path registryPath() {
     return registryPath;
   }
 
-  /** path to the JSONL outcomes (compiled/executed/verdict) */
   public Path outcomesPath() {
     return outcomesPath;
   }
 
-  /** whether to include full method bodies in LLM prompts */
   public boolean includeBody() {
     return includeBody;
   }
 
-  /** whether to clear the registry file at startup */
   public boolean registryReset() {
     return registryReset;
   }
 
-  /** verbose logging. */
   public boolean debug() {
     return debug;
   }
 
-  /** keep the working copy directory after the run */
   public boolean keepWork() {
     return keepWork;
   }
 
-  /** Convenience factory reading sane defaults from properties/env. */
+  public boolean noQualityFilter() {
+    return noQualityFilter;
+  }
+
+  public int llmTotalTimeoutSec() {
+    return llmTotalTimeoutSec;
+  }
+
+  public int llmPerReqTimeoutSec() {
+    return llmPerReqTimeoutSec;
+  }
+
+  public int bodyMaxChars() {
+    return bodyMaxChars;
+  }
+
+  public Set<ContextKind> enabledContexts() {
+    return enabledContexts;
+  }
+
+  public String openaiModel() {
+    return openaiModel;
+  }
+
+  public @Nullable String llmCassettesDir() {
+    return llmCassettesDir;
+  }
+
+  public boolean disableRealLlm() {
+    return disableRealLlm;
+  }
+
+  // ---- factory ----
+
+  /**
+   * Constructs a configuration instance using file, system properties, environment variables, and
+   * defaults (in that order of precedence).
+   */
   public static DpConfig fromEnv() {
+    Map<String, String> file = loadConfigFile();
     Map<String, String> env = System.getenv();
 
     int threads =
         Math.max(
             2,
-            getInt2(
-                "dp.threads",
-                "DP_THREADS",
-                /* def= */ Runtime.getRuntime().availableProcessors(),
-                env));
+            getInt(
+                "dp.threads", "DP_THREADS", Runtime.getRuntime().availableProcessors(), env, file));
 
-    // -Ddp.registry=/path/file.jsonl OR DP_REGISTRY=/path/file.jsonl
-    String regChosen =
+    String regPath =
         firstNonBlank(
-            System.getProperty("dp.registry"),
-            env.get("DP_REGISTRY"),
+            file.get("dp.registry"),
+            firstNonBlank(
+                System.getProperty("dp.registry"),
+                env.get("DP_REGISTRY"),
+                "build/daikonpp_registry.jsonl"),
             "build/daikonpp_registry.jsonl");
-    Path reg = Path.of(regChosen).toAbsolutePath().normalize();
 
-    // -Ddp.outcomes=/path/file.jsonl OR DP_OUTCOMES=/path/file.jsonl
-    String outChosen =
+    String outPath =
         firstNonBlank(
-            System.getProperty("dp.outcomes"),
-            env.get("DP_OUTCOMES"),
+            file.get("dp.outcomes"),
+            firstNonBlank(
+                System.getProperty("dp.outcomes"),
+                env.get("DP_OUTCOMES"),
+                "build/daikonpp_outcomes.jsonl"),
             "build/daikonpp_outcomes.jsonl");
-    Path out = Path.of(outChosen).toAbsolutePath().normalize();
 
-    // feature flags (props override env). Support both dp.flag and DP_FLAG.
-    boolean includeBody = getBool2("dp.includeBody", "DP_INCLUDE_BODY", /*def*/ true, env);
-    boolean registryReset = getBool2("dp.registryReset", "DP_REGISTRY_RESET", /*def*/ true, env);
-    boolean debug = getBool2("dp.debug", "DP_DEBUG", /*def*/ true, env);
-    boolean keepWork = getBool2("dp.keepWork", "DP_KEEP_WORK", /*def*/ true, env);
+    boolean includeBody = getBool("dp.includeBody", "DP_INCLUDE_BODY", true, env, file);
+    boolean registryReset = getBool("dp.registryReset", "DP_REGISTRY_RESET", true, env, file);
+    boolean debug = getBool("dp.debug", "DP_DEBUG", true, env, file);
+    boolean keepWork = getBool("dp.keepWork", "DP_KEEP_WORK", true, env, file);
+    boolean noQualityFilter =
+        getBool("dp.noQualityFilter", "DP_NO_QUALITY_FILTER", false, env, file);
 
-    Set<ContextKind> contexts = parseContextKinds(env);
+    int llmTotalTimeoutSec =
+        getInt("dp.llmTotalTimeoutSec", "DP_LLM_TOTAL_TIMEOUT_SEC", 180, env, file);
 
-    return new DpConfig(threads, reg, out, includeBody, registryReset, debug, keepWork, contexts);
+    int llmPerReqTimeoutSec =
+        getInt("dp.llmPerReqTimeoutSec", "DP_LLM_REQ_TIMEOUT_SEC", 45, env, file);
+
+    int bodyMaxChars = getInt("dp.bodyMaxChars", "DP_BODY_MAX_CHARS", 2000, env, file);
+
+    Set<ContextKind> contexts = parseContexts(env, file);
+
+    String openaiModel =
+        firstNonBlank(
+            file.get("dp.openaiModel"),
+            firstNonBlank(
+                System.getProperty("dp.openaiModel"), env.get("DP_OPENAI_MODEL"), "gpt-4.1-mini"),
+            "gpt-4.1-mini");
+
+    String llmCassettesDir = file.get("dp.llmCassettes");
+
+    if (llmCassettesDir == null || llmCassettesDir.isBlank()) {
+      llmCassettesDir = System.getProperty("dp.llmCassettes");
+    }
+
+    if (llmCassettesDir == null || llmCassettesDir.isBlank()) {
+      llmCassettesDir = env.get("DP_LLM_CASSETTES");
+    }
+
+    if (llmCassettesDir != null && llmCassettesDir.isBlank()) {
+      llmCassettesDir = null;
+    }
+
+    boolean disableRealLlm = getBool("dp.disableRealLlm", "DP_DISABLE_REAL_LLM", false, env, file);
+
+    return new DpConfig(
+        threads,
+        Path.of(regPath).toAbsolutePath().normalize(),
+        Path.of(outPath).toAbsolutePath().normalize(),
+        includeBody,
+        registryReset,
+        debug,
+        keepWork,
+        noQualityFilter,
+        llmTotalTimeoutSec,
+        llmPerReqTimeoutSec,
+        bodyMaxChars,
+        contexts,
+        openaiModel,
+        llmCassettesDir,
+        disableRealLlm);
   }
 
   // ---- helpers ----
 
-  private static boolean getBool2(
-      String sysKey, String envKey, boolean def, Map<String, String> env) {
-    String v = System.getProperty(sysKey);
+  private static boolean getBool(
+      String sysKey,
+      String envKey,
+      boolean def,
+      Map<String, String> env,
+      Map<String, String> file) {
+
+    String v = file.get(sysKey);
+    if (v == null) v = System.getProperty(sysKey);
     if (v == null) v = env.get(envKey);
     if (v == null) return def;
+
     switch (v.trim().toLowerCase(Locale.ROOT)) {
       case "1":
       case "true":
@@ -152,13 +269,17 @@ public final class DpConfig {
     }
   }
 
-  private static int getInt2(String sysKey, String envKey, int def, Map<String, String> env) {
-    String v = System.getProperty(sysKey);
+  private static int getInt(
+      String sysKey, String envKey, int def, Map<String, String> env, Map<String, String> file) {
+
+    String v = file.get(sysKey);
+    if (v == null) v = System.getProperty(sysKey);
     if (v == null) v = env.get(envKey);
     if (v == null || v.isBlank()) return def;
+
     try {
       return Integer.parseInt(v.trim());
-    } catch (NumberFormatException nfe) {
+    } catch (NumberFormatException e) {
       return def;
     }
   }
@@ -170,15 +291,26 @@ public final class DpConfig {
     return c;
   }
 
-  private static @Nullable Set<ContextKind> parseContextKinds(Map<String, String> env) {
-    String v = System.getProperty("dp.contexts");
+  /**
+   * Parses context configuration.
+   *
+   * <p>Default: all contexts enabled.
+   *
+   * <p>If overridden: only specified contexts are enabled.
+   */
+  private static Set<ContextKind> parseContexts(Map<String, String> env, Map<String, String> file) {
+
+    EnumSet<ContextKind> defaults = EnumSet.allOf(ContextKind.class);
+
+    String v = file.get("dp.contexts");
+    if (v == null) v = System.getProperty("dp.contexts");
     if (v == null) v = env.get("DP_CONTEXTS");
 
     if (v == null || v.isBlank()) {
-      return null;
+      return defaults;
     }
 
-    Set<ContextKind> set = EnumSet.noneOf(ContextKind.class);
+    EnumSet<ContextKind> set = EnumSet.noneOf(ContextKind.class);
 
     for (String s : v.split(",")) {
       try {
@@ -187,13 +319,61 @@ public final class DpConfig {
       }
     }
 
-    return set;
+    return set.isEmpty() ? defaults : set;
   }
 
-  public Set<ContextKind> enabledContextsOrDefault() {
-    if (enabledContexts == null || enabledContexts.isEmpty()) {
-      return EnumSet.of(ContextKind.METHOD_BODY, ContextKind.SCOPE);
+  /**
+   * Loads configuration from {@code dpconfig.properties} if present.
+   *
+   * <p>This file is optional. Missing or invalid files are silently ignored.
+   */
+  private static Map<String, String> loadConfigFile() {
+    java.util.Map<String, String> map = new java.util.HashMap<>();
+
+    java.nio.file.Path path = java.nio.file.Path.of("dpconfig.properties");
+
+    if (!java.nio.file.Files.exists(path)) {
+      return map;
     }
-    return enabledContexts;
+
+    java.util.Properties props = new java.util.Properties();
+    try (java.io.InputStream in = java.nio.file.Files.newInputStream(path)) {
+      props.load(in);
+      for (String name : props.stringPropertyNames()) {
+        String value = props.getProperty(name);
+        if (value != null) {
+          map.put(name, value);
+        }
+      }
+    } catch (Exception ignored) {
+    }
+
+    return map;
+  }
+
+  public void printSummary() {
+    System.out.println("==== Daikon++ Config ====");
+
+    System.out.println("threads = " + threads);
+    System.out.println("registryPath = " + registryPath);
+    System.out.println("outcomesPath = " + outcomesPath);
+
+    System.out.println("includeBody = " + includeBody);
+    System.out.println("registryReset = " + registryReset);
+    System.out.println("debug = " + debug);
+    System.out.println("keepWork = " + keepWork);
+    System.out.println("noQualityFilter = " + noQualityFilter);
+
+    System.out.println("llmTotalTimeoutSec = " + llmTotalTimeoutSec);
+    System.out.println("llmPerReqTimeoutSec = " + llmPerReqTimeoutSec);
+    System.out.println("bodyMaxChars = " + bodyMaxChars);
+
+    System.out.println("enabledContexts = " + enabledContexts);
+
+    System.out.println("openaiModel = " + openaiModel);
+    System.out.println("llmCassettesDir = " + llmCassettesDir);
+    System.out.println("disableRealLlm = " + disableRealLlm);
+
+    System.out.println("=========================");
   }
 }

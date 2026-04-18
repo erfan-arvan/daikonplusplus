@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "JavaHoodieIndexFactory.createIndex should return a HoodieIndex instance, not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(JavaHoodieIndexFactory.createIndex(config))",
+    "rationale" : "The result is directly returned from JavaHoodieIndexFactory.createIndex with the given config.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is directly passed to createIndex and must be non-null for correct function.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is provided as a parameter but not used, it's likely expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

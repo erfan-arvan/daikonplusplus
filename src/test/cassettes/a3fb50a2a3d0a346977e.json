@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of getCommitActionType(), which should not return null as it represents a commit action type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "Commit action types should have a non-empty String, assuming the implementation does not return empty strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(result.trim())",
+    "rationale" : "Commit action type strings are likely to have no leading or trailing whitespace.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(result.toUpperCase())",
+    "rationale" : "Commit action types are often represented in uppercase, so this invariant ensures the returned action type follows that convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "A valid commit action type should have a positive length.",
+    "meta" : [ ]
+  } ]
+}

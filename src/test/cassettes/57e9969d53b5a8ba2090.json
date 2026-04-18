@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders == null || orders.isEmpty() || result > 0.0",
+    "rationale" : "If orders is null or empty, result is 0.0; otherwise, total is accumulated over one or more orders, so result must be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders.isEmpty() || result >= computePrice(orders.get(0))",
+    "rationale" : "When orders is non-null and non-empty, result is the sum of prices (some may have discount applied), so the total is at least as much as the smallest possible price for one order, assuming discounts do not result in negative prices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders.isEmpty() || result >= 0.0",
+    "rationale" : "The computed total price cannot be negative because only non-negative doubles are summed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders.isEmpty() || result <= orders.size() * Math.max(computePrice(orders.get(0)), 0.0)",
+    "rationale" : "In the worst case, every order contributes at most its initial price, so the total is bounded above by size * max single price.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders.isEmpty() || result <= orders.size() * applyDiscount(computePrice(orders.get(0)))",
+    "rationale" : "If every order is eligible for discount, this is a lower bound for the maximum discount applied to all orders.",
+    "meta" : [ ]
+  } ]
+}

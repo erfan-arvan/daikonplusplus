@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "A savepoint operation typically requires a non-null instant to identify the point being saved.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "Identifying the user performing the savepoint is likely required for auditing or metadata purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext is required for performing engine-based actions, so it is likely never null when invoking this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint.trim().length() > 0",
+    "rationale" : "The instant to savepoint should be a non-empty string after trimming; otherwise, the operation may not make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user.trim().length() > 0",
+    "rationale" : "The user string should be non-empty after trimming to meaningfully identify a user.",
+    "meta" : [ ]
+  } ]
+}

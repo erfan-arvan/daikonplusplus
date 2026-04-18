@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "insert operations are usually associated with a non-null commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should be provided to determine the partition for insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is needed to identify the target file for insertion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "A non-null recordMap is required for inserts to carry records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordMap.isEmpty()",
+    "rationale" : "Insert operations typically process at least one record, so recordMap should not be empty.",
+    "meta" : [ ]
+  } ]
+}

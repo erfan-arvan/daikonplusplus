@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method compact always returns the result of convertMetadata, which should be non-null for a successful compaction operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "compactionInstantTime is passed through to the compaction executor and is likely required to not be null for correct compaction behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used to construct the compaction executor, so it must not be null at method exit.",
+    "meta" : [ ]
+  } ]
+}

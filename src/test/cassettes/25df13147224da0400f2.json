@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method requires 'profile' to perform partition and workload logic; it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method makes use of 'context' for workload operations, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "Partition paths obtained from 'profile' are iterated in the method, so should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths().isEmpty() || profile.getPartitionPaths().size() >= 0",
+    "rationale" : "The set of partition paths is never negative in size (though this is trivial, it's more structural than tautological, as set size cannot be negative in Java).",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "If workload stats are available, their map should also be non-null.",
+    "meta" : [ ]
+  } ]
+}

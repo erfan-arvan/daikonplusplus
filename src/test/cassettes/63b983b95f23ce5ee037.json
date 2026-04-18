@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null list, as 'Collectors.toList()' never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(fileId -> fileId != null)",
+    "rationale" : "File IDs in the list are built from FileSlice.getFileId(), which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The method collects only distinct file IDs to the result list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || table.getSliceView().getLatestFileSlices(partitionPath).findAny().isEmpty()",
+    "rationale" : "If result is empty, it means there were no file slices in the slice view for the partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(table.getSliceView().getLatestFileSlices(partitionPath).map(fg -> fg.getFileId()).distinct().collect(java.util.stream.Collectors.toList()))",
+    "rationale" : "The result list exactly equals the stream pipeline applied in the method body.",
+    "meta" : [ ]
+  } ]
+}

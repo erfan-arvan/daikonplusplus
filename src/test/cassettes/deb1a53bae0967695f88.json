@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collectors.toList() never returns null; the result is a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> id != null)",
+    "rationale" : "Each 'id' in result is derived from smallFile.location.getFileId(), which should produce non-null file ids for valid SmallFile entries.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == smallFiles.size()",
+    "rationale" : "Each smallFile in smallFiles maps to exactly one file id in result; the mapping is one-to-one.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() <= result.size()",
+    "rationale" : "The number of distinct elements cannot exceed the total number of elements; ensures uniqueness bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().noneMatch(String::isEmpty)",
+    "rationale" : "File IDs are expected to be non-empty strings; isEmpty would indicate a problematic file id.",
+    "meta" : [ ]
+  } ]
+}

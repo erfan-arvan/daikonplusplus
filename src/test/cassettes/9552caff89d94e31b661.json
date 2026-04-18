@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "Typically, rollbackInstantTime identifies the instant to be rolled back and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A rollback operation generally requires a valid commitInstant to specify what is being rolled back.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is required for execution of engine tasks associated with rollback, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!deleteInstants || commitInstant != null",
+    "rationale" : "If deleteInstants is true, a valid commitInstant is likely necessary to indicate which instant to delete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "rollbackInstantTime is likely a timestamp or identifier and should not be an empty string.",
+    "meta" : [ ]
+  } ]
+}

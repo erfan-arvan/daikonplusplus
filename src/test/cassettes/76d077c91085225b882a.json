@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of HoodieJavaTable.create, which should never be null under normal configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The config parameter must be valid and is required to build both the meta-client and result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is used to get the storage configuration and is required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "The method's contract guarantees the return value is of type HoodieJavaTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != config",
+    "rationale" : "It is impossible for the returned HoodieJavaTable to be the same object as the HoodieWriteConfig parameter.",
+    "meta" : [ ]
+  } ]
+}

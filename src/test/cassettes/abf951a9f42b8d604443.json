@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is used unconditionally in the method, so it is likely never null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "inFlightInstantTimestamp is passed as an argument and potentially accessed, so it is likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "metaClient.reloadTableConfig() might be called, which generally expects getTableConfig() to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inFlightInstantTimestamp.isPresent() || !inFlightInstantTimestamp.isPresent()",
+    "rationale" : "As Option, isPresent() is always defined and will return either true or false, capturing exhaustiveness.",
+    "meta" : [ ]
+  } ]
+}

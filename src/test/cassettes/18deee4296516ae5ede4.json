@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient should be a valid reference, since it is passed as a parameter and is presumably required for operations in this class.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex should not be null as it is a parameter and operations on the list may be expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.size() >= 0",
+    "rationale" : "The size of a List in Java is always non-negative if the List is not null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is required for engine operations; null context would cause errors in downstream computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option parameters should not be null; an empty Option conveys the absence of extra metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "Option is either present or empty; this covers both possible states.",
+    "meta" : [ ]
+  } ]
+}

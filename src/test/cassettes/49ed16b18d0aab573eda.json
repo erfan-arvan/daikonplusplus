@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is dereferenced in clusteringGroup.getSlices(), so it must be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to getRecordIterator and may be used in further operations, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clusteringGroup.getSlices().isEmpty()",
+    "rationale" : "Typically, a clustering group should have at least one slice to make reading records meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getSlices().stream().allMatch(java.util.Objects::nonNull)",
+    "rationale" : "The method maps each slice to a clustering operation, so all slices should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Clustering instantTime is usually a non-empty string representing the operation's logical time.",
+    "meta" : [ ]
+  } ]
+}

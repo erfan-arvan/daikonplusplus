@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A non-null HoodieWriteMetadata result is expected from the superclass' execute method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write status list in the HoodieWriteMetadata result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The type of write statuses returned should always be a List according to the declared output type.",
+    "meta" : [ ]
+  } ]
+}

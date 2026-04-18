@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Typically, the number of output partitions should be positive for repartitioning to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input records list should not be null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a list is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "If outputPartitions exceeds the list size, the input might be empty; otherwise, we cannot repartition into more partitions than there are records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "All elements in the records list should be non-null for sorting and processing.",
+    "meta" : [ ]
+  } ]
+}

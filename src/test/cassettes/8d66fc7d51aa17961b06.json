@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Stream; Collectors.groupingBy and Stream operations may return empty but not null streams.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism value is used for parallel streams; expected to be positive in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The input stream is likely non-null as method does not handle/predicate on null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "flatMapToPairFunc is invoked via a wrapper and is required to process input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc is passed into throwingReduceWrapper, so must be non-null for reduce operation.",
+    "meta" : [ ]
+  } ]
+}

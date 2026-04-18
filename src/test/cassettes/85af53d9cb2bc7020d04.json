@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath must be non-null to correctly operate downstream file lookups and avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "partitionPath is expected to be a non-empty path string; empty partition paths are unlikely to represent valid partitions for file lookups.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.trim().length() > 0",
+    "rationale" : "partitionPath should not be only whitespace, as it is used to look up files in a partition.",
+    "meta" : [ ]
+  } ]
+}

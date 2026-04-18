@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "smallFiles != null",
+    "rationale" : "The method streams over smallFiles, so it must not be null.",
+    "meta" : [ {
+      "key" : "field",
+      "value" : "smallFiles"
+    } ]
+  }, {
+    "expression" : "totalBuckets >= 0",
+    "rationale" : "The number of buckets is typically non-negative.",
+    "meta" : [ {
+      "key" : "field",
+      "value" : "totalBuckets"
+    } ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "This map is used for partition bucketing and typically initialized, so it's likely not null at method entry.",
+    "meta" : [ {
+      "key" : "field",
+      "value" : "partitionPathToInsertBucketInfos"
+    } ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "Used to map bucket indices to info; likely initialized.",
+    "meta" : [ {
+      "key" : "field",
+      "value" : "bucketInfoMap"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is a core reference to the HoodieTable and must be valid for partitioning operations.",
+    "meta" : [ {
+      "key" : "field",
+      "value" : "table"
+    } ]
+  } ]
+}

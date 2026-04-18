@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Map, as it returns the result of context.mapToPair(), which should return a Map instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || writeResult.getWriteStatuses().isEmpty()",
+    "rationale" : "If there are no WriteStatuses, the distinguished partition path list to map is empty, so the result Map will be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= writeResult.getWriteStatuses().size()",
+    "rationale" : "Each key in the result Map represents a distinct partition path from the WriteStatuses. Thus, the Map cannot have more keys than WriteStatuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().containsAll(writeResult.getWriteStatuses().stream().map(status -> status.getStat().getPartitionPath()).distinct().collect(java.util.stream.Collectors.toList()))",
+    "rationale" : "The Map's keys correspond to the partition paths present in the WriteStatuses, specifically the distinct set of those paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "Each value in the returned Map (a List of file ids) should be non-null, as it is initialized by getAllExistingFileIds().",
+    "meta" : [ ]
+  } ]
+}

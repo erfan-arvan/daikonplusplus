@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "KeyGenerator objects are expected to be created successfully by the factory for valid TypedProperties; returning null would be unexpected.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null return value"
+    } ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "The method passes props directly into the factory, which would require props to be non-null to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "argument validation",
+      "value" : "non-null argument"
+    } ]
+  }, {
+    "expression" : "result instanceof KeyGenerator",
+    "rationale" : "Since the method returns a KeyGenerator, the result must always be an instance of KeyGenerator.",
+    "meta" : [ {
+      "key" : "type relationship",
+      "value" : "return type conformance"
+    } ]
+  }, {
+    "expression" : "HoodieAvroKeyGeneratorFactory.createKeyGenerator(props) == result",
+    "rationale" : "The result is exactly what the factory's createKeyGenerator method returns for the argument props.",
+    "meta" : [ {
+      "key" : "delegation",
+      "value" : "factory method correspondence"
+    } ]
+  }, {
+    "expression" : "!props.isEmpty() || result != null",
+    "rationale" : "If props are empty, the factory could still create a default KeyGenerator, but if not, then a non-empty props should lead to a non-null result.",
+    "meta" : [ {
+      "key" : "property/result relationship",
+      "value" : "non-empty props may be needed for non-null result"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null",
+    "rationale" : "The method parameter 'a' is likely expected to represent a valid Order object; nullness is an essential precondition for field or method access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getQuantity() >= 0",
+    "rationale" : "Order quantities are commonly non-negative in purchase or inventory contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price of an order item is typically expected to be non-negative, reflecting valid monetary values.",
+    "meta" : [ ]
+  } ]
+}

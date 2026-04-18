@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "records.collectAsList() should never return null and should always provide a valid List instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method guarantees the return type is a List; this invariant enforces the contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.count()",
+    "rationale" : "collectAsList() collects all records from the HoodieData; the resulting List has the same number of elements as HoodieData.count().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == (records.count() == 0)",
+    "rationale" : "If the input data is empty, the resulting list is also empty, and vice versa.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

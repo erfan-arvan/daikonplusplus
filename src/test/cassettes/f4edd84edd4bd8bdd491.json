@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Likely required for any operations delegated to HoodieEngineContext or its subtypes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is a required String representing commit instant, which must be non-null for further processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The method expects a collection of records to insert; a null value would usually not be allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(hoodieRecords != null && hoodieRecords.isEmpty())",
+    "rationale" : "Typically, there is an expectation that insert has work to do; calling with an empty records list is likely comparatively rare or erroneous.",
+    "meta" : [ ]
+  } ]
+}

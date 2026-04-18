@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is passed as a parameter and is expected to be used for engine operations, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime, representing a commit/rollback instant, should be a valid, non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "The instantToRollback is essential for identifying what needs to be rolled back, thus should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isRestore || !shouldRollbackUsingMarkers",
+    "rationale" : "When isRestore is true, typically rollback markers are not expected to be used (common in restore flows), so this expresses that restore and marker-based rollback don't generally coincide.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipTimelinePublish || !shouldRollbackUsingMarkers",
+    "rationale" : "If skipTimelinePublish is true, it's likely that marker-based rollback is not required or should be skipped.",
+    "meta" : [ ]
+  } ]
+}

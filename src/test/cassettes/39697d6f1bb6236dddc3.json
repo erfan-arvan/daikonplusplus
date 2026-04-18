@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List, as the final collect call produces a List (possibly empty).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "The filtering step .filter(Objects::nonNull) ensures that there are no null elements in the returned list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "Each output record is a merge/reduction of records with the same key, so the output cannot have more records than the input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> r != null)",
+    "rationale" : "Ensures all elements in the result are non-null, matching the explicit filter used prior to collecting to list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method always produces a List through the toList collector.",
+    "meta" : [ ]
+  } ]
+}

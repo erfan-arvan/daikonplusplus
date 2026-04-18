@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is dereferenced, so must be non-null for method safety.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in downstream method calls and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed to writeClient.bulkInsertPreppedRecords and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient instanceof BaseHoodieWriteClient",
+    "rationale" : "writeClient is typed as BaseHoodieWriteClient, so this should always hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.get(0) instanceof HoodieRecord",
+    "rationale" : "Elements of preppedRecordInputs are used as HoodieRecords; if non-empty, first element must be a HoodieRecord.",
+    "meta" : [ ]
+  } ]
+}

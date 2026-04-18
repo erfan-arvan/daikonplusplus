@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method likely requires a non-null instantTime to schedule a compaction operation, as it is passed to other components.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context must be non-null to perform work using the engine context, as it is passed to an executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is passed to the compaction executor and should not be null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "A non-empty instantTime is likely required, as empty strings would not make sense for a time identifier in compaction scheduling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "instantTime should not be only whitespace, so it is trimmed and checked for non-empty content.",
+    "meta" : [ ]
+  } ]
+}

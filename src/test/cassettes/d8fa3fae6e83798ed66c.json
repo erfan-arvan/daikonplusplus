@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since Option is typically a non-null object representing either presence or absence, the returned Option should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Option",
+    "rationale" : "The method's declared return type is Option<HoodieCompactionPlan>, so the result should always be of type Option.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is generally expected to be a non-null string representing the scheduled compaction instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required by the scheduling operation and is expected to be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is of type Option<Map<String, String>>, and is expected to be non-null (the Option container itself, regardless of presence or absence).",
+    "meta" : [ ]
+  } ]
+}

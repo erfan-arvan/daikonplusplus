@@ -13,5 +13,5 @@ public record PromptContext(
     @Nullable String typeLevelDocumentation,
     @Nullable String callSiteContext,
     @Nullable String inputOutputExamples,
-    @Nullable String calleeInfo,
+    @Nullable String calleeDoc,
     int maxInvariants) {}

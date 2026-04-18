@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned list is always instantiated as an ArrayList and is returned at the end.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method logic expects a valid partitionPath, and it is passed directly into internal calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.stream().allMatch(sf -> sf != null)",
+    "rationale" : "All SmallFile instances added to the result are newly created and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.sizeBytes < config.getParquetSmallFileLimit())",
+    "rationale" : "A SmallFile is only added to the result if its file size is strictly less than the configured small file threshold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.location != null)",
+    "rationale" : "Each constructed SmallFile is assigned a non-null HoodieRecordLocation before being added to the result.",
+    "meta" : [ ]
+  } ]
+}

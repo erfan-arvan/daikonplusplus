@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive, which is typical for data-parallel operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null && records.size() >= 0",
+    "rationale" : "The records list should not be null and a list size cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schemaStr != null && !schemaStr.isEmpty()",
+    "rationale" : "The schema string must be provided for schema-based processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "TypedProperties are required for record processing and deduplication logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMerger != null && readerContext != null",
+    "rationale" : "Both recordMerger and readerContext are essential for the method's logic and likely required to be non-null.",
+    "meta" : [ ]
+  } ]
+}

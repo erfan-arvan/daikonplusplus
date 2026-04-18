@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List, either a new LinkedList or the keys parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The returned value is always a List (LinkedList or keys, which is a List).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "Result is deduplicated from keys, so it cannot have more elements than keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 0",
+    "rationale" : "Parallelism is usually a non-negative integer for thread or task control.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table is dereferenced, so must not be null at this point.",
+    "meta" : [ ]
+  } ]
+}

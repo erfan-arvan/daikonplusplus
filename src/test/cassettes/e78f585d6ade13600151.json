@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method either returns result of bulkInsert (never null in successful run), or throws exception and does not reach a return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is expected to always return a non-null list after successful bulkInsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The list size must be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToRowsMap() != null",
+    "rationale" : "A mapping from partition to rows should be present after a bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStat() != null",
+    "rationale" : "getStat() should return a non-null statistics object after commit operation.",
+    "meta" : [ ]
+  } ]
+}

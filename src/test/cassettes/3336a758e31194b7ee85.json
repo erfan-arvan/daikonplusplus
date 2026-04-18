@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Avoids NullPointerExceptions during size checks and method calls, commonly needed in methods operating on lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is a required argument for distributed operations and assumed to be instantiated before method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.isEmpty() || partitionPaths.size() > 0",
+    "rationale" : "Ensures that if partitionPaths is non-null and not empty, it must have a positive size. Expresses the branching logic observed in the method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The parameter 'result' must not be null for the method's internal usage of result methods and field accesses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method immediately operates on result.getWriteStatuses(), so it must not be null before invocation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "result.getPartitionToReplaceFileIds() is accessed during the construction of commit metadata.",
+    "meta" : [ ]
+  } ]
+}

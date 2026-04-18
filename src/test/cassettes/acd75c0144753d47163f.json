@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Stream, which by contract should not be null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.allMatch(slice -> slice.getBaseFile().map(HoodieBaseFile::getFileSize).orElse(0L) < getWriteConfig().getClusteringSmallFileLimit())",
+    "rationale" : "By construction, only file slices whose base file size is smaller than the clustering small file limit are included in the result stream.",
+    "meta" : [ ]
+  } ]
+}

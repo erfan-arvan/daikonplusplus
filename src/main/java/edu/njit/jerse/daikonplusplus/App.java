@@ -9,6 +9,7 @@ import edu.njit.jerse.daikonplusplus.inject.JavaParserInjector;
 import edu.njit.jerse.daikonplusplus.llm.LlmInvariantGenerator;
 import edu.njit.jerse.daikonplusplus.model.*;
 import edu.njit.jerse.daikonplusplus.parse.JavaProjectScanner;
+import edu.njit.jerse.daikonplusplus.parse.context.ContextKind;
 import edu.njit.jerse.daikonplusplus.parse.context.ContextUtils;
 import edu.njit.jerse.daikonplusplus.results.InvariantRegistry;
 import edu.njit.jerse.daikonplusplus.results.LogParser;
@@ -67,6 +68,9 @@ public final class App {
   public static void main(String[] args) throws Exception {
     // reset per pipeline invocation
     RUN_DEDUP.clear();
+    if (CFG.debug()) {
+      CFG.printSummary();
+    }
 
     final Path externalMainCompileScript =
         Optional.ofNullable(System.getenv("DP_COMPILE_MAIN_SCRIPT")).map(Path::of).orElse(null);
@@ -325,15 +329,15 @@ public final class App {
     final DpConfig cfg = DpConfig.fromEnv();
     if (CFG.registryReset()) {
       try {
-        java.nio.file.Files.deleteIfExists(cfg.registryPath());
-        System.out.println(">>> Registry reset: " + cfg.registryPath().toAbsolutePath());
+        java.nio.file.Files.deleteIfExists(CFG.registryPath());
+        System.out.println(">>> Registry reset: " + CFG.registryPath().toAbsolutePath());
       } catch (java.io.IOException ioe) {
         System.err.println("Warning: couldn't delete registry: " + ioe.getMessage());
       }
     }
 
     final JavaProjectScanner scanner = new JavaProjectScanner();
-    final LlmInvariantGenerator llm = new LlmInvariantGenerator(maxK);
+    final LlmInvariantGenerator llm = new LlmInvariantGenerator(CFG, maxK);
     final InvariantRegistry registry = new InvariantRegistry(cfg.registryPath());
     final JavaParserInjector injector = new JavaParserInjector(new FileWriteCoordinator());
 
@@ -754,22 +758,46 @@ public final class App {
 
   private static List<InvariantRecord> processPoint(
       ProgramPoint point, Path srcRoot, LlmInvariantGenerator llm, InvariantRegistry registry) {
+
     try {
       Map<String, String> inScope = ContextUtils.extractScope(point, srcRoot);
 
-      String methodBody = ContextUtils.extractMethodBodyRaw(point, srcRoot).orElse("");
+      Set<ContextKind> enabled = CFG.enabledContexts();
 
-      String methodJavadoc = ContextUtils.extractMethodJavadoc(point, srcRoot).orElse("");
+      String methodBody =
+          enabled.contains(ContextKind.METHOD_BODY)
+              ? ContextUtils.extractMethodBodyRaw(point, srcRoot).orElse("")
+              : "";
 
-      String classDoc = ContextUtils.extractClassDocumentation(point, srcRoot).orElse("");
+      String methodJavadoc =
+          enabled.contains(ContextKind.METHOD_JAVADOC)
+              ? ContextUtils.extractMethodJavadoc(point, srcRoot).orElse("")
+              : "";
 
-      String typeDoc = ContextUtils.extractTypeDocumentation(point, srcRoot).orElse("");
+      String classDoc =
+          enabled.contains(ContextKind.CLASS_DOC)
+              ? ContextUtils.extractClassDocumentation(point, srcRoot).orElse("")
+              : "";
 
-      String callSite = ContextUtils.extractCallSiteContext(point, srcRoot).orElse("");
+      String typeDoc =
+          enabled.contains(ContextKind.TYPE_DOC)
+              ? ContextUtils.extractTypeDocumentation(point, srcRoot).orElse("")
+              : "";
 
-      String ioExamples = ContextUtils.extractIOExamples(point, srcRoot).orElse("");
+      String callSite =
+          enabled.contains(ContextKind.CALL_SITE)
+              ? ContextUtils.extractCallSiteContext(point, srcRoot).orElse("")
+              : "";
 
-      String CalleeInfo = "";
+      String ioExamples =
+          enabled.contains(ContextKind.IO_EXAMPLES)
+              ? ContextUtils.extractIOExamples(point, srcRoot).orElse("")
+              : "";
+
+      String calleeDoc =
+          enabled.contains(ContextKind.CALLEE_DOC)
+              ? ContextUtils.extractCalleeDocumentation(point, srcRoot).orElse("")
+              : "";
 
       List<InvariantSpec> specs =
           llm.proposeInvariants(
@@ -781,7 +809,7 @@ public final class App {
               typeDoc,
               callSite,
               ioExamples,
-              CalleeInfo);
+              calleeDoc);
 
       if (specs.isEmpty()) return List.of();
 
@@ -792,15 +820,18 @@ public final class App {
       for (InvariantSpec spec : specs) {
         // run-level dedup
         String key = keyFor(point, spec.expression());
-        if (!RUN_DEDUP.add(key)) continue; // skip duplicates within this run
+        if (!RUN_DEDUP.add(key)) continue;
 
         InvariantRecord rec =
             new InvariantRecord(java.util.UUID.randomUUID(), spec, point, fileRel, now);
+
         // registry-level dedup
         registry.appendIfNew(rec);
         out.add(rec);
       }
+
       return out;
+
     } catch (Exception e) {
       System.err.println("processPoint error for " + point.elementId() + ": " + e.getMessage());
       return List.of();

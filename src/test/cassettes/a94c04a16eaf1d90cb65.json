@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method is about to use 'context' in the CleanActionExecutor, which likely requires a non-null context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null && !cleanInstantTime.isEmpty()",
+    "rationale" : "'cleanInstantTime' represents an instant/time identifier and is passed to an executor; it is likely expected to be a non-empty String.",
+    "meta" : [ ]
+  } ]
+}

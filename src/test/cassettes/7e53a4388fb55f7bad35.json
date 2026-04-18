@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns either 'fileId' or BulkInsertPartitioner.super.getFileIdPfx(partitionId), both of which are expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null ? result.equals(fileId) : result.equals(BulkInsertPartitioner.super.getFileIdPfx(partitionId))",
+    "rationale" : "If 'fileId' is non-null, result is exactly 'fileId'; otherwise, result is the delegated value from the superclass.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(fileId == null) == (!result.equals(fileId))",
+    "rationale" : "If fileId is null, result cannot equal fileId; otherwise, they are equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "It is likely that fileId or the superclass method returns a non-empty string as a file id prefix.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionId >= 0",
+    "rationale" : "It is reasonable to expect that partitionId is non-negative as a partition index.",
+    "meta" : [ ]
+  } ]
+}

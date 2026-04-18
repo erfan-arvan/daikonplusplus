@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of a write operation and should not return null in the typical execution path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write metadata should always provide a non-null list for write statuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "By method contract, getWriteStatuses returns a List of WriteStatus objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty() || inputRecords.isEmpty()",
+    "rationale" : "If there are input records, writeStatuses should not be empty; if input records are empty, writeStatuses can be empty.",
+    "meta" : [ ]
+  } ]
+}

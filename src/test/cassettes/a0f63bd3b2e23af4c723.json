@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata object, constructed via convertMetadata, so 'result' should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "The logCompactionInstantTime parameter is used in construction; it's likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method requires a HoodieEngineContext to operate and passes it to executor and compactor logic.",
+    "meta" : [ ]
+  } ]
+}

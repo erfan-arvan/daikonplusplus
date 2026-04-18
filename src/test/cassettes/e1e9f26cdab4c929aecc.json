@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The returned bucket index is non-negative since it is assigned from totalBuckets, which increments from zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket.get(fileIdHint) != null",
+    "rationale" : "fileIdHint is added as a key to updateLocationToBucket inside this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket.get(fileIdHint) == result",
+    "rationale" : "The bucket value stored for fileIdHint is exactly the one returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result) != null",
+    "rationale" : "A new BucketInfo is put into bucketInfoMap at the key equal to the returned bucket index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result).fileId.equals(fileIdHint)",
+    "rationale" : "The BucketInfo stored uses fileIdHint as the fileId.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed as a string parameter representing the partition, and should not be null to process an update.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is the identifier for a file; it is required for the update operation and typically must not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr must not be null, as it is the iterator over records to update, and its methods would be called within the method body.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  } ]
+}

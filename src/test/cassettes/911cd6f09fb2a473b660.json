@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null list due to .collect(Collectors.toList()), which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The stream pipeline is called on data (data.stream()), which would throw NullPointerException if data were null, so data must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return value is always a List, as per the method's declared return type and implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "parallelStream().parallel() is used; parallelism should be greater than 0 for meaningful parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "The number of result elements is at most the number of input elements, because the grouping is by key and then reduction.",
+    "meta" : [ ]
+  } ]
+}

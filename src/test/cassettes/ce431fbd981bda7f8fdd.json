@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null",
+    "rationale" : "Method expects a HoodieData<WriteStatus> parameter, which is likely non-null in normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is a required argument for compaction-related methods and is almost certainly required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration is almost always required and probably necessary for method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instant time parameter is typically necessary for correct compaction semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instant time should be a non-empty string representing a timestamp/commit instant.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "It's likely the method expects a non-null writeMetadata parameter for proper operation.",
+    "meta" : [ {
+      "key" : "topic",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "writeMetadata instanceof HoodieWriteMetadata",
+    "rationale" : "The parameter writeMetadata should be of type HoodieWriteMetadata.",
+    "meta" : [ {
+      "key" : "topic",
+      "value" : "type"
+    } ]
+  } ]
+}

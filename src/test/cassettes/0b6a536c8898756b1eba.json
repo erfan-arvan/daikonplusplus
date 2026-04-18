@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords will be used and passed to other methods; must not be null by usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "configuredParallelism > 0",
+    "rationale" : "configuredParallelism is used to deduce targetParallelism for partitioning; non-positive parallelism would not make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is likely a required identifier for the write operation; it is commonly ensured non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is dereferenced to call methods such as getFileIdPrefixProviderClassName and getProps.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is used to repartition records and get write handle factory; it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

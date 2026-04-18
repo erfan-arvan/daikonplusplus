@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned HoodieRollbackMetadata object should not be null as it is created by the execute() method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "The rollbackInstantTime parameter is required by the executor and should not be null when returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "The commitInstant parameter is required by the executor and should not be null at the exit of rollback.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRollbackMetadata",
+    "rationale" : "The result must be of the expected return type.",
+    "meta" : [ ]
+  } ]
+}

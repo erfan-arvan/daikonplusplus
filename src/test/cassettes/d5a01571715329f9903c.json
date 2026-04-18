@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Pair and should not return null as per typical API contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should be a valid String and not null based on method usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "The method receives a list of FileSlice objects as an argument, should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The first element (Stream<HoodieClusteringGroup>) in the returned Pair should not be null for valid clustering plan operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The second element (Boolean) in the returned Pair should not be null.",
+    "meta" : [ ]
+  } ]
+}

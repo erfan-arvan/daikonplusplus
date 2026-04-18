@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method implementation always throws an exception; thus, it never returns a value, so at the method exit, result is always null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always throws"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Any condition holds after this program point because the method never returns normally.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always throws, so unreachable"
+    } ]
+  } ]
+}

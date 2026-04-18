@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Option, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required to identify the instant and is used as a mandatory argument throughout the API.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "instantToRollback is required to know which instant to roll back and should not be null upon method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == false || !shouldRollbackUsingMarkers || !isRestore",
+    "rationale" : "If a rollback plan exists, usually only one of marker-based rollback or restore is expected to be active, based on rollback semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipTimelinePublish || result.isPresent()",
+    "rationale" : "If timeline publishing is not skipped, then a rollback plan should have been generated.",
+    "meta" : [ ]
+  } ]
+}

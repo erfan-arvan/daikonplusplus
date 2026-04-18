@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a list of records to insert; null is likely not intended and would cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to identify the write instant and is passed through to other methods, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a List in Java is always non-negative, capturing valid collection state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.size() == 0",
+    "rationale" : "This expresses the equivalence between isEmpty and size for Lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "instantTime should be a non-empty, non-blank string representing a moment of write in the system.",
+    "meta" : [ ]
+  } ]
+}

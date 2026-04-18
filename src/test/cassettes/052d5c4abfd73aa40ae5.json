@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is produced by collecting a stream, which will not be null with standard collectors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Data is streamed; streaming from a null list would throw NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "Function cannot be null as it is applied to elements in the stream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "Size of a list cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result is explicitly collected as a List.",
+    "meta" : [ ]
+  } ]
+}

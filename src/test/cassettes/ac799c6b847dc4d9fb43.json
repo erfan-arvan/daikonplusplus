@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object and likely guarantees a non-null result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method is expected to operate on a valid non-null input record list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "By construction, the returned result should always be of type HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "The size of a List in Java is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(HoodieWriteMetadata.class) || result.getClass().equals(HoodieWriteMetadata.class)",
+    "rationale" : "Ensures the actual runtime type of the result matches the documented return type, accounting for generic type erasure.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "table != null",
+    "rationale" : "Method is called on a valid HoodieTable, and use of table methods in body assumes non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "Methods are invoked on pendingCompactionTimeline, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "A method is called on operationType, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as argument to methods and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getInstantGenerator() != null",
+    "rationale" : "getInstantGenerator() is invoked unconditionally, so it must return a non-null object.",
+    "meta" : [ ]
+  } ]
+}

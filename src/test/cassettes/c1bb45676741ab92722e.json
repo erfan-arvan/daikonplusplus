@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "execute returns a non-null HoodieWriteMetadata on successful completion unless an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The return type of the method is always HoodieWriteMetadata<List<WriteStatus>>.",
+    "meta" : [ ]
+  } ]
+}

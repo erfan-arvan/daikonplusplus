@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method always returns HoodieTimeline.CLUSTERING_ACTION, which should be a non-null String constant, result can never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(HoodieTimeline.CLUSTERING_ACTION)",
+    "rationale" : "The method always returns HoodieTimeline.CLUSTERING_ACTION, so result must always equal this value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "Assuming HoodieTimeline.CLUSTERING_ACTION is a non-empty String, result will never be empty.",
+    "meta" : [ ]
+  } ]
+}

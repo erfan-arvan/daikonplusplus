@@ -1,11 +1,10 @@
 package edu.njit.jerse.daikonplusplus.llm;
 
-import static edu.njit.jerse.daikonplusplus.util.DpFlags.*;
-
 import com.fasterxml.jackson.annotation.JsonClassDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.github.javaparser.StaticJavaParser;
 import com.openai.models.ChatModel;
+import edu.njit.jerse.daikonplusplus.config.DpConfig;
 import edu.njit.jerse.daikonplusplus.llm.prompt.Prompt;
 import edu.njit.jerse.daikonplusplus.llm.prompt.PromptContext;
 import edu.njit.jerse.daikonplusplus.llm.prompt.PromptStrategy;
@@ -48,16 +47,10 @@ public final class LlmInvariantGenerator {
   /** Maximum number of invariants requested per program point. */
   private final int maxInvariants;
 
-  /** Debug flag (from {@link edu.njit.jerse.daikonplusplus.util.DpFlags}). */
-  final boolean DEBUG = debug();
-
-  /** Quality filter disable flag (from {@link edu.njit.jerse.daikonplusplus.util.DpFlags}). */
-  final boolean NO_QF = noQualityFilter();
-
+  private final DpConfig config;
   private final PromptStrategy promptStrategy;
 
   private static boolean printedModelOnce = false;
-
   private static boolean printedStrategyOnce = false;
 
   /**
@@ -67,9 +60,10 @@ public final class LlmInvariantGenerator {
    *
    * @param maxInvariants maximum number of invariants to request
    */
-  public LlmInvariantGenerator(int maxInvariants) {
+  public LlmInvariantGenerator(DpConfig config, int maxInvariants) {
+    this.config = Objects.requireNonNull(config);
     this.maxInvariants = Math.max(1, maxInvariants);
-    this.llm = buildLlmFromEnv();
+    this.llm = buildLlmFromEnv(config);
     this.promptStrategy = PromptStrategyFactory.create();
   }
 
@@ -82,9 +76,10 @@ public final class LlmInvariantGenerator {
    * @param model chat model to use (e.g., {@link ChatModel#GPT_4_1_MINI})
    * @param maxInvariants maximum number of invariants to request
    */
-  public LlmInvariantGenerator(ChatModel model, int maxInvariants) {
+  public LlmInvariantGenerator(DpConfig config, ChatModel model, int maxInvariants) {
+    this.config = Objects.requireNonNull(config);
     this.maxInvariants = Math.max(1, maxInvariants);
-    this.llm = buildLlmFromEnv(model);
+    this.llm = buildLlmFromEnv(config, model);
     this.promptStrategy = PromptStrategyFactory.create();
   }
 
@@ -95,7 +90,8 @@ public final class LlmInvariantGenerator {
    * @param llm LLM backend implementation
    * @param maxInvariants maximum number of invariants to request
    */
-  public LlmInvariantGenerator(LlmClient llm, int maxInvariants) {
+  public LlmInvariantGenerator(DpConfig config, LlmClient llm, int maxInvariants) {
+    this.config = Objects.requireNonNull(config);
     this.llm = Objects.requireNonNull(llm);
     this.maxInvariants = Math.max(1, maxInvariants);
     this.promptStrategy = PromptStrategyFactory.create();
@@ -117,7 +113,7 @@ public final class LlmInvariantGenerator {
       String typeDoc,
       String callSiteContext,
       String inputOutputExamples,
-      String calleeInfo) {
+      String calleeDoc) {
 
     final boolean isExit = point.kind() == ProgramPointKind.METHOD_EXIT;
 
@@ -134,7 +130,7 @@ public final class LlmInvariantGenerator {
               typeDoc,
               callSiteContext,
               inputOutputExamples,
-              calleeInfo,
+              calleeDoc,
               maxInvariants);
 
       Prompt prompt = promptStrategy.buildPrompt(ctx);
@@ -147,7 +143,7 @@ public final class LlmInvariantGenerator {
         System.out.println("[DP-LLM] Strategy: " + promptStrategy.name());
       }
 
-      if (DEBUG) {
+      if (config.debug()) {
         System.out.println("[DP] LLM REQUEST → " + point.kind() + " :: " + point.elementId());
         if (!inScope.isEmpty()) {
           System.out.println("[DP] Scope: " + inScope);
@@ -174,19 +170,19 @@ public final class LlmInvariantGenerator {
         Optional<String> parsed = parseableExpression(expr);
 
         if (parsed.isEmpty()) {
-          if (DEBUG) System.out.println("[DP-LLM] drop(parse): " + expr);
+          if (config.debug()) System.out.println("[DP-LLM] drop(parse): " + expr);
           continue;
         }
 
-        if (!expr.equals(parsed.get()) && DEBUG) {
+        if (!expr.equals(parsed.get()) && config.debug()) {
           System.out.println("[DP-LLM] salvage(parse): " + parsed.get());
         }
 
         expr = parsed.get();
 
         // Skip low-quality ones unless filter disabled
-        if (!NO_QF && !InvariantQualityFilter.keep(expr, inScope, isExit)) {
-          if (DEBUG) System.out.println("[DP-LLM] drop(filter): " + expr);
+        if (!config.noQualityFilter() && !InvariantQualityFilter.keep(expr, inScope, isExit)) {
+          if (config.debug()) System.out.println("[DP-LLM] drop(filter): " + expr);
           continue;
         }
 
@@ -208,7 +204,7 @@ public final class LlmInvariantGenerator {
         if (kept.size() >= maxInvariants) break;
       }
 
-      if (DEBUG) {
+      if (config.debug()) {
         System.out.println(
             "[DP] LLM RESPONSE "
                 + point.kind()
@@ -226,7 +222,7 @@ public final class LlmInvariantGenerator {
       if (e instanceof InterruptedException || e.getCause() instanceof InterruptedException) {
 
         Thread.currentThread().interrupt();
-        if (DEBUG) {
+        if (config.debug()) {
           System.err.println("[DP-LLM] skipped (interrupted): " + point.elementId());
         }
         return List.of();
@@ -261,7 +257,6 @@ public final class LlmInvariantGenerator {
       StaticJavaParser.parseExpression(trimmed);
       return Optional.of(trimmed);
     } catch (Exception ex) {
-      // Try sanitization
       String cleaned = sanitizeExpression(trimmed);
 
       if (!cleaned.equals(trimmed)) {
@@ -269,7 +264,6 @@ public final class LlmInvariantGenerator {
           StaticJavaParser.parseExpression(cleaned);
           return Optional.of(cleaned);
         } catch (Exception ignored) {
-          // fall through
         }
       }
 
@@ -279,13 +273,8 @@ public final class LlmInvariantGenerator {
 
   private static String sanitizeExpression(String expr) {
     String e = expr.trim();
-
-    // remove trailing junk like }, ], commas
     e = e.replaceAll("[,}\\]]+$", "").trim();
-
-    // remove markdown leftovers
     e = e.replace("```java", "").replace("```", "").trim();
-
     return e;
   }
 
@@ -309,36 +298,28 @@ public final class LlmInvariantGenerator {
     }
   }
 
-  /**
-   * Builds an {@link LlmClient} using environment variables.
-   *
-   * <p>Priority:
-   *
-   * <ol>
-   *   <li>If {@code DP_LLM_CASSETTES} is set:
-   *       <ul>
-   *         <li>If {@code DP_DISABLE_REAL_LLM=1}, returns {@link ReplayingLlmClient}.
-   *         <li>Otherwise, returns {@link RecordingCompositeLlmClient} (replay + real + record).
-   *       </ul>
-   *   <li>Else, returns {@link RealOpenAILlmClient} directly.
-   * </ol>
-   */
-  private static LlmClient buildLlmFromEnv() {
-    final @Nullable String envModel = System.getenv("DP_OPENAI_MODEL");
-    ChatModel model = resolveModel(envModel).orElse(ChatModel.GPT_4_1);
+  private static LlmClient buildLlmFromEnv(DpConfig config) {
+    ChatModel model =
+        resolveModel(config.openaiModel())
+            .orElseGet(
+                () -> {
+                  if (config.debug()) {
+                    System.out.println("[DP-LLM] Unknown model, falling back to GPT_4_1_MINI");
+                  }
+                  return ChatModel.GPT_4_1_MINI;
+                });
 
     if (!printedModelOnce) {
       printedModelOnce = true;
       System.out.println("[DP-LLM] Using model: " + model);
     }
 
-    return buildLlmFromEnv(model);
+    return buildLlmFromEnv(config, model);
   }
 
-  /** Variant of {@link #buildLlmFromEnv()} with an explicit model. */
-  private static LlmClient buildLlmFromEnv(ChatModel model) {
-    String cassetteDir = System.getenv("DP_LLM_CASSETTES");
-    boolean disableReal = "1".equals(System.getenv("DP_DISABLE_REAL_LLM"));
+  private static LlmClient buildLlmFromEnv(DpConfig config, ChatModel model) {
+    String cassetteDir = config.llmCassettesDir();
+    boolean disableReal = config.disableRealLlm();
 
     if (cassetteDir != null && !cassetteDir.isBlank()) {
       Path dir = Path.of(cassetteDir);

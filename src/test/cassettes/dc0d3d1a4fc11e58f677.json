@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Ensuring the list is not null is a typical precondition and avoids null pointer exceptions.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "A non-null List's size is always >= 0; this checks for safe size usage and that both empty and non-empty lists have valid size.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "collection size"
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.stream().allMatch(s -> s != null)",
+    "rationale" : "If the list is non-null, all elements within are checked for non-nullness.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "element nullness"
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.stream().allMatch(s -> !s.isEmpty())",
+    "rationale" : "If the list is non-null, all elements are checked to be non-empty strings.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "element nonempty"
+    } ]
+  } ]
+}

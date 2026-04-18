@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method returns the reference to the same list 'records' it sorted in-place.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "'result' and 'records' refer to the same list, so their sizes are equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "'outputPartitions' is intended to be a partition count and should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "'result' is always a List by method signature.",
+    "meta" : [ ]
+  } ]
+}

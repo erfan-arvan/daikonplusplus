@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The upsert method always returns a HoodieWriteMetadata object as it returns the result of execute().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() method should return a non-null List, as it comes from the write operation's output.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "By method signature, getWriteStatuses should return a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely used to identify the commit and should not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The list of records to upsert must not be null to perform the intended merge-on-read upsert operation.",
+    "meta" : [ ]
+  } ]
+}

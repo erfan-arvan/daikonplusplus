@@ -417,7 +417,17 @@ public final class ContextUtils {
 
       // ===== METHODS =====
       for (MethodDeclaration m : cls.getMethods()) {
-        sb.append("[Method] ").append(m.getSignature().asString()).append("\n");
+        sb.append("[Method] ")
+            .append(m.getNameAsString())
+            .append("(")
+            .append(
+                m.getParameters().stream()
+                    .map(p -> p.getType().toString())
+                    .collect(Collectors.joining(", ")))
+            .append(")")
+            .append(" : ")
+            .append(m.getType().asString())
+            .append("\n");
         m.getJavadoc().ifPresent(j -> sb.append(j.toText().trim()).append("\n"));
         sb.append("\n");
       }

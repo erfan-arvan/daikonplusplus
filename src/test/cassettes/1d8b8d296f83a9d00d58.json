@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "This follows because the return statement creates a new HoodieData using HoodieListData.eager, so result cannot be null unless there's an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method assumes records is non-null, as map is called on records unconditionally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is passed into called helper methods and used without null checks—thus, it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to and used by tagLocation helper method without null checks, so it cannot be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == records.count()",
+    "rationale" : "Since the method maps the input records and creates the result from a one-to-one mapping and cast, the counts should be preserved.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodieJavaTable instance for supported table types, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "Unsupported table types throw, so the only way to return is for one of these table types.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof org.apache.hudi.table.HoodieJavaCopyOnWriteTable || result instanceof org.apache.hudi.table.HoodieJavaMergeOnReadTable",
+    "rationale" : "The result is a HoodieJavaCopyOnWriteTable for COPY_ON_WRITE or HoodieJavaMergeOnReadTable for MERGE_ON_READ.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE) == (result instanceof org.apache.hudi.table.HoodieJavaCopyOnWriteTable)",
+    "rationale" : "If the table type is COPY_ON_WRITE, the returned object is HoodieJavaCopyOnWriteTable and vice versa.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ) == (result instanceof org.apache.hudi.table.HoodieJavaMergeOnReadTable)",
+    "rationale" : "If the table type is MERGE_ON_READ, the returned object is HoodieJavaMergeOnReadTable and vice versa.",
+    "meta" : [ ]
+  } ]
+}

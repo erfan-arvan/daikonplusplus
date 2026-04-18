@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method delegates to 'JavaWriteHelper.newInstance().write(...)', that likely always returns a non-null result unless exceptional conditions occur.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "robustness"
+    } ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class",
+    "rationale" : "Method signature specifies the exact expected return type; result should be of HoodieWriteMetadata type.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "type-safety"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Sanity check that returned object is an instance of HoodieWriteMetadata as expected by the signature.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "type-check"
+    } ]
+  } ]
+}

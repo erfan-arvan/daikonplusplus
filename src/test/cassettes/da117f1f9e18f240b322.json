@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method is about to operate on 'data', calling data.stream(), so avoiding NullPointerException is necessary.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "'func' is applied to stream elements, so must be non-null for method correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is usually positive in parallel processing contexts; a non-positive value may not be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "If data is not empty, parallelism should not exceed the data size (common in data processing frameworks to avoid excessive parallelism).",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism == 1 || parallelism <= Runtime.getRuntime().availableProcessors()",
+    "rationale" : "It is common to constrain parallelism to the number of available processors for efficiency.",
+    "meta" : [ ]
+  } ]
+}

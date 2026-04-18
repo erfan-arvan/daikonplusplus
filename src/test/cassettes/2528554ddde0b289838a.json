@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of handleInsert or handleUpdate, both of which likely guarantee non-null Iterators.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "return_value_safety"
+    } ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition must be non-null for getBucketInfo to succeed without NullPointerException.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter_safety"
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner must be non-null since it is cast to JavaUpsertPartitioner and used in getBucketInfo.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter_safety"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to downstream methods and likely required to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter_safety"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a key method parameter and likely is required to be non-null for correct execution.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter_safety"
+    } ]
+  } ]
+}

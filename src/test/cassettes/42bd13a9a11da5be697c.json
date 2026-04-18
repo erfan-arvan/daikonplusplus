@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method populates fields on 'result' so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "'result.setWriteStatuses(statuses)' is always called, so after the method, getWriteStatuses() cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "The code always calls 'result.setIndexUpdateDuration', guaranteeing the value is not null before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "The method always sets partitionToReplaceFileIds in result using getPartitionToReplacedFileIds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The field set via 'setWriteStatuses' receives a List (from collectAsList()); so its value must be a List.",
+    "meta" : [ ]
+  } ]
+}

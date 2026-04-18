@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an object created by HoodieAtomicLongAccumulator.create(), so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieAtomicLongAccumulator",
+    "rationale" : "The only return value from the method is HoodieAtomicLongAccumulator.create(), which produces a HoodieAtomicLongAccumulator.",
+    "meta" : [ ]
+  } ]
+}

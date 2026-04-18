@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionFilePathAndSizeTriplet != null",
+    "rationale" : "Partition file path input should be provided and not null before processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "The index definition parameter is mandatory for index processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "A valid HoodieTableMetaClient instance is required for table metadata operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive to make sense for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Instant time should be provided and not empty to uniquely identify the operation instant.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "conf is required to create a table metadata writer; likely must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig likely must not be null to correctly configure the writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context provides the execution context, so it probably must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "inflightInstantTimestamp is passed along, so nullness should be checked to ensure safe access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp.isPresent() || !inflightInstantTimestamp.isPresent()",
+    "rationale" : "Option.isPresent() is always either true or false, ensuring the Option is well-formed.",
+    "meta" : [ ]
+  } ]
+}

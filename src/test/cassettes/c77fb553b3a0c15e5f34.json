@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method requires a WorkloadProfile to determine the insert partitioner, so the argument is likely to be checked for non-nullness or assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile instanceof WorkloadProfile",
+    "rationale" : "The profile parameter is expected to be an instance of WorkloadProfile as per the method signature.",
+    "meta" : [ ]
+  } ]
+}

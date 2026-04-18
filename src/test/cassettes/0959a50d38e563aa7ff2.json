@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "The clustering plan is required to direct the clustering operation; the implementation accesses it immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "Schema is needed to interpret and process the data during clustering, and is expected non-null for method correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is a commit/replace instant and typically should be a non-empty string for processing to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getInputGroups() != null",
+    "rationale" : "Input groups are used for clustering and are referenced immediately within the method, so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getStrategy() != null",
+    "rationale" : "The method relies on clusteringPlan.getStrategy() for parameter access and clustering logic.",
+    "meta" : [ ]
+  } ]
+}

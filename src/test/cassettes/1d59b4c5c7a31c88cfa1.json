@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Many timeline and metadata operations require a non-null instantTime; it is typically a required argument for commit-related events.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "An instantTime that is empty would be invalid for timeline transitions, so it should be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "This strengthens the check by ensuring instantTime is not just whitespace.",
+    "meta" : [ ]
+  } ]
+}

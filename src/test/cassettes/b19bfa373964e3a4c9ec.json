@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "It is common and defensively useful to assume that the incoming orders list is not null before processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.get(0) != null",
+    "rationale" : "If the list is not empty, its first element should be an Order object; this is a minimal sanity check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders instanceof List",
+    "rationale" : "orders must be of type List, as per the method contract.",
+    "meta" : [ ]
+  } ]
+}

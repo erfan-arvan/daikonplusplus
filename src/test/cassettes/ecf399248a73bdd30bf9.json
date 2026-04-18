@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && result.isPresent() == (result.orElse(null) != null)",
+    "rationale" : "This expresses that Option's isPresent is consistent with its value being non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null && (!extraMetadata.isPresent() || extraMetadata.get() != null)",
+    "rationale" : "If extraMetadata Option is present, then its contained Map is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The result of createCleanerPlan is always a non-null Option, per typical Option contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The extraMetadata parameter is always provided as a non-null Option.",
+    "meta" : [ ]
+  } ]
+}

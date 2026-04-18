@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Returned bucket numbers are non-negative indices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "The method always casts 'key' and uses it, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < totalBuckets",
+    "rationale" : "Bucket numbers are less than the total number of available buckets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(result)",
+    "rationale" : "Returned bucket number should be a key in the bucket info map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "Method dereferences partitionPathToInsertBucketInfos, so it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

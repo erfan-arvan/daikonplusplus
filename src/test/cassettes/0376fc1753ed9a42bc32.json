@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "An instant time is critical for commit actions, so it is unlikely to be null when entering the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "A partition identifier should be present to perform partition-based operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "A partitioner is required for upsert logic, so should be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The iterator of records to process should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition >= 0",
+    "rationale" : "Partition indices are often non-negative integers.",
+    "meta" : [ ]
+  } ]
+}
