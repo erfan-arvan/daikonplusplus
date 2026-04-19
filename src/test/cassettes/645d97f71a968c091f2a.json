@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a list, which cannot be null because Collections.emptyList() returns a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Method always returns Collections.emptyList(), which is always empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "Collections.emptyList() returns a list of size zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cacheKey != null",
+    "rationale" : "Method is expected to be called with a valid HoodieDataCacheKey, so cacheKey is non-null at exit.",
+    "meta" : [ ]
+  } ]
+}

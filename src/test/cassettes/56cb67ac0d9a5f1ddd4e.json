@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new ArrayList<WriteStatus>, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= inputRecords.size()",
+    "rationale" : "At most, each input record results in a single WriteStatus, but efficient batching/combining or filtering during the insert may reduce the size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!performDedupe || inputRecords != null",
+    "rationale" : "Deduplication only occurs if performDedupe is true; dereferencing inputRecords would require it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is always used to repartition and/or provide WriteHandleFactory, so must be non-null for the method logic to work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeHandleFactory != null",
+    "rationale" : "If partitioner.getWriteHandleFactory returns empty, the fallback writeHandleFactory is used; for the logic to proceed, writeHandleFactory cannot be null.",
+    "meta" : [ ]
+  } ]
+}

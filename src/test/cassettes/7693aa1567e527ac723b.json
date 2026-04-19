@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List, either deduplicatedKeys or keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type is always List<HoodieKey>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced in both paths (table.getIndex()), so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 0",
+    "rationale" : "Parallelism is commonly non-negative in parallel operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(k -> k != null)",
+    "rationale" : "All returned HoodieKey objects must be non-null after deduplication.",
+    "meta" : [ ]
+  } ]
+}

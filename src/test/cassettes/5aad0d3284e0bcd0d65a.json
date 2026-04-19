@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method requires a non-null context for processing; passing null likely leads to failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is commonly used as an operation timestamp and should be non-null and non-empty for write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords must be a non-null list for insertion; a null would indicate an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || !preppedRecords.isEmpty()",
+    "rationale" : "If preppedRecords is non-null, it is likely to contain at least one record for insertion.",
+    "meta" : [ ]
+  } ]
+}

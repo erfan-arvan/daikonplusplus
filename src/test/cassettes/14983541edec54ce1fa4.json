@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Method likely expects hoodieRecords to be non-null as it performs operations on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || hoodieRecords.size() >= 0",
+    "rationale" : "The size of the list is always non-negative whether or not it is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.stream().allMatch(record -> record != null)",
+    "rationale" : "The method probably expects that all records in the list are non-null for subsequent processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hoodieRecords.isEmpty() || hoodieRecords.size() == 0",
+    "rationale" : "If the list is empty, then its size must be zero.",
+    "meta" : [ ]
+  } ]
+}

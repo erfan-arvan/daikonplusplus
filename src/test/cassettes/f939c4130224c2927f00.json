@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Validates that the method's input is not null, as writeStatuses is dereferenced in HoodieListData.eager(writeStatuses).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Validates that the result parameter is not null, as result methods are called unconditionally in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "The size of a list is always at least zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "After execution, result.setWriteStatuses(statuses) is always called, ensuring the write statuses in result are set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "The method sets the index update duration in result, so this field should be non-null after method execution.",
+    "meta" : [ ]
+  } ]
+}

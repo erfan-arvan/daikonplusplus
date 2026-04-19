@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieRestoreMetadata object, which is likely expected to be non-null on successful completion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is used as a constructor argument in a method that executes a restoration, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is passed to an executor, suggesting it is required and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRestoreMetadata",
+    "rationale" : "The method contract is to return HoodieRestoreMetadata, so the result should be of this type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to a major execution class and is presumably required for restoration; it should be non-null.",
+    "meta" : [ ]
+  } ]
+}

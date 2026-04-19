@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method immediately throws if profile is null, so it must be non-null unless an exception will be thrown.",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "Required for correct execution as enforced by runtime exception in method body."
+    } ]
+  }, {
+    "expression" : "profile instanceof WorkloadProfile",
+    "rationale" : "profile is statically declared as WorkloadProfile, so at runtime it must be either WorkloadProfile or a subclass.",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "Static type check."
+    } ]
+  } ]
+}

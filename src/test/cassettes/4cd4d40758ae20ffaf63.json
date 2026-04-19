@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "The method requires a StorageConfiguration instance; passing null would likely break downstream logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is passed to the constructor and likely required to configure the metadata writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "The cleaning policy is necessary to maintain invariants about handling failed writes; null would not make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext is required to execute actions in the writer and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "Option objects representing instant timestamps should not be null; the Option can represent an empty value, but not be null itself.",
+    "meta" : [ ]
+  } ]
+}

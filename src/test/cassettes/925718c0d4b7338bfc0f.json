@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method operates on preppedRecords, and subsequent method calls likely assume it is non-null.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "critical for processing"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to other methods, which may expect a non-null String.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "required for operation"
+    } ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "preppedRecords must be a List as per the method signature; this may help catch caller misuse.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "parameter contract"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is of type Option; the reference itself should not be null to avoid exceptions on usage.",
+    "meta" : [ {
+      "key" : "option",
+      "value" : "should not be null Option"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is probably a non-empty String representing a timestamp, and several Hoodie APIs rely on non-empty values.",
+    "meta" : [ {
+      "key" : "semantic",
+      "value" : "non-empty instantTime"
+    } ]
+  } ]
+}

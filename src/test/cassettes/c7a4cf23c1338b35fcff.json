@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "stream() is called on 'data', so it must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "'func' is wrapped and passed as a mapping function, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is intended to specify the level of concurrency, so it is natural to expect a positive value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "size() on any List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size() || data.size() == 0",
+    "rationale" : "Parallelism is typically at most the dataset size, except for empty lists.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method 'getInsertPartitioner' requires 'profile' to call 'getUpsertPartitioner(profile)'; a null value would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile instanceof WorkloadProfile",
+    "rationale" : "'profile' is declared as type 'WorkloadProfile' and should always be an instance of this type at entry.",
+    "meta" : [ ]
+  } ]
+}

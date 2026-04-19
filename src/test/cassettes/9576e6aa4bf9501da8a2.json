@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method expects a list of records as input, which should not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required parameter representing the commit instant and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The HoodieTable must be provided for the bulkInsert operation to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Config is essential for configuring the bulk insert operation and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "A valid executor instance is necessary to perform commit-related operations.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is typically a required identifier for a partition and is expected to be non-null for record updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId must be non-null as it identifies the file to update; null values would not allow proper update logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is an input iterator of updates and must be non-null to evaluate its contents and perform updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr.hasNext() || !recordItr.hasNext()",
+    "rationale" : "Iterator.hasNext() always returns either true or false, establishing exhaustive coverage. While basic, it confirms the method's branching logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "partitionPath is likely a non-empty string as it designates a partition.",
+    "meta" : [ ]
+  } ]
+}

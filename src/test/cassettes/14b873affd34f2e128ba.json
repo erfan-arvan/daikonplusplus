@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "It's common to assume input parameters are not null to prevent NullPointerExceptions and due to typical API contracts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "The input parameter is declared as a List, so it must be an instance of List at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a List is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() == (records.size() == 0)",
+    "rationale" : "This is a property of all Java List implementations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "Lists of WriteStatus are often expected to not contain null elements to avoid downstream errors.",
+    "meta" : [ ]
+  } ]
+}

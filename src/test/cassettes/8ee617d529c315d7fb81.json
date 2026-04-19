@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context should not be null at method entry for execution to proceed normally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be a non-null string identifier for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of keys to delete should be provided (non-null) at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys instanceof java.util.List",
+    "rationale" : "keys is declared as List<HoodieKey>, so this should be true at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Usually, instantTime identifiers are non-empty.",
+    "meta" : [ ]
+  } ]
+}

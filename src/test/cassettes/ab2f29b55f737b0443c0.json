@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument to getLatestFileSlices, so it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "String.length() is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Empty partition path may be invalid or nonsensical in this context.",
+    "meta" : [ ]
+  } ]
+}

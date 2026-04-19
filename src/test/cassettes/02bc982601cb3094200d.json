@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method expects a valid HoodieData parameter for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof HoodieData",
+    "rationale" : "Parameter type enforces that records is always a HoodieData instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.collectAsList() != null",
+    "rationale" : "collectAsList should return a non-null List if records is valid.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is required for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Instant time must be non-null and non-empty to identify the delete moment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The records to be deleted must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.size() >= 0",
+    "rationale" : "A list's size is always non-negative if the list is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "If the list is not null, all entries should be non-null for deletion to succeed.",
+    "meta" : [ ]
+  } ]
+}

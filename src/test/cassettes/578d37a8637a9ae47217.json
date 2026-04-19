@@ -1,0 +1,18 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method parameter objects are often expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "String parameters are often expected to be non-null at method entry and exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "throw new HoodieNotSupportedException(\"RollbackBootstrap is not supported yet\");",
+    "rationale" : "The method always throws an exception; no normal return is possible.",
+    "meta" : [ {
+      "key" : "exception",
+      "value" : "HoodieNotSupportedException"
+    } ]
+  } ]
+}

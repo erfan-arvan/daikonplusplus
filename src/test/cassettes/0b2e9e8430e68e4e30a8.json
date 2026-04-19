@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should be specified for update operations.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "partitionPath"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "A valid fileId is required for merge operations and should not be null.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "fileId"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The iterator of records to update should always be provided.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "recordItr"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Empty partition paths are generally invalid for update handles.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "partitionPath"
+    } ]
+  }, {
+    "expression" : "!fileId.isEmpty()",
+    "rationale" : "A file ID should not be empty to uniquely identify the file being updated.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "fileId"
+    } ]
+  } ]
+}

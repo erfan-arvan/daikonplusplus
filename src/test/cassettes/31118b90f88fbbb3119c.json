@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config must not be null for table creation logic to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "Table creation typically requires a base path in config; avoiding NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName() != null",
+    "rationale" : "The table name is commonly required for uniquely identifying the table being created.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath().length() > 0",
+    "rationale" : "Base path is expected to be non-empty for valid table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName().length() > 0",
+    "rationale" : "A table name should be non-empty for a valid table instance.",
+    "meta" : [ ]
+  } ]
+}

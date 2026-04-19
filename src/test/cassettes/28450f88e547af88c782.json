@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method requires a non-null context for operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is likely essential to the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "A rollback plan cannot be scheduled without specifying an instant to rollback.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Option is expected to be a non-null container (even if empty).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == (result.orElse(null) != null)",
+    "rationale" : "If Option is present, orElse(null) should yield non-null; if not present, yields null.",
+    "meta" : [ ]
+  } ]
+}

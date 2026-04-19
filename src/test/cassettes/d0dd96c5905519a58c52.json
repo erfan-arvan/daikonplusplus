@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always assigns a value to result before method exit.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "result is always assigned before the return either in if or else branch"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses is always set before return, either by executor or to Collections.EMPTY_LIST.",
+    "meta" : [ {
+      "key" : "related variable",
+      "value" : "result"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "Write statuses are always provided as a List in both branches.",
+    "meta" : [ {
+      "key" : "type checking",
+      "value" : "Write status is always a list."
+    } ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "deleteExecutor is required for normal method completion.",
+    "meta" : [ {
+      "key" : "method parameter",
+      "value" : "Non-null on entry and not reassigned"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "List sizes in Java are never negative.",
+    "meta" : [ {
+      "key" : "size invariant",
+      "value" : "List size cannot be negative"
+    } ]
+  } ]
+}

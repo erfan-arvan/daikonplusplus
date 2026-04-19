@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "sort is invoked unconditionally on 'records', so it must not be null",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "number of output partitions is typically positive in partitioning contexts",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "size() of a list is always non-negative",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.get(0) != null",
+    "rationale" : "if 'records' is non-empty, first element is assumed non-null since sort will call methods on HoodieRecord",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() + 1",
+    "rationale" : "edge case: typical limits for partitioning, ensuring not clearly more partitions than records (loose bound)",
+    "meta" : [ ]
+  } ]
+}

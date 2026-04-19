@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "writeConfig != null",
+    "rationale" : "Nullness is often required before invoking methods on writeConfig.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "needed for method calls"
+    } ]
+  }, {
+    "expression" : "writeConfig.getIndexType() != null",
+    "rationale" : "Index creation logic commonly depends on index type being specified.",
+    "meta" : [ {
+      "key" : "field-or-method-null-check",
+      "value" : "getIndexType() must be non-null to create an index"
+    } ]
+  } ]
+}

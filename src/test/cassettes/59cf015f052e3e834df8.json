@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieRestoreMetadata object from execute(); unless execute() can return null, this should hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed in as a parameter and is used in the construction of MergeOnReadRestoreActionExecutor, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is passed to executor and likely required to identify the restore operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is passed to executor and likely required for restore operation.",
+    "meta" : [ ]
+  } ]
+}

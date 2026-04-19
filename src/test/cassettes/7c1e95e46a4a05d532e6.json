@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is generally expected to be a non-null identifier for the commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "partitionRecordsMap is a parameter expected to be initialized by the caller.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap instanceof java.util.Map",
+    "rationale" : "partitionRecordsMap has type Map<String, HoodieData<HoodieRecord>>, which should be an instance of Map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.containsKey(null)",
+    "rationale" : "Partition keys in the map are expected to be non-null string values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is typically a non-empty string representing a commit timestamp.",
+    "meta" : [ ]
+  } ]
+}

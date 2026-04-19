@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator either from superclass or from a singleton list, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext() || !result.hasNext()",
+    "rationale" : "The returned Iterator conforms to Java's Iterator contract and must implement hasNext().",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed as an argument and used to construct handles and delegate; there is no reason for it to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is passed as argument, used in logging and handle creation, so should be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.hasNext()",
+    "rationale" : "recordItr, as a parameter, is always an Iterator and will always be usable at exit as per Java semantics.",
+    "meta" : [ ]
+  } ]
+}

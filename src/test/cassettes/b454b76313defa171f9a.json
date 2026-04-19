@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Valid to check since the list of WriteStatus is being passed as an argument and will be used in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "List.size() is always non-negative, and isEmpty implies size >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "The parameter is explicitly declared as a List in the method signature.",
+    "meta" : [ ]
+  } ]
+}

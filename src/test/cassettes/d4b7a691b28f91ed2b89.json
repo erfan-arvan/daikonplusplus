@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a BulkInsertPartitioner instance (never null) in both 'if' and 'else' branches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "Method expects strategyParams as a required input; a null value would likely fail earlier or is not handled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "HoodieSchema is required to construct a partitioner; the method assumes it's present and does not check null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof BulkInsertPartitioner",
+    "rationale" : "By method contract, result is always a BulkInsertPartitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaCustomColumnsSortPartitioner || result instanceof BulkInsertPartitioner",
+    "rationale" : "The method only returns two possibilities: a JavaCustomColumnsSortPartitioner or the factory method for BulkInsertPartitioner.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Methods returning Option<T> typically never return null, but always Option.empty() or Option.of(t).",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Parameter 'instantTime' is required for scheduling compaction, so it should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is needed by ScheduleCompactionActionExecutor, so it should never be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option types are expected to be non-null references, representing either empty or present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "This invariant is always true for Option (covers exhaustive possibility for return).",
+    "meta" : [ ]
+  } ]
+}

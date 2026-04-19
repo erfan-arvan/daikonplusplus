@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "A configuration object is expected to be non-null for table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "A valid HoodieTableMetaClient must be provided for operations on a table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "The base path in the config is likely required and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "The meta client should be linked to a valid base path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getSchema() != null",
+    "rationale" : "A schema is typically necessary for writing to a table.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method eagerly creates and returns a HoodieData<WriteStatus> object via HoodieListData.eager, which should never return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == writeStatuses.count()",
+    "rationale" : "Assuming updateLocation updates entries but does not change collection size, the number of WriteStatus records should be preserved.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is passed to multiple method calls and must be non-null for method correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is utilized in the updateLocation call chain and required to interact with the index.",
+    "meta" : [ ]
+  } ]
+}

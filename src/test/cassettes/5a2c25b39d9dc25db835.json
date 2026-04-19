@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "Method logic relies on profile being non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "A non-null input stat map is required for the loop.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().entrySet() != null",
+    "rationale" : "Looping over entrySet() assumes it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.hasOutputWorkLoadStats() || profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "Output stat map is consulted only if profile indicates output workload stats are available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.hasOutputWorkLoadStats() || profile.getOutputPartitionPathStatMap() instanceof java.util.Map",
+    "rationale" : "If output stats are expected, output map is present and a Map.",
+    "meta" : [ ]
+  } ]
+}

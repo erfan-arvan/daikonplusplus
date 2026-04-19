@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid 'instantTime' should be provided when performing an upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "'preppedRecords' should not be null as it is the set of records to be upserted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.size() >= 0",
+    "rationale" : "If 'preppedRecords' is not null, its size must be non-negative as per List contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null execution context is required for the upsert operation.",
+    "meta" : [ ]
+  } ]
+}

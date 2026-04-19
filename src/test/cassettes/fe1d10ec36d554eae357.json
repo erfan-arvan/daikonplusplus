@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The dedupedRecords parameter is used and passed to HoodieListData.eager, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to tagLocation and must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced to call getIndex, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getIndex() != null",
+    "rationale" : "table.getIndex() is called and its tagLocation method is used, so the result must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!dedupedRecords.isEmpty()",
+    "rationale" : "Typically, tagging makes sense only for non-empty input; empty input may be a trivial or special case.",
+    "meta" : [ ]
+  } ]
+}

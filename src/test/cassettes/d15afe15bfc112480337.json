@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "data is dereferenced in the method via data.stream()",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is passed to a wrapper and applied to elements; must be non-null",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result is the product of a collect call and therefore never null",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(o -> o != null)",
+    "rationale" : "No null outputs are produced, since flatMap over Streams typically skips nulls unless produced intentionally",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size is always non-negative",
+    "meta" : [ ]
+  } ]
+}

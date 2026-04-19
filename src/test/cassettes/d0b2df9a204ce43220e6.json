@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of HoodieListData.lazy(records), which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is the method parameter and is passed directly to HoodieListData.lazy.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "HoodieListData.lazy returns a HoodieListData, so result should be of this type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == records.size()",
+    "rationale" : "Assuming HoodieListData.lazy wraps the list without modification, the element count should match the input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(records)",
+    "rationale" : "If HoodieListData.lazy provides a view over the original list, collecting its contents should equal the input list.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned HoodieIndex instance is created via JavaHoodieIndexFactory.createIndex and should not be null according to typical factory behavior and HoodieIndex semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "The result must always be a HoodieIndex or its subtype, as required by the return type and factory method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "JavaHoodieIndexFactory.createIndex(config) == result",
+    "rationale" : "The method always returns the value produced by JavaHoodieIndexFactory.createIndex(config), so the result must equal this invocation.",
+    "meta" : [ ]
+  } ]
+}

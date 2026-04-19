@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Method parameter should be non-null for typical list operations and to prevent NPEs in future updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is expected to be non-null as a parameter representing the table context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "The size of a list is always >= 0 if non-null; this checks the structure input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.stream().allMatch(col -> col != null)",
+    "rationale" : "A well-formed columnsToIndex list should not contain null entries.",
+    "meta" : [ ]
+  } ]
+}

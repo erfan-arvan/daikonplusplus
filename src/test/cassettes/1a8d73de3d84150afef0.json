@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method expects writeStatuses to be passed in as a parameter and to be used immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result is used as an object, so it is likely assumed non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof List",
+    "rationale" : "Ensures that writeStatuses is an actual List implementation as expected by API contracts for updateLocation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Confirms type guarantees for result as it is used with HoodieWriteMetadata APIs inside the method.",
+    "meta" : [ ]
+  } ]
+}

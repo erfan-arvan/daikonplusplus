@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns Pair.of(...), so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The left component (partitionPathStatMap) of the returned Pair is always a HashMap instance and never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The right component (globalStat) of the returned Pair is always a WorkloadStat instance and never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Defensive: inputRecords is a method argument operating as the source for grouped computations and thus expected to be non-null when used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft().size() <= inputRecords.size()",
+    "rationale" : "Each entry in the map at most corresponds to a partition path found within the records. There cannot be more partitions than records.",
+    "meta" : [ ]
+  } ]
+}

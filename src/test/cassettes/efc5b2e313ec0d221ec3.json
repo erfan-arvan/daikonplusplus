@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths != null",
+    "rationale" : "It's common defensive programming to ensure method parameters are non-null if used without checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used in the method, so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths instanceof List",
+    "rationale" : "partitionPaths must be a List<String>, as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context must be a HoodieEngineContext per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths.size() >= 0",
+    "rationale" : "List.size() is always >= 0 in Java collections.",
+    "meta" : [ ]
+  } ]
+}

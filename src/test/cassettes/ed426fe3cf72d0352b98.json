@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of collectAsList(), which is non-null barring exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == dedupedRecords.size()",
+    "rationale" : "The result list should have the same size as the input list dedupedRecords, as tagLocation is expected to tag each record but not change cardinality.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getIndex() != null",
+    "rationale" : "The method accesses table.getIndex(), which would throw a NullPointerException if it were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced; it must not be null at the method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed as an argument to tagLocation and must not be null when called.",
+    "meta" : [ ]
+  } ]
+}

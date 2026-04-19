@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a valid HoodieEngineContext to perform indexing actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "An index instant time string must be provided for the operation to have context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!indexInstantTime.isEmpty()",
+    "rationale" : "An empty indexInstantTime string likely would make the instant invalid or meaningless for indexing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime.trim().length() > 0",
+    "rationale" : "indexInstantTime should not be only whitespace, ensuring it's a valid instant time representation.",
+    "meta" : [ ]
+  } ]
+}

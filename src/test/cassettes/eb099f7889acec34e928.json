@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a lambda expression, which is always non-null.",
+    "meta" : [ {
+      "key" : "nullness check",
+      "value" : "always returns a non-null lambda"
+    } ]
+  }, {
+    "expression" : "result.get() == -1",
+    "rationale" : "The returned Supplier<Integer> lambda always returns -1 when get() is called.",
+    "meta" : [ {
+      "key" : "constant return",
+      "value" : "lambda always returns -1"
+    } ]
+  } ]
+}

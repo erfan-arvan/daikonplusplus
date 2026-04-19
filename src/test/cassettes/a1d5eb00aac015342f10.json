@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object and its contract likely expects non-null unless failure is indicated by other means.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses collection in HoodieWriteMetadata is expected to be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the returned write statuses list should be non-negative; List.size() is always >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.hasErrors() || result.getWriteStatuses().stream().anyMatch(ws -> ws.hasErrors())",
+    "rationale" : "If HoodieWriteMetadata reports errors, then at least one WriteStatus should indicate an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "Partition-to-file-IDs mapping should be initialized in HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

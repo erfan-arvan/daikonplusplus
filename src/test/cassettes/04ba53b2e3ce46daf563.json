@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a new List, never null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is never null upon return"
+    } ]
+  }, {
+    "expression" : "partitionPath != null && result.stream().allMatch(sf -> sf != null && sf.location != null)",
+    "rationale" : "Elements of result are only created for valid base files; location is always set when added.",
+    "meta" : [ {
+      "key" : "element validity",
+      "value" : "All SmallFile entries and their locations are non-null if partitionPath is non-null"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.sizeBytes < config.getParquetSmallFileLimit())",
+    "rationale" : "Only base files smaller than the Parquet small file limit are added as SmallFile entries.",
+    "meta" : [ {
+      "key" : "size property",
+      "value" : "All smallFiles in result are below the small file threshold"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.location != null && sf.location.getFileId() != null && sf.location.getInstantTime() != null)",
+    "rationale" : "When creating SmallFile, location is always constructed from a base file.",
+    "meta" : [ {
+      "key" : "location property",
+      "value" : "Each SmallFile's location is completely assigned"
+    } ]
+  }, {
+    "expression" : "result.isEmpty() || result.stream().noneMatch(sf -> sf.sizeBytes >= config.getParquetSmallFileLimit())",
+    "rationale" : "Files above or equal to small file limit are never added to result.",
+    "meta" : [ {
+      "key" : "no large files",
+      "value" : "Result never contains non-small files"
+    } ]
+  } ]
+}

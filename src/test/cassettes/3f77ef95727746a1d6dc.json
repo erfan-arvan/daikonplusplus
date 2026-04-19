@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a result produced by a successful executor call, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null && !rollbackInstantTime.isEmpty()",
+    "rationale" : "A valid rollback instant time is likely required for a rollback operation to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "The commit instant operated on should be specified.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is necessary for any engine operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRollbackMetadata",
+    "rationale" : "The returned object should always be of type HoodieRollbackMetadata.",
+    "meta" : [ ]
+  } ]
+}

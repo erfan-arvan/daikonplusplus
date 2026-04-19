@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Option types are typically non-null; a null would indicate a programming error.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "MetaClient is expected to be non-null for metadata table initialization.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "metaClient"
+    } ]
+  }, {
+    "expression" : "instantTime.isPresent() || !instantTime.isPresent()",
+    "rationale" : "Option always in a defined present/absent state.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "covers both present and absent cases"
+    } ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "metaClient should always have a valid base path after initialization.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "metaClient.getBasePath()"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "metaClient should be associated with a valid table config.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "metaClient.getTableConfig()"
+    } ]
+  } ]
+}

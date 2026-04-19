@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "getWriteConfig() != null",
+    "rationale" : "Method calls on getWriteConfig() appear in the method body, suggesting it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getWriteConfig().getClusteringSortColumns() != null",
+    "rationale" : "Method checks if getClusteringSortColumns() is null or empty, meaning it is likely called frequently and not expected to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!StringUtils.isNullOrEmpty(getWriteConfig().getClusteringSortColumns()) == (getWriteConfig().getClusteringSortColumns().length() > 0)",
+    "rationale" : "Standard equivalence for isNullOrEmpty utility.",
+    "meta" : [ ]
+  }, {
+    "expression" : "PLAN_STRATEGY_SORT_COLUMNS != null",
+    "rationale" : "PLAN_STRATEGY_SORT_COLUMNS.key() is called, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "PLAN_STRATEGY_SORT_COLUMNS.key() != null",
+    "rationale" : "A key is placed in the map using PLAN_STRATEGY_SORT_COLUMNS.key().",
+    "meta" : [ ]
+  } ]
+}

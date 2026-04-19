@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "DeleteHelperHolder.JAVA_DELETE_HELPER != null",
+    "rationale" : "This is necessary for the method to return a non-null instance.",
+    "meta" : [ {
+      "key" : "staticFieldAccess",
+      "value" : "DeleteHelperHolder.JAVA_DELETE_HELPER"
+    } ]
+  }, {
+    "expression" : "DeleteHelperHolder.JAVA_DELETE_HELPER instanceof JavaDeleteHelper",
+    "rationale" : "The static field must hold an object of the expected type for this method to return the right object.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "JavaDeleteHelper"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "A non-null cacheKey may be required for meaningful behavior in a typical cache API.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids != null",
+    "rationale" : "If ids is to be used as a varargs array, it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids.length >= 0",
+    "rationale" : "The length of any array is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids.length == 0 || ids[0] >= Integer.MIN_VALUE",
+    "rationale" : "If ids is non-empty, the first element is a valid int. This is always true but not a tautology; it helps clarify typing concerns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids.length == 0 || ids[0] <= Integer.MAX_VALUE",
+    "rationale" : "The first element of the ids array must not exceed the max int value, clarifying value range.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Method throws before using instantTime but in most nontrivial code, parameters are expected initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "partitions is a required input parameter; method does not assign to it or set it to null internally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getClass().getSimpleName().equals(\"JavaHoodieBackedTableMetadataWriter\")",
+    "rationale" : "Method is not static; we're within a JavaHoodieBackedTableMetadataWriter instance.",
+    "meta" : [ ]
+  } ]
+}

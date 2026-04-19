@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "Used in a stream operation, must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner.getPartition(...) is called, so partitioner cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!dedupedRecords.isEmpty() || dedupedRecords.size() == 0",
+    "rationale" : "If the list is empty, its size must be zero; expresses equivalency between isEmpty and size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "record.getKey() and record.getCurrentLocation() are called, so all records should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(r -> r.getKey() != null)",
+    "rationale" : "record.getKey() is called for every record, which implies keys must not be null.",
+    "meta" : [ ]
+  } ]
+}

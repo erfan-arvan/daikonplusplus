@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used in the creation of HoodieAppendHandle and passed down the call chain; likely required non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is logged and used for lookups and identifying files; likely must be non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to downstream methods and constructors; must be non-null to perform iteration over records.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "!fileId.isEmpty()",
+    "rationale" : "fileId represents a file identifier and is used for lookups; likely should not be empty.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "recordItr.hasNext() == false || recordItr.hasNext() == true",
+    "rationale" : "recordItr is a valid Iterator; its hasNext() method is valid to call.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "trivial"
+    } ]
+  } ]
+}

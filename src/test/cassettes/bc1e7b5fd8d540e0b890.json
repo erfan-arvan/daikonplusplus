@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Engine context should not be null for engine operations to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is typically required to identify the commit or action in progress.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The list of records to bulk insert must be present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option objects should generally not be null as they represent presence or absence of an optional value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(bulkInsertPartitioner.isPresent()) || bulkInsertPartitioner.get() != null",
+    "rationale" : "If the Option is present, then the contained BulkInsertPartitioner must not be null.",
+    "meta" : [ ]
+  } ]
+}

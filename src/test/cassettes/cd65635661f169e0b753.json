@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null HoodieWriteMetadata result object.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "WriteStatuses is always set before return, even if set to an empty list.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().isEmpty() || result.getWriteStatuses().stream().allMatch(java.util.Objects::nonNull)",
+    "rationale" : "Returned WriteStatus list is either empty or contains only non-null elements.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "element-nonnull"
+    } ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "deleteExecutor is used before return and must be non-null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "param-nonnull"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() <= keys.size()",
+    "rationale" : "At most, one WriteStatus per input key can be generated, so the returned list can't be larger than the input key set.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "result-properties"
+    } ]
+  } ]
+}

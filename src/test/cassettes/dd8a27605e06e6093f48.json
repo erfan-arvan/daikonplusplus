@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null list constructed by .collect(Collectors.toList()), which never produces null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(fileId -> fileId != null)",
+    "rationale" : "The elements in 'result' come from 'getFileId()' of each FileSlice, which should not be null for existing files.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The result list is constructed using '.distinct()', so all elements should be unique.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || table.getSliceView().getLatestFileSlices(partitionPath).findAny().isEmpty()",
+    "rationale" : "If result is empty, that means there were no slices for the partitionPath; in other words, the stream produces nothing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Because the method passes partitionPath to the underlying HoodieTable API, which expects a non-null partition.",
+    "meta" : [ ]
+  } ]
+}

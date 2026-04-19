@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a key in a map lookup, which may throw NullPointerException if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "partitionPath likely represents a partition identifier and is expected to be non-empty to serve as a map key.",
+    "meta" : [ ]
+  } ]
+}

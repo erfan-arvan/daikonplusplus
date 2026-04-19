@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an instance of Partitioner, never null, regardless of the branch taken.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "profile is passed as a parameter and used to create the Partitioner; should not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Partitioner",
+    "rationale" : "The return value is always a Partitioner (or subclass) as dictated by the method signature and both branches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == getUpsertPartitioner(profile) || result == getInsertPartitioner(profile)",
+    "rationale" : "These are the only two ways in which 'result' can be constructed in this method.",
+    "meta" : [ ]
+  } ]
+}

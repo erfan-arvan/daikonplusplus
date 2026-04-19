@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required to be non-null to uniquely identify the commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is likely required to be non-null to specify the partition being committed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is required in the bulk commit process to contain data to be written, so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser is provided as a method parameter, and it is likely that it should not be null to correctly interpret file group indices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime should not be the empty string, as it probably represents a meaningful timestamp or ID.",
+    "meta" : [ ]
+  } ]
+}

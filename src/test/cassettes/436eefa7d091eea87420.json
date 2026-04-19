@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime typically represents a commit timestamp and should be non-null and non-empty for meaningful bulk insert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null && !hoodieRecords.isEmpty()",
+    "rationale" : "A bulk insert operation should have at least one record to insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required to perform any operations during bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option<BulkInsertPartitioner> argument should be non-null to check for partitioning strategies even if it might be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords == null || hoodieRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "If hoodieRecords is non-null, all contained HoodieRecord<T> elements should also be non-null for proper processing.",
+    "meta" : [ ]
+  } ]
+}

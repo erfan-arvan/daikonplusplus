@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Defensive programming generally expects input collections to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords instanceof List",
+    "rationale" : "The parameter hoodieRecords must be a List as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || hoodieRecords.get(0) instanceof HoodieRecord",
+    "rationale" : "If hoodieRecords is non-empty, elements should be HoodieRecord according to generic type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Input lists to such processing methods usually should not contain nulls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.stream().allMatch(r -> r instanceof HoodieRecord)",
+    "rationale" : "All elements should be of the correct type as per the generic type constraint.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is required for the SavepointActionExecutor and is likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "A valid savepoint instant is required, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "A user is required for auditing/who performed the savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "Comment may be required to describe the savepoint's purpose.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantToSavepoint.isEmpty()",
+    "rationale" : "The savepoint instant string should not be empty in normal operation.",
+    "meta" : [ ]
+  } ]
+}

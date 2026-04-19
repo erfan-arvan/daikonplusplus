@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method is passed a context that is cast and used; expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required for committing; null instant times are invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The records to insert should not be null as they are given directly to the executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A new HoodieWriteMetadata is constructed and returned; it should not be null on success.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write metadata should always provide non-null write statuses after the insert action.",
+    "meta" : [ ]
+  } ]
+}

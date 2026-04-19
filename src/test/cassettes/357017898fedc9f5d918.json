@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "The method will call clusteringPlan.getInputGroups(), which would throw if clusteringPlan is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is generally expected to be non-null since it is required for clustering data interpretation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is likely a required identifier for the clustering operation and should be present and non-empty.",
+    "meta" : [ ]
+  } ]
+}

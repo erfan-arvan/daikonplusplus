@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of convertMetadata(...), expected to be non-null in normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used directly to instantiate RunCompactionActionExecutor and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "compactionInstantTime is required by RunCompactionActionExecutor constructor and must not be null.",
+    "meta" : [ ]
+  } ]
+}

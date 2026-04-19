@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is a method argument of type String, typically expected to be non-null as a prefix identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is a required iterator argument for insertion and should not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr instanceof Iterator",
+    "rationale" : "recordItr is declared as Iterator<HoodieRecord<T>>, so this should always be true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx.length() >= 0",
+    "rationale" : "A valid Java String's length is always non-negative, even if the string is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx.isEmpty() || !idPfx.isEmpty()",
+    "rationale" : "Trivially true for a non-null String: it is either empty or not.",
+    "meta" : [ ]
+  } ]
+}

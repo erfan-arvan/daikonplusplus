@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method must return a non-null HoodieWriteMetadata object as per contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof java.util.List",
+    "rationale" : "getWriteStatuses() should return a List as per the generic signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty() || result.getWriteStatuses().isEmpty()",
+    "rationale" : "getWriteStatuses() must be non-null, and is either empty or not.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof org.apache.hudi.common.util.HoodieWriteMetadata",
+    "rationale" : "Result is expected to be of type HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() should be non-null for postcondition of write.",
+    "meta" : [ ]
+  } ]
+}

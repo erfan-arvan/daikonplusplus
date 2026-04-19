@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method always throws an exception and thus never returns normally, any postcondition on 'result' can only be vacuously true. Treating 'result' as null is a safe invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "At the method exit, the only way to reach this point is via an exception (not by returning), so any invariant is vacuously true.",
+    "meta" : [ ]
+  } ]
+}

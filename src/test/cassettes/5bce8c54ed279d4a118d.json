@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The commitInternal method uses instantTime, which should not be null to identify the commit; a null value might violate downstream invariants.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath serves as the key in the singletonMap and thus needs to be non-null for correct map behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is provided as a value in the Map and used for downstream processing, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser is an argument for assisting with index parsing operations and is likely required by downstream logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "A partition path being non-empty is typically required for proper mapping and processing in dataset partitioned storage systems.",
+    "meta" : [ ]
+  } ]
+}

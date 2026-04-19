@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The data list is used in the method, so it must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "The consumer is wrapped and used, so it must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism typically represents a positive level of parallel execution, and 0 or negative values are unlikely to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().count() == data.size()",
+    "rationale" : "The stream view of the list should have the same number of elements as the list size at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().allMatch(e -> true)",
+    "rationale" : "After forEach, all elements should remain, as forEach does not remove elements from the original list.",
+    "meta" : [ ]
+  } ]
+}

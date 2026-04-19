@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to construct and return a HoodieTable instance, so the result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "A valid HoodieWriteConfig is necessary to create a HoodieTable, so config should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The created HoodieTable is likely initialized using the provided config, so they should reference the same object.",
+    "meta" : [ ]
+  } ]
+}

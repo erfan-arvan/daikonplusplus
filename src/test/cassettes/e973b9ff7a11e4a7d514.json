@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option types should never be null per typical usage, so the result is not null.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Option contract"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is always passed as an argument and required to construct ScheduleCompactionActionExecutor.",
+    "meta" : [ {
+      "key" : "required",
+      "value" : "Constructor dependency"
+    } ]
+  }, {
+    "expression" : "scheduleLogCompactionExecutor != null",
+    "rationale" : "A new ScheduleCompactionActionExecutor is always allocated before returning.",
+    "meta" : [ {
+      "key" : "lifecycle",
+      "value" : "New instance always constructed"
+    } ]
+  }, {
+    "expression" : "result.equals(scheduleLogCompactionExecutor.execute())",
+    "rationale" : "The returned value is always the result of scheduleLogCompactionExecutor.execute().",
+    "meta" : [ {
+      "key" : "functionality",
+      "value" : "Delegation"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is expected to be a non-null, non-empty string as it is passed to the executor.",
+    "meta" : [ {
+      "key" : "expected usage",
+      "value" : "Non-empty instantTime required"
+    } ]
+  } ]
+}

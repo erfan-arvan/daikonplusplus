@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "commitTimeline != null",
+    "rationale" : "Typical Java style is to check for null before method calls; most methods of commitTimeline are used without null-checks within the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "Static analysis: hoodieWriteConfig is dereferenced immediately without null check, so it must be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() > 0",
+    "rationale" : "A storage/file size limit should reasonably be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() > 0",
+    "rationale" : "A record size estimation threshold should be a positive fraction or value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() >= 0",
+    "rationale" : "Record size estimates are normally non-negative.",
+    "meta" : [ ]
+  } ]
+}

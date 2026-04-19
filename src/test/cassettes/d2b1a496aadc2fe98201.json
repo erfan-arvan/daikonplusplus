@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partition != null",
+    "rationale" : "It's typical for partition names to be non-null strings in file partitioning schemes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partition.isEmpty()",
+    "rationale" : "Partition names are generally non-empty strings representing directory or logical divisions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition.trim().length() > 0",
+    "rationale" : "A partition naming convention usually avoids whitespace-only or empty names.",
+    "meta" : [ ]
+  } ]
+}

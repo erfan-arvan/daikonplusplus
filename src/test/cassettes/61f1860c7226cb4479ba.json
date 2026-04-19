@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Iterator, which is always constructed and never explicitly null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result instanceof JavaLazyInsertIterable",
+    "rationale" : "If recordItr has elements, result is an instance of JavaLazyInsertIterable (per the method's return statements).",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr.hasNext() || (result.hasNext() && result.next().isEmpty())",
+    "rationale" : "If recordItr is empty, result yields exactly one empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result.hasNext()",
+    "rationale" : "If recordItr has elements, the returned iterator should be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null || true",
+    "rationale" : "idPfx is always passed unconditionally to the returned iterable/factory, so it may be null, but its value propagates to the result.",
+    "meta" : [ ]
+  } ]
+}

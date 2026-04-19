@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is passed as a parameter and is used in object construction, indicating it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "The logCompactionInstantTime is passed to another object indicating it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The returned HoodieWriteMetadata should not be null after conversion from an executor result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The result is constructed (or transformed) and returned as HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The underlying List<WriteStatus> in the returned metadata is expected to be non-null, provided by the executor.",
+    "meta" : [ ]
+  } ]
+}

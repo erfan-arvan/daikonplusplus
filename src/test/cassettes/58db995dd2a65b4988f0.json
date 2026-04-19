@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a required object parameter and generally expected to be non-null for instance method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is a parameter that is likely used for indexing and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.size() >= 0",
+    "rationale" : "If columnsToIndex is not null, List.size() must be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.stream().allMatch(s -> s != null)",
+    "rationale" : "If columnsToIndex is non-null, all entries in the List should be non-null for meaningful indexing.",
+    "meta" : [ ]
+  } ]
+}

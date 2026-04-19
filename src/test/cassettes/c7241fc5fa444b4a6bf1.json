@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method returns the same list object reference after sorting in-place.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "No elements are added or removed; the list is sorted in place and returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0 || true",
+    "rationale" : "outputPartitions is an int parameter; in the absence of context, it may be any int, so no invariant restricts it meaningfully, but left as placeholder for meaningful expressions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "'result' is returned as a List<HoodieRecord<T>>, so this is always true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a (possibly empty) List, never null.",
+    "meta" : [ ]
+  } ]
+}

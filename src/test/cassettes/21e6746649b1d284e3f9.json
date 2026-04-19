@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Factory method HoodieMergeHandleFactory.create is expected to return a non-null handle.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null result"
+    } ]
+  }, {
+    "expression" : "result.getPartitionPath().equals(partitionPath)",
+    "rationale" : "The partitionPath passed in should be reflected in the returned HoodieMergeHandle.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter propagation"
+    } ]
+  }, {
+    "expression" : "result.getFileId().equals(fileId)",
+    "rationale" : "The fileId used to create the handle should match the fileId in the result.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter propagation"
+    } ]
+  }, {
+    "expression" : "result.getRecordsIterator() == recordItr",
+    "rationale" : "The original records iterator is commonly stored in the handle's state.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter propagation"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Partition paths are typically non-empty in commit actions.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input validation"
+    } ]
+  } ]
+}

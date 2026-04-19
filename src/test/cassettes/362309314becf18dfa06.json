@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is expected to be a valid engine context for the operation and is used immediately, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to identify the operation's timing and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords contains the records to be bulk inserted and should not be null, as it is passed directly to the executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner (an Option type) should not be null. It may be Option.empty(), but the Option object itself should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() >= 0",
+    "rationale" : "If the preppedRecords list is empty, its size is guaranteed to be at least 0 by the List contract.",
+    "meta" : [ ]
+  } ]
+}

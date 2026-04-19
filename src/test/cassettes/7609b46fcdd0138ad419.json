@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context should be non-null to perform insert/overwrite actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instant time is required for commit actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Non-null list of records is expected for insertion operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Commit instant time should be a non-empty string.",
+    "meta" : [ ]
+  } ]
+}

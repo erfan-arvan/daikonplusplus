@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "Method expects a non-null metadata object to operate on.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "The method may require the list of WriteStatus to be present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().size() >= 0",
+    "rationale" : "A size call on a List should yield a non-negative value if non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStats() != null",
+    "rationale" : "WriteStats likely provides context about the commit and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getCommitMetadata() != null",
+    "rationale" : "CommitMetadata encapsulates information about the commit and is likely needed for execution.",
+    "meta" : [ ]
+  } ]
+}

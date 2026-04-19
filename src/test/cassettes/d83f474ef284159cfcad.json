@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Iterator, either from JavaLazyInsertIterable or from the superclass, neither of which are expected to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is passed as a parameter and is likely required for the underlying file handling; such prefixes are typically not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is a required source Iterator for hoodie records; returning an Iterator over results would not make sense without it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The returned value result must always be an Iterator (of List<WriteStatus>) by method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(recordItr == null || idPfx == null)",
+    "rationale" : "Both recordItr and idPfx are needed for successful result construction, regardless of branch taken.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is expected to be a valid path argument; null paths may not make sense for this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "An empty partitionPath may not be meaningful or supported; many methods using file system path-like arguments expect non-empty values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.trim().length() > 0",
+    "rationale" : "partitionPath is likely expected to represent a non-blank path. This ensures it isn't all whitespace.",
+    "meta" : [ ]
+  } ]
+}

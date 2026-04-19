@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The 'data' list is used directly and must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The function 'func' is passed to a wrapper and must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is expected to be a positive integer for meaningful parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof java.util.List",
+    "rationale" : "'data' should be a List as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size()",
+    "rationale" : "It is typical (though not required) to not have more parallelism than data elements to process.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Common precondition: write client creation likely requires a non-null configuration.",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "parameter:config"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Common precondition: write client creation likely requires a non-null engine context.",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "parameter:context"
+    } ]
+  }, {
+    "expression" : "config instanceof HoodieWriteConfig",
+    "rationale" : "Method signature enforces type, but worthwhile to state explicitly for program-point invariants.",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "parameter:config"
+    } ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "Method signature enforces type, but worthwhile to state explicitly for program-point invariants.",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "parameter:context"
+    } ]
+  } ]
+}

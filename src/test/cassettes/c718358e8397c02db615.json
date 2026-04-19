@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "HoodieWriteMetadata parameter should typically be non-null for write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses is called immediately, so it must not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!writeMetadata.getWriteStatuses().isEmpty()",
+    "rationale" : "A write operation would typically have at least one WriteStatus; empty lists may indicate no work or an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().stream().allMatch(w -> w != null)",
+    "rationale" : "Each WriteStatus in the list should not be null to process statistics.",
+    "meta" : [ ]
+  } ]
+}

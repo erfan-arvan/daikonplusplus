@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is required for RunIndexActionExecutor and its methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "indexInstantTime is required to construct RunIndexActionExecutor and may be used downstream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!indexInstantTime.isEmpty()",
+    "rationale" : "indexInstantTime should be a non-empty String representing an instant time, which is likely essential for indexing.",
+    "meta" : [ ]
+  } ]
+}

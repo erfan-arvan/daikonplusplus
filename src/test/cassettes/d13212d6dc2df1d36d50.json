@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == writeMetadata",
+    "rationale" : "The method directly returns the input parameter writeMetadata, so result must always be the same object as writeMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Since result is assigned from writeMetadata, it will only be non-null if writeMetadata is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata != null == (result != null)",
+    "rationale" : "The non-nullness of result and writeMetadata always matches due to direct assignment.",
+    "meta" : [ ]
+  } ]
+}

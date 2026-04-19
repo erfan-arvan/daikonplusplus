@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is passed to new CopyOnWriteRollbackActionExecutor, which is instantiated and used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is directly passed to the action executor, likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant is passed into a downstream executor, likely cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "the method always returns the result of execute(), which likely returns metadata, not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRollbackMetadata",
+    "rationale" : "The returned value result should always be of the expected metadata type.",
+    "meta" : [ ]
+  } ]
+}

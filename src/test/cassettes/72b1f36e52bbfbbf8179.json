@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Java reduce operation returns a non-null value if zeroValue is provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "seqOp must be non-null to be used in the reduce operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "combOp must be non-null to be used in the reduce operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data must be non-null in order to call collectAsList().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Object",
+    "rationale" : "result is of generic type O, which in Java is guaranteed to extend Object.",
+    "meta" : [ ]
+  } ]
+}

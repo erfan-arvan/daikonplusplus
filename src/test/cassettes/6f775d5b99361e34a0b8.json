@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a value from SavepointActionExecutor.execute(), which is expected to produce a HoodieSavepointMetadata object for a valid savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null && !user.isEmpty()",
+    "rationale" : "A savepoint user is typically required and should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null && !instantToSavepoint.isEmpty()",
+    "rationale" : "The instant to savepoint should be specified and is typically non-null and non-empty for a valid savepoint operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is required for execution and interaction with the underlying Hoodie engine.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieSavepointMetadata",
+    "rationale" : "The return type of this method is HoodieSavepointMetadata, so the result should be an instance of this type.",
+    "meta" : [ ]
+  } ]
+}

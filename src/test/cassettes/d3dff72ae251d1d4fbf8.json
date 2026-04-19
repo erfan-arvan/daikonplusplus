@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method collects elements into a new Map and returns it, so the result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method operates on the input list 'data', which should not be null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The mapping function 'func' is used to transform elements, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each element of 'data' maps to a key (possibly with duplicates), so the number of keys in 'result' cannot exceed the number of input elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "Though 'parallelism' is not used in the method body, its presence may be required as a non-null parameter by the API contract.",
+    "meta" : [ ]
+  } ]
+}

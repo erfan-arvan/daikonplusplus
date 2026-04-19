@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The return value of the method is produced from metadata and should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(metadata.getClass())",
+    "rationale" : "The result has the same class as metadata because clone returns the same type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds().equals(metadata.getPartitionToReplaceFileIds())",
+    "rationale" : "Assuming clone copies over partition replacement information directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStats().equals(metadata.getWriteStats())",
+    "rationale" : "Assuming clone copies over write stats from metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().getClass().equals(java.util.ArrayList.class)",
+    "rationale" : "The method returns metadata.clone(...collectAsList()), so getWriteStatuses() should be a List implementation, likely an ArrayList.",
+    "meta" : [ ]
+  } ]
+}

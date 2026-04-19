@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the output of a helper's execute() method, which should not return null in normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The result is returned as HoodieWriteMetadata<List<WriteStatus>>, so its runtime type should conform.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "WriteMetadata implementations should provide non-null write status information upon return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of returned write statuses is non-negative by definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToWriteStats() != null",
+    "rationale" : "Partition-to-write-statistics map should be produced as part of a metadata return.",
+    "meta" : [ ]
+  } ]
+}

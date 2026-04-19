@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "props != null",
+    "rationale" : "It is common for method parameters to be non-null unless explicitly documented or checked for null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props instanceof TypedProperties",
+    "rationale" : "By the method signature, 'props' must be an instance of TypedProperties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "'this' must never be null when entering an instance method.",
+    "meta" : [ ]
+  } ]
+}

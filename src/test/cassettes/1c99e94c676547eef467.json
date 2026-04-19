@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == bucketInfoMap.get(bucketNumber)",
+    "rationale" : "Result is directly the value returned by bucketInfoMap.get(bucketNumber).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Assuming bucketInfoMap always contains a value for any input bucketNumber.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Typically, bucket numbers are non-negative indices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.bucketNumber == bucketNumber",
+    "rationale" : "Assuming BucketInfo holds its associated bucket number.",
+    "meta" : [ ]
+  } ]
+}

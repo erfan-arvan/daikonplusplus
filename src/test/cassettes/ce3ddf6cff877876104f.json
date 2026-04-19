@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "true",
+    "rationale" : "The method always throws an exception and doesn't proceed beyond the throw.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "method always throws"
+    } ]
+  }, {
+    "expression" : "false",
+    "rationale" : "There is no possible normal return from this method.",
+    "meta" : [ {
+      "key" : "unreachable_after_throw",
+      "value" : "method never returns normally"
+    } ]
+  }, {
+    "expression" : "writeClient != null || preppedRecordInputs != null || fileGroupsIdsToUpdate != null || instantTime != null",
+    "rationale" : "Any property is vacuously true since the method never completes normally.",
+    "meta" : [ {
+      "key" : "vacuous_or",
+      "value" : "no effect since method never reaches here"
+    } ]
+  }, {
+    "expression" : "throw new UnsupportedOperationException(\"Not implemented for Java engine yet\") != null",
+    "rationale" : "The method always throws, indicating this statement is always executed.",
+    "meta" : [ {
+      "key" : "always_throws",
+      "value" : "indicates exception thrown"
+    } ]
+  } ]
+}

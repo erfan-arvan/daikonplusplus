@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "A valid HoodieWriteConfig is needed to create a HoodieTable; typically, the config should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "The base path is a required property inside HoodieWriteConfig for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!config.getBasePath().isEmpty()",
+    "rationale" : "The base path should also not be an empty string to represent a valid table location.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName() != null",
+    "rationale" : "The table name within the configuration should be set for table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!config.getTableName().isEmpty()",
+    "rationale" : "The table name must not be an empty string to be valid.",
+    "meta" : [ ]
+  } ]
+}

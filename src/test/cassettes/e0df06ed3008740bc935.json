@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new AvroReaderContextFactory object, which is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is used as a parameter in the constructor and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof AvroReaderContextFactory",
+    "rationale" : "The method always returns an instance of AvroReaderContextFactory.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((AvroReaderContextFactory)result).getMetaClient() == metaClient",
+    "rationale" : "The AvroReaderContextFactory is constructed with metaClient, so it must return the same reference via its accessor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof ReaderContextFactory",
+    "rationale" : "result is declared and returned as ReaderContextFactory<IndexedRecord>.",
+    "meta" : [ ]
+  } ]
+}

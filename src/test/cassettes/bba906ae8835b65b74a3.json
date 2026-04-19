@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method expects a valid list of records to insert; typically should not be null.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "records"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit instant (instantTime) must be provided for the operation.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "The Option object itself should not be null, even though it may be empty.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "userDefinedBulkInsertPartitioner"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "Size of lists in Java is always non-negative.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "records"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime should not be an empty string to represent a valid commit time.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "instantTime"
+    } ]
+  } ]
+}

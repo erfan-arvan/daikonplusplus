@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option should not be null; it may be empty, but not null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result not null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Method receives config as parameter and does not check for null, implying it should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config not null"
+    } ]
+  }, {
+    "expression" : "config.populateMetaFields() == result.isEmpty()",
+    "rationale" : "The returned result is empty if and only if populateMetaFields returns true.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "result is empty iff populateMetaFields true"
+    } ]
+  }, {
+    "expression" : "!config.populateMetaFields() || result.isEmpty()",
+    "rationale" : "If populateMetaFields is true, result is always empty.",
+    "meta" : [ {
+      "key" : "control flow",
+      "value" : "ensured by guard logic"
+    } ]
+  }, {
+    "expression" : "result.isPresent() == !config.populateMetaFields()",
+    "rationale" : "If populateMetaFields returns false, then result contains a key generator.",
+    "meta" : [ {
+      "key" : "option",
+      "value" : "presence depends on populateMetaFields"
+    } ]
+  } ]
+}

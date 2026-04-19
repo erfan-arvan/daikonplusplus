@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the output of the JavaBulkInsertHelper.bulkInsert, which is expected to be a non-null List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "numOutputGroups is passed as parallelism for bulk insert and likely must be >0 to make sense for the clustering operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is passed directly to bulkInsert and is expected to be non-null for the clustering operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is provided to determine data structure and is passed down to the partitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupIdList != null",
+    "rationale" : "fileGroupIdList is an input to clustering strategies and is expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

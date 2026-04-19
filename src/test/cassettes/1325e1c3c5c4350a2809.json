@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Input data should be non-null for aggregation to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "A valid sequence operation is needed for aggregation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "A combiner operation is required for parallel aggregation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "The identity zeroValue should be non-null for correct reduction.",
+    "meta" : [ ]
+  } ]
+}

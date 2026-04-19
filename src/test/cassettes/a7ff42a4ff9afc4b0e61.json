@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "Null write result may not be expected and most methods would check or require a non-null input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(writeResult.getClass())",
+    "rationale" : "Ensures the writeResult is of a compatible type, since the method expects HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() instanceof List",
+    "rationale" : "Checks that getWriteStatuses returns a List as required by the method's generic type.",
+    "meta" : [ ]
+  } ]
+}

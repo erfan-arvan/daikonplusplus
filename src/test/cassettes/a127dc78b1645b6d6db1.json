@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always initializes partitionSmallFilesMap before returning, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Map",
+    "rationale" : "partitionSmallFilesMap is a HashMap and the method only returns this variable, so result is always a Map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() == 0 || result.size() == partitionPaths.size()",
+    "rationale" : "If partitionPaths is null or empty, result is empty; otherwise, result has one entry per partitionPath.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || (partitionPaths != null && partitionPaths.size() > 0 && config.getParquetSmallFileLimit() > 0)",
+    "rationale" : "Result is not empty only when there are partitionPaths and small file limit is positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "The values in the result map are never null because they are always set via getSmallFiles.",
+    "meta" : [ ]
+  } ]
+}

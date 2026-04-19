@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "records.collectAsList() should never return null per API contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(records.collectAsList())",
+    "rationale" : "The method implementation returns records.collectAsList(), so result must be equal to that value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.collectAsList().size()",
+    "rationale" : "Because result is obtained from records.collectAsList(), their sizes must match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || records.collectAsList().isEmpty()",
+    "rationale" : "If the result is empty, records.collectAsList() must be empty as well.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "By declaration, result is a List.",
+    "meta" : [ ]
+  } ]
+}

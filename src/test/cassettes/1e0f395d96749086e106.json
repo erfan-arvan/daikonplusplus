@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a result; unless there's an error, result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is required for the table query; if it was null, the method would likely fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type is List<String>, so result should be an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(fid -> fid != null)",
+    "rationale" : "FileIds returned are collected from map; each should be a non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "new java.util.HashSet<String>(result).size() == result.size()",
+    "rationale" : "The code applies 'distinct()' before collecting, so all fileIds should be unique.",
+    "meta" : [ ]
+  } ]
+}

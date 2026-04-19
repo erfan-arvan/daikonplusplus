@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "It is common for input record lists to be required as non-null for write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely intended to represent an event timestamp or ID; typically must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "The parameter is typed as a List, and the method expects List features and methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "instantTime as a String parameter for an operation should not be empty, for correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() == false || !instantTime.isEmpty()",
+    "rationale" : "Either preppedRecords is non-empty or instantTime is non-empty to have a meaningful upsert.",
+    "meta" : [ ]
+  } ]
+}

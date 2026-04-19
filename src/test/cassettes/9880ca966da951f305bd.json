@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is used as a parameter and passed to other methods, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed directly to another method; a null value would likely cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is directly passed as an argument and is assumed to always be non-null for correct execution.",
+    "meta" : [ ]
+  } ]
+}

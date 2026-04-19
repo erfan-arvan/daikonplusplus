@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "triggeringInstantTimestamp != null",
+    "rationale" : "Method logic passes triggeringInstantTimestamp to Option.of, which does not accept null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "Parameter failedWritesCleaningPolicy is used as an argument in downstream method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "streamingWrites == true || streamingWrites == false",
+    "rationale" : "streamingWrites is a boolean, always true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "autoDetectAndDeleteMetadataPartitions == true || autoDetectAndDeleteMetadataPartitions == false",
+    "rationale" : "autoDetectAndDeleteMetadataPartitions is a boolean, always true or false.",
+    "meta" : [ ]
+  } ]
+}

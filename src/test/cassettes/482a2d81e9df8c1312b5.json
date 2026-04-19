@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "It is standard practice for method parameters to be non-null for typical use in the body. Also, the method does not perform null checks before invoking methods on inputRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || inputRecords.size() >= 0",
+    "rationale" : "The size of a List is always non-negative. If it is empty, its size is 0 or more. This expresses a basic but meaningful property of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "The body of the method accesses methods on each element of inputRecords, suggesting elements are expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().map(rec -> rec.getPartitionPath()).allMatch(pp -> pp != null)",
+    "rationale" : "The method uses rec.getPartitionPath() for each record, implying partition paths are expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().map(rec -> rec.getCurrentLocation()).allMatch(loc -> true)",
+    "rationale" : "getCurrentLocation() is called on each record and can return null, which is handled by Option.ofNullable in the method body; this expresses that the call is always valid regardless of its result.",
+    "meta" : [ ]
+  } ]
+}

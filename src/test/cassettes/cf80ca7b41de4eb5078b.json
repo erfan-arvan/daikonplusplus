@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Option<String> parameters are typically not null as per best practices.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "HoodieTableMetaClient parameters are expected to be non-null for correct operation.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "metaClient"
+    } ]
+  }, {
+    "expression" : "instantTime instanceof Option",
+    "rationale" : "The method expects instantTime to be of type Option<String>.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "metaClient is expected to be a valid HoodieTableMetaClient instance.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "metaClient"
+    } ]
+  } ]
+}

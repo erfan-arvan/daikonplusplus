@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "data is passed directly to HoodieListData.eager(data), which likely requires a non-null argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result is created from HoodieListData.eager(data), which likely returns a non-null HoodieData instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "HoodieListData.eager(data) returns a HoodieListData, and by inheritance result is a HoodieListData.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(data)",
+    "rationale" : "The method returns an eagerly initialized HoodieListData over data, so collecting as list should yield the original data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1 || parallelism <= 0",
+    "rationale" : "parallelism is passed but not used, indicating it has no effect on the result or behavior.",
+    "meta" : [ ]
+  } ]
+}

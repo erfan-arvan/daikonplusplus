@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method operations on context would require it to be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Engine context is expected to be provided for all operations."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is usually a required identifier string, and method logic elsewhere would expect it.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "A time identifier is required; should not be null."
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is expected to be a non-empty string identifier.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Empty time identifiers are typically invalid in data systems."
+    } ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "Typestate expectation for the method parameter matching its declared type.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "context must be an instance of the expected type."
+    } ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Supplier is always non-null because a new lambda is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() == 0",
+    "rationale" : "The returned Supplier always supplies 0, as per the implementation lambda.",
+    "meta" : [ ]
+  } ]
+}

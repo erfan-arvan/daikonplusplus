@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a value, namely WriteHelperHolder.JAVA_WRITE_HELPER, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaWriteHelper",
+    "rationale" : "The return type is JavaWriteHelper and the value comes from a static holder of the same type.",
+    "meta" : [ ]
+  } ]
+}

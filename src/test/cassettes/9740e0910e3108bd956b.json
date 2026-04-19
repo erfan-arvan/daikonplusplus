@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a String parameter, and methods on it will likely be called, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is expected to be a valid list of records; methods that follow would assume it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "fileGroupsIdsToUpdate needs to be non-null as it represents file groups being modified.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is likely essential for performing any upsert or commit operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.size() >= 0",
+    "rationale" : "The size of a collection is always non-negative; checking isEmpty is valid on a non-null list.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method operations like data.stream() require data to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc is used in the reduction operation and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism should be at least 1 for meaningful execution, although the method does not directly use this parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof List",
+    "rationale" : "data is explicitly typed as a List, so this should always hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= Runtime.getRuntime().availableProcessors()",
+    "rationale" : "It is common to set parallelism no higher than the number of available processors.",
+    "meta" : [ ]
+  } ]
+}

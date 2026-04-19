@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "A valid rollback operation likely requires a non-null instant time string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A rollback operation should be associated with a specific commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.isEmpty() == false",
+    "rationale" : "An empty rollbackInstantTime may indicate an invalid or incomplete request.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteInstants || !deleteInstants",
+    "rationale" : "deleteInstants is a boolean input and always true or false; this records that fact in a formal way.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipLocking || !skipLocking",
+    "rationale" : "skipLocking, as a boolean, is always true or false; this records that nature in a formal way.",
+    "meta" : [ ]
+  } ]
+}

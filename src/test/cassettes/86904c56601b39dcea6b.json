@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter, representing the commit time, is expected to be provided and non-null for update operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "partitionPath is likely required to specify where the updates are targeted; it is expected to be initialized and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "fileId uniquely identifies the file to be merged; it should be non-null and non-empty for a valid update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null && !keyToNewRecords.isEmpty()",
+    "rationale" : "The map must contain new records if an update is happening; an empty or null map would mean there's nothing to update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dataFileToBeMerged != null",
+    "rationale" : "A base file must exist for merging during an update operation, so dataFileToBeMerged should not be null.",
+    "meta" : [ ]
+  } ]
+}

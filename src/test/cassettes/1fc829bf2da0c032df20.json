@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileIdHint != null",
+    "rationale" : "fileIdHint is used as a key in a map, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed to BucketInfo constructor and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "Bucket ids are generated from totalBuckets, which is incremented, so result is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket.get(fileIdHint) == result",
+    "rationale" : "fileIdHint was mapped to the returned bucket index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result).getFileId().equals(fileIdHint)",
+    "rationale" : "The returned bucket index maps to a BucketInfo whose fileId matches fileIdHint.",
+    "meta" : [ ]
+  } ]
+}

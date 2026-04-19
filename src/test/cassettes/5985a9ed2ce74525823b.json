@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method accesses fields and methods on result without null checks, so result must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "result.getWriteStatuses() is used as a stream source, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "This value is passed to a method for building commit metadata, so must be non-null.",
+    "meta" : [ ]
+  } ]
+}

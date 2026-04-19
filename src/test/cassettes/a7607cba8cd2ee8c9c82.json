@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method uses 'context' as a parameter to the executor's constructor, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "The method uses 'cleanInstantTime' as a parameter to the executor's constructor, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!cleanInstantTime.isEmpty()",
+    "rationale" : "'cleanInstantTime' is likely expected to represent an instant and should not be an empty string.",
+    "meta" : [ ]
+  } ]
+}

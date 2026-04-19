@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "writeConfig != null",
+    "rationale" : "The method expects writeConfig to configure the index, a null value would likely cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig instanceof HoodieWriteConfig",
+    "rationale" : "Parameter writeConfig should be of type HoodieWriteConfig as per signature.",
+    "meta" : [ ]
+  } ]
+}

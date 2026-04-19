@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new HoodieJavaWriteClient instance, which should not be null.",
+    "meta" : [ {
+      "key" : "postcondition",
+      "value" : "constructor always returns a valid object"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieJavaWriteClient",
+    "rationale" : "The method explicitly constructs a HoodieJavaWriteClient.",
+    "meta" : [ {
+      "key" : "postcondition",
+      "value" : "method always returns a HoodieJavaWriteClient"
+    } ]
+  }, {
+    "expression" : "((HoodieJavaWriteClient) result).getConfig() == config",
+    "rationale" : "The 'config' object is passed to the HoodieJavaWriteClient constructor and should be retrievable.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "config passed to constructor is present in result"
+    } ]
+  }, {
+    "expression" : "((HoodieJavaWriteClient) result).getEngineContext() == context",
+    "rationale" : "The 'context' object is passed to the HoodieJavaWriteClient constructor and should be retrievable.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "context passed to constructor is present in result"
+    } ]
+  }, {
+    "expression" : "result != config",
+    "rationale" : "The method returns a new HoodieJavaWriteClient, which should not be the same object as the config.",
+    "meta" : [ {
+      "key" : "object distinction",
+      "value" : "returned object is not the config"
+    } ]
+  } ]
+}

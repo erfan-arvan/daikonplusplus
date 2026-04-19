@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionFilePathAndSizeTriplet != null",
+    "rationale" : "Input list should not be null to process records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "Index definition must exist to describe the index structure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Meta client is necessary for table state management.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism argument typically represents the number of tasks and should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tableSchema != null && readerSchema != null",
+    "rationale" : "Schemas are required for data interpretation and must not be null.",
+    "meta" : [ ]
+  } ]
+}

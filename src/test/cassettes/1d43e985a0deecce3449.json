@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context must not be null to perform rollback operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null && !rollbackInstantTime.isEmpty()",
+    "rationale" : "A valid, non-empty rollback instant time string is needed for rollback.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "The commitInstant to rollback must be specified.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteInstants == true || deleteInstants == false",
+    "rationale" : "deleteInstants is a boolean and must always be true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipLocking == true || skipLocking == false",
+    "rationale" : "skipLocking is also a boolean and must be true or false.",
+    "meta" : [ ]
+  } ]
+}

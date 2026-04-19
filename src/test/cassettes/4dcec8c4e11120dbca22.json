@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The key parameter is expected to be used as a Pair and its methods are called directly, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key instanceof org.apache.hudi.common.util.collection.Pair",
+    "rationale" : "The method immediately casts key to Pair<HoodieKey, Option<HoodieRecordLocation>>, so key should be an instance of Pair.",
+    "meta" : [ ]
+  } ]
+}

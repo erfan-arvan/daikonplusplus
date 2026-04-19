@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is required to indicate the partition location to update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is typically required to identify which file to update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr must be non-null to iterate over records; null would likely be an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr != null",
+    "rationale" : "If recordItr is used with hasNext(), it must not be null; this follows the code path using recordItr.hasNext().",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "partitionPath is likely a non-empty string to represent a valid partition; empty would be unusual.",
+    "meta" : [ ]
+  } ]
+}

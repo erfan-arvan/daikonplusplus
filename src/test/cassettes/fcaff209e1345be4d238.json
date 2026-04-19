@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context should not be null to perform table operations.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "context"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The scheduled compaction needs a valid instant time.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option reference for metadata should not be null (may be Option.empty()).",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "extraMetadata"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Instant time is typically a non-empty string representing a timestamp or event.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "extraMetadata.isPresent() == false || extraMetadata.get() instanceof java.util.Map",
+    "rationale" : "If metadata is present, it must be a Map according to the method signature.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "extraMetadata"
+    } ]
+  } ]
+}

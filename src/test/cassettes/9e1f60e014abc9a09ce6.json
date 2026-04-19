@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collections.emptyMap() never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Collections.emptyMap() returns an empty map, thus result is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Collections.emptyMap()",
+    "rationale" : "The returned object is exactly Collections.emptyMap(), as per the method implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "writeMetadata is a required argument and presumably not null at this point.",
+    "meta" : [ ]
+  } ]
+}

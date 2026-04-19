@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "getUpsertPartitioner likely returns a valid Partitioner for any valid profile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "Profile is passed directly to getUpsertPartitioner and expected to be non-null for partitioning logic.",
+    "meta" : [ ]
+  } ]
+}

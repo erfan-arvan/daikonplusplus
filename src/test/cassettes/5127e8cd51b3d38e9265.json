@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned List<HoodieRecord<T>> should not be null based on the expected method behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == dedupedRecords.size()",
+    "rationale" : "tagLocation should return a list with the same cardinality as the input dedupedRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for operations in tagLocation and is not expected to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "A valid table instance is necessary to invoke getIndex().tagLocation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "dedupedRecords are passed as input and should be non-null when method completes.",
+    "meta" : [ ]
+  } ]
+}

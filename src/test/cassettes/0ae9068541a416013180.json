@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == true",
+    "rationale" : "The method always returns the constant value true.",
+    "meta" : [ {
+      "key" : "method_contract",
+      "value" : "Always returns true"
+    } ]
+  }, {
+    "expression" : "result != false",
+    "rationale" : "Since result is always true, it is never false.",
+    "meta" : [ {
+      "key" : "redundant_with_result_true",
+      "value" : "Implied by result == true"
+    } ]
+  }, {
+    "expression" : "result || !result",
+    "rationale" : "This is a tautological invariant for any boolean and always holds.",
+    "meta" : [ {
+      "key" : "tautology",
+      "value" : "Always holds for booleans"
+    } ]
+  } ]
+}

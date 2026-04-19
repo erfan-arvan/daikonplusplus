@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method likely requires a commit or instant time, so null would likely indicate a precondition violation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition must be supplied to look up bucket info; method immediately calls getBucketInfo(partition).",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is dereferenced after cast without null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to downstream methods and expected to be a valid Iterator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition >= 0",
+    "rationale" : "Partition identifiers in similar contexts are usually non-negative.",
+    "meta" : [ ]
+  } ]
+}

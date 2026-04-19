@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method dereferences result, so it must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is invoked via stream() in the logic, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty() || result.getWriteStatuses().isEmpty()",
+    "rationale" : "As getWriteStatuses() is called, the method should handle both empty and non-empty, but the List itself must exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "getPartitionToReplaceFileIds() is passed to buildMetadata, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getCommitMetadata().isPresent()",
+    "rationale" : "setCommitMetadata is called, which wraps a value in Option.of, making it present at exit.",
+    "meta" : [ ]
+  } ]
+}

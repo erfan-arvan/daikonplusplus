@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (commitStats(instantTime, writeStatuses.stream().map(WriteStatus::getStat).collect(java.util.stream.Collectors.toList()), extraMetadata, commitActionType, partitionToReplacedFileIds, extraPreCommitFunc))",
+    "rationale" : "The method returns the result of the commitStats call, so result equals its value.",
+    "meta" : [ {
+      "key" : "derivedFrom",
+      "value" : "method return statement"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required for the commit operation to proceed and is dereferenced in the next call.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is dereferenced to build writeStats, so it cannot be null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "writeStatuses"
+    } ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "commitActionType is passed through and likely required by commitStats.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "commitActionType"
+    } ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds is dereferenced by commitStats, so it is expected to be non-null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "partitionToReplacedFileIds"
+    } ]
+  } ]
+}

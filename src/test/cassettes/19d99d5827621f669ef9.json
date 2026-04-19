@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method's return value is the result of collectAsList, which should never be null if tagLocation and collectAsList are implemented as per contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "dedupedRecords is passed to HoodieListData.eager, which expects a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced to invoke getIndex, null would cause an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed as an argument to tagLocation and therefore is expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

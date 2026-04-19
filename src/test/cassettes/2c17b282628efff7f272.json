@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is instantiated and returned, so cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Result is declared as HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(HoodieWriteMetadata.class)",
+    "rationale" : "Result is directly created with 'new HoodieWriteMetadata<>()', so it should have this exact runtime class.",
+    "meta" : [ ]
+  } ]
+}

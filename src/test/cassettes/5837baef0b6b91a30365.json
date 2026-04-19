@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "Parameter used for method calls, likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Parameter is passed into downstream clustering operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "getSlices() called to generate clustering operations; must be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clusteringGroup.getSlices().isEmpty()",
+    "rationale" : "Operations are mapped using getSlices() stream; an empty slices list may be invalid for clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime typically represents an instant or timestamp string, which should be non-empty for clustering context.",
+    "meta" : [ ]
+  } ]
+}

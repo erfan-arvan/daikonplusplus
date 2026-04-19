@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Configuration must be provided for table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "A storage configuration is required to create a table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true || skipValidation",
+    "rationale" : "The skipValidation flag is a boolean and always either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipValidation == true || skipValidation == false",
+    "rationale" : "skipValidation must be a valid boolean value.",
+    "meta" : [ ]
+  } ]
+}

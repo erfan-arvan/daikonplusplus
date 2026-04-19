@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Factory method should return a non-null KeyGenerator instance if no exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "Input TypedProperties should not be null, otherwise factory methods may throw an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof KeyGenerator",
+    "rationale" : "Result is required, by type, to be a KeyGenerator.",
+    "meta" : [ ]
+  } ]
+}

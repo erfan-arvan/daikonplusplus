@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method is expected to operate on a non-null list of data, as passing null would likely be an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive integer for any parallel processing; non-positive values are likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || data.size() > 0",
+    "rationale" : "A list is either empty or has a positive size, reflecting standard List behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size()",
+    "rationale" : "It is common in parallel processing to have parallelism not exceed the number of items to process, though this may not be enforced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List size is always non-negative by Java standard library guarantees.",
+    "meta" : [ ]
+  } ]
+}

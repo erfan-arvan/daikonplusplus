@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of updateLocation should never be null as it is constructed from HoodieListData.eager.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is passed as a parameter and is expected to be non-null, otherwise collectAsList() would throw.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used in the delegated call, so must be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is passed to the underlying method; null would cause a failure.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieData",
+    "rationale" : "The returned object is constructed using HoodieListData.eager, which returns a HoodieData.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  } ]
+}

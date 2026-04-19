@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Method likely expects a non-null partition path.",
+    "meta" : [ {
+      "key" : "strength",
+      "value" : "commonly required precondition"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Typically, partition path should not be an empty string.",
+    "meta" : [ {
+      "key" : "strength",
+      "value" : "common file system practice"
+    } ]
+  }, {
+    "expression" : "partitionPath instanceof String",
+    "rationale" : "partitionPath parameter is explicitly a String.",
+    "meta" : [ {
+      "key" : "strength",
+      "value" : "type safety"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The List is provided as input; null checks are common on API boundaries.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "size() of a List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Each HoodieRecord should be non-null for filtering and downstream processing.",
+    "meta" : [ ]
+  } ]
+}

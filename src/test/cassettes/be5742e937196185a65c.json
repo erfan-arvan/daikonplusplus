@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method is called with a context, and passing null would be an error in most reasonable API usages.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is a timestamp string, likely required for the table operation; method likely assumes it is valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The operation expects a list of records to insert. Null records would not make sense and likely lead to an exception elsewhere.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The result of the insertOverwriteTable operation is expected to be a valid HoodieWriteMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata should produce a non-null list of WriteStatus objects to represent the write results.",
+    "meta" : [ ]
+  } ]
+}

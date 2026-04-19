@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a static string, so result cannot be null.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "method always returns a constant String"
+    } ]
+  }, {
+    "expression" : "result.equals(\"cluster\")",
+    "rationale" : "The method always returns HoodieTimeline.CLUSTERING_ACTION which equals \"cluster\".",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "HoodieTimeline.CLUSTERING_ACTION is \"cluster\""
+    } ]
+  }, {
+    "expression" : "result instanceof String",
+    "rationale" : "The return value is always a String.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result is declared as String"
+    } ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "The return value is a static non-empty string.",
+    "meta" : [ {
+      "key" : "semantics",
+      "value" : "method returns a non-empty constant"
+    } ]
+  } ]
+}

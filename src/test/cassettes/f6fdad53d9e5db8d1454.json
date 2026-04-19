@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method immediately dereferences result by calling getWriteStatuses(), indicating it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method calls result.getWriteStatuses(), implying the list is expected to be present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "The mapping operation expects that all WriteStatus elements in the list are non-null.",
+    "meta" : [ ]
+  } ]
+}

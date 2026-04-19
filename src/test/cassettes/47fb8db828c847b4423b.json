@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "Parameter should not be null when invoking method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() != null",
+    "rationale" : "Common precondition for using metadata about write statuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!writeResult.getWriteStatuses().isEmpty()",
+    "rationale" : "Usually, a commit action expects there to be write statuses to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getPartitionToWriteStats() != null",
+    "rationale" : "The mapping from partitions to write stats is commonly necessary in commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStats() != null",
+    "rationale" : "Write statistics are expected to exist for further processing.",
+    "meta" : [ ]
+  } ]
+}

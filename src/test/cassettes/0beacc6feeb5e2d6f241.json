@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "table != null",
+    "rationale" : "The method accesses table methods and fields without null checks, so table must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is used to check whether it contains a given instant, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "operationType is compared using equals, requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to methods such as getCompactionInflightInstant, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "The method throws if operationType equals LOG_COMPACT; control reaches the core logic only if this is not the case.",
+    "meta" : [ ]
+  } ]
+}

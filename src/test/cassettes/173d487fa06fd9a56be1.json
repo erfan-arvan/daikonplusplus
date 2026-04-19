@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of execute(), which should return non-null metadata upon successful rollback execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "The rollbackInstantTime is passed to an action executor and is likely required for rollback; a null value might be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "The commitInstant is required to identify which commit to roll back, and is used directly in the rollback process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRollbackMetadata",
+    "rationale" : "The method returns a HoodieRollbackMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null && result.getClass() == HoodieRollbackMetadata.class",
+    "rationale" : "The result object is exactly an instance of HoodieRollbackMetadata as constructed and returned by the method.",
+    "meta" : [ ]
+  } ]
+}

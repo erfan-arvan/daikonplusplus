@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "metadataWriteConfig != null",
+    "rationale" : "metadataWriteConfig is accessed in the method and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dataMetaClient != null",
+    "rationale" : "dataMetaClient is used (dataMetaClient.getStorage()) and must not be null for safe execution.",
+    "meta" : [ ]
+  } ]
+}

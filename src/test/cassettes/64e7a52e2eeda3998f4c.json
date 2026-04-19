@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid commit time instant is required for delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of keys to delete is expected to be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getDeleteShuffleParallelism() > 0",
+    "rationale" : "Parallelism for shuffling deletes should be positive for meaningful parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "A non-null table object is required for performing delete actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "A delete executor is required to coordinate the delete operation.",
+    "meta" : [ ]
+  } ]
+}

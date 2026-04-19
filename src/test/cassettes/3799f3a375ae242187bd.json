@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Iterator, either from Collections or IOUtils.runMerge, both of which are non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used to call getUpdateHandle and likely should not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "parameter nullness"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is logged and used in downstream method calls, so it should not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "parameter nullness"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to other methods and checked for hasNext(), so it is expected non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "parameter nullness"
+    } ]
+  }, {
+    "expression" : "result.hasNext() || !recordItr.hasNext()",
+    "rationale" : "If recordItr had no records, a singleton iterator is returned (which does haveNext() true); otherwise, a result from IOUtils.runMerge is returned.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "correlation"
+    } ]
+  } ]
+}

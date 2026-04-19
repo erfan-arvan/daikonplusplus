@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Supplier is always non-null as it is constructed and returned inline.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() == -1",
+    "rationale" : "The returned Supplier always produces the value -1, per the returned lambda.",
+    "meta" : [ ]
+  } ]
+}

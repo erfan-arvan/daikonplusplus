@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieMergeHandleFactory.create is expected to return a valid handle object.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed as an argument to HoodieMergeHandleFactory.create and likely must not be null.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "parameter_precondition"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used as an argument and is unlikely to be valid if null.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "parameter_precondition"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to another method and assumed not null for correct execution.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "parameter_precondition"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieMergeHandle",
+    "rationale" : "Result must be a HoodieMergeHandle as per the method's specification.",
+    "meta" : [ {
+      "key" : "type_invariant",
+      "value" : "true"
+    } ]
+  } ]
+}

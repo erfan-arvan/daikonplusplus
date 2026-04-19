@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Method always throws an exception before returning; result is never assigned.",
+    "meta" : [ {
+      "key" : "exceptionThrown",
+      "value" : "Always throws HoodieNotSupportedException"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Because the method always throws, any invariant trivially holds at exit.",
+    "meta" : [ {
+      "key" : "unreachable",
+      "value" : "method exit is unreachable"
+    } ]
+  } ]
+}

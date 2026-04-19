@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Non-null results are typically expected as return values for metadata objects.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "METHOD_EXIT"
+    } ]
+  }, {
+    "expression" : "result.getClass().equals(HoodieWriteMetadata.class) || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "Result should be of the declared return type or a subtype (polymorphic return object).",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "METHOD_EXIT"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses in results should typically be non-null for commit actions.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "METHOD_EXIT"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The write statuses should be represented as a List in the output metadata.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "METHOD_EXIT"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The number of WriteStatus objects should never be negative; empty lists are valid.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "METHOD_EXIT"
+    } ]
+  } ]
+}

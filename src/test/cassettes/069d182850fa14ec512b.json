@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as method argument and accessed in called methods; it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Typically, partitionPath should refer to a valid partition and not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath instanceof String",
+    "rationale" : "partitionPath is declared as a String parameter.",
+    "meta" : [ ]
+  } ]
+}

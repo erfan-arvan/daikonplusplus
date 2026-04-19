@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Methods generally expect non-null collections as inputs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "The size of a Java List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(record -> record != null)",
+    "rationale" : "Write methods typically require all records to be non-null before processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || inputRecords.get(0) instanceof HoodieRecord",
+    "rationale" : "If the list is not empty, its elements should be HoodieRecord objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inputRecords.isEmpty() || inputRecords.size() == 0",
+    "rationale" : "A list is empty if and only if its size is zero.",
+    "meta" : [ ]
+  } ]
+}

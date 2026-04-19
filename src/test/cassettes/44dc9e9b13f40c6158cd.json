@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieListData.lazy(records) returns a non-null HoodieData instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == (records == null ? 0 : records.size())",
+    "rationale" : "HoodieListData.lazy likely creates a HoodieData that wraps all input elements, so the count should correspond to the input list's size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(records == null) || !records.isEmpty() || result.count() == 0",
+    "rationale" : "If records is null or empty, the resulting HoodieData should also be empty.",
+    "meta" : [ ]
+  } ]
+}

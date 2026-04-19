@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Bucket numbers are typically non-negative integer identifiers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition paths should not be null when passed to the bucketInfo constructor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "fileIdHint is used as a key in updateLocationToBucket and as a parameter; null would risk a NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

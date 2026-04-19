@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method will be called on a non-null data List, otherwise a NullPointerException would occur in the body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is dereferenced in the lambda wrapper, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "A non-positive parallelism likely does not make sense for parallel streams, suggesting a contract that parallelism is positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || parallelism == 1",
+    "rationale" : "If data is empty, parallelism does not influence the computation, so parallelism could be 1 in this degenerate case.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream() != null",
+    "rationale" : "Since data is non-null and List supports stream(), this always yields a non-null Stream.",
+    "meta" : [ ]
+  } ]
+}

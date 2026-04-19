@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "aggregate uses data.collectAsList(), so data must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "seqOp::apply is used in reduce, requiring seqOp to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "combOp::apply is used in reduce, requiring combOp to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.collectAsList() != null",
+    "rationale" : "Method aggregate uses data.collectAsList(), which should not return null for correct processing with streams.",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null || data.collectAsList().isEmpty()",
+    "rationale" : "If zeroValue is null, the reduction should be over an empty list to avoid NullPointerException, as zeroValue is the identity element.",
+    "meta" : [ ]
+  } ]
+}

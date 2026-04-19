@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method expects a non-null list of records to repartition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Output partitions should be a positive integer for meaningful repartitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size()",
+    "rationale" : "Common in repartitioning: cannot create more partitions than elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof java.util.List",
+    "rationale" : "Type safety: method signature guarantees that records is a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "HoodieRecord list should not have null elements when processing.",
+    "meta" : [ ]
+  } ]
+}

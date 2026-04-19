@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Method cannot safely access config if it is null; prerequisite for accessing its members.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "The getProps() method must not return null for the subsequent getProperty call to be safe.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps().containsKey(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key())",
+    "rationale" : "The getProperty call later assumes that the key for partition path exists in properties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps().size() >= 0",
+    "rationale" : "The size of the properties map should always be non-negative.",
+    "meta" : [ ]
+  } ]
+}

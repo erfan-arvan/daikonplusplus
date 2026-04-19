@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new TableWriteStats object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "A method call is performed on writeMetadata, so it cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats() != null",
+    "rationale" : "getStats is initialized from a stream collect call, always yielding a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "The method maps over writeMetadata.getWriteStatuses(), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats().size() == writeMetadata.getWriteStatuses().size()",
+    "rationale" : "There is a one-to-one correspondence between WriteStatus objects and stats in the result.",
+    "meta" : [ ]
+  } ]
+}

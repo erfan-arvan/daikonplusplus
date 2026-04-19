@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "(name == null && result == -1) || (name != null && result == x + name.length())",
+    "rationale" : "Describes exactly how 'result' is determined by the state of 'name'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || result >= x",
+    "rationale" : "If 'name' is not null, result is x + length >= x; otherwise, result could be -1 < x only if x > -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null || result == -1",
+    "rationale" : "If name is null, result must be -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || result == x + name.length()",
+    "rationale" : "If name is non-null, result is always computed as x + name.length().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= -1",
+    "rationale" : "Result is at least -1 for any input.",
+    "meta" : [ ]
+  } ]
+}

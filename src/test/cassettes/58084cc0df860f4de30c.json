@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'records', which cannot be null given the method signature requirement.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result == records",
+    "rationale" : "Both in the empty and non-empty cases, 'records' is sorted in-place and then returned, so 'result' and 'records' are the same reference.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Partition counts are rarely negative; this may be an implicit precondition, though not enforced.",
+    "meta" : [ {
+      "key" : "expectation",
+      "value" : "likely"
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "No records are added or removed; only sorted or returned as-is, so size remains unchanged.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> r != null)",
+    "rationale" : "Records from input are not changed, so no null entries should be introduced in the output.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "likely"
+    } ]
+  } ]
+}

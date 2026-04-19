@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List<WriteStatus>, and it is expected to not return null according to usual Java best practices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method delegates directly to another bulkInsert method, assuming input parameters are still non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The method passes instantTime to another method; a null value would likely cause a failure in the underlying implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result is declared as List<WriteStatus> and should always be a List instance.",
+    "meta" : [ ]
+  } ]
+}

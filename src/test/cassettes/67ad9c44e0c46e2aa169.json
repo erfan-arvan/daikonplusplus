@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new AvroReaderContextFactory, which is never null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is provided as a parameter and passed to the constructor, and the method would throw an error if null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result instanceof AvroReaderContextFactory",
+    "rationale" : "The method body always instantiates and returns an AvroReaderContextFactory.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.getClass() == AvroReaderContextFactory.class",
+    "rationale" : "The returned object is always created via 'new AvroReaderContextFactory', so its class is AvroReaderContextFactory, not a subclass.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "metaClient is declared as HoodieTableMetaClient, so it must be an instance, barring null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  } ]
+}

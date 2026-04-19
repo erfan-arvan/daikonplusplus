@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is a required engine context object and should not be null for scheduling operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime must be a valid string identifier for the clustering operation; cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is typically required to be non-empty as an operation timestamp or identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option objects representing possible metadata must be non-null as part of typical API contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() ? extraMetadata.get() != null : true",
+    "rationale" : "If extraMetadata is present, the underlying Map should not be null for correct metadata handling.",
+    "meta" : [ ]
+  } ]
+}

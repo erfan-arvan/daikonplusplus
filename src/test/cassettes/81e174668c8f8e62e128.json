@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is constructed via JavaWriteHelper.write(), which is expected to return a non-null metadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata should always have a non-null list of WriteStatus as a core part of its contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToInsertRecords() == null || !result.getPartitionToInsertRecords().isEmpty() || result.getWriteStatuses().isEmpty()",
+    "rationale" : "If there are no insert records per partition, then it's possible the write status list is empty, reflecting a no-op.",
+    "meta" : [ ]
+  } ]
+}

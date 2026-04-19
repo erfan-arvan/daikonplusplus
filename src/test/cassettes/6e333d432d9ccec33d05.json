@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new lambda, which cannot be null, so result is guaranteed non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-safety"
+    } ]
+  }, {
+    "expression" : "result.get() == -1",
+    "rationale" : "The Supplier always returns -1 as specified in the lambda, so calling get() always yields -1.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "return-value"
+    } ]
+  } ]
+}

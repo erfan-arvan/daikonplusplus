@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a list, not null, as per its last line.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(Objects::nonNull)",
+    "rationale" : "The result is filtered to exclude nulls before collecting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "At most one value per key; cannot be more values than input pairs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == data.isEmpty()",
+    "rationale" : "If the input is empty, result is empty; otherwise, result may have elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism parameter should be positive for parallel streams (though not rechecked here, it's a likely invariant).",
+    "meta" : [ ]
+  } ]
+}

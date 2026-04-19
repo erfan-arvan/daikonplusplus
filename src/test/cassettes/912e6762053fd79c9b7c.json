@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The code explicitly checks that result is not null before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "The code checks that result is not empty via checkState before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() > 0",
+    "rationale" : "Equivalent to !result.isEmpty(), since result is guaranteed to have at least one element.",
+    "meta" : [ ]
+  } ]
+}

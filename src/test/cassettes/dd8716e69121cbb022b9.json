@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "EngineProperty key is generally expected not to be null for property set operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "String value should typically not be null when setting a property.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!value.isEmpty()",
+    "rationale" : "Commonly, property values are not empty strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key.name() != null",
+    "rationale" : "EngineProperty enum names are never null if key itself is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value.length() >= 0",
+    "rationale" : "String.length() is always non-negative for a non-null String.",
+    "meta" : [ ]
+  } ]
+}

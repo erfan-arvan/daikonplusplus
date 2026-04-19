@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method operates on preppedRecords and passes it to several functions, so it is likely expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-safety"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is used as an argument in operations requiring a valid time instant string, so it is likely not empty.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-precondition"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed directly to downstream code, so the Option object itself is likely expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-safety"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A list's size is always non-negative in Java, ensuring preppedRecords.size() >= 0 holds.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-property"
+    } ]
+  } ]
+}

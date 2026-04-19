@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null && !activeModule.isEmpty()",
+    "rationale" : "Module names are typically non-empty strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null && !activityDescription.isEmpty()",
+    "rationale" : "Activity descriptions are expected to be non-empty strings for tracking job status.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule != null || activityDescription != null",
+    "rationale" : "It is likely at least one of the parameters is provided for job status contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule == null || activeModule.length() > 0",
+    "rationale" : "If activeModule is not null, it is likely meaningful and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription == null || activityDescription.length() > 0",
+    "rationale" : "If activityDescription is not null, it's likely non-empty and describes some activity.",
+    "meta" : [ ]
+  } ]
+}

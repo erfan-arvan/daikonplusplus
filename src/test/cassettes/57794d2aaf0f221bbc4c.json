@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Method instantTime is passed to transitionRequestedToInflight, which likely requires a non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "An instant time should be a non-empty string representing a timestamp or instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "Whitespace-only values for instantTime would be invalid for the transition operation.",
+    "meta" : [ ]
+  } ]
+}

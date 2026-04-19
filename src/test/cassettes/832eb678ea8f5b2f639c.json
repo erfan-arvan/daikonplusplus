@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieJavaTable.create likely returns a non-null table when given non-null config and context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "The return value of HoodieJavaTable.create is an instance of HoodieJavaTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The created HoodieJavaTable should have the input config object as its associated configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getContext() == context",
+    "rationale" : "The created HoodieJavaTable should use the provided HoodieEngineContext.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null && context != null",
+    "rationale" : "The method likely expects non-null arguments to produce a valid table.",
+    "meta" : [ ]
+  } ]
+}

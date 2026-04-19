@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since a return value is always constructed and returned by execute(), 'result' should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method always passes preppedRecords to the executor, so it is expected to be non-null at this program point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is directly used as a parameter to another method; null would likely lead to a NPE or logic error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is directly cast and used, so it is expected to be non-null at method exit.",
+    "meta" : [ ]
+  } ]
+}

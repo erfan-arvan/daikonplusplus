@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method immediately uses 'context' to construct an object; null context would likely be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "The method passes logCompactionInstantTime into a constructor expecting a non-null string, so null is likely not allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!logCompactionInstantTime.isEmpty()",
+    "rationale" : "A compaction instant time is usually a required identifier and should not be an empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime.trim().length() > 0",
+    "rationale" : "The instant time should not be all whitespace; a blank string would probably be invalid as an identifier.",
+    "meta" : [ ]
+  } ]
+}

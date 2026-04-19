@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeConfig != null",
+    "rationale" : "Configuration parameter should not be null as it is used to create the index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig.getIndexConfig() != null",
+    "rationale" : "Index-related configuration should not be null for index creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig.getBasePath() != null",
+    "rationale" : "A valid base path configuration is typically required for index operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig.getSchema() != null",
+    "rationale" : "The write schema is usually required for writing/indexing operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig.getIndexType() != null",
+    "rationale" : "Index type configuration should be specified for index creation.",
+    "meta" : [ ]
+  } ]
+}

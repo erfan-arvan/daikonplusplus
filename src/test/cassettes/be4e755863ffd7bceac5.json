@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A commit action should not proceed with a null instantTime, as it typically identifies a commit moment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "The partitionRecordsMap must not be null to process commit records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty()",
+    "rationale" : "A commit should generally be performed only if there are new records, i.e., the records map is not empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Commit instants in Hudi are usually non-empty strings to uniquely identify a commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet().stream().allMatch(k -> k != null && k.length() > 0)",
+    "rationale" : "Partition keys in the map should be non-null and non-empty as they represent partition identifiers.",
+    "meta" : [ ]
+  } ]
+}

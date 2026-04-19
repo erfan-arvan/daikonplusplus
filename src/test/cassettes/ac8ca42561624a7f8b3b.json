@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is dereferenced for method calls, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed as a parameter and used in method calls, thus it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed to a method and likely must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.isCommitted(instantTime)",
+    "rationale" : "At method exit, since 'commit' is called, the expected behavior is that the instant is now committed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.size() >= 0",
+    "rationale" : "List#size() is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

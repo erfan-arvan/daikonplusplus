@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method is an instance method operating on 'result', it is likely a precondition that 'result' is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method accesses 'result.getWriteStatuses()', so it is likely that this list is expected to be non-null before method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "The method will pass 'result.getPartitionToReplaceFileIds()' as an argument; it is likely that this map (or structure) must be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned string constant is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(org.apache.hudi.common.table.HoodieTimeline.CLUSTERING_ACTION)",
+    "rationale" : "The method returns the constant CLUSTERING_ACTION from HoodieTimeline.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "CLUSTERING_ACTION is a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == org.apache.hudi.common.table.HoodieTimeline.CLUSTERING_ACTION",
+    "rationale" : "The return value is exactly the constant.",
+    "meta" : [ ]
+  } ]
+}

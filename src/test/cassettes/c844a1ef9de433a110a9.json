@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method requires a list of records to process, so null input is likely not expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An instant time is necessary to identify the commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Table reference is necessary for further actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Write configuration is required for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "Executor must be provided to carry out commit actions.",
+    "meta" : [ ]
+  } ]
+}

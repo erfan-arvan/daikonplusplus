@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "Method contract likely expects a non-null jobId, and null parameters are often considered invalid for identifiers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId instanceof String",
+    "rationale" : "Parameter jobId is declared as String and must remain so.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "The method is a no-op, so no state is changed and true is trivially invariant.",
+    "meta" : [ ]
+  } ]
+}

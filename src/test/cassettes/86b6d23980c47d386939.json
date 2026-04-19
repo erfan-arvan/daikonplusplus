@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method postWrite should not return null as result is expected to be a List<WriteStatus> after a write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is an input to bulkInsertPreppedRecords and is required for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a commit marker and passed to various sub-methods, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type is guaranteed as List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.get(0) instanceof WriteStatus",
+    "rationale" : "If result is not empty, it should contain WriteStatus objects reflecting the outcome of the write.",
+    "meta" : [ ]
+  } ]
+}

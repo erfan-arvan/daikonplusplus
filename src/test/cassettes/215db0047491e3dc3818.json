@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a HoodieEngineContext and immediately uses it, so it is expected to not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required parameter for the upsert action and should be non-null for valid upserts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "A non-null hoodieRecords list is necessary for any upsert operation to execute effectively.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result is the outcome of a new object creation and execute method, so it should be non-null barring errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses are a key part of the HoodieWriteMetadata and should be present in the result.",
+    "meta" : [ ]
+  } ]
+}

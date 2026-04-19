@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Precondition: context is used in constructor and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Precondition: instantTime is passed directly to executor and likely required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Precondition: preppedRecords is forward to executor; likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Returned metadata object should not be null after execution.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method constructs an executor using 'context', so it must be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter integrity"
+    } ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "The 'compactionInstantTime' is passed directly into the executor, so it cannot be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter integrity"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of 'convertMetadata', which should be non-null if executed as expected.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "return integrity"
+    } ]
+  }, {
+    "expression" : "result.getPartitionToWriteStats() != null",
+    "rationale" : "HoodieWriteMetadata implementations are typically expected to have non-null partition write stats.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "metadata integrity"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "'result' is parameterized with List<WriteStatus> and is created by a conversion method; its write statuses list should be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "metadata integrity"
+    } ]
+  } ]
+}

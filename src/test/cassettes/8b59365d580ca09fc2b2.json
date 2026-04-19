@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method performs stream operations on data, which is invalid if data is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "Method calls a function that wraps func, which requires func to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism == null || parallelism > 0",
+    "rationale" : "Parallelism, when provided, is typically expected to be positive or null to indicate default processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || data.stream().allMatch(e -> e != null)",
+    "rationale" : "Stream processing may assume the absence of null elements in data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "size() of a List is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

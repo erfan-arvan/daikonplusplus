@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method expects to operate on a HoodieTableMetaClient instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The method expects a list of column names to index, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.isEmpty() || columnsToIndex.stream().allMatch(s -> s != null)",
+    "rationale" : "If columnsToIndex is non-null and non-empty, all its elements should be non-null; common for lists of strings used as identifiers.",
+    "meta" : [ ]
+  } ]
+}

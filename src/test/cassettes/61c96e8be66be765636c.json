@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method is expected to return a non-null list of WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Input list of HoodieRecords should not be null, as method operates on its contents.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is used as an identifier for the write operation and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option is used to wrap the BulkInsertPartitioner, which should not be a null reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "Return value is specified as List<WriteStatus> and should be an instance of List.",
+    "meta" : [ ]
+  } ]
+}

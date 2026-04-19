@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method deletes records and returns a list of write statuses; returning null is usually not expected.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "output"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Method precondition is that instantTime is provided and used in downstream write operations.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "write-instant"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method expects a list of HoodieKeys to delete; it is typically not null at exit.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "input"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Return type is always a List, as per method signature, regardless of content.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "output-list"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size is always non-negative; ensures the result is a valid list at return.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "non-negative"
+    } ]
+  } ]
+}

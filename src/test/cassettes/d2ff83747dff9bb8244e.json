@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method calls data.stream(), so data must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "throwingForeachWrapper(consumer) is called, so consumer must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().count() == data.size()",
+    "rationale" : "data.stream() gives a stream over all data elements, so counts should match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "It's conventional to require at least one thread for parallelism, though not enforced in this code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || data.get(0) != null",
+    "rationale" : "If data is non-empty, its first element should be non-null to avoid NullPointerException when applying consumer.",
+    "meta" : [ ]
+  } ]
+}

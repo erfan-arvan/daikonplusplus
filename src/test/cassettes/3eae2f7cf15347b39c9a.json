@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "Only NONE and GLOBAL_SORT are valid execution paths; all others throw exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof BulkInsertPartitioner",
+    "rationale" : "The returned object must implement BulkInsertPartitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE ? result instanceof JavaNonSortPartitioner : (sortMode == BulkInsertSortMode.GLOBAL_SORT ? result instanceof JavaGlobalSortPartitioner : true)",
+    "rationale" : "Result type corresponds exactly to the input sortMode.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The returned object is always non-null unless an exception is thrown.",
+    "meta" : [ ]
+  } ]
+}

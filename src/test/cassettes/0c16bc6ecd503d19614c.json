@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "Avoids NPE on method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() != null",
+    "rationale" : "Ensures streams and access to WriteStatus are safe.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!writeResult.getWriteStatuses().isEmpty()",
+    "rationale" : "A meaningful write should have statuses to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "All WriteStatus entries should be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "Assumes each WriteStatus should have a non-null stat for partitioning.",
+    "meta" : [ ]
+  } ]
+}

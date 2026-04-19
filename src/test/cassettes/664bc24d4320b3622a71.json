@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "true",
+    "rationale" : "Since the method body is empty, there are no variables or state changes, so 'true' is always a valid invariant.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "method is no-op so always holds"
+    } ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "Non-static method implies that 'this' cannot be null upon method exit.",
+    "meta" : [ {
+      "key" : "object state",
+      "value" : "non-static method"
+    } ]
+  } ]
+}

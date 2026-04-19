@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Ensures preppedRecords can be safely used and passed to methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in methods and passed to Option.ofNullable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() || !instantTime.isEmpty()",
+    "rationale" : "Covers all cases for instantTime emptiness; included to express method usage, even if trivial.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() || preppedRecords.isEmpty()",
+    "rationale" : "Illustrates that preppedRecords may or may not be empty; again, expressing method applicability.",
+    "meta" : [ ]
+  } ]
+}

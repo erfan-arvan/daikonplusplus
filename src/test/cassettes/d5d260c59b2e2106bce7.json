@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method dereferences 'data' to call stream(), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The method uses 'func' via throwingMapWrapper, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "'collect(toList())' always returns a non-null List; result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == data.size()",
+    "rationale" : "The stream map operation produces one output per input, so sizes match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() == result.isEmpty()",
+    "rationale" : "If 'data' is empty, the stream produces an empty result and vice versa.",
+    "meta" : [ ]
+  } ]
+}

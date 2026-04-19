@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method always returns a List instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(x -> x != null)",
+    "rationale" : "The method uses HoodieKey collection; deduplication never introduces nulls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "Method requires non-null List keys on all paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "parallelism is generally expected to be >= 1 for parallel operations.",
+    "meta" : [ ]
+  } ]
+}

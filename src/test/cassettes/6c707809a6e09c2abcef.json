@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "false",
+    "rationale" : "The method always throws an exception and never returns normally; unreachable exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(writeClient == null && instantTime == null && preppedRecordInputs == null && fileGroupsIdsToUpdate == null)",
+    "rationale" : "At least one input must be non-null if exception is to be thrown, but this is conservative.",
+    "meta" : [ ]
+  } ]
+}

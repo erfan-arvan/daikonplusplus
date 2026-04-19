@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method immediately dereferences result, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is called before being used, so it must not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "getPartitionToReplaceFileIds() is used in building commit metadata, so it must not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "Typically, the setCommitMetadata operation is meaningful only if there are write statuses to commit. This may hold depending on the domain logic.",
+    "meta" : [ ]
+  } ]
+}

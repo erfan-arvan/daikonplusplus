@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is likely required for client operations; null would be invalid.",
+    "meta" : [ {
+      "key" : "null safety",
+      "value" : "required"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "A List parameter should not be null for meaningful processing.",
+    "meta" : [ {
+      "key" : "null safety",
+      "value" : "required"
+    } ]
+  }, {
+    "expression" : "!columnsToIndex.isEmpty()",
+    "rationale" : "The list should contain columns to index with col stats; empty list may be a no-op.",
+    "meta" : [ {
+      "key" : "indicator",
+      "value" : "List should have contents"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(s -> s != null && !s.isEmpty())",
+    "rationale" : "Column names should be valid strings.",
+    "meta" : [ {
+      "key" : "content constraint",
+      "value" : "All list entries are non-null and non-empty"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "The metaClient is expected to have a valid table configuration.",
+    "meta" : [ {
+      "key" : "table state",
+      "value" : "table configuration must exist"
+    } ]
+  } ]
+}

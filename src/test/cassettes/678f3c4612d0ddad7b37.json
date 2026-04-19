@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The config must be non-null for HoodieJavaWriteClient to be constructed safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context must be non-null for HoodieJavaWriteClient construction to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "A valid base path is necessary for write operations, typical for HoodieWriteConfig.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "The properties in config are likely required for client configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context.getClass() != null",
+    "rationale" : "The context object should be instantiable and dispatched appropriately.",
+    "meta" : [ ]
+  } ]
+}

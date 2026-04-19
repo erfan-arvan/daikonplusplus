@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Lists passed as parameters are often expected to be non-null for defensive programming and typical calling conventions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java by contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() == (columnsToIndex.size() == 0)",
+    "rationale" : "isEmpty() on a List is equivalent to checking if size() is zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(e -> e != null)",
+    "rationale" : "String lists representing column names are generally expected to not contain nulls.",
+    "meta" : [ ]
+  } ]
+}

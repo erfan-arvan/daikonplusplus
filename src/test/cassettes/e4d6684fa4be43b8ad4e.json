@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Write statuses should not be null to proceed with indexing and validations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The result metadata object should be initialized before being passed in for updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof List",
+    "rationale" : "writeStatuses should be an instance of List as indicated by the parameter type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "The size of a List is always greater than or equal to 0 in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The result object should be an instance of HoodieWriteMetadata per the method signature.",
+    "meta" : [ ]
+  } ]
+}

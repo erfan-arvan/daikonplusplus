@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a required argument for getReaderContextFactory and is dereferenced immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "metaClient is typically expected to have a non-null table configuration for engine context factory.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig().getTableName() != null",
+    "rationale" : "A table name is likely needed for any context associated with reading a table in Hudi.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig().getTableName().length() > 0",
+    "rationale" : "Table name should be non-empty for a valid metaClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "Base path is a core property for metaClient expected to be non-null at this entry.",
+    "meta" : [ ]
+  } ]
+}

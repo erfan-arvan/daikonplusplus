@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "A non-null HoodieWriteConfig is required to create a table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "A non-null StorageConfiguration is likely required to configure storage for table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipValidation || (config != null && storageConf != null)",
+    "rationale" : "If validation is not skipped, both config and storageConf should be non-null to pass validation checks.",
+    "meta" : [ ]
+  } ]
+}

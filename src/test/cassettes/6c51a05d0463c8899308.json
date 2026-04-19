@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method parameter should be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "metaClient is declared as HoodieTableMetaClient, so it should be an instance of that class.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "A valid HoodieTableMetaClient should have a non-null base path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "metaClient is expected to have a non-null table configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.isActiveTimelineLoaded() == false || metaClient.getActiveTimeline() != null",
+    "rationale" : "If the active timeline is loaded, the client should provide a non-null active timeline.",
+    "meta" : [ ]
+  } ]
+}

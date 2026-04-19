@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List<WriteStatus> and should not return null per API design best practices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in several method calls, so it must not be null to avoid NPEs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "keys is passed to table.delete, which presumably requires a non-null collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "result is returned as List<WriteStatus>, so it should be an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The size of a List is always >= 0.",
+    "meta" : [ ]
+  } ]
+}

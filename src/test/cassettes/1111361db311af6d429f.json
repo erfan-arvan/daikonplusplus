@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method requires a non-null context for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is passed directly to the executor and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records parameter is passed directly to the executor and should not be null for inserts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "insert method is expected to return a non-null HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() should return a non-null list as part of HoodieWriteMetadata contract.",
+    "meta" : [ ]
+  } ]
+}

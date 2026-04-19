@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method will likely fail if data is null since it calls data.stream().",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "The consumer is passed to a wrapper and used in the stream processing, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism is typically expected to be at least 1 in parallel/concurrent APIs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof List",
+    "rationale" : "By method contract, data must be a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List.size() is always non-negative by Java Collections contract.",
+    "meta" : [ ]
+  } ]
+}

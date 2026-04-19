@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns the result of postWrite, which is expected to return a non-null List<WriteStatus> in typical implementations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is passed as a method parameter and is used in method calls (e.g., HoodieListData.eager(preppedRecords)), which would throw if null, indicating it should be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "By the method signature, result is a List<WriteStatus> and should be an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "By the method signature, preppedRecords is a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used for operations including Option.ofNullable and as a method argument; code expects it may be non-null at method exit.",
+    "meta" : [ ]
+  } ]
+}

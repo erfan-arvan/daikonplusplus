@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method accesses config, so it should not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "config.getProps() is dereferenced; it must not be null when this line is reached.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == config.getProps().getProperty(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key())",
+    "rationale" : "The result is precisely the outcome of this call by method definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || !result.isEmpty()",
+    "rationale" : "Partition column name should be non-empty if it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps().containsKey(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key()) == (result != null)",
+    "rationale" : "getProperty returns non-null if and only if the property is present.",
+    "meta" : [ ]
+  } ]
+}

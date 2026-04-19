@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method directly returns the result of getEngineReaderContextFactory(metaClient), and it is likely that a valid ReaderContextFactory should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The parameter metaClient is required to obtain a ReaderContextFactory and should not be null at method exit.",
+    "meta" : [ ]
+  } ]
+}

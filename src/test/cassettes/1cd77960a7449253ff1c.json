@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "profile is used subsequently, so non-null is a precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed into other methods, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "getPartitionPaths is called and used as an iterable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile instanceof WorkloadProfile",
+    "rationale" : "profile is expected to be a WorkloadProfile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context should be an instance of HoodieEngineContext.",
+    "meta" : [ ]
+  } ]
+}

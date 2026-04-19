@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as an argument and likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "partitionRecordsMap is passed and likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime represents a timestamp and is likely a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty()",
+    "rationale" : "partitionRecordsMap being non-empty is a likely precondition for a meaningful commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet().stream().allMatch(k -> k != null && !k.isEmpty())",
+    "rationale" : "Partition keys should be non-null and non-empty for correct partitioning.",
+    "meta" : [ ]
+  } ]
+}

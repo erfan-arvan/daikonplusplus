@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The return value from the execute() method (and thus upsertPrepped) is expected to be a valid HoodieWriteMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is supplied directly to the JavaUpsertPreppedDeltaCommitActionExecutor and is critical for correct execution; method likely assumes it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is passed to the action executor for upsert, so null would probably cause a failure or is not supported.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is cast to HoodieJavaEngineContext and is required for execution, so it likely must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata returned should contain a non-null List of WriteStatus objects.",
+    "meta" : [ ]
+  } ]
+}

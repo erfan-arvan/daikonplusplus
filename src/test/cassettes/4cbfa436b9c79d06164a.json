@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the output of super.execute(preppedRecords), so unless super.execute returns null, the result is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Since the declared return type is HoodieWriteMetadata<List<WriteStatus>>, any returned result must be an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

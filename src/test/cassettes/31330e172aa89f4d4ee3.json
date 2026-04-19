@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method operates on dedupedRecords, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is used and should be valid at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The method calls table.getIndex(), so the table parameter must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords instanceof List",
+    "rationale" : "dedupedRecords is declared as a List and is assumed to be a List at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table instanceof HoodieTable",
+    "rationale" : "table is declared as a HoodieTable and should conform to that type.",
+    "meta" : [ ]
+  } ]
+}

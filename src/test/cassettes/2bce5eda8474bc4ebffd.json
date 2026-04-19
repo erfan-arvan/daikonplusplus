@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method likely expects a valid context object.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "context"
+    } ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "Indexing operations likely require a defined instant time.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "indexInstantTime"
+    } ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "Should not index null partitions.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "partitionsToIndex"
+    } ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Partition paths should be a valid list.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "partitionPaths"
+    } ]
+  }, {
+    "expression" : "partitionsToIndex.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "partitionsToIndex"
+    } ]
+  } ]
+}

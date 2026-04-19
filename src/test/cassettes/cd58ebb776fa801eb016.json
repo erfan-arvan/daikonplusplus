@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "Ensures that the provided writeResult parameter is not null before any further operations are performed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() != null",
+    "rationale" : "To safely operate on write statuses, they must be non-null when retrieving from writeResult.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "All WriteStatus objects in the collection should be non-null to avoid NullPointerExceptions in downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "Each WriteStatus object should have non-null statistical information for accessing partition paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(ws -> ws.getStat().getPartitionPath() != null)",
+    "rationale" : "Partition path must be non-null for each status as it is used to partition data.",
+    "meta" : [ ]
+  } ]
+}

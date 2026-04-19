@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Typically, partitionPath should not be null when passed to this method, as it represents a file system or table partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "The method expects a list of FileSlice objects, which should be non-null as a precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileSlices.isEmpty() || fileSlices.isEmpty()",
+    "rationale" : "fileSlices is a valid List and can be empty or non-empty but should not throw NullPointerExceptions because it's already asserted non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Partition paths are generally non-empty strings in file system contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices.stream().allMatch(fs -> fs != null)",
+    "rationale" : "Each element in the fileSlices list should be a valid (non-null) FileSlice object.",
+    "meta" : [ ]
+  } ]
+}

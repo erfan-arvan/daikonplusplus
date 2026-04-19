@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive to enable partitioned parallel processing.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The input stream must not be null for processing.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "A mapping function is required for transforming partitions to (key, value) pairs.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "A reduction function must be provided for combining values with the same key.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "data instanceof java.util.stream.Stream",
+    "rationale" : "The data parameter must be a Stream at method entry.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  } ]
+}

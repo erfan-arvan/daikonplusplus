@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method calls a cast and passes context to an executor, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is likely used as a commit id; it should be a non-empty String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords is passed to the executor, so passing null would likely cause runtime errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hoodieRecords.isEmpty()",
+    "rationale" : "Insert operations generally require at least one record; passing an empty list may not make sense semantically.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "List elements should be non-null HoodieRecord objects for correct processing.",
+    "meta" : [ ]
+  } ]
+}

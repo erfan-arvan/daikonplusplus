@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is likely required for handling file partitions.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullity"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "A valid file identifier is needed for commit operations.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullity"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Iterator must be non-null to call hasNext and proceed with iteration.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullity"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Partition path is unlikely to be an empty string.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "string_non_empty"
+    } ]
+  }, {
+    "expression" : "fileId.length() > 0",
+    "rationale" : "File identifier should be non-empty to reference a valid file.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "string_non_empty"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a newly created Map, which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "If the result map is not empty, it must contain the key PLAN_STRATEGY_SORT_COLUMNS.key().",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() == !StringUtils.isNullOrEmpty(getWriteConfig().getClusteringSortColumns())",
+    "rationale" : "The map is non-empty if and only if the clustering sort columns are not null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= 1",
+    "rationale" : "Only one entry is ever put into the map, so the size is at most 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(v -> v != null && !v.isEmpty()) || result.isEmpty()",
+    "rationale" : "If present, the value in the result map is a non-empty string, or the map is empty.",
+    "meta" : [ ]
+  } ]
+}

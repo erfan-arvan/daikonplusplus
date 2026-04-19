@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result.getWriteStatuses() == result",
+    "rationale" : "After setWriteStatuses(statuses), the List<WriteStatus> inside result should reference the returned list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() == result",
+    "rationale" : "The method result.setWriteStatuses(statuses) sets the write statuses to 'statuses', which is the same as the returned value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() == result",
+    "rationale" : "Setter and getter symmetry: after setWriteStatuses(...), the getter should return the same object.",
+    "meta" : [ ]
+  } ]
+}

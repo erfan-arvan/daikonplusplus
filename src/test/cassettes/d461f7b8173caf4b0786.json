@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "Parallelism or number of output file groups should be positive for clustering to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null && !inputRecords.isEmpty()",
+    "rationale" : "Clustering should only proceed if there is at least one record to cluster.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupIdList != null && fileGroupIdList.size() >= numOutputGroups",
+    "rationale" : "Usually there should be at least as many file groups as output groups for clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An instant time (commit time) is required and must be a non-empty string for clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null && schema != null",
+    "rationale" : "Required configuration parameters and schema must be present for clustering execution.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents an operational instant and is likely required for correct method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method operates on a list of HoodieKey objects, so keys should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!keys.isEmpty()",
+    "rationale" : "A delete operation typically requires at least one key to operate on.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is necessary for distributed operations within the method.",
+    "meta" : [ ]
+  } ]
+}

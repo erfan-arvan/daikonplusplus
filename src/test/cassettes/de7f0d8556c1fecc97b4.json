@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Methods returning metadata objects typically do not return null; a valid HoodieWriteMetadata is constructed and returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "logCompactionInstantTime is passed directly into constructors and methods, indicating that it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used directly; a null context would likely cause failures. Nullness is a valid invariant here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() should return a valid list representing write statuses; a null would indicate a failure in compaction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "After log compaction, at least one WriteStatus is expected to be returned.",
+    "meta" : [ ]
+  } ]
+}

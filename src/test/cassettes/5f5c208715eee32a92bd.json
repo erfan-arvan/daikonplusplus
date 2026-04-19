@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of `execute()`, which is expected to produce a non-null HoodieWriteMetadata under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned metadata should always provide a non-null list of WriteStatus objects reflecting the operation's outcome.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The input records list is essential for the insert operation and this invariant enforces its non-nullness at the return point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit instant used for the insert cannot be null, as it is involved in the creation of the executor and most likely validated earlier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context must be non-null for the method to proceed and to create the executor.",
+    "meta" : [ ]
+  } ]
+}

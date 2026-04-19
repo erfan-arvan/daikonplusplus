@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of bulkInsert; exceptions are thrown before returning, so result must be non-null on successful exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Method signature guarantees result is of type HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "bulkInsert should return HoodieWriteMetadata with non-null WriteStatus list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof java.util.List",
+    "rationale" : "Method returns HoodieWriteMetadata<List<WriteStatus>>, so getWriteStatuses() should be a List.",
+    "meta" : [ ]
+  } ]
+}

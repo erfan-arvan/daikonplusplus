@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "Constructor call and ReaderContextFactory creation both require a non-null metaClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "A valid HoodieTableMetaClient should have a non-null table config.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "A valid metaClient should have a base path; required for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig().getTableName() != null",
+    "rationale" : "A valid table config should reference a table name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!metaClient.getBasePath().isEmpty()",
+    "rationale" : "An empty base path is unlikely for a meaningful HoodieTableMetaClient.",
+    "meta" : [ ]
+  } ]
+}

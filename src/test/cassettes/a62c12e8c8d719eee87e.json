@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an instance created via a static create() method, so it should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieAtomicLongAccumulator",
+    "rationale" : "The return value is obtained from HoodieAtomicLongAccumulator.create(), so the result must be an instance of HoodieAtomicLongAccumulator.",
+    "meta" : [ ]
+  } ]
+}

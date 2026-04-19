@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collecting from a stream always returns a non-null list unless an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == data.size()",
+    "rationale" : "Mapping over a list preserves the number of elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method operates on data, which must be non-null for stream operations to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "A positive parallelism is typically required to enable parallel processing, even though not directly enforced here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "A non-null function must be provided to perform the mapping.",
+    "meta" : [ ]
+  } ]
+}

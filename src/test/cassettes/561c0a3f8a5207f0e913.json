@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method should not return null from a Map#get method; even if the Map value is absent, it could be expected to return an empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Typically, a partition path should not be null when used as a key in a map lookup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || partitionPathToInsertBucketInfos.containsKey(partitionPath)",
+    "rationale" : "If the result list is empty, it suggests the partitionPath might not be in the map; otherwise, the map must contain the key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == partitionPathToInsertBucketInfos.get(partitionPath)",
+    "rationale" : "The method directly returns the value from the map for the provided key; hence the result is exactly the map lookup.",
+    "meta" : [ ]
+  } ]
+}

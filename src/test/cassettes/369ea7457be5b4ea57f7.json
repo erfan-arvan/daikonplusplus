@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The argument 'result' is used in several method calls, thus it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The argument 'writeStatuses' is used to create the index update, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method sets the write statuses into the result before exit, so this field should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "The method sets partitionToReplaceFileIds on the result, so it should be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "The index update duration is set before the method exits, so it should be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method passes context to the executor constructor; a null context would likely cause a failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is critical for versioning and is passed to the delete executor; null could cause malfunction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "keys is passed directly to the executor; a null key list could break the deletion logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A successful delete action should return HoodieWriteMetadata, not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus objects should not be null in the metadata resulting from a commit action.",
+    "meta" : [ ]
+  } ]
+}

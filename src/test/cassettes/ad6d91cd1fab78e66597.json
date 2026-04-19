@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "partitionSmallFilesMap is always initialized and never set to null before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() == 0 || result.size() == partitionPaths.size()",
+    "rationale" : "If partitionPaths is not null or empty, result will map each path to its small files.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || (partitionPaths != null && partitionPaths.size() > 0 && config.getParquetSmallFileLimit() > 0)",
+    "rationale" : "result is empty only if partitionPaths is null/empty or ParquetSmallFileLimit is not positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Map",
+    "rationale" : "result is always a Map instance as returned by the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || result.keySet().containsAll(partitionPaths)",
+    "rationale" : "If partitionPaths is non-null, all its elements are reflected as keys in the result.",
+    "meta" : [ ]
+  } ]
+}

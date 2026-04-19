@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is used in method calls and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context parameter is provided to engine/context operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is used for updates and operations, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.count() >= 0",
+    "rationale" : "count() in data collections should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.isEmpty() || writeStatuses.first() != null",
+    "rationale" : "If writeStatuses is not empty, its first element should be non-null.",
+    "meta" : [ ]
+  } ]
+}

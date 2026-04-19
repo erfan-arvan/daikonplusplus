@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The savepoint method always returns the result of SavepointActionExecutor.execute(), which should never be null if the savepoint is successfully created.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to the SavepointActionExecutor and must be non-null for the action execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "instantToSavepoint is provided to identify which instant to savepoint and must not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "user is used for the savepoint metadata and should be non-null to properly record the initiator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieSavepointMetadata",
+    "rationale" : "The method returns a HoodieSavepointMetadata instance, guaranteed by the execute() method and the method's contract.",
+    "meta" : [ ]
+  } ]
+}

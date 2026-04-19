@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method immediately dereferences result; thus, it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method calls result.getWriteStatuses().stream(), so getWriteStatuses() must return a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "result.getPartitionToReplaceFileIds() is passed as argument, so it must also be non-null.",
+    "meta" : [ ]
+  } ]
+}

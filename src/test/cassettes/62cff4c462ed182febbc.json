@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "Method expects a non-null list of HoodieKey objects as argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Table instance must be non-null to perform operations like getIndex() and isGlobal().",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism typically represents a thread or part count and should be at least 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys instanceof List",
+    "rationale" : "The method declaration ensures keys is a List at entry.",
+    "meta" : [ ]
+  } ]
+}

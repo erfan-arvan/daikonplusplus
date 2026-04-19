@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "List#stream is called, which throws NullPointerException if data is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is used as an argument in a method, so must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "The parameter is likely intended for degree of parallelism and negative/zero would not make sense for parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "A List's size is always non-negative by definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size()",
+    "rationale" : "It is often best practice for parallelism to not exceed the data size to avoid wasted parallel resources.",
+    "meta" : [ ]
+  } ]
+}

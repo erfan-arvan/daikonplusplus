@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method either returns the original list or returns it after sorting, never creates a new list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || result == records",
+    "rationale" : "If records is empty, it is returned as-is.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() == result.size()",
+    "rationale" : "Only the order of records may change, not their count.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.containsAll(result) && result.containsAll(records)",
+    "rationale" : "Since in-place sorting occurs, the elements are preserved.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The engine context is typically required for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter marks the commit time and is usually necessary.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "A non-null list of keys is required to identify records to delete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The delete method must always produce a write metadata result object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus in the metadata should always be initialized.",
+    "meta" : [ ]
+  } ]
+}

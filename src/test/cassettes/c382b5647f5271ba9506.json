@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method collects and returns a list; always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Method operates on data and calls stream(); it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapToPairFunc != null",
+    "rationale" : "mapToPairFunc is passed to a wrapper and used in a map, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc is wrapped and used in a reduce operation, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is generally expected to be positive for a parallel stream, though not enforced by code.",
+    "meta" : [ ]
+  } ]
+}

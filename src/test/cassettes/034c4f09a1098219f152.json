@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of an execute() call, which should not be null unless execute() can return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is used in the construction of the executor and likely required to reference the rollback time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant is passed to the executor and used in rollback logic, so it is likely required to be non-null.",
+    "meta" : [ ]
+  } ]
+}

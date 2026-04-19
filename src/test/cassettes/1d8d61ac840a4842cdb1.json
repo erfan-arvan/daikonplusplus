@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null list, as it is a direct result of collecting a filtered stream into a list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The input parameter 'hoodieRecords' is expected to be non-null, as it is directly used and passed to other methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type is always a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> !r.isCurrentLocationKnown())",
+    "rationale" : "The filter ensures all elements in 'result' have unknown current locations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= hoodieRecords.size()",
+    "rationale" : "Result is a filtered version of the input list, so its size cannot exceed the input size.",
+    "meta" : [ ]
+  } ]
+}

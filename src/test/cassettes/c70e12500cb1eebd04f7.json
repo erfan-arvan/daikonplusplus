@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The collect operation always produces a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Repartitioning via sorting does not add or remove records, only reorders them.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input stream cannot be processed if records is null; method likely relies on non-null input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition count should be positive for repartitioning to make sense; a likely precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "The method returns a Java List by contract.",
+    "meta" : [ ]
+  } ]
+}

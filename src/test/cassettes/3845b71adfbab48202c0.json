@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The number of partitions (buckets) is expected to be non-negative.",
+    "meta" : [ {
+      "key" : "expected_range",
+      "value" : "number of partitions should not be negative"
+    } ]
+  }, {
+    "expression" : "result == totalBuckets",
+    "rationale" : "The method returns totalBuckets directly, so result equals totalBuckets.",
+    "meta" : [ {
+      "key" : "method_contract",
+      "value" : "method always returns totalBuckets"
+    } ]
+  }, {
+    "expression" : "result >= 1",
+    "rationale" : "In most partitioning scenarios, the number of partitions should be at least one.",
+    "meta" : [ {
+      "key" : "partitioning",
+      "value" : "should have at least one partition"
+    } ]
+  } ]
+}

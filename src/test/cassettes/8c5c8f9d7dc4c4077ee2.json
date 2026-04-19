@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is used and casted to HoodieJavaEngineContext",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Method expects non-null context for casting and operations"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used for commit action, should be non-null and not empty",
+    "meta" : [ {
+      "key" : "input-validity",
+      "value" : "instantTime is passed to executor and is likely used as an identifier"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is used in commit executor and null would cause errors",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "preppedRecords is passed to executor and likely iterated"
+    } ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.size() >= 0",
+    "rationale" : "A non-null List has non-negative size",
+    "meta" : [ {
+      "key" : "collection-size",
+      "value" : "List size is always >= 0 if not null"
+    } ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Records should not be null for processing; common expectation for HoodieRecord lists",
+    "meta" : [ {
+      "key" : "element-validity",
+      "value" : "All elements in the record list are non-null"
+    } ]
+  } ]
+}

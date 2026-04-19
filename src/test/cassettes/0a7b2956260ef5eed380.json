@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method uses 'context' as a parameter in the constructor call, so it must not be null to avoid NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime likely represents a commit instant, which should be non-null and non-empty for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The keys parameter is passed to another constructor and must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys == null || !keys.isEmpty()",
+    "rationale" : "If keys is not null, it is likely expected to be non-empty; empty deletions are probably no-ops or invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys == null || keys.stream().allMatch(k -> k != null)",
+    "rationale" : "If the keys list is non-null, all individual HoodieKey instances should be non-null for valid processing downstream.",
+    "meta" : [ ]
+  } ]
+}

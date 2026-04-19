@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Java Stream collect always creates a new list and never returns null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is never null"
+    } ]
+  }, {
+    "expression" : "result.size() == data.size()",
+    "rationale" : "Mapping each element produces exactly one output per input.",
+    "meta" : [ {
+      "key" : "size preservation",
+      "value" : "map preserves list size"
+    } ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism less than 1 may be invalid for parallel processing.",
+    "meta" : [ {
+      "key" : "input constraint",
+      "value" : "parallelism must be positive for parallel streams"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Calling data.stream() implies data is non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "data must not be null"
+    } ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "Passing a null func would throw at runtime.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "mapping function must not be null"
+    } ]
+  } ]
+}

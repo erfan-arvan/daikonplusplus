@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method likely expects non-null input to avoid NullPointerException when passing to HoodieListData.lazy.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty()",
+    "rationale" : "Processing methods often expect input lists to be non-empty for work to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.stream().allMatch(ws -> ws != null)",
+    "rationale" : "It is often expected that lists of objects do not contain null elements for data processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof java.util.List",
+    "rationale" : "Assures that the type of 'records' is a List as required by the method signature.",
+    "meta" : [ ]
+  } ]
+}

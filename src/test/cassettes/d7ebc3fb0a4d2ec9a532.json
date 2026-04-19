@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method call transitionRequestedToInflight requires instantTime to be non-null to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is likely a commit or event identifier, so it should not be empty when used in timeline transitions.",
+    "meta" : [ ]
+  } ]
+}

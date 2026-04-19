@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option implementations should be non-null unless the method explicitly returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required to construct the CleanPlanActionExecutor and thus must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == (new CleanPlanActionExecutor<>(context, config, this, extraMetadata).execute().isPresent())",
+    "rationale" : "result is the direct output of CleanPlanActionExecutor.execute(), so their present-ness is equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!extraMetadata.isPresent() || extraMetadata.get() != null)",
+    "rationale" : "If extraMetadata is present, its contained Map should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(new CleanPlanActionExecutor<>(context, config, this, extraMetadata).execute())",
+    "rationale" : "result is always the result of calling execute() on a new CleanPlanActionExecutor instantiated with the inputs.",
+    "meta" : [ ]
+  } ]
+}

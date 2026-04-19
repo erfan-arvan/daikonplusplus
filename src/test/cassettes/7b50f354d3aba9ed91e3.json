@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns result from bulkInsert, which should not return null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "By method signature and return statement, result should always be of this type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getGenericSuperclass() != null",
+    "rationale" : "Generics on the result should be preserved.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "bulkInsert should provide a non-null status list in a successful return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "getWriteStatuses should return a List according to the type signature.",
+    "meta" : [ ]
+  } ]
+}

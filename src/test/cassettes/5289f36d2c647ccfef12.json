@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method getPartitioner calls getUpsertPartitioner or getInsertPartitioner with profile, indicating profile should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getWorkloadStats() != null",
+    "rationale" : "Typical workload profile usage assumes that workload stats are available for partitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getWorkloadStats().numRecordsInsert() >= 0",
+    "rationale" : "The number of records to insert in the workload stats should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getWorkloadStats().numRecordsUpdate() >= 0",
+    "rationale" : "The number of records to update should also not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getWorkloadStats().numPartitions() > 0",
+    "rationale" : "Partitioner logic typically expects at least one partition in profile's stats.",
+    "meta" : [ ]
+  } ]
+}

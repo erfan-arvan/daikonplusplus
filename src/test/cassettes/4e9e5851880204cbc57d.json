@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "Method expects keys to be iterable and used as input to collections and streams.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Method immediately calls table.getIndex(), so table is expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism usually represents number of threads or partitions and should be positive.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "range"
+    } ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "List sizes in Java are always non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection"
+    } ]
+  }, {
+    "expression" : "table.getIndex() != null",
+    "rationale" : "The index is accessed immediately and assumed to exist.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  } ]
+}

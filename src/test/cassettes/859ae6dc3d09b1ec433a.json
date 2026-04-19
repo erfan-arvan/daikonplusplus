@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method uses config in several places; it must be non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context object is dereferenced (getStorageConf) and thus must be non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "config.getBasePath() is used to set base path in the meta client, so it is assumed non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "context.getStorageConf() != null",
+    "rationale" : "context.getStorageConf() is dereferenced and a method is called on it, so it should be non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}
