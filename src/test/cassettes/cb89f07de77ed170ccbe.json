@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Ensures the argument is not null to avoid NullPointerExceptions in downstream method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "The length() method is always non-negative for Java Strings.",
+    "meta" : [ ]
+  } ]
+}

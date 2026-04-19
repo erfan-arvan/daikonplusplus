@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient parameter is likely expected to be non-null for the method to interact with table metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "It is standard to require input lists such as columnsToIndex to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.get(0) != null",
+    "rationale" : "If the list is non-empty, its first element is expected to be not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "The size() of a List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!columnsToIndex.contains(null)",
+    "rationale" : "It is reasonable to expect the input list columnsToIndex not to contain null elements.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Method expects a non-null list of WriteStatus because it is immediately used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method expects a non-null result parameter because its methods are invoked.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof List",
+    "rationale" : "Ensures that writeStatuses is of the expected type, required for safe downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Ensures 'result' is of the expected type for safe field/method access.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method will call data.collectAsList(), so data must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "seqOp is method-applied in the reduction, so it must be non-null to ensure safe execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "combOp is directly used in the reduction, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "zeroValue is passed as an identity to reduce; null may not always be safe or meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.collectAsList() != null",
+    "rationale" : "The stream is constructed over data.collectAsList(); this collection must not be null.",
+    "meta" : [ ]
+  } ]
+}

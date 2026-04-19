@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the result is produced by collecting stream elements to a list, it is always a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null ? result.size() == data.size() : true",
+    "rationale" : "Mapping over a list with a one-to-one function produces a result list of the same size, unless the input data is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism argument should be positive for valid parallel stream usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data == null || data.stream().allMatch(e -> true)",
+    "rationale" : "Every element in data is processed; this is semantically tautological for mapping, but expresses that data is either null or entirely traversed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The mapping function must be non-null for the method implementation to succeed.",
+    "meta" : [ ]
+  } ]
+}

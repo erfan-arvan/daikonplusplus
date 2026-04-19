@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is a required argument to execute clustering actions.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required to identify the clustering operation time.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should not be an empty string for proper functioning.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option should not be null, though it can be empty.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "precondition"
+    } ]
+  } ]
+}

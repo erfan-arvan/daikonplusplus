@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "It is common for job identifiers to be non-null when cancelling jobs, as a null jobId might be invalid. However, unless enforced or specifically documented, this is only a best practice.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!jobId.isEmpty()",
+    "rationale" : "A jobId representing an actual job to cancel typically should not be empty.",
+    "meta" : [ ]
+  } ]
+}

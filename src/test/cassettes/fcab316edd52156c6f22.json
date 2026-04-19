@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method immediately dereferences profile, so it is expected to be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "The method iterates over profile.getInputPartitionPathStatMap().entrySet(), implying it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().size() >= 0",
+    "rationale" : "A Map's size is always non-negative; this can be a useful general invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The method calls getOrDefault on profile.getOutputPartitionPathStatMap(), implying it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap().size() > 0)",
+    "rationale" : "It is likely that hasOutputWorkLoadStats() returns true iff there is output workload data.",
+    "meta" : [ ]
+  } ]
+}

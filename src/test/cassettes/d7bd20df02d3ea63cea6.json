@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketInfoMap.get(bucketNumber) == result",
+    "rationale" : "The result returned by the method should exactly match the value in bucketInfoMap for the input bucketNumber.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Bucket numbers are typically non-negative indices for maps or lists, so it is likely that only non-negative values are valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber) == (result != null)",
+    "rationale" : "If result is non-null, then the map should have a mapping for bucketNumber, and vice versa.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.size() >= 0",
+    "rationale" : "The size of a map cannot be negative (basic data structure property).",
+    "meta" : [ ]
+  } ]
+}

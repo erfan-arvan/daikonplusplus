@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is likely required for all engine operations.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string is almost certainly required for identifying the rollback instance.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "precondition"
+    } ]
+  } ]
+}

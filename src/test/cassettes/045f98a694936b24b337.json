@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Methods that return metadata objects should not return null to prevent NullPointerExceptions in calling code.",
+    "meta" : [ {
+      "key" : "result_type",
+      "value" : "HoodieWriteMetadata<List<WriteStatus>>"
+    } ]
+  }, {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "The clustering instant time is used to reference a specific clustering operation; should be non-null.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "clusteringInstantTime"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The execution context is always expected to be provided.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "context"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of write statuses in the metadata should be non-null.",
+    "meta" : [ {
+      "key" : "result_field",
+      "value" : "writeStatuses"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the write statuses list should never be negative.",
+    "meta" : [ {
+      "key" : "result_field",
+      "value" : "writeStatuses.size"
+    } ]
+  } ]
+}

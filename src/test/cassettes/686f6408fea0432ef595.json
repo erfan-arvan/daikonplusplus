@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is required for update and is often non-null in table actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId must be non-null to identify the target file for update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Iterator of HoodieRecord is necessary to process updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Partition path is often a non-empty string representing the partition location.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId.length() > 0",
+    "rationale" : "fileId is typically a non-empty string identifying a file.",
+    "meta" : [ ]
+  } ]
+}

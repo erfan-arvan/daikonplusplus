@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this.partitioner",
+    "rationale" : "The returned value is assigned from this.partitioner before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaUpsertPartitioner",
+    "rationale" : "this.partitioner is cast to JavaUpsertPartitioner, thus result must also be an instance of it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The method calls super.getUpsertPartitioner(profile), indicating profile must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Result is assigned from a casted super call, assuming guaranteed non-null by superclass or invariant in typical use.",
+    "meta" : [ ]
+  } ]
+}

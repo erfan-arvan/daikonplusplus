@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The result is always used as a bucket index and is retrieved from buckets or maps using get(), so must be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < totalBuckets",
+    "rationale" : "Returned bucket numbers are valid indices, less than totalBuckets, reflecting the bucket assignment logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "Method accesses key's fields and methods without null checks, so key must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == ((keyLocation.getRight().isPresent()) ? updateLocationToBucket.get(keyLocation.getRight().get().getFileId()) : partitionPathToInsertBucketInfos.get(keyLocation.getLeft().getPartitionPath()).get(Collections.binarySearch(partitionPathToInsertBucketInfos.get(keyLocation.getLeft().getPartitionPath()), new InsertBucketCumulativeWeightPair(new InsertBucket(), 1.0 * Math.floorMod(NumericUtils.getMessageDigestHash(\"MD5\", keyLocation.getLeft().getRecordKey()), Math.max(1, workloadProfile.getWorkloadStat(keyLocation.getLeft().getPartitionPath()).getNumInserts())) / Math.max(1, workloadProfile.getWorkloadStat(keyLocation.getLeft().getPartitionPath()).getNumInserts())) ) >= 0 ? Collections.binarySearch(partitionPathToInsertBucketInfos.get(keyLocation.getLeft().getPartitionPath()), new InsertBucketCumulativeWeightPair(new InsertBucket(), 1.0 * Math.floorMod(NumericUtils.getMessageDigestHash(\"MD5\", keyLocation.getLeft().getRecordKey()), Math.max(1, workloadProfile.getWorkloadStat(keyLocation.getLeft().getPartitionPath()).getNumInserts())) / Math.max(1, workloadProfile.getWorkloadStat(keyLocation.getLeft().getPartitionPath()).getNumInserts()))).getKey().bucketNumber : ((-1 * Collections.binarySearch(partitionPathToInsertBucketInfos.get(keyLocation.getLeft().getPartitionPath()), new InsertBucketCumulativeWeightPair(new InsertBucket(), 1.0 * Math.floorMod(NumericUtils.getMessageDigestHash(\"MD5\", keyLocation.getLeft().getRecordKey()), Math.max(1, workloadProfile.getWorkloadStat(keyLocation.getLeft().getPartitionPath()).getNumInserts())) / Math.max(1, workloadProfile.getWorkloadStat(keyLocation.getLeft().getPartitionPath()).getNumInserts())) ) - 1) < partitionPathToInsertBucketInfos.get(keyLocation.getLeft().getPartitionPath()).size() ? partitionPathToInsertBucketInfos.get(keyLocation.getLeft().getPartitionPath()).get(-1 * Collections.binarySearch(partitionPathToInsertBucketInfos.get(keyLocation.getLeft().getPartitionPath()), new InsertBucketCumulativeWeightPair(new InsertBucket(), 1.0 * Math.floorMod(NumericUtils.getMessageDigestHash(\"MD5\", keyLocation.getLeft().getRecordKey()), Math.max(1, workloadProfile.getWorkloadStat(keyLocation.getLeft().getPartitionPath()).getNumInserts())) / Math.max(1, workloadProfile.getWorkloadStat(keyLocation.getLeft().getPartitionPath()).getNumInserts())) ) - 1).getKey().bucketNumber : partitionPathToInsertBucketInfos.get(keyLocation.getLeft().getPartitionPath()).get(0).getKey().bucketNumber ))",
+    "rationale" : "The returned result matches one of the explicit return cases in the method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != -1",
+    "rationale" : "The method never returns -1; all returns are from valid map or list indices.",
+    "meta" : [ ]
+  } ]
+}

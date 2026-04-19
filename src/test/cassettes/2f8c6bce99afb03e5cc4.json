@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method immediately uses instantTime in a commit call, so it is expected to be non-null",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a key used in a singletonMap for commitInternal, so it should be non-null",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records are passed to commitInternal so expected to be non-null",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is likely a non-empty string since it represents a commit instant",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath is likely non-empty as it specifies a data path for the commit",
+    "meta" : [ ]
+  } ]
+}

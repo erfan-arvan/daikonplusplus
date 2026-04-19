@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Methods returning metadata about a write operation are expected to provide a non-null result on completion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata object should always contain a non-null list of WriteStatus upon method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "getWriteStatuses should reliably return a List to conform to the method signature and downstream expectations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToWriteStats() != null",
+    "rationale" : "Partition-to-write-stats mapping is important for write tracking and should be maintained.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStats() != null",
+    "rationale" : "Write statistics should be available at the exit of the write metadata computation.",
+    "meta" : [ ]
+  } ]
+}

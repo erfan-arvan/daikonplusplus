@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedInputRecord != null",
+    "rationale" : "preppedInputRecord should be initialized before execute is called, as it is used for bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is required by the bulkInsert call and should be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is a required argument to bulkInsert and should be present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used for commit time and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!userDefinedBulkInsertPartitioner.isPresent() || userDefinedBulkInsertPartitioner.get() != null",
+    "rationale" : "If the Optional userDefinedBulkInsertPartitioner is present, then its value should not be null.",
+    "meta" : [ ]
+  } ]
+}

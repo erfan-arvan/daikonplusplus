@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "Methods typically assume their arguments are non-null unless explicitly annotated to allow null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cacheKey instanceof HoodieDataCacheKey",
+    "rationale" : "runtime type check is always true for a parameter typed as HoodieDataCacheKey.",
+    "meta" : [ ]
+  } ]
+}

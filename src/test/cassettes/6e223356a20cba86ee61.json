@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents a commit instant time and is commonly expected to be non-null for table write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "A non-null records list is generally required for insert or overwrite table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext must be provided to execute actions within the table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "If records is non-null, it is likely expected to contain elements for the insert-overwrite operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "instantTime should be a non-empty, non-whitespace value denoting a valid commit instant.",
+    "meta" : [ ]
+  } ]
+}

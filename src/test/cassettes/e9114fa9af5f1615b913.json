@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method always throws an exception and does not return any value, 'result' is always null at the method exit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method always throws before returning, so 'result' must always be null."
+    } ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "It is common for method parameters to be assumed non-null in Java, especially for a list of partitions.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Parameters are not used but are likely assumed non-null by contract."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time is likely never null in API usage, reflecting method contract.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "It is typical for String instant times in this API to be non-null."
+    } ]
+  } ]
+}

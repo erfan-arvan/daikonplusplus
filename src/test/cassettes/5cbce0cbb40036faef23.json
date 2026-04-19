@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method will sort and return the list; a null input would likely be invalid and cause an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partitions are usually positive; a non-positive partition count likely indicates a precondition violation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "records is declared as a List, so the expected input type is List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List.size() is always non-negative as per the List contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "Typically, the number of output partitions should not exceed the number of records unless the list is empty.",
+    "meta" : [ ]
+  } ]
+}

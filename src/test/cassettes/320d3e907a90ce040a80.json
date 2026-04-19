@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context object is required for distributed spark-like engines, and all engine APIs would expect non-null context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime typically denotes the commit time as a required string, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "A null record list would not be processable and should be supplied as at least an empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option objects should not be null, but can represent absence via Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.get(0) != null",
+    "rationale" : "If the records list is not empty, its first element should not be null, as null records cannot be processed.",
+    "meta" : [ ]
+  } ]
+}

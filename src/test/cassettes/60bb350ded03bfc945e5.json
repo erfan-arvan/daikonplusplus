@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Map<K, V> created via Collectors.toMap so result is always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each element of data maps to at most one key in result; duplicate keys are resolved so the Map can't have more keys than input elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "parallelism is given as Integer in the parameter list and is expected to be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is used to generate pairs for the result. It must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data is used as the input collection; null would cause a NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

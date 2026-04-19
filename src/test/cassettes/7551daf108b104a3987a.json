@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the output of either handleInsert or handleUpdate, both of which are expected to return non-null iterators.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is unconditionally cast and invoked without null checks, so it is assumed to be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition is used as an argument to getBucketInfo and for error messages, assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The method always returns an Iterator<List<WriteStatus>> as per its signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used at method entry as a parameter and likely invariantly non-null throughout method execution.",
+    "meta" : [ ]
+  } ]
+}

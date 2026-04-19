@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is a required argument for table creation, likely assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required parameter and may be assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "Base path is typically required for table operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName() != null",
+    "rationale" : "Table name is a key identifier and often required for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!config.getBasePath().isEmpty()",
+    "rationale" : "Base path for a table is unlikely to be empty.",
+    "meta" : [ ]
+  } ]
+}

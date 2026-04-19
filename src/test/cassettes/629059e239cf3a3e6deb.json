@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit/instant time should be specified for delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of HoodieKeys to delete should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The configuration object should be provided for operation controls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The target HoodieTable instance is required for delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "A delete executor instance is required to perform the actual records deletion.",
+    "meta" : [ ]
+  } ]
+}

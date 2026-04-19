@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null",
+    "rationale" : "Ensures the map of strategy parameters required for partitioning is available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "Schema is needed for correctly constructing the partitioner and adding metadata fields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.isEmpty() || strategyParams.size() > 0",
+    "rationale" : "strategyParams is a Map, and it is either empty or contains entries; this logic can distinguish between presence and absence of parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.containsKey(null)",
+    "rationale" : "Map keys should not include null for valid clustering strategies.",
+    "meta" : [ ]
+  } ]
+}

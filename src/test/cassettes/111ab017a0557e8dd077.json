@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method guarantees creation of a HoodieTable, so the result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Config parameter is required for table creation and cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a required parameter for table creation and must not be null before returning.",
+    "meta" : [ ]
+  } ]
+}

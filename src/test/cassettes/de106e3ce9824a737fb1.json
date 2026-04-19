@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == partitionPathToInsertBucketInfos.get(partitionPath)",
+    "rationale" : "The method directly returns the lookup result from the partitionPathToInsertBucketInfos map for the input partitionPath.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath == null || partitionPathToInsertBucketInfos.containsKey(partitionPath) == (result != null)",
+    "rationale" : "If the map contains the key for the partitionPath, the result is non-null; otherwise, it is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || !result.isEmpty() || result.size() == 0",
+    "rationale" : "If result is non-null but empty, result.size() is 0; otherwise, result is either non-empty or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof List",
+    "rationale" : "Returned object is either null or an instance of List as per the method signature and direct map lookup.",
+    "meta" : [ ]
+  } ]
+}

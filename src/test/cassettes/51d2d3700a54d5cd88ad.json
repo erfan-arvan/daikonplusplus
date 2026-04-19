@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata result constructed via a helper, so null return is unlikely unless an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(HoodieWriteMetadata.class) || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "Result is always of type HoodieWriteMetadata or a subclass, matching method signature.",
+    "meta" : [ ]
+  } ]
+}

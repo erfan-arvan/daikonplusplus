@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "the method returns a List<WriteStatus>, and performClusteringWithRecordList should produce a non-null result",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "the return type of the method is List<WriteStatus>, so result must be a List",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || readRecordsForGroup(clusteringGroup, instantTime).isEmpty()",
+    "rationale" : "if result is empty, it likely means there were no input records to process; otherwise, there should be some write status",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is passed down to core calls and must not be null",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a key parameter, so it must be non-null for correctness",
+    "meta" : [ ]
+  } ]
+}

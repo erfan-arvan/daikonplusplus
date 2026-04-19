@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required for 'transitionRequestedToInflight', so it should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "An empty instantTime string would not make sense for a commit action; a non-empty check likely captures valid input.",
+    "meta" : [ ]
+  } ]
+}

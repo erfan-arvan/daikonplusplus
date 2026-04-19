@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns HoodieListData.eager(...), which by definition is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "The method always returns HoodieListData.eager(...), so result's runtime type will be HoodieListData.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == writeStatuses.count()",
+    "rationale" : "The inner updateLocation call returns a List of the same size as the collected WriteStatus, which in turn should match the input's count.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().size() == writeStatuses.collectAsList().size()",
+    "rationale" : "Since the outer return wraps the result of a List-based call, the sizes should remain the same.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().containsAll(writeStatuses.collectAsList())",
+    "rationale" : "The semantics of updateLocation generally operate as an update or identity; likely all original WriteStatus are still present.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method implementation always calls commit with the result, so result is assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is called on result in the implementation, implying the returned value must be non-null for the method to execute without error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty() || result.getWriteStatuses().isEmpty()",
+    "rationale" : "The write status list for result can be empty or not, but it must be a valid List; this expresses exhaustiveness given the information present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "When processing with map and Collectors.toList(), it's reasonable to expect no null WriteStatus instances in the resulting list, otherwise null pointer exceptions could occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().map(WriteStatus::getStat).collect(java.util.stream.Collectors.toList()) != null",
+    "rationale" : "The mapping over getWriteStatuses() to getStat and collect to a list is performed and must not return null.",
+    "meta" : [ ]
+  } ]
+}

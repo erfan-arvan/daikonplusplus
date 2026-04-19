@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is produced by a Java Stream reduce operation and should not be null since zeroValue provides the identity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data is dereferenced in the method and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "zeroValue is used as the identity in reduce and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "seqOp is required for reduction and is called inside the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "combOp is required for the combine step in reduce and is called inside the method.",
+    "meta" : [ ]
+  } ]
+}

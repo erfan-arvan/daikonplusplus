@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null list (records is always new ArrayList<>()).",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is required to call getSlices(), so it must be non-null on method entry/exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "result is a List, so its size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "result is returned as a List<HoodieRecord<T>>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed and used as an argument to downstream methods, so it is expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

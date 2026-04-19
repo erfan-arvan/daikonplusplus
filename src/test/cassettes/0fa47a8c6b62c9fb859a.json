@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method will immediately pass inputRecords to another method, so inputRecords is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inputRecords.isEmpty()",
+    "rationale" : "A commit action without any records to process is likely nonsensical; the intended usage expects inputRecords to be non-empty.",
+    "meta" : [ ]
+  } ]
+}

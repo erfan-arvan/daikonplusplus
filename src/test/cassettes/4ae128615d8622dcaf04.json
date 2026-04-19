@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method contract suggests that a HoodieWriteMetadata is always returned, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "The clusteringInstantTime must be provided for clustering operations and is unlikely to be null here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for execution and is not expected to be null at return.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Many usages of partitionPaths are preceded by null checks, code will branch accordingly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required parameter and method calls on it are performed directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java collections.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || !(partitionPaths.isEmpty()) == (partitionPaths.size() > 0)",
+    "rationale" : "isEmpty() and size() > 0 are equivalent for a List; helps capture list state.",
+    "meta" : [ ]
+  } ]
+}

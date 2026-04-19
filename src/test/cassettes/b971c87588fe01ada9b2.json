@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is typically required for compaction scheduling and is not expected to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required to perform engine operations and must be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is an Option container and should be non-null, though it may be Option.empty().",
+    "meta" : [ ]
+  } ]
+}

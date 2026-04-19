@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition counts are typically positive in repartitioning tasks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method is likely not intended to receive a null list; operations on records assume non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "If records is non-empty, it is often expected output partitions do not exceed record count.",
+    "meta" : [ ]
+  } ]
+}

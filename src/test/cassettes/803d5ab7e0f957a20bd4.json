@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodieWriteMetadata instance, so result should not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is used without null checks in the method, so it is expected to be non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "result stores write statuses from the write process, which should be non-null if working as expected.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "HoodieWriteMetadata API"
+    } ]
+  }, {
+    "expression" : "!(sourceReadAndIndexTimer == null) || !sourceReadAndIndexTimer.isPresent() || sourceReadAndIndexTimer.get() != null",
+    "rationale" : "If sourceReadAndIndexTimer is present, its get() result should be non-null (Option contract).",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Option API"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The result write statuses should be a List, based on the return type of the method.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "type check"
+    } ]
+  } ]
+}

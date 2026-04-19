@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method expects a non-null data list to perform stream operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func must be non-null to map elements of data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "parallelism is expected to be provided as an Integer, likely not null for partitioning computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive to enable effective parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || data.size() > 0",
+    "rationale" : "data should be either empty or have elements; this is always true for List, helps rule out nulls.",
+    "meta" : [ ]
+  } ]
+}

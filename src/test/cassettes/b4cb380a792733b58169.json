@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned value is a new List collected from a stream pipeline, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null ? result.size() <= data.size() : true",
+    "rationale" : "Each input may contribute at most one output value per group key (since the input is grouped then reduced), so the output list cannot be larger than the input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0 ? true : true",
+    "rationale" : "The method's logic does not require parallelism to be used in a way that changes the result, but this expresses that parallelism was passed as an argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data == null ? result.isEmpty() : true",
+    "rationale" : "If the input list is null, the result should be empty as collecting from a null source produces an empty result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(v -> v != null)",
+    "rationale" : "Since each element in result comes from reducing non-null values in the input stream, none should be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns an Option which should never be null, matching the factory's contract and recommended Option pattern.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required downstream and should never be null based on usage pattern in executor construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to executor and expected to be non-null, as a null engine context would violate safe execution assumptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == false || result.get() != null",
+    "rationale" : "If Option is present, it should contain a non-null HoodieCompactionPlan.",
+    "meta" : [ ]
+  } ]
+}

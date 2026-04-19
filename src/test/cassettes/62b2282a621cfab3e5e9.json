@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "Method cannot proceed without a valid writeClient instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required to identify the commit action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs must be present for upsert to be possible.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecordInputs.isEmpty() || preppedRecordInputs.isEmpty()",
+    "rationale" : "List emptiness is covered: either there are records to write or not.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient != null && instantTime != null && preppedRecordInputs != null",
+    "rationale" : "Compound initialization check to ensure all required inputs are present before method concludes.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "EngineProperty key should not be null as it is generally used as a configuration identifier.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-safety"
+    } ]
+  }, {
+    "expression" : "value != null || value == null",
+    "rationale" : "String value may be null or non-null; this expresses that both are permitted.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "well-formedness"
+    } ]
+  }, {
+    "expression" : "!(value != null && value.isEmpty()) || value.isEmpty()",
+    "rationale" : "If value is non-null and empty, then value.isEmpty() holds, capturing its empty-state property.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string-property"
+    } ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "The method receiver should not be null at method entry.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "object-identity"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Trivially true, included as a baseline (all Java method entries satisfy this).",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "trivial-invariant"
+    } ]
+  } ]
+}

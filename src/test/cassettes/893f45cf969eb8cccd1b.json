@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Methods returning metadata typically should not produce null results; a valid HoodieWriteMetadata is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method returns a HoodieWriteMetadata, so the result should be an instance of that class.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "The logCompactionInstantTime parameter is forwarded as a required argument and likely must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid (non-null) HoodieEngineContext is generally required for table actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata#getWriteStatuses (when available) should return a non-null value representing write results.",
+    "meta" : [ ]
+  } ]
+}

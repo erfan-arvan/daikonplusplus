@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since getIndex returns the result of JavaHoodieIndexFactory.createIndex(config), and factories typically produce valid index instances, result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is non-null since it is passed as an argument and immediately used to create the index.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "convertMetadata is expected to return a HoodieWriteMetadata object, so the result should not be null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "logCompactionInstantTime is directly passed to executor and required for compaction, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required argument for all table write operations and should not be null when method returns.",
+    "meta" : [ ]
+  } ]
+}

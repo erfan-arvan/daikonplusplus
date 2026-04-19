@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method uses 'result' to access methods. Thus, it must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The code uses 'result.getWriteStatuses()' shortly after entry, implying it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "Calling methods on each WriteStatus, so no WriteStatus in the list should be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Compaction operations typically require a non-null instant identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method requires a valid engine context for any operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Presence of extraMetadata Option object is required for code correctness, even if it's Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "The instant time should be a non-empty String as it represents a commit or operation moment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "Option<T> is always either present or not present, making this mutually exhaustive for the Option type.",
+    "meta" : [ ]
+  } ]
+}

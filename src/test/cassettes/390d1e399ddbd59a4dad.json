@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs and returns a new HoodieData via HoodieListData.eager, so the return value should never be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method assumes input is non-null and immediately calls records.map; a null input would cause a NullPointerException.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "input precondition"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieData",
+    "rationale" : "The result is always created as a HoodieData, specifically HoodieListData.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "postcondition"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is passed into called methods and assumed not null.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "input precondition"
+    } ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is passed to another tagLocation, which expects it to be non-null.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "input precondition"
+    } ]
+  } ]
+}

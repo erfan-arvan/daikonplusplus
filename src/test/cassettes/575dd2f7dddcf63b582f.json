@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method unconditionally throws an exception, the result is never assigned and will always be null at exit.",
+    "meta" : [ {
+      "key" : "exception_behavior",
+      "value" : "method_always_throws"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "The method always throws an exception, so any trivial invariant is technically true at this point.",
+    "meta" : [ {
+      "key" : "exception_behavior",
+      "value" : "method_always_throws"
+    } ]
+  }, {
+    "expression" : "throw new HoodieNotSupportedException(\"Manage partition ttl is not supported yet\") != null",
+    "rationale" : "The only way this method exits is through an exception, so no normal program state is established.",
+    "meta" : [ {
+      "key" : "exception_behavior",
+      "value" : "method_always_throws"
+    } ]
+  } ]
+}

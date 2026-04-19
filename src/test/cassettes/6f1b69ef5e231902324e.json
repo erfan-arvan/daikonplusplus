@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The restore method instantiates and immediately returns a new HoodieRestoreMetadata, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "The restoreInstantTimestamp parameter is likely required for restoration logic and would not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "The savepointToRestoreTimestamp parameter is also critical for restore logic and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is required for restoration actions to be executed.",
+    "meta" : [ ]
+  } ]
+}

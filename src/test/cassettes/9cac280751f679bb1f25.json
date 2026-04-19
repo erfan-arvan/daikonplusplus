@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "Method parameter idPfx should typically not be null for correct functioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The Iterator parameter should not be null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr instanceof Iterator",
+    "rationale" : "recordItr is declared as Iterator<HoodieRecord<T>>, so this must hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx.length() >= 0",
+    "rationale" : "String.length() is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

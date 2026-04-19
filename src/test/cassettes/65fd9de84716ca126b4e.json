@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "partition != null",
+    "rationale" : "Partition string is used to retrieve file slices, so a null value could cause errors or unexpected behavior.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "partition should not be null for processing"
+    } ]
+  }, {
+    "expression" : "!partition.isEmpty()",
+    "rationale" : "Empty partition names are likely invalid when filtering or locating file slices for clustering.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "partition should not be empty"
+    } ]
+  }, {
+    "expression" : "partition instanceof String",
+    "rationale" : "The method signature ensures partition is a String.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "partition is expected to be String"
+    } ]
+  } ]
+}

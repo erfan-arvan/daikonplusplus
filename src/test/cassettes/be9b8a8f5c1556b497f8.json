@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method calls data.stream(), so data must not be null to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "throwingForeachWrapper(consumer) will be called, so consumer should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "A non-positive parallelism value may not make sense in a parallel context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "Parallelism is typically set not to exceed the number of available items unless the collection is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= Integer.MAX_VALUE",
+    "rationale" : "Ensures the int parallelism parameter does not exceed Java's int maximum.",
+    "meta" : [ ]
+  } ]
+}

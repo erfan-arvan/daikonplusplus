@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieCleanMetadata instance, so it is likely non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "cleanInstantTime is required as an argument for the clean action and likely non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is necessary for execution and would be expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

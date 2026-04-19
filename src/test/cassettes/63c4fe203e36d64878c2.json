@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata object wrapping the commit outcome; this is enforced by the return statement and expected method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime for the write operation should never be null, as it is required throughout the workflow and passed to subcomponents.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for all operations, and is not expected to be null within the workflow.",
+    "meta" : [ ]
+  } ]
+}

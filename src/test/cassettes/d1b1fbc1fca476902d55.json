@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a KeyGenerator, and it is likely expected to not return null as it creates a new instance using a factory.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "METHOD_EXIT"
+    } ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "The parameter 'props' must be non-null for KeyGenerator creation via the factory method, otherwise a NullPointerException may occur.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "props"
+    } ]
+  } ]
+}

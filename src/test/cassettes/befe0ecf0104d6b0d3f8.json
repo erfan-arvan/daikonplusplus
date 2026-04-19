@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Option, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is a required parameter, so should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == result.isEmpty()",
+    "rationale" : "If populateMetaFields is true, Option.empty() is returned; otherwise, Option.of(...) is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!config.populateMetaFields()) == result.isPresent()",
+    "rationale" : "If populateMetaFields is false, result contains a BaseKeyGenerator; otherwise, it's empty.",
+    "meta" : [ ]
+  } ]
+}

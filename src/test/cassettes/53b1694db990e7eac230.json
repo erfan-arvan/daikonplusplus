@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism typically represents the desired level of parallel processing and should be a positive integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The data list should not be null in order to be parallelized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= Runtime.getRuntime().availableProcessors()",
+    "rationale" : "It is reasonable to restrict parallelism to the number of available processors for efficient resource usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "The number of parallel tasks should not exceed the number of data elements, unless the list is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "A List's size cannot be negative; this is a property guaranteed by Java's List interface.",
+    "meta" : [ ]
+  } ]
+}

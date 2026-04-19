@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method returns 'records' (possibly after sorting and/or extraction of its fields); the returned value is always the 'records' list object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Since 'result' is just 'records', no element is added or removed and their sizes are equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() ? result.isEmpty() : !result.isEmpty()",
+    "rationale" : "If input is empty, returns records (empty); otherwise records is sorted and returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || (result.get(0).getKey() != null)",
+    "rationale" : "If result is not empty, the first element's key is accessed for fileId extraction, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Partition counts should be non-negative; negative partitions have no meaningful interpretation.",
+    "meta" : [ ]
+  } ]
+}

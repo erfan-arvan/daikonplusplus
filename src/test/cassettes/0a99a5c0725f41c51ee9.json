@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a list of records to process; null input would likely result in an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is for controlling parallel streams or processing; should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schemaStr != null && !schemaStr.isEmpty()",
+    "rationale" : "Non-empty schema string is needed for correct schema parsing operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "TypedProperties is used for configuration and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMerger != null",
+    "rationale" : "BufferRecordMerger is needed for record reduction logic in deduplication.",
+    "meta" : [ ]
+  } ]
+}

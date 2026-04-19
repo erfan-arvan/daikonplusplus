@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partition != null",
+    "rationale" : "Partition is used as an argument and as a key, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner is immediately cast and used for method invocation; thus, it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed into downstream handlers, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required to uniquely identify the commit instant in Hudi, so null would likely be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner instanceof JavaUpsertPartitioner",
+    "rationale" : "partitioner is directly cast to JavaUpsertPartitioner at the beginning of the method.",
+    "meta" : [ ]
+  } ]
+}

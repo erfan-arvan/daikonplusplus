@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned value from a non-void method should not be null under typical usage, especially since it delegates to the superclass.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is a key input and likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "List<FileSlice> is passed as an argument and is likely not null at return.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of a write helper and should not return null under normal operation.",
+    "meta" : [ {
+      "key" : "appearance",
+      "value" : "A,B"
+    } ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The returned result is expected to be an instance of HoodieWriteMetadata.",
+    "meta" : [ {
+      "key" : "appearance",
+      "value" : "B,C"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write metadata's write status list should not be null after a commit action.",
+    "meta" : [ {
+      "key" : "appearance",
+      "value" : "B,C"
+    } ]
+  } ]
+}

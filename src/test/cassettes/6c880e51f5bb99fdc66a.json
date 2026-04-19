@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is generally required to coordinate Spark/Java execution in Hudi table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "An instant (timestamp) must be specified to create a valid savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "User information is generally required to track who triggered the savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "A comment is usually required for savepoint traceability, or at a minimum, not expected to be null during savepoint creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantToSavepoint.isEmpty()",
+    "rationale" : "A non-empty string is expected for the instant to savepoint, as an empty instant would be invalid.",
+    "meta" : [ ]
+  } ]
+}

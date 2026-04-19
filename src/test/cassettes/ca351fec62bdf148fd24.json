@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A null 'instantTime' would likely be invalid as this is used as an identifier for rollback.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "'HoodieInstant' to rollback must be provided and non-null for the rollback scheduling to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid engine context is needed for coordinating the rollback operation.",
+    "meta" : [ ]
+  } ]
+}

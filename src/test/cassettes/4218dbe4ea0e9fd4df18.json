@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method assumes that profile is not null as it is dereferenced multiple times.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for partition processing and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "partitionPaths is used immediately after being retrieved, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths().isEmpty() || profile.getPartitionPaths().stream().allMatch(p -> p != null)",
+    "rationale" : "Partition path set should not contain null elements as it is used as keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null && config != null",
+    "rationale" : "Both table and config fields are dereferenced in the method, so they must be non-null.",
+    "meta" : [ ]
+  } ]
+}

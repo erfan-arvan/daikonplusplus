@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is the value returned by postWrite, which should not be null to indicate successful processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input records should not be null, as precondition checks or framework contracts likely ensure a non-null argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used to identify operations and should be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "userDefinedBulkInsertPartitioner is always populated (can be Option.empty()), but the Option object itself should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || !records.isEmpty()",
+    "rationale" : "If there is any WriteStatus produced, there must have been input records to write.",
+    "meta" : [ ]
+  } ]
+}

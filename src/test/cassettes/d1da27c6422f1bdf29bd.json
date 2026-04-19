@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The postWrite method is invoked and its result returned; it should not return null by contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method operates directly on preppedRecords and passes it down the stack; a null value is likely not allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result variable is assigned from postWrite, which returns a List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in several method calls as a required argument; it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List.size() is always non-negative for Java collections.",
+    "meta" : [ ]
+  } ]
+}

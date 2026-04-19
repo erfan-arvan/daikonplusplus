@@ -59,6 +59,13 @@ public abstract class AbstractPromptStrategy implements PromptStrategy {
     sb.append(PromptRenderingUtil.renderProgramPointExplanation(ctx)).append("\n");
     sb.append("In-scope names:\n");
     sb.append(PromptRenderingUtil.formatScope(ctx.inScope())).append("\n\n");
+    sb.append(
+        """
+            Note:
+            - These are base variables.
+            - Expressions derived from them (e.g., field accesses and method calls) are allowed if valid at this program point.
+
+            """);
 
     if (ctx.inScope().containsKey("result")) {
       sb.append(

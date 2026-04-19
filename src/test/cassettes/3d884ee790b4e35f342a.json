@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "It is common for context parameters to be required and non-null, especially for distributed or engine context objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely a non-null identifier for the operation, as is common for timestamp or instant parameters in Hudi write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime likely represents a commit instant or timestamp and is often a non-empty string.",
+    "meta" : [ ]
+  } ]
+}

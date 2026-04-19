@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to represent a commit instant, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "List of partitions to delete should not be null to avoid NullPointerException during processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext must be provided for operation execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions == null || partitions instanceof List",
+    "rationale" : "partitions parameter should be a List if not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.isEmpty()",
+    "rationale" : "If instantTime is provided, it should not be an empty string.",
+    "meta" : [ ]
+  } ]
+}

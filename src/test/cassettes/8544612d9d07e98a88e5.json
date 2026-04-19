@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == getUpsertPartitioner(profile)",
+    "rationale" : "The method returns the result of getUpsertPartitioner(profile); thus, result always equals this call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The method requires a WorkloadProfile to compute the partitioner, so the input should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns the output of getUpsertPartitioner, which should be a valid Partitioner instance.",
+    "meta" : [ ]
+  } ]
+}

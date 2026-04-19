@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "A null profile likely indicates programming error, as a workload profile is needed to derive the partitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile instanceof WorkloadProfile",
+    "rationale" : "profile should always be of type WorkloadProfile, as that is the method's parameter type.",
+    "meta" : [ ]
+  } ]
+}

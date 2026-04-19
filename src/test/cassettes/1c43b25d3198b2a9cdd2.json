@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method should not return null as it delegates to an executor's execute method that constructs and returns a HoodieRestoreMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "A restore operation typically must specify a non-null restore instant timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "Restoring to a savepoint requires a non-null savepoint timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is required to execute restore operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(restoreInstantTimestamp.equals(savepointToRestoreTimestamp))",
+    "rationale" : "Restore instant and savepoint timestamps are generally expected to refer to different instants for a valid restore operation.",
+    "meta" : [ ]
+  } ]
+}

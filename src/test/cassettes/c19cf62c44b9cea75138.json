@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "A valid compaction instant time is required for the compaction process to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is necessary to perform any work in the engine.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!compactionInstantTime.isEmpty()",
+    "rationale" : "The compaction instant time should not be an empty string for a valid compaction operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime.trim().length() > 0",
+    "rationale" : "The compaction instant time is expected to be non-blank; only whitespace would be invalid.",
+    "meta" : [ ]
+  } ]
+}

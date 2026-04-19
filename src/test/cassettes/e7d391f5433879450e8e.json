@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new HashMap is always returned, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Map",
+    "rationale" : "The returned type is a Map<String, List<String>>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(p -> p != null)",
+    "rationale" : "Partition paths are never null so map keys are not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(l -> l != null)",
+    "rationale" : "The values assigned are from getAllExistingFileIds which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "Method contract requires writeResult as input and never assigns null.",
+    "meta" : [ ]
+  } ]
+}

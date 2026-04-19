@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method expects a non-null HoodieData<HoodieRecord> for collectAsList() to be called safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof HoodieData",
+    "rationale" : "Parameter type guarantees this: method signature enforces HoodieData<HoodieRecord> type.",
+    "meta" : [ ]
+  } ]
+}

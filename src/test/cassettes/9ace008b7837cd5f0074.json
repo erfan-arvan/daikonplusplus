@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A method returning an Iterator should not return null for iterator result.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "Typically, idPfx as a String is used for record identification and should be non-null.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "idPfx is passed to downstream functions and constructors; null may not be handled."
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr must be a non-null iterator to be used by JavaLazyInsertIterable or super.handleInsert.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "recordItr is required for constructing the lazy insert iterable and must be non-null."
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "Method guarantees return type is Iterator<List<WriteStatus>> for all cases.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Iterator<List<WriteStatus>>"
+    } ]
+  }, {
+    "expression" : "idPfx.length() >= 0",
+    "rationale" : "String.length() is always non-negative; checks idPfx is valid String.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "true"
+    } ]
+  } ]
+}

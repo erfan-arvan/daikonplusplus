@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A HashMap is always returned from the method regardless of branch.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() == 0 || result.keySet().containsAll(partitionPaths)",
+    "rationale" : "If partitionPaths is not null or empty and config.getParquetSmallFileLimit() > 0, all requested keys are present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getParquetSmallFileLimit() <= 0 ? result.isEmpty() : true",
+    "rationale" : "When small file limit is non-positive, an empty map is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "Mapped values (List<SmallFile>) are never null due to getSmallFiles implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(key -> partitionPaths == null ? true : partitionPaths.contains(key))",
+    "rationale" : "No keys in result except from the input partitionPaths.",
+    "meta" : [ ]
+  } ]
+}

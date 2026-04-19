@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The input list of records is expected to be non-null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords instanceof List",
+    "rationale" : "The argument must be a List (due to the method signature); this confirms its type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "A List's size is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(record -> record != null)",
+    "rationale" : "The method expects to process HoodieRecord objects, so elements should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(record -> record.getPartitionPath() != null)",
+    "rationale" : "The method accesses record.getPartitionPath() for grouping, so partitionPath is expected non-null.",
+    "meta" : [ ]
+  } ]
+}

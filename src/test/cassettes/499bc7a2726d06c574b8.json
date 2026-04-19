@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "sortMode != null",
+    "rationale" : "The method immediately switches on sortMode, which would result in a NullPointerException if it were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT || sortMode != BulkInsertSortMode.NONE && sortMode != BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "These are the only cases handled explicitly in the switch; other values cause an exception.",
+    "meta" : [ ]
+  } ]
+}

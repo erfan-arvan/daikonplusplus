@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs a HoodieWriteMetadata object to return; returning null is unlikely based on its body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The returned value is always an instance of HoodieWriteMetadata due to the construction in the return statement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "transformedWriteStatuses is a List<WriteStatus> and is passed to clone, so result.getWriteStatuses() will be a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "transformedWriteStatuses is always initialized from a non-null collectAsList on a valid writeMetadata, so result.getWriteStatuses() should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

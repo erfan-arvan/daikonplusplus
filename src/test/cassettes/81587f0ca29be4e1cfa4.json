@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "The method assumes a valid cache key would be supplied, and many cache-related methods would require non-null keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids != null",
+    "rationale" : "The varargs 'ids' parameter should be non-null by Java's varargs contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids.length >= 0",
+    "rationale" : "Array length can never be negative; this captures a structural property.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "'this' must be non-null at any instance method invocation point.",
+    "meta" : [ ]
+  } ]
+}

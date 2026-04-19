@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned Option<HoodieIndexCommitMetadata> should never be null, per usage of Option types.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "indexInstantTime is used as constructor argument and likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is directly passed to another constructor and is likely required to be non-null.",
+    "meta" : [ ]
+  } ]
+}

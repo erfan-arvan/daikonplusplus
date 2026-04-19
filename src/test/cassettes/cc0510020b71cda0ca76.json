@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method expects a non-null dedupedRecords List to process; null would likely result in a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The Partitioner is required for partitioning logic; a null partitioner would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.isEmpty() || dedupedRecords.get(0) != null",
+    "rationale" : "If the dedupedRecords list is non-empty, its first element should not be null to ensure valid processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "The list dedupedRecords is expected to contain only non-null entries for correct downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().map(r -> r.getKey()).allMatch(k -> k != null)",
+    "rationale" : "Each HoodieRecord in dedupedRecords should have a non-null key, as the partitioning relies on keys.",
+    "meta" : [ ]
+  } ]
+}

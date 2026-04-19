@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collectors.toList() always produces a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "File IDs returned by getFileId() are expected to be non-null strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The list is explicitly collected with distinct file IDs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(f -> f instanceof String)",
+    "rationale" : "All elements in the result are Strings as per the return type and collection operation.",
+    "meta" : [ ]
+  } ]
+}

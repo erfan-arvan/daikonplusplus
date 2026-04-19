@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method expects inputRecords; a null check could guard against NPE in downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || inputRecords.size() >= 0",
+    "rationale" : "The size of a List is always non-negative; included as a basic relationship.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inputRecords.isEmpty() || inputRecords.size() == 0",
+    "rationale" : "If inputRecords is empty, then its size must be zero.",
+    "meta" : [ ]
+  } ]
+}

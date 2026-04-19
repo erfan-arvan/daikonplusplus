@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Method does not use the argument, but the contract may ensure non-null args.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Defensive check, as code likely assumes non-null input."
+    } ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "Ensures Java runtime type agreement for the parameter.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Type safety, matches declared parameter type."
+    } ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "Guaranteed by Java's List API.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "List.size() cannot be negative in Java."
+    } ]
+  } ]
+}

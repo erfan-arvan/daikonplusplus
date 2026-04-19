@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is used directly and passed to Option.ofNullable and other methods, so it is likely expected to be non-null in typical usage.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records parameter is used as input multiple times, including passed to Option.of and expected to be non-null for correct processing.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "A non-trivial invariant about the input list: if records is not empty, then it must contain at least one element.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "collection property"
+    } ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "instantTime is used as a commit/operation identifier and likely expected to be non-empty and meaningful.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "string property"
+    } ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "It's likely that the upsert operation expects all HoodieRecord elements in the records list to be non-null to avoid NPEs during processing.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "collection element non-null"
+    } ]
+  } ]
+}

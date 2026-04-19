@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The parameter records should not be null to avoid NullPointerException when streaming.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "The number of output partitions is expected to be a positive integer for repartitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.stream().allMatch(r -> r != null)",
+    "rationale" : "If the list is not empty, all HoodieRecord items should be non-null for correct processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always non-negative by definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "It is common for the number of partitions not to exceed the number of input records, unless the list is empty.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Engine context is required for upsert operations and is almost certainly non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instant identifier is critical for versioning and must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "A list of records to upsert must be present for the operation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null && !preppedRecords.isEmpty()",
+    "rationale" : "Method is expected to process a list of prepped records; processing an empty or null list likely has no effect. This is also a common precondition for such methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A non-null, non-empty instantTime is required as it identifies the commit or write instant for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is necessary for engine operations, and the implementation expects it to be non-null.",
+    "meta" : [ ]
+  } ]
+}

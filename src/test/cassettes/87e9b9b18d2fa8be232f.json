@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "record != null",
+    "rationale" : "record is a required parameter for this method and must be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortColumnNames != null",
+    "rationale" : "sortColumnNames is used within the method and must be non-null for safe column selection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is used within the method and must be initialized for correct functioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortColumnNames.length > 0",
+    "rationale" : "sortColumnNames likely contains at least one column name to perform sorting.",
+    "meta" : [ ]
+  } ]
+}

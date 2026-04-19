@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns HoodieListData.lazy(records), which should not be null even if records is null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "The return value is constructed via HoodieListData.lazy(), so it will always be an instance of HoodieListData.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == records.size()",
+    "rationale" : "If HoodieListData.lazy preserves all elements from records, the result's count matches records' size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "By the time the result is returned, records must have been provided (cannot be null according to typical function contracts and List semantic expectations).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieData",
+    "rationale" : "By return type and value construction, result will be a subtype of HoodieData.",
+    "meta" : [ ]
+  } ]
+}

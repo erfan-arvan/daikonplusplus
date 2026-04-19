@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "It is likely that the input list is expected to be non-null for correct processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || hoodieRecords.get(0) != null",
+    "rationale" : "If the list is non-empty, its first element is likely valid (non-null), supporting standard usage patterns.",
+    "meta" : [ ]
+  } ]
+}

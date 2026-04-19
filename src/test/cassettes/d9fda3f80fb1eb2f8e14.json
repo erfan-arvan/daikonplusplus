@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Average record size (result) is a non-negative long, as it is ultimately derived from file size estimates or computed averages of written data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() || (!commitTimeline.empty() && result <= hoodieWriteConfig.getParquetSmallFileLimit() && result >= 0)",
+    "rationale" : "Either default estimate is returned, or result comes from a recent commit and is reasonable with respect to known thresholds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitTimeline.empty() ? result == hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() : result >= 0",
+    "rationale" : "If no commit exists, the method always returns the copy-on-write record size estimate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getParquetSmallFileLimit()",
+    "rationale" : "The result, representing an average record size, cannot logically exceed the configured small file size limit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() || !commitTimeline.empty()",
+    "rationale" : "If the result is less than or equal to the default estimate, then either there was data to use or we fell back to the estimate.",
+    "meta" : [ ]
+  } ]
+}

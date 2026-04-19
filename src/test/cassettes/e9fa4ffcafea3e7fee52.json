@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List, which is expected to be non-null as per typical contract and the use of 'collect(Collectors.toList())'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a required argument to get slices and must be non-null to perform collection retrieval.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(f -> f != null)",
+    "rationale" : "getFileId() should never return null, so all entries in the resulting List<String> are expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The collected file ids are gathered with 'distinct()', so the result contains only unique elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type is a List, and 'collect(Collectors.toList())' guarantees an implementation of List.",
+    "meta" : [ ]
+  } ]
+}

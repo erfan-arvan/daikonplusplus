@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "Method parameter is expected to identify the restore instant and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "Restore operation requires a savepoint timestamp to restore to, and this should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "A restore instant timestamp should not be empty, as it represents a required operation point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "A savepoint timestamp should not be an empty string, since it is required to identify a specific savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is required for execution and must not be null for most table operations.",
+    "meta" : [ ]
+  } ]
+}

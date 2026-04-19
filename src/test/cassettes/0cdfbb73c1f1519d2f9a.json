@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "transitionInflight expects a non-null instant time for state transitions.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "null check"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "The instant time string is expected to be non-empty for a valid state transition.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "input validation"
+    } ]
+  } ]
+}

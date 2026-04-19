@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method expects a valid list to parallelize; null would be a misuse.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism typically must be positive for meaningful parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size() || data.isEmpty()",
+    "rationale" : "It is often reasonable for the number of parallel tasks not to exceed the data size unless the data is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof List",
+    "rationale" : "The type of data must be a List as specified by the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= Integer.MAX_VALUE",
+    "rationale" : "The maximum value for parallelism cannot exceed the representable int range.",
+    "meta" : [ ]
+  } ]
+}

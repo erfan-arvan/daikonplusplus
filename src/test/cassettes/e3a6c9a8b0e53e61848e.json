@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method operates on the profile object, so it cannot be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.getInputPartitionPathStatMap().isEmpty() || profile.getOutputPartitionPathStatMap().isEmpty() || profile.hasOutputWorkLoadStats() == false",
+    "rationale" : "If there were no input partitions, output may also be empty, and output work stats are only updated if enabled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The method possibly updates the output map, so it must not be null at the end.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().size() >= 0",
+    "rationale" : "A map size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == false || !profile.getOutputPartitionPathStatMap().isEmpty()",
+    "rationale" : "If output stats are enabled and any update happens, the output partition map should be non-empty.",
+    "meta" : [ ]
+  } ]
+}

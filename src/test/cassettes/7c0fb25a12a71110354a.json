@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime must typically represent a commit/operation instant and must not be null for meaningful processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords must not be null, as the operation expects to process a list of records; usually passed by a caller after preparation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative for all Java List implementations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option values are typically never null; Option is used to encode presence/absence instead of null.",
+    "meta" : [ ]
+  } ]
+}

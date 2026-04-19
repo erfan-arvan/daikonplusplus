@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method expects metaClient to operate on, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The method parameter columnsToIndex is expected to be a valid collection for operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex instanceof List",
+    "rationale" : "columnsToIndex should conform to its declared type, List<String>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!columnsToIndex.isEmpty() || columnsToIndex.isEmpty()",
+    "rationale" : "For any List, isEmpty() is always either true or false (completeness of the isEmpty predicate).",
+    "meta" : [ ]
+  } ]
+}

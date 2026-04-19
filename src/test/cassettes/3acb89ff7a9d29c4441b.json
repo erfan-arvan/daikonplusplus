@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The core method expects dedupedRecords as input; a null value may be undesirable for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Most operations on context would require it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Since table is called immediately inside the method, non-null is important for safe access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!dedupedRecords.isEmpty() || dedupedRecords.isEmpty()",
+    "rationale" : "Covers the partition that dedupedRecords must be either empty or non-empty (excluded tautologies, this is exhaustive).",
+    "meta" : [ ]
+  } ]
+}

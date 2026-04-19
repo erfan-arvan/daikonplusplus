@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method, per its implementation, immediately passes 'result' into another method and likely expects it non-null.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "parameter/field constraint; relation"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The implementation uses result.getWriteStatuses(), suggesting it's always non-null at this point.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "parameter/field constraint; pure method predicates"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "A meaningful invariant, since passing a write metadata object with no write statuses would be unusual in a commit context.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "relation; parameter/field constraint"
+    } ]
+  } ]
+}

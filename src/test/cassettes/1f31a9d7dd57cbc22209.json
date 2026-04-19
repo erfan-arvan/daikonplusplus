@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of the execute method is expected to be a non-null HoodieWriteMetadata object or at least users of this method likely expect a valid metadata result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Since the HoodieWriteMetadata typically encapsulates write status information, it is likely expected that this collection is always initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The method returns a HoodieWriteMetadata parameterized with List<WriteStatus>, so the write statuses should always be a List at method exit.",
+    "meta" : [ ]
+  } ]
+}

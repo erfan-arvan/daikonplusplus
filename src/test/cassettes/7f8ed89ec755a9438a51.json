@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is a field of the class and is likely needed for the method to function correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inputRecords.isEmpty()",
+    "rationale" : "execute() will attempt to write inputRecords, suggesting it should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is accessed to call shouldCombineBeforeUpsert() and getUpsertShuffleParallelism().",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is passed as an argument and likely required for the write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to the write helper and likely required for the operation.",
+    "meta" : [ ]
+  } ]
+}

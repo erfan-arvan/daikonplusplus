@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "parallelize always returns the result of HoodieListData.eager, which should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null || result != null",
+    "rationale" : "If data is null, HoodieListData.eager may still produce a non-null result (likely an empty HoodieData), so this relationship must hold.",
+    "meta" : [ ]
+  } ]
+}

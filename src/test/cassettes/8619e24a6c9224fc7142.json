@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Ensures the input List of records is not null before processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "A typical precondition is that the number of output partitions for repartitioning should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a Java List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "It is common to require that the list does not contain any null records before repartitioning and sorting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "It makes sense to expect that you do not repartition into more partitions than there are records, unless the input list is empty.",
+    "meta" : [ ]
+  } ]
+}

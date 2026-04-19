@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method expects inputRecords to be a valid collection; null input would likely result in errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer != null",
+    "rationale" : "Method operates on sourceReadAndIndexTimer; null option would be unsafe.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || !inputRecords.isEmpty()",
+    "rationale" : "inputRecords could be empty or non-empty, so method should operate on both cases safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer.isPresent() || !sourceReadAndIndexTimer.isPresent()",
+    "rationale" : "The Option can be present or not, so execution does not assume presence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords instanceof java.util.List",
+    "rationale" : "Signature promises that inputRecords is a List.",
+    "meta" : [ ]
+  } ]
+}

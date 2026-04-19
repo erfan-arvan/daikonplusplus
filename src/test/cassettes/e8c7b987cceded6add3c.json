@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely expected to be non-null to identify a commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is likely required to specify where data is being written.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records should not be null to avoid null pointer exceptions in downstream usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser is passed directly; passing null may be risk-prone.",
+    "meta" : [ ]
+  } ]
+}

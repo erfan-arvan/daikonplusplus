@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is required for engine operations and is always non-null when entering this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An instant time is required to schedule a rollback and should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "A specific HoodieInstant must be provided to indicate which instant to rollback.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipTimelinePublish == true || skipTimelinePublish == false",
+    "rationale" : "skipTimelinePublish is a boolean and must be true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "shouldRollbackUsingMarkers == true || shouldRollbackUsingMarkers == false",
+    "rationale" : "shouldRollbackUsingMarkers is a boolean and must be true or false.",
+    "meta" : [ ]
+  } ]
+}

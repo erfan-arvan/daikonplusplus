@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The parameter writeMetadata should not be null at method entry to ensure correct behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getClass().getSimpleName().equals(\"HoodieWriteMetadata\")",
+    "rationale" : "writeMetadata should be an instance of HoodieWriteMetadata as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() instanceof java.util.List",
+    "rationale" : "writeMetadata is parameterized with List<WriteStatus>, so getWriteStatuses() should return a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().size() >= 0",
+    "rationale" : "The number of WriteStatus elements in writeMetadata cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata instanceof HoodieWriteMetadata",
+    "rationale" : "The writeMetadata parameter must be an instance of HoodieWriteMetadata, according to the method signature.",
+    "meta" : [ ]
+  } ]
+}

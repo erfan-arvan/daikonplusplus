@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new HashMap is always instantiated and returned, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "The only entry possibly placed in 'result' uses PLAN_STRATEGY_SORT_COLUMNS.key(), so it is either empty or contains that key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0 || result.size() == 1",
+    "rationale" : "Only a single key/value pair may be added to 'result', so its size is at most 1.",
+    "meta" : [ ]
+  } ]
+}

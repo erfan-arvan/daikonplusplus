@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The clean method is expected to return metadata about a performed cleaning action, so a non-null result is likely guaranteed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "The cleanInstantTime parameter identifies the instant at which cleaning occurs, and is likely required to be non-null for proper operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is necessary for driver/executor coordination, and is likely required to be non-null for correct cleaning execution.",
+    "meta" : [ ]
+  } ]
+}

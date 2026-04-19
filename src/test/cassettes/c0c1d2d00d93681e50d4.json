@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a list of records on which to perform an upsert. Null records could cause NullPointerExceptions.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used for time-stamping the write operation, and must not be null for correct processing.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime should be a valid timestamp string, so it should not be empty.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "The logic of upsert assumes there are no null elements in the input records list.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "element-wise"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always non-negative in Java.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "general"
+    } ]
+  } ]
+}

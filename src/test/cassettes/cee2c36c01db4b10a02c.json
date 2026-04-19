@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A non-null result is typical for a method returning metadata about a commit operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The return type should always be a HoodieWriteMetadata or its subclass.",
+    "meta" : [ ]
+  } ]
+}

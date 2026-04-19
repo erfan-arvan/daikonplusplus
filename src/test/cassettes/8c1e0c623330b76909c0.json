@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Timestamps or instant identifiers are typically expected to be non-null for write commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The method expects a list of records to upsert, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "Target file group IDs are expected for the update operation, so the list should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient != null",
+    "rationale" : "A valid BaseHoodieWriteClient is necessary to perform the operations this method is supposed to implement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.size() >= 0",
+    "rationale" : "If the record input list is empty, its size is zero or more; this checks realistic collection size.",
+    "meta" : [ ]
+  } ]
+}

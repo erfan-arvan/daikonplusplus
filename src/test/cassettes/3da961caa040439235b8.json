@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "The method expects 'keys' to be used, most likely non-null in standard Hoodie API usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "'instantTime' identifies the action instant, and most Hoodie table APIs require it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is required to perform engine-specific operations in table methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.isEmpty() || keys.size() >= 0",
+    "rationale" : "If keys is not null, 'isEmpty()' or 'size() >= 0' is always valid for Java lists, reinforcing valid list state.",
+    "meta" : [ ]
+  } ]
+}

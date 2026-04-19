@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Many partitioning and key extraction operations assume a non-null key parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key instanceof Pair",
+    "rationale" : "The implementation casts key to Pair<HoodieKey, Option<HoodieRecordLocation>> without a preceding instanceof check, implying the caller must provide a Pair.",
+    "meta" : [ ]
+  } ]
+}

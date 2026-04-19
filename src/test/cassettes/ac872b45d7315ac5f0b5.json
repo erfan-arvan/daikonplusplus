@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "It is common for parameters representing collections to be non-null, especially if downstream methods are expected to handle them without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "If records is empty, its size is 0. Otherwise, size should always be non-negative for a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof java.util.List",
+    "rationale" : "records is declared as List<WriteStatus>; verifying it is an instance of List.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a newly constructed HoodieJavaTable or subclass; it never returns null.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "method always returns a new table instance, never null"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieJavaCopyOnWriteTable || result instanceof HoodieJavaMergeOnReadTable",
+    "rationale" : "The method only returns one of these two subclasses based on metaClient.getTableType().",
+    "meta" : [ {
+      "key" : "control-flow",
+      "value" : "switch on metaClient.getTableType()"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "If we reach the return, metaClient.getTableType() must be either COPY_ON_WRITE or MERGE_ON_READ.",
+    "meta" : [ {
+      "key" : "switch-cases",
+      "value" : "method only creates tables for these two types; otherwise, exception is thrown"
+    } ]
+  }, {
+    "expression" : "result.getMetaClient() == metaClient",
+    "rationale" : "Each subclass constructor receives metaClient; accessor should return the same reference.",
+    "meta" : [ {
+      "key" : "parameter-propagation",
+      "value" : "metaClient is passed directly to the table constructor"
+    } ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "Each subclass constructor receives config; accessor should return the same reference.",
+    "meta" : [ {
+      "key" : "parameter-propagation",
+      "value" : "config is passed directly to the table constructor"
+    } ]
+  } ]
+}

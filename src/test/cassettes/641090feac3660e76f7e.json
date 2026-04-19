@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null",
+    "rationale" : "Strategy parameters must be supplied for clustering logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "A HoodieSchema is required to construct or adjust partitioners.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.isEmpty() || schema != null",
+    "rationale" : "If strategyParams is empty, schema must be non-null to proceed.",
+    "meta" : [ ]
+  } ]
+}

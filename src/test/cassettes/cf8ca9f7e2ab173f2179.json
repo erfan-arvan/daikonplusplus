@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Pair instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The left element, partitionPathStatMap, is never null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The right element, globalStat, is instantiated and not null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft().size() <= inputRecords.size()",
+    "rationale" : "partitionPathStatMap will contain at most one entry per unique partition path in inputRecords, so the number of keys cannot exceed the number of input records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || result.getRight().getNumInserts() + result.getRight().getNumUpdates() > 0",
+    "rationale" : "If there are any input records, there will be inserts or updates counted in the globalStat.",
+    "meta" : [ ]
+  } ]
+}

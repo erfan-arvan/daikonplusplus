@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "The method immediately dereferences metadata, so it must be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "The method calls collectAsList() on metadata.getWriteStatuses(), so this field must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.getWriteStatuses().collectAsList() != null",
+    "rationale" : "The method constructs a new object using collectAsList(); collectAsList() must not return null.",
+    "meta" : [ ]
+  } ]
+}

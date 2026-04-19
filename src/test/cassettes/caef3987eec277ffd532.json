@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned list is produced by stream and collect and will never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Result size (number of unique keys in data) cannot exceed the input data size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().noneMatch(Objects::isNull)",
+    "rationale" : "Nulls are filtered before collecting to the result list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0 ? data.stream().parallel().isParallel() : data.stream().isParallel()",
+    "rationale" : "The stream is explicitly parallel when parallelism is positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(v -> v != null)",
+    "rationale" : "Explicit null filtering guarantees all results are non-null.",
+    "meta" : [ ]
+  } ]
+}

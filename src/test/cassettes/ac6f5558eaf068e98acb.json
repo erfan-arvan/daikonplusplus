@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Map, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "At most one entry is created for each element of data (duplicate keys are overwritten).",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "A NullPointerException would occur if data were null; precondition invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "A NullPointerException would occur if func were null; precondition invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "The method expects a non-null Integer for parallelism to determine how to distribute work.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is required for engine operations in this method and all similar methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "cleanInstantTime must be non-null to represent an instant on which to clean.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!cleanInstantTime.isEmpty()",
+    "rationale" : "cleanInstantTime should not be an empty string if it represents a valid time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime.trim().length() > 0",
+    "rationale" : "cleanInstantTime should contain at least one non-whitespace character to be a valid instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context parameter is expected to be an instance of HoodieEngineContext as enforced by type signature.",
+    "meta" : [ ]
+  } ]
+}

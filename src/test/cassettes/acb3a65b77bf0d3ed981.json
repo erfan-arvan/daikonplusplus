@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "The method expects a non-null List of HoodieKey as input; most collection-based Java code assumes non-null collections.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The method uses table.getIndex() immediately, so table must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is likely to be a positive integer (often a thread or partition count) in distributed computing contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "All Java Lists have a non-negative size, ensuring predictable collection semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getIndex() != null",
+    "rationale" : "The method immediately calls isGlobal() on table.getIndex(), so getIndex() must return a non-null value.",
+    "meta" : [ ]
+  } ]
+}

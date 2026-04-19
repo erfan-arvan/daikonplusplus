@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "Methods typically expect non-null arguments; this ensures that the order reference is valid before processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantity should be non-negative, reflecting realistic ordering scenarios and constraints from domain modeling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price of an item should be non-negative for valid orders, as negative prices are generally not meaningful in commercial contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() < 10000",
+    "rationale" : "Assumes a reasonable upper bound on order sizes to prevent overflow or unreasonable processing loads.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() < 100000.0",
+    "rationale" : "Places an upper bound on unit price to prevent outlier values that could indicate input errors.",
+    "meta" : [ ]
+  } ]
+}

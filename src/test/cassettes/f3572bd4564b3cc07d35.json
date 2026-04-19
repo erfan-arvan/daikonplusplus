@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is expected to be initialized and non-null before use in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Option<String> instantTime should be non-null as a parameter and for safe use in callee.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isPresent() || !instantTime.isPresent()",
+    "rationale" : "Covers the possible exhaustive states for Option (but will often be trivially true).",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "metaClient should be an instance of HoodieTableMetaClient, as per the method parameter type.",
+    "meta" : [ ]
+  } ]
+}

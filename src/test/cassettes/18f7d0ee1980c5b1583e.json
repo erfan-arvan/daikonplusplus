@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of .execute(), which should be non-null as an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method directly passes preppedRecords to the executor, which likely requires it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as an argument to the executor and is likely expected to be non-null to represent a commit instant.",
+    "meta" : [ ]
+  } ]
+}

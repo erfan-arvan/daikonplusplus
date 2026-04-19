@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The upsertPrepped method always returns the result of execute(), which is expected to be non-null HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToWriteStats() != null",
+    "rationale" : "HoodieWriteMetadata instances typically maintain a map of partition write statistics; this is expected to be non-null upon successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata is parameterized to hold List<WriteStatus>, expected to be non-null after a successful upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size() is always non-negative; this checks basic consistency of the return value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method requires a non-null execution context to perform any upsert operation.",
+    "meta" : [ ]
+  } ]
+}

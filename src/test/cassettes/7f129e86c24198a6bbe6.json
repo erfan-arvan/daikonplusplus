@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Method argument should not be null for correct index updating.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The metadata container is expected to be non-null for the update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.isEmpty() || writeStatuses.get(0) instanceof WriteStatus",
+    "rationale" : "If the input list is not empty, its elements should be WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Result must be compatible with HoodieWriteMetadata for later updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

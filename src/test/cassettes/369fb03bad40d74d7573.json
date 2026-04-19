@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient parameter is expected to represent a required HoodieTableMetaClient instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex parameter should not be null to avoid errors in further processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.stream().allMatch(s -> s != null)",
+    "rationale" : "If columnsToIndex is not empty, it is reasonable to expect its elements to be non-null (prevents null pointer issues in downstream logic).",
+    "meta" : [ ]
+  } ]
+}

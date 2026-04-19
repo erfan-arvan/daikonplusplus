@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "records must be non-null to perform stream and sorting operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "outputPartitions is likely intended to specify a positive number of partitions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "List.size() is always non-negative, so either the list is empty or its size is at least 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() + 1",
+    "rationale" : "It is plausible that the number of partitions does not exceed the number of records plus one.",
+    "meta" : [ ]
+  } ]
+}

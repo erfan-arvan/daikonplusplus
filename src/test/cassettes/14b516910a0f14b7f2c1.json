@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "Ensures the passed HoodieWriteMetadata reference is not null, a common and meaningful precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata instanceof HoodieWriteMetadata",
+    "rationale" : "Type invariant: writeMetadata must be a HoodieWriteMetadata as required by the method signature.",
+    "meta" : [ ]
+  } ]
+}

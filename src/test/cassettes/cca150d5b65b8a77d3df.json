@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "Partition or identifier prefixes generally should not be null to avoid NullPointerExceptions downstream.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "idPfx"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is used to iterate over records, so it must not be null to avoid runtime exceptions.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "recordItr"
+    } ]
+  }, {
+    "expression" : "recordItr instanceof Iterator",
+    "rationale" : "Ensure that recordItr conforms to the expected type, which is required for it to have the .hasNext() and .next() methods.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "recordItr"
+    } ]
+  } ]
+}

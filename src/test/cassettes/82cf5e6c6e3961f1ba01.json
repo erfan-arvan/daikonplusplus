@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Null data would cause a NullPointerException when calling data.stream().",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "The input data list should not be null at method entry."
+    } ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "A null consumer would cause a NullPointerException in throwingForeachWrapper.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "The consumer should not be null at method entry."
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Using non-positive parallelism makes little sense and may result in misbehavior.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "Parallelism should be a positive integer."
+    } ]
+  }, {
+    "expression" : "data instanceof List",
+    "rationale" : "The method signature enforces List, useful if generics are erased or reflection is used.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "Data is expected to be a List at method entry."
+    } ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "By Java List contract, the size() method always returns a non-negative integer.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "The size of a List should always be non-negative."
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is used to identify the rollback instant and must be provided.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "rollbackInstantTime"
+    } ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A commit instant should be specified to target for rollback.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "commitInstant"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid computation context is required to perform the rollback action.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "context"
+    } ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "The rollback instant time should be a non-empty string representing the instant.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "rollbackInstantTime"
+    } ]
+  }, {
+    "expression" : "commitInstant.getTimestamp() != null",
+    "rationale" : "The commit instant must have a timestamp so the operation knows which instant to roll back.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "commitInstant"
+    } ]
+  } ]
+}

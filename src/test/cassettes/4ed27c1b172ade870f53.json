@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the output of postWrite, which is expected to produce a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method is not expected to handle null keys and forwards it to library methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in various method calls and likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The declared return type ensures that result is a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.size() == 0 || result.size() <= keys.size()",
+    "rationale" : "Each key can lead to zero or one WriteStatus, but not more.",
+    "meta" : [ ]
+  } ]
+}

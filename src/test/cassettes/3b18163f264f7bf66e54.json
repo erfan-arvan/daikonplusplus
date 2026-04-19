@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Methods returning metadata/results should not return null upon successful upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Input records passed for upsert should not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit instant time should be set for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null engine context is required for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getCommitTime().equals(instantTime)",
+    "rationale" : "The commit time recorded in the result metadata should match the instantTime argument for this upsert.",
+    "meta" : [ ]
+  } ]
+}

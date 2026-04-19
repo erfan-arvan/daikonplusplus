@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "totalBuckets >= 0",
+    "rationale" : "Partition counts (totalBuckets) are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "smallFiles != null",
+    "rationale" : "smallFiles is a list field; likely initialized in constructor or otherwise must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "bucketInfoMap is used for bucket information lookup and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "updateLocationToBucket is a mapping for update locations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "partitionPathToInsertBucketInfos is a mapping for insert bucket infos and should not be null.",
+    "meta" : [ ]
+  } ]
+}

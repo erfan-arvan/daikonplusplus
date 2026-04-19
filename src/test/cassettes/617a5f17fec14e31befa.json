@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "data is a key input that will be used, and aggregate typically expects data to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "The sequence operation is required to combine elements and must not be null for aggregate to run.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "The combine operation is required for aggregation and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof HoodieData",
+    "rationale" : "Confirms that the data argument is of the expected type HoodieData.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.collectAsList() != null",
+    "rationale" : "collectAsList() is invoked in aggregate, so the result is expected to be non-null or the method would fail.",
+    "meta" : [ ]
+  } ]
+}

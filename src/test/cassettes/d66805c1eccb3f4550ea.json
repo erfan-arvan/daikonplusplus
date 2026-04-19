@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should not be null to identify the operation's point in time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The list of partitions to delete should be provided and not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for distributed operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions == null || !partitions.isEmpty()",
+    "rationale" : "If the partitions list is not null, it is expected to contain at least one element to delete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.isEmpty()",
+    "rationale" : "If instantTime is not null, it is typically expected to be a non-empty string.",
+    "meta" : [ ]
+  } ]
+}

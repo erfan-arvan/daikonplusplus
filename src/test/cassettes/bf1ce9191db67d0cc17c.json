@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a new HoodieJavaWriteClient, so result must not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns a new instance, so result should never be null at exit."
+    } ]
+  }, {
+    "expression" : "result instanceof BaseHoodieWriteClient",
+    "rationale" : "Returned object conforms to declared method return type.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Return type is BaseHoodieWriteClient, so instance must be of this type."
+    } ]
+  } ]
+}

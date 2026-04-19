@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method commit is unlikely to be called with a null instantTime, as it is a key operation point for versioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "Method commit likely assumes the partitionRecordsMap parameter is not null to avoid NullPointerExceptions during processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty() || partitionRecordsMap.isEmpty()",
+    "rationale" : "partitionRecordsMap may or may not be empty, but should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No further information about enforced invariants at the method exit.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism should typically be at least 1 for parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method accesses 'data', which should be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= Integer.MAX_VALUE",
+    "rationale" : "parallelism is an int, so this expression is always true, explicitly specifying its bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size()",
+    "rationale" : "It may be reasonable that parallelism should not exceed the input list size, though not strictly enforced by method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "A Java List's size() is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

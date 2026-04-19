@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned map 'result' is created within the method using 'new LinkedHashMap<>()', so it cannot be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "'dedupedRecords' is used in stream and map operations, so must be non-null to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "'partitioner' is dereferenced for getPartition lookups so it must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result.isEmpty() == dedupedRecords.isEmpty()",
+    "rationale" : "If no records are input, the returned map is empty, and if records are present, result has entries.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "content correspondence"
+    } ]
+  }, {
+    "expression" : "result.values().stream().flatMap(List::stream).count() == dedupedRecords.size()",
+    "rationale" : "Every input record is assigned to exactly one partition, so the total count in 'result' matches the number of records.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "aggregation"
+    } ]
+  } ]
+}

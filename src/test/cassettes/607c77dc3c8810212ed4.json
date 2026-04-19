@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Number of output partitions should be positive for repartitioning to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input records list must not be null for sorting and repartitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "Reasonable invariant in partitioning: cannot have more partitions than records unless records is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A List size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= Integer.MAX_VALUE",
+    "rationale" : "The number of partitions cannot exceed Integer.MAX_VALUE.",
+    "meta" : [ ]
+  } ]
+}

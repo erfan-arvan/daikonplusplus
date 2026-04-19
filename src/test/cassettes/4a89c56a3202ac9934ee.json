@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List<String> collected from a stream, which never produces null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(fileId -> fileId != null)",
+    "rationale" : "FileSlice#getFileId should not return null, and only such values are collected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The result is collected after applying .distinct(), so all entries are unique.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || table.getSliceView().getLatestFileSlices(partitionPath).findAny().isEmpty()",
+    "rationale" : "If no file slices, result is empty; if any slices exist, result will have at least one fileId.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method signature preconditions likely require a non-null partitionPath, else NPE in getLatestFileSlices.",
+    "meta" : [ ]
+  } ]
+}

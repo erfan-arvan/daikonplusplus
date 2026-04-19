@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is passed as a parameter and used, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method sets result.writeStatuses, so it should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(writeStatuses == null) || !writeStatuses.isEmpty() || !result.getWriteStatuses().isEmpty()",
+    "rationale" : "If written statuses are provided or the result statuses, at least one of them is likely non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "The method explicitly sets the index update duration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "The method calls setPartitionToReplaceFileIds, so the value should be non-null at exit.",
+    "meta" : [ ]
+  } ]
+}

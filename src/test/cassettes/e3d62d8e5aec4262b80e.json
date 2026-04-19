@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result == SINGLETON_INSTANCE",
+    "rationale" : "The only return value of getInstance() is SINGLETON_INSTANCE, so result must equal SINGLETON_INSTANCE.",
+    "meta" : [ {
+      "key" : "singleton",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "SINGLETON_INSTANCE is the only value returned, and singleton fields are typically initialized to a valid instance.",
+    "meta" : [ {
+      "key" : "singleton",
+      "value" : "not-null"
+    } ]
+  } ]
+}

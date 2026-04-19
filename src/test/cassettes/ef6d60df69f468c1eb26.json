@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method delegates to SavepointActionExecutor.execute(), which is expected to construct and return a HoodieSavepointMetadata instance; returning null would generally violate contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null && !instantToSavepoint.isEmpty()",
+    "rationale" : "A valid savepoint instant must be specified; delegation to the underlying executor suggests this input is required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null && !user.isEmpty()",
+    "rationale" : "A valid user is typically required for a savepoint operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "While comment might be empty, it likely should never be null as it's directly passed to the underlying executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is essential for distributed operations; passing null would likely result in an exception before this point.",
+    "meta" : [ ]
+  } ]
+}

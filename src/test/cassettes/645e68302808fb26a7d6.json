@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new HashMap is created and returned, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Map",
+    "rationale" : "result is always a Map instance since it's created as a HashMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "If clustering sort columns is not null/empty, result contains the sort column key; otherwise result is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= 1",
+    "rationale" : "At most one key/value pair is put into result depending on the condition.",
+    "meta" : [ ]
+  } ]
+}

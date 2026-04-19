@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method directly returns a new HoodieJavaWriteClient instance, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof BaseHoodieWriteClient",
+    "rationale" : "The static type of the result is BaseHoodieWriteClient, so this assertion must always hold.",
+    "meta" : [ ]
+  } ]
+}

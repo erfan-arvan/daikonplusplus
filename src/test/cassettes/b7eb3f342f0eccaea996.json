@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of execute(), which should never be null for successful Hoodie write actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A commit or write instant time is always required for upsertPrepped, and is passed on to downstream actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The upsertPrepped method contract and the downstream executor both require a non-null preppedRecords parameter.",
+    "meta" : [ ]
+  } ]
+}

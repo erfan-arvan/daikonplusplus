@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism typically must be positive for parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "List to be processed should not be null before method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "SerializableFunction should not be null before execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= Runtime.getRuntime().availableProcessors()",
+    "rationale" : "Parallelism should not exceed available processors for efficiency.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || parallelism == 1",
+    "rationale" : "If data is empty, parallelism can safely be 1.",
+    "meta" : [ ]
+  } ]
+}

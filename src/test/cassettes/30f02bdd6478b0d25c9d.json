@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method guards against 'orders == null' and returns immediately, so non-null orders allow meaningful processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.size() >= 0",
+    "rationale" : "The size() of a List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() == (orders.size() == 0)",
+    "rationale" : "isEmpty() is defined as size() == 0 for Lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(order -> order != null)",
+    "rationale" : "If validateOrders(orders) does not throw, then all elements of the list should be valid, which typically includes non-nullity.",
+    "meta" : [ ]
+  } ]
+}

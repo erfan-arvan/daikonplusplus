@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is the output of a stream collect, which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Stream operations on data assume data is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == data.size()",
+    "rationale" : "Each input element produces exactly one output via map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism for the .parallel() operation must be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "A valid SerializableFunction is required for mapping.",
+    "meta" : [ ]
+  } ]
+}

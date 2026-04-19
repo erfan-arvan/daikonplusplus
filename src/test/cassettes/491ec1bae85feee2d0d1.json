@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method accesses profile methods and assumes profile is non-null throughout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "Input partition path stat map is immediately used to access entrySet, requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "Output partition path stat map is always accessed to retrieve or update stats, so it must be non-null when used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().size() >= 0",
+    "rationale" : "A map's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().keySet().containsAll(profile.getOutputPartitionPathStatMap().keySet()) || !profile.hasOutputWorkLoadStats()",
+    "rationale" : "If output workload stats are maintained, all output partition keys should have been processed from input keys.",
+    "meta" : [ ]
+  } ]
+}

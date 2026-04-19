@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is a required argument; method would fail early if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required to identify the commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The input record list should be provided and not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "The list of file group ids to update should be provided and not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate.isEmpty() || preppedRecordInputs.size() > 0",
+    "rationale" : "If there are file groups to update, there should be records present to update.",
+    "meta" : [ ]
+  } ]
+}

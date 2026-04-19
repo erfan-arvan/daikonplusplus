@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "writeMetadata is passed as a parameter and likely should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is immediately called on writeMetadata, so its return value is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!writeMetadata.getWriteStatuses().isEmpty() || writeMetadata.getWriteStatuses().isEmpty()",
+    "rationale" : "This is trivially true for any list (indicating isEmpty returns either true or false), but no further relations can be derived.",
+    "meta" : [ ]
+  } ]
+}

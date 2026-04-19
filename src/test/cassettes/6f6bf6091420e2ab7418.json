@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically expected to be positive in parallel processing context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data is used immediately; a null value would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is required for mapping; a null value would result in runtime exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || parallelism == 1",
+    "rationale" : "If data is empty, parallelism value becomes irrelevant; often in practice, single-threaded execution is used for empty datasets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= Runtime.getRuntime().availableProcessors()",
+    "rationale" : "parallelism is often capped to the number of processors for efficiency.",
+    "meta" : [ ]
+  } ]
+}

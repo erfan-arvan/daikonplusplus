@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method calls an external executor and returns its result, so result should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method signature and return statement ensure result is of correct type.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.getWriteStats() != null",
+    "rationale" : "A valid HoodieWriteMetadata should have non-null writeStats.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "result.getWriteStats() instanceof List",
+    "rationale" : "Method returns HoodieWriteMetadata<List<WriteStatus>>; writeStats should be a List.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "(!result.getWriteStats().isEmpty()) || (keys == null || keys.isEmpty())",
+    "rationale" : "If keys are not provided, writeStats may be empty; otherwise, writeStats should not be empty.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

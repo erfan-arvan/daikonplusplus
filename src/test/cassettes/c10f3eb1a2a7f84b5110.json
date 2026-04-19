@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a new HoodieJavaTable instance and never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "The returned value is guaranteed to be an instance of HoodieJavaTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used to build the metaClient and passed to the delegate create method, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is dereferenced via getStorageConf().newInstance(), so it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

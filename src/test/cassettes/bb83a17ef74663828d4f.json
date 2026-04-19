@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always initializes and returns a non-null HoodieWriteMetadata instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method assumes inputRecords is not null to process records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table is used for timeline and instant management; it is required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used for configuration checks such as shouldAllowMultiWriteOnSameInstant; cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "executor is cast and used for updating index/pre-commit; must not be null at exit.",
+    "meta" : [ ]
+  } ]
+}

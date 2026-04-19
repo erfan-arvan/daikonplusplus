@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method collects file ids into a list and returns it; Collectors.toList() does not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(f -> f != null)",
+    "rationale" : "getFileId() should return a non-null file id for all file slices, so all returned ids in the list should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The collection pipeline uses .distinct() before collecting, so result contains only unique values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(f -> !f.isEmpty())",
+    "rationale" : "File ids are expected to be non-empty strings. Assuming getFileId() never returns empty strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument to getLatestFileSlices; null likely not allowed.",
+    "meta" : [ ]
+  } ]
+}

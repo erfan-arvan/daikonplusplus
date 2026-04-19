@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The method expects a List<String> for columnsToIndex and its valid usage generally presumes non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a required argument for table operations and most methods expect it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.size() >= 0",
+    "rationale" : "The size of a List in Java is always non-negative if the List is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient == null || metaClient.getTableConfig() != null",
+    "rationale" : "HoodieTableMetaClient typically provides getTableConfig(); if metaClient is not null, the config should usually be accessible.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.stream().allMatch(s -> s != null)",
+    "rationale" : "If columnsToIndex is not null, it should not contain any null column names.",
+    "meta" : [ ]
+  } ]
+}

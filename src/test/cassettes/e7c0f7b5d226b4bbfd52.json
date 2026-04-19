@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "It is likely that instantTime should not be null to represent a valid time context for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The partitions list should not be null for partition deletion logic to work correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "An empty instantTime would not form a valid operational timestamp for deletion, so it should be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.isEmpty() == false",
+    "rationale" : "It is expected that at least one partition should be specified to delete; an empty list would make the operation redundant.",
+    "meta" : [ ]
+  } ]
+}

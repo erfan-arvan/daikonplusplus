@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should be a valid, non-null value for update handling to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId must be provided and non-null to identify the file for updating.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr must be a valid, non-null iterator for processing records in the update handle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Non-empty partition paths are usually required to identify storage partitions.",
+    "meta" : [ ]
+  } ]
+}

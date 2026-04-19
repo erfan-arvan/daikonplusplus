@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of convertMetadata(...), which is expected to not be null as part of correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "The compaction instant time used to drive the compaction process should be a valid, non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext parameter must be provided for any table operation to execute.",
+    "meta" : [ ]
+  } ]
+}

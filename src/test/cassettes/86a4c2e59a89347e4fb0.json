@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the value from HoodieMergeHandleFactory.create, which should not return null under normal circumstances.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a method parameter and likely required for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is a method parameter and likely required for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is a method parameter and required for handle creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() != null",
+    "rationale" : "Returned handle should have a valid runtime class.",
+    "meta" : [ ]
+  } ]
+}

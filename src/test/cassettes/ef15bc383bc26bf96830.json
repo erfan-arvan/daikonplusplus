@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The method always returns Option.empty(), so result must be empty.",
+    "meta" : [ {
+      "key" : "method_behavior",
+      "value" : "alwaysReturnsEmpty"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Option.empty() never returns null; result cannot be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "always non-null"
+    } ]
+  }, {
+    "expression" : "prop != null",
+    "rationale" : "If the method is only well-defined for non-null arguments, this may hold.",
+    "meta" : [ {
+      "key" : "input_safety",
+      "value" : "non-null input required"
+    } ]
+  }, {
+    "expression" : "result instanceof Option",
+    "rationale" : "Since Option.empty() is always Option, result must be Option.",
+    "meta" : [ {
+      "key" : "type_safety",
+      "value" : "result always Option"
+    } ]
+  } ]
+}

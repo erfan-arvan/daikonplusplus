@@ -64,7 +64,7 @@ public final class LlmInvariantGenerator {
     this.config = Objects.requireNonNull(config);
     this.maxInvariants = Math.max(1, maxInvariants);
     this.llm = buildLlmFromEnv(config);
-    this.promptStrategy = PromptStrategyFactory.create();
+    this.promptStrategy = PromptStrategyFactory.create(config.promptStrategy());
   }
 
   /**
@@ -80,7 +80,7 @@ public final class LlmInvariantGenerator {
     this.config = Objects.requireNonNull(config);
     this.maxInvariants = Math.max(1, maxInvariants);
     this.llm = buildLlmFromEnv(config, model);
-    this.promptStrategy = PromptStrategyFactory.create();
+    this.promptStrategy = PromptStrategyFactory.create(config.promptStrategy());
   }
 
   /**
@@ -94,7 +94,7 @@ public final class LlmInvariantGenerator {
     this.config = Objects.requireNonNull(config);
     this.llm = Objects.requireNonNull(llm);
     this.maxInvariants = Math.max(1, maxInvariants);
-    this.promptStrategy = PromptStrategyFactory.create();
+    this.promptStrategy = PromptStrategyFactory.create(config.promptStrategy());
   }
 
   /**

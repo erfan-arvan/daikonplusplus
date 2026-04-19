@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null iterator, as Collections.singletonList(...).iterator() never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext()",
+    "rationale" : "The result is an iterator over a singleton list, so it always has at least one element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed directly to HoodieCreateHandle, which would likely fail if null; typical invariant for partition path values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is required as a unique identifier and is passed directly to the handle; null would likely produce an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap is required and is used immediately in the handle, so it must be non-null to avoid errors.",
+    "meta" : [ ]
+  } ]
+}

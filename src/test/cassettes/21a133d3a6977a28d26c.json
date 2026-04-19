@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collections.emptyList() is never null, so the returned value should always be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The method always returns Collections.emptyList(), which is always empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "As the method returns an empty list, the size must be zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.iterator().hasNext()",
+    "rationale" : "Since the returned list is always empty, its iterator should have no elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.contains(null) == false",
+    "rationale" : "Collections.emptyList() contains no elements, including null.",
+    "meta" : [ ]
+  } ]
+}

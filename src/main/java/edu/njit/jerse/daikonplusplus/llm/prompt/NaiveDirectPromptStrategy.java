@@ -27,6 +27,9 @@ public final class NaiveDirectPromptStrategy implements PromptStrategy {
         PromptRenderingUtil.renderProgramPointSection(ctx)
             + "\n\nIn-scope names:\n"
             + PromptRenderingUtil.formatScope(ctx.inScope())
+            + "\n\nNote:\n"
+            + "- These are base variables.\n"
+            + "- Expressions derived from them (e.g., field accesses and method calls) are allowed if valid at this program point.\n"
             + "\n\n===== PROGRAM CONTEXT =====\n"
             + PromptRenderingUtil.renderContextBlock(ctx)
             + "\n===========================\n\n"

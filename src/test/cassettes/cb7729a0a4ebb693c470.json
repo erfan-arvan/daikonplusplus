@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "Required for method operations involving metaClient, as shown by its use (metaClient.reloadTableConfig()) in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "inFlightInstantTimestamp is passed to multiple method calls and used as a parameter. Its non-nullness is required for safe evaluation in later method calls.",
+    "meta" : [ ]
+  } ]
+}

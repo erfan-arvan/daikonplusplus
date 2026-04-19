@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Guard against potential null values for the input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "Ensures the parameter is indeed a List at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "The size of a List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() == (columnsToIndex.size() == 0)",
+    "rationale" : "This is a general property of the List interface.",
+    "meta" : [ ]
+  } ]
+}

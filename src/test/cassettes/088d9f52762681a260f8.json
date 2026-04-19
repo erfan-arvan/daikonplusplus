@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Config is required for table creation, implied by subsequent usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is necessary for engine interaction, implied by its required presence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is used for getTableType() and table creation, so non-nullness is required.",
+    "meta" : [ ]
+  } ]
+}

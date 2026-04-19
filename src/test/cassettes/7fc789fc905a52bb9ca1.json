@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a List<WriteStatus> produced by another method and should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "Parameter is required for clustering and is always accessed within the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is passed to downstream methods and assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used throughout and must be non-null for record reading and clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.get(0) != null",
+    "rationale" : "If result is not empty, elements are expected to be non-null since WriteStatus instances represent clustering outcomes.",
+    "meta" : [ ]
+  } ]
+}

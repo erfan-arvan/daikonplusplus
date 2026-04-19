@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a static, presumably pre-initialized singleton instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaBulkInsertHelper",
+    "rationale" : "The return type and the static holder both guarantee this type constraint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == BulkInsertHelperHolder.JAVA_BULK_INSERT_HELPER",
+    "rationale" : "The returned value is directly from BulkInsertHelperHolder.JAVA_BULK_INSERT_HELPER.",
+    "meta" : [ ]
+  } ]
+}

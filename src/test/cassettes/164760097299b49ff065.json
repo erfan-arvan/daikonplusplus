@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method directly returns a new instance, so the result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The method constructs ReaderContextFactory using metaClient, so metaClient must not be null to avoid a NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

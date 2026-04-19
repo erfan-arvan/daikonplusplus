@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Nullness of the parameter is commonly assumed for methods that access or process the list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "If the list is not empty, size must be positive. This expresses the relationship between isEmpty() and size().",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a Java List must always be non-negative.",
+    "meta" : [ ]
+  } ]
+}

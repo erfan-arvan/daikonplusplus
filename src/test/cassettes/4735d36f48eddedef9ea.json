@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the value from IOUtils.runMerge(...), which should produce a non-null iterator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required to identify the commit or update instance, and getUpdateHandle and runMerge use it as input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId identifies which file will be updated/merged and is required by downstream calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed to getUpdateHandle and should not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "keyToNewRecords contains the records to update and is essential for merge and update operations.",
+    "meta" : [ ]
+  } ]
+}

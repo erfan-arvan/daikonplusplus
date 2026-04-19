@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned list should never be null regardless of branch taken and both branches return a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return value is guaranteed to be a List, as per the method signature and both branches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "Deduplication cannot increase the number of elements, so the size of the result list cannot be greater than the original keys list.",
+    "meta" : [ ]
+  } ]
+}

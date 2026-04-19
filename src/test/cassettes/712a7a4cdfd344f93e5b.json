@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "getComparableSortColumns is expected to return a non-null ComparableList as the result, assuming input 'record' is valid and consistent implementation.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft A & Draft B"
+    } ]
+  }, {
+    "expression" : "record != null",
+    "rationale" : "The method receives a 'record' parameter, which is typically required for downstream processing and should not be null.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft A & Draft C"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "ComparableList size should be non-negative.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft B & Draft C"
+    } ]
+  }, {
+    "expression" : "result instanceof FlatLists.ComparableList",
+    "rationale" : "By construction, the returned object should be an instance of FlatLists.ComparableList.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft B & Draft C"
+    } ]
+  } ]
+}

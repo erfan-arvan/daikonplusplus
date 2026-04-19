@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to create and return a valid HoodieTable instance.",
+    "meta" : [ {
+      "key" : "relatesTo",
+      "value" : "result"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The config is used to create the table and should not be null at method exit.",
+    "meta" : [ {
+      "key" : "relatesTo",
+      "value" : "config"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient is required for table creation and should not be null.",
+    "meta" : [ {
+      "key" : "relatesTo",
+      "value" : "metaClient"
+    } ]
+  }, {
+    "expression" : "result.getMetaClient() == metaClient",
+    "rationale" : "The returned table should be associated with the provided metaClient.",
+    "meta" : [ {
+      "key" : "relatesTo",
+      "value" : "result, metaClient"
+    } ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The returned table should be configured with the provided config.",
+    "meta" : [ {
+      "key" : "relatesTo",
+      "value" : "result, config"
+    } ]
+  } ]
+}

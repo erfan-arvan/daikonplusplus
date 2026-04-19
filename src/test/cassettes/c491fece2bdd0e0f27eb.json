@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is expected to identify the commit and likely should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null && !writeStatuses.isEmpty()",
+    "rationale" : "A commit is meaningful only if there are WriteStatus objects produced by previous write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null && !commitActionType.isEmpty()",
+    "rationale" : "The commitActionType parameter determines what kind of action is being committed and should be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds maps partitions to replaced files; it should be a valid map even if empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is an Option type parameter, and is typically non-null for Option objects, unless exceptionally mishandled.",
+    "meta" : [ ]
+  } ]
+}

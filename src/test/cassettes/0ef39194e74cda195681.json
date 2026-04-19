@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of getIndex should never be null, as it is created by JavaHoodieIndexFactory.createIndex(config).",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "common relevance"
+    } ]
+  }, {
+    "expression" : "result.getClass().isInstance(JavaHoodieIndexFactory.createIndex(config))",
+    "rationale" : "The result will always be an instance of the class produced by JavaHoodieIndexFactory.createIndex(config).",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "drafts A and B"
+    } ]
+  }, {
+    "expression" : "result.equals(JavaHoodieIndexFactory.createIndex(config))",
+    "rationale" : "getIndex always returns exactly JavaHoodieIndexFactory.createIndex(config) so the result should be equal to that.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "drafts B and C"
+    } ]
+  } ]
+}

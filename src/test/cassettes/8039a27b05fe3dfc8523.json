@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List<WriteStatus> even if it is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Upsert operation expects non-null input records; method does not handle null records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to multiple downstream calls without null check, so likely must be non-null.",
+    "meta" : [ ]
+  } ]
+}

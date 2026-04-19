@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "triggeringInstantTimestamp != null",
+    "rationale" : "The method expects a non-null triggeringInstantTimestamp, as it is wrapped with Option.of(triggeringInstantTimestamp) inside the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "The method appears to require a valid policy; use of the parameter indicates it should not be null.",
+    "meta" : [ ]
+  } ]
+}

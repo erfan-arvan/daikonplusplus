@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "Method dereferences writeMetadata, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "Code calls stream() on writeMetadata.getWriteStatuses(), requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "Method accesses methods on each WriteStatus; none may be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "Method calls getStat() on each WriteStatus; each must return non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() instanceof List",
+    "rationale" : "writeMetadata is parameterized as List<WriteStatus>, so getWriteStatuses() returns a List.",
+    "meta" : [ ]
+  } ]
+}

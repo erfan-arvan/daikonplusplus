@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null",
+    "rationale" : "Input parameter is likely expected to be non-null for job status operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null",
+    "rationale" : "Input parameter is likely expected to be non-null for job status description context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.isEmpty()",
+    "rationale" : "Job status setting typically requires a non-empty module identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activityDescription.isEmpty()",
+    "rationale" : "It is common for activity descriptions to be non-empty for tracking purposes.",
+    "meta" : [ ]
+  } ]
+}

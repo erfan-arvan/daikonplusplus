@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of records.collectAsList(), which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(records.collectAsList())",
+    "rationale" : "The return value is exactly records.collectAsList() in all execution paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is a method parameter and is dereferenced, so it must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.collectAsList().size()",
+    "rationale" : "Since result and records.collectAsList() refer to the same list, their sizes are equal.",
+    "meta" : [ ]
+  } ]
+}

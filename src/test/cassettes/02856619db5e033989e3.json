@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List<WriteStatus> produced by calling postWrite(), which is expected to always return a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method operates on preppedRecords and passes it around, typical for such parameters to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to identify the write instant, and is required for calls like preWrite and upsertPrepped.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() || result.isEmpty()",
+    "rationale" : "If preppedRecords is empty, the result of the write operation should also likely be an empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size is always non-negative in Java, providing a minimal but true invariant.",
+    "meta" : [ ]
+  } ]
+}

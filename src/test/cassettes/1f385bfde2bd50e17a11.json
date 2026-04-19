@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism likely expected to be positive for parallel operations.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter constraint"
+    } ]
+  }, {
+    "expression" : "data != null && data.size() >= 0",
+    "rationale" : "If input data is not null, its size is non-negative by definition.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection size"
+    } ]
+  }, {
+    "expression" : "mapToPairFunc != null",
+    "rationale" : "A non-null mapper function is required for mapToPair, or the process will fail.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "A non-null reducer function is required for reduceByKey, or the reduction step will fail.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "data == null || parallelism <= data.size()",
+    "rationale" : "Parallelism should not exceed the number of data elements, or some workers may be idle.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter relationship"
+    } ]
+  } ]
+}

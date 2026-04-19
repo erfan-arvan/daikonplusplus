@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords should not be null to process records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || inputRecords.size() >= 0",
+    "rationale" : "If the list is empty or has elements, the size is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "The method likely expects all elements in inputRecords to be non-null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().noneMatch(r -> r == null)",
+    "rationale" : "Equivalent to allMatch for non-null, captures non-null requirement for each record.",
+    "meta" : [ ]
+  } ]
+}

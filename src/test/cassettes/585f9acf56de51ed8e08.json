@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is likely required for job execution and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is a timestamp string identifying the rollback instant and is expected to not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A specific instant must be provided for rollback, so commitInstant should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "rollbackInstantTime should be a non-empty string identifying the rollback instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteInstants || !deleteInstants",
+    "rationale" : "deleteInstants is a boolean, so it is either true or false; this is provided to reflect that both options are valid.",
+    "meta" : [ ]
+  } ]
+}

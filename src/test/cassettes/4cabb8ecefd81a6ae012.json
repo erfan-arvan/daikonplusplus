@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be a non-null String as it represents a required timestamp for scheduling clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required argument for engine operations and should be non-null for method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is provided as an Option wrapper and should be non-null itself (though it may represent an empty Option).",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime likely encodes an instant and should not be empty for this operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "extraMetadata represents an optional value, and method logic should handle both the present and absent cases.",
+    "meta" : [ ]
+  } ]
+}

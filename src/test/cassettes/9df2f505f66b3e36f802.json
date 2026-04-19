@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a HoodieWriteMetadata object, likely non-null for successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null && result.getWriteStatuses() != null && preppedRecords.size() >= result.getWriteStatuses().size()",
+    "rationale" : "Each WriteStatus typically corresponds to a batch of records inserted; the number of write statuses should not exceed the number of input records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && instantTime.equals(result.getCommitTime())",
+    "rationale" : "The returned metadata should reflect the commit time that was passed to the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null && !result.getWriteStatuses().isEmpty()",
+    "rationale" : "A successful bulk insert should result in at least one WriteStatus in the returned metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.size() >= 0",
+    "rationale" : "List sizes are non-negative in Java, so negative sizes are not possible.",
+    "meta" : [ ]
+  } ]
+}

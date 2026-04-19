@@ -48,9 +48,9 @@ import java.util.concurrent.*;
  */
 public final class App {
 
-  private static final DpConfig CFG = DpConfig.fromEnv();
+  private static final DpConfig BASE_CFG = DpConfig.fromEnv();
 
-  private static final boolean DEBUG = CFG.debug();
+  private static final boolean DEBUG = BASE_CFG.debug();
 
   private enum ExecMode {
     NATIVE,
@@ -68,15 +68,15 @@ public final class App {
   public static void main(String[] args) throws Exception {
     // reset per pipeline invocation
     RUN_DEDUP.clear();
-    if (CFG.debug()) {
-      CFG.printSummary();
+    if (BASE_CFG.debug()) {
+      BASE_CFG.printSummary();
     }
 
     final Path externalMainCompileScript =
-        Optional.ofNullable(System.getenv("DP_COMPILE_MAIN_SCRIPT")).map(Path::of).orElse(null);
+        Optional.ofNullable(BASE_CFG.compileMainScript()).map(Path::of).orElse(null);
 
     final Path externalTestCompileScript =
-        Optional.ofNullable(System.getenv("DP_COMPILE_TEST_SCRIPT")).map(Path::of).orElse(null);
+        Optional.ofNullable(BASE_CFG.compileTestScript()).map(Path::of).orElse(null);
 
     // Detect external-project mode early so we don't enforce args.length>=3 for that mode.
     final boolean externalMode =
@@ -327,17 +327,17 @@ public final class App {
     }
 
     final DpConfig cfg = DpConfig.fromEnv();
-    if (CFG.registryReset()) {
+    if (BASE_CFG.registryReset()) {
       try {
-        java.nio.file.Files.deleteIfExists(CFG.registryPath());
-        System.out.println(">>> Registry reset: " + CFG.registryPath().toAbsolutePath());
+        java.nio.file.Files.deleteIfExists(BASE_CFG.registryPath());
+        System.out.println(">>> Registry reset: " + BASE_CFG.registryPath().toAbsolutePath());
       } catch (java.io.IOException ioe) {
         System.err.println("Warning: couldn't delete registry: " + ioe.getMessage());
       }
     }
 
     final JavaProjectScanner scanner = new JavaProjectScanner();
-    final LlmInvariantGenerator llm = new LlmInvariantGenerator(CFG, maxK);
+    final LlmInvariantGenerator llm = new LlmInvariantGenerator(BASE_CFG, maxK);
     final InvariantRegistry registry = new InvariantRegistry(cfg.registryPath());
     final JavaParserInjector injector = new JavaParserInjector(new FileWriteCoordinator());
 
@@ -385,12 +385,8 @@ public final class App {
     int received = 0;
     int totalSpecs = 0;
 
-    final long totalTimeoutSec =
-        Long.parseLong(
-            Objects.requireNonNullElse(System.getenv("DP_LLM_TOTAL_TIMEOUT_SEC"), "1000"));
-    final long pollStepMs =
-        Long.parseLong(Objects.requireNonNullElse(System.getenv("DP_LLM_POLL_STEP_MS"), "1500"));
-
+    final long totalTimeoutSec = BASE_CFG.llmTotalTimeoutSec();
+    final long pollStepMs = BASE_CFG.llmPollStepMs();
     final long deadlineNs = System.nanoTime() + TimeUnit.SECONDS.toNanos(totalTimeoutSec);
     while (received < submitted) {
       long remainingNs = deadlineNs - System.nanoTime();
@@ -512,7 +508,7 @@ public final class App {
           mainSrcRoot,
           userProjectRoot.resolve(relMainSrc),
           classesDir,
-          Objects.requireNonNullElse(System.getenv("DP_EXTERNAL_COMPILE_CP"), ""),
+          BASE_CFG.externalCompileClasspath(),
           10,
           externalMainCompileScript);
 
@@ -724,7 +720,7 @@ public final class App {
     System.out.println(">>> Outcomes: " + cfg.outcomesPath().toAbsolutePath());
     System.out.println(">>> Run log: " + runLog.toAbsolutePath());
 
-    if (!CFG.keepWork()) {
+    if (!BASE_CFG.keepWork()) {
       try {
         if (execMode == ExecMode.EXTERNAL_PROJECT) {
           deleteTree(workProjectRoot);
@@ -762,7 +758,7 @@ public final class App {
     try {
       Map<String, String> inScope = ContextUtils.extractScope(point, srcRoot);
 
-      Set<ContextKind> enabled = CFG.enabledContexts();
+      Set<ContextKind> enabled = BASE_CFG.enabledContexts();
 
       String methodBody =
           enabled.contains(ContextKind.METHOD_BODY)
@@ -884,10 +880,7 @@ public final class App {
 
   /** Create a fresh working copy of the user's src tree under build/daikonpp_work/<stamp>. */
   private static Path prepareWorkingCopy(Path userSrcRoot) throws IOException {
-    String base =
-        System.getenv()
-            .getOrDefault("DP_WORKDIR", System.getProperty("java.io.tmpdir") + "/daikonpp_work");
-
+    String base = BASE_CFG.workDir();
     Path baseDir = Path.of(base).toAbsolutePath().normalize();
     Files.createDirectories(baseDir);
 

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The method immediately uses writeClient for method calls, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is passed directly to client operations that likely expect a valid (non-empty) commit instant string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The list of HoodieRecords is used as input and passed to upsertPreppedRecords, so it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.size() > 0",
+    "rationale" : "If preppedRecordInputs is non-empty, it necessarily has positive size; checked for list sanity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.isCommitted(instantTime) == false",
+    "rationale" : "Prior to committing at this instantTime, it is likely that the instant has not yet been committed (if 'isCommitted(String)' exists in BaseHoodieWriteClient).",
+    "meta" : [ ]
+  } ]
+}

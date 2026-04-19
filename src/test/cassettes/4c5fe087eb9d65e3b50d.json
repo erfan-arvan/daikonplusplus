@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HoodieIndex instance on all non-exceptional paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "All returned HoodieIndex implementations constructed here receive 'config' as their constructor parameter, so getConfig() should return the same object.",
+    "meta" : [ ]
+  } ]
+}

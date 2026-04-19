@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method creates a new HoodieInstant with instantTime as an argument; passing null here could cause errors or is disallowed.",
+    "meta" : [ {
+      "key" : "justification",
+      "value" : "instantTime is used as an argument in downstream method calls and as a constructor value, indicating non-nullness is required."
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "An empty string for instantTime is likely invalid as a commit/inflight action identifier. Downstream logic expects a meaningful non-empty value.",
+    "meta" : [ {
+      "key" : "justification",
+      "value" : "As an instant time key for commit or inflight states, instantTime should be non-empty."
+    } ]
+  } ]
+}

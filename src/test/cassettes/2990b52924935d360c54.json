@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a 'HoodieWriteMetadata' instance, which is typically constructed and should not be null for a successful write.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The 'HoodieWriteMetadata' is expected to always contain a non-null list of WriteStatus objects for downstream handling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The getWriteStatuses() method of HoodieWriteMetadata should always return a List as specified by the generic type.",
+    "meta" : [ ]
+  } ]
+}

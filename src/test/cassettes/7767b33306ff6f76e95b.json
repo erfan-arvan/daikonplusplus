@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "It is likely that preppedRecords must be initialized before the method is entered.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() >= 0",
+    "rationale" : "The size of a list is always non-negative; this checks for valid state.",
+    "meta" : [ ]
+  } ]
+}

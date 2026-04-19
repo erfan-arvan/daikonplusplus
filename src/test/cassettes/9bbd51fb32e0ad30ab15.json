@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "It is expected that the insert method returns non-null metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "A non-null list of records is required for insertion and is likely enforced by the method's use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit instant time should be non-null since it is integral to insert semantics.",
+    "meta" : [ ]
+  } ]
+}

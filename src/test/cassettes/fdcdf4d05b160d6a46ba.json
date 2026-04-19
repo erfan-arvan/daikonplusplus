@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns result, which is constructed at method start and never reassigned to null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write status list is expected to be materialized before returning; it is populated before method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "List sizes in Java are always non-negative; ensures no error in construction or aggregation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToPath() != null",
+    "rationale" : "Methods of HoodieWriteMetadata typically initialize key metadata structures before returning.",
+    "meta" : [ ]
+  } ]
+}

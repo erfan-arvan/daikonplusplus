@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The insert method returns the result of execute(), which is expected to be a non-null HoodieWriteMetadata object after a completed insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords is passed to the new JavaInsertDeltaCommitActionExecutor and is expected to be a valid list for the insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents the commit instant and is required for insert operations in Hoodie, hence should not be null.",
+    "meta" : [ ]
+  } ]
+}

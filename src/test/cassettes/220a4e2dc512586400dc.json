@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a singleton instance, so the return value should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaDeleteHelper",
+    "rationale" : "The result is the static instance and must be of the class JavaDeleteHelper.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == DeleteHelperHolder.JAVA_DELETE_HELPER",
+    "rationale" : "The method returns the static instance from DeleteHelperHolder.",
+    "meta" : [ ]
+  } ]
+}

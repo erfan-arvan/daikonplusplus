@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The reduce operation with a non-null zeroValue is expected to return a non-null result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(data.collectAsList().stream().reduce(zeroValue, seqOp::apply, combOp::apply))",
+    "rationale" : "The method returns precisely this reduction, so result must equal the explicit reduction expression.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null && combOp != null",
+    "rationale" : "The aggregation cannot proceed if either operation function is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The aggregation only makes sense if the input data is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "The reduce method's identity element (zeroValue) must be non-null to produce a meaningful result.",
+    "meta" : [ ]
+  } ]
+}

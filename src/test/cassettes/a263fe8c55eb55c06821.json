@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns HoodieListData.eager(data), which will not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Method assumes non-null input for 'data' as it's passed directly to eager().",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 0",
+    "rationale" : "Parallelism is typically required to be non-negative; even though its value is unused, the context suggests this constraint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "The returned object is always constructed by HoodieListData.eager(data) at this point.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always creates and returns a new LinkedHashMap, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().equals(dedupedRecords.stream().map(r -> partitioner.getPartition(new Pair<>(r.getKey(), Option.ofNullable(r.getCurrentLocation())))).collect(java.util.stream.Collectors.toSet()))",
+    "rationale" : "The set of keys in result is determined by the set of partitions assigned to records by the partitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(l -> l != null && l.stream().allMatch(r -> dedupedRecords.contains(r)))",
+    "rationale" : "Every record in every list value of result originally came from dedupedRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.containsAll(result.values().stream().flatMap(java.util.Collection::stream).collect(java.util.stream.Collectors.toList()))",
+    "rationale" : "No new records are introduced: every record in the output must come from the input dedupedRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.isEmpty() == result.isEmpty()",
+    "rationale" : "If there are no input records, the returned map must also be empty.",
+    "meta" : [ ]
+  } ]
+}

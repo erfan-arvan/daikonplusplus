@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is operated on and passed to other methods, so should not be null.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "input parameter is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The method interacts with timelines and expects a valid instantTime.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "used for instant identification/timeline"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is used for critical timeline and meta client operations.",
+    "meta" : [ {
+      "key" : "role",
+      "value" : "core parameter, used for timeline and meta operations"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is required for sort mode selection and multi-write settings.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "used for configuration lookups and mode selection"
+    } ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "executor is cast and invoked, so should not be null.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "used for index updating and validations"
+    } ]
+  } ]
+}

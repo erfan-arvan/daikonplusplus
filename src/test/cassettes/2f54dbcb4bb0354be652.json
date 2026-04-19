@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "sortMode != null",
+    "rationale" : "The method dereferences sortMode.name() and uses sortMode in a switch, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode instanceof BulkInsertSortMode",
+    "rationale" : "sortMode is declared BulkInsertSortMode and used in a switch; it must be of that type.",
+    "meta" : [ ]
+  } ]
+}

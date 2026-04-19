@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option types should not be null in Java; if no value, Option.empty() is used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is usually required non-null for scheduling operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is critical for execution and is unlikely to be null at execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is passed as an Option; it should not be null, but Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Option",
+    "rationale" : "Result is declared as Option<HoodieCompactionPlan> and this should hold at exit.",
+    "meta" : [ ]
+  } ]
+}

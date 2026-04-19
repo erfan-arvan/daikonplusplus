@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returning null would violate the typical contract that collection-returning APIs should return an empty collection instead of null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns a new ArrayList<WriteStatus> populated by JavaLazyInsertIterable. Even if no records are written, an (empty) non-null list is returned."
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Result is assigned from the writeStatuses ArrayList and always a List.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The return type of the method is List<WriteStatus> and result is always constructed as an ArrayList."
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "Ensures the returned list has a valid, non-negative size.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "List.size() is always non-negative."
+    } ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "Prevents downstream NPE; WriteStatus list elements should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Each WriteStatus is added from JavaLazyInsertIterable::addAll, which should not introduce nulls by contract."
+    } ]
+  } ]
+}

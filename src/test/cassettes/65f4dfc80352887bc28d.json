@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "Ensures the method is not called with a null list of keys, a common precondition in collection-based mutators.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Write operations typically require a valid, non-empty timestamp; this expresses that precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null && !keys.isEmpty()",
+    "rationale" : "A delete operation with an empty set might be a no-op; this invariant suggests keys should usually be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null && keys.stream().allMatch(k -> k != null)",
+    "rationale" : "Validates that every HoodieKey in the keys list is non-null, preventing NPEs on downstream method calls.",
+    "meta" : [ ]
+  } ]
+}

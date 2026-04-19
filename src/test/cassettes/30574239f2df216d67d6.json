@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method is expected to operate with a non-null HoodieEngineContext to execute tasks distributedly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "A compaction instant time string is essential and should not be null for table compaction operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!logCompactionInstantTime.isEmpty()",
+    "rationale" : "The compaction instant time should be a non-empty string for log compact operation to be valid.",
+    "meta" : [ ]
+  } ]
+}

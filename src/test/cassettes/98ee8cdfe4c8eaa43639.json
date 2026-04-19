@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Factory methods typically should not return null Supplier instances.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() == -1",
+    "rationale" : "The returned Supplier always produces -1, as shown in the implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() <= 0",
+    "rationale" : "Since result.get() is -1, it is always less than or equal to zero.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option values in Java are typically non-null; the method always returns an Option, possibly empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is required to schedule a restore action, so it's expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "A savepoint timestamp must be specified for the restore operation, thus is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is necessary for actions on the engine and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Option",
+    "rationale" : "The returned type is Option<HoodieRestorePlan>, so result is guaranteed to be an Option type.",
+    "meta" : [ ]
+  } ]
+}

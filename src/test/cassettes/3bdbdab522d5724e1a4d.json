@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of HoodieMergeHandleFactory.create, which should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed as a parameter and used to create the result, so it must be non-null for correct behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is passed to result constructor and should not be null for correct commit behavior.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The config is used to create the HoodieJavaTable; null would likely cause an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method passes context to HoodieJavaTable.create; should be non-null.",
+    "meta" : [ ]
+  } ]
+}

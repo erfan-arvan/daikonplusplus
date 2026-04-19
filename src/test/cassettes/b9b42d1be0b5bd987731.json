@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Ensures that the partitionPath parameter is not null before using it in downstream method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "String length is always non-negative; demonstrates a basic property of a Java String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty() || partitionPath.length() == 0",
+    "rationale" : "Reflects the semantics of String.isEmpty() and length(); captures their relationship.",
+    "meta" : [ ]
+  } ]
+}

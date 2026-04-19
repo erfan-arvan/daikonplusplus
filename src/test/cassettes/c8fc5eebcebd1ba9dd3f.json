@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is intended to represent a commit instant, and null would be invalid for time-based record operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects a list of records to upsert; a null list would typically be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is required to perform the operation; null context would not be usable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Commit instants in Hudi are non-empty strings representing timestamps.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() >= 0",
+    "rationale" : "The size of preppedRecords should never be negative; this is a consequence of valid Java List contracts.",
+    "meta" : [ ]
+  } ]
+}

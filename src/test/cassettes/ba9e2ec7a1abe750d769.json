@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires config to call its methods, such as config.getIndexClass() and config.getIndexType().",
+    "meta" : [ ]
+  }, {
+    "expression" : "!StringUtils.isNullOrEmpty(config.getIndexClass()) || config.getIndexType() != null",
+    "rationale" : "If the index class is not set, the method uses the index type; thus, index type should not be null in that case.",
+    "meta" : [ ]
+  } ]
+}

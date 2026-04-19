@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Committing typically requires a valid, non-null instantTime identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "A commit operation is expected to be provided with a non-null partition-to-records mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.isEmpty() || partitionRecordsMap.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "If the map is not empty, partition names (keys) should be non-null for proper data organization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.isEmpty() || partitionRecordsMap.values().stream().allMatch(v -> v != null)",
+    "rationale" : "If the map is not empty, each partition's value (HoodieData collection) should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty() || (partitionRecordsMap.size() == 0)",
+    "rationale" : "If the map is empty, its size must be zero.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context should be a valid HoodieEngineContext and not null when calling this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is of type Option and should not be null; it may represent an absent value but itself should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() ? extraMetadata.get() != null : true",
+    "rationale" : "If extraMetadata is present, its value (a Map) should not be null.",
+    "meta" : [ ]
+  } ]
+}

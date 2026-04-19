@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.njit.jerse.daikonplusplus.App;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -193,6 +192,7 @@ public class PipelineE2ETest {
     CfgLite cfg = loadCfg(caseDir.resolve("config.json"));
 
     Properties prev = snapshotAndSetCaseProps(buildRegistry, buildOutcomes);
+
     try {
       List<String> args;
 
@@ -218,7 +218,47 @@ public class PipelineE2ETest {
       }
       System.out.println("=====================");
 
-      App.main(args.toArray(new String[0]));
+      List<String> cmd = new ArrayList<>();
+
+      cmd.add(Path.of(System.getProperty("java.home"), "bin", "java").toString());
+
+      // ✅ CRITICAL: pass ALL dp configs
+      cmd.add("-Ddp.registry=" + buildRegistry.toAbsolutePath());
+      cmd.add("-Ddp.outcomes=" + buildOutcomes.toAbsolutePath());
+      cmd.add("-Ddp.registryReset=true");
+
+      if (cfg.contexts != null) {
+        cmd.add("-Ddp.contexts=" + String.join(",", cfg.contexts));
+      }
+
+      if (cfg.promptStrategy != null) {
+        cmd.add("-Ddp.promptStrategy=" + cfg.promptStrategy);
+      }
+
+      // classpath
+      cmd.add("-cp");
+      cmd.add(System.getProperty("java.class.path"));
+
+      // main
+      cmd.add("edu.njit.jerse.daikonplusplus.App");
+
+      // args
+      cmd.addAll(args);
+
+      ProcessBuilder pb = new ProcessBuilder(cmd);
+      pb.directory(Path.of("").toAbsolutePath().toFile());
+      pb.inheritIO();
+
+      Map<String, String> penv = pb.environment();
+      penv.put("DP_DISABLE_REAL_LLM", "1");
+      penv.put(
+          "DP_LLM_CASSETTES",
+          firstNonBlank(
+              System.getProperty("DP_LLM_CASSETTES"), System.getenv("DP_LLM_CASSETTES"), ""));
+
+      Process p = pb.start();
+      int exit = p.waitFor();
+      assertEquals(0, exit, "App subprocess failed");
 
       assertTrue(Files.exists(buildRegistry), "Pipeline produced no registry at " + buildRegistry);
       if (Files.notExists(buildOutcomes)) {
@@ -350,11 +390,22 @@ public class PipelineE2ETest {
     final String execMode; // "native" | "external"
     final List<String> command; // only for external
 
-    CfgLite(String mainClass, int maxK, String execMode, List<String> command) {
+    final List<String> contexts;
+    final String promptStrategy;
+
+    CfgLite(
+        String mainClass,
+        int maxK,
+        String execMode,
+        List<String> command,
+        List<String> contexts,
+        String promptStrategy) {
       this.mainClass = mainClass;
       this.maxK = maxK;
       this.execMode = execMode;
       this.command = command;
+      this.contexts = contexts;
+      this.promptStrategy = promptStrategy;
     }
   }
 
@@ -372,6 +423,9 @@ public class PipelineE2ETest {
     int maxK = 5;
     String execMode = "native";
     List<String> command = List.of();
+
+    List<String> contexts = null;
+    String promptStrategy = null;
 
     if (Files.isRegularFile(jsonPath)) {
       JsonNode j = OM.readTree(jsonPath.toFile());
@@ -394,9 +448,19 @@ public class PipelineE2ETest {
           command.add(c.asText());
         }
       }
+
+      if (j.hasNonNull("contexts")) {
+        contexts = new ArrayList<>();
+        for (JsonNode c : j.get("contexts")) {
+          contexts.add(c.asText());
+        }
+      }
+      if (j.hasNonNull("promptStrategy")) {
+        promptStrategy = j.get("promptStrategy").asText();
+      }
     }
 
-    return new CfgLite(mainClass, maxK, execMode, command);
+    return new CfgLite(mainClass, maxK, execMode, command, contexts, promptStrategy);
   }
 
   // ---------- System property scoping ----------
@@ -413,6 +477,7 @@ public class PipelineE2ETest {
     copyIfSet(prev, "dp.registry");
     copyIfSet(prev, "dp.outcomes");
     copyIfSet(prev, "dp.registryReset");
+    //    copyIfSet(prev, "dp.contexts");
 
     System.setProperty("dp.registry", buildRegistry.toAbsolutePath().toString());
     System.setProperty("dp.outcomes", buildOutcomes.toAbsolutePath().toString());
@@ -440,6 +505,7 @@ public class PipelineE2ETest {
     restoreKey(prev, "dp.registry");
     restoreKey(prev, "dp.outcomes");
     restoreKey(prev, "dp.registryReset");
+    //    restoreKey(prev, "dp.contexts");
   }
 
   /**

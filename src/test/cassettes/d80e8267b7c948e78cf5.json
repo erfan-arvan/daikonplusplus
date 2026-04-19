@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit likely requires a valid instant time identifier.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "writeStatuses != null && !writeStatuses.isEmpty()",
+    "rationale" : "A commit generally only makes sense if there are write statuses to record.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "commitActionType != null && !commitActionType.isEmpty()",
+    "rationale" : "A commit action type should be specified and not be the empty String.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds should be provided even if the map is empty.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option types (like extraMetadata) should not be null, but Option.empty() as per best practices.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Option"
+    } ]
+  } ]
+}

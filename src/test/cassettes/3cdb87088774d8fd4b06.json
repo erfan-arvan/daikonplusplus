@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is typically required for distributed operations and is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should represent a commit or execution instant and is likely a required non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null && !preppedRecords.isEmpty()",
+    "rationale" : "preppedRecords is expected to contain the records to be inserted; the operation is likely meaningless with an empty or null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option<BulkInsertPartitioner> objects should not be null, but may represent empty Option; this checks variable integrity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Each entry in preppedRecords should be a valid HoodieRecord instance.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metadataWriteConfig != null",
+    "rationale" : "metadataWriteConfig is used unconditionally in this method, so it must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.metrics != null",
+    "rationale" : "this.metrics is always set by this method to a non-null Option instance (either Option.of(...) or Option.empty()).",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadataWriteConfig.isMetricsOn() == this.metrics.isPresent()",
+    "rationale" : "If metrics are on, this.metrics present, else not; reflects main branch structure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!metadataWriteConfig.isMetricsOn()) || this.metrics.get().getMetricsConfig().equals(metadataWriteConfig.getMetricsConfig())",
+    "rationale" : "If metrics is on, metrics Option wraps a HoodieMetadataMetrics created using metadataWriteConfig.getMetricsConfig().",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!metadataWriteConfig.isMetricsOn()) || this.metrics.get().getStorage().equals(dataMetaClient.getStorage())",
+    "rationale" : "If metrics are on, metrics Option wraps a HoodieMetadataMetrics created using dataMetaClient.getStorage().",
+    "meta" : [ ]
+  } ]
+}

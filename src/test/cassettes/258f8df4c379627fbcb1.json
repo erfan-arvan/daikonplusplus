@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "clusteringPlan is de-referenced shortly after, so it is expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is passed and may be required by later logic, and is likely required to not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime parameter is supplied and used as a clustering instant, expected to be non-null and not empty as this is a meaningful identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getInputGroups() != null",
+    "rationale" : "getInputGroups() is called on clusteringPlan and then iterated over; it is expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getStrategy() != null",
+    "rationale" : "getStrategy() is called on clusteringPlan and subsequently used, so it is expected not to be null.",
+    "meta" : [ ]
+  } ]
+}

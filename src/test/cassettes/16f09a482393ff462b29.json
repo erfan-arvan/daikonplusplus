@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method is expected to operate on a provided list of records.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is typically required to identify the operation.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "By Java specification, List.size() is always non-negative.",
+    "meta" : [ {
+      "key" : "collection property",
+      "value" : "size non-negative"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty() || records.size() == 0",
+    "rationale" : "records.isEmpty() and records.size() == 0 are equivalent properties.",
+    "meta" : [ {
+      "key" : "collection property",
+      "value" : "emptiness equivalence"
+    } ]
+  }, {
+    "expression" : "!(instantTime != null && instantTime.isEmpty())",
+    "rationale" : "instantTime should not be an empty string if not null.",
+    "meta" : [ {
+      "key" : "sanity",
+      "value" : "instantTime not empty string"
+    } ]
+  } ]
+}

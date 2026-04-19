@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns value from fileId or a superclass method, both of which are expected to be non-null",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null return"
+    } ]
+  }, {
+    "expression" : "fileId == null || result.equals(fileId)",
+    "rationale" : "If fileId is not null, result is set to fileId",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "delegation/override"
+    } ]
+  }, {
+    "expression" : "fileId != null || result.equals(BulkInsertPartitioner.super.getFileIdPfx(partitionId))",
+    "rationale" : "If fileId is null, result is delegated from super method",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "delegation/override"
+    } ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "File IDs and super fileId prefixes are expected to be non-empty strings",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-empty return"
+    } ]
+  }, {
+    "expression" : "partitionId >= 0",
+    "rationale" : "Partition IDs are typically non-negative",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter constraint"
+    } ]
+  } ]
+}

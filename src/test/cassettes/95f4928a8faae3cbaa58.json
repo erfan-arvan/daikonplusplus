@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method operates on 'instantTime' as a required parameter; typically, a null value would not be allowed for such state transitions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "The 'instantTime' is likely used as a unique identifier for a commit/instant; an empty string would be invalid.",
+    "meta" : [ ]
+  } ]
+}

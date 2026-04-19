@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "conf is a required parameter for creating the metadata writer and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig must be provided for proper configuration of the metadata writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is needed for the writer to perform its operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "Option objects should not be null; use Option.empty() for absent values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp.isPresent() || !inflightInstantTimestamp.isPresent()",
+    "rationale" : "This is a tautology that captures that Option is never in an invalid state.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "It is reasonable to expect that a method returning a HoodieWriteMetadata object does not return null, and this invariant appears in multiple drafts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method contract guarantees that result is of type HoodieWriteMetadata<List<WriteStatus>>, so this invariant is implied by the signature and appears across drafts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method likely requires a non-null collection of records to perform an insert overwrite, so it is a reasonable and cross-draft invariant.",
+    "meta" : [ ]
+  } ]
+}

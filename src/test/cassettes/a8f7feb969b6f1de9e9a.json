@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method relies on non-null 'profile' throughout; it's annotated as a parameter and has method calls unguarded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method uses 'context' directly by passing it to other methods with no null check, suggesting it is assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "Method uses the partition paths set returned from profile.getPartitionPaths() in a for loop, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths().size() >= 0",
+    "rationale" : "A Set size is always non-negative and is used to construct a new ArrayList.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "The method often guards access to output partition path stat map by hasOutputWorkLoadStats(), suggesting a relationship.",
+    "meta" : [ ]
+  } ]
+}

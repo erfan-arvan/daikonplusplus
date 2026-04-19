@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a required argument for method operations and likely assumed non-null for a proper call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is a required argument and many production systems would ensure its non-nullness for logic relying on its contents.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.isEmpty() || columnsToIndex.get(0) != null",
+    "rationale" : "If columnsToIndex is not null or empty, first column reference should be not null, capturing a possible usage contract for columnsToIndex.",
+    "meta" : [ ]
+  } ]
+}

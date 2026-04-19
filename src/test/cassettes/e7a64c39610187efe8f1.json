@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is essential for engine operations; typically required to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents a commit action timestamp and should be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records list is required for insert/overwrite, so expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "A List's size is always >= 0; for clarity about records structure.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "structural"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty string representing a valid instant.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "semantic"
+    } ]
+  } ]
+}

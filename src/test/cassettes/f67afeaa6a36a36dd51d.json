@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new HashMap is always assigned to partitionToExistingFileIds, which is always returned, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.keySet().containsAll(FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()))",
+    "rationale" : "If partitionPaths is not empty, mapToPair populates result for all returned partition paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()) == null ? result.isEmpty() : true",
+    "rationale" : "If partitionPaths is null, the result map remains empty and is returned as such.",
+    "meta" : [ ]
+  }, {
+    "expression" : "FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()) != null && FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()).size() == 0 ? result.isEmpty() : true",
+    "rationale" : "If partitionPaths is an empty list, result should also be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() ? FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()) != null && FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()).size() > 0 : true",
+    "rationale" : "Result is non-empty only if partitionPaths is non-null and non-empty.",
+    "meta" : [ ]
+  } ]
+}

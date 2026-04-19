@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context parameter is required for processing and typically should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option values should generally not be null; if absent, they should be Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata instanceof Option",
+    "rationale" : "extraMetadata must be an instance of Option as per method signature.",
+    "meta" : [ ]
+  } ]
+}

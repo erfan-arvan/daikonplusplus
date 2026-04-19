@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns an object of type HoodieWriteMetadata.",
+    "meta" : [ {
+      "key" : "Step",
+      "value" : "Step 1"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Input record list 'hoodieRecords' should not be null.",
+    "meta" : [ {
+      "key" : "Step",
+      "value" : "Step 1"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "'context' is directly cast and used to create an action executor, must not be null.",
+    "meta" : [ {
+      "key" : "Step",
+      "value" : "Step 1"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "'instantTime' is used as an argument and likely required by ALL downstream logic.",
+    "meta" : [ {
+      "key" : "Step",
+      "value" : "Step 1"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata should provide a non-null List<WriteStatus>.",
+    "meta" : [ {
+      "key" : "Step",
+      "value" : "Step 3"
+    } ]
+  } ]
+}

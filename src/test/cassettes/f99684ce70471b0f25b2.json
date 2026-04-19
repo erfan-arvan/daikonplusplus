@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method expects a valid configuration object to create a table; a null config likely indicates a programming error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "The method depends on a non-null storage configuration to function correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName() != null",
+    "rationale" : "A table cannot be created without a specified table name; thus, configuration should supply one.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName().length() > 0",
+    "rationale" : "The table name should not be empty for a valid table creation operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipValidation || config.shouldValidateConfig()",
+    "rationale" : "If validation is not skipped, the configuration should be in a state that supports validation.",
+    "meta" : [ ]
+  } ]
+}

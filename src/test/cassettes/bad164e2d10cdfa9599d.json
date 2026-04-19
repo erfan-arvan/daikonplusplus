@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of a function call, and typically factories should not return null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The method requires metaClient as a parameter; it is likely assumed to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof ReaderContextFactory",
+    "rationale" : "By the method signature and its return statement, result should be an instance of ReaderContextFactory.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof ReaderContextFactory<?>",
+    "rationale" : "Generics are erased at runtime, but result must still be a ReaderContextFactory of some type.",
+    "meta" : [ ]
+  } ]
+}

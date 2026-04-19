@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method always throws an exception and never assigns a return value, result is never set and remains null at all exits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true || result == null",
+    "rationale" : "Because the method always throws, no reachable program state will provide any value for result; this is trivially true, but uses a logical form.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(extraMetadata != null && extraMetadata.isPresent()) || true",
+    "rationale" : "Since the method throws immediately, any values or methods on extraMetadata are not used, so such preconditions are irrelevant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(context != null && instantTime != null) || true",
+    "rationale" : "All method arguments are unused as the method throws immediately, so invariants involving their usage are trivial at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "The method body always throws an exception; any invariant is trivially true at method exit because the return is never reached.",
+    "meta" : [ ]
+  } ]
+}

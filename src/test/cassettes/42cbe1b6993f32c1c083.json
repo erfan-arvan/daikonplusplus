@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'result' generated from 'convertMetadata', which should not be null in expected normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "Typically, instant time parameters are expected to be non-null for compaction operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for compaction-related actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The result returned is expected to be an instance of HoodieWriteMetadata according to the method's declared return type.",
+    "meta" : [ ]
+  } ]
+}

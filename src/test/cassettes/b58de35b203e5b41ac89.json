@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "!recordItr.hasNext() ? result.hasNext() && !result.next().iterator().hasNext() && !result.hasNext() : true",
+    "rationale" : "If the input record iterator is empty, result is an iterator with a single empty WriteStatus list.",
+    "meta" : [ {
+      "key" : "case",
+      "value" : "empty input iterator yields singleton empty WriteStatus list"
+    } ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result != null",
+    "rationale" : "Results from this method are always non-null, regardless of input.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is never null"
+    } ]
+  }, {
+    "expression" : "!recordItr.hasNext() ? result.hasNext() : true",
+    "rationale" : "If the input iterator is empty, a singleton list is returned (so result.hasNext() is true).",
+    "meta" : [ {
+      "key" : "case",
+      "value" : "result has at least one element when no input records"
+    } ]
+  }, {
+    "expression" : "!recordItr.hasNext() ? (!result.next().iterator().hasNext()) : true",
+    "rationale" : "If recordItr is empty, next() yields the singleton empty WriteStatus list.",
+    "meta" : [ {
+      "key" : "case",
+      "value" : "singleton empty list for empty iterator"
+    } ]
+  }, {
+    "expression" : "result != null && result instanceof Iterator",
+    "rationale" : "By method contract, result must always be an Iterator instance.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result is always an Iterator"
+    } ]
+  } ]
+}

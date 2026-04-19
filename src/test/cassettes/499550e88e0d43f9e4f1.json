@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The Option object returned by the method should not be null, assuming Option is a non-nullable return wrapper type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Method parameter context is expected to be a valid engine context, so should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Method parameter instantTime (being a String representing an instant) is not expected to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "The method is expected to operate on a valid instantTime, which typically is not an empty string in such contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The Option object passed as extraMetadata should not be null as a method parameter.",
+    "meta" : [ ]
+  } ]
+}

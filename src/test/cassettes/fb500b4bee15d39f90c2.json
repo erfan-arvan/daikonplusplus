@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null list due to the use of collectors in the stream pipeline.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(Objects::nonNull)",
+    "rationale" : "After filtering with .filter(Objects::nonNull), all elements in result must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "The output is one value per key, while input may have duplicate keys, so the result size can't exceed data size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter is intended as the level of parallel processing; it's expected to be greater than zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || result.isEmpty()",
+    "rationale" : "If the input data is empty, the result list should also be empty.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is likely required for performing upsert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should be a non-empty String representing a commit or operation time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords is expected to be non-null for an upsert to process records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(hoodieRecords != null && hoodieRecords.isEmpty())",
+    "rationale" : "It is likely that upsert should not be called with an empty list of records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieJavaEngineContext",
+    "rationale" : "The implementation casts context to HoodieJavaEngineContext, so this should hold.",
+    "meta" : [ ]
+  } ]
+}

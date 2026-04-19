@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the value from HoodieMergeHandleFactory.create, so null is unlikely unless it allows null creates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a parameter when calling HoodieMergeHandleFactory.create, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed directly to HoodieMergeHandleFactory.create and likely must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is passed to HoodieMergeHandleFactory.create, which might expect non-null file identifiers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "keyToNewRecords is used as an argument in the factory call, and null maps would likely cause problems downstream.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is likely expected to be non-null for correct operation as it is passed to downstream methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath should represent a real partition, so it is likely non-empty when this method is invoked.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.trim().length() > 0",
+    "rationale" : "A partitionPath consisting only of whitespace is probably invalid input.",
+    "meta" : [ ]
+  } ]
+}

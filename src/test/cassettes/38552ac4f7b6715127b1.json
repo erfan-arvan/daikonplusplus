@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method requires a non-null list of input records to execute properly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || inputRecords.get(0) != null",
+    "rationale" : "If inputRecords is non-empty, its first element should be non-null to ensure valid processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "A list's size is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

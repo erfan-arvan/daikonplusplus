@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "A positive parallelism is typically expected for parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The input Stream 'data' should not be null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "A non-null mapping function is required to transform partitions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "A non-null reduction function is necessary to reduce values by key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(data == null || flatMapToPairFunc == null || reduceFunc == null)",
+    "rationale" : "None of the essential parameters should be null for correct execution.",
+    "meta" : [ ]
+  } ]
+}

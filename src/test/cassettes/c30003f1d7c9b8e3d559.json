@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The restore method returns the result of executing a restoration action, which should always produce non-null metadata on success.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "The restoreInstantTimestamp is passed as a required parameter to the restore operation and used for restoring a specific instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "The savepointToRestoreTimestamp is required for identifying the savepoint being restored.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is passed into the restoration logic and used in executor construction, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

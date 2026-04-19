@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "It is likely that null config would not be permitted since it is essential for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "Table creation requires storage configuration, suggesting this should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipValidation || config != null",
+    "rationale" : "If validation is not being skipped, a non-null config is likely required for validation to proceed.",
+    "meta" : [ ]
+  } ]
+}

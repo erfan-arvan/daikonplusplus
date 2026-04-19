@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method is called with instantTime as a parameter and is used in a method call, so it must be non-null to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadataMetaClient.getActiveTimeline().getRequestedStates(HoodieActiveTimeline.DELTA_COMMIT_ACTION).contains(instantTime) || metadataMetaClient.getActiveTimeline().getInflightStates(HoodieActiveTimeline.DELTA_COMMIT_ACTION).contains(instantTime)",
+    "rationale" : "After transitionRequestedToInflight, instantTime should be present either in inflight or may still be in requested if transition fails.",
+    "meta" : [ ]
+  } ]
+}

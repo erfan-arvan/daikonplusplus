@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method directly returns the result of execute(), which should produce HoodieRestoreMetadata; a null value would indicate a failure mode rather than expected operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "object non-null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is provided to MergeOnReadRestoreActionExecutor and is required for execution, implying it is expected to be non-null at this point.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input non-null"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is passed directly to the executor, so it is expected to be non-null for valid execution.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input non-null"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is required for the actual restore operation and passed to the executor, so non-nullness is a valid assumption.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input non-null"
+    } ]
+  } ]
+}

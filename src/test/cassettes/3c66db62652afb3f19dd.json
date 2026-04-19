@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The parameter config must be provided for the method to execute; typical defensive invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexType() != null",
+    "rationale" : "The method switch-es on config.getIndexType(), which implies it's expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexClass() != null || config.getIndexType() != null",
+    "rationale" : "One of either a non-empty index class or a valid index type is expected for proper execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexClass() == null || !config.getIndexClass().isEmpty() || config.getIndexType() != null",
+    "rationale" : "If indexClass is null or not empty, or indexType is present, the method has a way forward.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!org.apache.hudi.common.util.StringUtils.isNullOrEmpty(config.getIndexClass()) || config.getIndexType() != null",
+    "rationale" : "The execution requires either a user-defined index class or a non-null index type to proceed.",
+    "meta" : [ ]
+  } ]
+}

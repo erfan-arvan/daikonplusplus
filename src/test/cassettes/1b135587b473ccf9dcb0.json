@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The parameter 'result' is dereferenced; hence, it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getCommitMetadata().isPresent()",
+    "rationale" : "At method exit, commit metadata is set using Option.of(...), so it is expected to be present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is called in the method; therefore, the return value must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "getPartitionToReplaceFileIds() is passed as an argument for metadata construction; hence, it must not be null.",
+    "meta" : [ ]
+  } ]
+}

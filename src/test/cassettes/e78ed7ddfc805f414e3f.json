@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "The method expects a StorageConfiguration to be provided and passes it to a constructor immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is required for correct writer initialization and is passed directly to the constructor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for parallelism/execution and used in the new writer object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "inflightInstantTimestamp is required as an Option and is passed directly without a null-safe check.",
+    "meta" : [ ]
+  } ]
+}

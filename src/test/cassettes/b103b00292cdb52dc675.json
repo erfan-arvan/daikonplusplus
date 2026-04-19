@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "An update instant time should be provided to ensure a consistent timeline action.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input validity"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should not be null for handling updates.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input validity"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "The fileId is required to uniquely identify the file to update.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input validity"
+    } ]
+  }, {
+    "expression" : "keyToNewRecords != null && !keyToNewRecords.isEmpty()",
+    "rationale" : "Updates should only be handled when there are records to update.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input content"
+    } ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "An existing data file must exist to perform an update.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  } ]
+}

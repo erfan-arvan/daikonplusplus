@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a static field and should never return null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null return"
+    } ]
+  }, {
+    "expression" : "result instanceof JavaWriteHelper",
+    "rationale" : "The return type of the method is JavaWriteHelper, so the result must be an instance of JavaWriteHelper.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type correctness"
+    } ]
+  }, {
+    "expression" : "WriteHelperHolder.JAVA_WRITE_HELPER == result",
+    "rationale" : "The method returns the static field WriteHelperHolder.JAVA_WRITE_HELPER, so result is always equal to that value.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "singleton static"
+    } ]
+  } ]
+}

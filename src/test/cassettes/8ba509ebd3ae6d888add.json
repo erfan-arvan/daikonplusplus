@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method delegates to getCommitActionType() on the table's MetaClient, which likely returns a non-null String for a valid table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "Commit action types are expected to be non-empty strings representing valid actions.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && instantTime.isPresent()",
+    "rationale" : "Ensures that if the Option<String> instantTime is not null, it may represent a meaningful instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient should not be null for metadata table initialization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isPresent() || instantTime.get() != null",
+    "rationale" : "If instantTime Option is present, its value should not be null.",
+    "meta" : [ ]
+  } ]
+}

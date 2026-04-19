@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method directly returns the input records list, so the result is the exact same object as the input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Since result and records are the same object, their sizes are always equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0 || result == records",
+    "rationale" : "Regardless of the value of outputPartitions, the method always returns records; this captures that outputPartitions does not affect the output.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "records is a parameter and must be non-null to reach this point, so result (which is records) is also non-null.",
+    "meta" : [ ]
+  } ]
+}

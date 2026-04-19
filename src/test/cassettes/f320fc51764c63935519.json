@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method receives and uses 'result' as an argument, and calls methods on it, implying it is non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "'result.getWriteStatuses()' is dereferenced in the commit call, so must be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "When mapping over 'WriteStatus' objects, none are expected to be null for typical semantics.",
+    "meta" : [ ]
+  } ]
+}

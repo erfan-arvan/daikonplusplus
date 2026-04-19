@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "record != null",
+    "rationale" : "The method is meaningful only if a non-null HoodieRecord is passed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortColumnNames != null",
+    "rationale" : "sortColumnNames must be set for sorting based on specified columns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is essential for interpreting HoodieRecord fields appropriately.",
+    "meta" : [ ]
+  } ]
+}

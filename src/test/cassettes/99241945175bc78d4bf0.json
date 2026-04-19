@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "The method throws an exception and terminates if operationType is LOG_COMPACT, so this must be false at exit.",
+    "meta" : [ {
+      "key" : "derived_from",
+      "value" : "first if statement in method"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to getCompactionInflightInstant, so it is assumed to be non-null.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "used as an argument without null-checks"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced (getInstantGenerator()), so must not be null.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "invoked on without null-checks"
+    } ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is used (containsInstant), so must not be null.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "methods are called on it"
+    } ]
+  } ]
+}

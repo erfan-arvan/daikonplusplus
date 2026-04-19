@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List, either a new collection or a modified input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result is always a List, consistent with the method's return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism is likely intended as a positive number for processing keys, though not strictly enforced in code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table parameter is dereferenced unconditionally, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method operates on keys and creates collections from it, so keys is assumed non-null.",
+    "meta" : [ ]
+  } ]
+}

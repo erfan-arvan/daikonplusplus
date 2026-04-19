@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is required to perform table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime string identifies a point in time and must be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "A list of records to insert/overwrite must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.stream().allMatch(r -> r != null)",
+    "rationale" : "If records are present, they should not contain null entries.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || records instanceof java.util.List",
+    "rationale" : "records parameter should always be a List.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient parameter is expected to be provided and not null in most Hadoop/Hudi-related operations.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "argument not null"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The columnsToIndex parameter should not be null to avoid NullPointerException if accessed.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "argument not null"
+    } ]
+  }, {
+    "expression" : "columnsToIndex instanceof java.util.List",
+    "rationale" : "The method signature ensures columnsToIndex must be a List.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type invariant"
+    } ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "The method signature ensures metaClient must be a HoodieTableMetaClient.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type invariant"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "By contract, Java List size is always non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "list size non-negative"
+    } ]
+  } ]
+}

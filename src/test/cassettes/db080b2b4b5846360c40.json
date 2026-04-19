@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method directly returns the result of another method, which should not be null in correct operation.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result == getEngineReaderContextFactory(metaClient)",
+    "rationale" : "The result is obtained directly from getEngineReaderContextFactory using the same metaClient argument.",
+    "meta" : [ {
+      "key" : "delegation",
+      "value" : "method forwarding"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is dereferenced as a parameter to a method call, so it must not be null.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "argument nullness"
+    } ]
+  }, {
+    "expression" : "getEngineReaderContextFactory(metaClient) != null",
+    "rationale" : "The method's mechanism assumes getEngineReaderContextFactory does not return null.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result instanceof ReaderContextFactory",
+    "rationale" : "The result has type ReaderContextFactory<IndexedRecord>.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "factory"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Stream should not be null, as all standard Stream operations produce non-null Streams.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "The method invokes flatMapToPairFunc, so it must be non-null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc is wrapped and applied, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "parallelism is likely used in a context expecting a positive value; using non-positive parallelism for partitioning is generally not meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data is used to obtain an iterator; a null data argument would result in error.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires a non-null HoodieWriteConfig to function correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!StringUtils.isNullOrEmpty(config.getIndexClass()) || config.getIndexType() != null",
+    "rationale" : "If indexClass is null or empty, indexType must be non-null for switch statement.",
+    "meta" : [ ]
+  } ]
+}

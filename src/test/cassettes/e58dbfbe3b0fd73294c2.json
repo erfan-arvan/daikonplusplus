@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The metadata table is operated on using metaClient, and methods on metaClient are called, so it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "The parameter inFlightInstantTimestamp is passed through to other method calls; if it was null, a NullPointerException would result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "Table configuration is used and/or reloaded within the method, so it should be present.",
+    "meta" : [ ]
+  } ]
+}

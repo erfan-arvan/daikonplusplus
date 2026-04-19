@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument in method calls, so it should not be null.",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath should not be an empty string as it represents a path segment.",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "parameter"
+    } ]
+  } ]
+}

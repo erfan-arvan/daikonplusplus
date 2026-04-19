@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partition != null",
+    "rationale" : "partition is used as a key and passed to partitioner.getBucketInfo, so typically not null",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is dereferenced at method entry and must not be null",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is supplied and used as an input Iterator, so typically not null",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a core logical parameter (commit instant) and expected to be non-null",
+    "meta" : [ ]
+  } ]
+}

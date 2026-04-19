@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should be provided and non-empty as it represents a time for the clustering job.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required to schedule clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The Option object for extra metadata should not be null, even if it may be Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().equals(instantTime)",
+    "rationale" : "instantTime should not have leading or trailing whitespace, reflecting standard timestamp cleanliness in Hudi operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() ? extraMetadata.get() != null : true",
+    "rationale" : "If extraMetadata is present, it should not contain a null map.",
+    "meta" : [ ]
+  } ]
+}

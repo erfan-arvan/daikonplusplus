@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method either returns a non-null value from a helper or throws, never returning null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method's return type is HoodieWriteMetadata<List<WriteStatus>>, so this always holds.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method operates on the provided context; it is likely intended to be non-null for any operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is used to identify the commit instant and must not be null to perform insert actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records being null would cause errors; the method expects a collection of records to insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "records is declared as List<HoodieRecord<T>>, so it should be an instance of List at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime likely denotes a timestamp/string identifier, which should not be empty for valid operations.",
+    "meta" : [ ]
+  } ]
+}

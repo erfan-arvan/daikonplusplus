@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null && !restoreInstantTimestamp.isEmpty()",
+    "rationale" : "A restore operation typically requires a valid non-empty restore instant timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp == null || !savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "If a savepoint timestamp is provided, it should not be an empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is expected to be a valid object reference for restore operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.equals(savepointToRestoreTimestamp)",
+    "rationale" : "Usually, the restore instant and the savepoint to restore from should be different timestamps.",
+    "meta" : [ ]
+  } ]
+}

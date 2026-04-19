@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents a required commit instant in Hudi and is expected to be non-null for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records must be provided for a bulk insert and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "A list in Java has size >= 0 always, but for non-null, isEmpty is a safe check before calling size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "An engine context is a required dependency for operations involving distributed execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option objects in Hudi are not usually nullable, but must be present as an argument.",
+    "meta" : [ ]
+  } ]
+}

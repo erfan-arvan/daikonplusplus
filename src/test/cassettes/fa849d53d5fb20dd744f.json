@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "Methods of writeResult are called in the method body, so it is likely not null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() != null",
+    "rationale" : "A stream operation is performed on writeResult.getWriteStatuses(), implying it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(status -> status != null)",
+    "rationale" : "Since status.getStat() is called, elements should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(status -> status.getStat() != null)",
+    "rationale" : "status.getStat() is accessed, so stat should not be null for each status.",
+    "meta" : [ ]
+  } ]
+}

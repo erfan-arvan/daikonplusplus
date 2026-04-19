@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of JavaHoodieIndexFactory.createIndex(config) which is expected to produce a non-null HoodieIndex instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is passed as an argument and immediately used as a parameter, indicating it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed as a parameter and used immediately; null values are typically not expected in this pattern.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "getIndex returns a HoodieIndex, and result is expected to be an instance of HoodieIndex or a subclass thereof.",
+    "meta" : [ ]
+  }, {
+    "expression" : "JavaHoodieIndexFactory.createIndex(config) == result",
+    "rationale" : "The result of the method is exactly what is returned by JavaHoodieIndexFactory.createIndex(config).",
+    "meta" : [ ]
+  } ]
+}

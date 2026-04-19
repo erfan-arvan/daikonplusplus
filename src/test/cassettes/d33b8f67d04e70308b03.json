@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method operates on the profile parameter, suggesting it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method makes method calls using the context parameter, indicating it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "The code iterates over profile.getPartitionPaths(), suggesting it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths().isEmpty() || profile.getWorkloadStat(profile.getPartitionPaths().iterator().next()) != null",
+    "rationale" : "The method retrieves workload stats for each partition path, so if partition paths are non-empty, their workload stats should be defined.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "Output workload stats availability may imply the output partition path stat map is also available.",
+    "meta" : [ ]
+  } ]
+}

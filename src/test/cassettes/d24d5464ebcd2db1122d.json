@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Flat-mapping requires a valid list to operate over, so data should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The mapping function must exist to apply to elements, so func should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "A parallelism of zero or less is likely invalid or nonsensical for parallel execution.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "data instanceof List",
+    "rationale" : "The stream operation requires data to be a List.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-check"
+    } ]
+  }, {
+    "expression" : "func instanceof SerializableFunction",
+    "rationale" : "Ensures the function supports serialization and is the correct type.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-check"
+    } ]
+  } ]
+}

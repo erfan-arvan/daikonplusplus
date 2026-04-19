@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The method will invoke methods on writeClient, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to writeClient methods and is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is supplied to upsertPreppedRecords and is assumed to be non-null as per usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecordInputs.isEmpty() || preppedRecordInputs.isEmpty()",
+    "rationale" : "This is trivially true for all lists and safe for a non-null preppedRecordInputs, included due to lack of richer information.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime likely represents a timestamp or commit label, which is typically a non-empty string.",
+    "meta" : [ ]
+  } ]
+}

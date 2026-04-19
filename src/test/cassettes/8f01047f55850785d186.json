@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Method expects non-null input collection; null is likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A valid output writer metadata object is required for the method; null probably invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.isEmpty() || !writeStatuses.isEmpty()",
+    "rationale" : "Input list can be empty or non-empty at method entry (covers both reasonable preconditions).",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof java.util.List",
+    "rationale" : "Parameter type guarantee due to method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof hoodie.common.model.HoodieWriteMetadata",
+    "rationale" : "Parameter type guarantee due to method signature.",
+    "meta" : [ ]
+  } ]
+}

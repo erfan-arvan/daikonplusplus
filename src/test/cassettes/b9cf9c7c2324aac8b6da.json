@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams must be non-null to access its methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is used as an argument and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.isEmpty() || strategyParams.isEmpty()",
+    "rationale" : "This is always true for any Map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.size() >= 0",
+    "rationale" : "A Map size is never negative.",
+    "meta" : [ ]
+  } ]
+}

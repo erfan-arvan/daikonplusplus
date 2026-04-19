@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method expects a non-null list to process, as it calls methods on dedupedRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The method assumes partitioner is non-null to call partitioner.getPartition(...).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!dedupedRecords.isEmpty() || dedupedRecords.isEmpty()",
+    "rationale" : "The method must handle both empty and non-empty dedupedRecords, but this expresses that it is always one of these states.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(x -> x != null)",
+    "rationale" : "The method maps over dedupedRecords, so elements must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(x -> x.getKey() != null)",
+    "rationale" : "The implementation extracts record.getKey(), so keys are expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

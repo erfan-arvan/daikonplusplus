@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new JavaHoodieBackedTableMetadataWriter instance, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaHoodieBackedTableMetadataWriter",
+    "rationale" : "The method returns a new JavaHoodieBackedTableMetadataWriter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "conf != null",
+    "rationale" : "The constructor is called with conf, so conf must be non-null or the constructor would fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is a required argument passed to the constructor, so it is likely not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used as a non-optional constructor argument in the returned result, so it's expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

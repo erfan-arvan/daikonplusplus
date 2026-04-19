@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "Method behavior assumes writeMetadata is provided and needed for constructing the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a new TableWriteStats object, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is called on writeMetadata and then streamed, which would throw if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats().size() == writeMetadata.getWriteStatuses().size()",
+    "rationale" : "Each WriteStatus in writeMetadata produces a stat in result via mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats().stream().allMatch(stat -> stat != null)",
+    "rationale" : "Each stat is derived from WriteStatus.getStat(), which is likely non-null as part of the mapping.",
+    "meta" : [ ]
+  } ]
+}

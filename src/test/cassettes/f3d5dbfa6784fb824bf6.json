@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Partition indices for buckets are always non-negative as they are used as indices and bucket identifiers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "The code assumes 'key' is not null as it is immediately cast and dereferenced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(key instanceof Pair)",
+    "rationale" : "The method always casts key to Pair, so it must be an instance of Pair.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < totalBuckets",
+    "rationale" : "The returned bucket number index should be less than the total number of buckets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result >= 0) && (result < totalBuckets)",
+    "rationale" : "Combines the above bounds for a precise partition index range.",
+    "meta" : [ ]
+  } ]
+}

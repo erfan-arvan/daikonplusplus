@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "configuredParallelism > 0",
+    "rationale" : "Parallelism should be a positive number for bulk-insert to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null && !inputRecords.isEmpty()",
+    "rationale" : "Input records passed for bulk insertion are expected to be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table to perform the bulk insert operations must exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Bulk insert routines require valid HoodieWriteConfig for configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Bulk insert relies on a partitioner to repartition records.",
+    "meta" : [ ]
+  } ]
+}

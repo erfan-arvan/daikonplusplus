@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator<List<WriteStatus>>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a required input to identify the partition for the update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is necessary to associate the update with a specific file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr must be provided to enumerate records for update; checked before accessing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext() || !recordItr.hasNext()",
+    "rationale" : "If there are no records to update, the result is a singleton iterator with an empty list (hasNext() true); otherwise, the result may have more elements.",
+    "meta" : [ ]
+  } ]
+}

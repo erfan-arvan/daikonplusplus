@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The stream reduce always returns a value due to the initial zeroValue.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(data.collectAsList().stream().reduce(zeroValue, seqOp::apply, combOp::apply))",
+    "rationale" : "The result is calculated via this reduce operation, so equality should always hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(zeroValue) == data.collectAsList().isEmpty()",
+    "rationale" : "If there is no data, the reduction yields zeroValue, which can be checked using collectAsList().isEmpty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "seqOp must not be null for the reduce to proceed without error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "combOp must not be null for the reduce to proceed without error.",
+    "meta" : [ ]
+  } ]
+}

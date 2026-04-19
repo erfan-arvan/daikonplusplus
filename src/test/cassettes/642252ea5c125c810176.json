@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Methods committing instant time likely expect a non-null transaction identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "Partition records to commit should be provided, implying non-nullness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.isEmpty() || partitionRecordsMap.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "If partitionRecordsMap is not empty, its keys (partition names) are likely not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.isEmpty() || partitionRecordsMap.values().stream().allMatch(v -> v != null)",
+    "rationale" : "If partitionRecordsMap is not empty, all values (data) are expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.size() >= 0",
+    "rationale" : "A map cannot have a negative size.",
+    "meta" : [ ]
+  } ]
+}

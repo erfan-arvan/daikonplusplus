@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method is expected to require a non-null instantTime to be meaningful; nulls likely trigger failure or are not permitted as valid input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "A List of partitions should not be null at this program point, as the method is intended to operate on this list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.isEmpty() || partitions.size() >= 0",
+    "rationale" : "If partitions is empty, its size is 0; more generally, List.size() is always >= 0.",
+    "meta" : [ ]
+  } ]
+}

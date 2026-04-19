@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "triggeringInstantTimestamp != null",
+    "rationale" : "The triggeringInstantTimestamp is passed to Option.of(), which would throw a NullPointerException if null, implying it should be non-null on entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "failedWritesCleaningPolicy is used as an argument for another method and likely must be non-null for expected behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "streamingWrites == true || streamingWrites == false",
+    "rationale" : "streamingWrites is a boolean parameter, so it must be true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "autoDetectAndDeleteMetadataPartitions == true || autoDetectAndDeleteMetadataPartitions == false",
+    "rationale" : "autoDetectAndDeleteMetadataPartitions is a boolean parameter, so it must be true or false.",
+    "meta" : [ ]
+  } ]
+}

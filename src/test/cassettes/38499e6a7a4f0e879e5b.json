@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Iterator<List<WriteStatus>> via either handleInsert or handleUpdate, which should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "The partition integer is used to get bucket info and log errors, and NPE is not explicitly handled, so it must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is cast and used to obtain bucket info; null would throw immediately on cast.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in constructing the returned WriteStatus and/or logging; it being null may cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to handleInsert/handleUpdate, and expected to yield a non-null Iterator.",
+    "meta" : [ ]
+  } ]
+}

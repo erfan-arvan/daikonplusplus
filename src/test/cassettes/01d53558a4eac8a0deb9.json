@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method body unconditionally throws an exception, so it never actually returns a value; thus, 'result' must always be null at any return point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionFilePathAndSizeTriplet != null",
+    "rationale" : "Parameters should be non-null when exceptions are thrown for unsupported operations, as per typical contract style.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "Parameters are expected to be validated elsewhere; null argument may indicate violation of preconditions rather than expected execution.",
+    "meta" : [ ]
+  } ]
+}

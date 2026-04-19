@@ -3,7 +3,7 @@ package edu.njit.jerse.daikonplusplus.llm.prompt;
 public final class PromptStrategyFactory {
   private PromptStrategyFactory() {}
 
-  public static PromptStrategy create(String rawName) {
+  public static PromptStrategy createInternal(String rawName) {
     String name = rawName == null ? "" : rawName.trim().toLowerCase();
 
     return switch (name) {
@@ -26,9 +26,8 @@ public final class PromptStrategyFactory {
     };
   }
 
-  public static PromptStrategy create() {
-    String raw = System.getenv().getOrDefault("DP_PROMPT_STRATEGY", "baseline");
-    PromptStrategy strategy = create(raw);
+  public static PromptStrategy create(String raw) {
+    PromptStrategy strategy = createInternal(raw);
 
     System.out.println("[DP] Using prompt strategy: " + strategy.name());
 

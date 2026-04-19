@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the output of JavaHoodieIndexFactory.createIndex, which is likely never null for a valid configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "The returned result must be an instance of HoodieIndex, as that is the method's static return type.",
+    "meta" : [ ]
+  } ]
+}

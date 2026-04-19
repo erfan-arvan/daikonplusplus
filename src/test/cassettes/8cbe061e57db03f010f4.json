@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Commit actions typically require a valid instant time identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "A valid partition value must be present for processing inserts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "An iterator over records must be provided to insert into a partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "A partitioner instance is required to handle partitioning of records.",
+    "meta" : [ ]
+  } ]
+}

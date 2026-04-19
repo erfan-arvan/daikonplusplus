@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid commit instant typically requires a non-null instantTime.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "partitionRecordsMap is passed to an internal method and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty() || partitionRecordsMap.isEmpty()",
+    "rationale" : "Partition records map is either empty or not; covers two valid states, though not semantically deep.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet() != null",
+    "rationale" : "The keySet of any non-null map is never null per the Java Map contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.containsKey(instantTime) || instantTime != null",
+    "rationale" : "If partitionRecordsMap contains the instantTime key, then instantTime cannot be null.",
+    "meta" : [ ]
+  } ]
+}

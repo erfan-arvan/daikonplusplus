@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The restore method returns a HoodieRestoreMetadata object, which is likely expected to be non-null as a result of a successful restore operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp identifies the restore point, and should not be null for a restore operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "The savepoint to which we want to restore must be specified and is therefore expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext is necessary for this operation to proceed and should not be null.",
+    "meta" : [ ]
+  } ]
+}

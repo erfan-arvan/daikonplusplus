@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Average bytes per record, representing a size estimate, should not be negative regardless of estimation method or error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() || (!commitTimeline.empty() && result >= (long)Math.ceil((1.0 * commitTimeline.readCommitMetadata(commitTimeline.getReverseOrderedInstants().iterator().next()).fetchTotalBytesWritten()) / commitTimeline.readCommitMetadata(commitTimeline.getReverseOrderedInstants().iterator().next()).fetchTotalRecordsWritten()))",
+    "rationale" : "If no commit meets the threshold criteria, the default estimate is returned; otherwise, result comes from a commit's record size estimation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!commitTimeline.empty() || result == hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate()",
+    "rationale" : "If the timeline is empty, only the config estimate is used as no commits can provide an alternate value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getParquetSmallFileLimit()",
+    "rationale" : "Returned average is unlikely to exceed the configured small file limit, which is closely associated with average record sizing thresholds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() + hoodieWriteConfig.getParquetSmallFileLimit()",
+    "rationale" : "The estimated average should never exceed the sum of the configured defaults and limits for file sizes.",
+    "meta" : [ ]
+  } ]
+}

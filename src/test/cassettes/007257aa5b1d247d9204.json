@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Assuming that the execute() method always returns a non-null HoodieWriteMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime typically denotes a commit instant and should be a non-null, non-empty string to represent a valid state for data commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "List of records to insert should not be null; it may be empty but the reference should exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is required for operation and should always be non-null.",
+    "meta" : [ ]
+  } ]
+}

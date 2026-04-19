@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "A property key is expected to not be null when provided to setProperty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "A property value is typically not null when setting (but may be allowed depending on implementation).",
+    "meta" : [ ]
+  }, {
+    "expression" : "key instanceof EngineProperty",
+    "rationale" : "The key must be an instance of EngineProperty since the parameter type enforces this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value instanceof String",
+    "rationale" : "The value parameter must be an instance of String as per its method signature.",
+    "meta" : [ ]
+  } ]
+}

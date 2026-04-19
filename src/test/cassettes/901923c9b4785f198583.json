@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a non-null List of WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is passed as a parameter and should not be null during insert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to specify the commit time and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method returns a List<WriteStatus>, so result should always be a List at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() == !result.isEmpty()",
+    "rationale" : "If records are provided (non-empty), result should also be non-empty; if records is empty, result should also be empty.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Supplier<Long> (lambda) is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() == 0L",
+    "rationale" : "The lambda always returns 0L, so calling get() returns 0L.",
+    "meta" : [ ]
+  } ]
+}

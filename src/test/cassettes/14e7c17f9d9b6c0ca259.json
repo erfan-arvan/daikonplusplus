@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "EngineProperty key should typically be non-null for meaningful property-setting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value != null || value == null",
+    "rationale" : "Covers all possible values for 'value' (not meaningful, but the method performs no operation).",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.getProperty(key) instanceof Option",
+    "rationale" : "getProperty(key) should always return an Option<String> object type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key instanceof EngineProperty",
+    "rationale" : "Verifies that key is of the declared type EngineProperty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value == null || value instanceof String",
+    "rationale" : "If value is not null, it should be a String, consistent with method signature.",
+    "meta" : [ ]
+  } ]
+}

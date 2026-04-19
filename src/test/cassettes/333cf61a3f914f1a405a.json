@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "keys must not be null to perform a delete operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime is required for versioned operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys instanceof List",
+    "rationale" : "The parameter keys is declared as a List type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty string representing a commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "List.size() is always non-negative, ensuring valid List semantics.",
+    "meta" : [ ]
+  } ]
+}

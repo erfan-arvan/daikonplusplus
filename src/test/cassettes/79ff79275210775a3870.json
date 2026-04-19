@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "handleInsertPartition directly returns the result of handleUpsertPartition, which is designed to always return a valid iterator.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "result is never expected to be null due to direct return of another method"
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "Method signature guarantees result will be an Iterator<List<WriteStatus>>.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result type guarantee"
+    } ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition is a required argument and used in downstream methods, typically not nullable.",
+    "meta" : [ {
+      "key" : "input-safety",
+      "value" : "Partition should be a valid Integer"
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner is used in partitioning methods; expected not null.",
+    "meta" : [ {
+      "key" : "input-safety",
+      "value" : "Partitioner required"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is expected to represent a valid commit instant, should not be null or empty.",
+    "meta" : [ {
+      "key" : "invariant",
+      "value" : "Instant time must be defined"
+    } ]
+  } ]
+}

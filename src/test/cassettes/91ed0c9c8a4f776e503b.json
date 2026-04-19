@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method must return a list of WriteStatus, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in upsert schema validation and preWrite; null would likely be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is directly passed to preWrite and the internal insert logic, which likely assumes non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List in Java cannot have negative size; this is a general sanity check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "Similarly, List.size() is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

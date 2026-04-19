@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "It is standard for API methods to expect non-null lists; by contract, collections are often non-null on entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is typically a required timestamp string for write operations, and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "A valid instantTime should be a non-empty string representing a commit timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "If records is empty, its size is by definition zero or more; this checks consistency.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "The list of records is expected to contain only non-null record objects for correct processing.",
+    "meta" : [ ]
+  } ]
+}

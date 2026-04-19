@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required to identify the commit and should not be null at the exit of the commit method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "partitionRecordsMap is a parameter to the commit method and is expected to be non-null for commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty()",
+    "rationale" : "It is likely that commit is only meaningful if there are records to commit, so the records map should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is probably a non-empty identifier for the commit operation.",
+    "meta" : [ ]
+  } ]
+}

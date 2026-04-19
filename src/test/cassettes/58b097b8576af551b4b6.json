@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a value constructed by calling clone on a non-null metadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata != null",
+    "rationale" : "metadata is required to invoke clone and getWriteStatuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != metadata",
+    "rationale" : "The clone method is called, which should return a new object, not the same reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The returned result is of type HoodieWriteMetadata<List<WriteStatus>>, so getWriteStatuses returns a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses is accessed to construct the return value, implying it is non-null at this point.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used directly as an argument and is likely required by the merge handle and IOUtils.runMerge.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed to downstream methods which may require a valid partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId identifies a file to update and is needed by merge logic, likely cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "A map of keys to new records is required for an update operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "The merge operation requires an existing oldDataFile to perform the update.",
+    "meta" : [ ]
+  } ]
+}

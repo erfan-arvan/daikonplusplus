@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result should not be null because Option is always instantiated even when empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is required to schedule a restore and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is required to schedule a restore and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is needed for engine operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == (result != null && result.isPresent())",
+    "rationale" : "Safely checks the presence using Option API; always safe if result is non-null.",
+    "meta" : [ ]
+  } ]
+}

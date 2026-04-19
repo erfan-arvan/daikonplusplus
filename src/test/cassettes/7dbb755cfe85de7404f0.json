@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new HoodieIndex instance for supported configurations and throws otherwise, so result must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "The returned value is always a subclass of HoodieIndex as enforced by the method signature and the switch/case logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "All code paths require config to be non-null to operate correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(StringUtils.isNullOrEmpty(config.getIndexClass())) || config.getIndexType() != null",
+    "rationale" : "Either an index class is specified or a non-null index type must be provided for the method to return.",
+    "meta" : [ ]
+  } ]
+}

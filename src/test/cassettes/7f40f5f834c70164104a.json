@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is expected to be a valid input to fetch group records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is likely required to represent the clustering instant and must be non-empty for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "getSlices() must return a non-null list in order to process clustering operations.",
+    "meta" : [ ]
+  } ]
+}

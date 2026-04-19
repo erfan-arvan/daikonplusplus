@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a (possibly empty) Stream; it never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "super.getFileSlicesEligibleForClustering(partition).allMatch(slice -> !slice.getBaseFile().map(HoodieBaseFile::getFileSize).orElse(0L).equals(getWriteConfig().getClusteringSmallFileLimit()) || result.anyMatch(s -> s.equals(slice)))",
+    "rationale" : "Every slice included in result comes from the super call and has base file size less than the clustering small file limit.",
+    "meta" : [ ]
+  } ]
+}

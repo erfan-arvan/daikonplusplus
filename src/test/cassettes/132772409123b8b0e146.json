@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method will likely throw an exception if partitionPath is null, so it is reasonable to check for non-nullness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "It is likely expected that partitionPath is not empty to identify a partition.",
+    "meta" : [ ]
+  } ]
+}

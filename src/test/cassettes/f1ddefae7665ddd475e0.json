@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of IOUtils.runMerge, which is expected to produce a non-null Iterator as per typical usage and merging semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "keyToNewRecords is used when constructing the HoodieMergeHandle and should not be null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "oldDataFile is passed to getUpdateHandle and is required for update semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is passed into IOUtils.runMerge and likely must be a valid non-empty instant identifier.",
+    "meta" : [ ]
+  } ]
+}

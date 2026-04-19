@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "Instant time for indexing must be set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "Partitions to index must be specified as a list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Partition paths must be specified as a list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime.length() > 0",
+    "rationale" : "Index instant time should not be an empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex.size() >= 0",
+    "rationale" : "A list's size is never negative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of JavaWriteHelper.newInstance().write(...), making null result highly unlikely unless by design.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isInstance(result)",
+    "rationale" : "result should be a HoodieWriteMetadata<List<WriteStatus>>; either it's exactly that type or a subclass, so this confirms type correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Since execute() returns HoodieWriteMetadata<List<WriteStatus>>, the result must be an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

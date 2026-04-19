@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument to methods that expect non-null strings, so null would cause failures.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath likely represents a partition identifier for storage and should not be empty.",
+    "meta" : [ ]
+  } ]
+}

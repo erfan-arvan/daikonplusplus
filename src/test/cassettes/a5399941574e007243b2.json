@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method delegates to getUpsertPartitioner, which is expected to return a non-null Partitioner instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The profile parameter is required and passed directly to another method; it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Partitioner",
+    "rationale" : "The method's declared return type is Partitioner, and the assignment comes directly from getUpsertPartitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == getUpsertPartitioner(profile)",
+    "rationale" : "The result of getInsertPartitioner is the direct return value from getUpsertPartitioner invoked with the provided profile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile instanceof WorkloadProfile",
+    "rationale" : "The profile parameter's declared type is WorkloadProfile and it is directly passed to another method expecting the same type.",
+    "meta" : [ ]
+  } ]
+}

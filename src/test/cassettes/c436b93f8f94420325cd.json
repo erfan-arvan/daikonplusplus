@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a collection constructed via streams, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().noneMatch(Objects::isNull)",
+    "rationale" : "Nulls are explicitly filtered out before collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "Key deduplication and reduction cannot increase the number of records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The collected result is always a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism for a deduplication operation is expected to be at least 1.",
+    "meta" : [ ]
+  } ]
+}

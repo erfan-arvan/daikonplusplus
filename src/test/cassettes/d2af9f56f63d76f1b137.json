@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an iterator (never null) since Collections.singletonList(...).iterator() is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext()",
+    "rationale" : "The singleton iterator always has one element at creation, so hasNext() must be true before any iteration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap is used to construct HoodieCreateHandle and is never modified or checked for null, so it's assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to HoodieCreateHandle and is presumed required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed to HoodieCreateHandle and presumed required non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to represent a commit or instant time, and a null value would likely indicate an error condition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition is used as a key/index and passed to the partitioner, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is cast and used for method calls, so should be non-null for method correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is iterated on, so null would cause a runtime error; thus it is a safe invariant at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition >= 0",
+    "rationale" : "partition likely refers to a partition number or index, which is expected to be non-negative.",
+    "meta" : [ ]
+  } ]
+}

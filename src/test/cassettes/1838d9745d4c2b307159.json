@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Stream instance, possibly empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method expects the 'data' parameter to be non-null since it operates over the Stream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism level for engine context methods must be positive for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "Transformation function over the partition iterator must be non-null for the pipeline to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "Reduce function must be provided and non-null as it is wrapped and used in the computation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically required to be positive for parallel processing to occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "A non-null data list is needed for streaming and iteration logic in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "consumer is required to apply the foreach operation and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || (data.isEmpty() && parallelism > 0)",
+    "rationale" : "Either data is not empty, or if empty, parallelism must still be positive - ensures parallelism is meaningful only if data is present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size() || data.isEmpty()",
+    "rationale" : "It is common to bound parallelism by data size to prevent wasting threads or inefficiency; if data is empty, the check is trivially true.",
+    "meta" : [ ]
+  } ]
+}

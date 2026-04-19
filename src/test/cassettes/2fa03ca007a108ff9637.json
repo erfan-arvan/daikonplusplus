@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "For partitioning, the number of output partitions is generally required to be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method expects a non-null list of records as input to operate correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "Typically, the number of output partitions should not exceed the number of records unless the records list is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a list is always non-negative by definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions != Integer.MIN_VALUE",
+    "rationale" : "Using Integer.MIN_VALUE as a partition count would be nonsensical and could cause issues in logic that uses this parameter.",
+    "meta" : [ ]
+  } ]
+}

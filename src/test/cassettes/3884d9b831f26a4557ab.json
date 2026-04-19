@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a non-null list of records to perform bulk insert.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter is likely required to identify the commit instant; thus, should not be null or empty.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "records instanceof java.util.List",
+    "rationale" : "records is statically typed as List<HoodieRecord<T>>, so this should always be true at entry.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "instantTime instanceof String",
+    "rationale" : "instantTime is statically typed as String, so this holds.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "It is reasonable to expect that the list does not contain null elements for a write operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "content"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Engine context argument must be valid for operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid, non-empty commit instant time is typically required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records list must exist for upsert processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is never negative in Java and this is always safe to check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(records.isEmpty()) || records.size() == 0 || records.size() > 0",
+    "rationale" : "The records list must have a size that is either zero or positive; logically, if not empty, size is positive.",
+    "meta" : [ ]
+  } ]
+}

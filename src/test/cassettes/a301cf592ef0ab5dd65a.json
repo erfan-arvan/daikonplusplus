@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieListData.lazy(records) returns a non-null HoodieData instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Method returns result based on records; likely records should not be null during this method's execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "HoodieListData.lazy(records) returns a HoodieListData instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(records)",
+    "rationale" : "If HoodieListData properly delegates to the input list, collecting elements should yield the same list reference or an equal list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == records.size()",
+    "rationale" : "HoodieData obtained by wrapping records should have the same number of elements as records.",
+    "meta" : [ ]
+  } ]
+}

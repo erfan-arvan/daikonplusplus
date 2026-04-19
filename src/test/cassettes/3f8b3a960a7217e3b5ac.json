@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be a valid non-null string representing the commit time.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "argument"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The keys list of HoodieKey objects to delete should be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "argument"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext context should always be provided for engine operations.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "argument"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "HoodieWriteConfig must be non-null to configure the operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "argument"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The target HoodieTable reference must not be null to execute delete logic.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "argument"
+    } ]
+  } ]
+}

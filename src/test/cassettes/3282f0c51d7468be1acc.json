@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "execute() returns a non-null HoodieWriteMetadata as per common conventions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method parameter inputRecords is usually assumed non-null when invoked.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStats() != null",
+    "rationale" : "HoodieWriteMetadata typically returns a non-null List via getWriteStats().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStats().size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inputRecords.isEmpty() || result.getWriteStats().isEmpty()",
+    "rationale" : "If there are no input records, the write stats must be empty.",
+    "meta" : [ ]
+  } ]
+}

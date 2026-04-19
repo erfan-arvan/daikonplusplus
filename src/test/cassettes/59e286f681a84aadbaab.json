@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the output of postWrite, which produces a non-null List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The parameter preppedRecords is not modified, and its nullness is typically validated or assumed in Hoodie code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used throughout and passed downstream, so is expected to be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The result is a List, so its size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || preppedRecords.isEmpty()",
+    "rationale" : "If result is empty, it's likely that preppedRecords was empty as well, as there would be nothing to write.",
+    "meta" : [ ]
+  } ]
+}

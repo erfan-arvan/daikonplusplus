@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a String parameter typically representing a timestamp or identifier, and is likely not null at the entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "instantToRollback is needed to identify what to roll back, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(isRestore && shouldRollbackUsingMarkers)",
+    "rationale" : "It is plausible that restore mode and marker-based rollback should not both be enabled simultaneously.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipTimelinePublish || !isRestore",
+    "rationale" : "Timeline publishing may not be skipped during restore operations; expressing that if isRestore, skipTimelinePublish should likely be false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext is required for execution, so should not be null.",
+    "meta" : [ ]
+  } ]
+}

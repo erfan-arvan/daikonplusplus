@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "The method operates over the keys list and calls keys.stream(), keys.forEach(), and uses keys.clear(). For safe evaluation, keys should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The method invokes table.getIndex(), so table must be non-null to prevent NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 0",
+    "rationale" : "Parallelism is generally a count; negative parallelism is typically invalid or nonsensical.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys instanceof java.util.List",
+    "rationale" : "The method expects keys to be a List<HoodieKey>, and List interface methods are called on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getIndex() != null",
+    "rationale" : "table.getIndex().isGlobal() is called early; to avoid NullPointerException, getIndex() must not return null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A non-null result is required to represent a valid HoodieWriteMetadata after upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records, the input list, should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime, the commit time, should not be null for a successful upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context should not be null for operation to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses generated during upsert should not be null in metadata.",
+    "meta" : [ ]
+  } ]
+}

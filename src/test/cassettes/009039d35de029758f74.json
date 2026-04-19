@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is a String parameter and is likely expected to be non-null as per context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is dereferenced in the method body with hasNext(), thus must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr.hasNext() || !recordItr.hasNext()",
+    "rationale" : "This expresses that recordItr.hasNext() is always defined and returns a boolean without exception at method entry, given prior null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.equals(idPfx)",
+    "rationale" : "idPfx and recordItr should not be equal as they are of unrelated types (String vs Iterator).",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx.length() >= 0",
+    "rationale" : "For any non-null Java String, length() is non-negative.",
+    "meta" : [ ]
+  } ]
+}

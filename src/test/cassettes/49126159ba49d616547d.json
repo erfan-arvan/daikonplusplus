@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method is invoked on a List, so nullness is important for correct streaming operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The function parameter must be non-null for the computation to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is expected to be a positive integer in parallel processing contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "Parallelism above the data size is usually unnecessary; this captures likely usage patterns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism must be at least one for meaningful execution in a parallel context.",
+    "meta" : [ ]
+  } ]
+}

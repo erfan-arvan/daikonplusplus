@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The reduction returns an aggregated value, likely not null unless all operations and zeroValue are null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "A valid sequence operation must be supplied to perform aggregation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "A valid combination operation must be supplied to perform aggregation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Aggregation requires a valid HoodieData input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "The initial value for the aggregation should be provided.",
+    "meta" : [ ]
+  } ]
+}

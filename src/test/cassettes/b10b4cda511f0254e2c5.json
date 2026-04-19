@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new TableWriteStats, so result should not be null.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "result"
+    } ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "writeMetadata is a parameter and is dereferenced inside the method, so it must not be null on exit.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "writeMetadata"
+    } ]
+  }, {
+    "expression" : "result.getStats().size() == writeMetadata.getWriteStatuses().size()",
+    "rationale" : "result's stats list is created by mapping each WriteStatus from writeMetadata to its stat, so sizes must match.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "result/writeMetadata"
+    } ]
+  }, {
+    "expression" : "result.getStats().stream().noneMatch(Objects::isNull)",
+    "rationale" : "The collect process does not add nulls, as each WriteStatus.getStat() is expected to be non-null.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "result.getStats()"
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().stream().noneMatch(Objects::isNull)",
+    "rationale" : "Each WriteStatus in writeMetadata should be non-null; otherwise, NPE would occur in the method.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "writeMetadata.getWriteStatuses()"
+    } ]
+  } ]
+}

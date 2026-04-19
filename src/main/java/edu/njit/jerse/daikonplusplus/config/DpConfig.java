@@ -48,8 +48,23 @@ public final class DpConfig {
   private final @Nullable String llmCassettesDir;
   private final boolean disableRealLlm;
 
+  // ---- execution / scripts ----
+  private final @Nullable String compileMainScript;
+  private final @Nullable String compileTestScript;
+
+  // ---- time control ----
+  private final int llmPollStepMs;
+
+  // ---- external mode ----
+  private final String externalCompileClasspath;
+
+  // ---- working dir ----
+  private final String workDir;
+
   // ---- context selection ----
   private final Set<ContextKind> enabledContexts;
+
+  private final String promptStrategy;
 
   private DpConfig(
       int threads,
@@ -66,7 +81,13 @@ public final class DpConfig {
       Set<ContextKind> enabledContexts,
       String openaiModel,
       @Nullable String llmCassettesDir,
-      boolean disableRealLlm) {
+      boolean disableRealLlm,
+      @Nullable String compileMainScript,
+      @Nullable String compileTestScript,
+      int llmPollStepMs,
+      String externalCompileClasspath,
+      String workDir,
+      String promptStrategy) {
 
     this.threads = threads;
     this.registryPath = registryPath;
@@ -83,6 +104,12 @@ public final class DpConfig {
     this.openaiModel = openaiModel;
     this.llmCassettesDir = llmCassettesDir;
     this.disableRealLlm = disableRealLlm;
+    this.compileMainScript = compileMainScript;
+    this.compileTestScript = compileTestScript;
+    this.llmPollStepMs = llmPollStepMs;
+    this.externalCompileClasspath = externalCompileClasspath;
+    this.workDir = workDir;
+    this.promptStrategy = promptStrategy;
   }
 
   // ---- getters ----
@@ -147,6 +174,30 @@ public final class DpConfig {
     return disableRealLlm;
   }
 
+  public @Nullable String compileMainScript() {
+    return compileMainScript;
+  }
+
+  public @Nullable String compileTestScript() {
+    return compileTestScript;
+  }
+
+  public int llmPollStepMs() {
+    return llmPollStepMs;
+  }
+
+  public String externalCompileClasspath() {
+    return externalCompileClasspath;
+  }
+
+  public String workDir() {
+    return workDir;
+  }
+
+  public String promptStrategy() {
+    return promptStrategy;
+  }
+
   // ---- factory ----
 
   /**
@@ -202,8 +253,8 @@ public final class DpConfig {
         firstNonBlank(
             file.get("dp.openaiModel"),
             firstNonBlank(
-                System.getProperty("dp.openaiModel"), env.get("DP_OPENAI_MODEL"), "gpt-4.1-mini"),
-            "gpt-4.1-mini");
+                System.getProperty("dp.openaiModel"), env.get("DP_OPENAI_MODEL"), "gpt-4.1"),
+            "gpt-4.1");
 
     String llmCassettesDir = file.get("dp.llmCassettes");
 
@@ -221,6 +272,45 @@ public final class DpConfig {
 
     boolean disableRealLlm = getBool("dp.disableRealLlm", "DP_DISABLE_REAL_LLM", false, env, file);
 
+    String compileMainScript =
+        firstNonBlankNullable(
+            file.get("dp.compileMainScript"),
+            System.getProperty("dp.compileMainScript"),
+            env.get("DP_COMPILE_MAIN_SCRIPT"));
+
+    String compileTestScript =
+        firstNonBlankNullable(
+            file.get("dp.compileTestScript"),
+            System.getProperty("dp.compileTestScript"),
+            env.get("DP_COMPILE_TEST_SCRIPT"));
+
+    int llmPollStepMs = getInt("dp.llmPollStepMs", "DP_LLM_POLL_STEP_MS", 1500, env, file);
+
+    String externalCompileClasspath =
+        firstNonBlank(
+            file.get("dp.externalCompileClasspath"),
+            firstNonBlank(
+                System.getProperty("dp.externalCompileClasspath"),
+                env.get("DP_EXTERNAL_COMPILE_CP"),
+                ""),
+            "");
+
+    String workDir =
+        firstNonBlank(
+            file.get("dp.workDir"),
+            firstNonBlank(
+                System.getProperty("dp.workDir"),
+                env.get("DP_WORKDIR"),
+                System.getProperty("java.io.tmpdir") + "/daikonpp_work"),
+            System.getProperty("java.io.tmpdir") + "/daikonpp_work");
+
+    String promptStrategy =
+        firstNonBlank(
+            file.get("dp.promptStrategy"),
+            firstNonBlank(
+                System.getProperty("dp.promptStrategy"), env.get("DP_PROMPT_STRATEGY"), "baseline"),
+            "baseline");
+
     return new DpConfig(
         threads,
         Path.of(regPath).toAbsolutePath().normalize(),
@@ -236,7 +326,13 @@ public final class DpConfig {
         contexts,
         openaiModel,
         llmCassettesDir,
-        disableRealLlm);
+        disableRealLlm,
+        compileMainScript,
+        compileTestScript,
+        llmPollStepMs,
+        externalCompileClasspath,
+        workDir,
+        promptStrategy);
   }
 
   // ---- helpers ----
@@ -374,6 +470,26 @@ public final class DpConfig {
     System.out.println("llmCassettesDir = " + llmCassettesDir);
     System.out.println("disableRealLlm = " + disableRealLlm);
 
+    System.out.println("compileMainScript = " + compileMainScript);
+    System.out.println("compileTestScript = " + compileTestScript);
+
+    System.out.println("llmPollStepMs = " + llmPollStepMs);
+
+    System.out.println("externalCompileClasspath = " + externalCompileClasspath);
+
+    System.out.println("workDir = " + workDir);
+
+    System.out.println("promptStrategy = " + promptStrategy);
+
     System.out.println("=========================");
+  }
+
+  private static @Nullable String firstNonBlankNullable(
+      @Nullable String a, @Nullable String b, @Nullable String c) {
+
+    if (a != null && !a.isBlank()) return a;
+    if (b != null && !b.isBlank()) return b;
+    if (c != null && !c.isBlank()) return c;
+    return null;
   }
 }

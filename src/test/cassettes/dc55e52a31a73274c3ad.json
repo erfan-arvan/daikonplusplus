@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "conf is required to construct the Writer and is likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is an essential configuration parameter and must be non-null for instantiation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context provides the execution engine context and must be non-null for method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "Option objects are typically non-null even if empty, so a not-null check is valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp.isPresent() ? inflightInstantTimestamp.get() != null : true",
+    "rationale" : "If inflightInstantTimestamp is present, its internal value should be non-null.",
+    "meta" : [ ]
+  } ]
+}

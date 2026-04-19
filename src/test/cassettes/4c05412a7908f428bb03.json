@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Pair, as the last line is 'return Pair.of(...)'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The first element of the returned Pair (partitionPathStatMap) is always populated (never set to null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The second element of the returned Pair (globalStat) is always a new WorkloadStat, not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "The code assumes inputRecords is non-null before iterating over it.",
+    "meta" : [ ]
+  } ]
+}

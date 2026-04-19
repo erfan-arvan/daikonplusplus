@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition counts are typically positive in partitioning operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method likely requires a non-null records list for safe operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || outputPartitions == outputPartitions",
+    "rationale" : "If records are empty, the output is immediately returned and outputPartitions is not used, so the value doesn't affect control flow.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 1",
+    "rationale" : "Partition counts less than 1 are likely invalid for repartitioning logic.",
+    "meta" : [ ]
+  } ]
+}

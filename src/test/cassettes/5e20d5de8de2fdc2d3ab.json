@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is used as a parameter in createIndex, which would expect a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a typical required parameter for context-aware operations; null would likely cause errors elsewhere.",
+    "meta" : [ ]
+  } ]
+}

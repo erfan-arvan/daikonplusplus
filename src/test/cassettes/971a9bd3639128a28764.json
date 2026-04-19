@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionId >= 0",
+    "rationale" : "Partition IDs are typically non-negative; this is a likely precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId == null || !fileId.isEmpty()",
+    "rationale" : "If fileId is not null, it should likely be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionId != Integer.MIN_VALUE",
+    "rationale" : "PartitionId should not be the minimum integer value; this could represent an invalid partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId == null || fileId.length() > 0",
+    "rationale" : "If fileId is non-null, it should have positive length.",
+    "meta" : [ ]
+  } ]
+}

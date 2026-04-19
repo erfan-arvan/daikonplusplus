@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method delegates to a MetaClient method returning a String, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "The commit action type is expected to be a non-empty string identifying the commit action. An empty string would be semantically meaningless.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(table.getMetaClient().getCommitActionType())",
+    "rationale" : "The result is directly returned from table.getMetaClient().getCommitActionType().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof String",
+    "rationale" : "The result is declared and returned as a String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.trim().length() > 0",
+    "rationale" : "Beyond non-emptiness, it's likely the commit action type has meaningful content and is not just whitespace.",
+    "meta" : [ ]
+  } ]
+}

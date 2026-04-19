@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a new List<WriteStatus>, thus result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == result",
+    "rationale" : "Trivially true about reference identity; included for structure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Return type is List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!writeStatuses.isEmpty() || !result.isEmpty()",
+    "rationale" : "If the input list is empty, it's likely the result is empty as well, though not strictly guaranteed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || writeStatuses.isEmpty()",
+    "rationale" : "Inverse relationship: if result is empty, possible input writeStatuses was empty.",
+    "meta" : [ ]
+  } ]
+}

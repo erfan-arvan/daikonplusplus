@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The bucket index is based on totalBuckets, which is incremented and assigned as an int >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket.containsKey(fileIdHint) && updateLocationToBucket.get(fileIdHint) == result",
+    "rationale" : "The method puts fileIdHint mapped to the returned bucket index (result).",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(result)",
+    "rationale" : "A new BucketInfo is put into bucketInfoMap at index result before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result).fileIdHint.equals(fileIdHint)",
+    "rationale" : "BucketInfo for that bucket index contains fileIdHint as set in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result).partitionPath.equals(partitionPath)",
+    "rationale" : "The BucketInfo created and inserted at this bucket uses the same partitionPath argument.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns one of several new HoodieIndex instances or delegates to createUserDefinedIndex; it never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(StringUtils.isNullOrEmpty(config.getIndexClass()) && config.getIndexType() != null) || !StringUtils.isNullOrEmpty(config.getIndexClass())",
+    "rationale" : "If indexClass is empty, the switch on indexType is used; otherwise, indexClass is used. In both code paths, at least one of these is true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!StringUtils.isNullOrEmpty(config.getIndexClass()) || (config.getIndexType() == org.apache.hudi.index.HoodieIndex.IndexType.SIMPLE || config.getIndexType() == org.apache.hudi.index.HoodieIndex.IndexType.GLOBAL_SIMPLE || config.getIndexType() == org.apache.hudi.index.HoodieIndex.IndexType.INMEMORY || config.getIndexType() == org.apache.hudi.index.HoodieIndex.IndexType.BLOOM)",
+    "rationale" : "If indexClass is empty, indexType must be one of the handled types; otherwise, we use the custom index class.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(StringUtils.isNullOrEmpty(config.getIndexClass()) && (config.getIndexType() == org.apache.hudi.index.HoodieIndex.IndexType.SIMPLE || config.getIndexType() == org.apache.hudi.index.HoodieIndex.IndexType.GLOBAL_SIMPLE || config.getIndexType() == org.apache.hudi.index.HoodieIndex.IndexType.INMEMORY || config.getIndexType() == org.apache.hudi.index.HoodieIndex.IndexType.BLOOM)) || !StringUtils.isNullOrEmpty(config.getIndexClass())",
+    "rationale" : "If no user-defined index class is set, indexType must be one of the supported types; otherwise, any indexClass can be used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(!StringUtils.isNullOrEmpty(config.getIndexClass()) && config.getIndexType() == null)",
+    "rationale" : "If a user-defined index class is provided, config.getIndexType() is not used, but it's allowed for it to be null; when using indexType for switch, it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

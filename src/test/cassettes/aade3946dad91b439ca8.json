@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == config.getProps().getProperty(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key())",
+    "rationale" : "The method's return value is exactly config.getProps().getProperty(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key()) in all cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config must be non-null as it is dereferenced in the method body.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Option (never null), as it is the result of executing a non-null constructor and method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == false || instantToRollback != null",
+    "rationale" : "If a rollback plan is present, the instant to rollback should not be null because the executor is constructed using it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == false || instantTime != null",
+    "rationale" : "If a rollback plan is present, the instant time should not be null since it's required by the executor.",
+    "meta" : [ ]
+  } ]
+}

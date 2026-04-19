@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieJavaTable.create() returns a HoodieTable instance, which is expected to be non-null for valid config/context inputs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "getTable delegates to HoodieJavaTable.create, thus the returned table is always an instance of HoodieJavaTable.",
+    "meta" : [ ]
+  } ]
+}

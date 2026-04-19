@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents an operation timestamp and is expected to be non-null for committing actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "A collection of keys is necessary to specify which records to delete; the parameter should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!keys.isEmpty()",
+    "rationale" : "Attempting to delete without specifying keys is likely invalid, so keys should be non-empty.",
+    "meta" : [ ]
+  } ]
+}

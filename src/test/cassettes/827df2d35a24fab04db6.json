@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "Method calls are made on writeClient, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as an argument to writeClient methods, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs must not be null as it is passed to upsertPreppedRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.upsertPreppedRecords(preppedRecordInputs, instantTime) != null",
+    "rationale" : "The upsertPreppedRecords call is assigned to a local; a null result would likely indicate error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.upsertPreppedRecords(preppedRecordInputs, instantTime).size() >= 0",
+    "rationale" : "The size of the write status list should be non-negative.",
+    "meta" : [ ]
+  } ]
+}

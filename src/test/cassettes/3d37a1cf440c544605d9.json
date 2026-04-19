@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a singleton instance, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaBulkInsertHelper",
+    "rationale" : "The returned object is of the JavaBulkInsertHelper type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == BulkInsertHelperHolder.JAVA_BULK_INSERT_HELPER",
+    "rationale" : "The method returns the static singleton instance.",
+    "meta" : [ ]
+  } ]
+}

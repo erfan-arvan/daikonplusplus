@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the input records list, which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The return value is always the original list, not a copy or sublist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == records",
+    "rationale" : "The method directly returns the records parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Partition counts are typically non-negative; negative values would not make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == records.isEmpty()",
+    "rationale" : "If the input list is empty, the returned list is also empty as it's the same list.",
+    "meta" : [ ]
+  } ]
+}

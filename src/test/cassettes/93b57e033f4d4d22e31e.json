@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "partition != null",
+    "rationale" : "The method expects non-null partition names for correct operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "!partition.isEmpty()",
+    "rationale" : "Partitions typically should not be empty strings as they identify data partitions.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-empty string"
+    } ]
+  }, {
+    "expression" : "partition.trim().length() > 0",
+    "rationale" : "Ensures 'partition' is not only non-empty but also not just whitespace.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-whitespace string"
+    } ]
+  } ]
+}

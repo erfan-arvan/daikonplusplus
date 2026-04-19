@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "By method contract, Option should not be null; it should be Option.empty() or Option.of(T).",
+    "meta" : [ ]
+  }, {
+    "expression" : "isMetadataTable() || config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable() || !result.isPresent()",
+    "rationale" : "The result is Option.empty() unless the metadata table is enabled or available and not isMetadataTable().",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(isMetadataTable()) || !result.isPresent()",
+    "rationale" : "If this is a metadata table, always return Option.empty() (not present).",
+    "meta" : [ ]
+  }, {
+    "expression" : "autoDetectAndDeleteMetadataPartitions || !isMetadataTableExists || !result.isPresent() || config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()",
+    "rationale" : "At least one controlling condition must be met for Option to possibly be present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !isMetadataTableExists || isMetadataTable() || (!config.isMetadataTableEnabled() && !metaClient.getTableConfig().isMetadataTableAvailable())",
+    "rationale" : "Result is present only if the metadata table exists and was enabled/available and not a metadata table; otherwise, not present.",
+    "meta" : [ ]
+  } ]
+}

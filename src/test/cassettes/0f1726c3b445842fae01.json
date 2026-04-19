@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method receives a List and likely expects it to be non-null to process records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is required to label the operation's commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "The size() of a List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "The commit time string should not be empty for meaningful record insertion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty()",
+    "rationale" : "The method's purpose is to insert records, so the input list is likely non-empty in typical use.",
+    "meta" : [ ]
+  } ]
+}

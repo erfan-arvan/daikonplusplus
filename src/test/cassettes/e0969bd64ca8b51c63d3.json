@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator, either via a constructor or a super method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is likely used as an identifier and required for downstream processing, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The Iterator of records should never be null, as it is passed along to other methods or constructors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The returned object must be an instance of Iterator since that is the declared return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext() || !result.hasNext()",
+    "rationale" : "This expression is always true for any Iterator and highlights that result is always a valid Iterator object at this point.",
+    "meta" : [ ]
+  } ]
+}

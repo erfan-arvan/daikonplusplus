@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns WriteHelperHolder.JAVA_WRITE_HELPER, which is expected to be non-null as a static holder singleton.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaWriteHelper",
+    "rationale" : "Since the method return type is JavaWriteHelper and returns JAVA_WRITE_HELPER, the result should always be an instance of JavaWriteHelper.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == WriteHelperHolder.JAVA_WRITE_HELPER",
+    "rationale" : "The method unconditionally returns WriteHelperHolder.JAVA_WRITE_HELPER, so this should always hold.",
+    "meta" : [ ]
+  } ]
+}

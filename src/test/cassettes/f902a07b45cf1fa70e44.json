@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieData<WriteStatus>, and returning null is likely not permitted by convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Input HoodieData<WriteStatus> is used in collectAsList(); a null check is required to safely call the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is required in delegated method calls and must be non-null for safe evaluation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "The hoodieTable is passed down for delegated method calls, implying it is not expected to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieData",
+    "rationale" : "The result must be of type HoodieData as per the method signature and the method implementation.",
+    "meta" : [ ]
+  } ]
+}

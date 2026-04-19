@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since result is returned as an Option, it should not be null; Option should encode absence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is a required parameter and likely not nullable in normal use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required for clustering and should not be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "triggeringInstantTimestamp != null",
+    "rationale" : "Timestamps are typically required for metadata operations and this method appears to require the instant timestamp value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "A null cleaning policy would be invalid for metadata operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!triggeringInstantTimestamp.isEmpty()",
+    "rationale" : "Timestamps for operations are expected to be non-empty strings in practice.",
+    "meta" : [ ]
+  }, {
+    "expression" : "streamingWrites || !streamingWrites",
+    "rationale" : "streamingWrites is a boolean, always true or false; ensures boolean range (implied by Java typing).",
+    "meta" : [ ]
+  }, {
+    "expression" : "autoDetectAndDeleteMetadataPartitions || !autoDetectAndDeleteMetadataPartitions",
+    "rationale" : "autoDetectAndDeleteMetadataPartitions is a boolean, always true or false; ensures boolean range (implied by Java typing).",
+    "meta" : [ ]
+  } ]
+}

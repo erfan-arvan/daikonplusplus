@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 ? result == Integer.MIN_VALUE : result == a / b",
+    "rationale" : "Captures the method's documented behavior: if b is 0, returns MIN_VALUE, else returns integer division.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b == 0 || result == a / b",
+    "rationale" : "If b is not zero, result is exactly a / b.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b == 0 || b * result <= a && a < b * (result + 1)",
+    "rationale" : "If b != 0, result is integer division so this gives the mathematical bounds for a in integer division.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "If b is zero, result must be Integer.MIN_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b == 0 || Math.abs(result) <= Math.abs(a)",
+    "rationale" : "If b != 0, division reduces the magnitude or keeps it the same.",
+    "meta" : [ ]
+  } ]
+}

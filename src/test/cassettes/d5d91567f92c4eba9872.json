@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a constructed index object; no code paths return null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "factory guarantee"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The method is not designed to accept null configuration; all return paths use config.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  } ]
+}

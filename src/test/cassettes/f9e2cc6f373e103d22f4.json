@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The execute method should not return null under normal operation, as it delegates to a helper that likely guarantees a metadata result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() method should return a List of WriteStatus, which is expected to be non-null for successful write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().isEmpty() || result.getWriteStatuses().get(0) != null",
+    "rationale" : "If the list of write statuses is not empty, its first element should be a valid WriteStatus object.",
+    "meta" : [ ]
+  } ]
+}

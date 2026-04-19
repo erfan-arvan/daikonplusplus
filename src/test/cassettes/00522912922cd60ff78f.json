@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method should always return metadata about the write operation, even if the records are empty.",
+    "meta" : [ {
+      "key" : "reliability",
+      "value" : "ensures insert returns metadata"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input 'records' should generally be non-null for the insert.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "method argument is non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter should be a valid string corresponding to a commit timestamp.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "method argument is non-null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is required for execution.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "method argument is non-null"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The result should be metadata about the write, as per the return type.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "output type"
+    } ]
+  } ]
+}

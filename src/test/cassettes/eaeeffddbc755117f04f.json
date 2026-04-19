@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The commit method is called with a HoodieWriteMetadata argument, and the first statement dereferences it, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() method is called on result, so it must return a non-null value at this point.",
+    "meta" : [ ]
+  } ]
+}

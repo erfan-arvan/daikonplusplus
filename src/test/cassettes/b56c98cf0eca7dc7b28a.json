@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == bucketInfoMap.get(bucketNumber)",
+    "rationale" : "The method always returns the value from bucketInfoMap for bucketNumber.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber) == (result != null)",
+    "rationale" : "If the bucketInfoMap contains the bucketNumber, result should not be null and vice versa.",
+    "meta" : [ ]
+  } ]
+}

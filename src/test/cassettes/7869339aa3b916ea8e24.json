@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "props != null",
+    "rationale" : "The method requires a non-null TypedProperties object for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(props == null)",
+    "rationale" : "Equivalent to props != null, ensures props is non-null, which is likely necessary for downstream method calls.",
+    "meta" : [ ]
+  } ]
+}

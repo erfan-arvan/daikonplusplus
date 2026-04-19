@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method expects dedupedRecords to be valid; null would likely cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The method calls methods on partitioner, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!dedupedRecords.isEmpty() || dedupedRecords.isEmpty()",
+    "rationale" : "This expresses that dedupedRecords is either empty or not, ensuring the variable is initialized and finite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner instanceof Partitioner",
+    "rationale" : "partitioner must be a Partitioner to be used safely in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(record -> record != null)",
+    "rationale" : "The method maps over dedupedRecords and safely calls methods on each, implying elements are non-null.",
+    "meta" : [ ]
+  } ]
+}

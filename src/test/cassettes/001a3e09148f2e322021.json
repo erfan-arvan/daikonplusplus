@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter should not be null to execute index-related actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "The indexInstantTime parameter typically represents a commit time and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime.length() > 0",
+    "rationale" : "indexInstantTime is expected to be a non-empty string denoting a valid instant.",
+    "meta" : [ ]
+  } ]
+}

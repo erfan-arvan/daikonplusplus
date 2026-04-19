@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "writeMetadata must be non-null because its method getWriteStatuses() is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result is constructed and returned, so it is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is used to build the result and is thus non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TableWriteStats",
+    "rationale" : "result is created as a TableWriteStats, confirming its type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStats().size() == writeMetadata.getWriteStatuses().size()",
+    "rationale" : "Result is built by mapping each WriteStatus to a stat, so the list sizes are equal.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is required by almost all Hoodie table actions and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null && !instantToSavepoint.isEmpty()",
+    "rationale" : "A valid savepoint instant (commit ID) must be given.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null && !user.isEmpty()",
+    "rationale" : "Savepoint operations typically require the user to be specified.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "A comment is always supplied, even if it can be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "Method is invoked on a non-null instance.",
+    "meta" : [ ]
+  } ]
+}

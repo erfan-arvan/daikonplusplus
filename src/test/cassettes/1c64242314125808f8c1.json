@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method constructs and returns the result of 'execute()', it is highly likely not to return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method is not expected to be called with null records; a valid List is required by context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Operations in the Hudi engine typically require a valid, non-empty instant time.",
+    "meta" : [ ]
+  } ]
+}

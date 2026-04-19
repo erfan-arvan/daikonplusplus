@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method assumes 'profile' is a valid (non-null) input and uses it without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "The method immediately calls 'profile.getInputPartitionPathStatMap().entrySet()', which implies the map is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.getInputPartitionPathStatMap().isEmpty()",
+    "rationale" : "The method for-loop assumes there is at least one partition to process; likely the map is not empty at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The method uses 'profile.getOutputPartitionPathStatMap()' and calls 'getOrDefault', presuming the map is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap().size() > 0)",
+    "rationale" : "The method checks 'hasOutputWorkLoadStats()' and only then updates the output map, suggesting a relationship between the flag and the map's size.",
+    "meta" : [ ]
+  } ]
+}

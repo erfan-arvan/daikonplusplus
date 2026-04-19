@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "smallFiles != null",
+    "rationale" : "Method depends on smallFiles being non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is likely a required dependency for partitioner logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is expected to be initialized for writer configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "totalBuckets >= 0",
+    "rationale" : "totalBuckets represents a count and should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "Mapping updated locations to buckets must exist for partitioning logic.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "The method throws an exception and never reaches exit if operationType is LOG_COMPACT, so this must always be false at METHOD_EXIT.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is a required method parameter and must not be null for correct operation through method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is a method parameter and operations such as containsInstant are invoked on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "operationType is dereferenced to call .equals, so it must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to generate HoodieInstant objects and passed to methods, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

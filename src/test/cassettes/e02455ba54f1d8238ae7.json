@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method always throws an exception and never returns normally, so 'result' must be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "false",
+    "rationale" : "Control can never reach the return point because an exception is always thrown; thus, this program point is unreachable.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter typically identifies a timeline instant and should not be null when initiating an insertOverwrite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Insert operations expect a list of records to process; the method likely does not handle null 'records'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for engine-level distributed operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "When 'records' is provided, it is generally expected to contain at least one record for overwrite. Allow for the null case to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter should be non-null and non-empty to correctly identify the write action's instant.",
+    "meta" : [ ]
+  } ]
+}

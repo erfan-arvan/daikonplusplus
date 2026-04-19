@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs and returns a new HoodieWriteMetadata; it should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method passes 'keys' as an argument to another method; it is likely intended to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' argument is passed through and likely required to be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The 'context' argument is used as a parameter; passing null would likely result in an error in the called method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is obtained via collect(toList()), which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data == null || result.size() >= 0",
+    "rationale" : "If data is null, the result may be empty; otherwise, result.size() is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null || result.isEmpty()",
+    "rationale" : "If data is null, data.stream() would throw; but as a 'just in case', result must be empty if data is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(o -> o != null)",
+    "rationale" : "Assuming that func never produces nulls; flatMap and collect do not introduce nulls on their own.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data == null ? 0 : data.size() * Integer.MAX_VALUE",
+    "rationale" : "The output cannot be larger than the number of inputs times the theoretical maximum output per input.",
+    "meta" : [ ]
+  } ]
+}

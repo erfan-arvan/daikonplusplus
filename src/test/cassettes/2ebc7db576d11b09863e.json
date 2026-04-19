@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records.collectAsList()",
+    "rationale" : "The method body returns records.collectAsList(), so result is exactly that.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "records.collectAsList() never returns null; it returns an (possibly empty) List, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method dereferences records, so records must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == records.isEmpty()",
+    "rationale" : "If records is empty, collectAsList() will produce an empty result list and vice versa.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.count()",
+    "rationale" : "The resulting List's size from collectAsList() matches the count of records in the HoodieData.",
+    "meta" : [ ]
+  } ]
+}

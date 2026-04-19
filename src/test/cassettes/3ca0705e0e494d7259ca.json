@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a new instance; only throws on unsupported table types.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a required non-null parameter and used without null-check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is passed to constructed HoodieJavaTable subtypes and used without null-check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to constructed HoodieJavaTable subtypes and used without null-check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "Return value is always of type HoodieJavaTable or its subtype.",
+    "meta" : [ ]
+  } ]
+}

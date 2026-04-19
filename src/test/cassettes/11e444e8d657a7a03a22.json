@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a valid list of records to be inserted, and passing null would likely produce a NullPointerException.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter is used directly in method calls and must be non-null for correct operation.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always non-negative in Java.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!records.contains(null)",
+    "rationale" : "Each HoodieRecord in the list should be non-null to avoid downstream issues.",
+    "meta" : [ {
+      "key" : "quality",
+      "value" : "recommended"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The 'instantTime' string likely represents a timestamp and should not be empty.",
+    "meta" : [ {
+      "key" : "quality",
+      "value" : "recommended"
+    } ]
+  } ]
+}

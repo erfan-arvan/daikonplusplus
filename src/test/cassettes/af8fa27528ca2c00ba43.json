@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "dedupedRecords is a required input argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == dedupedRecords.size()",
+    "rationale" : "tagLocation generally attaches location info but preserves cardinality.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Method contract is to return a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for tagging, so must not be null.",
+    "meta" : [ ]
+  } ]
+}

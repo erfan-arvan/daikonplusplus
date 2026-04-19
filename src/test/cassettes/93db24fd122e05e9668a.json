@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is likely required to identify the write/commit being performed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records should not be null to perform an insert/overwrite operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is essential for executing write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "records.size() must be non-negative, and if records is empty, this is always true; this checks structural property of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "instantTime should not be blank, as a valid commit instant is usually required.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "table != null",
+    "rationale" : "The method dereferences table, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "The method calls methods on pendingCompactionTimeline, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "operationType is compared for equality and used in logical decisions, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to getCompactionInflightInstant, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "The first instruction throws an exception if operationType is LOG_COMPACT, so this must not be the case for normal execution.",
+    "meta" : [ ]
+  } ]
+}

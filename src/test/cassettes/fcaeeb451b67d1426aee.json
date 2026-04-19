@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option values should not be null in typical Java Option usage, thus result is never null but possibly Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to the executor and should be required for scheduling clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context must be provided to perform work, so must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is an Option, typically non-null even if Option.empty().",
+    "meta" : [ ]
+  } ]
+}

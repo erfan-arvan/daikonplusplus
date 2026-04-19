@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "A method accepting a List parameter will typically expect the argument to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "The parameter type is List<String>, so it should be an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(c -> c != null)",
+    "rationale" : "It is good practice for a list of column names to not contain null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(c -> !c.isEmpty())",
+    "rationale" : "Column names should not be empty strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(c -> c.trim().length() > 0)",
+    "rationale" : "Column names should not consist only of whitespace.",
+    "meta" : [ ]
+  } ]
+}

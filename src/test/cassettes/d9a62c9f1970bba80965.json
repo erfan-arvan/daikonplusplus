@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method assumes 'profile' is valid and not null for its logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "Accessed at the start for entrySet, should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.getInputPartitionPathStatMap().isEmpty() || !profile.hasOutputWorkLoadStats()",
+    "rationale" : "If there are no input partitions, output workload stats should not be claimed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "Field 'updateLocationToBucket' is updated in the method and likely assumed valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket.size() >= 0",
+    "rationale" : "The size of 'updateLocationToBucket' cannot be negative and is potentially updated in this method.",
+    "meta" : [ ]
+  } ]
+}

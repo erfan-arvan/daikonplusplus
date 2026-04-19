@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of HoodieJavaTable.create, which should be non-null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is passed into multiple parameters and used in building metaClient and HoodieJavaTable, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is dereferenced (.getStorageConf()), so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == HoodieJavaTable.create(config, context, metaClient)",
+    "rationale" : "The result is exactly the value returned by HoodieJavaTable.create(config, context, metaClient) as per the code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "Method is declared to return HoodieJavaTable<T>, so result should have this type.",
+    "meta" : [ ]
+  } ]
+}

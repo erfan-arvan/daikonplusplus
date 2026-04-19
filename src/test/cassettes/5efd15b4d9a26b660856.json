@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The list of records to be deleted must not be null for deletePrepped to operate correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is necessary to identify the write instant for deletion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If there are prepped records, it's likely that instantTime should not be an empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() || preppedRecords.size() == 0",
+    "rationale" : "If preppedRecords is empty, its size should be 0 (consistency check).",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() == instantTime.length()",
+    "rationale" : "instantTime is expected to be free from leading or trailing whitespace for semantic correctness.",
+    "meta" : [ ]
+  } ]
+}

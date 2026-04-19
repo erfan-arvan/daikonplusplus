@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses are always set, even in the case of empty deletes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty() || keys.isEmpty() || result.getWriteStatuses().equals(Collections.EMPTY_LIST)",
+    "rationale" : "If no records are deleted (empty write statuses), either there were no keys or empty result list is explicitly set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Config is used directly; cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Table is dereferenced for index lookups and deduplication; must not be null.",
+    "meta" : [ ]
+  } ]
+}

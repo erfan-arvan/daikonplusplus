@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects a valid list of HoodieRecords to insert; passing null would likely violate the preconditions of subsequent operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime is required for versioning/temporal consistency in Hudi operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If there are records to insert, instantTime should not be empty, supporting a consistent commit context.",
+    "meta" : [ ]
+  } ]
+}

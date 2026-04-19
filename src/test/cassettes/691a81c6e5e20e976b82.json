@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns Collections.emptyList(), which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Collections.emptyList() always returns an empty list, so result must be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "If the list is empty, its size is 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Collections.emptyList() returns an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result instanceof java.util.RandomAccess) || result.get(0) == null",
+    "rationale" : "If result supports RandomAccess, it is still empty, so get(0) would throw or be null depending on impl; here we constrain via emptiness.",
+    "meta" : [ ]
+  } ]
+}

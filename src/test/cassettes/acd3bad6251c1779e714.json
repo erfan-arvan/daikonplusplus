@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned list of WriteStatus should not be null after delete operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is used with Option.ofNullable and preWrite, so is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "keys parameter must be non-null to perform delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "Number of WriteStatus results should not exceed the number of HoodieKeys requested for deletion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "Result is a List, so its size is always non-negative (>=0).",
+    "meta" : [ ]
+  } ]
+}

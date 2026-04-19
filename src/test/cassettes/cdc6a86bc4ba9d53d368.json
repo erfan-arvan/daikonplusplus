@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns either fileId or a value from super.getFileIdPfx, both of which are expected to be non-null.",
+    "meta" : [ {
+      "key" : "unary",
+      "value" : "non-null return"
+    } ]
+  }, {
+    "expression" : "fileId == null || result.equals(fileId)",
+    "rationale" : "If fileId is set, result is always equal to fileId.",
+    "meta" : [ {
+      "key" : "case",
+      "value" : "fileId set"
+    } ]
+  }, {
+    "expression" : "fileId != null || !result.equals(fileId)",
+    "rationale" : "If fileId is not set (null), result cannot equal fileId because fileId is null.",
+    "meta" : [ {
+      "key" : "case",
+      "value" : "fileId not set"
+    } ]
+  }, {
+    "expression" : "fileId != null || result.equals(BulkInsertPartitioner.super.getFileIdPfx(partitionId))",
+    "rationale" : "If fileId is null, result is delegated from the super implementation.",
+    "meta" : [ {
+      "key" : "case",
+      "value" : "delegation"
+    } ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "FileIds or their prefixes are typically non-empty strings.",
+    "meta" : [ {
+      "key" : "unary",
+      "value" : "non-empty return"
+    } ]
+  } ]
+}

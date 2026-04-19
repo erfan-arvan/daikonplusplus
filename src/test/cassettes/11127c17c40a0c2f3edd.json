@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns the result of a utility method and is expected to produce a ComparableList.",
+    "meta" : [ ]
+  }, {
+    "expression" : "SortUtils.getComparableSortColumns(record, sortColumnNames, schema, suffixRecordKey, consistentLogicalTimestampEnabled) == result",
+    "rationale" : "Result is directly returned from this method call; it should always be equal.",
+    "meta" : [ ]
+  } ]
+}

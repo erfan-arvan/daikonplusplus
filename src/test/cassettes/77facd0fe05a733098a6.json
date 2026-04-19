@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a key to retrieve buckets; null may be invalid.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Prevents potential NullPointerException in downstream code."
+    } ]
+  }, {
+    "expression" : "partitionPath instanceof String",
+    "rationale" : "The partitionPath parameter should always be a String at method entry.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Sanity-check for parameter type."
+    } ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "String length is always non-negative in Java.",
+    "meta" : [ {
+      "key" : "string property",
+      "value" : "String length is non-negative."
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "It is likely that partitionPath should not be an empty string, for valid partition lookups.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "partitionPath used as map key; likely to be non-empty."
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is constructed by HoodieListData.lazy(records), which should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method operates on records; HoodieListData.lazy(records) expects records to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "The method always returns HoodieListData.lazy(records), which should be an instance of HoodieListData.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == records.size()",
+    "rationale" : "If result is a lazy wrapper over records, their counts should correspond (assuming records contains all elements to be wrapped).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(records)",
+    "rationale" : "Assuming HoodieListData.lazy(records) returns a lazy view/wrapper, converting back to list should yield the original records.",
+    "meta" : [ ]
+  } ]
+}

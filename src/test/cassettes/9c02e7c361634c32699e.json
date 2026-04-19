@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "cleanInstantTime typically represents an instant or timestamp and should not be null for a clean operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is needed to perform operations on the table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!cleanInstantTime.isEmpty()",
+    "rationale" : "The cleanInstantTime string should not be empty; a valid instant is required to identify the clean operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime.trim().length() > 0",
+    "rationale" : "Ensures cleanInstantTime is not only non-empty, but doesn't contain only whitespace.",
+    "meta" : [ ]
+  } ]
+}

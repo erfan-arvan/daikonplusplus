@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "foreach is called on data; must not be null for stream().forEach.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "consumer is passed to throwingForeachWrapper, which requires non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1 || parallelism <= 0",
+    "rationale" : "No precondition is imposed on parallelism in this implementation, it is ignored.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().count() == data.size()",
+    "rationale" : "The stream iterates all elements of the list; after forEach, all were seen.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || data.get(0) != null || data.size() >= 0",
+    "rationale" : "data could be empty or contain non-null elements; the stream operation processes all elements.",
+    "meta" : [ ]
+  } ]
+}

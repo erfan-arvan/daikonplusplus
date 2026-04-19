@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieSavepointMetadata object created by SavepointActionExecutor.execute(), so result is unlikely to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null && !instantToSavepoint.isEmpty()",
+    "rationale" : "A savepoint is created for a specific instant, so the instant identifier should be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null && !user.isEmpty()",
+    "rationale" : "The user creating the savepoint should be specified and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "A comment, even if empty, should not be null for record-keeping purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext is required for execution, so it should not be null at method exit.",
+    "meta" : [ ]
+  } ]
+}

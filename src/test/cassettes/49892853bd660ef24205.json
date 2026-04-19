@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context should never be null when passed into this table method, as it is required for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be a required parameter (typically uniquely identifying an operation instant), so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option parameters are typically non-null, even if they are Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is usually expected to be a non-empty string representing a time or operation identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() == (extraMetadata.get() != null)",
+    "rationale" : "If Option is present, get() should not be null; otherwise get() should not be called.",
+    "meta" : [ ]
+  } ]
+}

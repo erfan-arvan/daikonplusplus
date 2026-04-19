@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "insert and commit actions typically require a non-null instant time to record write activity",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "partition paths are usually specified and non-empty for partitioned inserts",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "fileId refers to a data file for the insert and must be non-null and non-empty",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "records to be inserted must be provided as a non-null map",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap == null || !recordMap.isEmpty()",
+    "rationale" : "if recordMap is not null, there should be records to write",
+    "meta" : [ ]
+  } ]
+}

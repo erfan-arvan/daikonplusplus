@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The execute method returns the result of a write call, which is expected to be non-null upon successful completion.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result of a successful write call should not be null."
+    } ]
+  }, {
+    "expression" : "result.getWriteStats() != null",
+    "rationale" : "A successful write should provide non-null write statistics.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Write statistics are expected to be produced during the write action."
+    } ]
+  }, {
+    "expression" : "result.getWriteStatus() != null",
+    "rationale" : "Successful write operations should include a non-null status collection.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The write status map is expected after upsert."
+    } ]
+  } ]
+}

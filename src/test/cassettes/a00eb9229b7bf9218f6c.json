@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option types in Java are usually never null; the API will return Option.empty() instead.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for the RestorePlanActionExecutor and should not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is an essential parameter likely required for scheduling restores and should not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is an essential parameter likely required for scheduling restores and should not be null.",
+    "meta" : [ ]
+  } ]
+}

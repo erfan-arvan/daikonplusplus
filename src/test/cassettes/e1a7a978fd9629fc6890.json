@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs and returns a Map with results, so null is not expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "Since the method extracts partitions from writeResult's WriteStatus list and maps them, a non-empty WriteStatus list implies a non-empty result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().containsAll(writeResult.getWriteStatuses().stream().map(status -> status.getStat().getPartitionPath()).distinct().collect(java.util.stream.Collectors.toList()))",
+    "rationale" : "All partitions found in writeResult.getWriteStatuses() are mapped as keys in result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "Each value in the result map is produced by getAllExistingFileIds, which returns a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(key -> result.get(key) != null)",
+    "rationale" : "For each partition key, getAllExistingFileIds returns a non-null list; no value in the result map is null.",
+    "meta" : [ ]
+  } ]
+}

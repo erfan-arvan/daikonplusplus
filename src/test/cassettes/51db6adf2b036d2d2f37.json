@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is created via a static method and returned, not null.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "non-null return"
+    } ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Method returns an empty collection explicitly.",
+    "meta" : [ {
+      "key" : "derived from implementation",
+      "value" : "wraps Collections.emptyList"
+    } ]
+  } ]
+}

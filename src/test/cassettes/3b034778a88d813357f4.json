@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method is expected to process the provided data list, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "The SerializableConsumer is used to process elements and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should generally be positive for parallel operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream() != null",
+    "rationale" : "Calling stream() on a non-null list should return a non-null Stream object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().count() == data.size()",
+    "rationale" : "Counting the elements of the stream should equal the list's size.",
+    "meta" : [ ]
+  } ]
+}

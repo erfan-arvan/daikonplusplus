@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is used as an argument, so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is used to construct iterables, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.equals(null)",
+    "rationale" : "Ensures recordItr is not null, using a method form.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx.length() > 0",
+    "rationale" : "idPfx is likely used as an identifier prefix, which should not be empty.",
+    "meta" : [ ]
+  } ]
+}

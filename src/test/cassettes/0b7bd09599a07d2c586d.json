@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects a non-null list of HoodieRecord to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid, non-empty instantTime string is likely required for commit actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The execution context is expected to be available and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option objects are generally expected to be non-null, even if empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() > 0",
+    "rationale" : "List can be empty or have positive size, covers basic expected states.",
+    "meta" : [ ]
+  } ]
+}

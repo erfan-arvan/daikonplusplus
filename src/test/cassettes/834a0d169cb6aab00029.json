@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieListData.eager returns a HoodieData<T> and likely never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(data)",
+    "rationale" : "HoodieListData.eager likely wraps 'data', so collecting the list gives back the original.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == data.size()",
+    "rationale" : "The number of items in the returned HoodieData should match the size of the input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == data.isEmpty()",
+    "rationale" : "If the input data is empty, the resulting HoodieData should also be empty (and vice versa).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || result.isEmpty()",
+    "rationale" : "If the input data is empty, the result must also be empty.",
+    "meta" : [ ]
+  } ]
+}

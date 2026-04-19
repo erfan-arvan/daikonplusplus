@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The execute() method always returns the result of bulkInsert(). If an exception occurs, it throws, so a null result is not returned under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Assuming HoodieWriteMetadata#getWriteStatuses() returns the list passed to or produced by bulkInsert, which is expected to be non-null if result is non-null.",
+    "meta" : [ ]
+  } ]
+}

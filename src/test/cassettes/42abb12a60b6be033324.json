@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is key to transactional operations and is likely required to be non-null for overwrite actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records list must be non-null since the method is expected to operate on a set of records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used to execute distributed tasks and must be non-null to function.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "A list must always have non-negative size; isEmpty is only true if size is zero.",
+    "meta" : [ ]
+  } ]
+}

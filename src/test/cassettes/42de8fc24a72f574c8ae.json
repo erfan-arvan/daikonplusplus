@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method createTable should always return a non-null HoodieTable instance, as it wraps a static factory and validation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "A valid HoodieWriteConfig is required to create the table; the implementation always passes this parameter to a lower-level factory method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "A valid StorageConfiguration is required for table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipValidation || result != null",
+    "rationale" : "If validation is not skipped, the result must be non-null for correctness; in implementation, the result is always non-null, but this captures the logical intent.",
+    "meta" : [ ]
+  } ]
+}

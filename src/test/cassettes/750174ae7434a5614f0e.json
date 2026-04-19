@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Option parameters are generally expected to be non-null, as Option represents the presence or absence of a value.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime must be non-null for Option semantics"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The metadata client must be initialized for table operations.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "metaClient is required for metadata table initialization"
+    } ]
+  } ]
+}

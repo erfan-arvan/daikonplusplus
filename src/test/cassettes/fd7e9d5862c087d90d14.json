@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to always return a non-null List since it invokes postWrite and returns its result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method assumes preppedRecords is valid for delete, so it is likely never null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An empty or null instantTime would be invalid for write operations, so this invariant likely holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() || result.isEmpty()",
+    "rationale" : "If no records are given for deletion, the result should be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= preppedRecords.size()",
+    "rationale" : "Each prepped record can lead to at most one WriteStatus; the returned list of status objects should not exceed input.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Typically, the main input to a data ingestion method should not be null before processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An operation affecting system state (such as a commit) requires a non-null timestamp or identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "A write operation needs a destination table, which should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration should be provided and not null before performing the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "The execution helper responsible for committing records should be initialized before the operation.",
+    "meta" : [ ]
+  } ]
+}

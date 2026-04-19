@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Average record size in bytes should not be negative due to the computation logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() || (!commitTimeline.empty() && (commitTimeline.getReverseOrderedInstants().iterator().hasNext()))",
+    "rationale" : "If no suitable/valid previous commit, returns default estimate; else, result comes from the commit data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() >= 0",
+    "rationale" : "A small file limit should always be non-negative as a configuration sanity constraint.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "scheduleRestore returns a non-null Option to signal if a restore plan is present or absent; null would be an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is passed to the executor and must be non-null for valid operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is forwarded to the restore plan executor and must be non-null for successful processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for engine actions (used in underlying executor), so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "result is an Option, so its value is exhaustively either present or not; this is a basic property of Option.",
+    "meta" : [ ]
+  } ]
+}

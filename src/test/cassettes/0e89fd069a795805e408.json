@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A well-formed public API should never return null for a collection, and the implementation always returns the result of postWrite, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The incoming list of records to insert should not be null, as all processing uses this parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is propagated and used throughout the method, so it should be non-null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || preppedRecords.isEmpty()",
+    "rationale" : "If no WriteStatus objects are returned, it is likely that there were no records to write.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= preppedRecords.size()",
+    "rationale" : "Each WriteStatus corresponds to a write operation, so the number of WriteStatus objects should not exceed the number of input records.",
+    "meta" : [ ]
+  } ]
+}

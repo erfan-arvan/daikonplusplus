@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid 'instantTime' is expected for table write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "'records' argument should be non-null for insert/overwrite operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "'context' is required to execute distributed write actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty()",
+    "rationale" : "Insert/overwrite operations are typically only performed when there is non-empty data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "'instantTime' should be a non-empty string representing a commit time.",
+    "meta" : [ ]
+  } ]
+}

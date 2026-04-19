@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "Method expects non-null 'profile', as it is immediately dereferenced.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "parameter expected by method"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Method expects non-null 'context', as it is immediately dereferenced.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "parameter expected by method"
+    } ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "Method gets partition paths from profile and iterates over them immediately.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "method body uses partition paths"
+    } ]
+  }, {
+    "expression" : "!profile.getPartitionPaths().isEmpty() || profile.getPartitionPaths().isEmpty()",
+    "rationale" : "Partition paths could be empty or not, and this is valid at entry; no stronger claim is possible.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "covers both possible empty/non-empty cases, so correct"
+    } ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "The presences of workload stats usually correspond to a non-null output partition stat map.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "structure meaningfulness"
+    } ]
+  } ]
+}

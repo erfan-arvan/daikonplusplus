@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is expected to be a valid engine context for compaction to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "A compaction instant time string must be provided for compaction to occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!compactionInstantTime.isEmpty()",
+    "rationale" : "The compaction instant time should not be an empty string for valid compaction operation.",
+    "meta" : [ ]
+  } ]
+}

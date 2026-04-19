@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method uses collect(Collectors.toList()), which always returns a non-null list.",
+    "meta" : [ {
+      "key" : "common",
+      "value" : "returned collection should not be null"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(fileId -> fileId != null)",
+    "rationale" : "FileId is extracted from SmallFile.location.getFileId(), which should never return null for valid files.",
+    "meta" : [ {
+      "key" : "correctness",
+      "value" : "no null fileId"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method returns a List as per the signature.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "return type"
+    } ]
+  }, {
+    "expression" : "result.size() == smallFiles.size()",
+    "rationale" : "Each SmallFile in smallFiles produces one fileId in result.",
+    "meta" : [ {
+      "key" : "mapping",
+      "value" : "1-to-1 mapping from smallFiles"
+    } ]
+  }, {
+    "expression" : "result.stream().distinct().count() <= result.size()",
+    "rationale" : "If multiple SmallFiles have the same fileId, the list can contain duplicates, but never more unique fileIds than total size.",
+    "meta" : [ {
+      "key" : "uniqueness",
+      "value" : "fileIds may not be unique"
+    } ]
+  } ]
+}

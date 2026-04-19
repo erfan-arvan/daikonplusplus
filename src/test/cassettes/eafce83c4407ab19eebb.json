@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the smallFileLocations List, which is always instantiated before any conditional logic.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Method always returns a non-null List"
+    } ]
+  }, {
+    "expression" : "result.isEmpty() || partitionPath != null",
+    "rationale" : "If the result is non-empty, partitionPath must have been passed to the getLatestBaseFilesBeforeOrOn method, which requires it not to be null.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "partitionPath is used in a base file query if commits exist"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf != null)",
+    "rationale" : "Only new SmallFile objects are added; no nulls are added to the result list.",
+    "meta" : [ {
+      "key" : "collection-element-nullability",
+      "value" : "No null SmallFile objects stored in result"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.sizeBytes < config.getParquetSmallFileLimit())",
+    "rationale" : "SmallFile objects are only added if their file size is less than the configured limit.",
+    "meta" : [ {
+      "key" : "domain-property",
+      "value" : "All SmallFile instances added meet small file requirement"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.location != null)",
+    "rationale" : "sf.location is always assigned a new HoodieRecordLocation before the SmallFile is added.",
+    "meta" : [ {
+      "key" : "location-assignment",
+      "value" : "location field of SmallFile is always set"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A commit instant (instantTime) is typically required to be non-null for commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "The partitionRecordsMap should not be null to be safely operated on; null would likely cause errors in subsequent logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.isEmpty() || partitionRecordsMap.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "If the partitionRecordsMap is not empty, all its keys (partition names) should be non-null to ensure correct partition addressing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.isEmpty() || partitionRecordsMap.values().stream().allMatch(v -> v != null)",
+    "rationale" : "If the partitionRecordsMap is not empty, all HoodieData values should be non-null for correct data representation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If there are no records to commit, perhaps instantTime needs to be non-empty to indicate a valid no-operation commit.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to produce a non-null mapping as a result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "The method requires writeResult to access write statuses for constructing the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || writeResult.getWriteStatuses().isEmpty()",
+    "rationale" : "If the returned map is empty, the input writeResult must not describe any written statuses (partitions).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= writeResult.getWriteStatuses().stream().map(status -> status.getStat().getPartitionPath()).distinct().count()",
+    "rationale" : "The result map contains a mapping for each distinct partition path found in the write statuses and cannot exceed their count.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().containsAll(writeResult.getWriteStatuses().stream().map(status -> status.getStat().getPartitionPath()).distinct().collect(java.util.stream.Collectors.toList()))",
+    "rationale" : "Every distinct partition path encountered in write statuses should be present as a key in the result.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method always returns the result of 'execute()', it is likely that a non-null result is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "It is reasonable to assume prepared records input should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Timestamps or instant identifiers are generally expected to be non-null in commit or delete actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for performing any write/delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata#getWriteStatuses() should return a non-null list to accurately represent the status of delete/write actions.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "Instant time parameters are typically set before scheduling actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "The method requires a list of partitions to index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Partition paths must be provided for index scheduling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex.isEmpty() || partitionsToIndex.size() >= 0",
+    "rationale" : "A list that is empty has size >= 0; sanity check on collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths.isEmpty() || partitionPaths.size() >= 0",
+    "rationale" : "A list that is empty has size >= 0; basic property of lists.",
+    "meta" : [ ]
+  } ]
+}

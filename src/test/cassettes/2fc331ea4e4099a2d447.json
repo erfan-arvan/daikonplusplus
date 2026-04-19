@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap is used for constructing new handles; null would cause NPE.",
+    "meta" : [ {
+      "key" : "drawn_from",
+      "value" : "A, C"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is likely required for record organization and is passed directly.",
+    "meta" : [ {
+      "key" : "drawn_from",
+      "value" : "A, C"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is passed to handle and is used without null check in callee handle.",
+    "meta" : [ {
+      "key" : "drawn_from",
+      "value" : "A, C"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required in handle construction and commit metadata.",
+    "meta" : [ {
+      "key" : "drawn_from",
+      "value" : "A, C"
+    } ]
+  }, {
+    "expression" : "!recordMap.isEmpty()",
+    "rationale" : "Inserting requires there to be records; empty insert is likely not permitted.",
+    "meta" : [ {
+      "key" : "drawn_from",
+      "value" : "A, C"
+    } ]
+  } ]
+}

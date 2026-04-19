@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result instanceof JavaHoodieBackedTableMetadataWriter",
+    "rationale" : "Because the method creates and returns a new JavaHoodieBackedTableMetadataWriter.",
+    "meta" : [ {
+      "key" : "type-related",
+      "value" : "result is always a JavaHoodieBackedTableMetadataWriter"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method unconditionally returns a new object, so result is never null.",
+    "meta" : [ {
+      "key" : "object-creation",
+      "value" : "Result is a new instance, never null"
+    } ]
+  }, {
+    "expression" : "result.getEngineType() != null",
+    "rationale" : "Result is a table metadata writer; engine type should be defined.",
+    "meta" : [ {
+      "key" : "method-behavior",
+      "value" : "getEngineType returns a non-null value"
+    } ]
+  }, {
+    "expression" : "conf != null",
+    "rationale" : "Object construction requires a valid storage configuration.",
+    "meta" : [ {
+      "key" : "parameter-requirement",
+      "value" : "conf must be non-null for the object construction"
+    } ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "Object construction requires a HoodieWriteConfig.",
+    "meta" : [ {
+      "key" : "parameter-requirement",
+      "value" : "writeConfig must be non-null for the object construction"
+    } ]
+  } ]
+}

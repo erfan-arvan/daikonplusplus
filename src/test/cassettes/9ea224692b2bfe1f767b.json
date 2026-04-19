@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata instance as its result, by delegating to execute(), which should not return null in normal cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "In practical usage, clusteringInstantTime is expected to identify the clustering instant and should not be null for a clustering operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for execution and typically should not be null when invoking clustering actions.",
+    "meta" : [ ]
+  } ]
+}

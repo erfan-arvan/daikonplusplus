@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPathToInsertBucketInfos.containsKey(partitionPath)",
+    "rationale" : "Since getInsertBuckets returns partitionPathToInsertBucketInfos.get(partitionPath), it's likely that the mapping contains the provided key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == partitionPathToInsertBucketInfos.get(partitionPath)",
+    "rationale" : "The returned result is exactly the value mapped by the key partitionPath in partitionPathToInsertBucketInfos.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof List",
+    "rationale" : "The result may be null or a List, depending on the map's value for the key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a key lookup; it's likely, though not strictly required, that it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || !result.isEmpty() || result.size() == 0",
+    "rationale" : "If result is not null, it may be empty, and this expresses that relationship.",
+    "meta" : [ ]
+  } ]
+}

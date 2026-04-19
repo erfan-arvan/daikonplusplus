@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option objects are designed to never be null but possibly empty; ensures API contract.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "Result non-nullness"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required to perform the cleaner plan action.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "Parameter non-nullness"
+    } ]
+  }, {
+    "expression" : "result.isPresent() == false || result.get() != null",
+    "rationale" : "If result Option contains a value, that value should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "Option value validity"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option parameters should be non-null references in canonical usage.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "Parameter non-nullness"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter should be non-null to indicate a valid point in time for partition deletion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The list of partitions to delete should be provided; null would indicate a misuse of the method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions instanceof List",
+    "rationale" : "The 'partitions' argument must be a List as per the method signature.",
+    "meta" : [ ]
+  } ]
+}

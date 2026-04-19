@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option objects should not be null; empty means no value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == (isMetadataTableExists && (config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()))",
+    "rationale" : "A present result means metadata table exists and is enabled or available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isPresent() || result.get() != null",
+    "rationale" : "If the Option is present, its value must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isMetadataTable() || result.equals(Option.empty())",
+    "rationale" : "If called on the metadata table, always returns Option.empty().",
+    "meta" : [ ]
+  } ]
+}

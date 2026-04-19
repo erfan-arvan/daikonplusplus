@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires a HoodieWriteConfig to function; null config is likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method requires a HoodieEngineContext to function; null context is likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "getBasePath() is used to initialize the HoodieTableMetaClient and is required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context.getStorageConf() != null",
+    "rationale" : "getStorageConf() is called immediately; it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getConsistencyGuardConfig() != null",
+    "rationale" : "The consistency guard config is passed to the meta client builder and must not be null.",
+    "meta" : [ ]
+  } ]
+}

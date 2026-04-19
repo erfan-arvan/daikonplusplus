@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Partitioner is assigned from a casted superclass method, which likely does not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner == result",
+    "rationale" : "Immediately before returning, 'partitioner' is assigned to the value being returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner instanceof JavaUpsertPartitioner",
+    "rationale" : "partitioner is cast from the superclass method to JavaUpsertPartitioner and assigned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Partitioner",
+    "rationale" : "By Java typing, any value returned by the method must conform to the declared return type.",
+    "meta" : [ ]
+  } ]
+}

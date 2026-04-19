@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Bulk insert operation requires input records, so inputRecords should not be null before execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null || bulkInsertPartitioner == null",
+    "rationale" : "bulkInsertPartitioner is of type Option and can be null or non-null, capture possible initialized state.",
+    "meta" : [ ]
+  } ]
+}

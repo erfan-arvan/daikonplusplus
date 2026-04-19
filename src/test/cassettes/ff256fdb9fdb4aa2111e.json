@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "data.stream() invocation implies that data must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "throwingForeachWrapper(consumer) and forEach require consumer to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "parallelism is commonly required to be positive in parallelized constructs, though not directly used here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().count() == data.size()",
+    "rationale" : "For a List, Java's stream().count() equals size().",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() == (data.size() == 0)",
+    "rationale" : "isEmpty() and size() yield the same emptiness check for List.",
+    "meta" : [ ]
+  } ]
+}

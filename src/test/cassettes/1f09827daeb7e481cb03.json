@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new AvroReaderContextFactory, which is never null.",
+    "meta" : [ {
+      "key" : "nontriviality",
+      "value" : "ensures the method always returns a factory object"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is passed directly to the constructor, so must be non-null to avoid failure.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "parameter cannot be null since it's used in object construction"
+    } ]
+  }, {
+    "expression" : "result instanceof AvroReaderContextFactory",
+    "rationale" : "The method explicitly returns a new AvroReaderContextFactory.",
+    "meta" : [ {
+      "key" : "type guarantee",
+      "value" : "returned factory is always AvroReaderContextFactory"
+    } ]
+  }, {
+    "expression" : "((AvroReaderContextFactory)result).getMetaClient() == metaClient",
+    "rationale" : "AvroReaderContextFactory is constructed with metaClient, so its metaClient field should equal this argument.",
+    "meta" : [ {
+      "key" : "constructor argument correspondence",
+      "value" : "metaClient is passed and stored in result"
+    } ]
+  }, {
+    "expression" : "((AvroReaderContextFactory)result).getProperties() != null",
+    "rationale" : "TypedProperties() creates a non-null properties object, so getProperties() must return non-null.",
+    "meta" : [ {
+      "key" : "constructor postcondition",
+      "value" : "TypedProperties instance passed is always non-null"
+    } ]
+  } ]
+}

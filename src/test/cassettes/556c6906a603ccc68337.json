@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is required to refer to a partition, and most logic expects a valid (non-null) path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath is expected to be a meaningful identifier; empty strings are likely not valid partition identifiers.",
+    "meta" : [ ]
+  } ]
+}

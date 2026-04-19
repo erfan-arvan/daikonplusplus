@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method operates on 'profile', likely assuming it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "The method unconditionally calls 'profile.getInputPartitionPathStatMap()', so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The method immediately accesses 'profile.getOutputPartitionPathStatMap()', so that map must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().size() >= 0",
+    "rationale" : "A map's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap().size() >= 0",
+    "rationale" : "A map's size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

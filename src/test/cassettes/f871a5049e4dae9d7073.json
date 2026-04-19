@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of HoodieListData.eager(Collections.emptyList()), which should never be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "non-null return"
+    } ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The returned data is based on Collections.emptyList(), so the resulting HoodieData should be empty.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "data state"
+    } ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "As the method constructs the HoodieData from Collections.emptyList(), the size should be zero.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "data size"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "The static method HoodieListData.eager returns an instance of HoodieListData.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "concrete type"
+    } ]
+  } ]
+}

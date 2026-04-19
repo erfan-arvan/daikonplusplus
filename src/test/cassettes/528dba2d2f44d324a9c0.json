@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null",
+    "rationale" : "Prevents NullPointerException for any method or field access on 'a'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getQuantity() >= 0",
+    "rationale" : "It is common for order quantities to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getUnitPrice() >= 0.0",
+    "rationale" : "Price per item should not be negative in normal business logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getQuantity() == a.quantity",
+    "rationale" : "The method likely returns the value of the backing field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getUnitPrice() == a.unitPrice",
+    "rationale" : "The getter likely returns the field value directly.",
+    "meta" : [ ]
+  } ]
+}

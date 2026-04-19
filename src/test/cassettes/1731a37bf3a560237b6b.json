@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method immediately calls methods and sets metadata on result, so result must be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Method uses result.getWriteStatuses() for metadata construction, implying it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "Partition-to-replace-file-IDs is required to build metadata, so it is expected to be non-null before use.",
+    "meta" : [ ]
+  } ]
+}

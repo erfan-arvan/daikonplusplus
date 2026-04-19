@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionId >= 0",
+    "rationale" : "Partition identifiers are commonly expected to be non-negative in partitioning schemes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId == null || fileId.length() > 0",
+    "rationale" : "If fileId is set, it should be a non-empty string.",
+    "meta" : [ ]
+  } ]
+}

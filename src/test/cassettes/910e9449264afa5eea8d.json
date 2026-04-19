@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null iterator regardless of which code path is executed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition is an Integer provided as a parameter and used in lookups; a null value would cause exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is dereferenced in the method before any result is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required parameter and used for bookkeeping in most Hoodie actions; null would violate invariants upstream.",
+    "meta" : [ ]
+  } ]
+}

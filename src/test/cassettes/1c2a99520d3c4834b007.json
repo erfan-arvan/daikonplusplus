@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "restore returns the result of execute(), which typically returns a non-null metadata object if the restore is successful.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is used to construct the executor and likely must not be null for restore logic to function.",
+    "meta" : [ {
+      "key" : "contextual",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is used to construct the executor and is likely a required parameter.",
+    "meta" : [ {
+      "key" : "contextual",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for executor creation and subsequent operations.",
+    "meta" : [ {
+      "key" : "contextual",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "(result != null) || (context == null) || (restoreInstantTimestamp == null) || (savepointToRestoreTimestamp == null)",
+    "rationale" : "If all constructor parameters are non-null, it is likely that result will be non-null; this captures an implication relationship.",
+    "meta" : [ {
+      "key" : "logical form",
+      "value" : "implication"
+    } ]
+  } ]
+}

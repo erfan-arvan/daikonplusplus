@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method assumes 'records' is not null as it calls a method on it immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof HoodieData",
+    "rationale" : "The parameter 'records' should always be an instance of HoodieData as per the method signature.",
+    "meta" : [ ]
+  } ]
+}

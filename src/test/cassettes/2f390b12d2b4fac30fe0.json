@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method passes preppedRecords to super.execute; it's likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof java.util.List",
+    "rationale" : "preppedRecords is declared as a List, ensuring it is a subtype at runtime.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() >= 0",
+    "rationale" : "If preppedRecords is not empty, its size is at least zero, reflecting a property of List.size().",
+    "meta" : [ ]
+  } ]
+}

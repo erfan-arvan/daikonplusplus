@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "Method accesses clusteringGroup methods/fields, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is used for extracting partitioner and passed around.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used for identifying the cluster instant and passed to other methods.",
+    "meta" : [ ]
+  } ]
+}

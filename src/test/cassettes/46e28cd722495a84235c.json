@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths != null && !partitionPaths.isEmpty()",
+    "rationale" : "The method will only process non-null, non-empty partitionPaths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used for distributed processing; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.stream().allMatch(x -> x != null)",
+    "rationale" : "partitionPaths, if non-null, should not contain null elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getNumPartitions() >= 0",
+    "rationale" : "Number of partitions cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is accessed inside the method and must not be null for correct execution.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects a list of records to operate on.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter should be a valid non-empty string for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "The Option<BulkInsertPartitioner> argument should not be null for safe method operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A list's size should always be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner.isPresent() || !bulkInsertPartitioner.isPresent()",
+    "rationale" : "Option.isPresent() returns true or false, and this ensures that the Option is a valid Option instance.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "It is common for job identifiers to be non-null, as null values may indicate absence of a job.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId.isEmpty() || !jobId.isEmpty()",
+    "rationale" : "The jobId may be either empty or not empty at entry, covering both possible scenarios.",
+    "meta" : [ ]
+  } ]
+}

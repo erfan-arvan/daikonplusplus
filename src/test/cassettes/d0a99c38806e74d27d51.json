@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method likely expects preppedRecords to be non-null to perform operations such as iteration or further method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime represents a commit or write instant, which should be present and not empty for write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option types should be non-null even if empty to avoid NullPointerExceptions in downstream method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative; ensures that the size property is used correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().equals(instantTime)",
+    "rationale" : "instantTime is expected to be a well-formed commit time string without leading or trailing spaces.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "price >= 0",
+    "rationale" : "Prices are typically non-negative in a financial/order processing context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Double.isFinite(price)",
+    "rationale" : "Discount calculation requires a finite price value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "price < Double.MAX_VALUE",
+    "rationale" : "Prevents overflow in price-related arithmetic operations.",
+    "meta" : [ ]
+  } ]
+}

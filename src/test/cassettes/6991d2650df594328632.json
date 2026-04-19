@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Post-processing of the write metadata to produce the returned List<WriteStatus> should not produce a null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method uses preppedRecords as input; typical contract is that this should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is an operational parameter for this write operation and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == preppedRecords.isEmpty()",
+    "rationale" : "If there are no preppedRecords, the write result should also be empty; otherwise, a write should have occurred.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= preppedRecords.size()",
+    "rationale" : "There can't be more write status records than input records; this holds in normal bulk insert execution.",
+    "meta" : [ ]
+  } ]
+}

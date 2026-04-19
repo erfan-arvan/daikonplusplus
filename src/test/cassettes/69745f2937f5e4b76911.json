@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "Method requires access to metaClient, so it should not be null.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "metaClient"
+    } ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "metaClient is declared with type HoodieTableMetaClient.",
+    "meta" : [ {
+      "key" : "paramType",
+      "value" : "metaClient"
+    } ]
+  } ]
+}

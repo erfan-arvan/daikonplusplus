@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is used to initialize JavaUpsertPreppedCommitActionExecutor and assumed required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is likely required as a valid, non-empty string for record versioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is likely assumed non-null, as it is passed to the new executor instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || !preppedRecords.isEmpty()",
+    "rationale" : "If preppedRecords is non-null, it's likely expected to contain records to upsert.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method enforces that the result of executor.execute() is not null right before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "There is a runtime check (checkState) ensuring that result is not empty immediately before returning.",
+    "meta" : [ ]
+  } ]
+}

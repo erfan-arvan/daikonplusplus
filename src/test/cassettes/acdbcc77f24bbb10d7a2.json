@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "The rollback instant time should represent a valid instant and should not be null at the entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A commit instant is needed to identify what is being rolled back; it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "It is likely that a non-empty instant time string is required for rollback operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteInstants || !deleteInstants",
+    "rationale" : "deleteInstants is a boolean, so its only possible values are true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipLocking || !skipLocking",
+    "rationale" : "skipLocking is a boolean and must be deterministically true or false at entry.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "It is reasonable to require the cache key to be non-null, as null values may not be acceptable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids != null",
+    "rationale" : "The variadic ids parameter should not be null as it is likely iterated on elsewhere.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "The method is a no-op; no state mutation or exception occurs, so all preconditions hold and nothing is changed.",
+    "meta" : [ ]
+  } ]
+}

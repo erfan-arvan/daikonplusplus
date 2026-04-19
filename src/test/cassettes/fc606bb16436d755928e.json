@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == bucketInfoMap.get(bucketNumber)",
+    "rationale" : "The method returns the value obtained by bucketInfoMap.get(bucketNumber); thus the result is always equal to this map lookup.",
+    "meta" : [ {
+      "key" : "direct-mapping",
+      "value" : "Returned value comes directly from bucketInfoMap"
+    } ]
+  }, {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "bucketNumber is used to access a map by key, which is typically non-negative.",
+    "meta" : [ {
+      "key" : "parameter-domain",
+      "value" : "bucketNumber is commonly non-negative as a map key index"
+    } ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber) == (result != null)",
+    "rationale" : "HashMap.get(key) returns null when the key is missing; otherwise, result is not null.",
+    "meta" : [ {
+      "key" : "map-return-value",
+      "value" : "Result is null iff map does not contain the key"
+    } ]
+  } ]
+}

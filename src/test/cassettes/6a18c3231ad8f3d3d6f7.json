@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns at least an empty list; no path returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || partitionPath != null",
+    "rationale" : "Result will not have small files unless a valid partitionPath is provided.",
+    "meta" : [ ]
+  } ]
+}

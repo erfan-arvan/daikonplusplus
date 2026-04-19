@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new Supplier lambda and never returns null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.get() == -1",
+    "rationale" : "The returned Supplier lambda always returns -1 by construction.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "constant-return-value"
+    } ]
+  }, {
+    "expression" : "result instanceof java.util.function.Supplier",
+    "rationale" : "The variable 'result' is assigned to a lambda implementing Supplier<Integer>.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "result.get() <= -1",
+    "rationale" : "Since result.get() == -1, it's always less than or equal to -1.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "range"
+    } ]
+  }, {
+    "expression" : "result.get() >= -1",
+    "rationale" : "Since result.get() == -1, it's always greater than or equal to -1.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "range"
+    } ]
+  } ]
+}

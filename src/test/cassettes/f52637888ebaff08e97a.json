@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of 'execute()', which is expected to be non-null according to typical HoodieRollbackMetadata contract.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "result-nonnull"
+    } ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "Rollback instant time is critical for identifying the rollback point, likely required to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-nonnull"
+    } ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "The commit instant parameter is used by the rollback operation and should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-nonnull"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieRollbackMetadata",
+    "rationale" : "The method returns HoodieRollbackMetadata; returned object should be an instance accordingly.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "result-type"
+    } ]
+  }, {
+    "expression" : "deleteInstants == true || deleteInstants == false",
+    "rationale" : "deleteInstants is a boolean parameter and must be true or false.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-boolean"
+    } ]
+  } ]
+}

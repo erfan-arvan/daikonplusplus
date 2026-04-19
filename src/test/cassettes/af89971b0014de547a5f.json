@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "It is typical for methods handling collections to expect non-null arguments; this avoids NullPointerExceptions on use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || hoodieRecords.get(0) != null",
+    "rationale" : "If the list is non-empty, its elements should generally be non-null for downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "List.size() in Java is always non-negative; this is a property of the List interface.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(hoodieRecords instanceof Set)",
+    "rationale" : "The declared type is List, so it should not be a Set; this would be an error in most usages.",
+    "meta" : [ ]
+  } ]
+}

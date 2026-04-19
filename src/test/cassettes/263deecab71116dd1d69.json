@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Bucket numbers are typically expected to be non-negative indices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber < totalBuckets",
+    "rationale" : "bucketNumber is usually an index into buckets, which should be strictly less than totalBuckets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "The method uses bucketInfoMap, so it must be initialized at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber)",
+    "rationale" : "The method returns bucketInfoMap.get(bucketNumber), which assumes the key exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "totalBuckets > 0",
+    "rationale" : "Having at least one bucket is a prerequisite for bucket operations.",
+    "meta" : [ ]
+  } ]
+}

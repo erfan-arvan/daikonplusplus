@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a non-null list of HoodieRecord<T> to perform bulk insert operations.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter is used as an identifier for the operation and should be a valid, non-empty string.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "string-validation"
+    } ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "Option objects should not be null; they represent present or absent values.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A Java List's size is always non-negative; ensures records is a valid List.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "size-nonnegative"
+    } ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner instanceof Option",
+    "rationale" : "The third argument must always be an Option<BulkInsertPartitioner> instance per method signature.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "type-invariant"
+    } ]
+  } ]
+}

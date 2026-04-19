@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "records parameter should not be null for a bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is expected to be a valid, non-empty string representing the commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "Option<> references are typically required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A Java List's size() method should always be >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!userDefinedBulkInsertPartitioner.isPresent() || userDefinedBulkInsertPartitioner.get() != null",
+    "rationale" : "If the Option is present, its contained value should not be null.",
+    "meta" : [ ]
+  } ]
+}

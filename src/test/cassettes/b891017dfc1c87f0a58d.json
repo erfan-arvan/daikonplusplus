@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Configuration is required as an argument for creating the index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context must be provided to interact with distributed/parallel execution environments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config instanceof HoodieWriteConfig",
+    "rationale" : "Ensures that 'config' is exactly of the expected configuration type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "Confirms that 'context' is of the correct engine context type.",
+    "meta" : [ ]
+  } ]
+}

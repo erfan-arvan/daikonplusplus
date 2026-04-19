@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method collects a Stream into a List, which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method calls data.stream(), which would throw NullPointerException if data were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List.size() is always non-negative for java.util.List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= data.size() || result.isEmpty()",
+    "rationale" : "If func maps each input to at least one output, the result size will be at least data.size(); if data is empty or func returns empty streams, result may be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || result.isEmpty()",
+    "rationale" : "If data is empty, the result must be empty as there are no elements to process.",
+    "meta" : [ ]
+  } ]
+}

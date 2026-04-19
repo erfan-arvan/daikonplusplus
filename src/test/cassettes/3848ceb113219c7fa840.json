@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A non-null engine context is typically required for distributed operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An instant time (commit time) string should not be null as it identifies the operation in Hudi.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The list of records to upsert should not be null; even if empty, the list is expected to be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof java.util.List",
+    "rationale" : "The 'records' argument must be a List implementation; this is enforced by the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instant time string should not be empty, as empty commit times are invalid in Hudi workflows.",
+    "meta" : [ ]
+  } ]
+}

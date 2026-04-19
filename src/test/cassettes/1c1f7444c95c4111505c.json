@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "data is required for streaming operations in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is required for flat-mapping each element and is invoked inside the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive for parallel stream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List size is always non-negative in Java; ensures data.size() is safe to use if data is non-null.",
+    "meta" : [ ]
+  } ]
+}

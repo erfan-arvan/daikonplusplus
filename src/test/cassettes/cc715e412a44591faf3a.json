@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "String.length() is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || x + name.length() >= Integer.MIN_VALUE",
+    "rationale" : "Ensures no underflow in the addition used in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || x + name.length() <= Integer.MAX_VALUE",
+    "rationale" : "Ensures no overflow in the addition used in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= Integer.MIN_VALUE",
+    "rationale" : "x is an int parameter, always within the valid int range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x <= Integer.MAX_VALUE",
+    "rationale" : "x is an int parameter, always within the valid int range.",
+    "meta" : [ ]
+  } ]
+}

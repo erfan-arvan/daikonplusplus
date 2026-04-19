@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Common Java best practice suggests lists should not be null before processing; code does not include an explicit null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || inputRecords.size() > 0",
+    "rationale" : "For a List, if it is empty, its size is zero, and for non-empty, size is positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Processing assumes each HoodieRecord is not null; nulls would likely cause NPE during mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inputRecords.isEmpty() || inputRecords.size() == 0",
+    "rationale" : "If the input list is empty, its size is exactly zero.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "performClusteringWithRecordList returns a List<WriteStatus>, and the return value is normally expected to not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is dereferenced to obtain slices, indicating it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is passed into performClusteringWithRecordList and assumed to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a parameter in multiple method calls, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.get(0) != null",
+    "rationale" : "If result is not empty, it is expected to contain non-null WriteStatus elements.",
+    "meta" : [ ]
+  } ]
+}

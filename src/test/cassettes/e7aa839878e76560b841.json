@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is likely required for executing scheduling actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "The instant time for the index operation should be defined (not null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "The list of partitions to index should be non-null before being used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Partition paths being non-null is likely a precondition for further logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex.size() >= 0",
+    "rationale" : "List size being non-negative is an invariant guaranteed by the List contract.",
+    "meta" : [ ]
+  } ]
+}

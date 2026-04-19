@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "Method expects a valid rollback instant time string; null likely not acceptable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "Method likely expects a non-null HoodieInstant marking the commit to be rolled back.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null execution context is generally required for distributed Hoodie actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "The rollback instant time is expected to be a non-empty string representing an instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(deleteInstants && skipLocking)",
+    "rationale" : "It may be invalid or unsafe to request both deleteInstants and skipLocking at the same time.",
+    "meta" : [ ]
+  } ]
+}

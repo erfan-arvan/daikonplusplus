@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths != null",
+    "rationale" : "It is common for a collection parameter to be non-null before the method executes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is likely required for the operations in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() >= 0",
+    "rationale" : "If partitionPaths is not null, its size is always non-negative per List contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || !partitionPaths.contains(null)",
+    "rationale" : "Partitions paths are likely non-null strings when used as path identifiers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "The context parameter must be an instance of HoodieEngineContext for method calls to succeed.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "It is expected that execute() always returns a non-null HoodieWriteMetadata to signify the upsert operation's result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() method of HoodieWriteMetadata should return a non-null list representing the write status after upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The number of WriteStatus objects produced can never be negative.",
+    "meta" : [ ]
+  } ]
+}

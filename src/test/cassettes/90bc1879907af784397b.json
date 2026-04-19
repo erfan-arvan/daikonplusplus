@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method uses profile, so it should not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "The method obtains entrySet() from profile.getInputPartitionPathStatMap(), so the map should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The method calls getOrDefault() on profile.getOutputPartitionPathStatMap(), so the map should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().size() >= 0",
+    "rationale" : "Map sizes are always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.hasOutputWorkLoadStats() || profile.getOutputPartitionPathStatMap().size() >= 0",
+    "rationale" : "If output workload stats are present, its corresponding map should be non-negative in size.",
+    "meta" : [ ]
+  } ]
+}

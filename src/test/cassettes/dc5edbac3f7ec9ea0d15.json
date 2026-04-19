@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method always returns the result of a handleInsert or handleUpdate call, and both are expected to return non-null Iterators.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "The partition is passed to partitioner.getBucketInfo and is expected to be a valid Integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is dereferenced in javaUpsertPartitioner.getBucketInfo(partition), thus must be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is an operation time marker and is normally expected to be non-null for commit actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed through to either handleInsert or handleUpdate, so must be non-null to avoid exceptions.",
+    "meta" : [ ]
+  } ]
+}

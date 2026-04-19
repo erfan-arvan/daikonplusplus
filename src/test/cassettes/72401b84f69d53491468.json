@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A returned metadata object should not be null as the method only returns the result of bulkInsert if successful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method returns a HoodieWriteMetadata parameterized with a List of WriteStatus, and it is expected that getWriteStatuses() returns a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the write statuses list is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "Each element of the returned list of WriteStatus is expected to be non-null if the bulk insert succeeded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToWriteStats() != null",
+    "rationale" : "A successful write should populate partition write stats, which is an internal structure in HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

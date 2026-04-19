@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of execute(), which should not return null in typical COW commit patterns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(HoodieWriteMetadata.class) || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The result is declared as HoodieWriteMetadata<List<WriteStatus>>, so it must be a corresponding subtype or instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "A HoodieWriteMetadata that returns null for getWriteStatuses() would indicate a broken write; typical execution should return a list (possibly empty, but not null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "insertOverwrite is only meaningful for a valid, non-empty commit instantTime.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is required by the underlying JavaInsertOverwriteCommitActionExecutor and must not be null for insertion.",
+    "meta" : [ ]
+  } ]
+}

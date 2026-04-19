@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is used to initialize the metadata table and must be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to initializeMetadataTable, whose contract likely assumes non-null Option.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isPresent() || instantTime.get() != null",
+    "rationale" : "If instantTime has a value, then the contained value is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "Metadata table initialization uses metaClient, whose table configuration is almost certainly expected to be non-null after initialization.",
+    "meta" : [ ]
+  } ]
+}

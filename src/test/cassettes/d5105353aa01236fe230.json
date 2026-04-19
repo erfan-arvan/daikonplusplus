@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to always return some write metadata object; returning null would indicate a severe failure.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method expects the records list to be non-null as it is directly passed to the executor.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is necessary for versioned upsert logic.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input nullness"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty() || result.getWriteStatuses().isEmpty()",
+    "rationale" : "If no input records are provided, then the write status output should be empty. Non-empty write statuses imply at least one input record.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input-output relationship"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned metadata should always provide a non-null list of write statuses.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "output structure"
+    } ]
+  } ]
+}

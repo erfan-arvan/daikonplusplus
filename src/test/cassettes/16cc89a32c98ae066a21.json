@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata object, which should not be null when coming from an executor execute() call.",
+    "meta" : [ {
+      "key" : "sources",
+      "value" : "A,B"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The input list of HoodieKey objects should not be null at entry or exit for correct execution.",
+    "meta" : [ {
+      "key" : "sources",
+      "value" : "A,B"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The time instant representing the commit/delete action should not be null.",
+    "meta" : [ {
+      "key" : "sources",
+      "value" : "A,B"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is required for execution and must not be null.",
+    "meta" : [ {
+      "key" : "sources",
+      "value" : "A,B"
+    } ]
+  } ]
+}

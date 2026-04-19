@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method operates on 'result' without a null check, so it is likely never null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method processes 'result.getWriteStatuses()', indicating it should be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "This field is passed to buildMetadata and so is likely always non-null after setCommitMetadata.",
+    "meta" : [ ]
+  } ]
+}

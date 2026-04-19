@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method operates on 'result' and calls its methods, so it must be non-null before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method uses result.getWriteStatuses() to build metadata, so this collection must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "This is used in setCommitMetadata and must be non-null for correct behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getCommitMetadata().isPresent()",
+    "rationale" : "The method sets the commit metadata, so it should be present upon exit.",
+    "meta" : [ ]
+  } ]
+}

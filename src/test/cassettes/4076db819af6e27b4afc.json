@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely used as a commit time and should not be null in successful method executions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is required to indicate the partition to commit and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is used in the commit and should be a valid collection, not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser is passed in and likely is required for parsing file group indices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.getClass().getSimpleName().contains(\"HoodieData\")",
+    "rationale" : "records should be of type HoodieData<HoodieRecord>, ensuring type safety through the method exit.",
+    "meta" : [ ]
+  } ]
+}

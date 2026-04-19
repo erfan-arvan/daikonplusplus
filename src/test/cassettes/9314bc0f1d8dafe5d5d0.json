@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a List<String> using collectors, which does not produce null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || partitionPath != null",
+    "rationale" : "If the returned list is empty, partitionPath is still expected to be a valid input; this prevents null partition paths from unexpectedly resulting in empty lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(f -> f != null)",
+    "rationale" : "getFileId() produces non-null String IDs; the result list should not contain null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The .distinct() call in the pipeline means all elements are unique.",
+    "meta" : [ ]
+  } ]
+}

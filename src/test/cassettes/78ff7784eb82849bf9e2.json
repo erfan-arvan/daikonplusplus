@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required for writeClient operations and is non-null for meaningful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is used in the method and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is used to perform bulk inserts and commits; it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecordInputs.isEmpty()",
+    "rationale" : "bulk-insert operations generally require input records to be processed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner, wrapped as an Option, is expected to be non-null for safe evaluation.",
+    "meta" : [ ]
+  } ]
+}

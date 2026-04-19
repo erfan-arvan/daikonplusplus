@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method requires metaClient to perform actions and will likely fail or throw an exception if metaClient is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getActiveTimeline() != null",
+    "rationale" : "HoodieTableMetaClient instances are expected to point to a valid Hoodie dataset, thus should have an active timeline.",
+    "meta" : [ ]
+  } ]
+}

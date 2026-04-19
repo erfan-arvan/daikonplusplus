@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "data is dereferenced in the method body (data.stream()), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is passed to a wrapper method and eventually used, so it should be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "parallelism is passed as an Integer and used in related methods throughout the class, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || data.size() > 0",
+    "rationale" : "A List is either empty or has a positive size; this captures the possible state of data, excluding null due to prior null-check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "parallelism typically represents the number of threads or partitions and is expected to be positive for meaningful parallel execution.",
+    "meta" : [ ]
+  } ]
+}

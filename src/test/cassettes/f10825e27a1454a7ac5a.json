@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method creates a new HoodieWriteMetadata instance and always returns it, so result is never null at exit.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords are passed as an input parameter and likely expected to be non-null for normal execution.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime (the commit instant) is expected to be non-null for all write operations.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The method uses config multiple times and does not check for null, implying it should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "executor is used in a cast and method call with no null check, implying it should never be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is likely required for identifying the correct partition and is passed to downstream methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used directly in logging and downstream processing; it being null could result in exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to file-handle and super methods; null iterators may cause NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId.length() > 0",
+    "rationale" : "A file id should not be an empty string for identifying files.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Partition path should not be empty, as it is used for data routing.",
+    "meta" : [ ]
+  } ]
+}

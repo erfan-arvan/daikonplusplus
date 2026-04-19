@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null BulkInsertPartitioner instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "Parameter must be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "Schema is required for constructing the partitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.containsKey(\"hoodie.clustering.plan.strategy.sort.columns\") == (result instanceof JavaCustomColumnsSortPartitioner)",
+    "rationale" : "If the strategy params has the sort columns key, a JavaCustomColumnsSortPartitioner is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.containsKey(\"hoodie.clustering.plan.strategy.sort.columns\") == (result instanceof BulkInsertPartitioner)",
+    "rationale" : "If the key is absent, the general BulkInsertPartitioner is returned.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "configuredParallelism >= 1",
+    "rationale" : "configuredParallelism should generally be positive for parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is dereferenced or used in logic, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is used to repartition records, so must be present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used for configuration and is always expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is referenced for write operations and must be non-null.",
+    "meta" : [ ]
+  } ]
+}

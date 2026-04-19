@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime must be present to identify the commit instant.",
+    "meta" : [ {
+      "key" : "draft",
+      "value" : "A and C"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "keys represents the list of keys to delete and must not be null.",
+    "meta" : [ {
+      "key" : "draft",
+      "value" : "A and C"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The execution context must be initialized.",
+    "meta" : [ {
+      "key" : "draft",
+      "value" : "A and C"
+    } ]
+  }, {
+    "expression" : "keys == null || keys.size() >= 0",
+    "rationale" : "List.size() is always non-negative if keys is non-null.",
+    "meta" : [ {
+      "key" : "draft",
+      "value" : "A and C"
+    } ]
+  } ]
+}

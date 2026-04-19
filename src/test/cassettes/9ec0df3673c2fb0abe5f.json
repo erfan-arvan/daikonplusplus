@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method expects a HoodieTableMetaClient for operation, so it should be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The list of columns to index is expected to be non-null at the program exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex instanceof List",
+    "rationale" : "If columnsToIndex is not null, it must be a List as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient == null || metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "If metaClient is not null, its type must match the method parameter.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == totalBuckets",
+    "rationale" : "The method simply returns the value of the totalBuckets field directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "Partition counts (like totalBuckets) are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "totalBuckets >= 0",
+    "rationale" : "It is reasonable to expect that the number of buckets must be non-negative.",
+    "meta" : [ ]
+  } ]
+}

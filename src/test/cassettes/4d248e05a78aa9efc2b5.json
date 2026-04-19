@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath typically represents a directory or partition identifier and is expected to be non-null for clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "fileSlices is expected to be a non-null list to represent the file slices available for clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices.isEmpty() || partitionPath.length() > 0",
+    "rationale" : "If there are file slices, the partitionPath should be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices.size() >= 0",
+    "rationale" : "The size of a List can never be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.trim().length() == 0 || !fileSlices.isEmpty()",
+    "rationale" : "If the partition path is empty or whitespace, it is unlikely there would be file slices.",
+    "meta" : [ ]
+  } ]
+}

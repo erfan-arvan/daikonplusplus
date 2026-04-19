@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieListData.eager(data) should always return a non-null HoodieData<T> instance.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "return-value"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Method is called with a non-null data List to be parallelized.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "argument"
+    } ]
+  }, {
+    "expression" : "result.equals(HoodieListData.eager(data))",
+    "rationale" : "The returned result is exactly HoodieListData.eager(data) according to the method's implementation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "semantic"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "Method always returns the result of HoodieListData.eager(data), which is a HoodieListData instance.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "parallelism >= 1 || parallelism <= 0",
+    "rationale" : "No constraints enforced on parallelism within the method, so it can take any int value.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "argument"
+    } ]
+  } ]
+}

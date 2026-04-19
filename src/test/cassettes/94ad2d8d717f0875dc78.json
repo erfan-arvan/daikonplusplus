@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collectors.toMap never returns null, so result is always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "toMap uses Pair.getLeft as keys, so map size is at most number of input items (duplicates are overwritten).",
+    "meta" : [ ]
+  }, {
+    "expression" : "data == null || result.isEmpty() == data.isEmpty()",
+    "rationale" : "If input list is empty, the resulting map is also empty; for null input, the code would throw, but this expresses empty propagation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(v -> v != null)",
+    "rationale" : "Collectors.toMap throws if any value is null, so all map values must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "Collectors.toMap throws if any key is null, so all map keys must be non-null.",
+    "meta" : [ ]
+  } ]
+}

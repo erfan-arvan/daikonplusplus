@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is typically required for engine operations; it's likely a necessary precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null && !instantToSavepoint.isEmpty()",
+    "rationale" : "A savepoint should have a defined instant; empty or null values are likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null && !user.isEmpty()",
+    "rationale" : "Operations such as savepoint are usually attributed to a user, so user must be present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "Comment may be optional, but null-check prevents possible errors in downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(instantToSavepoint == null || user == null)",
+    "rationale" : "Both instantToSavepoint and user are expected to be non-null for a meaningful savepoint operation.",
+    "meta" : [ ]
+  } ]
+}

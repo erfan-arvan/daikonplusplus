@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime typically represents a commit or action instant and should be specified.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "keys represents the list of HoodieKey objects to be deleted and should be supplied.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for distributed operations and is expected to be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.isEmpty() || keys.size() >= 0",
+    "rationale" : "The size of keys is always non-negative if keys is a valid List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!keys.isEmpty() || keys.size() == 0",
+    "rationale" : "If keys is empty, then its size is exactly 0.",
+    "meta" : [ ]
+  } ]
+}

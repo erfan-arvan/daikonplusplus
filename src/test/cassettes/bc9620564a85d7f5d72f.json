@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an ArrayList instance, never null, so result is always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type of the method and its implementation always provides a List, specifically an ArrayList.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method expects a non-null partitionPath and uses it directly in method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || partitionPath != null",
+    "rationale" : "If result has elements, partitionPath must not be null because it is required to obtain them.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf != null)",
+    "rationale" : "The method adds only new SmallFile objects to the result list, so all entries are non-null.",
+    "meta" : [ ]
+  } ]
+}

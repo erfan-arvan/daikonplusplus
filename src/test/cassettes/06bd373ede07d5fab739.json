@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null",
+    "rationale" : "activeModule is a String parameter likely representing a module name; typically such parameters are expected to be non-null in context setters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null",
+    "rationale" : "activityDescription is a String parameter describing an activity; typically expected to be non-null for job status reporting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.isEmpty()",
+    "rationale" : "activeModule, when used to denote a module name, is often expected to be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activityDescription.isEmpty()",
+    "rationale" : "activityDescription is usually expected to be a non-empty description.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.equals(activityDescription)",
+    "rationale" : "activeModule and activityDescription likely denote distinct concepts and should not typically be identical.",
+    "meta" : [ ]
+  } ]
+}

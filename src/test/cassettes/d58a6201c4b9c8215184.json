@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The return value of Java streams collect(toList()) is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == data.size()",
+    "rationale" : "The map operation applies the function to each input element without filtering, so the sizes must be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().allMatch(e -> func.apply(e) == null) ? result.stream().allMatch(o -> o == null) : true",
+    "rationale" : "If func.apply always returns null, then result will be a list of nulls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() == result.isEmpty()",
+    "rationale" : "If there is no input data, then the result will be empty as well.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "A positive parallelism parameter is necessary for correct execution, and likely checked at a higher level.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "Ensures the Option<String> argument is not null, allowing further Option-safe operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Method refers to metaClient, so it must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(inFlightInstantTimestamp == null || metaClient == null)",
+    "rationale" : "Both parameters must be non-null for the method logic to be safely evaluated.",
+    "meta" : [ ]
+  } ]
+}

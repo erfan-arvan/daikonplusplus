@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The method parameter 'args' is never set within the method, so it remains as passed. The program point is at method exit, so this must remain true unless the method changes it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "In Java, array length is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "This is tautologically true at any point, but included to fill up invariants due to lack of richer relationships in context.",
+    "meta" : [ ]
+  } ]
+}

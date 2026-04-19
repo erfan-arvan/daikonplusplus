@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs 'result' via 'collectAsList()' on the output of 'tagLocation()', which should guarantee a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "Input parameter should not be null for normal operation and for 'HoodieListData.eager(dedupedRecords)' to function correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The method dereferences 'table' to call 'getIndex()', so it must be non-null for the code to execute without exception.",
+    "meta" : [ ]
+  } ]
+}

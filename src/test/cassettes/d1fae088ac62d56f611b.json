@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the execute method always returns the result of JavaWriteHelper.newInstance().write(...), which is expected to produce a non-null HoodieWriteMetadata instance, it is reasonable to assume result is not null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is passed as an argument to the write method and is expected to be non-null for the operation to succeed.",
+    "meta" : [ ]
+  } ]
+}

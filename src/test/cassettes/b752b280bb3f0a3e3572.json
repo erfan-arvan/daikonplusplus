@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "Because the method is meant to operate on a HoodieTableMetaClient, it's unlikely for it to allow null inputs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The method parameter columnsToIndex should likely not be null for index updates, even though the method is currently a no-op.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method should always return a non-null HoodieWriteMetadata result.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects preppedRecords to be non-null as it is passed to the executor.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "pre-condition"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required to identify the write action, so must be non-null.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "pre-condition"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "result should contain a list of WriteStatus as its main output.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "output structure"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() <= preppedRecords.size()",
+    "rationale" : "The number of WriteStatus entries cannot exceed the number of records being processed.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "write operation"
+    } ]
+  } ]
+}

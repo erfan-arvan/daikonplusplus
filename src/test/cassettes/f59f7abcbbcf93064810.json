@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method sets commit metadata on 'result', thus 'result' should never be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method builds commit metadata using 'result.getWriteStatuses()', so this list should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "Used in commit metadata construction, so must be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Common practice for collection inputs, and explicitly checked in method.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "Null-safety"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Typically context is required and passed in for distributed operations.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "Null-safety"
+    } ]
+  }, {
+    "expression" : "partitionPaths instanceof List",
+    "rationale" : "partitionPaths is a List per method signature.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "Type Safety"
+    } ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context is a HoodieEngineContext per method signature.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "Type Safety"
+    } ]
+  }, {
+    "expression" : "partitionPaths.size() >= 0",
+    "rationale" : "size() of any list cannot be negative.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "Collection invariant"
+    } ]
+  } ]
+}

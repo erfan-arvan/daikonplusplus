@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method relies on the context parameter to construct the executor, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "The logCompactionInstantTime parameter is passed to the compaction executor and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!logCompactionInstantTime.isEmpty()",
+    "rationale" : "An empty string for the compaction instant time would not make sense for a compaction operation.",
+    "meta" : [ ]
+  } ]
+}

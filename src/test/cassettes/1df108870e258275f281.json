@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Bucket numbers are typically non-negative since they are used as map keys and may represent indices or IDs.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "bucketNumber"
+    } ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "bucketInfoMap must be initialized for the method to function correctly.",
+    "meta" : [ {
+      "key" : "field",
+      "value" : "bucketInfoMap"
+    } ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber) == (bucketInfoMap.get(bucketNumber) != null)",
+    "rationale" : "get will only return non-null if the map contains the key.",
+    "meta" : [ {
+      "key" : "correspondence",
+      "value" : "bucketInfoMap contract"
+    } ]
+  }, {
+    "expression" : "totalBuckets > 0",
+    "rationale" : "There should be at least one bucket in a valid partitioner context.",
+    "meta" : [ {
+      "key" : "field",
+      "value" : "totalBuckets"
+    } ]
+  }, {
+    "expression" : "bucketInfoMap.size() <= totalBuckets",
+    "rationale" : "There cannot be more distinct buckets in the map than the total defined buckets.",
+    "meta" : [ {
+      "key" : "fields",
+      "value" : "bucketInfoMap,totalBuckets"
+    } ]
+  } ]
+}

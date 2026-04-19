@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null List, either the input or after sorting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == records",
+    "rationale" : "Regardless of code path, the returned value is the 'records' parameter (alias equality).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == records.isEmpty()",
+    "rationale" : "If input is empty, the same empty List is returned; if not, the same object is returned after sorting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Returned List must preserve the number of elements of the input List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0 || true",
+    "rationale" : "Although not enforced by code, outputPartitions is typically expected to be non-negative.",
+    "meta" : [ ]
+  } ]
+}

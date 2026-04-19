@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "result is derived from totalBuckets, which is incremented and used as a bucket index; bucket indices are non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "The method always puts fileIdHint as a key into updateLocationToBucket, so null is not handled and is likely not allowed.",
+    "meta" : [ ]
+  } ]
+}

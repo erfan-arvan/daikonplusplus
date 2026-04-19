@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "smallFiles != null",
+    "rationale" : "Prevents NullPointerExceptions during method execution as stream is called on smallFiles.",
+    "meta" : [ ]
+  }, {
+    "expression" : "smallFiles.stream().allMatch(smallFile -> smallFile != null && smallFile.location != null)",
+    "rationale" : "Ensures that mapping to file IDs is safe; avoids null dereferencing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "This field is likely required for other partitioner methods; being non-null can be an established invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "Critical for operations involving bucket information; usually expected to be non-null for partitioning logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null && table != null",
+    "rationale" : "Both configuration and table references are commonly required and expected to be valid, ensuring correct operation of the partitioner.",
+    "meta" : [ ]
+  } ]
+}

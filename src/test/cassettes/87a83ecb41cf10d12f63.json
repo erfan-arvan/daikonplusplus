@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "bulkInsert should return a non-null List<WriteStatus>.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Return value is explicitly cast to List<WriteStatus>.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "output is expected List"
+    } ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "Bulk insert parallelism should be at least 1.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "parallelism should be positive"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Input records must not be null for clustering.",
+    "meta" : [ {
+      "key" : "input-validation",
+      "value" : "necessary precondition"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime is necessary for clustering operations.",
+    "meta" : [ {
+      "key" : "time-safety",
+      "value" : "commit instant required"
+    } ]
+  } ]
+}

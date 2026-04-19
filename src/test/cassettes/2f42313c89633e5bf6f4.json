@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is dereferenced for method calls in the body, so it must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to methods that likely require a non-null identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is used as a parameter in a method call and so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed to method calls, thus expected to be a valid Option reference (though possibly empty inside).",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "This method has no return value and no local state, so all explicit invariants relate to parameters' non-nullness only.",
+    "meta" : [ ]
+  } ]
+}

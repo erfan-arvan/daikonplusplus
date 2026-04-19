@@ -87,12 +87,19 @@ MAIN_CLASS="com.example.Main"
 MAXK="5"
 EXEC_MODE="native"
 CMD_ARGS=()
+unset CONTEXTS
+unset PROMPT_STRATEGY
+
 
 if [[ -f "$CASEDIR/config.json" ]]; then
   if command -v jq >/dev/null 2>&1; then
     EXEC_MODE="$(jq -r '.execMode // "native"' "$CASEDIR/config.json")"
     MAIN_CLASS="$(jq -r '.mainClass // "com.example.Main"' "$CASEDIR/config.json")"
     MAXK="$(jq -r '.maxK // 5' "$CASEDIR/config.json")"
+
+    # 🔥 ADD THIS (only addition)
+    CONTEXTS="$(jq -r 'select(has("contexts")) | .contexts | join(",")' "$CASEDIR/config.json")"
+    PROMPT_STRATEGY="$(jq -r '.promptStrategy // empty' "$CASEDIR/config.json")"
 
     if [[ "$EXEC_MODE" == "external" ]]; then
       CMD_ARGS=()
@@ -104,6 +111,7 @@ if [[ -f "$CASEDIR/config.json" ]]; then
     # very minimal fallback (native-only)
     v=$(grep -o '"mainClass"\s*:\s*"[^"]*"' "$CASEDIR/config.json" | sed -E 's/.*"([^"]+)".*/\1/')
     [[ -n "${v:-}" ]] && MAIN_CLASS="$v"
+
     v=$(grep -o '"maxK"\s*:\s*[0-9]+' "$CASEDIR/config.json" | sed -E 's/.*:\s*([0-9]+).*/\1/')
     [[ -n "${v:-}" ]] && MAXK="$v"
   fi
@@ -116,6 +124,8 @@ if [[ "$EXEC_MODE" == "external" ]]; then
   echo "[record] command: ${CMD_ARGS[*]}"
 
 java -Dfile.encoding=UTF-8 \
+     ${CONTEXTS:+-Ddp.contexts=$CONTEXTS} \
+     ${PROMPT_STRATEGY:+-Ddp.promptStrategy=$PROMPT_STRATEGY} \
      -Ddp.registry="$REG" \
      -Ddp.outcomes="$OUT" \
      -Ddp.registryReset=true \
@@ -131,6 +141,8 @@ else
   echo "[record] mainClass=$MAIN_CLASS"
 
   java -Dfile.encoding=UTF-8 \
+       ${CONTEXTS:+-Ddp.contexts=$CONTEXTS} \
+       ${PROMPT_STRATEGY:+-Ddp.promptStrategy=$PROMPT_STRATEGY} \
        -Ddp.registry="$REG" \
        -Ddp.outcomes="$OUT" \
        -Ddp.registryReset=true \

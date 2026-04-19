@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is likely required for commit operations to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "A non-null partitionPath is needed to identify the partition being committed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Records must be provided for the bulk commit operation to process, so this parameter should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "The index parser is likely required for partitioning or indexing during bulk commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "Empty instantTime would be invalid for commit identification; thus, a non-empty value is likely expected.",
+    "meta" : [ ]
+  } ]
+}

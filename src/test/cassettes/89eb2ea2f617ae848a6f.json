@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collectors.toList() never returns null, so the returned list should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(f -> f != null)",
+    "rationale" : "Each element is retrieved as fg.getFileId(); it is expected that file IDs are non-null strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The method uses .distinct(), ensuring all file IDs in the result are unique.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().noneMatch(f -> f.isEmpty())",
+    "rationale" : "File IDs are unlikely to be empty strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "As each getFileId() should be non-null, the result should contain no null entries.",
+    "meta" : [ ]
+  } ]
+}

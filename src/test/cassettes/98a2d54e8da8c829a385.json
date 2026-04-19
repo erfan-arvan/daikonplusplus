@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "It is common for property keys to be required and not null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "value == null || value instanceof String",
+    "rationale" : "The type of value is String, so this always holds.",
+    "meta" : [ {
+      "key" : "datatype",
+      "value" : "String"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "As the method body is a no-op, no additional invariants about side effects or field changes can be established.",
+    "meta" : [ {
+      "key" : "method_is_noop",
+      "value" : "true"
+    } ]
+  } ]
+}

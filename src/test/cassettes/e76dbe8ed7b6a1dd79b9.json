@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returning a non-null Stream is standard for such filter operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition should never be null for meaningful clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.allMatch(slice -> slice.getBaseFile().map(HoodieBaseFile::getFileSize).orElse(0L) < getWriteConfig().getClusteringSmallFileLimit())",
+    "rationale" : "All FileSlices in the result Stream must satisfy the filter condition.",
+    "meta" : [ ]
+  } ]
+}

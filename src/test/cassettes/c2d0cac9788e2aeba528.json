@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "It's common for collections passed to a commit action to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() > 0",
+    "rationale" : "Ensures that if preppedRecords is not empty, it must have a positive size.",
+    "meta" : [ ]
+  } ]
+}

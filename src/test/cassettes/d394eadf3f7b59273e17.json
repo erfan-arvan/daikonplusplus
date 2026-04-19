@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned list of WriteStatus should not be null, as the write operation should always produce a list (possibly empty).",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The input list of HoodieRecord for deletePrepped should not be null to execute the operation safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime (commit time) should never be null for a data write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || !result.contains(null)",
+    "rationale" : "If result contains any element, none should be null—WriteStatus lists should contain only non-null entries.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || !preppedRecords.contains(null)",
+    "rationale" : "If preppedRecords contains any element, none should be null—record lists should be well-formed.",
+    "meta" : [ ]
+  } ]
+}

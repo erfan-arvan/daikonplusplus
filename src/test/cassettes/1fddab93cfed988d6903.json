@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The 'context' is required for executing operations and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "A non-null instant identifier is required to create a savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "User information is typically necessary for audit and metadata tracking in savepoint operations.",
+    "meta" : [ ]
+  } ]
+}

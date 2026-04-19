@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of metadata.clone(...), which should not be null if metadata is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata != null",
+    "rationale" : "The method immediately dereferences metadata, so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(metadata.getClass())",
+    "rationale" : "result is returned from metadata.clone(...), which is expected to have the same runtime class as metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != metadata",
+    "rationale" : "result is produced via metadata.clone(...), and so should refer to a new object (not the same reference as metadata).",
+    "meta" : [ ]
+  } ]
+}

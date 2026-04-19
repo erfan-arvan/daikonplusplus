@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method expects to operate on a non-null list of records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition count should be positive for repartitioning to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || outputPartitions == 1",
+    "rationale" : "Partition count should not normally exceed item count unless coalescing to a single partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() == (records.size() == 0)",
+    "rationale" : "isEmpty and size() == 0 are equivalent for lists.",
+    "meta" : [ ]
+  } ]
+}
