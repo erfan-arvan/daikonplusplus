@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "If name is not null, then its length is non-negative by String contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || name.length() <= Integer.MAX_VALUE",
+    "rationale" : "If name is not null, then its length cannot exceed Integer.MAX_VALUE by Java String spec.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || (x + name.length() <= Integer.MAX_VALUE && x + name.length() >= Integer.MIN_VALUE)",
+    "rationale" : "If name is not null, the sum x + name.length() must be within integer bounds.",
+    "meta" : [ ]
+  } ]
+}

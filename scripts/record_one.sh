@@ -1,32 +1,8 @@
 #!/usr/bin/env bash
 # -----------------------------------------------------------------------------
 # record_one.sh — Record an E2E test snapshot for a single case.
-#
-# This script runs the Daikon++ pipeline on one test case (e.g., 00-baseline),
-# allowing *real* LLM calls and saving both the expected outputs and LLM
-# cassettes for deterministic replay in future tests.
-#
-# It performs the following steps:
-#   1. Builds the fat JAR (skipping tests)
-#   2. Runs the pipeline on the given input case
-#   3. Writes registry.jsonl and outcomes.jsonl into:
-#        src/test/resources/daikonpp-pipeline/<case>/expected/
-#   4. Records any LLM calls into src/test/cassettes/
-#
-# Usage:
-#   ./scripts/record_one.sh <case-name>
-#
-# Example:
-#   ./scripts/record_one.sh 00-baseline
-#
-# To record *all* cases automatically, use:
-#   ./scripts/record_all.sh
-#
-# Environment variables:
-#   DP_LLM_CASSETTES   Directory for storing LLM interaction logs (set automatically)
-#   DP_DISABLE_REAL_LLM If set to 1, disables real LLM calls (should be UNSET for recording)
-#
 # -----------------------------------------------------------------------------
+
 ########################################
 # HARD RESET: force native execution
 ########################################
@@ -53,7 +29,7 @@ if [[ ! -d "$INPUT" ]]; then
 fi
 
 # -------------------------------
-# 1) Build fat jar (skip tests)
+# 1) Build fat jar
 # -------------------------------
 ( cd "$ROOT" && ./gradlew -q -x test shadowJar )
 
@@ -71,44 +47,56 @@ OUT="$BUILDDIR/outcomes.jsonl"
 rm -f "$REG" "$OUT"
 
 # -------------------------------
-# 2) Environment setup
+# 2) Environment
 # -------------------------------
-# Real LLM allowed
 unset DP_DISABLE_REAL_LLM
 
-# Capture cassettes in a predictable path
 export DP_LLM_CASSETTES="$ROOT/src/test/cassettes"
 mkdir -p "$DP_LLM_CASSETTES"
 
 # -------------------------------
-# 3) Read config.json (if exists)
+# 3) Read config.json
 # -------------------------------
 MAIN_CLASS="com.example.Main"
 MAXK="5"
 EXEC_MODE="native"
 CMD_ARGS=()
-unset CONTEXTS
-unset PROMPT_STRATEGY
-
+DP_PROPS=()
+declare -a DP_PROPS
 
 if [[ -f "$CASEDIR/config.json" ]]; then
   if command -v jq >/dev/null 2>&1; then
+
     EXEC_MODE="$(jq -r '.execMode // "native"' "$CASEDIR/config.json")"
     MAIN_CLASS="$(jq -r '.mainClass // "com.example.Main"' "$CASEDIR/config.json")"
     MAXK="$(jq -r '.maxK // 5' "$CASEDIR/config.json")"
 
-    # 🔥 ADD THIS (only addition)
-    CONTEXTS="$(jq -r 'select(has("contexts")) | .contexts | join(",")' "$CASEDIR/config.json")"
-    PROMPT_STRATEGY="$(jq -r '.promptStrategy // empty' "$CASEDIR/config.json")"
+    # ✅ GENERIC dp.* CONFIG PARSER
+    if jq -e '.dp' "$CASEDIR/config.json" >/dev/null 2>&1; then
+      while IFS="=" read -r key value; do
+        DP_PROPS+=("-Ddp.$key=$value")
+      done < <(
+        jq -r '
+          .dp
+          | to_entries[]
+          | "\(.key)=\(
+              if (.value | type) == "array"
+              then (.value | join(","))
+              else .value
+              end
+            )"
+        ' "$CASEDIR/config.json"
+      )
+    fi
 
     if [[ "$EXEC_MODE" == "external" ]]; then
-      CMD_ARGS=()
       while IFS= read -r line; do
         CMD_ARGS+=("$line")
       done < <(jq -r '.command[]' "$CASEDIR/config.json")
     fi
+
   else
-    # very minimal fallback (native-only)
+    # minimal fallback
     v=$(grep -o '"mainClass"\s*:\s*"[^"]*"' "$CASEDIR/config.json" | sed -E 's/.*"([^"]+)".*/\1/')
     [[ -n "${v:-}" ]] && MAIN_CLASS="$v"
 
@@ -116,33 +104,29 @@ if [[ -f "$CASEDIR/config.json" ]]; then
     [[ -n "${v:-}" ]] && MAXK="$v"
   fi
 fi
+
 # -------------------------------
-# 4) Run the app
+# 4) Run
 # -------------------------------
 if [[ "$EXEC_MODE" == "external" ]]; then
   echo "[record] execMode=external"
-  echo "[record] command: ${CMD_ARGS[*]}"
 
-java -Dfile.encoding=UTF-8 \
-     ${CONTEXTS:+-Ddp.contexts=$CONTEXTS} \
-     ${PROMPT_STRATEGY:+-Ddp.promptStrategy=$PROMPT_STRATEGY} \
-     -Ddp.registry="$REG" \
-     -Ddp.outcomes="$OUT" \
-     -Ddp.registryReset=true \
-     -jar "$JAR" \
-     --external-project \
-     --project-root "$INPUT" \
-     --main-src "." \
-     --runner-script "run.sh"
-
+  java -Dfile.encoding=UTF-8 \
+       ${DP_PROPS[@]+"${DP_PROPS[@]}"} \
+       -Ddp.registry="$REG" \
+       -Ddp.outcomes="$OUT" \
+       -Ddp.registryReset=true \
+       -jar "$JAR" \
+       --external-project \
+       --project-root "$INPUT" \
+       --main-src "." \
+       --runner-script "run.sh"
 
 else
   echo "[record] execMode=native"
-  echo "[record] mainClass=$MAIN_CLASS"
 
   java -Dfile.encoding=UTF-8 \
-       ${CONTEXTS:+-Ddp.contexts=$CONTEXTS} \
-       ${PROMPT_STRATEGY:+-Ddp.promptStrategy=$PROMPT_STRATEGY} \
+       ${DP_PROPS[@]+"${DP_PROPS[@]}"} \
        -Ddp.registry="$REG" \
        -Ddp.outcomes="$OUT" \
        -Ddp.registryReset=true \
@@ -156,11 +140,9 @@ fi
 unset DP_LLM_CASSETTES
 
 # -------------------------------
-# 6) Save expected snapshots
+# 6) Save snapshots
 # -------------------------------
 cp "$REG" "$EXPECTED/registry.jsonl"
 cp "$OUT" "$EXPECTED/outcomes.jsonl"
 
 echo "✅ Snapshot + cassette recorded for $CASE"
-echo "    → Expected: $EXPECTED"
-echo "    → Cassette: $ROOT/src/test/cassettes"

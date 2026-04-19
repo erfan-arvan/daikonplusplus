@@ -227,12 +227,8 @@ public class PipelineE2ETest {
       cmd.add("-Ddp.outcomes=" + buildOutcomes.toAbsolutePath());
       cmd.add("-Ddp.registryReset=true");
 
-      if (cfg.contexts != null) {
-        cmd.add("-Ddp.contexts=" + String.join(",", cfg.contexts));
-      }
-
-      if (cfg.promptStrategy != null) {
-        cmd.add("-Ddp.promptStrategy=" + cfg.promptStrategy);
+      for (Map.Entry<String, String> e : cfg.dpProps.entrySet()) {
+        cmd.add("-Ddp." + e.getKey() + "=" + e.getValue());
       }
 
       // classpath
@@ -389,23 +385,19 @@ public class PipelineE2ETest {
     final int maxK;
     final String execMode; // "native" | "external"
     final List<String> command; // only for external
-
-    final List<String> contexts;
-    final String promptStrategy;
+    final Map<String, String> dpProps;
 
     CfgLite(
         String mainClass,
         int maxK,
         String execMode,
         List<String> command,
-        List<String> contexts,
-        String promptStrategy) {
+        final Map<String, String> dpProps) {
       this.mainClass = mainClass;
       this.maxK = maxK;
       this.execMode = execMode;
       this.command = command;
-      this.contexts = contexts;
-      this.promptStrategy = promptStrategy;
+      this.dpProps = dpProps;
     }
   }
 
@@ -424,8 +416,7 @@ public class PipelineE2ETest {
     String execMode = "native";
     List<String> command = List.of();
 
-    List<String> contexts = null;
-    String promptStrategy = null;
+    Map<String, String> dpProps = new LinkedHashMap<>();
 
     if (Files.isRegularFile(jsonPath)) {
       JsonNode j = OM.readTree(jsonPath.toFile());
@@ -448,19 +439,29 @@ public class PipelineE2ETest {
           command.add(c.asText());
         }
       }
+      JsonNode dp = j.get("dp");
 
-      if (j.hasNonNull("contexts")) {
-        contexts = new ArrayList<>();
-        for (JsonNode c : j.get("contexts")) {
-          contexts.add(c.asText());
+      if (dp != null && dp.isObject()) {
+        Iterator<Map.Entry<String, JsonNode>> fields = dp.fields();
+
+        while (fields.hasNext()) {
+          Map.Entry<String, JsonNode> e = fields.next();
+
+          String key = e.getKey();
+          JsonNode val = e.getValue();
+
+          if (val.isArray()) {
+            List<String> list = new ArrayList<>();
+            for (JsonNode x : val) list.add(x.asText());
+            dpProps.put(key, String.join(",", list));
+          } else {
+            dpProps.put(key, val.asText());
+          }
         }
-      }
-      if (j.hasNonNull("promptStrategy")) {
-        promptStrategy = j.get("promptStrategy").asText();
       }
     }
 
-    return new CfgLite(mainClass, maxK, execMode, command, contexts, promptStrategy);
+    return new CfgLite(mainClass, maxK, execMode, command, dpProps);
   }
 
   // ---------- System property scoping ----------
