@@ -101,7 +101,18 @@ public final class ExternalCompileRunner {
         String key = je.file + ":" + je.line;
         if (!seenErrors.add(key)) continue;
 
-        Path file = normalizeCompilerPath(je.file);
+        Path file;
+        try {
+          file = normalizeCompilerPath(je.file);
+
+          // CRITICAL: canonicalize to avoid /scratch vs /mmfs1
+          file = file.toRealPath();
+
+        } catch (Exception e) {
+          System.out.println("[DP] skipping invalid path: " + je.file);
+          continue;
+        }
+        file = normalizeCompilerPath(je.file);
 
         System.out.println("[DP] error file exists? " + Files.exists(file) + " :: " + file);
 
@@ -175,49 +186,44 @@ public final class ExternalCompileRunner {
   }
 
   private static int restoreOriginalFile(Path brokenFile, Path workSrcRoot, Path originalSrcRoot) {
+
     try {
-      Path workRoot = workSrcRoot.toAbsolutePath().normalize();
-      Path broken = brokenFile.toAbsolutePath().normalize();
+      // Canonical paths (fixes /scratch vs /mmfs1)
+      Path workRootReal = workSrcRoot.toRealPath();
+      Path brokenReal = brokenFile.toRealPath();
 
-      System.out.println("[DP-RESTORE] broken = " + broken);
-      System.out.println("[DP-RESTORE] workRoot = " + workRoot);
-      System.out.println("[DP-RESTORE] originalSrcRoot = " + originalSrcRoot.toAbsolutePath().normalize());
-
-      if (!broken.startsWith(workRoot)) {
-        System.out.println("[DP-RESTORE] broken is NOT under workRoot");
+      // Only operate inside work tree
+      if (!brokenReal.startsWith(workRootReal)) {
+        System.out.println("[DP] skip restore (outside work root): " + brokenFile);
         return 0;
       }
 
-      Path rel = workRoot.relativize(broken);
-      Path original = originalSrcRoot.resolve(rel).toAbsolutePath().normalize();
+      // RELATIVE mapping (core fix)
+      Path rel = workRootReal.relativize(brokenReal);
 
-      System.out.println("[DP-RESTORE] rel = " + rel);
-      System.out.println("[DP-RESTORE] original = " + original);
-      System.out.println("[DP-RESTORE] original exists = " + Files.exists(original));
-      System.out.println("[DP-RESTORE] original regular file = " + Files.isRegularFile(original));
+      Path original = originalSrcRoot.resolve(rel).normalize();
 
       if (!Files.isRegularFile(original)) {
-        System.out.println("[DP-RESTORE] original file not found");
+        System.out.println("[DP] original not found: " + original);
         return 0;
       }
 
-      Path parent = broken.getParent();
+      Path parent = brokenFile.getParent();
       if (parent != null) {
         Files.createDirectories(parent);
       }
 
       Files.copy(
-              original,
-              broken,
-              StandardCopyOption.REPLACE_EXISTING,
-              StandardCopyOption.COPY_ATTRIBUTES);
+          original,
+          brokenFile,
+          StandardCopyOption.REPLACE_EXISTING,
+          StandardCopyOption.COPY_ATTRIBUTES);
 
-      System.out.println("[DP-RESTORE] restored OK");
+      System.out.println("[DP] restored: " + brokenFile);
       return 1;
 
     } catch (Exception e) {
-      System.out.println("[DP-RESTORE] exception: " + e);
-      e.printStackTrace(System.out);
+      System.out.println("[DP] restore failed: " + e);
       return 0;
     }
   }
