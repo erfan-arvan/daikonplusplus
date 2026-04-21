@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Skin#get(String, Class) is expected to throw if the resource does not exist, so a successful return should yield a non-null BitmapFont.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "The method likely expects name to be non-null to perform the lookup; null could otherwise throw or error earlier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof BitmapFont",
+    "rationale" : "The method explicitly fetches a BitmapFont instance, so result should always be a BitmapFont.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == get(name, BitmapFont.class)",
+    "rationale" : "The entire method is just a call to get(name, BitmapFont.class), so result must be exactly that value.",
+    "meta" : [ ]
+  } ]
+}

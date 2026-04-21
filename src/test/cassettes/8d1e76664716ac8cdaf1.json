@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method only returns patch, which is only null if getRegion throws, but in that case an exception is thrown and nothing is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof NinePatch",
+    "rationale" : "The method returns either an explicitly constructed NinePatch or the result of optional(name, NinePatch.class), both of which ensure result is a NinePatch if returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "The parameter 'name' is used for lookups and must be non-null for successful execution (indirectly enforced by method logic).",
+    "meta" : [ ]
+  } ]
+}

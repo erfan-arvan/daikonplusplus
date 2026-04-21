@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "button != null",
+    "rationale" : "The method immediately throws an exception if button is null, so button must be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button.buttonGroup == null || button.buttonGroup != this",
+    "rationale" : "A good precondition for adding: at entry, the button is not already part of this ButtonGroup (method sets button.buttonGroup = null before assigning to this).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!button.isChecked() || button.isChecked()",
+    "rationale" : "For completeness: isChecked could be either true or false, as the checked state is not restricted at entry.",
+    "meta" : [ ]
+  } ]
+}

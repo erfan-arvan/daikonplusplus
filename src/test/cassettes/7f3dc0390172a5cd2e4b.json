@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == true || result == false",
+    "rationale" : "The method keyDown returns a boolean, so result must always be either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == handled",
+    "rationale" : "The last executed statement in keyDown returns the value of the 'handled' variable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event != null",
+    "rationale" : "The method expects event to be non-null for meaningful execution, and it is not checked for null within the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keycode >= 0",
+    "rationale" : "Keycodes are typically non-negative integers in keyboard event systems.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!disabled || result == false",
+    "rationale" : "If 'disabled' is true, the method returns false immediately.",
+    "meta" : [ ]
+  } ]
+}

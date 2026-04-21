@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "parseRegionName(name) likely expects a non-null argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() > 0",
+    "rationale" : "A non-empty name is likely required for meaningful image lookup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.trim().length() == name.length() || name.trim().length() < name.length()",
+    "rationale" : "Trimming whitespace may yield a different length, indicating the name may not be fully trimmed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "Ensures the name is not empty, likely necessary for region lookup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.matches(\".*[a-zA-Z0-9].*\")",
+    "rationale" : "The name should contain at least one alphanumeric character for a valid region name.",
+    "meta" : [ ]
+  } ]
+}

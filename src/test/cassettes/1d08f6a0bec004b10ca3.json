@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "The method takes fileName as a parameter and directly passes it to another method, indicating it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns the value of another method call, and typically loaders would ensure a non-null map is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The method's declared return type is TiledMap, so result should always be an instance of TiledMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "A non-empty fileName is required for loading resources, so the loader likely expects fileName to be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.trim().length() == fileName.length()",
+    "rationale" : "File names used for loading resources generally do not have leading or trailing whitespace.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "Method likely requires a valid TiledMap to function.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer != null",
+    "rationale" : "A non-null MapLayer is required for the call to layer.getObjects().",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The JsonValue element is passed to another method and likely must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "The method calls layer.getObjects(), so this should not return null.",
+    "meta" : [ ]
+  } ]
+}

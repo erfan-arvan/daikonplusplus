@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "minWidth >= 0",
+    "rationale" : "It is common for width-related parameters to be non-negative, as negative widths may not make sense in a UI context.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter constraint"
+    } ]
+  }, {
+    "expression" : "!Float.isNaN(minWidth)",
+    "rationale" : "Ensures that minWidth is a valid number and not NaN before use.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "numeric validity"
+    } ]
+  }, {
+    "expression" : "!Float.isInfinite(minWidth)",
+    "rationale" : "It is typically expected that minWidth is not infinite to prevent rendering issues.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "numeric validity"
+    } ]
+  }, {
+    "expression" : "minWidth == minWidth",
+    "rationale" : "This validates that minWidth is not NaN, though using Float.isNaN(minWidth) is clearer.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "not NaN"
+    } ]
+  } ]
+}

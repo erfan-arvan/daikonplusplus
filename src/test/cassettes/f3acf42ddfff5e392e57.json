@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "this.touchIndependent == touchIndependent",
+    "rationale" : "The method sets the object's 'touchIndependent' field to the parameter value, ensuring equality upon exit.",
+    "meta" : [ {
+      "key" : "related_field",
+      "value" : "this.touchIndependent"
+    } ]
+  }, {
+    "expression" : "touchIndependent == (this.touchIndependent)",
+    "rationale" : "The parameter and the object's state must be synchronized at the exit point of the setter.",
+    "meta" : [ {
+      "key" : "method_exit",
+      "value" : "value assignment"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Method returns either drawable.getMinWidth() (likely non-negative) or 0, ensuring result is never negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable != null ? result == drawable.getMinWidth() : result == 0",
+    "rationale" : "If drawable is non-null, returns drawable.getMinWidth(); else, returns 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable == null || result == drawable.getMinWidth()",
+    "rationale" : "If drawable is null, result is not guaranteed to match drawable.getMinWidth(); otherwise, they are equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable != null || result == 0",
+    "rationale" : "If drawable is null, the method always returns 0; otherwise, returns drawable.getMinWidth().",
+    "meta" : [ ]
+  } ]
+}

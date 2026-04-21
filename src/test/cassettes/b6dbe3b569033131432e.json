@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null String due to string concatenation of literals and fields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.startsWith(\"ProjectClassMember{\")",
+    "rationale" : "The returned string always starts with the class identification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.endsWith(\"}\")",
+    "rationale" : "The string always closes with a right curly brace per the formatting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.contains(\"name=\")",
+    "rationale" : "The string format always includes the name field labeled as such.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.contains(\", type=\")",
+    "rationale" : "The output format includes the 'type' field, delimited by ', type='. ",
+    "meta" : [ ]
+  } ]
+}

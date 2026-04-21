@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "Pref sizes are typically non-negative in UI layouts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Pref sizes (heights) are usually non-negative in layout systems.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(width)",
+    "rationale" : "Width should not be NaN for a valid UI dimension.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(height)",
+    "rationale" : "Height should not be NaN for a valid UI dimension.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(width) && !Float.isInfinite(height)",
+    "rationale" : "Physical UI dimensions should not be infinite.",
+    "meta" : [ ]
+  } ]
+}

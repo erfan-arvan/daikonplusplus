@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parent != null || template != null",
+    "rationale" : "At least one input element must be non-null since the method always returns one of them if either is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null || parent.getChildCount() >= 0",
+    "rationale" : "If parent is non-null, it must have a non-negative child count.",
+    "meta" : [ ]
+  }, {
+    "expression" : "template == null || template.getChildCount() >= 0",
+    "rationale" : "If template is non-null, it must have a non-negative child count.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null || parent.getAttributes() == null || parent.getAttributes().size >= 0",
+    "rationale" : "If parent and its attributes are non-null, attribute map size is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "template == null || template.getAttributes() == null || template.getAttributes().size >= 0",
+    "rationale" : "If template and its attributes are non-null, attribute map size is non-negative.",
+    "meta" : [ ]
+  } ]
+}

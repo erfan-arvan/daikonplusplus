@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "node != null",
+    "rationale" : "The method references node's fields and methods, so node cannot be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index >= 0",
+    "rationale" : "index is used for insertion into rootNodes; negative indexes would likely be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < rootNodes.size",
+    "rationale" : "At exit, node has been inserted at 'index', so index must be a valid position in rootNodes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rootNodes.get(index) == node",
+    "rationale" : "Method inserts node at position index in rootNodes, so node must be at that position at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "node.parent == null",
+    "rationale" : "After insertion, node is always added as a root node, which has no parent.",
+    "meta" : [ ]
+  } ]
+}

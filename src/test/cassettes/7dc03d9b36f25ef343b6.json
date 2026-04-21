@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new merged element constructed from parent or template, and never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getName().equals((template != null) ? template.getName() : parent.getName())",
+    "rationale" : "The merged element uses the template's name unless template is null, in which case it uses parent's name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != parent && result != template",
+    "rationale" : "The result is always a new element and is not the same object as parent or template unless one is null and directly returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(template == null && result == parent) || (parent == null && result == template) || (parent != null && template != null && result.getName().equals(template.getName()))",
+    "rationale" : "When one argument is null, the other is returned directly. When both are non-null, result is a merged element with template's name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getAttributeCount() >= Math.max((parent != null ? parent.getAttributeCount() : 0), (template != null ? template.getAttributeCount() : 0))",
+    "rationale" : "All attributes from parent and template are present in the result (with overwrites), so the count should be at least as large as the max of theirs.",
+    "meta" : [ ]
+  } ]
+}

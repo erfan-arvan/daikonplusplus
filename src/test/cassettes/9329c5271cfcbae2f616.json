@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "!renderOffsetDirty",
+    "rationale" : "The last statement of the method sets renderOffsetDirty to false, so this must hold at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null || renderOffsetX == parent.getRenderOffsetX() + offsetX",
+    "rationale" : "If parent is non-null, renderOffsetX is assigned to parent.getRenderOffsetX() + offsetX.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null || renderOffsetY == parent.getRenderOffsetY() + offsetY",
+    "rationale" : "If parent is non-null, renderOffsetY is assigned to parent.getRenderOffsetY() + offsetY.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null ? (renderOffsetX == offsetX) : true",
+    "rationale" : "If parent is null, renderOffsetX is assigned to offsetX.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null ? (renderOffsetY == offsetY) : true",
+    "rationale" : "If parent is null, renderOffsetY is assigned to offsetY.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "hScrollOnBottom == bottom",
+    "rationale" : "The method assigns the value of 'bottom' to 'hScrollOnBottom', so they must be equal on method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "vScrollOnRight == right",
+    "rationale" : "The method assigns the value of 'right' to 'vScrollOnRight', so they must be equal on method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(bottom && right) || (hScrollOnBottom && vScrollOnRight)",
+    "rationale" : "If both bottom and right are true, both hScrollOnBottom and vScrollOnRight are also true by assignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!bottom || !right) || (hScrollOnBottom == bottom && vScrollOnRight == right)",
+    "rationale" : "For any combination where at least one parameter is false, the assignments still ensure equality.",
+    "meta" : [ ]
+  } ]
+}

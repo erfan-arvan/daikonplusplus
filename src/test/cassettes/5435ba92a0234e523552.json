@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "Rectangle width should be non-negative to represent a valid area.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Rectangle height should be non-negative for a valid rectangle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0",
+    "rationale" : "X coordinate is likely expected to be non-negative within the actor's coordinate system.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "Y coordinate is likely expected to be non-negative within the actor's coordinate system.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width == 0 || height == 0 || (width > 0 && height > 0)",
+    "rationale" : "If the rectangle has non-zero area, both width and height are positive.",
+    "meta" : [ ]
+  } ]
+}

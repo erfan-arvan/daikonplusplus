@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "getSelectionStart() == 0",
+    "rationale" : "selectAll() sets selection start to 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getSelectionEnd() == getText().length()",
+    "rationale" : "selectAll() sets selection end to the length of the text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getSelectionStart() < getSelectionEnd() || getSelectionStart() == getSelectionEnd()",
+    "rationale" : "Selection start is less than or equal to selection end after selectAll().",
+    "meta" : [ ]
+  }, {
+    "expression" : "getSelectionStart() >= 0",
+    "rationale" : "Selection start is initialized to 0 and should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getSelectionEnd() <= getText().length()",
+    "rationale" : "Selection end is set to text length, so cannot exceed it.",
+    "meta" : [ ]
+  } ]
+}

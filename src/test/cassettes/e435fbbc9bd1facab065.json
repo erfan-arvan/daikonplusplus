@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer.getName().equals(element.getString(\"name\"))",
+    "rationale" : "The 'name' property from the JsonValue is directly set as the layer's name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() == element.getFloat(\"opacity\", 1.0f)",
+    "rationale" : "The layer's opacity is set based on the JsonValue's 'opacity' property, defaulting to 1.0f.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isVisible() == element.getBoolean(\"visible\", true)",
+    "rationale" : "The layer's visible property directly matches the 'visible' property from the JsonValue, defaulting to true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOffsetX() == element.getFloat(\"offsetx\", 0)",
+    "rationale" : "The offsetX is parsed and set from the JsonValue 'offsetx' property, defaulting to 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTintColor().equals(Color.valueOf(tiledColorToLibGDXColor(element.getString(\"tintcolor\", \"#ffffffff\"))))",
+    "rationale" : "The layer's tint color is set to the converted value from the JsonValue's 'tintcolor' property, defaulting to '#ffffffff'.",
+    "meta" : [ ]
+  } ]
+}

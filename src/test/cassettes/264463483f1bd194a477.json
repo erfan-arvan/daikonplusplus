@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(y)",
+    "rationale" : "The origin typically expects finite coordinates; this checks that 'y' is not infinity or NaN.",
+    "meta" : [ {
+      "key" : "pattern",
+      "value" : "y is a finite float"
+    } ]
+  }, {
+    "expression" : "y >= Float.NEGATIVE_INFINITY",
+    "rationale" : "All float values except for NaN and negative infinity are above NEGATIVE_INFINITY, which can sometimes capture edge-case handling for lower bounds.",
+    "meta" : [ {
+      "key" : "pattern",
+      "value" : "y lower bound"
+    } ]
+  }, {
+    "expression" : "y <= Float.POSITIVE_INFINITY",
+    "rationale" : "Ensures 'y' is not beyond positive infinity, holding for all valid float values except NaN.",
+    "meta" : [ {
+      "key" : "pattern",
+      "value" : "y upper bound"
+    } ]
+  }, {
+    "expression" : "!(y < 0 && y > 0)",
+    "rationale" : "It is impossible for 'y' to be both less than and greater than zero at the same time, hinting at numeric sanity.",
+    "meta" : [ {
+      "key" : "pattern",
+      "value" : "anti-contradiction"
+    } ]
+  } ]
+}

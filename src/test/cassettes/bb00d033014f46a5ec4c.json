@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "width != null",
+    "rationale" : "The method throws an exception if width is null, so it is always expected to be non-null on entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height != null",
+    "rationale" : "The method throws an exception if height is null, so it is always expected to be non-null on entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width != height",
+    "rationale" : "The method permits width and height to be distinct, and there is no validation requiring them to be equal, so they may be different objects (useful to note for possible constraints).",
+    "meta" : [ ]
+  } ]
+}

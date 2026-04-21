@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new Label, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStyle() == style",
+    "rationale" : "The created Label is constructed with the provided style.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getText().equals(text)",
+    "rationale" : "The Label is constructed using the given text, so the returned Label's text must equal the parameter.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "The fileName must be non-null to properly resolve and load the TiledMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "The parameter object is dereferenced to access its fields, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A new TiledMap is returned on every code path, so result must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The return value is always a TiledMap instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getOwnedResources() != null",
+    "rationale" : "Owned resources are set immediately before return, so must be non-null.",
+    "meta" : [ ]
+  } ]
+}

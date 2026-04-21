@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursorPatch != null",
+    "rationale" : "cursorPatch is dereferenced in the method, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch is passed to cursorPatch.draw, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "font is used for font.getLineHeight(), thus must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursorPatch.getMinWidth() >= 0",
+    "rationale" : "Drawable minimum width is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font.getLineHeight() > 0",
+    "rationale" : "Font line height must be positive for drawing.",
+    "meta" : [ ]
+  } ]
+}

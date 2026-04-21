@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "atlas.findRegion(regionName) typically returns a non-null TextureRegion if the region exists, and the method appears designed to provide such a region.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TextureRegion",
+    "rationale" : "The method's return type is TextureRegion and the only return statement returns atlas.findRegion(regionName), which should always return a TextureRegion or null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parseRegionName(name) != null",
+    "rationale" : "parseRegionName(name) produces a string used to find the region, so it is likely expected to be non-null before calling findRegion.",
+    "meta" : [ ]
+  } ]
+}

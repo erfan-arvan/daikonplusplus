@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "camera != null",
+    "rationale" : "Method accesses fields and methods on camera; must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.viewportWidth > 0",
+    "rationale" : "Viewport width should be positive for valid rendering view.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.viewportHeight > 0",
+    "rationale" : "Viewport height should be positive for valid rendering view.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.zoom > 0",
+    "rationale" : "Zoom value is multiplied in width/height calculations and should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.up != null",
+    "rationale" : "camera.up is used in field accesses and must be non-null.",
+    "meta" : [ ]
+  } ]
+}

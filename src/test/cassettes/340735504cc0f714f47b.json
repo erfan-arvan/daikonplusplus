@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "It is common practice for map put operations to require a non-null value; inserting null could lead to runtime errors or null entries.",
+    "meta" : [ ]
+  }, {
+    "expression" : "id >= 0",
+    "rationale" : "IDs are often non-negative, especially when used as keys for identifying tiles in a set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile == null || id == tile.getId()",
+    "rationale" : "If the tile is not null, its ID should correspond to the provided ID for consistency and data integrity in the tile set.",
+    "meta" : [ ]
+  } ]
+}

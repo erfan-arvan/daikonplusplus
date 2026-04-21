@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(x)",
+    "rationale" : "x should be a valid, finite float value to correctly set as a position.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= -Float.MAX_VALUE",
+    "rationale" : "x cannot be less than the minimum finite float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x <= Float.MAX_VALUE",
+    "rationale" : "x cannot be greater than the maximum finite float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x != Float.NaN",
+    "rationale" : "x should not be NaN when setting the value of a coordinate.",
+    "meta" : [ ]
+  } ]
+}

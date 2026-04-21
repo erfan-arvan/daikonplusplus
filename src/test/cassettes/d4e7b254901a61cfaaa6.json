@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method only returns the result of loadMap, and any thrown exception results in the method not returning; so if the method returns, result is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tideFile != null",
+    "rationale" : "tideFile is directly used as a parameter to loadMap; if it were null, a NullPointerException would occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "assetManager != null",
+    "rationale" : "A new AssetManagerImageResolver(assetManager) is constructed, which expects a non-null assetManager, or it would throw an exception.",
+    "meta" : [ ]
+  } ]
+}

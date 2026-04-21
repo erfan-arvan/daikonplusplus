@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "maxHeight != null",
+    "rationale" : "The method throws if maxHeight is null, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which is a non-null object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method unconditionally returns 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.maxHeight == maxHeight",
+    "rationale" : "The field 'maxHeight' of result is updated to parameter 'maxHeight' before returning.",
+    "meta" : [ ]
+  } ]
+}

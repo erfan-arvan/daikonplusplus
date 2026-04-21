@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "!newText.equals(oldText) == result",
+    "rationale" : "The method returns false if the texts are equal; otherwise it may return true, depending on the rest of the logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(newText.equals(oldText) && !result)",
+    "rationale" : "If newText equals oldText, the method returns false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(newText == null)",
+    "rationale" : "The method directly calls newText.equals(...), thus newText cannot be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(oldText == null)",
+    "rationale" : "oldText is used in .equals and assignment logic, suggesting it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || newText.equals(oldText)",
+    "rationale" : "If the method returns false, the only path is if newText.equals(oldText).",
+    "meta" : [ ]
+  } ]
+}

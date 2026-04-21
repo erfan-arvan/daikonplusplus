@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "mergeParentElementWithTemplate should not return null; merged JsonValue expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != mapElement",
+    "rationale" : "Result is typically a merged instance, not the original parent element itself.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapElement != null",
+    "rationale" : "Method cannot operate if mapElement is null; used to access fields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.name() != null",
+    "rationale" : "Merged JsonValue likely has a name property due to the structure of mapElement and template.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isObject()",
+    "rationale" : "mergeParentElementWithTemplate likely returns a JsonValue representing an object.",
+    "meta" : [ ]
+  } ]
+}

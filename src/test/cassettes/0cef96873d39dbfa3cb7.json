@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "String concatenation involving constants and object fields cannot yield null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.startsWith(\"MapProperties{\")",
+    "rationale" : "Returned string always begins with class identifier prefix.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.endsWith(\"}\")",
+    "rationale" : "Returned string always ends with closing curly brace.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.contains(\"properties=\")",
+    "rationale" : "Returned string always includes the key 'properties=' in its output.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() >= 18",
+    "rationale" : "Returned string must include at least the static text; length will always be above a certain minimal value.",
+    "meta" : [ ]
+  } ]
+}

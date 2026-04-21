@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "Rectangle widths are generally expected to be non-negative, especially as this value might represent a visible area.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Rectangle heights are generally expected to be non-negative, especially as this value might represent a visible area.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + width >= x",
+    "rationale" : "Adding width to the starting x should not decrease its value if width is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y + height >= y",
+    "rationale" : "Adding height to the starting y should not decrease its value if height is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(centerHorizontal && width == 0)",
+    "rationale" : "It is unlikely to be meaningful to try to horizontally center a rectangle of zero width.",
+    "meta" : [ ]
+  } ]
+}

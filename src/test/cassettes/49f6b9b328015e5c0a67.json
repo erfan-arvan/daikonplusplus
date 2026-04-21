@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The method returns the value of rectangle.getX(), which should be a finite float as an object's X coordinate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == rectangle.getX()",
+    "rationale" : "The return value is exactly rectangle.getX() as per the method implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= Float.NEGATIVE_INFINITY && result <= Float.POSITIVE_INFINITY",
+    "rationale" : "The result is always a valid float, not NaN, so must be in the domain of real numbers representable by float.",
+    "meta" : [ ]
+  } ]
+}

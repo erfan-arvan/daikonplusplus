@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == fileHandles",
+    "rationale" : "The method always returns the reference to the modified input parameter 'fileHandles'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileHandles.size > 0",
+    "rationale" : "The method always adds at least one FileHandle to fileHandles before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size == fileHandles.size",
+    "rationale" : "Since result is fileHandles, their sizes must match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset.getChildByName(\"image\") != null || tileset.getChildrenByName(\"tile\").size > 0",
+    "rationale" : "The method will only add images if the tileset has an image child or tile children, so at least one of these conditions must be true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is required for normal execution; all code paths use it to compute tsxFile if 'source' is absent.",
+    "meta" : [ ]
+  } ]
+}

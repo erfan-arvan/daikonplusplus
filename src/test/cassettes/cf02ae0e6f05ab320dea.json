@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method uses 'map' in resolveTemplateObject and loadObject calls; TiledMap is expected to be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is used for 'add'; should be non-null for the method to work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is dereferenced immediately (element.getString); should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used in resolveTemplateObject; expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.isObject()",
+    "rationale" : "JsonValue representing a JSON object group should itself be a JSON object.",
+    "meta" : [ ]
+  } ]
+}

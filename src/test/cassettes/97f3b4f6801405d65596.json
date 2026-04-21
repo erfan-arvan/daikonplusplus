@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager is used to construct AssetManagerAtlasResolver, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is passed to getAtlasFileHandle and loadTiledMap, so it is dereferenced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getAtlasFileHandle(tmjFile) != null",
+    "rationale" : "atlasHandle, assigned from getAtlasFileHandle(tmjFile), is used in further calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is typically non-null when loading resources, even if not used directly here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "atlasResolver != null",
+    "rationale" : "atlasResolver is assigned a new AssetManagerAtlasResolver in this method.",
+    "meta" : [ ]
+  } ]
+}

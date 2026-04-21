@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The layer argument is dereferenced multiple times throughout the method, so it must not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() != null",
+    "rationale" : "If layer.getTextureRegion() is null, the method returns early; if we reach exit, it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getX() == layer.getX()",
+    "rationale" : "layer.getX() is accessed and used in calculations; no side effects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxX() == layer.getParallaxX()",
+    "rationale" : "layer.getParallaxX() is called and should return a consistent value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!layer.isRepeatX() || layer.isRepeatX()",
+    "rationale" : "Exhaustively, isRepeatX must be either true or false. This is not very deep, but holds by contract (boolean).",
+    "meta" : [ ]
+  } ]
+}

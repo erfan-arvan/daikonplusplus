@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Method is likely called with non-null names for map lookups.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A new TextureRegion is constructed and returned; thus, result is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getTexture() == images.get(name)",
+    "rationale" : "The TextureRegion is constructed from images.get(name), so getTexture() returns that.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TextureRegion",
+    "rationale" : "The returned object is always a TextureRegion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || images.containsKey(name)",
+    "rationale" : "images.get(name) may be null if the key does not exist; this expresses that if name is not null, the map could contain it.",
+    "meta" : [ ]
+  } ]
+}

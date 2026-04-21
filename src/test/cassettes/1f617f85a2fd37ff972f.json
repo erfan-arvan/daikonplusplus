@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "keycode >= 0",
+    "rationale" : "Keycodes are typically represented by non-negative integer constants in UI and input libraries.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyRepeatTask.keycode == keycode || keyRepeatTask.isScheduled()",
+    "rationale" : "If keyRepeatTask's keycode does not match, the task is rescheduled with the new keycode and becomes scheduled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyRepeatTask.isScheduled()",
+    "rationale" : "After calling scheduleKeyRepeatTask, the keyRepeatTask is always scheduled if this method is allowed to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyRepeatTask.keycode == keycode",
+    "rationale" : "On method exit, keyRepeatTask.keycode is set to the incoming keycode regardless of prior state.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "layer is used extensively and must not be null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "safe-access"
+    } ]
+  }, {
+    "expression" : "layer.getWidth() >= 0",
+    "rationale" : "TiledMapTileLayer should not have a negative width.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "non-negative width"
+    } ]
+  }, {
+    "expression" : "layer.getHeight() >= 0",
+    "rationale" : "TiledMapTileLayer should not have a negative height.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "non-negative height"
+    } ]
+  }, {
+    "expression" : "layer.getTileWidth() > 0",
+    "rationale" : "Tile width should be a positive value.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "positive tile width"
+    } ]
+  }, {
+    "expression" : "layer.getTileHeight() > 0",
+    "rationale" : "Tile height should be a positive value.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "positive tile height"
+    } ]
+  } ]
+}

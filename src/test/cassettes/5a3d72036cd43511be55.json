@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method accesses the style field, accessing fields or methods on it; it must not be null to safely execute.",
+    "meta" : [ ]
+  }, {
+    "expression" : "scrollPane != null",
+    "rationale" : "The method calls scrollPane.hasParent(), so scrollPane must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background != null || style.backgroundDisabled != null || style.backgroundOpen != null || style.backgroundOver != null",
+    "rationale" : "The method returns one of these fields, so at least one must be non-null to avoid returning null unless allowed.",
+    "meta" : [ ]
+  } ]
+}

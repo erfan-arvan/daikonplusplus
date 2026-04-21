@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "icon != null",
+    "rationale" : "Drawable icon is dereferenced, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "Batch is passed to icon.draw; it must not be null to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "icon.getMinWidth() >= 0",
+    "rationale" : "Drawable minimum width is generally non-negative and needed for draw.",
+    "meta" : [ ]
+  }, {
+    "expression" : "icon.getMinHeight() >= 0",
+    "rationale" : "Drawable minimum height is expected to be non-negative for drawing.",
+    "meta" : [ ]
+  } ]
+}

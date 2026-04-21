@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used in method calls and to construct other objects; it must be non-null to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "getAtlasFileHandle likely expects tmxFile to be a valid file handle, which implies the file should exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureParameter == null || textureParameter != null",
+    "rationale" : "textureParameter may be optionally null or non-null as method logic doesn't depend directly on it at entry.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "indentSpacing >= 0",
+    "rationale" : "Tree indentation spacing is typically non-negative, as negative spacing would not be meaningful in a tree UI.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(indentSpacing)",
+    "rationale" : "Indent spacing should be a finite value for correct layout calculations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indentSpacing != Float.NaN",
+    "rationale" : "Indentation spacing being NaN could break UI layout logic.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method is searching for a tileset matching the provided name using name.equals(), which will throw a NullPointerException if name is null. It's likely that calling code avoids passing null here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() >= 0",
+    "rationale" : "By String contract, if name is non-null, its length is always non-negative. Useful for defensive code that might later check for empty names.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.trim().length() == 0 || name.trim().length() > 0",
+    "rationale" : "At method entry, name can be any non-null string—empty or non-empty after trimming.",
+    "meta" : [ ]
+  } ]
+}

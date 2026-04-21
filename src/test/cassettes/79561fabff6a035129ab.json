@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tooltip != null",
+    "rationale" : "The parameter tooltip is dereferenced within the method (e.g. tooltip.container.remove(), tooltip.always), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.container != null",
+    "rationale" : "tooltip.container is accessed for remove(), indicating it must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(tooltip.container.remove()) || resetTask.cancelled",
+    "rationale" : "resetTask.cancel() is invoked if tooltip.container.remove() returns true; thus, if remove() returns true, resetTask must be cancelled.",
+    "meta" : [ ]
+  } ]
+}

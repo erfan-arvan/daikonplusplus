@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which cannot be null in instance methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this' after setting the field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.fill == fill",
+    "rationale" : "The returned object's fill field will equal the method parameter 'fill' just set on 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fill >= 0",
+    "rationale" : "Typically, fill factors like this for layout should not be negative (this may be an assumption based on the Javadoc context).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.fill >= 0",
+    "rationale" : "Since 'result.fill == fill', if the method expects non-negative fills, this holds as well.",
+    "meta" : [ ]
+  } ]
+}

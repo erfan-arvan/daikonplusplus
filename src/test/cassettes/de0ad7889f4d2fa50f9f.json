@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "Rendering methods typically require a non-null Batch for drawing; calling super.draw(batch, parentAlpha) also implies batch should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "Alpha values for UI components are usually clamped between 0 and 1. Passing parentAlpha to super.draw() suggests it represents alpha transparency.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getImageDrawable() == image.getDrawable()",
+    "rationale" : "The line image.setDrawable(getImageDrawable()) sets image's drawable to the value of getImageDrawable(), ensuring they are equal at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getImageDrawable() != null",
+    "rationale" : "For image.setDrawable(getImageDrawable()) to be meaningful, it is likely that getImageDrawable() is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "image != null",
+    "rationale" : "image is dereferenced for setDrawable(), so it should be non-null at this point.",
+    "meta" : [ ]
+  } ]
+}

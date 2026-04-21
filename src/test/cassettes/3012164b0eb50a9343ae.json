@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The method returns 0 if style.background is null, otherwise returns background.getMinHeight(), which is likely non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || result == (style.background != null ? style.background.getMinHeight() : 0)",
+    "rationale" : "Result is always either 0 or the background's minimum height if available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background == null || result == style.background.getMinHeight()",
+    "rationale" : "If background is not null, the result must be getMinHeight().",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background != null || result == 0",
+    "rationale" : "If there is no background, the method returns 0.",
+    "meta" : [ ]
+  } ]
+}

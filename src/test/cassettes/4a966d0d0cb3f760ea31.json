@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "jump || cursor == linesBreak.get(cursorLine * 2)",
+    "rationale" : "If 'jump' is false, then 'cursor' is set from linesBreak at 'cursorLine * 2', so at exit: jump==true OR cursor==linesBreak.get(cursorLine*2).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!jump || cursor == 0",
+    "rationale" : "If 'jump' is true, 'cursor' is set to 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jump || (cursorLine * 2 < linesBreak.size)",
+    "rationale" : "The second branch in the method is only executed if 'cursorLine*2 < linesBreak.size'.",
+    "meta" : [ ]
+  } ]
+}

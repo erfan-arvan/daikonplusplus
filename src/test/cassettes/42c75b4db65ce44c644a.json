@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'objects', which is set to 'new MapObjects()' if it was null, ensuring result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == (result.size() == 0)",
+    "rationale" : "For most Java collections, isEmpty() and size()==0 are equivalent; MapObjects likely follows this standard.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof MapObjects",
+    "rationale" : "The method's return type is MapObjects, so result is always of this type.",
+    "meta" : [ ]
+  } ]
+}

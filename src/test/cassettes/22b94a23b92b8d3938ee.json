@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "resizeBorder >= 0",
+    "rationale" : "In many UI frameworks, border sizes or thickness are non-negative integers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resizeBorder <= 100",
+    "rationale" : "Assuming typical UI limits, a resize border is unlikely to be larger than 100 pixels.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resizeBorder % 2 == 0 || resizeBorder % 2 == 1",
+    "rationale" : "resizeBorder is an int, so its modulo 2 is 0 or 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resizeBorder != Integer.MIN_VALUE",
+    "rationale" : "Border sizes as Integer.MIN_VALUE may indicate an error or overflow.",
+    "meta" : [ ]
+  } ]
+}

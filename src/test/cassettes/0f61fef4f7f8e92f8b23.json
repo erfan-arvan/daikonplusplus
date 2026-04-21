@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "getCurrentFrame() != null",
+    "rationale" : "The method dereferences getCurrentFrame(), so it must not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Required because getCurrentFrame() is dereferenced."
+    } ]
+  }, {
+    "expression" : "getCurrentFrame().getTextureRegion() != null",
+    "rationale" : "The return value should never be null, suggesting getTextureRegion() result is not null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Returned value is getCurrentFrame().getTextureRegion()."
+    } ]
+  }, {
+    "expression" : "getTextureRegion() != null",
+    "rationale" : "The method aims to always return a valid TextureRegion object.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method guarantees a non-null TextureRegion."
+    } ]
+  } ]
+}

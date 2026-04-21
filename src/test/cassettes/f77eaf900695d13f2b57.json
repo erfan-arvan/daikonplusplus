@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of add(...), which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getActor() instanceof Label",
+    "rationale" : "A new Label is created and added, so result should contain a Label.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontName != null",
+    "rationale" : "skin.getFont(fontName) is called, which may throw if fontName is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "colorName != null",
+    "rationale" : "skin.getColor(colorName) is called, which may throw if colorName is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || result.getActor() != null",
+    "rationale" : "Even if text is null, a Label is constructed and added, so the actor in result should still exist.",
+    "meta" : [ ]
+  } ]
+}

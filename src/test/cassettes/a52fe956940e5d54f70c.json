@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == padLeft.get(actor) + padRight.get(actor)",
+    "rationale" : "From the implementation, result is the sum of padLeft and padRight obtained via the get method for actor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= padLeft.get(actor)",
+    "rationale" : "Since padRight.get(actor) is added to padLeft.get(actor), the result is always greater than or equal to padLeft.get(actor) if padRight.get(actor) is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= padRight.get(actor)",
+    "rationale" : "Similarly, result is always greater than or equal to padRight.get(actor) if padLeft.get(actor) is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0 || padLeft.get(actor) + padRight.get(actor) < 0",
+    "rationale" : "If both paddings are non-negative, the sum is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == getPadLeft() + getPadRight()",
+    "rationale" : "According to the Javadoc, result should be equal to getPadLeft() + getPadRight().",
+    "meta" : [ ]
+  } ]
+}

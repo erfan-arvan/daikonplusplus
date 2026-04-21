@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (index > 0 && !states.get(index - 1).text.equals(currentText))",
+    "rationale" : "Directly reflects the logic used to compute 'result' in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || index > 0",
+    "rationale" : "If undo is possible, there must be at least one previous state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || !states.get(index - 1).text.equals(currentText)",
+    "rationale" : "If undo is possible, the previous state text must not equal the current text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index <= 0 || states.get(index - 1) != null",
+    "rationale" : "If there is a previous state, it must be non-null to be accessed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "currentText != null",
+    "rationale" : "currentText must be non-null for .equals() to be called safely.",
+    "meta" : [ ]
+  } ]
+}

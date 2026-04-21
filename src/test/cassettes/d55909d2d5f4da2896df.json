@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0 && x < width && y >= 0 && y < height",
+    "rationale" : "The assignment to cells[x][y] only happens if the indices are within proper bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x < 0 || x >= width || y < 0 || y >= height || cells[x][y] == cell",
+    "rationale" : "If assignment is performed (valid bounds), then cells[x][y] is set to cell; otherwise the assignment is skipped.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x < 0 || x >= width || y < 0 || y >= height || cell == null || cells[x][y] == null || cells[x][y].equals(cell)",
+    "rationale" : "If cell is null or equals previous value, cells[x][y] will match what was passed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x < 0 || x >= width || y < 0 || y >= height || cells != null",
+    "rationale" : "cells must be non-null to store into cells[x][y] (structural invariant).",
+    "meta" : [ ]
+  }, {
+    "expression" : "x < 0 || x >= width || y < 0 || y >= height || (cells.length > x && cells[x].length > y)",
+    "rationale" : "The cells array must be large enough to accommodate x and y if assignment is performed.",
+    "meta" : [ ]
+  } ]
+}

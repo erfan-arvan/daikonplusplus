@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this', so it's always true that result == this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0.0f",
+    "rationale" : "Minimum size parameters are often expected to be non-negative, so this expresses that width should not be negative when setting minSize.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0.0f",
+    "rationale" : "Similarly, height should not be negative for a minimum size setting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "'this' can never be null within an instance method, so result is always not null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The first statement in the method throws an exception if 'name' is null, so it cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type != null",
+    "rationale" : "The method throws an exception if 'type' is null, so it cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || type.isInstance(result)",
+    "rationale" : "If the resource is found, it is returned cast to type T, so if result is not null, it should be an instance of type.",
+    "meta" : [ ]
+  } ]
+}

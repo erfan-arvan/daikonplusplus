@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "sizeInvalid == false",
+    "rationale" : "The first line of computeSize sets sizeInvalid to false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tablePrefWidth >= tableMinWidth",
+    "rationale" : "tablePrefWidth is set to the maximum of itself and tableMinWidth.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tablePrefHeight >= tableMinHeight",
+    "rationale" : "tablePrefHeight is set to the maximum of itself and tableMinHeight.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tableMinWidth >= 0",
+    "rationale" : "tableMinWidth is initialized to hpadding (sum of paddings) and incremented by columnMinWidth elements, which are floats representing widths—always non-negative after Math.max.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tableMinHeight >= 0",
+    "rationale" : "tableMinHeight is the sum of vertical paddings and rowMinHeight values, all of which are non-negative.",
+    "meta" : [ ]
+  } ]
+}

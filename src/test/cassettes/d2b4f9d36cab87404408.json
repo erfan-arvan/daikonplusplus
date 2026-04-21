@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "projectFilePath == null || !projectFilePath.trim().isEmpty()",
+    "rationale" : "The method returns immediately if projectFilePath is null or empty, so if we reach the exit, this holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "projectFilePath == null || resolve(projectFilePath) != null",
+    "rationale" : "resolve(projectFilePath) is called after null/empty check, so it should succeed if method did not return earlier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "projectFilePath == null || !(new JsonReader().parse(resolve(projectFilePath))).get(\"propertyTypes\")==null",
+    "rationale" : "If projectFilePath is not null or empty, we return early if propertyTypes is null, so at exit this cannot happen.",
+    "meta" : [ ]
+  }, {
+    "expression" : "projectFilePath == null || !((new JsonReader().parse(resolve(projectFilePath))).get(\"propertyTypes\").isEmpty())",
+    "rationale" : "If propertyTypes exists, at least one member is iterated after skipping empty ones.",
+    "meta" : [ ]
+  } ]
+}

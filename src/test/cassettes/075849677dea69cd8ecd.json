@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "mapProperties != null",
+    "rationale" : "mapProperties is dereferenced in the method without a null check, so it is assumed to be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "className == null || projectClassInfo == null || projectClassInfo.containsKey(className)",
+    "rationale" : "The method returns early if className is null or projectClassInfo is null or does not contain the key, ensuring that at exit either className is null, projectClassInfo is null, or contains the key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "projectClassInfo != null || (this.projectClassInfo != null && this.projectClassInfo.size == 0)",
+    "rationale" : "If projectClassInfo is null, it gets instantiated to an empty ObjectMap before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapProperties.size() >= 0",
+    "rationale" : "mapProperties is a collection, so its size is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "className == null || className.length() >= 0",
+    "rationale" : "If className is not null, its length is non-negative.",
+    "meta" : [ ]
+  } ]
+}

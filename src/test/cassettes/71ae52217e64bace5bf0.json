@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "Method uses file for extension and other operations; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "file.extension() is called and its result is compared; should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension().length() > 0",
+    "rationale" : "File extension should be non-empty to match supported formats.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "manager is passed to loadSync calls of internal loaders; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is passed to loadSync calls and may be required for resource identification.",
+    "meta" : [ ]
+  } ]
+}

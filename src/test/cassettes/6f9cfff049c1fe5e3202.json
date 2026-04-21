@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method attempts to load and return a TiledMap, and on failure throws an exception instead of returning null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tideFile != null",
+    "rationale" : "tideFile is passed directly to loadMap and used for map loading, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "assetManager != null",
+    "rationale" : "assetManager is used to construct AssetManagerImageResolver, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is referenced in the exception construction for error reporting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.isEmpty()",
+    "rationale" : "fileName is used as an identifier and error message; it is likely expected to be non-empty.",
+    "meta" : [ ]
+  } ]
+}

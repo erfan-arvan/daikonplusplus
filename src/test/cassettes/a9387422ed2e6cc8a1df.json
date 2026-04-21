@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0.0f && result <= 1.0f",
+    "rationale" : "Opacity values are conventionally bounded between 0 and 1; the method multiply returns and never sets negative values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result < 0.0f)",
+    "rationale" : "Opacity is not negative, as negative opacity values make little sense in rendering contexts and are likely not supported by the implementation.",
+    "meta" : [ ]
+  } ]
+}

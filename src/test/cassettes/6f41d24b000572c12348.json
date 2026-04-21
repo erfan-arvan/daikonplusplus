@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "checkedButtons != null",
+    "rationale" : "The method relies on checkedButtons being accessible, so it is likely initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "checkedButtons.size >= 0",
+    "rationale" : "Button list sizes are non-negative in well-defined collections.",
+    "meta" : [ ]
+  }, {
+    "expression" : "checkedButtons.getClass().isInstance(checkedButtons)",
+    "rationale" : "checkedButtons must be an instance of its own class (type-correctness check).",
+    "meta" : [ ]
+  } ]
+}

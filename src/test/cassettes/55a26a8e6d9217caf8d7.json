@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "getWidth() >= 0",
+    "rationale" : "The layout likely expects the width to be non-negative for UI layout logic.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "getWidth()"
+    } ]
+  }, {
+    "expression" : "getHeight() >= 0",
+    "rationale" : "Like width, UI elements generally are expected to have non-negative heights.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "getHeight()"
+    } ]
+  }, {
+    "expression" : "deadzoneRadius >= 0",
+    "rationale" : "Deadzone typically represents a non-negative area in a UI control.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "deadzoneRadius"
+    } ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "The method dereferences style, so it should be non-null.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "style"
+    } ]
+  } ]
+}

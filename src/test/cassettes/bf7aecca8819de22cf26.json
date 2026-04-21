@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= min",
+    "rationale" : "Since clamp restricts the result to not be less than min.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= max",
+    "rationale" : "Since clamp restricts the result to not exceed max.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(value >= min && value <= max) ? result == value : true",
+    "rationale" : "If the input value is already in the allowed range, result should remain unchanged.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Math.max(min, Math.min(max, value))",
+    "rationale" : "This is the standard clamping logic ensuring result falls within the boundaries.",
+    "meta" : [ ]
+  } ]
+}

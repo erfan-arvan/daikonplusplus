@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Null keys may be disallowed or unsupported by MapProperties, and get() could throw or behave unexpectedly.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "clazz != null",
+    "rationale" : "It is necessary to provide a non-null class in order to perform the cast; a null clazz would cause a NullPointerException if used.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  } ]
+}

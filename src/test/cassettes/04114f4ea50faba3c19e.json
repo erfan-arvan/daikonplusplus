@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "y == y",
+    "rationale" : "y is a float parameter and is defined at this point; however, self-comparisons are tautologies.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(y)",
+    "rationale" : "As y is a float parameter from user input or UI, it is reasonable to expect it to be a finite value, not NaN or infinity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "At method entry, no other relational state between program variables is known or can be derived from the limited inputs.",
+    "meta" : [ ]
+  } ]
+}

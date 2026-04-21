@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "firstWidget == null || !(firstWidget instanceof Layout) || ((Layout)firstWidget).getMinWidth() >= 0",
+    "rationale" : "If firstWidget is a Layout, its getMinWidth() value is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "secondWidget == null || !(secondWidget instanceof Layout) || ((Layout)secondWidget).getMinWidth() >= 0",
+    "rationale" : "If secondWidget is a Layout, its getMinWidth() value is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "style must be initialized for the method to operate correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.handle != null",
+    "rationale" : "style.handle must be initialized because its getMinWidth() is used in the method body.",
+    "meta" : [ ]
+  } ]
+}

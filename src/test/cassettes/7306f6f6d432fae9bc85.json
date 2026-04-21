@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a TextureRegion either directly or after creating one from a Texture, or throws an exception if neither is found, so result cannot be null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "A null 'name' would not match any region or texture and could potentially cause issues in string concatenation and map lookups, so it's very likely never null at method exit.",
+    "meta" : [ ]
+  } ]
+}

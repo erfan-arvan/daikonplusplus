@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "result is either 0 or the minimum height returned by style.hScrollKnob or style.hScroll, both of which are non-negative or zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || scrollX",
+    "rationale" : "The only case where result is 0 occurs if scrollX is false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!scrollX) || result > 0 || (style.hScrollKnob == null && style.hScroll == null)",
+    "rationale" : "If scrollX is true and result is zero, then both hScrollKnob and hScroll must be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(style.hScroll == null && style.hScrollKnob == null) || result >= (style.hScrollKnob != null ? style.hScrollKnob.getMinHeight() : 0)",
+    "rationale" : "If either knob is present, result will be at least as large as hScrollKnob's min height, unless both are null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(style.hScroll == null && style.hScrollKnob == null) || result >= (style.hScroll != null ? style.hScroll.getMinHeight() : 0)",
+    "rationale" : "If either scroll is present, result will be at least as large as hScroll's min height, unless both are null.",
+    "meta" : [ ]
+  } ]
+}

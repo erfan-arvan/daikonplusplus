@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layers != null",
+    "rationale" : "Method accesses layers in a for-each loop, which would throw a NullPointerException if layers were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length >= 0",
+    "rationale" : "An array's length is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "java.util.Arrays.stream(layers).distinct().count() <= layers.length",
+    "rationale" : "The number of distinct elements in layers cannot exceed its length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "java.util.Arrays.stream(layers).allMatch(idx -> idx >= 0)",
+    "rationale" : "Index values are used to access map layers, which must be non-negative to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "java.util.Arrays.stream(layers).noneMatch(idx -> idx >= map.getLayers().size())",
+    "rationale" : "Index values must be less than map.getLayers().size() for safe access.",
+    "meta" : [ ]
+  } ]
+}

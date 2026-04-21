@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method assumes that layer is valid and used throughout; a null layer would result in NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getWidth() >= 0",
+    "rationale" : "A TiledMapTileLayer should not have a negative width; this property is necessary for correct rendering calculations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getHeight() >= 0",
+    "rationale" : "A TiledMapTileLayer should not have a negative height, necessary for array/loop index boundaries in rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileWidth() > 0",
+    "rationale" : "Tile width should be strictly positive for computation of layout and rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileHeight() > 0",
+    "rationale" : "Tile height should be strictly positive for rendering and layout calculations.",
+    "meta" : [ ]
+  } ]
+}

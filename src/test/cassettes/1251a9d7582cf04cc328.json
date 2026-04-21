@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "The method likely requires a valid Tiled map file to load, so tmxFile should not be null before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager is required to resolve image assets for the Tiled map, so it should not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "Parameters may control how the map is loaded, so they are likely required to be non-null for proper operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "A map file should have a non-null, non-empty name to be loaded successfully.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a newly constructed String, which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.startsWith(\"ProjectClassMember{\")",
+    "rationale" : "The returned string always begins with the literal prefix used in the concatenation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.endsWith(\"}\")",
+    "rationale" : "The returned string always ends with the closing brace literal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.contains(\"name=\")",
+    "rationale" : "The returned string always includes the name entry, as per the formatting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.contains(\", type=\")",
+    "rationale" : "The formatted result always includes the type field with this substring.",
+    "meta" : [ ]
+  } ]
+}

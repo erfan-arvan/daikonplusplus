@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "The method immediately throws if actor is null, so this always holds at the exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (actor == this.actor)",
+    "rationale" : "The result is true if and only if actor is the current actor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!result) == (actor != this.actor)",
+    "rationale" : "If the result is false, then actor was not the current actor.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "items.size == 0 || selection.get() != null",
+    "rationale" : "According to the logic, selection is set to either the found item, the first item, or cleared if there are no items. Therefore, if items.size > 0, selection.get() is non-null.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "If there are any items, something is always selected."
+    } ]
+  }, {
+    "expression" : "!(items.contains(item, false)) || selection.get() == item",
+    "rationale" : "If item is in items per contains, then selection.set(item) is called, so selection.get() == item.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "If the item is contained, it should be set as selection."
+    } ]
+  }, {
+    "expression" : "!(items.contains(item, false)) || items.size > 0",
+    "rationale" : "items.contains(item, false) can only be true if items.size > 0.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "If item is contained, items must not be empty."
+    } ]
+  }, {
+    "expression" : "items.size == 0 || items.contains(selection.get(), false)",
+    "rationale" : "When items is non-empty, the selection is always set to an item from items.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "If any items are present, selection.get() will be a valid item."
+    } ]
+  }, {
+    "expression" : "items.size == 0 || selection.get() != null",
+    "rationale" : "Duplication for increased confidence.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "Redundant with first, for clarity: when there are items, some item is selected."
+    } ]
+  } ]
+}

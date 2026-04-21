@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "It is reasonable to assume the TMX file argument is non-null since it is required for loading the map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "ImageResolver is necessary to resolve tile images, so it is expected to be non-null when entering the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter != null",
+    "rationale" : "This expression is always true and covers the fact that parameter may be null or non-null. (Will not appear as actual invariant, just showing example of form.)",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "It is likely expected that the FileHandle provided actually references an existing file, or an exception will be thrown otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.isDirectory() == false",
+    "rationale" : "The TMX file should not be a directory, as it is expected to be a file containing the map data.",
+    "meta" : [ ]
+  } ]
+}

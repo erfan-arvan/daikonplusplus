@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "The method will need a file handle to load a map, so it's likely that a non-null value is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.exists()",
+    "rationale" : "Loading a map from file implies the file should exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "A valid, non-empty file name is expected for asset loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager is needed to manage and load assets, so a non-null reference is likely required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof Parameters",
+    "rationale" : "parameter is either null or of the expected type passed to the method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "batch is used for drawing and calling its methods, so it must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "parentAlpha represents alpha transparency and negative transparency values are generally not meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "alpha values typically range from 0 (transparent) to 1 (opaque).",
+    "meta" : [ ]
+  } ]
+}

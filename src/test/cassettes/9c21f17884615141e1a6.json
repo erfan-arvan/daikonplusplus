@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (children.size > 0)",
+    "rationale" : "The method directly returns the result of (children.size > 0), so the result must always equal this predicate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || children.size == 0",
+    "rationale" : "If result is false, then children.size must be 0; conversely, if children.size > 0, result is true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || children.size > 0 == result",
+    "rationale" : "Captures the correspondence between the returned result and the size of children.",
+    "meta" : [ ]
+  } ]
+}

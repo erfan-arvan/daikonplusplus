@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "a > 0",
+    "rationale" : "The method returns immediately if a <= 0, so at exit, a must be > 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch is used in method calls, so it must be non-null at all points after the early return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "r >= 0.0f && r <= 1.0f",
+    "rationale" : "r is likely a color channel and is set on batch via setColor(r, g, b, a), which expects color components in [0, 1].",
+    "meta" : [ ]
+  }, {
+    "expression" : "g >= 0.0f && g <= 1.0f",
+    "rationale" : "g is a color channel for green and is likely restricted to [0, 1].",
+    "meta" : [ ]
+  }, {
+    "expression" : "b >= 0.0f && b <= 1.0f",
+    "rationale" : "b is a color channel for blue and is likely restricted to [0, 1].",
+    "meta" : [ ]
+  } ]
+}

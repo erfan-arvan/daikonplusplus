@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The loaders called by this method are expected to produce and return a (non-null) TiledMap object when a supported file is given.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && (fileName.toLowerCase().endsWith(\".tmx\") || fileName.toLowerCase().endsWith(\".tmj\"))",
+    "rationale" : "The only possible return paths require a supported file extension (.tmx or .tmj); otherwise, an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "If parameter is passed as null, a new instance is created and used, so parameter is never null at the return point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The result is always a TiledMap, as all delegate loaders (atlasTmxMapLoader, tmxMapLoader, etc) return a TiledMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is required for file resolution and extension checks; method contract assumes it is not null for successful return.",
+    "meta" : [ ]
+  } ]
+}

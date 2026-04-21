@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layers != null",
+    "rationale" : "The method immediately returns if layers is null; so useful as a safe-guard and is the main precondition for non-trivial work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used as an argument in getRelativeFileHandle, which likely requires it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileHandles != null",
+    "rationale" : "fileHandles.add is called in the body, which requires fileHandles to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.isArray()",
+    "rationale" : "Since layers is iterated in a for-each loop, it is expected to be an array-type JsonValue (and not a primitive or object).",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileHandles.size >= 0",
+    "rationale" : "The size of an Array cannot be negative; this captures a basic well-formedness invariant for fileHandles.",
+    "meta" : [ ]
+  } ]
+}

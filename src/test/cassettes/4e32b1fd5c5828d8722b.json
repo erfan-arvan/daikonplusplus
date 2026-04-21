@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The spaceBottom.get(actor) method is likely to return a finite float representing spacing, so the result is expected to be finite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0f",
+    "rationale" : "Spacing values such as spaceBottom are often non-negative in UI layout logic, so the result is likely not less than zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(result)",
+    "rationale" : "Layout spacings should not be NaN, so the returned result should not be NaN.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "itemHeight == style.font.getCapHeight() - style.font.getDescent() * 2 + style.selection.getTopHeight() + style.selection.getBottomHeight()",
+    "rationale" : "itemHeight is always set to the sum of internal font and selection drawable measurements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefHeight == items.size * itemHeight || prefHeight == Math.max(items.size * itemHeight + style.background.getTopHeight() + style.background.getBottomHeight(), style.background.getMinHeight())",
+    "rationale" : "prefHeight is either a simple product or an adjusted value accounting for background (if present).",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefWidth >= 0",
+    "rationale" : "prefWidth accumulates via Math.max and additions, and thus should never be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefWidth == Math.max(prefWidth, style.background == null ? 0 : style.background.getMinWidth())",
+    "rationale" : "prefWidth is updated at exit to be at least background minWidth if background is present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefHeight >= 0",
+    "rationale" : "prefHeight is generally non-negative, being based on product or Math.max with non-negative background values.",
+    "meta" : [ ]
+  } ]
+}

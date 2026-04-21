@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "padTop >= 0",
+    "rationale" : "Padding values are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(padTop)",
+    "rationale" : "Padding should be a valid number.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padTop <= Float.MAX_VALUE",
+    "rationale" : "padTop should not exceed the maximum float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padTop >= Float.MIN_VALUE || padTop <= 0",
+    "rationale" : "padTop is either sufficiently large in the positive domain or is negative or zero, covering the full float range.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method attempts to look up resources by name; a null name could cause a NullPointerException during lookups or concatenations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "A resource lookup by an empty string is likely not meaningful; many APIs treat empty resource names as invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.trim().length() > 0",
+    "rationale" : "String resource names consisting only of whitespace are likely invalid for resource mapping.",
+    "meta" : [ ]
+  } ]
+}

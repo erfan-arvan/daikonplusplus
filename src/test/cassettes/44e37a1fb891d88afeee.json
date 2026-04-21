@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "Negative values are forbidden by method precondition and exception checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionEnd > selectionStart",
+    "rationale" : "Selections with zero length are excluded by early return; selectionEnd < selectionStart is swapped.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionEnd >= 0",
+    "rationale" : "selectionEnd is checked against negative values and set to at least 0.",
+    "meta" : [ ]
+  } ]
+}

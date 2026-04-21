@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "background == null || background instanceof Drawable",
+    "rationale" : "If background is not null, it must be a Drawable as declared in the method signature.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-safety"
+    } ]
+  }, {
+    "expression" : "true || (adjustPadding == true || adjustPadding == false)",
+    "rationale" : "adjustPadding, being a boolean parameter, must always be true or false.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "boolean-domain"
+    } ]
+  }, {
+    "expression" : "!(background != null && background == null)",
+    "rationale" : "background cannot be both null and non-null at the same time.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-consistency"
+    } ]
+  } ]
+}

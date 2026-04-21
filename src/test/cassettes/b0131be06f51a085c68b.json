@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "max != 0",
+    "rationale" : "Avoiding division by zero in (max - min); commonly, progress bars do not expect max to be zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "max >= min",
+    "rationale" : "The method calculates (value - min) / (max - min), so typically max should not be less than min.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value >= min",
+    "rationale" : "Progress bar values are often clamped between min and max.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value <= max",
+    "rationale" : "Progress bar values are typically not allowed to exceed max.",
+    "meta" : [ ]
+  } ]
+}

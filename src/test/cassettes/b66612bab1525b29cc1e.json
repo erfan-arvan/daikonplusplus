@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "clip == enabled",
+    "rationale" : "The method directly assigns the parameter 'enabled' to the field 'clip'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isTransform() == enabled",
+    "rationale" : "The method 'setTransform(enabled)' is always called with the current value of 'enabled', so the result of 'isTransform()' should match 'enabled' after the call.",
+    "meta" : [ ]
+  } ]
+}

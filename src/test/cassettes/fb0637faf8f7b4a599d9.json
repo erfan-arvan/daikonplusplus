@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method either returns a new Drawable instance or throws an exception; it never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable != null",
+    "rationale" : "The method assumes drawable is a valid input and does not handle null values, so at this program point, drawable is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != drawable",
+    "rationale" : "The method always creates and returns a new instance, not the input drawable itself.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable instanceof TiledDrawable || drawable instanceof TextureRegionDrawable || drawable instanceof NinePatchDrawable || drawable instanceof SpriteDrawable",
+    "rationale" : "The only way to reach the return statement is if drawable is an instance of one of these classes; otherwise, the method throws an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == drawable.getClass()",
+    "rationale" : "Each branch constructs a new instance of the same class as the input drawable, so their runtime classes are equal.",
+    "meta" : [ ]
+  } ]
+}

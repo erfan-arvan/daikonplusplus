@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "background != null",
+    "rationale" : "The method returns immediately if background is null, so reaching the exit point guarantees background is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch is used in method calls; NullPointerException would occur if batch was null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values are typically non-negative and parentAlpha is used in draw coloring without clamping.",
+    "meta" : [ ]
+  } ]
+}

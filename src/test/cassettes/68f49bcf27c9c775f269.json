@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Method calls such as contains, lastIndexOf, and substring on name require it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() > 0",
+    "rationale" : "It is likely that region names are non-empty; passing an empty name to parseRegionName is probably unintended.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.indexOf(\"atlas_imagelayer\") >= 0 || !name.contains(\"atlas_imagelayer\")",
+    "rationale" : "name.contains(\"atlas_imagelayer\") is equivalent to name.indexOf(\"atlas_imagelayer\") >= 0, both usages are common for substring search.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.lastIndexOf('/') < name.length()",
+    "rationale" : "A valid lastIndexOf('/') is always less than name.length(); prevents out of bounds errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "Alternative to name.length() > 0, asserts that the input string is not empty which likely matches expectations based on method intent.",
+    "meta" : [ ]
+  } ]
+}

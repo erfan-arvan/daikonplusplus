@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "type != null",
+    "rationale" : "The Class parameter 'type' is expected to be non-null for method lookup to work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "The method name argument 'name' should be non-null to look up a method by name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || !name.isEmpty()",
+    "rationale" : "If 'name' is non-null, it's likely expected to be non-empty as empty string is seldom used for method identifiers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type == null || type instanceof Class",
+    "rationale" : "'type' must refer to a valid Class instance or be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || name instanceof String",
+    "rationale" : "'name' must be a String if not null, matching the parameter type.",
+    "meta" : [ ]
+  } ]
+}

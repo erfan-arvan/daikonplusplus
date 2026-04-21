@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "padRight >= 0",
+    "rationale" : "In many UI layout cases, negative padding is not meaningful and may be disallowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(padRight)",
+    "rationale" : "Padding values are generally expected to be valid numbers, and not NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(padRight)",
+    "rationale" : "Padding is not expected to be infinite.",
+    "meta" : [ ]
+  } ]
+}

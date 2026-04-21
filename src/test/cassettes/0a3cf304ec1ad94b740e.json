@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getName().equals(\"Layer\") || !element.getName().equals(\"Layer\")",
+    "rationale" : "The method does nothing except when element name is 'Layer'; the state is unchanged otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!element.getName().equals(\"Layer\") || map.getLayers().size > 0",
+    "rationale" : "If a layer was loaded, then a layer object was added to map's layer list, making its size at least one.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!element.getName().equals(\"Layer\") || map.getLayers().get(map.getLayers().size - 1) != null",
+    "rationale" : "If a layer was loaded, the last layer in map should correspond to the newly added non-null layer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "The method assumes map is not null throughout, as it is dereferenced multiple times.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The method assumes element is not null.",
+    "meta" : [ ]
+  } ]
+}

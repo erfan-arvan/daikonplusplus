@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "sourceElement != null",
+    "rationale" : "The method expects to clone a valid Element; null sourceElement would be an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceElement.getName() != null",
+    "rationale" : "The clone is constructed using sourceElement.getName(), so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceElement.getAttributes() == null || sourceElement.getAttributes().size >= 0",
+    "rationale" : "If attributes exist, the size should be at least 0 (ObjectMap cannot have negative size).",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceElement.getText() == null || sourceElement.getText().length() >= 0",
+    "rationale" : "If there is text, its length should be non-negative.",
+    "meta" : [ ]
+  } ]
+}

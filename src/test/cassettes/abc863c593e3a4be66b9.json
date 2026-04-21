@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "type != null || value != null",
+    "rationale" : "If type is null, value will be returned, so value should not be null if type is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type == null || type.equals(\"string\") || type.equals(\"file\") || type.equals(\"int\") || type.equals(\"float\") || type.equals(\"bool\") || type.equals(\"color\")",
+    "rationale" : "Type should be one of the supported values or null, by design of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(type == null || type.equals(\"string\") || type.equals(\"file\")) || value != null",
+    "rationale" : "If type is not string, file, or null, value must be non-null to be converted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type == null || value != null",
+    "rationale" : "If type is null, value is returned. If type is not null, value must be provided for conversion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "name is used in error messages, so assuming it should not be null at entry.",
+    "meta" : [ ]
+  } ]
+}

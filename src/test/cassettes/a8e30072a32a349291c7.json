@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "size >= 0",
+    "rationale" : "Array sizes in Java must be non-negative; method creates new float[size] if needed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "array == null || array.length >= 0",
+    "rationale" : "All Java arrays have non-negative length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "array == null || array.length >= size",
+    "rationale" : "If array is not large enough, method will allocate a new array.",
+    "meta" : [ ]
+  }, {
+    "expression" : "array == null || (size <= array.length)",
+    "rationale" : "Redundant with previous, but expresses that size must not exceed the current array length for reuse.",
+    "meta" : [ ]
+  } ]
+}

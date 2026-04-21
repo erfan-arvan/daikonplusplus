@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Float.toString(float) always returns a non-null string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "String representations of float are never empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.matches(\"[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?\")",
+    "rationale" : "The result is a string encoding of a float value, matching Java's float string representations.",
+    "meta" : [ ]
+  } ]
+}

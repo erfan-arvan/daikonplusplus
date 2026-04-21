@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cell == null || cell.getTile() != null",
+    "rationale" : "The method checks for cell != null, and if not null, only continues if cell.getTile() != null, otherwise returns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(cell != null && cell.getTile() instanceof AnimatedTiledMapTile)",
+    "rationale" : "The method returns immediately if cell.getTile() is an AnimatedTiledMapTile; so this cannot be true at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cell == null || !(cell.getFlipHorizontally() && cell.getFlipVertically() && cell.getRotation() == 2)",
+    "rationale" : "All combinations of flips and rotations are handled, but the rotations check is only reached if cell != null and tile != null; expressing a safe access combination.",
+    "meta" : [ ]
+  }, {
+    "expression" : "color >= 0.0f",
+    "rationale" : "Color as a float is likely representing packed color/alpha value and is typically non-negative for rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cell == null || cell.getTile() != null && !(cell.getTile() instanceof AnimatedTiledMapTile)",
+    "rationale" : "At exit, if cell is not null, cell.getTile() is not null and not AnimatedTiledMapTile, otherwise we would have returned earlier.",
+    "meta" : [ ]
+  } ]
+}

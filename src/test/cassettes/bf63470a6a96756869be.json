@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "cell == null || cell instanceof Cell",
+    "rationale" : "If cell is non-null, it must be an instance of Cell, which is a reasonable invariant for the setCell method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= Integer.MIN_VALUE && x <= Integer.MAX_VALUE",
+    "rationale" : "x is an int parameter, so it must be within the Java int bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= Integer.MIN_VALUE && y <= Integer.MAX_VALUE",
+    "rationale" : "y is also an int parameter, so this must hold.",
+    "meta" : [ ]
+  } ]
+}

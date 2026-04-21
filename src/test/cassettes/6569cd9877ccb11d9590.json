@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "node != null",
+    "rationale" : "The method dereferences node and its fields/methods, so node must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "node.parent == null || node.parent != null",
+    "rationale" : "At method exit, either node.parent was not null (causing early return via recursion), or it was null and the method continued.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!rootNodes.removeValue(node, true) || node.parent == null",
+    "rationale" : "If rootNodes.removeValue(node, true) returns false, the method returns immediately; only if it is true does execution proceed, and this is only possible if node.parent == null.",
+    "meta" : [ ]
+  } ]
+}

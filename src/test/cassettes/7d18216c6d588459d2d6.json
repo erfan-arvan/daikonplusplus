@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "The method is an instance method, so 'this' is always non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.children != null",
+    "rationale" : "The method immediately accesses 'this.children', so it must be non-null for valid operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.children.items != null",
+    "rationale" : "'this.children.items' is used to access children in the loop, so it must not be null for correct behavior.",
+    "meta" : [ ]
+  } ]
+}

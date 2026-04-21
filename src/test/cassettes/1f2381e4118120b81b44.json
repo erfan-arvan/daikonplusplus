@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == inputListener",
+    "rationale" : "The method returns the inputListener field directly, so at method exit, result always equals inputListener.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "It is likely that inputListener is initialized and not null when returned, as returning null would be unusual for a listener.",
+    "meta" : [ ]
+  } ]
+}

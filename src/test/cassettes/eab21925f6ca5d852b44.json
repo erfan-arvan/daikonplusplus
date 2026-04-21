@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The map argument is accessed for tile set retrieval and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects != null",
+    "rationale" : "The objects parameter is called with add(object), so it must not be null here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The element is dereferenced many times, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects.size() > 0",
+    "rationale" : "At least one object is always added to objects in this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "heightInPixels >= 0",
+    "rationale" : "heightInPixels is used for flip/transformation math and commonly represents a positive quantity.",
+    "meta" : [ ]
+  } ]
+}

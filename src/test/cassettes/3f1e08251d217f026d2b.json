@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a String (non-null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "Returned region name is always non-empty as 'name' is never truncated to empty and always at least retains original, which must have content.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "Method does not allow for 'name' to be null as passed parameter and JDK String.contains/lastIndexOf require non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!name.contains(\"atlas_imagelayer\") || !result.contains(\"/\"))",
+    "rationale" : "If 'atlas_imagelayer' is found and we extract after '/', result will never contain '/', else result is always name which may already not contain '/'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(name.contains(\"atlas_imagelayer\") && name.lastIndexOf('/') >= 0) ? result.equals(name.substring(name.lastIndexOf('/') + 1)) : true",
+    "rationale" : "When 'atlas_imagelayer' and there is a '/', result is the substring after that slash.",
+    "meta" : [ ]
+  } ]
+}

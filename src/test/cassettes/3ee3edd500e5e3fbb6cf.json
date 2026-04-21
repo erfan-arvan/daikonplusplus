@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method's usage likely requires a non-null map for loading objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer != null",
+    "rationale" : "Layer is accessed for getObjects(), so it must be non-null to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Element is likely parsed or inspected as part of object loading, so non-null is a necessary precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "The method calls layer.getObjects(), so its result must not be null for safe program execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getLayers().contains(layer)",
+    "rationale" : "It's typical for a layer being referenced with respect to a map to actually belong to that map's layers.",
+    "meta" : [ ]
+  } ]
+}

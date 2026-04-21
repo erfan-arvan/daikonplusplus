@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result instanceof TextField",
+    "rationale" : "Method returns null or a TextField as per return type and execution paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "up || !up",
+    "rationale" : "Boolean parameter up is always either true or false (included as a completeness check).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result != null",
+    "rationale" : "For all return paths, result may be null or a valid TextField (asserts exhaustive outcomes, though somewhat trivial).",
+    "meta" : [ ]
+  } ]
+}

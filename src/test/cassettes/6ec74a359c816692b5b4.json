@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "to.length() == 0 ? result.equals(text.toString()) : result.equals(to.substring(0, position) + text + to.substring(position, to.length()))",
+    "rationale" : "The result is text.toString() if 'to' is empty, otherwise it is the concatenation as coded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() == (to.length() == 0 ? text.length() : to.length() + text.length())",
+    "rationale" : "If 'to' is empty, the result length is the length of text, otherwise it is the length of 'to' plus text's length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null && to != null && result != null",
+    "rationale" : "All string-related inputs and output must be non-null for the code to execute without NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "to.length() == 0 || (position >= 0 && position <= to.length())",
+    "rationale" : "If 'to' is not empty, position must be a valid index into 'to'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.contains(text.toString())",
+    "rationale" : "The inserted text will appear in the result string.",
+    "meta" : [ ]
+  } ]
+}

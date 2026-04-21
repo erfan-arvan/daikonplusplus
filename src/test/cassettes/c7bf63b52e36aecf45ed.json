@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method uses map to access properties and methods, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "The method adds a layer to parentLayers, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The method reads from element and calls methods on it; element must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.isObject()",
+    "rationale" : "The method expects element to have named fields (like 'type'), so it should be an object in the JSON tree.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getProperties() != null",
+    "rationale" : "The method immediately calls map.getProperties().get(), so map.getProperties() should be non-null.",
+    "meta" : [ ]
+  } ]
+}

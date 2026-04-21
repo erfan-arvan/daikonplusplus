@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "size >= 0",
+    "rationale" : "Width and height values are typically expected to be non-negative in UI container settings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(size)",
+    "rationale" : "The method will use the size value for setting widths and heights, which should be a finite float.",
+    "meta" : [ ]
+  }, {
+    "expression" : "size != Float.NaN",
+    "rationale" : "NaN values are not meaningful for container dimensions.",
+    "meta" : [ ]
+  } ]
+}

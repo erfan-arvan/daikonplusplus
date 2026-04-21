@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "Method likely expects non-null fileName.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "fileName is used as method argument"
+    } ]
+  }, {
+    "expression" : "!fileName.isEmpty()",
+    "rationale" : "Empty string is unlikely to be a valid file name.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "fileName should refer to a file"
+    } ]
+  }, {
+    "expression" : "!fileName.startsWith(\" \")",
+    "rationale" : "File names usually do not start with a space.",
+    "meta" : [ {
+      "key" : "format",
+      "value" : "fileName formatting"
+    } ]
+  }, {
+    "expression" : "fileName.trim().length() == fileName.length()",
+    "rationale" : "File name should not have leading or trailing whitespace.",
+    "meta" : [ {
+      "key" : "format",
+      "value" : "No leading/trailing spaces"
+    } ]
+  }, {
+    "expression" : "fileName.endsWith(\".tmx\")",
+    "rationale" : "Loader is for TMX files; fileName should have .tmx extension.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "TMX file format"
+    } ]
+  } ]
+}

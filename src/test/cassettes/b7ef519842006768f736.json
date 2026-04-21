@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The Batch parameter is dereferenced (batch.setColor and batch used in style.stageBackground.draw), so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0",
+    "rationale" : "Drawing methods typically expect width to be non-negative for a valid area.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Drawing methods typically expect height to be non-negative for a valid area.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "Alpha values for rendering are typically in the [0,1] range and are multiplied with color.a.",
+    "meta" : [ ]
+  } ]
+}

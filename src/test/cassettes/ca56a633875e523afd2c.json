@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a field (likely non-null in well-formed settings), which is a common postcondition for array-returning getters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length >= 0",
+    "rationale" : "Arrays in Java cannot have negative length; this is guaranteed by the JVM.",
+    "meta" : [ ]
+  } ]
+}

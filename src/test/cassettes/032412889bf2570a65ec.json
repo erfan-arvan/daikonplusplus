@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "camera != null",
+    "rationale" : "Method uses camera's fields and methods, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.zoom > 0",
+    "rationale" : "zoom typically represents scale; negative or zero zoom may be invalid in rendering contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.viewportWidth > 0",
+    "rationale" : "viewport dimensions should be positive for meaningful rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.viewportHeight > 0",
+    "rationale" : "viewport dimensions should be positive for meaningful rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.combined != null",
+    "rationale" : "spriteCache.setProjectionMatrix accesses camera.combined, implying it should not be null.",
+    "meta" : [ ]
+  } ]
+}

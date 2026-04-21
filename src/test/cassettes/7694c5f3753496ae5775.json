@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Column counts in tables are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == columns",
+    "rationale" : "The method returns the value of the columns field directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= Integer.MAX_VALUE",
+    "rationale" : "As an int, result cannot exceed Integer.MAX_VALUE.",
+    "meta" : [ ]
+  } ]
+}

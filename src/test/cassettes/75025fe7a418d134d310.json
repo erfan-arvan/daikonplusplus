@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "sizeInvalid == false",
+    "rationale" : "sizeInvalid is explicitly set to false at the start of computeSize.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefHeight >= 0",
+    "rationale" : "prefHeight is assigned 0 and could be increased, but not decreased.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefWidth == plusMinusWidth() + paddingLeft + paddingRight",
+    "rationale" : "prefWidth is set to plusMinusWidth(), updated in computeSize(rootNodes,...), then increased by paddingLeft and paddingRight at the method end.",
+    "meta" : [ ]
+  } ]
+}

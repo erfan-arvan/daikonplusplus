@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The 'right' method always returns 'this', which is never null for a valid instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result.align & com.badlogic.gdx.utils.Align.right) != 0",
+    "rationale" : "The method sets the 'right' alignment bit using bitwise OR.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result.align & com.badlogic.gdx.utils.Align.left) == 0",
+    "rationale" : "The method clears the 'left' alignment bit using bitwise AND with the complement of Align.left.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup",
+    "rationale" : "The method always returns 'this', which is an instance of HorizontalGroup.",
+    "meta" : [ ]
+  } ]
+}

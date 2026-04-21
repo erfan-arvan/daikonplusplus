@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "The method uses fileName as an argument; it is likely expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a loaded map object and likely does not return null on success.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "Since result is declared as TiledMap, it must be an instance of TiledMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "File names are typically non-empty strings when loading resources.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null && fileName != null",
+    "rationale" : "Both result and fileName are expected to be non-null when the method exits normally.",
+    "meta" : [ ]
+  } ]
+}

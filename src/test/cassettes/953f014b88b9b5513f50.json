@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since object.toString() is returning a String and per Java spec, every object's toString() returns a non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(object.toString())",
+    "rationale" : "The method directly returns object.toString(), so the result must equal the output of that call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "object != null",
+    "rationale" : "Calling object.toString() without a null check means object must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() == object.toString().length()",
+    "rationale" : "Because result equals object.toString(), their String lengths must also match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == String.class",
+    "rationale" : "The method's return type is String, so result must be of class String.",
+    "meta" : [ ]
+  } ]
+}

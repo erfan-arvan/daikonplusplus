@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "actor is used in setPosition and may be cast to Cullable, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorArea != null",
+    "rationale" : "actorArea fields (x, y, width, height) are accessed, so actorArea cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!scrollX) || (visualAmountX >= 0)",
+    "rationale" : "visualAmountX is used as a subtraction if scrollX is true, so this implies it is likely non-negative when scrolling horizontally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!scrollY) || (maxY >= visualAmountY)",
+    "rationale" : "If scrollY is true, maxY - visualAmountY is used in a cast to int, so result should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorCullingArea != null || !(actor instanceof Cullable)",
+    "rationale" : "actorCullingArea is accessed only if actor is an instance of Cullable, so must be non-null in that case.",
+    "meta" : [ ]
+  } ]
+}

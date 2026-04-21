@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "enabled == true",
+    "rationale" : "enabled is a method parameter and may often be true when clipping is enabled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "enabled == false || enabled == true",
+    "rationale" : "enabled is a boolean and must be one of true or false, reflecting its type domain.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!enabled || enabled",
+    "rationale" : "Negation or assertion of enabled covers all possibilities for a boolean, verifying well-typedness.",
+    "meta" : [ ]
+  } ]
+}

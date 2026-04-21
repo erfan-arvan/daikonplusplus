@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "InputEvent parameter should be provided; typical invariant for event-driven callbacks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keycode >= 0",
+    "rationale" : "Keycodes are typically non-negative integers correlating to physical keyboard keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event instanceof InputEvent",
+    "rationale" : "Checks that 'event' is actually an InputEvent. Defensive as the parameter is typed but may help in runtime checks.",
+    "meta" : [ ]
+  } ]
+}

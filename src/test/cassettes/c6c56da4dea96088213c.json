@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is passed to loadTiledMap, so must not be null to avoid NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "manager is used to construct AssetManagerImageResolver, requiring non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.map != null",
+    "rationale" : "this.map is the result of loadTiledMap, which should produce a non-null map if loading succeeded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof Parameters",
+    "rationale" : "parameter is either null or must be of a type compatible with Parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "fileName is typically required to identify the tiled map resource.",
+    "meta" : [ ]
+  } ]
+}

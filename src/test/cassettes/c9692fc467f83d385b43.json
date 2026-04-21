@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getString(\"type\", \"\").equals(\"imagelayer\") || true",
+    "rationale" : "This method performs its operations only if 'element' has type 'imagelayer', otherwise it is a no-op.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null && map != null",
+    "rationale" : "The method would likely only execute meaningfully if these core arguments are non-null; otherwise, adding layers or accessing map properties would fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!element.getString(\"type\", \"\").equals(\"imagelayer\") || (parentLayers.getCount() > 0)",
+    "rationale" : "If the layer was an imagelayer, an image layer would have been added to the parentLayers, making getCount() nonzero assuming it was previously zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Required for safe field/method accesses throughout the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!element.getString(\"type\", \"\").equals(\"imagelayer\") || !element.getString(\"image\", \"\").isEmpty() || true",
+    "rationale" : "An imagelayer is only processed if image is present as a non-empty string.",
+    "meta" : [ ]
+  } ]
+}

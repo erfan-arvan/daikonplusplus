@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "textField != null",
+    "rationale" : "The method requires a TextField parameter to operate on; if null, an exception would likely occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.maxLength >= -1",
+    "rationale" : "The configuration sets maxLength to -1 if textField.maxLength <= 0, otherwise passes through the value; thus at exit the field is at least -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!textField.passwordMode || textField.keyboardType != null)",
+    "rationale" : "If in password mode, the code accesses textField.keyboardType; a null value would likely be unsafe or incorrect.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(textField.filter == null || textField.filter != null)",
+    "rationale" : "textField.filter can be null or non-null, reflecting what the code handles. Both cases are considered.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.getText() != null",
+    "rationale" : "getText() is used in the TextInputWrapper; it should not return null for normal TextField operation.",
+    "meta" : [ ]
+  } ]
+}

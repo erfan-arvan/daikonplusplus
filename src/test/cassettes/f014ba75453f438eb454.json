@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "resource != null",
+    "rationale" : "The method throws an exception if resource is null, so resource must always be non-null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || !result.isEmpty()",
+    "rationale" : "If the method returns a non-null String, it comes from findKey (likely a non-empty string name). Otherwise, result is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof String",
+    "rationale" : "result is declared as String and comes from typeResources.findKey, which likely returns a String or null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resource != null && (result != null || resources.get(resource.getClass()) == null)",
+    "rationale" : "If there is no typeResources for the resource's class, result is null; otherwise, result may be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resources.get(resource.getClass()) == null ? result == null : true",
+    "rationale" : "When the typeResources map is null, result is always null. Otherwise, result may or may not be null.",
+    "meta" : [ ]
+  } ]
+}

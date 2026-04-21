@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null JsonValue (either parent, template, or a newly created merged object).",
+    "meta" : [ ]
+  }, {
+    "expression" : "(template == null && result == parent) || (parent == null && result == template) || (template != null && parent != null && result != template && result != parent)",
+    "rationale" : "Result is parent if template is null, template if parent is null, otherwise a new merged object not equal to either.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.parent() == null",
+    "rationale" : "The returned JsonValue has a detached tree (parent is null) as per Javadoc.",
+    "meta" : [ ]
+  }, {
+    "expression" : "template == null || template.isObject()",
+    "rationale" : "If template is not null, code expects it to be an object (for iteration and property access).",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null || parent.isObject()",
+    "rationale" : "If parent is not null, code expects it to be an object (for iteration and property access).",
+    "meta" : [ ]
+  } ]
+}

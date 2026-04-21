@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "camera != null",
+    "rationale" : "The method requires 'camera' to access its fields and methods safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "spriteCache.getProjectionMatrix().equals(camera.combined)",
+    "rationale" : "The projection matrix is set to camera.combined in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "viewBounds.width == camera.viewportWidth * camera.zoom + maxTileWidth * 2 * unitScale",
+    "rationale" : "The width calculation comes directly from how viewBounds is set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "viewBounds.height == camera.viewportHeight * camera.zoom + maxTileHeight * 2 * unitScale",
+    "rationale" : "The height calculation comes directly from how viewBounds is set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "viewBounds.x == camera.position.x - viewBounds.width / 2",
+    "rationale" : "The X position of viewBounds is centered according to the method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "Accesses style.font, so style must not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font != null",
+    "rationale" : "Accesses style.font.getLineHeight(), so style.font must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font.getLineHeight() >= 0",
+    "rationale" : "Font line height is often non-negative to ensure meaningful calculation of cursor Y.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstLineShowing >= 0",
+    "rationale" : "firstLineShowing likely represents a line index and should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursorLine >= 0",
+    "rationale" : "cursorLine should be non-negative as it represents an index of a text line.",
+    "meta" : [ ]
+  } ]
+}

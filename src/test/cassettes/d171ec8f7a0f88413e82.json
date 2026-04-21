@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "Method throws if actor is null, so actor must be non-null when returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a new Value instance, guaranteeing result is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percent == ((Value)result).get(actor) / actor.getWidth()",
+    "rationale" : "The returned Value computes actor.getWidth() * percent as its value; thus, percent equals get(actor) divided by actor.getWidth().",
+    "meta" : [ ]
+  } ]
+}

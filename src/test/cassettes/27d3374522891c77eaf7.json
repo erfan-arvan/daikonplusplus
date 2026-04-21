@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Null layer would cause NullPointerException on method calls",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "ensures method is never called with null layer"
+    } ]
+  }, {
+    "expression" : "layer.getTextureRegion() == null || layer.getTextureRegion().getTexture() != null",
+    "rationale" : "If region is non-null, we try to draw it using region.getTexture()",
+    "meta" : [ {
+      "key" : "image layer correctness",
+      "value" : "If image rendered, a texture must exist"
+    } ]
+  }, {
+    "expression" : "!layer.isRepeatX() || layer.isRepeatY() || layer.getTextureRegion() != null",
+    "rationale" : "If both repeatX and repeatY are false, region must be non-null",
+    "meta" : [ {
+      "key" : "image region requirement",
+      "value" : "Image region must be present if repeat occurs"
+    } ]
+  }, {
+    "expression" : "layer.getParallaxX() >= 0 && layer.getParallaxY() >= 0",
+    "rationale" : "Parallax factors are generally positive or zero",
+    "meta" : [ {
+      "key" : "parallax constraints",
+      "value" : "Parallax factor is typically non-negative"
+    } ]
+  }, {
+    "expression" : "layer.getX() >= 0 && layer.getY() >= 0",
+    "rationale" : "Layers are usually placed at non-negative positions",
+    "meta" : [ {
+      "key" : "position constraints",
+      "value" : "Layer's x and y are typically non-negative"
+    } ]
+  } ]
+}

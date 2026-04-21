@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Based on the Javadoc, the name is likely intended to be non-null, representing a new name for the layer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() >= 0",
+    "rationale" : "If name is non-null, then String.length() is always >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.trim().length() > 0",
+    "rationale" : "Layer names are typically non-empty, so the name might not be all whitespace at this entry point.",
+    "meta" : [ ]
+  } ]
+}

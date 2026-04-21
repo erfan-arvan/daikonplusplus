@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "fontScale >= 0",
+    "rationale" : "Font scale is often used as a multiplier for graphical size and is typically non-negative.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "Float.isFinite(fontScale)",
+    "rationale" : "fontScale should be a finite float to produce meaningful visual scaling; infinite or NaN values are usually undesired.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "fontScale != 0",
+    "rationale" : "A scale of zero would make text invisible or degenerate; often applications restrict font scale from being zero.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "fontScale < 1000",
+    "rationale" : "Font scale rarely exceeds a certain maximum; very large values may indicate misuse.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "low"
+    } ]
+  }, {
+    "expression" : "fontScale > -1000",
+    "rationale" : "Font scale is rarely extremely negative; such values likely indicate an error.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "low"
+    } ]
+  } ]
+}

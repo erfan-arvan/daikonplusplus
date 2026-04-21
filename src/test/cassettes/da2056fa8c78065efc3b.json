@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "columnIndex >= 0",
+    "rationale" : "Column indices are typically expected to be non-negative as they refer to array positions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnIndex < columnPrefWidth.length",
+    "rationale" : "columnIndex should be within the bounds of the columnPrefWidth array since it will be used for indexing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnPrefWidth != null",
+    "rationale" : "The array should be initialized before accessing its elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(sizeInvalid) || this != null",
+    "rationale" : "If sizeInvalid is true, computeSize() is called, but 'this' should be non-null to safely call methods.",
+    "meta" : [ ]
+  } ]
+}

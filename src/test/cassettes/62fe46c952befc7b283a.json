@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The code accesses 'style.knob', requiring 'style' to be non-null before this method executes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(style == null) || (style.knob == null || style.knob.getMinWidth() >= 0)",
+    "rationale" : "If 'style' and 'style.knob' are non-null, 'getMinWidth()' is likely non-negative as min widths are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(getBackgroundDrawable() == null) || (getBackgroundDrawable().getMinWidth() >= 0)",
+    "rationale" : "If getBackgroundDrawable() returns non-null, the minimum width should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(style == null) || (style.knob == null || style.knob.getMinWidth() == style.knob.getMinWidth())",
+    "rationale" : "A non-null knob's getMinWidth() is deterministic and should always return the same value within a call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "'this' must not be null to invoke an instance method.",
+    "meta" : [ ]
+  } ]
+}

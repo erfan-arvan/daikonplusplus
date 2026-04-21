@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a Drawable copy, so result should not be null if a Drawable was found.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "name is passed to getDrawable, which likely requires a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != getDrawable(name)",
+    "rationale" : "A new copy of the Drawable is returned, so it should not be the same instance as the one retrieved by getDrawable(name).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == getDrawable(name).getClass()",
+    "rationale" : "A copy of the Drawable should have the same class as the source Drawable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getDrawable(name) != null",
+    "rationale" : "A drawable is returned only if getDrawable(name) succeeds, implying it is not null.",
+    "meta" : [ ]
+  } ]
+}

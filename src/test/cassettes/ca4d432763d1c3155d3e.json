@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "shapes != null",
+    "rationale" : "The shapes parameter is used throughout the method and its methods (like flush) are called, so it must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "The instance is used for multiple method and field accesses, implying it cannot be null at exit.",
+    "meta" : [ ]
+  } ]
+}

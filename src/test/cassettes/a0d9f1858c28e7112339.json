@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "A null name would likely cause images.get(name) to fail or return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "An empty name is typically not a valid key for a resource map and could cause errors or return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "images.containsKey(name)",
+    "rationale" : "The map images should have an entry for name, as it will be used to construct a TextureRegion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "images.get(name) != null",
+    "rationale" : "TextureRegion likely expects a non-null argument, so images.get(name) should not be null.",
+    "meta" : [ ]
+  } ]
+}

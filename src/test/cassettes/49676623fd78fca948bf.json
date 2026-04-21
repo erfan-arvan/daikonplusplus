@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == staggerAxisX",
+    "rationale" : "The returned value is the value of the field 'staggerAxisX'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !staggerAxisX",
+    "rationale" : "If result is true, then staggerAxisX must be true; otherwise, result is false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || staggerAxisX",
+    "rationale" : "If result is false, that means staggerAxisX is false; logical implication form.",
+    "meta" : [ ]
+  } ]
+}

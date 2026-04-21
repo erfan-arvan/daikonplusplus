@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "maxPixelWidth >= 0",
+    "rationale" : "Tile sizes cannot be negative; nonnegative values are expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelHeight >= 0",
+    "rationale" : "Tile sizes cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelWidth <= Float.MAX_VALUE",
+    "rationale" : "Width should not exceed float limits to prevent overflow.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelHeight <= Float.MAX_VALUE",
+    "rationale" : "Height should not exceed float limits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelWidth + maxPixelHeight >= 0",
+    "rationale" : "Sum must also be nonnegative if both terms are nonnegative.",
+    "meta" : [ ]
+  } ]
+}

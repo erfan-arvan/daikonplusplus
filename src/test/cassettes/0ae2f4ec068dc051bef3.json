@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method throws an IllegalArgumentException if 'name' is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type != null",
+    "rationale" : "The method throws an IllegalArgumentException if 'type' is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.isEmpty() || !name.isEmpty()",
+    "rationale" : "Covers both possible states for a string, but included for completeness since stricter meaningful relationships are not evident.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type instanceof Class<?>",
+    "rationale" : "'type' must be a Class object, as per the method's specification.",
+    "meta" : [ ]
+  } ]
+}

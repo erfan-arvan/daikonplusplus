@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since screenPos is a Vector3 object that is returned, result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.z == 0",
+    "rationale" : "Given that screenPos.set(vec.x, vec.y, 0) is always called before the return, result's z component will be set to 0 (or possibly transformed, but generally expected to stay at 0 if isometric transformation preserves the plane).",
+    "meta" : [ ]
+  }, {
+    "expression" : "vec != null",
+    "rationale" : "vec is directly dereferenced (vec.x, vec.y), so it cannot be null at this program point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Vector3",
+    "rationale" : "Since result is returned as Vector3, this always holds.",
+    "meta" : [ ]
+  } ]
+}

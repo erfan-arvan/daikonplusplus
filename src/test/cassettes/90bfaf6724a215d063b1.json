@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this.particleEffect",
+    "rationale" : "The getEffect method directly returns this.particleEffect, so the returned value is always equal to this field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null == (this.particleEffect != null)",
+    "rationale" : "result is exactly this.particleEffect, so their null status matches.",
+    "meta" : [ ]
+  } ]
+}

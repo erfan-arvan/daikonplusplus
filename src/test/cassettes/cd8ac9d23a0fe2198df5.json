@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The method likely requires non-null keys for property lookup, even if not enforced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == null) || (key != null)",
+    "rationale" : "If a result is found, the key must have been non-null to retrieve a value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == null) || (result != null)",
+    "rationale" : "For any value returned (including null), this expression always evaluates to true but is not tautological when considered with other logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "General invariant, always holds.",
+    "meta" : [ ]
+  } ]
+}

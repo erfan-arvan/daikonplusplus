@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "min != null",
+    "rationale" : "min is passed to texture.setFilter(min, mag), and hence is likely assumed non-null in usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mag != null",
+    "rationale" : "mag is passed to texture.setFilter(min, mag), and hence is likely assumed non-null in usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min instanceof Texture.TextureFilter",
+    "rationale" : "min is documented to be of type Texture.TextureFilter and passed as such.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mag instanceof Texture.TextureFilter",
+    "rationale" : "mag is documented to be of type Texture.TextureFilter and passed as such.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "The method immediately throws on null input, so this always holds at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (actor == this.actor)",
+    "rationale" : "Method returns true if and only if the passed actor matches the contained one.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || actor != this.actor",
+    "rationale" : "If the result is false, the passed actor did not match the contained actor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || this.actor == null",
+    "rationale" : "If the result is true (actor was removed), the contained actor is now null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (this.actor == null)",
+    "rationale" : "After removal (result true), the contained actor is always null; otherwise, removal didn't happen.",
+    "meta" : [ ]
+  } ]
+}

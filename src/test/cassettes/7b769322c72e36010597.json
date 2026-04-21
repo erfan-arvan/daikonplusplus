@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "min != null",
+    "rationale" : "The method likely requires min filter to be non-null, as it is passed to texture.setFilter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mag != null",
+    "rationale" : "The method likely requires mag filter to be non-null, as it is passed to texture.setFilter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min != mag",
+    "rationale" : "There may be scenarios where the minification and magnification filters are intentionally different.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min.ordinal() <= mag.ordinal()",
+    "rationale" : "Order of filter enums may be related, e.g. min filter ordinal less than or equal to mag filter ordinal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min.getClass() == mag.getClass()",
+    "rationale" : "Both parameters should be of the same enum type Texture.TextureFilter.",
+    "meta" : [ ]
+  } ]
+}

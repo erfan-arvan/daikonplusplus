@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0.0f",
+    "rationale" : "Percent values should not be negative; (value - min)/(max - min) is 0 or higher if value is within the typical range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min == max || result < 1.0f",
+    "rationale" : "If min == max, we early-return 0; otherwise, the fraction (value - min)/(max - min) is typically less than 1 for normal progress bars.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min == max || result == (value - min) / (max - min)",
+    "rationale" : "If not the degenerate case (min == max), result is defined precisely by (value - min) / (max - min).",
+    "meta" : [ ]
+  }, {
+    "expression" : "min == max || max - min != 0",
+    "rationale" : "Division by (max - min) only occurs if min != max, so denominator is never zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min == max || result != 0.0f || value == min",
+    "rationale" : "Unless it's the degenerate progress bar case, result is zero only when value equals min.",
+    "meta" : [ ]
+  } ]
+}

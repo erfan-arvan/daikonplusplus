@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "Access to fields and methods on 'this' requires that the object is not null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefRows >= Integer.MIN_VALUE && prefRows <= Integer.MAX_VALUE",
+    "rationale" : "'prefRows' is likely an int field and this expresses that it is within the int bounds, which is always true for int.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "'style' is dereferenced (style.font, style.background) and must be non-null for method correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font != null",
+    "rationale" : "'style.font' is accessed for getLineHeight(), so it must be non-null for the method to work properly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background == null || (style.background.getBottomHeight() >= 0 && style.background.getTopHeight() >= 0 && style.background.getMinHeight() >= 0)",
+    "rationale" : "If style.background is present, its heights and minHeight are likely non-negative, as negative layout measurements would be unusual.",
+    "meta" : [ ]
+  } ]
+}

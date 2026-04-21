@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method throws a NullPointerException if style is null, so style is guaranteed non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style instanceof TextButtonStyle",
+    "rationale" : "The method throws an IllegalArgumentException if style is not an instance of TextButtonStyle; thus it must be true at method exit.",
+    "meta" : [ ]
+  } ]
+}

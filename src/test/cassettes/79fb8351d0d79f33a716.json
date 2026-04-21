@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layers != null",
+    "rationale" : "Method returns immediately if layers == null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileHandles != null",
+    "rationale" : "fileHandles is a required mutable collection and assumed non-null throughout usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used to construct FileHandle instances; method code assumes it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileHandles.size >= 0",
+    "rationale" : "fileHandles is an Array whose size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.isArray()",
+    "rationale" : "The for-each loop indicates 'layers' is an array-type JsonValue, so isArray() should be true.",
+    "meta" : [ ]
+  } ]
+}

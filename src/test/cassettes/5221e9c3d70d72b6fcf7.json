@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "It's likely that a valid tile should be non-null before being set, as a null tile may represent an uninitialized or empty cell.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile instanceof TiledMapTile",
+    "rationale" : "The parameter tile should be an instance of TiledMapTile, which may be relevant if the hierarchy allows subclasses or null values.",
+    "meta" : [ ]
+  } ]
+}

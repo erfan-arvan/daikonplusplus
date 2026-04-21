@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context == null",
+    "rationale" : "The method parameter @Null allows context to be null; so it is valid for it to be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "It is valid for the context parameter to be non-null at entry, as the @Null annotation permits null but does not enforce it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof Actor",
+    "rationale" : "If context is not null, it must be an instance of Actor due to the declared type.",
+    "meta" : [ ]
+  } ]
+}

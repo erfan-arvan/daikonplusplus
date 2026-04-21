@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "FileHandle is passed to getDependencyFileHandles and used to construct AssetDescriptor, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.exists()",
+    "rationale" : "The method likely expects the FileHandle to refer to an existing resource in order to find dependency files.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureParameter != null",
+    "rationale" : "TextureLoader.TextureParameter is forwarded to AssetDescriptor, which may expect a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!tmjFile.isDirectory()",
+    "rationale" : "The method seems to treat tmjFile as a file rather than a directory, passing it as-is to getDependencyFileHandles.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.length() > 0",
+    "rationale" : "The dependency file likely must not be empty for successful tiled map loading.",
+    "meta" : [ ]
+  } ]
+}

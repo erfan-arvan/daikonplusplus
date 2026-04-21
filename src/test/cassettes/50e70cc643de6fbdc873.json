@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "newItems != null",
+    "rationale" : "The method immediately throws an exception if newItems is null, so this is required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "newItems.size >= 0",
+    "rationale" : "Array<T>.size should be non-negative, as a collection cannot have a negative number of elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "newItems != this.items",
+    "rationale" : "The method only performs a copy if newItems and items are not the same; having this as a precondition could be useful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "newItems instanceof Array",
+    "rationale" : "newItems should always be an instance of Array at this point.",
+    "meta" : [ ]
+  } ]
+}

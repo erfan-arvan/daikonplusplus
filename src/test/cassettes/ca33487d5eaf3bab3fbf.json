@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clipboard != null",
+    "rationale" : "clipboard is accessed (clipboard.setContents()) in the method body, so it is likely intended to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "text is used with substring in the method body, so it should not be null to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor >= 0",
+    "rationale" : "cursor is used as an index for substring and should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "selectionStart is used as an index for substring and should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor <= text.length()",
+    "rationale" : "cursor as an index should not exceed text length, for substring validity.",
+    "meta" : [ ]
+  } ]
+}

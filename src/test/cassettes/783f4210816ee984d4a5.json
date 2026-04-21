@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "id >= 0",
+    "rationale" : "Tile IDs are typically non-negative; negative IDs likely do not refer to valid tiles.",
+    "meta" : [ ]
+  }, {
+    "expression" : "id <= Integer.MAX_VALUE",
+    "rationale" : "id, being an int, must not exceed Integer.MAX_VALUE; ensures index is within possible int range.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method uses 'layer' extensively without null checks, so it should always be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() != null",
+    "rationale" : "The method returns early if 'layer.getTextureRegion()' is null, thus it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxX() > 0 || layer.getParallaxX() <= 0",
+    "rationale" : "This is trivially true for any float, but demonstrates that 'getParallaxX()' can always be called at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxY() > 0 || layer.getParallaxY() <= 0",
+    "rationale" : "Similar for ParallaxY: 'getParallaxY()' is safe to call at method exit since 'layer' is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isRepeatX() || !layer.isRepeatX()",
+    "rationale" : "This demonstrates that 'isRepeatX()' can always be called at method exit; it is not null-guarded but is safe due to non-null 'layer'.",
+    "meta" : [ ]
+  } ]
+}

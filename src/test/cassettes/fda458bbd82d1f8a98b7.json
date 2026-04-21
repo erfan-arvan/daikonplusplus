@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Padding values in UI layouts are commonly non-negative, so left padding is expected to be zero or positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Padding amounts should be finite numbers, not NaN or infinity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == padLeft.get(this)",
+    "rationale" : "The return value is directly obtained from padLeft.get(this), so this equality always holds at method exit.",
+    "meta" : [ ]
+  } ]
+}

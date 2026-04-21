@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "The method accepts MapProperties as a parameter and will likely require it to be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null || properties != null",
+    "rationale" : "If element is null, properties must still be usable, as properties is used regardless of element's value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || element.isArray()",
+    "rationale" : "The method iterates over element, so if element is not null, it must be iterable, which in libGDX JsonValue typically means it is an array or object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || element.name() != null",
+    "rationale" : "If element is not null, its name field is checked, so name() must be safe to call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.isEmpty() || properties.size() >= 0",
+    "rationale" : "If properties is not empty, it must have a non-negative size; this is a basic property of containers.",
+    "meta" : [ ]
+  } ]
+}

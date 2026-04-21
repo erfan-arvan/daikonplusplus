@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 1",
+    "rationale" : "The count starts at 1 (for self), and only increases by recursing into child nodes, so result is always at least 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 1 || result > 1",
+    "rationale" : "If the node is not expanded, the result is 1. Otherwise, the result is greater than or equal to 1, so at exit, result is either 1 or greater.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 1 || result > 1",
+    "rationale" : "This expresses that either the minimal return (collapsed/not expanded) is 1, or more if children are expanded.",
+    "meta" : [ ]
+  } ]
+}

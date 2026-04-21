@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "The provided FileHandle parameter should typically be non-null for file operations to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.exists()",
+    "rationale" : "It is likely that getDependencyFileHandles expects the input file to exist, since further operations will probably read from it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!tmjFile.isDirectory()",
+    "rationale" : "This method likely expects a TMJ file (not a directory), so the FileHandle should not represent a directory.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.path() != null",
+    "rationale" : "A valid FileHandle should have a non-null path.",
+    "meta" : [ ]
+  } ]
+}

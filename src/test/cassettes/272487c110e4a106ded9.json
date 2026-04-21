@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "manager != null",
+    "rationale" : "manager is used as method argument and likely should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is a required string; null may be a contract violation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "file is used as handle for loading; null likely causes failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || (parameter.textureMinFilter != null && parameter.textureMagFilter != null)",
+    "rationale" : "If parameter is non-null, its fields are accessed, so they must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!file.isDirectory()",
+    "rationale" : "The file should not be a directory when loading a map file.",
+    "meta" : [ ]
+  } ]
+}

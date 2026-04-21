@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "skin != null",
+    "rationale" : "The method immediately calls skin.getDrawable(drawableName), so a non-null skin is necessary to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawableName != null",
+    "rationale" : "Passing a null name to skin.getDrawable may result in an error or not locate a drawable; ensuring non-null is likely a precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skin.has(drawableName, Drawable.class)",
+    "rationale" : "The method assumes skin contains a mapping for drawableName to a Drawable for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skin.getDrawable(drawableName) != null",
+    "rationale" : "The method passes the result of getDrawable(drawableName) to setDrawable, likely expecting a non-null Drawable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!drawableName.isEmpty()",
+    "rationale" : "Drawable names are likely expected to be non-empty; passing an empty string may not reference a valid Drawable.",
+    "meta" : [ ]
+  } ]
+}

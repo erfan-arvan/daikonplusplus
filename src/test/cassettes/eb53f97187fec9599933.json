@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "The method uses nodes.size and nodes.get(i), so nodes must not be null for safe execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "Array.size in libGDX is an integer representing the count of elements, which can't be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.items != null",
+    "rationale" : "Array.items is the underlying data array; used by get(), so must be non-null if size > 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size <= nodes.items.length",
+    "rationale" : "By libGDX Array contract, size cannot be greater than the items array's length.",
+    "meta" : [ ]
+  } ]
+}

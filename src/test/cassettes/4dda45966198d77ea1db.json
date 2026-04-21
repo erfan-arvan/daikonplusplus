@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'map', which is presumably constructed or loaded, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "An AssetManager is generally required for resource loading; passing null likely does not make sense and is not checked in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "The method requires a FileHandle to load the map, and no null check is present, so file is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is used to identify the file being loaded; it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || (parameter.textureMinFilter != null && parameter.textureMagFilter != null)",
+    "rationale" : "If parameter is non-null, its textureMinFilter and textureMagFilter are accessed and used, so they must also be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == super.removeActorAt(index, unfocus)",
+    "rationale" : "The method always returns the result of super.removeActorAt(index, unfocus) without modification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index >= 0",
+    "rationale" : "By convention, indices for removing actors should be non-negative; likely checked in superclass or by caller.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!unfocus || result != null",
+    "rationale" : "If 'unfocus' is true, result is likely not null as an actor was meant to be removed and unfocused.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof Actor",
+    "rationale" : "Result is either null or a valid Actor instance, as enforced by method signature and logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result != null) == (super.removeActorAt(index, unfocus) != null)",
+    "rationale" : "The nullness of result must match the nullness from the superclass method call, since result is directly returned from it.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A successfully loaded TiledMap should not be null upon normal return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "If parameter was null, a new instance is assigned prior to any further use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && (fileName.toLowerCase().endsWith(\".tmx\") || fileName.toLowerCase().endsWith(\".tmj\"))",
+    "rationale" : "The loader only supports files with .tmx or .tmj extensions; others throw exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The returned object is a TiledMap instance as specified by the API contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && result != null",
+    "rationale" : "Both input and output must be non-null upon successful method completion.",
+    "meta" : [ ]
+  } ]
+}

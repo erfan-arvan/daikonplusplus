@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method expects a non-null TiledMapImageLayer parameter and uses it immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() != null || layer.getTextureRegion() == null",
+    "rationale" : "A call to layer.getTextureRegion() is always permitted at method entry, though the result may be null or not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxX() >= 0.0f || layer.getParallaxX() < 0.0f",
+    "rationale" : "layer.getParallaxX() is called within the method, so it must be a valid float (can be positive, negative, or zero).",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxY() >= 0.0f || layer.getParallaxY() < 0.0f",
+    "rationale" : "layer.getParallaxY() is called within the method, so it must be a valid float (can be positive, negative, or zero).",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isRepeatX() == true || layer.isRepeatX() == false",
+    "rationale" : "layer.isRepeatX() may return true or false and is safely callable at method entry.",
+    "meta" : [ ]
+  } ]
+}

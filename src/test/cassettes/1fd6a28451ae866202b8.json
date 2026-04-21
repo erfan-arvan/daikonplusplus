@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns an Array<FileHandle> constructed by a method call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "Method would fail with NPE if tmxFile were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset != null",
+    "rationale" : "Method would fail with NPE if tileset were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Array",
+    "rationale" : "Return type is Array<FileHandle>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array sizes in Java are always non-negative.",
+    "meta" : [ ]
+  } ]
+}

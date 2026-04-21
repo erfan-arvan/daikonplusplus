@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || pressedIndex != -1",
+    "rationale" : "If result is null, pressedIndex must have been -1. Otherwise, pressedIndex is not -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || pressedIndex == -1",
+    "rationale" : "If result is non-null, pressedIndex was not -1. If result is null, pressedIndex must be -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || items.get(pressedIndex).equals(result)",
+    "rationale" : "When result is not null, it comes from items.get(pressedIndex).",
+    "meta" : [ ]
+  } ]
+}

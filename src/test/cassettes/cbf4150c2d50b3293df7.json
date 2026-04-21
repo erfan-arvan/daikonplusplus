@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0.0f",
+    "rationale" : "Result represents an amount to scroll and is computed from positive dimensions and factors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= actorArea.width / 4",
+    "rationale" : "Result is at most actorArea.width / 4 due to Math.min bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Math.min(actorArea.width, Math.max(actorArea.width * 0.9f, maxX * 0.1f) / 4)",
+    "rationale" : "Result is exactly the computation as per the returned value.",
+    "meta" : [ ]
+  } ]
+}

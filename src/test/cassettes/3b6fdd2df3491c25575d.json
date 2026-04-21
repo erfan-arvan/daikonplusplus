@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new instance of TextFieldClickListener, which is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TextFieldClickListener",
+    "rationale" : "The only value that can be returned is a new TextFieldClickListener instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof InputListener",
+    "rationale" : "TextFieldClickListener must be a subtype of InputListener, and result is returned as InputListener.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method either finds an existing sprite or creates a new one; it never returns null as it throws an exception if no sprite or region is found.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "The method is called with a non-null name to lookup a sprite or region in the skin; otherwise, it would not work properly.",
+    "meta" : [ ]
+  } ]
+}

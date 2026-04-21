@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "children.size == 0",
+    "rationale" : "After clearChildren() is called, all children should be removed, so the size should be 0.",
+    "meta" : [ {
+      "key" : "field",
+      "value" : "children.size"
+    } ]
+  }, {
+    "expression" : "children.items != null",
+    "rationale" : "The internal array reference for children is likely to be non-null after clearing, as clear() resets elements but not the array itself.",
+    "meta" : [ {
+      "key" : "field",
+      "value" : "children.items"
+    } ]
+  } ]
+}

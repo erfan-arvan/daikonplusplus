@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result instanceof Tree",
+    "rationale" : "The method either returns null or an instance of Tree.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || ((Tree) result).getChildren() != null",
+    "rationale" : "If result is a Tree, it should have a non-null children collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof Tree",
+    "rationale" : "If result is not null, it was cast from a parent of type Group which is an instance of Tree, hence must be a Tree.",
+    "meta" : [ ]
+  } ]
+}

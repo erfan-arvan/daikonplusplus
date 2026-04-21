@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The returned x coordinate should be a finite float as spatial coordinates are expected to be valid real numbers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(result)",
+    "rationale" : "Returning NaN as a spatial coordinate is generally invalid; thus, the result should not be NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == x",
+    "rationale" : "By code inspection, the method simply returns the field x directly, so the result will always be equal to x.",
+    "meta" : [ ]
+  } ]
+}

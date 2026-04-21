@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result instanceof Tree",
+    "rationale" : "If the parent is a Tree, result is returned as a Tree; otherwise, result is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || ((Tree)result).getClass() == result.getClass()",
+    "rationale" : "Result is either null or the parent cast to Tree, so getClass() should be correct.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result != null",
+    "rationale" : "Ensures if result is not null, it is valid.",
+    "meta" : [ ]
+  } ]
+}

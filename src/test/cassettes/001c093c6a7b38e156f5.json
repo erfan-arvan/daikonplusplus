@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "shapes != null",
+    "rationale" : "The method assumes shapes is non-null for method calls such as set, setColor, and rect.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getDebug() == false || getStage() == null || getStage().getDebugColor() != null",
+    "rationale" : "If debug is on and getStage() is non-null, then getDebugColor() will likely be called, so it should be safe.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getX() + padLeft <= getX() + getWidth() - padRight",
+    "rationale" : "The rectangle drawn starts at getX() + padLeft and has width getWidth() - padLeft - padRight, which should remain within bounds.",
+    "meta" : [ ]
+  } ]
+}

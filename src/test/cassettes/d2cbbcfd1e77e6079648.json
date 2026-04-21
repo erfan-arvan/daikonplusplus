@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "id >= 0",
+    "rationale" : "IDs are often non-negative in mapping/tile systems.",
+    "meta" : [ ]
+  }, {
+    "expression" : "id != Integer.MIN_VALUE",
+    "rationale" : "Extreme negative IDs may be reserved for error/sentinel values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "id < Integer.MAX_VALUE",
+    "rationale" : "IDs should not reach extreme system limits in normal use.",
+    "meta" : [ ]
+  } ]
+}

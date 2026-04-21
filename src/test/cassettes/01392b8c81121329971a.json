@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', which should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result.align & com.badlogic.gdx.utils.Align.right) != 0",
+    "rationale" : "The method adds Align.right to the align field, ensuring the corresponding bit is set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result.align & com.badlogic.gdx.utils.Align.left) == 0",
+    "rationale" : "The method clears Align.left in the align field, so the bit is no longer set on exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "Method returns 'this', so result refers to the same object as the receiver.",
+    "meta" : [ ]
+  } ]
+}

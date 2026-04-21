@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "flickScrollListener != null",
+    "rationale" : "The method accesses flickScrollListener, so it must not be null to avoid NullPointerException at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flickScrollListener.getGestureDetector() != null",
+    "rationale" : "Method calls getGestureDetector() before calling isPanning(), so the returned GestureDetector object must be non-null.",
+    "meta" : [ ]
+  } ]
+}

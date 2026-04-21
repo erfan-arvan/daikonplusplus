@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new TiledMap is always created and returned in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "root != null",
+    "rationale" : "The method assumes 'root' is not null since getChildByName is called on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used as an argument for loadTileSheet without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is used as an argument for loadTileSheet without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The map instance returned is always of type TiledMap.",
+    "meta" : [ ]
+  } ]
+}

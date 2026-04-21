@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "getPrefHeight() returns a height which should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (background != null ? Math.max(prefHeight - style.font.getDescent() * descentScaleCorrection * 2 + background.getTopHeight() + background.getBottomHeight(), background.getMinHeight()) : prefHeight - style.font.getDescent() * descentScaleCorrection * 2)",
+    "rationale" : "This captures the explicit computation for result depending on background's nullity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= prefHeight + (background != null ? background.getTopHeight() + background.getBottomHeight() : 0)",
+    "rationale" : "The preferred height with background padding is an upper bound on result.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a MapObject at the specified index, indicating that result should not be null unless the internal list allows null values (which would be unusual).",
+    "meta" : [ ]
+  }, {
+    "expression" : "index >= 0",
+    "rationale" : "Array or list indices in Java should be non-negative; the method likely expects valid indices.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "The fileName parameter should not be null, as it is used to determine the map resource to load.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is required to access the map file; null would result in a failure to load.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager instance must be provided to resolve map assets.",
+    "meta" : [ ]
+  } ]
+}

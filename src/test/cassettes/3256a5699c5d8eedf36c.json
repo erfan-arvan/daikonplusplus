@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "percent >= 0.0f",
+    "rationale" : "Percent typically represents a ratio or percentage and is often non-negative in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != null",
+    "rationale" : "The method immediately throws an exception if actor is null, so actor must be non-null upon method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percent <= 1.0f",
+    "rationale" : "For a percentage value, the argument is typically at most 1.0 (representing 100%).",
+    "meta" : [ ]
+  } ]
+}

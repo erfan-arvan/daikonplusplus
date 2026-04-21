@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns the receiver object for chaining.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.tile == tile",
+    "rationale" : "The method sets the 'tile' field of this Cell to the argument 'tile'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.tile == tile",
+    "rationale" : "'result' is 'this', and 'tile' field has just been set, so this holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.tile == this.tile",
+    "rationale" : "Since 'result' is 'this', both refer to the same object's 'tile' field, which has just been set.",
+    "meta" : [ ]
+  } ]
+}

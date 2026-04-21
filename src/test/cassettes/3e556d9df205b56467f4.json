@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "The method iteration and multiple accesses to nodes require it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "plusMinusWidth >= 0",
+    "rationale" : "plusMinusWidth is used as an offset for icon drawing and is likely non-negative for layout correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indent >= 0",
+    "rationale" : "Indent is used for positioning and is expected to be non-negative to avoid drawing artifacts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "The method makes drawing calls using batch, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "r >= 0 && r <= 1 && g >= 0 && g <= 1 && b >= 0 && b <= 1 && a >= 0 && a <= 1",
+    "rationale" : "Drawing colors for batch.setColor expect color components and alpha in [0,1].",
+    "meta" : [ ]
+  } ]
+}

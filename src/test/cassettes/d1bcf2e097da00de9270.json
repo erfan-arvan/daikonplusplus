@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "draw depends on 'batch' being valid; common for rendering APIs to require a non-null Batch.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values (opacity) are generally clamped to non-negative values (0 = fully transparent).",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha blending factors are typically expected to be in the [0,1] range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getColor() != null",
+    "rationale" : "getColor() is accessed in draw, so it is expected to not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getWidth() >= 0",
+    "rationale" : "Widget dimensions (like width) are expected to be non-negative for rendering.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == padTop.get(this) + padBottom.get(this)",
+    "rationale" : "By specification, getPadY() returns the sum of padTop.get(this) and padBottom.get(this).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "It is reasonable to expect padding values are non-negative, making their sum non-negative as well (if padTop and padBottom are always non-negative).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= padTop.get(this)",
+    "rationale" : "Since the result is padTop.get(this) + padBottom.get(this), and padBottom.get(this) is likely non-negative, result should be at least as large as padTop.get(this).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= padBottom.get(this)",
+    "rationale" : "Similarly, the result should be at least as large as padBottom.get(this).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == getPadTop() + getPadBottom()",
+    "rationale" : "If getPadTop() and getPadBottom() are equivalent to padTop.get(this) and padBottom.get(this), this provides an alternate view of the invariant.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "Batch parameter is expected to be non-null for rendering operations to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "parentAlpha represents transparency and is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "parentAlpha is usually a multiplier for alpha; values above 1.0 are uncommon in graphics rendering.",
+    "meta" : [ ]
+  } ]
+}

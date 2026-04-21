@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method likely never returns null, as it returns a field intended to describe alignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "Alignment descriptions are expected to be non-empty strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(result.trim())",
+    "rationale" : "Alignment strings typically do not have leading or trailing whitespace.",
+    "meta" : [ ]
+  } ]
+}

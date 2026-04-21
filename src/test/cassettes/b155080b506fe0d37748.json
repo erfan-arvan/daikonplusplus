@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this' after modifying the state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.maxHeight.equals(Fixed.valueOf(maxHeight))",
+    "rationale" : "After the assignment, the field 'this.maxHeight' stores the Fixed.valueOf(maxHeight) value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxHeight == ((Float)maxHeight).floatValue()",
+    "rationale" : "The method's parameter maxHeight remains unchanged and is exactly the input value as its boxed version's floatValue().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Container",
+    "rationale" : "The return type is Container<T>, returned as 'this', which should always be an instance of Container.",
+    "meta" : [ ]
+  } ]
+}

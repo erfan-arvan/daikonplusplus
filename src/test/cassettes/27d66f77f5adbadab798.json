@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fontName != null",
+    "rationale" : "fontName is passed to skin.getFont(fontName), which is likely to require a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "If text is not null, calling text.length() is safe and its length is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "color == null || color instanceof Color",
+    "rationale" : "If color is not null, it must be an instance of Color (which is always true by type).",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontName.isEmpty() || !fontName.isEmpty()",
+    "rationale" : "fontName may be empty or non-empty; no restriction inferred except its required existence (covered by fontName != null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text instanceof CharSequence",
+    "rationale" : "If text is not null, its type must be a CharSequence, which is always true by type.",
+    "meta" : [ ]
+  } ]
+}

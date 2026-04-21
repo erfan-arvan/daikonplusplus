@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the 'children' field, which likely is non-null as a collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array.size represents the number of elements; in a well-formed Array, this cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() == (result.size > 0)",
+    "rationale" : "The isEmpty() method should agree with the size being zero or greater than zero.",
+    "meta" : [ ]
+  } ]
+}

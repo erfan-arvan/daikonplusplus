@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "After adjusting width for tile margins, width should be non-negative as it represents a viewport width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "After adjusting height for tile margins, height should not be negative because it represents a viewport height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "projection != null",
+    "rationale" : "The method immediately sets the projection matrix, implying 'projection' must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= maxTileWidth * 2 * unitScale",
+    "rationale" : "Since width is incremented by maxTileWidth * 2 * unitScale, it must be at least that value unless original width is negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= maxTileHeight * 2 * unitScale",
+    "rationale" : "Since height is incremented by maxTileHeight * 2 * unitScale, it must be at least that value unless original height is negative.",
+    "meta" : [ ]
+  } ]
+}

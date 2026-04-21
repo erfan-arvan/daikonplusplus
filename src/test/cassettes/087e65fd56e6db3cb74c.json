@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "The method uses tile.getProperties() without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement is used to get strings and objects so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getProperties() != null",
+    "rationale" : "tileProperties is obtained from tile.getProperties() and fields are put into it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getProperties().containsKey(\"terrain\") == (tileElement.getString(\"terrain\", null) != null)",
+    "rationale" : "The 'terrain' property is only put if it exists in tileElement; containsKey matches presence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getProperties().containsKey(\"probability\") == (tileElement.getString(\"probability\", null) != null)",
+    "rationale" : "Same logic as for terrain, reflecting the conditional put of 'probability.'",
+    "meta" : [ ]
+  } ]
+}

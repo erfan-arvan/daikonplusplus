@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a String describing alignment, which is likely never null by contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(\"left\") || result.equals(\"center\") || result.equals(\"right\")",
+    "rationale" : "Alignment is usually one of a restricted set of strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.trim().length() > 0",
+    "rationale" : "Alignment description strings are not empty or blank.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(result.toLowerCase())",
+    "rationale" : "Alignment keywords are typically lowercase.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() <= 6",
+    "rationale" : "Longest expected alignment string (\"center\") is 6 characters.",
+    "meta" : [ ]
+  } ]
+}

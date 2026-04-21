@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns fileHandle and throws on invalid cases; never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.exists()",
+    "rationale" : "Throws exception if fileHandle does not exist before returning; guaranteed to exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used as argument; null would cause undefined behavior, so expected non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isDirectory()",
+    "rationale" : "Typically, atlas files are files, not directories. Directory would likely not pass exists() check in practice.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.path().toLowerCase().endsWith(\".atlas\")",
+    "rationale" : "Returned atlas file should have '.atlas' suffix as the method is to retrieve an 'atlas' file.",
+    "meta" : [ ]
+  } ]
+}

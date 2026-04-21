@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "'this' must not be null when invoking an instance method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getChildren() != null",
+    "rationale" : "getChildren() must return an array for table layout to function.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.cells != null",
+    "rationale" : "this.cells is accessed and expected to be initialized before layout starts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.padLeft != null && this.padTop != null && this.padRight != null && this.padBottom != null",
+    "rationale" : "Padding accessors are used at the start of the method and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.columns >= 0 && this.rows >= 0",
+    "rationale" : "Table cannot have a negative number of rows or columns.",
+    "meta" : [ ]
+  } ]
+}

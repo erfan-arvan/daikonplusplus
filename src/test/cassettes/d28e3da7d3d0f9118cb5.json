@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (index > 0 && !states.get(index - 1).text.equals(currentText))",
+    "rationale" : "The result is precisely the condition returned by the method, matching the core logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || index == 0 || states.get(index - 1).text.equals(currentText)",
+    "rationale" : "If the method cannot undo (result is false), then either there are no prior states, or the current text matches the previous state's text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || (index > 0 && !states.get(index - 1).text.equals(currentText))",
+    "rationale" : "If result is true, then both subconditions necessary for undo must hold.",
+    "meta" : [ ]
+  } ]
+}

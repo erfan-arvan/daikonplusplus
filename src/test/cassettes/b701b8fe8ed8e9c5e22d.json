@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(x)",
+    "rationale" : "The x parameter, representing an origin coordinate, should be a finite float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(x))",
+    "rationale" : "As an origin value, x should not be NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= -Float.MAX_VALUE && x <= Float.MAX_VALUE",
+    "rationale" : "x should be within the range of representable float values.",
+    "meta" : [ ]
+  } ]
+}

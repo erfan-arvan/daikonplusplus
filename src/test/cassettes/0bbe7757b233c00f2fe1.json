@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Minimum width typically cannot be negative in a UI context and is likely constrained to non-negative values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The returned value should be a valid finite float for use as a minimum width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(result)",
+    "rationale" : "Minimum width should not be NaN, as it would be invalid for layout computations.",
+    "meta" : [ ]
+  } ]
+}

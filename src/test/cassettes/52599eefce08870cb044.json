@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "A non-static method call requires a non-null receiver object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstWidget == null || firstWidget instanceof java.lang.Object",
+    "rationale" : "Any object reference is an instance of Object, and the method later checks instanceof Layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "secondWidget == null || secondWidget instanceof java.lang.Object",
+    "rationale" : "Any object reference is an instance of Object, and the method later checks instanceof Layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "The method accesses style.handle, so style must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.handle != null",
+    "rationale" : "style.handle.getMinHeight() is accessed, so style.handle must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "The method cannot operate if the tmxFile is null; it is necessary for dependency resolution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "The input tmxFile should be an existing file for the dependency lookup to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureParameter == null || textureParameter instanceof TextureLoader.TextureParameter",
+    "rationale" : "textureParameter is either null or compatible with the expected parameter type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.isDirectory() == false",
+    "rationale" : "The tmxFile is a specific file, not a directory, as expected for a TMX file.",
+    "meta" : [ ]
+  } ]
+}

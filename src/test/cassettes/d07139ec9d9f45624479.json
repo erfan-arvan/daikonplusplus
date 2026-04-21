@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result.actor == actor",
+    "rationale" : "The returned cell's actor field is set to the method's actor parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Cell object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.row >= 0",
+    "rationale" : "The row field of the returned cell is set to 0 or greater during the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.column >= 0",
+    "rationale" : "The column field of the returned cell is set to 0 or greater during the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor == null || result.actor != null",
+    "rationale" : "If an actor is provided, the returned cell's actor field is non-null.",
+    "meta" : [ ]
+  } ]
+}

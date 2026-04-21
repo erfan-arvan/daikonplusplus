@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "Alpha values are typically clamped to [0, 1] for UI rendering transparency.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "The drawBackground method assumes batch is valid; a null batch would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getColor() != null",
+    "rationale" : "getColor() is called unguarded, so it must not return null.",
+    "meta" : [ ]
+  } ]
+}

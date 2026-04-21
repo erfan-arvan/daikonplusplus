@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is documented to return the MapLayer at the specified index, so a non-null result is expected unless the underlying list permits null elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index >= 0",
+    "rationale" : "The index should be non-negative if it is used to access an element in a list-like structure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof MapLayer",
+    "rationale" : "The return value is specified to be of type MapLayer, so the result should be an instance of MapLayer.",
+    "meta" : [ ]
+  } ]
+}

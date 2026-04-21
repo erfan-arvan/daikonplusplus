@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "text == null || text instanceof String",
+    "rationale" : "Ensures that if text is provided, it is of type String, which is consistent with the parameter type and usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || !text.isEmpty() || text.isEmpty()",
+    "rationale" : "Covers the cases: text can be null, empty, or non-empty; since there is no restriction, but this at least expresses their relationship.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Given only a nullable String without any other base variables or restrictions, there are no additional invariants derivable from context.",
+    "meta" : [ ]
+  } ]
+}

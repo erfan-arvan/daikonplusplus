@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x || !x",
+    "rationale" : "Ensures x is a well-defined boolean value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y || !y",
+    "rationale" : "Ensures y is a well-defined boolean value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(x && !x)",
+    "rationale" : "x cannot be both true and false at the same time, confirming boolean consistency.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(y && !y)",
+    "rationale" : "y cannot be both true and false at the same time, confirming boolean consistency.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x == true || x == false",
+    "rationale" : "x can only be true or false, ensuring no uninitialized or invalid value.",
+    "meta" : [ ]
+  } ]
+}

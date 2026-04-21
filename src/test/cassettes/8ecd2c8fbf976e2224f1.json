@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "line >= 0 || cursorLine == 0",
+    "rationale" : "If line < 0, cursorLine is set to 0; otherwise, cursorLine remains unchanged or is set based on line.",
+    "meta" : [ ]
+  }, {
+    "expression" : "line < getLines() || cursorLine == getLines() - 1",
+    "rationale" : "If line >= getLines(), cursorLine is set to getLines() - 1; otherwise, cursorLine is unchanged or set to line.",
+    "meta" : [ ]
+  }, {
+    "expression" : "line != cursorLine || (line < 0 || line >= getLines())",
+    "rationale" : "If line equals cursorLine, then it must have been an out-of-bounds value; otherwise, it would have entered the third branch and set cursorLine = line.",
+    "meta" : [ ]
+  }, {
+    "expression" : "line < 0 || line >= getLines() || cursorLine == line",
+    "rationale" : "If line is valid, cursorLine is set to line at method exit; if not, cursorLine becomes clamp value.",
+    "meta" : [ ]
+  } ]
+}

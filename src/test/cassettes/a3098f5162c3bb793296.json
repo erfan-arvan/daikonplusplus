@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is documented to always return a TiledMap instance for a valid file, so null is unexpected unless an error is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "A fileName parameter is typically required to resolve and load a map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "A non-empty string is expected for the fileName used to locate the map file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The result is always expected to be an instance of TiledMap as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.trim().length() > 0",
+    "rationale" : "The fileName is expected to not consist entirely of whitespace, as it is used for file resolution.",
+    "meta" : [ ]
+  } ]
+}

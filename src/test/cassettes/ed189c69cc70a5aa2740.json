@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "styleable != null",
+    "rationale" : "The method dereferences styleable immediately, so it should not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "styleable.getStyle() != null",
+    "rationale" : "The first statement calls styleable.getStyle(), so getStyle() is expected to be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "enabled == true || enabled == false",
+    "rationale" : "The enabled parameter is a boolean and must be either true or false; included for completeness.",
+    "meta" : [ ]
+  } ]
+}

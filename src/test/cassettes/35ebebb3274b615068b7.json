@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "alignment >= 0",
+    "rationale" : "Likely, alignment uses non-negative constants (e.g., Align.LEFT, Align.CENTER, Align.RIGHT) for alignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "alignment <= 16",
+    "rationale" : "The Align class in gdx typically uses bit flags up to a value like 16, so this captures potential value range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "alignment == (alignment & alignment)",
+    "rationale" : "Bitwise AND with self yields same value; useful if alignment is a bit flag.",
+    "meta" : [ ]
+  }, {
+    "expression" : "alignment != Integer.MIN_VALUE",
+    "rationale" : "alignment almost certainly should not be the minimum int value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "alignment != Integer.MAX_VALUE",
+    "rationale" : "alignment likely is not expected to be the max int value.",
+    "meta" : [ ]
+  } ]
+}

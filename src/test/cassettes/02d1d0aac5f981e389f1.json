@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "delta >= 0.0f",
+    "rationale" : "Delta in scene2d act usually represents frame time and is expected to be non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input constraint"
+    } ]
+  }, {
+    "expression" : "delta < Float.POSITIVE_INFINITY",
+    "rationale" : "A valid delta should be finite and less than positive infinity.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input constraint"
+    } ]
+  } ]
+}

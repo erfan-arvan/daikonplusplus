@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Many map-based lookups require a non-null key, and it is common to expect keys not to be null in property maps.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key instanceof String",
+    "rationale" : "The parameter key is declared as String, so this will always hold at method entry unless reflection or generic violations occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key.length() >= 0",
+    "rationale" : "If key is non-null, calling length() is always safe, and a string's length is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

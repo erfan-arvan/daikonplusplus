@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "prefWidth != null",
+    "rationale" : "The method throws an exception if prefWidth is null, so prefWidth is guaranteed to be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this', thus result is identical to the current instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.prefWidth == prefWidth",
+    "rationale" : "The method assigns 'this.prefWidth = prefWidth' before returning this, ensuring the field is set to the argument.",
+    "meta" : [ ]
+  } ]
+}

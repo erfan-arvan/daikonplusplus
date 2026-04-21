@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == maxHeight",
+    "rationale" : "The method always returns the value of maxHeight, so the result is exactly maxHeight on all execution paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof Value",
+    "rationale" : "The return type is Value and the Javadoc indicates result may be null, so result is either null or of type Value.",
+    "meta" : [ ]
+  } ]
+}

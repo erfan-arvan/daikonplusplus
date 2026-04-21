@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null TiledMap object constructed and returned on all paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof com.badlogic.gdx.maps.tiled.TiledMap",
+    "rationale" : "The local variable 'map', which is returned, is explicitly a TiledMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getOwnedResources() != null",
+    "rationale" : "Immediately before returning, the method assigns a non-null Array<TextureAtlas> to the owned resources of the map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "Method calls like resolve(fileName) and getAtlasFileHandle expect a non-null fileName to function, so it is likely required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "The method accesses parameter.textureMinFilter and parameter.textureMagFilter, so it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

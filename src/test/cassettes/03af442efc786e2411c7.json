@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "polyline != null",
+    "rationale" : "The method is a getter and returns the 'polyline' field; typically the returned object is expected to exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.polyline == polyline",
+    "rationale" : "The 'polyline' field belongs to this object, and we are within an instance method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getPolyline() == this.polyline",
+    "rationale" : "The method specification promises to return the 'polyline' field.",
+    "meta" : [ ]
+  } ]
+}

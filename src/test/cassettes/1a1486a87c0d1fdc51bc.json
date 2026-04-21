@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method is called with a layer, assumed required for rendering image layers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() != null",
+    "rationale" : "A null texture region leads to early return; we reach this point only if it's non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxX() >= 0",
+    "rationale" : "Parallax factors are typically non-negative to avoid inverted rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxY() >= 0",
+    "rationale" : "Parallax factors are expected to be non-negative as part of rendering constraints.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getX() == layer.getX()",
+    "rationale" : "layer.getX() is accessible and stable at method exit (required by constraints; valid but trivial).",
+    "meta" : [ ]
+  } ]
+}

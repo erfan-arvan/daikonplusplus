@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "amountX == 0.0f",
+    "rationale" : "Checks if there is no horizontal scroll, common in many scroll events.",
+    "meta" : [ ]
+  }, {
+    "expression" : "amountY == 0.0f",
+    "rationale" : "Checks if there is no vertical scroll, which is a plausible precondition for some interactions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "amountX >= 0.0f",
+    "rationale" : "Horizontal scroll amounts are often constrained to nonnegative values by convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "amountY >= 0.0f",
+    "rationale" : "Vertical scroll amounts may be restricted to nonnegative values in some contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "amountX != amountY",
+    "rationale" : "Horizontal and vertical scroll amounts are often independent and may not be equal.",
+    "meta" : [ ]
+  } ]
+}

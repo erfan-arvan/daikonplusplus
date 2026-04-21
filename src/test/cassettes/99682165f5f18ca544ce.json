@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0.0f",
+    "rationale" : "The rectangle width should be non-negative for a valid rectangle to be scrolled into view.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0.0f",
+    "rationale" : "The rectangle height should be non-negative for a valid rectangle to be scrolled into view.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "The x-coordinate should be non-negative within the actor's coordinate system.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "The y-coordinate should be non-negative within the actor's coordinate system.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width == 0.0f || height == 0.0f || (width > 0.0f && height > 0.0f)",
+    "rationale" : "A rectangle should either have zero area or both positive width and height to make sense for scrolling into view.",
+    "meta" : [ ]
+  } ]
+}

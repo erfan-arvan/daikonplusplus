@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "The method requires a non-null file name to load the tiled map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A load method is expected to return a TiledMap instance, not null, if loading is successful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(fileName.isEmpty())",
+    "rationale" : "The fileName should not be an empty string for file loading to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The result returned is an instance of TiledMap as specified by the return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result == null && fileName != null)",
+    "rationale" : "If fileName is provided, result should not be null, i.e., null result implies something is wrong with the fileName or loading.",
+    "meta" : [ ]
+  } ]
+}

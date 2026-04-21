@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tilesets != null",
+    "rationale" : "tilesets must not be null for iterator() to work without throwing NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets.size() >= 0",
+    "rationale" : "Sizes of collections are always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets.iterator() != null",
+    "rationale" : "If tilesets is not null, iterator() should not return null per Java collection contract.",
+    "meta" : [ ]
+  } ]
+}

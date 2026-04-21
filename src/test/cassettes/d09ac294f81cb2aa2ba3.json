@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "getStage() == null || getStage().getCamera() != null",
+    "rationale" : "If the stage exists, its camera should also be accessible immediately after retrieval.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() == null || getStage().getWidth() >= 0",
+    "rationale" : "Stage width is expected to be non-negative whenever a stage exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() == null || getStage().getHeight() >= 0",
+    "rationale" : "Stage height is also expected to be non-negative if a stage instance is present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() == null || getStage().getRoot() != null",
+    "rationale" : "A valid Stage is expected to have a non-null root actor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() == null || getStage().getCamera() != null",
+    "rationale" : "If a Stage is present, it should have a valid Camera. (Semantic duplicate of invariant 1, included only for demonstration.)",
+    "meta" : [ ]
+  } ]
+}

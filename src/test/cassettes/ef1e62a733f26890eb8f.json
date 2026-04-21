@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "The method iterates over nodes, which implies it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "low <= high",
+    "rationale" : "The method checks node.actor.getY() between low and high; it is likely that low is less than or equal to high.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "Array.size in libGDX is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(low)",
+    "rationale" : "low is used in comparisons; it is likely intended to be a finite float.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(high)",
+    "rationale" : "high is used in comparisons; it is likely intended to be a finite float.",
+    "meta" : [ ]
+  } ]
+}

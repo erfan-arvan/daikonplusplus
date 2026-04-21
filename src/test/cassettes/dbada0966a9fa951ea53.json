@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method assumes 'layer' is provided and operates on it; passing null would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "'layer.getObjects()' is used in the loop and must be non-null to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects().size() >= 0",
+    "rationale" : "The size of a collection cannot be negative by the contract of Java collections.",
+    "meta" : [ ]
+  } ]
+}

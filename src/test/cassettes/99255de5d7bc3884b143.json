@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "screenX >= 0",
+    "rationale" : "Screen coordinates are often non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "screenY >= 0",
+    "rationale" : "Screen coordinates are often non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pointer >= 0",
+    "rationale" : "Pointer identifiers are usually indexed starting at 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button >= 0",
+    "rationale" : "Button values, if they represent button indices, are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pointer != button",
+    "rationale" : "Pointer id and button id are usually unrelated and may be distinguished by being unequal.",
+    "meta" : [ ]
+  } ]
+}

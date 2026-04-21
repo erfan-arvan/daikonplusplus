@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "pointer >= 0",
+    "rationale" : "In UI/input APIs, 'pointer' indices are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button >= 0",
+    "rationale" : "'button' values are commonly non-negative integers representing mouse buttons.",
+    "meta" : [ ]
+  }, {
+    "expression" : "screenX >= 0",
+    "rationale" : "Screen coordinates are generally non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "screenY >= 0",
+    "rationale" : "Screen coordinates are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pointer == 0 || pointer > 0",
+    "rationale" : "The 'pointer' is an int, and must be either zero or positive; this expresses that it's not negative.",
+    "meta" : [ ]
+  } ]
+}

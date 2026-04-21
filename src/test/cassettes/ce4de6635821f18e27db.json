@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "Access to style fields in the method body requires style to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.imageUp != null || style.imageDown != null || style.imageOver != null || style.imageChecked != null || style.imageCheckedOver != null || style.imageCheckedDown != null || style.imageDisabled != null",
+    "rationale" : "At least one style image must be non-null to avoid returning null from getImageDrawable.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "The method expects to write to properties, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The method logic accesses element methods such as getName(), so element should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getName() != null",
+    "rationale" : "The method calls element.getName().equals(...), so element.getName() should not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(element.getName().isEmpty())",
+    "rationale" : "An empty name for element would be atypical and may be invalid for looking up 'Properties' elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.size() >= 0",
+    "rationale" : "A MapProperties instance should always have non-negative size, confirming the collection is healthy.",
+    "meta" : [ ]
+  } ]
+}

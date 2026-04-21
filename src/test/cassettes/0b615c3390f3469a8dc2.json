@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new TextureRegion is always constructed and returned, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TextureRegion",
+    "rationale" : "The returned object is always a TextureRegion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "The argument is used as a key for images.get(name); keys are usually non-null in map lookups to prevent NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getTexture() == images.get(name)",
+    "rationale" : "The TextureRegion is constructed using images.get(name), so its texture is equal to the value in the map for the given name.",
+    "meta" : [ ]
+  } ]
+}

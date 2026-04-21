@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == rotation",
+    "rationale" : "By method body, the returned value equals the field 'rotation'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Assuming that 'rotation' is intended to store finite rotation angles.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= -360.0f && result <= 360.0f",
+    "rationale" : "'rotation' might represent an angle and typically falls within this range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(result))",
+    "rationale" : "The rotation value is likely expected not to be NaN.",
+    "meta" : [ ]
+  } ]
+}

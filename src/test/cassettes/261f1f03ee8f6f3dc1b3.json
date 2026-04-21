@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile must be present to resolve paths for dependencies.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is required to determine dependency information.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method always returns the result of another method, which is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Array",
+    "rationale" : "Return type is always Array<FileHandle>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array size is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

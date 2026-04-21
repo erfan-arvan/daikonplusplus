@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Widths and dimensions in UI frameworks are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The calculation returns a finite float width, and should not result in infinity or NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Math.max(result, 0)",
+    "rationale" : "Equivalent way to say result is non-negative, catching a min width of 0 if there are no items.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "classProp.getAttribute and getText are expected to return a non-null String, so result will be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(classProp.getAttribute(\"value\", classProp.getText()))",
+    "rationale" : "The method returns exactly this value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!classProp.getAttribute(\"value\", classProp.getText()).isEmpty() || result.equals(classProp.getText())",
+    "rationale" : "If the attribute is empty, getAttribute returns the default (classProp.getText()).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "newItems != null",
+    "rationale" : "The method throws an exception immediately if newItems is null, so this always holds at exit.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter validation"
+    } ]
+  }, {
+    "expression" : "newItems.size >= 0",
+    "rationale" : "Array.size in libGDX always returns a non-negative integer.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection property"
+    } ]
+  } ]
+}

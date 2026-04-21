@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is used in resolve() and in error message concatenation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.isEmpty()",
+    "rationale" : "An empty fileName is unlikely to reference a valid file and may cause resolve() to fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.trim().length() > 0",
+    "rationale" : "fileName should not be whitespace only; resolve would likely fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.indexOf(\".\") > 0",
+    "rationale" : "fileName likely represents a file and should have an extension (dot not at the start or absent).",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() < 1024",
+    "rationale" : "File names are usually of reasonable length; extremely long file names may not be supported.",
+    "meta" : [ ]
+  } ]
+}

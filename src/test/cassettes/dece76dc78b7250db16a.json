@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "A non-null fileName is required to generate error messages and likely to locate resources.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used in xml.parse and must be non-null for successful method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "The method attempts to parse tmxFile, so the file should exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof Parameters",
+    "rationale" : "parameter may be null or a valid Parameters instance, ensuring type safety.",
+    "meta" : [ ]
+  } ]
+}

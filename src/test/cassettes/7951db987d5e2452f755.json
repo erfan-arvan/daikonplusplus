@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "item != null",
+    "rationale" : "Calling toString() on item assumes item is not null, otherwise a NullPointerException would occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "item.toString() != null",
+    "rationale" : "A contract of Object.toString is that it should not return null, so it's safe to expect non-null results for toString().",
+    "meta" : [ ]
+  } ]
+}

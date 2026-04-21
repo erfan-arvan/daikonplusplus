@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is accessed with tileSet.getTile(...), so it should not be null for method correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile != null",
+    "rationale" : "tile is dereferenced with tile.getId() in the method body, so it should not be null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement.get(\"animation\") is called, so tileElement should not be null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstgid >= 0",
+    "rationale" : "firstgid is used as a base offset when fetching tiles; typically, tile GIDs are non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet.getTile(firstgid) instanceof TiledMapTile || tileSet.getTile(firstgid) == null",
+    "rationale" : "The method casts tileSet.getTile(...) to StaticTiledMapTile, so the object should be a TiledMapTile instance or null.",
+    "meta" : [ ]
+  } ]
+}

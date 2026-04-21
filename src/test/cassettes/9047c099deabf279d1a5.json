@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "size >= 0",
+    "rationale" : "Sizes for UI elements are often not negative; negative values may be invalid or result in unintended behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(size)",
+    "rationale" : "Finite size values are likely required for valid UI layout; NaN or infinite values could cause problems.",
+    "meta" : [ ]
+  } ]
+}

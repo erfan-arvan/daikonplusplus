@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new Drawable object and not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable != null",
+    "rationale" : "The method uses the drawable parameter and passes it to another method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "r >= 0.0f && r <= 1.0f",
+    "rationale" : "Color channel values in libGDX Color typically range from 0.0 to 1.0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "g >= 0.0f && g <= 1.0f",
+    "rationale" : "Green channel is expected to be in the normalized range for colors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b >= 0.0f && b <= 1.0f",
+    "rationale" : "Blue channel is expected to be in the normalized range for colors.",
+    "meta" : [ ]
+  } ]
+}

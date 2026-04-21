@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns viewBounds, which is likely always initialized and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this.viewBounds",
+    "rationale" : "The method returns 'viewBounds' directly, so 'result' is always equal to 'this.viewBounds'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.width >= 0",
+    "rationale" : "Rectangle width is typically non-negative for logical view bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.height >= 0",
+    "rationale" : "Rectangle height is typically non-negative for logical view bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == Rectangle.class",
+    "rationale" : "The returned object is always of type Rectangle.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0.0f",
+    "rationale" : "The result is either 0, or the output of an interpolation function, which typically returns values in [0,1].",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= 1.0f",
+    "rationale" : "The visual interpolation function commonly returns values between 0 and 1 inclusive; returning 0 when min == max makes 1.0 an upper bound.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(min == max) || result == 0.0f",
+    "rationale" : "If min equals max, the method returns 0 directly by implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(min != max) || result == 0.0f",
+    "rationale" : "If min and max are not equal, the else branch executes, otherwise result is always 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min == max || result == visualInterpolation.apply((getVisualValue() - min) / (max - min))",
+    "rationale" : "When min != max, result is the interpolation value; otherwise, handled by earlier invariants.",
+    "meta" : [ ]
+  } ]
+}

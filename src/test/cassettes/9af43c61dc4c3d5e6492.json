@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Padding values are often non-negative; negative padding is unusual in layout classes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Padding should not be infinite or NaN; returning non-finite values would likely break layout logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == padBottom.get(this)",
+    "rationale" : "This is directly true by definition of the method (the return value is padBottom.get(this)).",
+    "meta" : [ ]
+  } ]
+}

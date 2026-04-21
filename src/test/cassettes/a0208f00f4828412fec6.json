@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method is part of TiledMap processing, and map usage likely requires non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer != null",
+    "rationale" : "Layer information is likely needed to resolve template objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapElement != null",
+    "rationale" : "The method accesses mapElement to extract fields, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is passed to getRelativeFileHandle, which requires a non-null FileHandle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapElement.has(\"template\")",
+    "rationale" : "The method uses mapElement.getString(\"template\"), so the 'template' field is expected to exist.",
+    "meta" : [ ]
+  } ]
+}

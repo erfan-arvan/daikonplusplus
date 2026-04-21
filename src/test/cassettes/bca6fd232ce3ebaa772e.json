@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "FileHandle is used and likely required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "ImageResolver is required to resolve images within the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is dereferenced (getProperties and getTile) and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiles != null",
+    "rationale" : "tiles is iterated in a for-each loop and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilewidth > 0 && tileheight > 0",
+    "rationale" : "tilewidth and tileheight are used as divisors; must be positive.",
+    "meta" : [ ]
+  } ]
+}

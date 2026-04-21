@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursorPatch != null",
+    "rationale" : "cursorPatch is dereferenced for its methods (draw, getMinWidth), so it must be non-null for safe execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch is passed as a parameter to cursorPatch.draw, so it must be non-null for correct drawing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "font is dereferenced for font.getData() and font.getDescent(), requiring non-nullness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursorPatch.getMinWidth() >= 0f",
+    "rationale" : "Drawable's minimal width (for drawing the cursor) is required to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font.getDescent() <= 0f",
+    "rationale" : "BitmapFont.getDescent() returns the font descent, which for most fonts is non-positive.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "MathUtils.clamp with lower bound 0 ensures result never negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= 1",
+    "rationale" : "MathUtils.clamp with upper bound 1 ensures result never exceeds 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || result == MathUtils.clamp(visualAmountX / maxX, 0, 1)",
+    "rationale" : "If maxX == 0, result is 0; otherwise, it is the clamped ratio.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || maxX != 0",
+    "rationale" : "If maxX == 0, result is forcibly set to 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || (visualAmountX / maxX >= 0)",
+    "rationale" : "Due to clamping, if result is nonzero, the unclamped ratio must be at least 0.",
+    "meta" : [ ]
+  } ]
+}

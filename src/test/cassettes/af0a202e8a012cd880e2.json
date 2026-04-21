@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method immediately throws a NullPointerException if style is null, so this invariant always holds at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.wrapWidth == 0 || style.wrapWidth != 0",
+    "rationale" : "style.wrapWidth is accessed without null-check, so style and wrapWidth are valid; the code logic handles both cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background != null || style.background == null",
+    "rationale" : "style.background is set as container background, meaning it is accessed safely and could be either value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.label != null || style.label == null",
+    "rationale" : "style.label is set into label without null-check, so it is safe to access but may be null or not.",
+    "meta" : [ ]
+  } ]
+}

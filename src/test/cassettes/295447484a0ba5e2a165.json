@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "The method expects properties to be non-null since it is used to store results.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null || element == null",
+    "rationale" : "element is allowed to be null at entry, as the method checks element for null as its first action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties instanceof MapProperties",
+    "rationale" : "properties is typed as MapProperties, so this is always true unless a subclass is passed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element instanceof Element || element == null",
+    "rationale" : "element is either a valid Element object or null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "Within a non-static method, the receiver object (this) is always non-null.",
+    "meta" : [ ]
+  } ]
+}

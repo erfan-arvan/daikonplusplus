@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "classElement != null",
+    "rationale" : "Method calls on classElement are present; null would cause NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "propName != null",
+    "rationale" : "propName used in equals; must not be null for comparison.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classElement.getChildrenByNameRecursively(\"property\") != null",
+    "rationale" : "The result is iterated over in a for-each loop; cannot be null safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!propName.isEmpty()",
+    "rationale" : "Empty propName would rarely match property names; method expects meaningful property name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classElement.getChildrenByNameRecursively(\"property\").size() >= 0",
+    "rationale" : "Collection size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

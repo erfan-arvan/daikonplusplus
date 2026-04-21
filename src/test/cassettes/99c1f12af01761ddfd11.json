@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "className != null || className == null",
+    "rationale" : "Java String variables are either null or not null; this is a formal dichotomy.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "trivial null dichotomy"
+    } ]
+  }, {
+    "expression" : "mapProperties != null",
+    "rationale" : "It is likely that mapProperties should not be null as it is used without null checks in the method body.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "API usage constraint"
+    } ]
+  }, {
+    "expression" : "className == null || className.length() >= 0",
+    "rationale" : "If className is not null, its length is non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "String property"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "shapes != null",
+    "rationale" : "Method argues shapes is used without null check, so it is likely assumed non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getDebug() == false || getStage() == null || shapes.getColor().equals(getStage().getDebugColor())",
+    "rationale" : "If getDebug() and getStage() are both true, shapes color is set to the stage's debug color.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getDebug() == false || shapes.getType() == ShapeRenderer.ShapeType.Line",
+    "rationale" : "When getDebug() is true, shapes type is set to Line.",
+    "meta" : [ ]
+  } ]
+}

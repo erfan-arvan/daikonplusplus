@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "toActor == null || !toActor.isDescendantOf(event.getListenerActor())",
+    "rationale" : "The method returns early if toActor != null and toActor.isDescendantOf(event.getListenerActor()), so reaching the exit implies this is false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event != null",
+    "rationale" : "event is used unguarded at this point (event.getListenerActor()), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pointer >= Integer.MIN_VALUE && pointer <= Integer.MAX_VALUE",
+    "rationale" : "pointer is an int parameter, so it remains within int range.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0",
+    "rationale" : "After Math.max(0, x) is assigned back to x, x cannot be negative at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y <= getHeight()",
+    "rationale" : "The code computes height - y and uses it for cursorLine; thus, typically y is at most getHeight().",
+    "meta" : [ ]
+  }, {
+    "expression" : "x <= getWidth()",
+    "rationale" : "The x value is meant to represent a position within the UI element; it should not exceed the element width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "y typically represents a coordinate within the UI area, which generally cannot be negative after processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + y >= 0",
+    "rationale" : "Since both x and y are constrained to be non-negative, their sum will also be non-negative.",
+    "meta" : [ ]
+  } ]
+}

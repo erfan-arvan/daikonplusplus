@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "tile is dereferenced as an argument in loadObject, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement is used to call tileElement.get(\"objectgroup\"), so it should not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.isObject()",
+    "rationale" : "tileElement is accessed with .get(), which is typically valid for JSON objects.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "screenX >= 0",
+    "rationale" : "screen coordinates are often non-negative in graphical contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "screenY >= 0",
+    "rationale" : "screen coordinates are often non-negative in graphical contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pointer >= 0",
+    "rationale" : "pointer indices for multi-touch are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button >= 0",
+    "rationale" : "mouse button codes are typically non-negative integers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "screenX == (int)screenX",
+    "rationale" : "screenX is always an int, so this is trivially true and type-safe.",
+    "meta" : [ ]
+  } ]
+}

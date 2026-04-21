@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "The method calls file.extension(), so file cannot be null on any return path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "file.extension() is used and compared; it must not be null on any return path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension().toLowerCase().equals(\"tmx\") || file.extension().toLowerCase().equals(\"tmj\")",
+    "rationale" : "The method only returns a value if the extension is either 'tmx' or 'tmj'; otherwise, it throws.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Each code path returns the result of a getDependencies call, none of which are likely to return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "If parameter is null at entry, it is replaced with a new Parameters instance before any use or return.",
+    "meta" : [ ]
+  } ]
+}

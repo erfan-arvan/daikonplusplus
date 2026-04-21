@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "Rendering methods typically require the Batch parameter to be non-null to proceed with drawing operations safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values for drawing (opacity) are conventionally required to be within [0,1], so must at least be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha composing operations typically assume alpha is at most 1.0 for drawing transparency.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() != null",
+    "rationale" : "Widgets participating in scene2d UI usually have an associated Stage, accessible via getStage().",
+    "meta" : [ ]
+  }, {
+    "expression" : "isVisible()",
+    "rationale" : "Drawing operations are only meaningful if the WidgetGroup is visible; isVisible() reflects this.",
+    "meta" : [ ]
+  } ]
+}

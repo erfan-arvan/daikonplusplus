@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "percent >= 0.0f",
+    "rationale" : "Typical percentages are non-negative for size computations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percent <= 1.0f",
+    "rationale" : "Percentages used for sizing are often expected in the range [0,1].",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(percent)",
+    "rationale" : "The percent parameter should not be NaN to ensure meaningful computations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(percent)",
+    "rationale" : "Percent should be finite for calculations involving width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percent == (float)percent",
+    "rationale" : "Verifies that the type is maintained as float, which is important given Java's numeric type system.",
+    "meta" : [ ]
+  } ]
+}

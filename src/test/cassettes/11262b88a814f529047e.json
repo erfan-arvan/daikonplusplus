@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', so the result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method explicitly returns 'this', ensuring result is this instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((VerticalGroup)result).padTop == padTop",
+    "rationale" : "The field 'padTop' is assigned the value of the parameter and the same object is returned.",
+    "meta" : [ ]
+  } ]
+}

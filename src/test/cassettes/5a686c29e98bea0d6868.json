@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "Event should be non-null for the method to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character != '\\0'",
+    "rationale" : "Non-null character likely intended for key input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event instanceof com.badlogic.gdx.scenes.scene2d.InputEvent",
+    "rationale" : "Type constraint: event must be of correct InputEvent type as used in the method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "minAmount <= maxAmount",
+    "rationale" : "The minAmount should not be greater than maxAmount for the split pane to function correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "splitAmount >= 0.0f && splitAmount <= 1.0f",
+    "rationale" : "splitAmount typically represents a normalized position and should be between 0 and 1 inclusive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null && style.handle != null",
+    "rationale" : "style and style.handle are accessed unconditionally in the method, so they must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstWidget != null && secondWidget != null",
+    "rationale" : "Both firstWidget and secondWidget are used in the method, so they are expected to be non-null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getWidth() >= 0 && getHeight() >= 0",
+    "rationale" : "Widget dimensions such as width and height are expected to be non-negative.",
+    "meta" : [ ]
+  } ]
+}

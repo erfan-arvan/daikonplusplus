@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "className != null",
+    "rationale" : "className is used as a key in projectClassInfo.get; an explicit null check happens via a throw if not found, so must be non-null to reach method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "className is checked for null indirectly via projectClassInfo.get(className)"
+    } ]
+  }, {
+    "expression" : "classProperties != null",
+    "rationale" : "classProperties is used in put operations and as a parameter to property-loading methods, so must be non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "classProperties"
+    } ]
+  }, {
+    "expression" : "classElement != null",
+    "rationale" : "classElement is used for property lookups during the iteration, so it must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "classElement"
+    } ]
+  }, {
+    "expression" : "!classProperties.isEmpty() || (classProperties.isEmpty() && classElement.size == 0)",
+    "rationale" : "If classProperties is empty at method exit, classElement must also have had no corresponding values, due to the iteration logic.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "classProperties and classElement"
+    } ]
+  }, {
+    "expression" : "className.length() > 0",
+    "rationale" : "A valid class name (used as a key for project class info) is likely non-empty.",
+    "meta" : [ {
+      "key" : "content",
+      "value" : "className is non-empty"
+    } ]
+  } ]
+}

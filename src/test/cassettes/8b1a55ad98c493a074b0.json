@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "minHeight >= 0",
+    "rationale" : "Minimum heights are often non-negative in UI layout APIs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(minHeight)",
+    "rationale" : "UI layout methods are typically called with finite float values, not infinite or NaN.",
+    "meta" : [ ]
+  } ]
+}

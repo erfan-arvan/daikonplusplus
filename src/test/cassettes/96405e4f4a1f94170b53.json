@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "horizontalAlign != null",
+    "rationale" : "The method likely expects a non-null value representing horizontal alignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "horizontalAlign.isEmpty() || !horizontalAlign.isEmpty()",
+    "rationale" : "Covers all cases for the string's emptiness state; is always true for a non-null string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "horizontalAlign.equals(horizontalAlign.trim())",
+    "rationale" : "Checks if the provided string has no leading or trailing whitespace, which is a potential invariant when setting alignment values.",
+    "meta" : [ ]
+  } ]
+}

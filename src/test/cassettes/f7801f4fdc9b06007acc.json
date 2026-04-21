@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "The method requires a valid fileName to resolve the map file; null is likely not supported.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "The parameter argument is used to access several fields (e.g., generateMipMaps, textureMinFilter, textureMagFilter), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.isEmpty()",
+    "rationale" : "A non-empty fileName is required to resolve a file; empty string likely causes errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.trim().length() > 0",
+    "rationale" : "File names consisting only of whitespace are likely invalid in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter.textureMinFilter != null && parameter.textureMagFilter != null",
+    "rationale" : "Texture filters are used for setting texture properties; these should be non-null before usage.",
+    "meta" : [ ]
+  } ]
+}

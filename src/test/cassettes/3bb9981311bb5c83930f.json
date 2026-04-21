@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "text == null || !text.isEmpty()",
+    "rationale" : "If provided, 'text' is intended for display, so it is likely either null or non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "The length of a String is always non-negative; checking for null ensures safe call.",
+    "meta" : [ ]
+  } ]
+}

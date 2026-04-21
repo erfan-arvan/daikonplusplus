@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null || defaultValue == null",
+    "rationale" : "If result is null, defaultValue must have been returned (which could also be null). Otherwise, result is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == defaultValue || clazz.isInstance(result)",
+    "rationale" : "If result was the defaultValue, type cast isn't enforced; otherwise, result is an instance of clazz.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "A null key is unlikely to be valid per API contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == defaultValue || result != null",
+    "rationale" : "If result was not the defaultValue, it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == defaultValue || clazz.isInstance(result)",
+    "rationale" : "If not defaultValue, result is from map and must cast to clazz.",
+    "meta" : [ ]
+  } ]
+}

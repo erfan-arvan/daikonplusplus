@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "classProp != null",
+    "rationale" : "The method immediately dereferences classProp, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProp.getAttribute(\"value\") != null",
+    "rationale" : "The getAttribute method is called with the key \"value\"; this may be important for determining if an attribute exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProp.getText() != null",
+    "rationale" : "classProp.getText() is used as a fallback/default, so it should be safe to retrieve its value.",
+    "meta" : [ ]
+  } ]
+}

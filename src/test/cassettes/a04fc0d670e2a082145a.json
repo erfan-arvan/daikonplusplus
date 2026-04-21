@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "forward || !forward",
+    "rationale" : "Covers all boolean cases for 'forward'; included because logic may branch on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jump || !jump",
+    "rationale" : "Covers all boolean cases for 'jump'; included because method branches depending on 'jump'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "forward == true || forward == false",
+    "rationale" : "Explicitly expresses the possible values of a boolean parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jump == true || jump == false",
+    "rationale" : "Explicitly expresses the possible values of a boolean parameter.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "padBottom >= 0",
+    "rationale" : "It is common for padding values to be non-negative in UI layouts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padBottom == padBottom",
+    "rationale" : "Pad value is a regular float; this avoids NaN, but is likely to always be true unless NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padBottom <= Float.MAX_VALUE",
+    "rationale" : "Pad value cannot exceed float maximum.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padBottom >= -Float.MAX_VALUE",
+    "rationale" : "Pad value cannot be less than negative float maximum.",
+    "meta" : [ ]
+  } ]
+}

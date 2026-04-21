@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a merged JsonValue, so result should never be null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != mapElement",
+    "rationale" : "The method merges mapElement with the template, so result is a new object, not simply mapElement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isObject()",
+    "rationale" : "mergeParentElementWithTemplate is expected to return a merged object, which should be a JSON object node.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapElement != null",
+    "rationale" : "mapElement is the parent element being merged and is accessed (e.g., mapElement.getString()), therefore it must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.has(\"properties\") || !mapElement.has(\"properties\")",
+    "rationale" : "If mapElement had 'properties', these should still be present or merged in result.",
+    "meta" : [ ]
+  } ]
+}

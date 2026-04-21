@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "tree != null",
+    "rationale" : "tree is dereferenced in the method, so should not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorIndex >= 0",
+    "rationale" : "actorIndex is used as an index in addActorAt, which likely requires it to be non-negative.",
+    "meta" : [ ]
+  } ]
+}

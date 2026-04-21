@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "keycode >= 0",
+    "rationale" : "Key codes are commonly defined as non-negative integers in many input systems.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keycode == keyRepeatTask.keycode",
+    "rationale" : "If the scheduling logic executes, keyRepeatTask.keycode is set to keycode.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyRepeatTask.isScheduled()",
+    "rationale" : "At exit, the task will be scheduled if it was not already, due to Timer.schedule.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyRepeatTask != null",
+    "rationale" : "The method operates on keyRepeatTask, so it should not be null at the method exit.",
+    "meta" : [ ]
+  } ]
+}

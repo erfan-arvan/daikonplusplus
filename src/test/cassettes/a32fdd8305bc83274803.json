@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "wrapSpace >= 0",
+    "rationale" : "It's common for space or distance parameters to not be negative, as they indicate spacing between UI elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "wrapSpace == wrapSpace",
+    "rationale" : "Verifies that wrapSpace is a valid float value (not NaN); this holds unless NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(wrapSpace))",
+    "rationale" : "It is likely undesirable for a UI spacing parameter to be NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(wrapSpace)",
+    "rationale" : "Spacing value should be finite for sensible layout computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "There are no object or class invariants derivable from the single in-scope parameter, and no further relationships are available.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "left >= 0",
+    "rationale" : "Padding values are often non-negative to represent actual space.",
+    "meta" : [ ]
+  }, {
+    "expression" : "right >= 0",
+    "rationale" : "Horizontal padding is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "left <= right",
+    "rationale" : "In some UI layouts, it's common for left padding to be less than or equal to right padding.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(left) || Float.isNaN(right))",
+    "rationale" : "Padding values should typically be valid numbers, not NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isInfinite(left) || Float.isInfinite(right))",
+    "rationale" : "Infinite padding values would not be meaningful in UI layout.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == true || disabled",
+    "rationale" : "The only way to return false is immediately if disabled is true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character >= 0",
+    "rationale" : "All Java chars are non-negative, so character >= 0 always holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == false || hasKeyboardFocus()",
+    "rationale" : "One of the early returns is if hasKeyboardFocus() returns false, so whenever the method returns true, it must have keyboard focus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == false || (!disabled && (character >= 32 || character == BACKSPACE || character == TAB || character == NEWLINE || character == CARRIAGE_RETURN))",
+    "rationale" : "Result is only true if not disabled, and character is not a disallowed ASCII control character.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == false || event != null",
+    "rationale" : "The event must be non-null for the function to process and return true; otherwise, a null event would yield an error earlier.",
+    "meta" : [ ]
+  } ]
+}

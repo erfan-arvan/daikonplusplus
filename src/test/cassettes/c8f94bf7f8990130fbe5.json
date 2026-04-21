@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "Access to 'style' fields is performed, so 'style' must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "style is expected not to be null for this method to work"
+    } ]
+  }, {
+    "expression" : "style.knob != null",
+    "rationale" : "If method does not return early, it returns style.knob, suggesting that style.knob is generally expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "style.knob is expected to be non-null for the method to return a Drawable"
+    } ]
+  }, {
+    "expression" : "style.disabledKnob == null || disabled",
+    "rationale" : "style.disabledKnob is only accessed if disabled is true.",
+    "meta" : [ {
+      "key" : "control-flow",
+      "value" : "disabledKnob is only used when disabled"
+    } ]
+  }, {
+    "expression" : "(style.disabledKnob == null) || (style.disabledKnob != null)",
+    "rationale" : "Covers all possible states of the disabledKnob field.",
+    "meta" : [ {
+      "key" : "exhaustiveness",
+      "value" : "disabledKnob is either null or non-null"
+    } ]
+  } ]
+}

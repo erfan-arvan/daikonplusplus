@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of another method, so result is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Dialog",
+    "rationale" : "The method returns the result of another 'text' call, which returns a Dialog.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this.text(text, skin.get(LabelStyle.class))",
+    "rationale" : "The method always returns the result of this specific method call.",
+    "meta" : [ ]
+  } ]
+}

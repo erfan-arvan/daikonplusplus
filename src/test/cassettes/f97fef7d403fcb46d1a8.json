@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(x)",
+    "rationale" : "The x parameter is used in arithmetic later in the method, so it is expected to be a finite float.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(y)",
+    "rationale" : "The y parameter is also used in arithmetic; ensuring it is finite is important for correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "Sliders often use non-negative coordinates for position; x is likely non-negative in most UI contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "Similarly, y as a UI coordinate is often non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x != y",
+    "rationale" : "There is no requirement that x and y are equal; this expresses that in typical use they may differ.",
+    "meta" : [ ]
+  } ]
+}

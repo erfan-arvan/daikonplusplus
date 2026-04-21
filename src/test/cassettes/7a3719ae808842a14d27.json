@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (font.usesIntegerPositions() ? (int)result : result)",
+    "rationale" : "If font.usesIntegerPositions() is true, result must be an integer value due to (int)textY cast before return; else result can be any float.",
+    "meta" : [ ]
+  }, {
+    "expression" : "background == null || result >= background.getBottomHeight()",
+    "rationale" : "When background is not null, result is increased by at least background.getBottomHeight().",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "font is a required parameter and used unguarded; so it is never null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= font.getDescent()",
+    "rationale" : "Regardless of path, textY is calculated based on font.getDescent(), which is always added.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result > 0 || font.getDescent() < 0",
+    "rationale" : "If result is not positive, it reflects that font.getDescent() may be negative enough to cause non-positive textY.",
+    "meta" : [ ]
+  } ]
+}

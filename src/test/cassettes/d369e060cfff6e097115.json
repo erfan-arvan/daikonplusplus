@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "It is common for keys used in map operations to be non-null, as null keys may not be supported by the underlying map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key.length() > 0",
+    "rationale" : "A property name is often expected to be a non-empty string, as empty property names are usually invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!key.isEmpty()",
+    "rationale" : "An alternative way to express that key should be a non-empty string, commonly enforced in map-key requirements.",
+    "meta" : [ ]
+  } ]
+}

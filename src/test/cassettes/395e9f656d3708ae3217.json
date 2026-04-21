@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "layoutEnabled == enabled",
+    "rationale" : "The method sets layoutEnabled equal to the input parameter enabled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "enabled || !layoutEnabled",
+    "rationale" : "If enabled is true, layoutEnabled is true. If enabled is false, layoutEnabled is false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!enabled || layoutEnabled",
+    "rationale" : "If enabled is false, layoutEnabled must be false; if enabled is true, layoutEnabled is true.",
+    "meta" : [ ]
+  } ]
+}

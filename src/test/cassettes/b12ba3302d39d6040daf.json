@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new Value object, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percent >= 0.0f",
+    "rationale" : "Percentages are typically non-negative; the intended use is as a proportion of height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get(null) == 0.0f",
+    "rationale" : "If get is called with null Actor, the method actor.getHeight() would throw a NullPointerException, but the invariant holds if get properly handles null or always returns 0 for null input, as suggested by defensive programming.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Value",
+    "rationale" : "The returned object is always an instance of Value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percent < 100.0f",
+    "rationale" : "A reasonable upper bound for percent in the context of UI values, usually < 100%.",
+    "meta" : [ ]
+  } ]
+}

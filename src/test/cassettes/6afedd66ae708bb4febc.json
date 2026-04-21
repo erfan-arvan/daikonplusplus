@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "cache != null",
+    "rationale" : "cache is used to retrieve the font without a prior null check, so it is likely non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cache.getFont() != null",
+    "rationale" : "cache.getFont() is called and its result is used immediately, indicating it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cache.getFont().getData() != null",
+    "rationale" : "font.getData() is invoked, suggesting getData() will not return null here.",
+    "meta" : [ ]
+  } ]
+}

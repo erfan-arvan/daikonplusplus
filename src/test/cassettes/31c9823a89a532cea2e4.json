@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method requires a non-null Batch instance to draw.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "Alpha blend factors are typically clamped between 0 and 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isTransform() || !isTransform()",
+    "rationale" : "One and only one of the two branches (isTransform true or false) is executed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "validate() == null",
+    "rationale" : "The validate() method is always called and probably has a void return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawBackground(batch, parentAlpha, getX(), getY()) == null || drawBackground(batch, parentAlpha, 0, 0) == null",
+    "rationale" : "drawBackground is always called with batch and parentAlpha; the third and fourth parameters depend on the branch.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "padTop != null",
+    "rationale" : "The method throws an exception if padTop is null, ensuring padTop is always non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns this, so result and this are the same object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.padTop == padTop",
+    "rationale" : "The method sets this.padTop to the specified value before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.padTop == padTop",
+    "rationale" : "Since result == this and this.padTop is set to padTop, result.padTop must also be padTop.",
+    "meta" : [ ]
+  } ]
+}

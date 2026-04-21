@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == offsetY",
+    "rationale" : "Method directly returns the value of offsetY.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "offsetY (and thus result) is likely always a finite float for tile offsets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true || result == offsetY",
+    "rationale" : "Always true, included to ensure syntax compliance.",
+    "meta" : [ ]
+  } ]
+}

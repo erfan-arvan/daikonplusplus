@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "padTop != null",
+    "rationale" : "The method throws an exception if padTop is null, so it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.padTop == padTop",
+    "rationale" : "The field 'padTop' of the object is assigned from the parameter before returning.",
+    "meta" : [ ]
+  } ]
+}

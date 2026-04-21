@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "a >= 0",
+    "rationale" : "Alpha values are often constrained to be non-negative in graphics code.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "range"
+    } ]
+  }, {
+    "expression" : "r >= 0 && r <= 1",
+    "rationale" : "Color channel values for 'r' are typically between 0 and 1.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "color-channel"
+    } ]
+  }, {
+    "expression" : "g >= 0 && g <= 1",
+    "rationale" : "Green color channel values are usually in [0,1] for rendering APIs.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "color-channel"
+    } ]
+  }, {
+    "expression" : "b >= 0 && b <= 1",
+    "rationale" : "Blue color channel values are usually between 0 and 1 for graphics APIs.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "color-channel"
+    } ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "The Batch object must be non-null to perform rendering operations safely.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "object-existence"
+    } ]
+  } ]
+}

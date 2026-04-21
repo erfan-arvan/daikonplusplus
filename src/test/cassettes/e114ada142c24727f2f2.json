@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (draggingPointer != -1)",
+    "rationale" : "The method returns true if and only if draggingPointer is not -1.",
+    "meta" : [ {
+      "key" : "derivedFrom",
+      "value" : "method implementation"
+    } ]
+  }, {
+    "expression" : "result || !result",
+    "rationale" : "Result is a boolean and always holds either true or false.",
+    "meta" : [ {
+      "key" : "javaBooleanInvariant",
+      "value" : "result is always a boolean"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'objects', and if it is null it is instantiated before return, so 'result' can never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "MapObjects should never have a negative size; the size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == (result.size() == 0)",
+    "rationale" : "'isEmpty()' returns true if and only if 'size()' is zero.",
+    "meta" : [ ]
+  } ]
+}

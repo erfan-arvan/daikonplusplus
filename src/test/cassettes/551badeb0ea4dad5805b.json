@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of properties.values(), which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext() == (properties.size() > 0)",
+    "rationale" : "If properties has elements, result.hasNext() will be true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(properties.isEmpty()) == result.hasNext()",
+    "rationale" : "If the property map is not empty, the returned iterator will have elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.values().iterator().getClass() == result.getClass()",
+    "rationale" : "The iterator returned is directly the one from properties.values().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null && (!result.hasNext() || properties.size() > 0)",
+    "rationale" : "If the iterator has next, properties must have elements; result is never null.",
+    "meta" : [ ]
+  } ]
+}

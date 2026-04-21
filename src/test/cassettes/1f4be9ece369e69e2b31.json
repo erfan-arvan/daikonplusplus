@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "The getKnobY method is called on an instance, so 'this' is not null at the method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "knobPosition != null",
+    "rationale" : "The method immediately accesses knobPosition.y, implying knobPosition must not be null at entry.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "selection != null",
+    "rationale" : "selection is dereferenced for draw, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch is passed into selection.draw and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0.0f",
+    "rationale" : "width is used as a size parameter for draw, which typically should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0.0f",
+    "rationale" : "height is used as a size parameter for draw, which typically should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selection.getMinWidth() <= width",
+    "rationale" : "A reasonable assumption for UI elements is that they are drawn at least as wide as their own minimum width.",
+    "meta" : [ ]
+  } ]
+}

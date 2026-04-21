@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "TiledMap reference is required for layer loading operations in all switch cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "Layer operations are performed on parentLayers in all code paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Element is accessed for its 'type' property; must be non-null to safely call getString.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "FileHandle is passed to downstream loaders in most switch branches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is required for image and group layer processing.",
+    "meta" : [ ]
+  } ]
+}

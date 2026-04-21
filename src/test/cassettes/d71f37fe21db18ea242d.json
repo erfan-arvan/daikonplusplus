@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "tooltip != null",
+    "rationale" : "The method operates on 'tooltip', and likely expects it to be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.container != null",
+    "rationale" : "'tooltip.container.remove()' is called, so tooltip.container should not be null to prevent errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.container instanceof com.badlogic.gdx.scenes.scene2d.Actor",
+    "rationale" : "'remove()' is typically a method on scene2d Actor or derived classes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.always == true || tooltip.always == false",
+    "rationale" : "tooltip.always is used as a boolean in a logical expression, so it must be a boolean value.",
+    "meta" : [ ]
+  } ]
+}

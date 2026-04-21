@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "!Float.isNaN(maxWidth)",
+    "rationale" : "The method likely expects a valid floating point number; NaN is typically invalid for width specifications.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxWidth > 0",
+    "rationale" : "Maximum width should be positive in common UI contexts, as negative or zero widths are not practical.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxWidth != Float.POSITIVE_INFINITY",
+    "rationale" : "An infinite maximum width is likely nonsensical in UI layout scenarios.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxWidth <= Float.MAX_VALUE",
+    "rationale" : "maxWidth should not exceed representable float values; using Float.MAX_VALUE is a standard upper bound.",
+    "meta" : [ ]
+  } ]
+}

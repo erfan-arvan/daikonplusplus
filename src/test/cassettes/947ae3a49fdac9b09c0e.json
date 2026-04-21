@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "File name should be defined to identify the asset being loaded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tideFile != null",
+    "rationale" : "The file handle must exist for the load operation to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tideFile.exists()",
+    "rationale" : "The file to be loaded should exist for a successful operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "assetManager != null",
+    "rationale" : "AssetManager should be present to resolve assets and dependencies.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof Parameters",
+    "rationale" : "Parameter, if non-null, is expected to be of the correct type.",
+    "meta" : [ ]
+  } ]
+}

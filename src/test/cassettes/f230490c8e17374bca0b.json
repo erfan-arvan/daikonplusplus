@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this', so result and this must be the same object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result.align & Align.bottom) != 0",
+    "rationale" : "The bottom flag is always set by the method before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result.align & Align.top) == 0",
+    "rationale" : "The top alignment bit is always cleared by the method before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.align == (this.align | Align.bottom) & ~Align.top",
+    "rationale" : "The resulting alignment is always the bitwise result of setting bottom and clearing top.",
+    "meta" : [ ]
+  } ]
+}

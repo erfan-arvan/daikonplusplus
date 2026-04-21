@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getName().equals(\"tileset\")",
+    "rationale" : "The entire body of the method is guarded by this condition; the code path is only relevant if the element is a tileset.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "All method logic assumes non-null element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "A null tmxFile would break tile set loading logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is passed into addStaticTiles and is required by the method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "getName() == null || getName() instanceof String",
+    "rationale" : "Since getName() is stored in a String variable, it must be either null or a String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getClass() != null",
+    "rationale" : "getClass() always returns the runtime class of the object and cannot return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getClass().getName() != null",
+    "rationale" : "Class.getName() always returns a non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "image != null",
+    "rationale" : "image must not be null since image.getDrawable() is called unconditionally in the return statement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "image.getDrawable() != null",
+    "rationale" : "image.getDrawable() is concatenated to a string, indicating that it should not be null.",
+    "meta" : [ ]
+  } ]
+}

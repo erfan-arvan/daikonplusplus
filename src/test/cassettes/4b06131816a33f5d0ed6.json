@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "rotation >= 0 && rotation <= 3",
+    "rationale" : "According to the Javadoc, rotation is specified in 90 degree increments, typically ranging from 0 to 3 (0°, 90°, 180°, 270°).",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation % 1 == 0",
+    "rationale" : "rotation is an int, so it's always a whole number; valid to clarify it's in integer increments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation == 0 || rotation == 1 || rotation == 2 || rotation == 3",
+    "rationale" : "Explicitly codifies valid rotation values as described by method documentation.",
+    "meta" : [ ]
+  } ]
+}

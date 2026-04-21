@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "pad >= 0",
+    "rationale" : "It is common for padding values to be non-negative in UI layout code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pad <= Float.MAX_VALUE",
+    "rationale" : "As a float parameter, 'pad' should not exceed the max float value allowed by Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(pad)",
+    "rationale" : "Padding should not be NaN, otherwise the method's assignment to fields will result in nonsensical layout.",
+    "meta" : [ ]
+  } ]
+}

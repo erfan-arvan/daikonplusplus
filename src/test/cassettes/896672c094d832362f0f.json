@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "iconX >= 0",
+    "rationale" : "iconX represents an X coordinate for the icon, which is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "node != null",
+    "rationale" : "The node parameter should not be null; otherwise, method behavior would be undefined.",
+    "meta" : [ ]
+  }, {
+    "expression" : "iconX == iconX",
+    "rationale" : "This checks that iconX is not NaN, as iconX == iconX will be false if iconX is NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(iconX))",
+    "rationale" : "Ensures iconX is not NaN, which is meaningful since it will be used in a comparison.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method needs TiledMap map to operate and frequently calls methods on it; likely precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects != null",
+    "rationale" : "MapObjects collection is necessary for adding the loaded object; should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Element is heavily used and dereferenced immediately, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "heightInPixels >= 0",
+    "rationale" : "Screen or tile-based heights are typically non-negative; negative heights are likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getName() != null",
+    "rationale" : "The method calls element.getName().equals(\"object\"), implying getName() must not return null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method accesses map fields and methods unconditionally; it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "The method adds a new layer to parentLayers, which implies parentLayers should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The method invokes methods on element; it must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!element.getName().isEmpty()",
+    "rationale" : "The method checks for a specific layer name; a non-empty name is necessary.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getProperties() != null",
+    "rationale" : "map.getProperties() is called without a null check; thus, it is assumed to be non-null.",
+    "meta" : [ ]
+  } ]
+}

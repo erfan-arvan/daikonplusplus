@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "'style' is accessed immediately, so it must be non-null at the start of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.plus != null",
+    "rationale" : "'style.plus' is dereferenced for getMinWidth(), implying it must not be null before the method is executed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.minus != null",
+    "rationale" : "'style.minus' is also dereferenced for getMinWidth(), implying it must not be null before the method is executed.",
+    "meta" : [ ]
+  } ]
+}

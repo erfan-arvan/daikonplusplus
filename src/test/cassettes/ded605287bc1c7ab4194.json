@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Null name may cause parseRegionName to throw, so name is expected to be non-null at return.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "parseRegionName likely expects name to be non-null."
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Assumes that for valid name, atlas.findRegion returns non-null TextureRegion.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "atlas.findRegion is expected to usually find the region and return a valid TextureRegion object."
+    } ]
+  }, {
+    "expression" : "parseRegionName(name) != null",
+    "rationale" : "parseRegionName should return a valid region name for use in atlas.findRegion.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "parseRegionName likely returns a valid region string."
+    } ]
+  }, {
+    "expression" : "result == atlas.findRegion(parseRegionName(name))",
+    "rationale" : "The result should always be what atlas.findRegion(parseRegionName(name)) returns.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "This is a direct reflection of the method's return value."
+    } ]
+  }, {
+    "expression" : "result != null || atlas.findRegion(parseRegionName(name)) == null",
+    "rationale" : "If result is null, that means atlas could not find the corresponding region.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "If result is null, atlas.findRegion(parseRegionName(name)) returned null as well."
+    } ]
+  } ]
+}

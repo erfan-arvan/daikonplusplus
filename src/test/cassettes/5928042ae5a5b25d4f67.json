@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= -1",
+    "rationale" : "By specification, returns -1 if not found, otherwise a non-negative index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || result == -1 || result >= 0",
+    "rationale" : "If the name is null or the object does not exist, result is -1; otherwise result is at least 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -1 || name != null",
+    "rationale" : "If result is not -1, then name must not be null, because a lookup with null would not yield a valid object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -1 || result >= 0",
+    "rationale" : "If result is not -1, then it must be a valid index (zero or positive).",
+    "meta" : [ ]
+  } ]
+}

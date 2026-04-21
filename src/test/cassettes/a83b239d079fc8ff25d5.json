@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "cells != null",
+    "rationale" : "Assumes the Table object should always have its internal cells structure initialized before method logic executes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rowDefaults != null || cellPool != null",
+    "rationale" : "If rowDefaults is null, cellPool must be available to allocate a new Cell later in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cellPool != null",
+    "rationale" : "The method uses cellPool unconditionally if rowDefaults is not null, so it should be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cells.size >= 0",
+    "rationale" : "The size field should be non-negative for a collection; ensures data structure invariants.",
+    "meta" : [ ]
+  } ]
+}

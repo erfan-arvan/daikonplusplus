@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "!needsLayout",
+    "rationale" : "At every return point, needsLayout is always set to false unless immediately re-invalidated, in which case the method continues looping and does not exit until needsLayout is false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layoutEnabled || !layoutEnabled",
+    "rationale" : "Method always returns regardless of layoutEnabled value, but including for completeness.",
+    "meta" : [ ]
+  } ]
+}

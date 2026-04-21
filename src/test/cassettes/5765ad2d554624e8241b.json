@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new TiledMapTileLayer.Cell.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getFlipHorizontally() == (flipDiagonally ? (flipHorizontally && flipVertically) : flipHorizontally)",
+    "rationale" : "When flipDiagonally, only both flips set horizontal flip; else, mirrors input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getFlipVertically() == (flipDiagonally ? (!flipHorizontally && !flipVertically) : flipVertically)",
+    "rationale" : "When flipDiagonally, only if not flipped horizontally or vertically does vertical flip apply; else, mirrors input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRotation() == (flipDiagonally ? ((flipVertically && flipHorizontally) || flipHorizontally || flipVertically || (!flipHorizontally && !flipVertically) ? TiledMapTileLayer.Cell.ROTATE_270 : TiledMapTileLayer.Cell.ROTATE_90) : TiledMapTileLayer.Cell.ROTATE_0)",
+    "rationale" : "Rotation encoding depends on diagonal flip and combinations of horizontal/vertical flips, else zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null && (!flipDiagonally || result.getRotation() != TiledMapTileLayer.Cell.ROTATE_0)",
+    "rationale" : "If flipDiagonally is true, result never has rotation 0.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result.expand == true",
+    "rationale" : "The method sets 'expand' to true before returning, so after method exit, this should hold for the returned object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which cannot be null after instance construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this', and so the result should be reference-identical to the receiver.",
+    "meta" : [ ]
+  } ]
+}

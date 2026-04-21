@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "newItems != null",
+    "rationale" : "The method immediately throws an exception if newItems is null, so at method entry it is expected to be not null by callers adhering to the contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "newItems.length >= 0",
+    "rationale" : "In Java, the length field of an array is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

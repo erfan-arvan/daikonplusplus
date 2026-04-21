@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "BitmapFont.draw always returns a GlyphLayout, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.width <= width",
+    "rationale" : "The maximum width for drawing is 'width', so the resulting GlyphLayout width should not exceed 'width'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0 || y >= 0",
+    "rationale" : "Coordinates x and y are often non-negative in drawing contexts; one or both being non-negative may commonly hold.",
+    "meta" : [ ]
+  } ]
+}

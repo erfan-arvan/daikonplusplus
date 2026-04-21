@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "ellipsis == null",
+    "rationale" : "Captures the possibility that ellipsis can be null, as indicated by the @Null annotation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ellipsis != null && !ellipsis.isEmpty()",
+    "rationale" : "Checks that if ellipsis is not null, it may also be a non-empty string (likely to display some ellipsis marker).",
+    "meta" : [ ]
+  }, {
+    "expression" : "ellipsis == null || ellipsis.length() >= 0",
+    "rationale" : "Guards the call to length() with a null check; length() is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ellipsis == null || !ellipsis.trim().isEmpty()",
+    "rationale" : "If ellipsis is not null, its trimmed value may be expected not to be empty for visual usage.",
+    "meta" : [ ]
+  } ]
+}

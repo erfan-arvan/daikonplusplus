@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "FileHandle objects are usually required to be non-null for subsequent operations and to access methods safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "Processing likely requires the file to actually exist on the filesystem.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.isDirectory() == false",
+    "rationale" : "Tmx files are typically files, not directories; loading expects a regular file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.extension().equals(\"tmx\")",
+    "rationale" : "This method is named for processing TMX map files, so a .tmx extension is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.length() > 0",
+    "rationale" : "The input TMX file should not be empty, as an empty file likely would not define valid map data.",
+    "meta" : [ ]
+  } ]
+}

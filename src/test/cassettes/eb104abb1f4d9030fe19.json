@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "textField != null",
+    "rationale" : "textField is a method parameter and is dereferenced throughout the method; it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.maxLength >= -1",
+    "rationale" : "maxLength is used in a conditional to determine substitution for negative values; negative values are replaced with -1 and higher values are kept.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.getOnscreenKeyboard() != null",
+    "rationale" : "The method calls getOnscreenKeyboard() on a potential focused TextField, and it is likely that a valid onscreen keyboard should exist if needed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.getText() != null",
+    "rationale" : "getText() is used as return value for input wrapper; it is assumed to be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.getCursorPosition() >= 0",
+    "rationale" : "Cursor positions are generally non-negative, reflecting text field editing conventions.",
+    "meta" : [ ]
+  } ]
+}

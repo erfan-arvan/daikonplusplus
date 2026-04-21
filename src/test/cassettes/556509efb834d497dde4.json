@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "super.getPrefWidth() >= 0",
+    "rationale" : "Preferred width values are conventionally non-negative in UI layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "titleTable.getPrefWidth() >= 0",
+    "rationale" : "Preferred width for a table should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getPadLeft() >= 0",
+    "rationale" : "Padding values are typically non-negative in UI frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getPadRight() >= 0",
+    "rationale" : "Padding values are typically non-negative in UI frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "super.getPrefWidth() <= Math.max(super.getPrefWidth(), titleTable.getPrefWidth() + getPadLeft() + getPadRight())",
+    "rationale" : "The result of Math.max will be at least as large as its first argument.",
+    "meta" : [ ]
+  } ]
+}

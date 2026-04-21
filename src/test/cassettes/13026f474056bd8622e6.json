@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "delta >= 0",
+    "rationale" : "In many game and animation contexts, delta (time step) is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(delta)",
+    "rationale" : "NaN deltas are unlikely and could indicate a bug or misuse.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(delta)",
+    "rationale" : "Infinite deltas are probably not meaningful in the context of frame advancement.",
+    "meta" : [ ]
+  } ]
+}

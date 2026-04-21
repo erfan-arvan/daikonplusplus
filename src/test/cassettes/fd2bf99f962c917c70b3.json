@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of atlas.findRegion(regionName), which likely returns non-null for valid atlas data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "The input parameter 'name' is used to compute a region name and must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "'name' is used to lookup regions and usually is required to be non-empty for a successful lookup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == atlas.findRegion(parseRegionName(name))",
+    "rationale" : "The returned result is exactly atlas.findRegion(parseRegionName(name)), as per method body.",
+    "meta" : [ ]
+  } ]
+}

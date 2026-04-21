@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "drawable != null",
+    "rationale" : "The method expects a valid Drawable to create a tinted copy; null is likely not acceptable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "r >= 0.0f && r <= 1.0f",
+    "rationale" : "The red component for the Color in LibGDX is typically expected to be in [0,1].",
+    "meta" : [ ]
+  }, {
+    "expression" : "g >= 0.0f && g <= 1.0f",
+    "rationale" : "The green component for the Color in LibGDX is typically clamped between 0 and 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b >= 0.0f && b <= 1.0f",
+    "rationale" : "The blue component for the Color in LibGDX usually ranges from 0 to 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a >= 0.0f && a <= 1.0f",
+    "rationale" : "The alpha component is expected to be between 0 (transparent) and 1 (opaque) in LibGDX's Color.",
+    "meta" : [ ]
+  } ]
+}

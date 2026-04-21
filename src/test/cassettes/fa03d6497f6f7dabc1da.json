@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method parseRegionName(name) is called, which will throw a NullPointerException if name is null. Thus, name should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "It is likely that empty names are not valid image identifiers; parsing and region lookup would expect a valid, non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parseRegionName(name) != null",
+    "rationale" : "The returned region name from parseRegionName(name) must be non-null for atlas.findRegion to work correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!parseRegionName(name).isEmpty()",
+    "rationale" : "A valid region name should not be empty to enable atlas.findRegion(regionName) to return meaningful results.",
+    "meta" : [ ]
+  } ]
+}

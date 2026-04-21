@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "this.programmaticChangeEvents == programmaticChangeEvents",
+    "rationale" : "The method is a standard setter; it assigns the parameter to the instance field.",
+    "meta" : [ {
+      "key" : "field-updated",
+      "value" : "Ensures the field reflects the argument after the setter."
+    } ]
+  }, {
+    "expression" : "this.programmaticChangeEvents == ((com.badlogic.gdx.scenes.scene2d.ui.Button) this).programmaticChangeEvents",
+    "rationale" : "Using an explicit cast to 'this' should be equivalent to the direct reference to the field.",
+    "meta" : [ {
+      "key" : "field-alias",
+      "value" : "Reflexive reference using explicit cast."
+    } ]
+  } ]
+}

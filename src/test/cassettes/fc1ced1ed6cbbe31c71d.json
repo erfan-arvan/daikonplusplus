@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs a new TiledMap and returns it as 'map', hence result (the returned TiledMap) is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "The method relies on 'tmxFile' (a FileHandle) to load TMX data; it is a required file handle input and cannot be null for normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "The method requires 'imageResolver' to load tilesets and images; it is passed as an argument and assumed to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getProperties() != null",
+    "rationale" : "The TiledMap's properties are set during method execution and are a core part of the TiledMap object; the method does not unset or null out properties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLayers() != null",
+    "rationale" : "The TiledMap's layers collection is initialized and populated throughout the method execution and is not set to null.",
+    "meta" : [ ]
+  } ]
+}

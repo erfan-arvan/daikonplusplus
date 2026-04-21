@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Since the result is either 0 or the value of style.background.getMinWidth(), it cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || result == style.background.getMinWidth()",
+    "rationale" : "By the method's conditional logic, result can only be 0 or the background's min width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background == null || result == style.background.getMinWidth()",
+    "rationale" : "If background is not null, result must be getMinWidth() of the background.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background != null || result == 0",
+    "rationale" : "If background is null, result is 0.",
+    "meta" : [ ]
+  } ]
+}

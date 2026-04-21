@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Most key-based retrieval methods in frameworks require the name parameter to be non-null; otherwise, a NullPointerException or failure is likely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof Color",
+    "rationale" : "The returned result is either null or an instance of Color, as enforced by the get method with Color.class.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || result == null || result instanceof Color",
+    "rationale" : "If the provided name is null, the result is typically null or (if not) still must be a Color.",
+    "meta" : [ ]
+  } ]
+}

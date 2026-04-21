@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs and returns a TiledMap, which is expected to be non-null after successful loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "The method presumably requires a non-null filename to load a map, as it is passed directly to another method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "A valid file name is likely to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The returned object is explicitly declared as TiledMap or a subclass thereof.",
+    "meta" : [ ]
+  } ]
+}

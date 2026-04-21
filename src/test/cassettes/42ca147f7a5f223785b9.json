@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || \"property\".equals(result.getName())",
+    "rationale" : "The method only returns an Element from getChildrenByNameRecursively(\"property\"), which should have name 'property', or null if no match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || propName.equals(result.getAttribute(\"name\"))",
+    "rationale" : "A result is only returned if its 'name' attribute matches propName.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classElement != null",
+    "rationale" : "classElement is used directly without null checks, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "propName != null",
+    "rationale" : "propName is used in equals without a null guard, so it is assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || classElement.getChildrenByNameRecursively(\"property\").contains(result)",
+    "rationale" : "If result is non-null, it must come from the children of classElement found by getChildrenByNameRecursively.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "properties is dereferenced by properties.put(name, castValue) in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "name is used as a parameter in castProperty and properties.put, both likely requiring non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value != null || type != null",
+    "rationale" : "At least one of value or type may be needed for castProperty to perform a conversion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "Likely that an empty name is not meaningful as a property key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value == null || !value.isEmpty()",
+    "rationale" : "If value is non-null, it is likely to be non-empty for a property to be meaningful.",
+    "meta" : [ ]
+  } ]
+}

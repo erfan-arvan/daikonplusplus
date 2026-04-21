@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "delta >= 0",
+    "rationale" : "Time deltas for animation updates are typically non-negative in scene graph frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(delta)",
+    "rationale" : "The delta parameter should be finite to avoid unexpected behavior during animation duration updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "delta < Float.POSITIVE_INFINITY",
+    "rationale" : "Delta should not be infinite to maintain valid animation calculations.",
+    "meta" : [ ]
+  } ]
+}

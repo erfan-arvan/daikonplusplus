@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method immediately uses 'batch', so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "parentAlpha often represents alpha compositing factors and is usually non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha values are commonly clamped to [0, 1] range for opacity.",
+    "meta" : [ ]
+  } ]
+}

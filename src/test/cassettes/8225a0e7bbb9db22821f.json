@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is used as an argument to resolve(fileName), which likely requires it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "parameter is dereferenced for fields later in the method and passed to other methods, so must be non-null.",
+    "meta" : [ ]
+  } ]
+}

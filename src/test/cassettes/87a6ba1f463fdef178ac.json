@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "fileHandles != null",
+    "rationale" : "fileHandles is expected to be a non-null collection given it is used and mutated in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is passed into getRelativeFileHandle and used for file resolution, so it is likely not supposed to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset != null",
+    "rationale" : "tileset is dereferenced by calling getAttribute on entry.",
+    "meta" : [ ]
+  } ]
+}

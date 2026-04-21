@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The code accesses fields of style; null style would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorArea != null",
+    "rationale" : "The method uses actorArea's set method; actorArea must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getWidth() >= 0",
+    "rationale" : "Component width is usually non-negative in UI systems.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getHeight() >= 0",
+    "rationale" : "Component height is typically non-negative for a UI element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "MathUtils != null",
+    "rationale" : "MathUtils.clamp is invoked; MathUtils reference should be non-null.",
+    "meta" : [ ]
+  } ]
+}

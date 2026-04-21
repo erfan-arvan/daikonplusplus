@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new TiledMap instance is always constructed and returned; result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "root != null && root.getChildByName(\"Properties\") == null || result.getProperties().size() == 0 || root.getChildByName(\"Properties\") != null",
+    "rationale" : "Properties only loaded if 'Properties' child exists; otherwise properties may be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "root != null && root.getChildByName(\"TileSheets\") != null",
+    "rationale" : "The code assumes 'TileSheets' child exists and calls getChildrenByName on it, implying it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "root != null && root.getChildByName(\"Layers\") != null",
+    "rationale" : "The code assumes 'Layers' child exists and iterates its children, implying it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The return value is always a TiledMap by construction.",
+    "meta" : [ ]
+  } ]
+}

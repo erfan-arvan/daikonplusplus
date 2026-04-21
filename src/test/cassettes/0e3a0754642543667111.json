@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned TiledMap instance should be not null if successfully loaded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "A non-null, non-empty filename is required to resolve and load the TiledMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "A valid Parameters object is used throughout the method and passed to helper functions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The method guarantees that the result is a TiledMap instance.",
+    "meta" : [ ]
+  } ]
+}

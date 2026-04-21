@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (draggingPointer != -1)",
+    "rationale" : "The method directly returns the boolean result of the expression 'draggingPointer != -1', so the return value always matches that condition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || draggingPointer == -1",
+    "rationale" : "If the result is false, then draggingPointer must be -1. This reflects the exact logic of the method in logical implication form.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || draggingPointer != -1 == result",
+    "rationale" : "If result is true, then 'draggingPointer != -1 == true', which matches the contract.",
+    "meta" : [ ]
+  } ]
+}

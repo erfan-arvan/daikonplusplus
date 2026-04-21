@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "min != null",
+    "rationale" : "Method likely expects valid enum values for min filter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mag != null",
+    "rationale" : "Method likely expects valid enum values for mag filter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "trackedTextures.isEmpty()",
+    "rationale" : "trackedTextures.clear() is called; thus, should be empty at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "If trackedTextures had no nulls, clearing them would eliminate all, maintaining collection invariants.",
+    "meta" : [ ]
+  } ]
+}

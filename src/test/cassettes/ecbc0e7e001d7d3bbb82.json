@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method relies on accessing multiple style fields; style must not be null for these accesses to be safe.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.fontColor == null || style.fontColor instanceof Color",
+    "rationale" : "The return value at the end is style.fontColor, which should be null or a Color instance to be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isPressed() || (style.downFontColor == null && style.checkedDownFontColor == null && !isChecked()) || (style.downFontColor != null || (isChecked() && style.checkedDownFontColor != null))",
+    "rationale" : "If isPressed() is true, the method returns a non-null down-related fontColor if available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isOver() || (!isChecked() && (style.overFontColor != null || style.checkedOverFontColor == null)) || (isChecked() && (style.checkedOverFontColor != null || style.overFontColor == null))",
+    "rationale" : "On isOver(), the return prioritizes the checkedOverFontColor if checked, else overFontColor if not checked.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasKeyboardFocus() || style.focusedFontColor != null || (isChecked() && style.checkedFocusedFontColor != null)",
+    "rationale" : "If the button is focused, a focusedFontColor or checkedFocusedFontColor must be available when checked.",
+    "meta" : [ ]
+  } ]
+}

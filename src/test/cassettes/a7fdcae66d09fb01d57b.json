@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "polyline != null",
+    "rationale" : "It is common for setter methods to expect non-null parameters; this reflects a precondition that polyline should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "polyline.getVertices() != null",
+    "rationale" : "If polyline is non-null, its vertices array should also be non-null to represent a valid shape.",
+    "meta" : [ ]
+  }, {
+    "expression" : "polyline.getVertices().length >= 4",
+    "rationale" : "A polyline typically requires at least two points (4 floats) to be meaningful, as each point may be represented by two coordinates.",
+    "meta" : [ ]
+  } ]
+}

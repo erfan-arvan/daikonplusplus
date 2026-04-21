@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "Selection typically begins at a non-negative index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionEnd >= 0",
+    "rationale" : "Selection end index should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionEnd >= selectionStart",
+    "rationale" : "End index should not precede start index for a selection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart != selectionEnd",
+    "rationale" : "A selection is only meaningful if it spans at least one character.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Math.abs(selectionEnd - selectionStart) >= 0",
+    "rationale" : "The absolute difference between start and end is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

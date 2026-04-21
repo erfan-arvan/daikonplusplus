@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method may expect the name to be non-null as it is being set as an identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "Tileset names are likely expected to be non-empty strings after being set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.trim().equals(name)",
+    "rationale" : "Names should not have leading or trailing whitespace; setting should pass a trimmed name.",
+    "meta" : [ ]
+  } ]
+}

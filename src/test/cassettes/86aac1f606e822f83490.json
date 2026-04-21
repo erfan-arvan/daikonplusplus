@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this' as evident from 'return this;'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(top)",
+    "rationale" : "Values are immediately converted to a Fixed representation; likely expected to be finite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(left)",
+    "rationale" : "Similarly, 'left' is likely finite for correct 'padLeft' behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(bottom)",
+    "rationale" : "Likely expected and used in padding calculation, so should be finite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(right)",
+    "rationale" : "'right' is also used for padding and should be a finite float value.",
+    "meta" : [ ]
+  } ]
+}

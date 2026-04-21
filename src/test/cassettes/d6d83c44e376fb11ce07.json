@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.debug == debug",
+    "rationale" : "After method execution, 'this.debug' is set to the parameter value 'debug'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "super.getDebug() == (debug != Debug.none)",
+    "rationale" : "The superclass debug flag is set according to whether 'debug' is not Debug.none.",
+    "meta" : [ ]
+  } ]
+}

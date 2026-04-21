@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "halfTapSquareSize >= 0",
+    "rationale" : "It is common for tap square sizes to be non-negative, as negative touch areas do not make sense geometrically.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "UI input areas"
+    } ]
+  }, {
+    "expression" : "halfTapSquareSize == halfTapSquareSize",
+    "rationale" : "Ensures the variable is a valid float and not NaN, since NaN != NaN.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "reflexivity"
+    } ]
+  }, {
+    "expression" : "Float.isFinite(halfTapSquareSize)",
+    "rationale" : "Tap square sizes should not be infinite or NaN, only valid, finite floats.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "numerical stability"
+    } ]
+  } ]
+}

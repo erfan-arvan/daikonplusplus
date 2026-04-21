@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "Widths passed to UI rectangle methods are usually non-negative to represent valid regions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Heights for drawing or layout are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "currentX >= 0",
+    "rationale" : "Table coordinates for debug rectangles are generated relative to 0, so currentX is likely non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "currentY >= 0",
+    "rationale" : "currentY in the context of a table layout is likely non-negative as it accumulates row heights.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width == 0 || height == 0 || (width > 0 && height > 0)",
+    "rationale" : "Rectangles used for debug purposes either have zero area or both width and height are positive, based on table layout constraints.",
+    "meta" : [ ]
+  } ]
+}

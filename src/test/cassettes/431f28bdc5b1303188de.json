@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method likely expects a valid drawable name and may pass it to getDrawable, which would fail for null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "r >= 0.0f && r <= 1.0f",
+    "rationale" : "Color channel values in libGDX's Color are typically in the [0,1] range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "g >= 0.0f && g <= 1.0f",
+    "rationale" : "The green color channel is generally expected to be within [0,1].",
+    "meta" : [ ]
+  }, {
+    "expression" : "b >= 0.0f && b <= 1.0f",
+    "rationale" : "The blue color channel is generally expected to be within [0,1].",
+    "meta" : [ ]
+  }, {
+    "expression" : "a >= 0.0f && a <= 1.0f",
+    "rationale" : "The alpha channel is typically in [0,1] to represent opacity.",
+    "meta" : [ ]
+  } ]
+}

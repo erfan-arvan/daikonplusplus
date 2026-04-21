@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method returns the 'objects' field, which is likely initialized or managed by the class, returning null might indicate an error. Many object collection accessors in Java return non-null values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "Collections in Java cannot have negative size; this is always true of any java.util.Collection or conformant interface.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == (result.size() == 0)",
+    "rationale" : "The contract for most Collection implementations is that isEmpty() is true if and only if size() == 0.",
+    "meta" : [ ]
+  } ]
+}

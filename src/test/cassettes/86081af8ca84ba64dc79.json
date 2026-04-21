@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The computed x position for the cursor is a non-negative float (i.e., it is likely a screen or logical coordinate, which commonly does not go negative).",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The sum of finite float values should produce a finite float.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(result))",
+    "rationale" : "The result is calculated from numeric values and should not be NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (result + 0.0f)",
+    "rationale" : "Adding zero to result yields the same value, ensuring no weird state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != Float.NEGATIVE_INFINITY",
+    "rationale" : "The method performs operations on expected-finite coordinates and should never yield negative infinity.",
+    "meta" : [ ]
+  } ]
+}

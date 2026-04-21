@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method guarantees a Drawable is returned given successful lookup and creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tint != null",
+    "rationale" : "A tinted Drawable requires a non-null Color tint to operate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "The name is used to look up the Drawable; a null name would not be expected to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Drawable",
+    "rationale" : "The returned result must be a Drawable by the method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "An empty name would not typically correspond to a valid drawable resource.",
+    "meta" : [ ]
+  } ]
+}

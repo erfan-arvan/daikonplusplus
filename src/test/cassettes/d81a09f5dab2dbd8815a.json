@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "objects == null || objects instanceof MapObjects",
+    "rationale" : "objects is either null or of type MapObjects before usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects == null || objects.size() >= 0",
+    "rationale" : "If objects is non-null, the MapObjects collection has a non-negative size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(objects == null) || new MapObjects() != null",
+    "rationale" : "If objects is null, constructing new MapObjects is possible, as done in the method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new Value instance, which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != null",
+    "rationale" : "There is an explicit null check and exception thrown if actor is null before returning, so actor is always non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percent >= 0 || percent < 0",
+    "rationale" : "This expresses that percent is always a float (i.e., not NaN). If percent was NaN, both comparisons would be false. This can help assert percent is a valid float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Value",
+    "rationale" : "The result is always an instance of an anonymous subclass of Value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get(actor) == actor.getHeight() * percent",
+    "rationale" : "Per implementation, the Value object returned always computes actor.getHeight() multiplied by percent for its get method.",
+    "meta" : [ ]
+  } ]
+}

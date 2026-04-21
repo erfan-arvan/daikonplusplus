@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cell == null || cell.getTile() != null",
+    "rationale" : "It is common practice to check for null before invoking a method, as seen in the body, so it's often expected that cell is either null or it has a non-null tile to be rendered.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "Tilemap renderers usually use non-negative coordinates; enforcing this may reduce rendering glitches or out-of-bounds issues.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "Similarly, y is likely non-negative in tiled map position context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "color >= 0.0f && color <= 1.0f",
+    "rationale" : "Colors are often represented in normalized floats between 0 and 1 in rendering pipelines.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cell == null || !(cell.getTile() instanceof AnimatedTiledMapTile)",
+    "rationale" : "Method immediately returns if the tile is an instance of AnimatedTiledMapTile; so, if cell is non-null, it is common for the tile not to be animated at point of rendering.",
+    "meta" : [ ]
+  } ]
+}

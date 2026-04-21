@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method immediately casts 'style' and accesses its type, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style instanceof ImageTextButtonStyle",
+    "rationale" : "The method throws an IllegalArgumentException if 'style' is not an ImageTextButtonStyle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style instanceof ButtonStyle",
+    "rationale" : "By the method signature, 'style' is passed in as a ButtonStyle (and may be a subclass).",
+    "meta" : [ ]
+  } ]
+}

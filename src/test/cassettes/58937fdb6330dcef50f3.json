@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Padding values are typically non-negative in UI layouts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Padding values returned should be finite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == padRight.get(this)",
+    "rationale" : "The result is exactly the value returned by padRight.get(this), per method definition.",
+    "meta" : [ ]
+  } ]
+}

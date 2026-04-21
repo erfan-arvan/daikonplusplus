@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method accesses map fields and methods without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects != null",
+    "rationale" : "The method calls objects.add(object), so objects must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The method calls multiple element methods directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "heightInPixels >= 0",
+    "rationale" : "heightInPixels is used in pixel space calculations and is unlikely to be negative in normal cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects.size() >= 0",
+    "rationale" : "objects is a collection, and its size cannot be negative.",
+    "meta" : [ ]
+  } ]
+}

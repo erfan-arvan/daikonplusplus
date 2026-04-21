@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "fileName must not be null because it is used as an input to loading logic.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "fileName is used as a parameter"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "If execution completes normally, load should return a constructed TiledMap object.",
+    "meta" : [ {
+      "key" : "return-value",
+      "value" : "TiledMap should be constructed if load succeeded"
+    } ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "load returns a TiledMap, so result should always be an instance of TiledMap.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result is a TiledMap by contract"
+    } ]
+  }, {
+    "expression" : "!fileName.isEmpty()",
+    "rationale" : "fileName should not be empty, as an empty string is not a meaningful filename for loading a map.",
+    "meta" : [ {
+      "key" : "non-empty-filename",
+      "value" : "fileName must identify a resource"
+    } ]
+  } ]
+}

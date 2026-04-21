@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', which is never null in Java for an instance method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.expandX == 1",
+    "rationale" : "By the method implementation and documentation, expandX is set to 1 on growX().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.fillX == 1f",
+    "rationale" : "By the method implementation and documentation, fillX is set to 1f on growX().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method directly returns 'this', so the returned value is always the same instance.",
+    "meta" : [ ]
+  } ]
+}

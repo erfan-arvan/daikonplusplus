@@ -1,0 +1,14 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the tile assigned to the cell, which is likely to be non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "nonnull"
+    } ]
+  }, {
+    "expression" : "result instanceof TiledMapTile",
+    "rationale" : "The return type of the method is TiledMapTile, so result is always an instance of TiledMapTile if not null.",
+    "meta" : [ ]
+  } ]
+}

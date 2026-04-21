@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == 0 || result == visualAmountY",
+    "rationale" : "The return value is either 0 (when !scrollY is true) or visualAmountY (otherwise)",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "Since 0 and visualAmountY are likely to be non-negative scroll positions, the result is usually >= 0",
+    "meta" : [ ]
+  }, {
+    "expression" : "visualAmountY == result || !scrollY",
+    "rationale" : "If scrollY is true, result is visualAmountY; otherwise, it is 0",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (scrollY ? visualAmountY : 0)",
+    "rationale" : "Directly matches the return statement",
+    "meta" : [ ]
+  } ]
+}

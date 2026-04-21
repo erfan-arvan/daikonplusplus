@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "Since style is accessed immediately, it should always be non-null when the method executes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.up == null || style.up.getMinWidth() >= 0",
+    "rationale" : "UI widget min widths are generally expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.down == null || style.down.getMinWidth() >= 0",
+    "rationale" : "UI widget min widths are generally expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.checked == null || style.checked.getMinWidth() >= 0",
+    "rationale" : "UI widget min widths are generally expected to be non-negative.",
+    "meta" : [ ]
+  } ]
+}

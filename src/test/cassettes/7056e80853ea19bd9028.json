@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "FileHandle 'file' is used immediately for extension().",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "The method file.extension() is called and its result is used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "manager is passed to loader methods without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is forwarded to underlying loader methods which likely require it.",
+    "meta" : [ ]
+  } ]
+}

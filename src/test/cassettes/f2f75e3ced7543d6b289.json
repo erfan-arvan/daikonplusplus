@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "className != null && !className.isEmpty()",
+    "rationale" : "If className were null or empty, projectClassInfo.get(className) would likely fail or return null, causing a runtime exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProperties != null",
+    "rationale" : "classProperties is used for storing properties. It must be non-null for proper operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classElement != null",
+    "rationale" : "classElement is used to look up properties with getPropertyByName; a null element would make property extraction impossible.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProperties.getKeys().hasNext()",
+    "rationale" : "After loading, classProperties should have at least one property reflecting loaded class members.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProperties.containsKey(\"type\") || !classProperties.getKeys().hasNext()",
+    "rationale" : "If classProperties has any keys, it may contain 'type' when a 'class' property is loaded; otherwise, it may be empty.",
+    "meta" : [ ]
+  } ]
+}

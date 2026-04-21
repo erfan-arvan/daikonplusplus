@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Map lookups with a null key may throw or always return null in many implementations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == properties.get(key)",
+    "rationale" : "Method implementation returns the result of properties.get(key) directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || !properties.containsKey(key)",
+    "rationale" : "If result is null, the property does not exist for the key, per Javadoc.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || properties.containsKey(key)",
+    "rationale" : "If result is non-null, the key must be present in the map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key == null || properties.containsKey(key) == (result != null)",
+    "rationale" : "If key is non-null, existence of key matches result != null as per method semantics.",
+    "meta" : [ ]
+  } ]
+}

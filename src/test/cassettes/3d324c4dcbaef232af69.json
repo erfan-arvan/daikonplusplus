@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method expects a non-null TiledMapTileLayer, and most code immediately calls methods on 'layer'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getWidth() > 0",
+    "rationale" : "A TiledMapTileLayer should have positive width for tiles to be rendered, which is likely always true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getHeight() > 0",
+    "rationale" : "A valid tile layer should have positive height for rendering to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileWidth() > 0.0f",
+    "rationale" : "Isometric rendering calculations assume tiles have positive width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileHeight() > 0.0f",
+    "rationale" : "Isometric rendering calculations assume tiles have positive height.",
+    "meta" : [ ]
+  } ]
+}

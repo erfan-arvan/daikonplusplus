@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method parameter 'name' is expected to be used to look up resources; typically should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "Resource names are generally expected to be non-empty strings for meaningful lookup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.trim().length() > 0",
+    "rationale" : "Ensures the name is not a string consisting only of whitespace.",
+    "meta" : [ ]
+  } ]
+}

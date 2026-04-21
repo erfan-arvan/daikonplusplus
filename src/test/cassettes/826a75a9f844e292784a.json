@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "The method calls tileSet.putTile(), so tileSet must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureRegion != null",
+    "rationale" : "A new StaticTiledMapTile is constructed with textureRegion, which requires it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileId >= 0",
+    "rationale" : "tileId is used as an identifier for the new tile and is likely a non-negative value for valid tile sets.",
+    "meta" : [ ]
+  } ]
+}

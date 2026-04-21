@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Rotations are generally expected to be finite values, not NaN or infinite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= -Math.PI * 2 && result <= Math.PI * 2",
+    "rationale" : "Rotation in radians is often within a [-2π, 2π] interval, unless unbounded; this captures typical domain.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "min != null",
+    "rationale" : "Texture.setFilter(min, mag) will throw NullPointerException if min is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mag != null",
+    "rationale" : "Texture.setFilter(min, mag) will throw NullPointerException if mag is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "trackedTextures.isEmpty()",
+    "rationale" : "trackedTextures.clear() is called immediately before exit, so the collection is empty at exit.",
+    "meta" : [ ]
+  } ]
+}

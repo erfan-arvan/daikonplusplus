@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != this",
+    "rationale" : "The method throws an exception if actor == this, so at exit it cannot be.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "constructor guard"
+    } ]
+  }, {
+    "expression" : "actor == this.actor",
+    "rationale" : "The last assignment in the method is this.actor = actor, so they are equal at exit.",
+    "meta" : [ {
+      "key" : "state change",
+      "value" : "final assignment"
+    } ]
+  }, {
+    "expression" : "actor == null || actor.getParent() == this",
+    "rationale" : "If actor is not null, super.addActor(actor) is called, making this the parent.",
+    "meta" : [ {
+      "key" : "actor relationship",
+      "value" : "addition check"
+    } ]
+  }, {
+    "expression" : "actor == null || actor != this.actor || actor.getParent() == this",
+    "rationale" : "If actor is not null and equals this.actor, its parent must be this container.",
+    "meta" : [ {
+      "key" : "composite",
+      "value" : "redundancy safe"
+    } ]
+  }, {
+    "expression" : "actor == null || actor != this",
+    "rationale" : "If actor is not null, it still isn't this (container), by the initial guard.",
+    "meta" : [ {
+      "key" : "redundant guard",
+      "value" : "null-actor"
+    } ]
+  } ]
+}

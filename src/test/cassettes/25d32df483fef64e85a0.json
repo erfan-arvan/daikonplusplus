@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "maxX >= 0",
+    "rationale" : "maxX is used as a denominator and for comparison with zero; likely represents a non-negative scrollable distance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "visualAmountX >= 0",
+    "rationale" : "visualAmountX is used in a scroll ratio and is clamped between 0 and 1, so probably non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "visualAmountX <= maxX",
+    "rationale" : "visualAmountX / maxX is meant to represent a scroll percentage; usually visualAmountX does not exceed maxX.",
+    "meta" : [ ]
+  } ]
+}

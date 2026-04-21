@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileset != null",
+    "rationale" : "tileset is passed to removeValue, so should be non-null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset.getTiles() != null",
+    "rationale" : "tileset is expected to represent a set of tiles, so its tile collection should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset.getCount() >= 0",
+    "rationale" : "A tile set's count should never be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset.getName() != null",
+    "rationale" : "A tile set should have a name for identification and lookup purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset.getProperties() != null",
+    "rationale" : "A tile set should have a properties map for proper metadata association.",
+    "meta" : [ ]
+  } ]
+}

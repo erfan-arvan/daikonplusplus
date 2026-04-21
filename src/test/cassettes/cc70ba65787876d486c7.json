@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "loadSync returns a TiledMap stored in 'map', which should be instantiated successfully to be returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || (parameter.textureMinFilter != null && parameter.textureMagFilter != null)",
+    "rationale" : "If parameter is not null, its fields for texture filters are accessed, so they must also be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is always required to reference the resource being loaded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "file is used to load the TiledMap and must not be null when loadSync completes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager is needed for asset loading and is always present when this point is reached.",
+    "meta" : [ ]
+  } ]
+}

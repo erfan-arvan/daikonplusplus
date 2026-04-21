@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "shapes != null",
+    "rationale" : "The method operates on the provided ShapeRenderer, and using shapes requires it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "shapes.isDrawing() == false || shapes.getType() != null",
+    "rationale" : "If shapes is already drawing, its drawing type should be initialized (not null) for rendering operations.",
+    "meta" : [ ]
+  } ]
+}

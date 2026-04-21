@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "top >= 0",
+    "rationale" : "Padding values are often non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "left >= 0",
+    "rationale" : "Left padding is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bottom >= 0",
+    "rationale" : "Bottom padding is commonly non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "right >= 0",
+    "rationale" : "Right padding is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "top + bottom >= 0 && left + right >= 0",
+    "rationale" : "Combined horizontal and vertical paddings are non-negative if individual values are non-negative.",
+    "meta" : [ ]
+  } ]
+}

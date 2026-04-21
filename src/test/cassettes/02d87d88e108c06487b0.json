@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Adding a null layer may not make sense for the collection, so the method might be called with non-null layers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.layers.contains(layer)",
+    "rationale" : "After the add operation, the layers collection should contain the layer argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.layers.size() > 0",
+    "rationale" : "After adding a layer, the collection should have at least one element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.layers.indexOf(layer) >= 0",
+    "rationale" : "The index of the layer in layers should be non-negative after successful addition.",
+    "meta" : [ ]
+  } ]
+}

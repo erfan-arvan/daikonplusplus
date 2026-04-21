@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', which cannot be null, so 'result' must always be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this', so 'result' and 'this' are the same object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x == result.uniformX",
+    "rationale" : "'uniformX' field is always set to 'x' before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y == result.uniformY",
+    "rationale" : "'uniformY' field is always set to 'y' before returning.",
+    "meta" : [ ]
+  } ]
+}

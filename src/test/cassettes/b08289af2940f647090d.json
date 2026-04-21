@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "In UI frameworks, alpha (opacity) values conventionally range from 0.0 (fully transparent) to 1.0 (fully opaque), especially when used for drawing transparency in rendering methods.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "alpha transparency values"
+    } ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "The method uses 'batch' for rendering operations; it must not be null to avoid NullPointerException and is expected to be provided whenever draw is called.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "batch is required"
+    } ]
+  } ]
+}

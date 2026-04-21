@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "minIndex is never negative since Math.min of selection indices (likely >=0).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fireChangeEvent || (result == cursor)",
+    "rationale" : "If fireChangeEvent is true and changeText returns false, method returns 'to' (cursor).",
+    "meta" : [ ]
+  }, {
+    "expression" : "fireChangeEvent || (result == Math.min(selectionStart, cursor))",
+    "rationale" : "If fireChangeEvent is false, returns minIndex, which is Math.min(selectionStart,cursor).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= Math.max(selectionStart, cursor)",
+    "rationale" : "minIndex (result) cannot exceed maxIndex, which is Math.max(selectionStart, cursor).",
+    "meta" : [ ]
+  } ]
+}

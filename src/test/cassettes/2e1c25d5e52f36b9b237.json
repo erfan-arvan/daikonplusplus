@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "this.paddingLeft == left",
+    "rationale" : "The method assigns 'left' to 'this.paddingLeft', so this equality holds at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.paddingRight == right",
+    "rationale" : "The method assigns 'right' to 'this.paddingRight', ensuring this equality at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.paddingLeft >= 0 || this.paddingLeft < 0",
+    "rationale" : "Covers all cases for float, though not very informative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.paddingRight >= 0 || this.paddingRight < 0",
+    "rationale" : "Covers all float possibilities for paddingRight, but may not be very useful.",
+    "meta" : [ ]
+  } ]
+}

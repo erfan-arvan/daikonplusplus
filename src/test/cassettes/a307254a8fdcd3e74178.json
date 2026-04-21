@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "rotation >= 0",
+    "rationale" : "Rotation in 90 degree increments is commonly non-negative; prevents negative rotations unless negative rotations are supported.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation <= 3",
+    "rationale" : "Common convention for rotations in 90-degree increments is 0 (none), 1 (90), 2 (180), 3 (270), suggesting an upper bound on rotation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation % 1 == 0",
+    "rationale" : "As an int parameter, rotation is always an integer; this asserts it for clarity with respect to increments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation % 4 == rotation",
+    "rationale" : "If only values 0-3 are accepted, then rotation modulo 4 should equal rotation itself.",
+    "meta" : [ ]
+  } ]
+}

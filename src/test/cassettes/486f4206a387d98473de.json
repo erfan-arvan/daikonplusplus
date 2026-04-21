@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "The method getDependencyFileHandles(tmxFile) is called, requiring tmxFile to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "It is reasonable to expect that tmxFile should exist to retrieve dependencies.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureParameter == null || textureParameter instanceof TextureLoader.TextureParameter",
+    "rationale" : "If textureParameter is not null, it should be of the expected type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.isDirectory() == false",
+    "rationale" : "tmxFile likely represents a TMX file, not a directory.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.length() > 0",
+    "rationale" : "A TMX file should not be empty to have dependencies.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "(lineAlign == Align.left) || (lineAlign == Align.right) || (lineAlign == Align.center)",
+    "rationale" : "After the setAlignment method runs, label's lineAlign is always set to one of Align.left, Align.right, or Align.center.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.labelAlign == labelAlign",
+    "rationale" : "labelAlign is assigned directly to this.labelAlign at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((lineAlign & Align.left) != 0) ? (this.lineAlign == Align.left) : (((lineAlign & Align.right) != 0) ? (this.lineAlign == Align.right) : (this.lineAlign == Align.center))",
+    "rationale" : "this.lineAlign is set by matching lineAlign with Align.left, then Align.right, otherwise Align.center.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(this.lineAlign == Align.left) || (this.lineAlign == Align.right) || (this.lineAlign == Align.center)",
+    "rationale" : "After execution, this.lineAlign is guaranteed to be set to Align.left, Align.right, or Align.center.",
+    "meta" : [ ]
+  } ]
+}

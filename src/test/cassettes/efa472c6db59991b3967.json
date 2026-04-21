@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Method expects a non-null name to look up a region or texture, and null names likely violate user intent.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "A region or texture with an empty string name is unlikely to be a valid lookup.",
+    "meta" : [ ]
+  } ]
+}

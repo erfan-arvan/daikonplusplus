@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result instanceof Drawable",
+    "rationale" : "Ensures that if a result is returned, it is either null or of the correct type.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type safety"
+    } ]
+  }, {
+    "expression" : "result == style.disabled || result == style.checkedDown || result == style.down || result == style.checkedOver || result == style.over || result == style.checkedFocused || result == style.checked || result == style.focused || result == style.up",
+    "rationale" : "The return value must be one of the style fields based on the control flow.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "result range"
+    } ]
+  }, {
+    "expression" : "result != null || style.up == null",
+    "rationale" : "Result is only null if style.up is null, since the last return is style.up.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null propagation"
+    } ]
+  }, {
+    "expression" : "result == style.up || isDisabled() || isPressed() || isOver() || isChecked() || hasKeyboardFocus()",
+    "rationale" : "If none of the style-based conditions apply, the result is style.up.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "exhaustiveness"
+    } ]
+  }, {
+    "expression" : "!(isDisabled() && style.disabled != null) || result == style.disabled",
+    "rationale" : "If the button is disabled and style.disabled is not null, then the result is style.disabled.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "case coverage"
+    } ]
+  } ]
+}

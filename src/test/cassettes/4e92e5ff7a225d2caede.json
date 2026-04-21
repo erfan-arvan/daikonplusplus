@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method returns 'this', result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this' as the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.expandX == 1",
+    "rationale" : "expandX is set to onei, which is 1, before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.expandY == 1",
+    "rationale" : "expandY is set to onei, which is 1, before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.expandX == result.expandY",
+    "rationale" : "Both expandX and expandY are set to 1, thus are equal at return.",
+    "meta" : [ ]
+  } ]
+}

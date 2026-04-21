@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "className != null",
+    "rationale" : "Used as a key to look up projectClassMembers; being null would likely cause a bug or unwanted behavior.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "classProperties != null",
+    "rationale" : "Properties will be written to without a null check, so should be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "classElement != null",
+    "rationale" : "Used for property lookup and in get/properties access; null would cause NPE.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "className.length() > 0",
+    "rationale" : "className is used as a key to look up classes; empty string is likely not meaningful.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string"
+    } ]
+  }, {
+    "expression" : "!classProperties.containsKey(className)",
+    "rationale" : "Properties for className are loaded into classProperties, so it may initially not contain them.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection"
+    } ]
+  } ]
+}

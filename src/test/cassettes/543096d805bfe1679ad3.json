@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == Color.toFloatBits(batchColor.r * (layer.getCombinedTintColor().r * (layer.supportsTransparency() ? 1f : layer.getCombinedTintColor().a)), batchColor.g * (layer.getCombinedTintColor().g * (layer.supportsTransparency() ? 1f : layer.getCombinedTintColor().a)), batchColor.b * (layer.getCombinedTintColor().b * (layer.supportsTransparency() ? 1f : layer.getCombinedTintColor().a)), batchColor.a * (layer.getOpacity() * (layer.supportsTransparency() ? layer.getCombinedTintColor().a : 1f)))",
+    "rationale" : "This is the core computation of the method as described.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0f",
+    "rationale" : "Color.toFloatBits typically returns a non-negative float as a packed color representation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer != null",
+    "rationale" : "The method accesses layer methods, so layer must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batchColor != null",
+    "rationale" : "The method uses batchColor fields, so batchColor must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getCombinedTintColor() != null",
+    "rationale" : "The method accesses fields of layer.getCombinedTintColor(), so it must not return null.",
+    "meta" : [ ]
+  } ]
+}

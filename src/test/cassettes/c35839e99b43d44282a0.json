@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a Fixed instance, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.value == value",
+    "rationale" : "Every returned Fixed encodes the input value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value == 0 || result != cache[(int)value + 10]",
+    "rationale" : "If value == 0, result is zero; otherwise, result comes from cache only for matching values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value >= -10 && value <= 100 && value == (int)value ? result == cache[(int)value + 10] : true",
+    "rationale" : "Result comes from cache exactly when the value is in the cacheable range and is an integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value == 0 ? result == zero : true",
+    "rationale" : "When input is zero, returned value is the singleton zero instance.",
+    "meta" : [ ]
+  } ]
+}

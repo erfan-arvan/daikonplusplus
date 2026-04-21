@@ -21,53 +21,6 @@ import java.util.List;
  * ProgramPointKind#METHOD_EXIT} for each method with a body.
  */
 public final class JavaProjectScanner {
-
-  /**
-   * Scans the given source root for .java files and returns all method-entry program points.
-   *
-   * @param srcRoot root directory containing Java sources
-   */
-  public List<ProgramPoint> scanMethodEntries(Path srcRoot) throws IOException {
-    List<ProgramPoint> points = new ArrayList<>();
-    try (var stream = Files.walk(srcRoot)) {
-      stream
-          .filter(p -> p.toString().endsWith(".java"))
-          .forEach(
-              file -> {
-                try {
-                  CompilationUnit cu = StaticJavaParser.parse(file);
-                  String pkg =
-                      cu.getPackageDeclaration().map(pd -> pd.getName().asString()).orElse("");
-                  cu.findAll(ClassOrInterfaceDeclaration.class)
-                      .forEach(
-                          cls -> {
-                            String top = cls.getNameAsString();
-                            String nested = ""; // Can be extended for nested classes if needed.
-
-                            cls.findAll(MethodDeclaration.class, md -> md.getBody().isPresent())
-                                .forEach(
-                                    md -> {
-                                      String desc = MethodSignatureUtil.jvmDescriptorBestEffort(md);
-                                      ProgramElementId peid =
-                                          ProgramElementId.forMethod(
-                                              pkg,
-                                              top,
-                                              nested,
-                                              srcRoot.relativize(file).toString(),
-                                              desc);
-                                      points.add(
-                                          new ProgramPointImpl(
-                                              peid, ProgramPointKind.METHOD_ENTRY));
-                                    });
-                          });
-                } catch (Exception e) {
-                  throw new RuntimeException("Failed to parse " + file + ": " + e.getMessage(), e);
-                }
-              });
-    }
-    return points;
-  }
-
   public List<ProgramPoint> scanMethodEntryExit(Path srcRoot) throws IOException {
     configureSymbolSolver(srcRoot);
     List<ProgramPoint> points = new ArrayList<>();
@@ -119,6 +72,8 @@ public final class JavaProjectScanner {
 
     JavaSymbolSolver symbolSolver = new JavaSymbolSolver(solver);
 
-    StaticJavaParser.getConfiguration().setSymbolResolver(symbolSolver);
+    StaticJavaParser.getConfiguration()
+        .setSymbolResolver(symbolSolver)
+        .setLanguageLevel(com.github.javaparser.ParserConfiguration.LanguageLevel.BLEEDING_EDGE);
   }
 }

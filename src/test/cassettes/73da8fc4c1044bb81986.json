@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new TextureRegion is always instantiated and returned, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TextureRegion",
+    "rationale" : "The return type and instantiation guarantee the result is a TextureRegion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "The 'images.get' call uses 'name', which would throw a NullPointerException if name was null in typical map implementations.",
+    "meta" : [ ]
+  } ]
+}

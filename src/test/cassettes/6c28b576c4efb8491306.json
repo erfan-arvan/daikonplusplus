@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "top >= 0",
+    "rationale" : "Padding values are often non-negative in UI layouts.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "top non-negative"
+    } ]
+  }, {
+    "expression" : "left >= 0",
+    "rationale" : "Padding values are generally expected to be non-negative.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "left non-negative"
+    } ]
+  }, {
+    "expression" : "bottom >= 0",
+    "rationale" : "UI padding values are typically non-negative.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "bottom non-negative"
+    } ]
+  }, {
+    "expression" : "right >= 0",
+    "rationale" : "Negative padding is uncommon, so a non-negative assertion is reasonable.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "right non-negative"
+    } ]
+  }, {
+    "expression" : "top + left + bottom + right >= 0",
+    "rationale" : "The total padding around a container should not be negative.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "total padding non-negative"
+    } ]
+  } ]
+}

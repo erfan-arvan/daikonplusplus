@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0",
+    "rationale" : "Coordinates often represent positions within a component; x >= 0 may be valid for hit-detection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "Screen or widget coordinates are frequently non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "touchable || !touchable",
+    "rationale" : "touchable is a boolean, so one of these must be true (sanity checking input domain).",
+    "meta" : [ ]
+  } ]
+}

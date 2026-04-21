@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method relies on 'name' being non-null for operations such as contains and lastIndexOf.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() >= 0",
+    "rationale" : "All non-null Java Strings have a length >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty() || name.length() == 0",
+    "rationale" : "A String is empty if and only if its length is 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.indexOf(\"atlas_imagelayer\") >= -1",
+    "rationale" : "indexOf returns the index if found, or -1 if not; it can never return less than -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.indexOf('/') >= -1",
+    "rationale" : "lastIndexOf and indexOf for '/' return index if found or -1 if not, never less than -1.",
+    "meta" : [ ]
+  } ]
+}

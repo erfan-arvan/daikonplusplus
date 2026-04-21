@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "vec != null",
+    "rationale" : "Input vector must be valid for use in computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null Vector3 (screenPos).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == screenPos",
+    "rationale" : "Method always returns screenPos after transformation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.z == 0",
+    "rationale" : "z component is set to 0 before the transformation, and likely remains 0 due to isometric transforms.",
+    "meta" : [ ]
+  } ]
+}

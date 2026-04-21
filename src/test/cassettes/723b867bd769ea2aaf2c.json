@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0",
+    "rationale" : "The method checks x >= 0 before indexing, so callers may commonly provide non-negative x.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "The method checks y >= 0 before indexing, so callers may commonly provide non-negative y.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x < y || x == y || x > y",
+    "rationale" : "Covers all possible orderings between x and y; this is exhaustive for ints.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x != y || x == y",
+    "rationale" : "Exhausts the possibilities for x and y's equality.",
+    "meta" : [ ]
+  } ]
+}

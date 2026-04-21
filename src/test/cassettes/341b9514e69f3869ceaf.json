@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == Math.round(value / stepSize) * stepSize",
+    "rationale" : "Captures the direct functional behavior of the method as defined in its return statement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result % stepSize == 0",
+    "rationale" : "Since the result is the nearest multiple of stepSize, result must be a multiple of stepSize.",
+    "meta" : [ ]
+  } ]
+}

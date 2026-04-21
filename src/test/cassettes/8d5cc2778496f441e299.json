@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Key is a lookup parameter for a map; typically must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clazz != null",
+    "rationale" : "Class type used for casting; typically must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!key.isEmpty()",
+    "rationale" : "Map keys are often expected to be non-empty strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clazz.isInstance(get(key))",
+    "rationale" : "Returned object should be of the specified class to avoid ClassCastException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "get(key) == null || clazz.isInstance(get(key))",
+    "rationale" : "Ensures cast is only done when the object is of the right type or null.",
+    "meta" : [ ]
+  } ]
+}

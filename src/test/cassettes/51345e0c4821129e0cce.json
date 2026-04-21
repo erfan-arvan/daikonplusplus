@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (hasKeyboardFocus() || super.keyDown(event, keycode))",
+    "rationale" : "If this component has keyboard focus, it always returns true. Otherwise, it returns the result of super.keyDown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hasKeyboardFocus() == (result || !super.keyDown(event, keycode))",
+    "rationale" : "If result is true, then either hasKeyboardFocus is true or super.keyDown is true, reflecting the key return logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keycode == Input.Keys.DOWN || keycode == Input.Keys.UP || moveOffset == -1",
+    "rationale" : "If the key pressed was not UP or DOWN, moveOffset is set to -1, otherwise one of those keys must be pressed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hasKeyboardFocus() == (result || !super.keyDown(event, keycode))",
+    "rationale" : "The result is true if keyboard focus is held; otherwise, the result depends on the superclass.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hasKeyboardFocus() || result == super.keyDown(event, keycode)",
+    "rationale" : "If keyboard focus is not held, the result must match the superclass method's result.",
+    "meta" : [ ]
+  } ]
+}

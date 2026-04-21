@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "drawable != null",
+    "rationale" : "If drawable == null, the method returns early; thus, on exit, drawable is guaranteed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageWidth == scaling.apply(drawable.getMinWidth(), drawable.getMinHeight(), getWidth(), getHeight()).x",
+    "rationale" : "At method exit, imageWidth is always set to the x component of the scaling result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageHeight == scaling.apply(drawable.getMinWidth(), drawable.getMinHeight(), getWidth(), getHeight()).y",
+    "rationale" : "At method exit, imageHeight is always set to the y component of the scaling result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & Align.left) != 0 ? imageX == 0 : ((align & Align.right) != 0 ? imageX == (int)(getWidth() - imageWidth) : imageX == (int)(getWidth() / 2 - imageWidth / 2))",
+    "rationale" : "imageX is always assigned in exactly one of these three cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & Align.top) != 0 ? imageY == (int)(getHeight() - imageHeight) : ((align & Align.bottom) != 0 ? imageY == 0 : imageY == (int)(getHeight() / 2 - imageHeight / 2))",
+    "rationale" : "imageY is assigned according to the alignment flags.",
+    "meta" : [ ]
+  } ]
+}

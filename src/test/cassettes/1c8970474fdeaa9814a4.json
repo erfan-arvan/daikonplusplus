@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method throws an exception if name is null, so this is always true at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resource != null",
+    "rationale" : "The method throws an exception if resource is null, so this is always true at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type != null",
+    "rationale" : "The method uses type as a key for resources and in constructor calls, so it must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resources.containsKey(type)",
+    "rationale" : "After execution, the resources map must have an entry for the provided type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resources.get(type).containsKey(name)",
+    "rationale" : "The typeResources map for the given type must contain the provided name after adding.",
+    "meta" : [ ]
+  } ]
+}

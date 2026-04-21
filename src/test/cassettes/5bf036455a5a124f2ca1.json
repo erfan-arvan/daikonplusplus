@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "linesBreak != null",
+    "rationale" : "linesBreak is directly accessed in getLines, so it must not be null to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesBreak.size >= 0",
+    "rationale" : "size of a collection or array is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "newLineAtEnd() == true || newLineAtEnd() == false",
+    "rationale" : "newLineAtEnd is a boolean-returning method, so it must return only true or false.",
+    "meta" : [ ]
+  } ]
+}

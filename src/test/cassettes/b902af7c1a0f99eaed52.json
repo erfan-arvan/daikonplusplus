@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "maxWidth >= 0",
+    "rationale" : "The method's Javadoc suggests that maxWidth=0 disables the maximum; negative widths are likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxWidth == 0 || maxWidth > 0",
+    "rationale" : "From the Javadoc, maxWidth==0 means no maximum; negative values probably disallowed.",
+    "meta" : [ ]
+  } ]
+}

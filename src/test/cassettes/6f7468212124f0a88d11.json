@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "Method requires a FileHandle to retrieve atlas dependencies, so tmxFile should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureParameter == null || textureParameter instanceof TextureLoader.TextureParameter",
+    "rationale" : "textureParameter can be null or a valid TextureLoader.TextureParameter instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "The method operates on tmxFile as an input file, so it's expected to exist.",
+    "meta" : [ ]
+  } ]
+}

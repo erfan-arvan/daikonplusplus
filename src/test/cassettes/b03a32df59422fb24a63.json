@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method immediately throws if style is null, implying callers must not pass null for style.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font != null",
+    "rationale" : "The method throws if style.font is null, so it is expected that style.font is non-null at entry.",
+    "meta" : [ ]
+  } ]
+}

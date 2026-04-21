@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "children != null",
+    "rationale" : "Accessing children.size is only valid if children is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "children.size >= 0",
+    "rationale" : "Size of a collection is never negative; this is generally true before checking if size > 0.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Method operates on fields and calls methods of layer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() == null || layer.getTextureRegion().getTexture() != null",
+    "rationale" : "If the region exists, it should provide a texture for rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxX() >= 0f",
+    "rationale" : "Parallax factors are typically non-negative in rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxY() >= 0f",
+    "rationale" : "Parallax values are often non-negative, preventing reversal or mathematical errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getX() >= 0f && layer.getY() >= 0f",
+    "rationale" : "Layer position is likely constrained to non-negative values for map coordinates.",
+    "meta" : [ ]
+  } ]
+}

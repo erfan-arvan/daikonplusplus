@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "min != null",
+    "rationale" : "The min filter is likely required for setting texture filters and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mag != null",
+    "rationale" : "The mag filter is similarly expected to be non-null for proper texture filter application.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min != mag",
+    "rationale" : "It's possible that the min and mag filters are expected to be different for certain use cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min.ordinal() <= mag.ordinal()",
+    "rationale" : "The ordering of TextureFilter enums may have semantic meaning; often, minification filtering is less than or equal to magnification.",
+    "meta" : [ ]
+  } ]
+}

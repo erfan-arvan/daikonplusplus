@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "fileName must not be null for resolve(fileName) and related operations to succeed safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "parameter is dereferenced inside the method, so it must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "An empty fileName is unlikely to correspond to a valid file, and may cause resolve(fileName) to fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter.textureMinFilter != null",
+    "rationale" : "parameter.textureMinFilter is passed to setTextureFilters and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter.textureMagFilter != null",
+    "rationale" : "parameter.textureMagFilter is passed to setTextureFilters and must not be null.",
+    "meta" : [ ]
+  } ]
+}

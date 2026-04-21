@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "id >= 0",
+    "rationale" : "Tile IDs are often non-negative; negative IDs are likely invalid in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiles.containsKey(id) == false",
+    "rationale" : "After removeTile is called, the tile with the given ID should no longer exist in the tiles map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiles != null",
+    "rationale" : "The tiles map should be initialized and non-null for this method to function.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiles.size() >= 0",
+    "rationale" : "The size of the tiles map should always be non-negative after the removal.",
+    "meta" : [ ]
+  } ]
+}

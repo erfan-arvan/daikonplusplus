@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "drawableName != null",
+    "rationale" : "The method attempts to use drawableName as a key for skin.getDrawable(), which will throw a NullPointerException if drawableName is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skin != null",
+    "rationale" : "The method explicitly checks and throws if skin is null, so skin is guaranteed to be non-null at all exits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!drawableName.isEmpty()",
+    "rationale" : "Using an empty string as a drawable name is likely undesirable and may not find a drawable; such usage could be prevented by code or contract.",
+    "meta" : [ ]
+  } ]
+}

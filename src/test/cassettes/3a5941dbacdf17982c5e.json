@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result <= 0",
+    "rationale" : "The returned value is always negative or zero, since -(cursorLine - firstLineShowing + 1) is negative or zero and line heights are positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -(cursorLine - firstLineShowing + 1) * style.font.getLineHeight()",
+    "rationale" : "The result is computed directly in this way in the return statement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(style.font != null)",
+    "rationale" : "Method calls style.font.getLineHeight(), so style.font must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "Access to style.font requires style to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursorLine - firstLineShowing + 1 >= 0 ? result <= 0 : result >= 0",
+    "rationale" : "The sign of result depends on the sign of (cursorLine - firstLineShowing + 1) and getLineHeight().",
+    "meta" : [ ]
+  } ]
+}

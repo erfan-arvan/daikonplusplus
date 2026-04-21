@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "FileHandle parameters (tmxFile) are generally expected to be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet != null",
+    "rationale" : "The tileSet is used for property lookup and tile addition; being null would cause method failures.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElements != null",
+    "rationale" : "tileElements is iterated over (for loop), so expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilewidth > 0",
+    "rationale" : "tilewidth is used as a divisor; it must be positive to avoid division by zero and indicate valid tile dimensions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileheight > 0",
+    "rationale" : "tileheight is also used as a divisor for calculations such as number of tiles in the set, so must be positive.",
+    "meta" : [ ]
+  } ]
+}

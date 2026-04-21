@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "element.getChildByName and getAttribute are invoked without null checks, so element should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width > 0",
+    "rationale" : "ids array is constructed with width * height length, requiring width to be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height > 0",
+    "rationale" : "ids array is constructed with width * height length, requiring height to be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getChildByName(\"data\") != null",
+    "rationale" : "element.getChildByName(\"data\") is used without null check, implying it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width * height >= 0",
+    "rationale" : "Array sizes in Java cannot be negative; this must be non-negative, even though width > 0 and height > 0 should suffice.",
+    "meta" : [ ]
+  } ]
+}

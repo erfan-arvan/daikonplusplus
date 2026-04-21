@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method uses 'name' as a parameter, and a null value could lead to a NullPointerException when calling images.get(name).",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "name.length() > 0",
+    "rationale" : "It is common for resource-name parameters to be non-empty strings for meaningful retrieval.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "string-length"
+    } ]
+  }, {
+    "expression" : "name.trim().length() == name.length()",
+    "rationale" : "Resource names are often expected to have no leading or trailing whitespace.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "whitespace-check"
+    } ]
+  } ]
+}

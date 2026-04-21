@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "scrollPane != null",
+    "rationale" : "Method assumes scrollPane is not null (it is dereferenced), so it is likely always non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "scrollPane.isVisible()",
+    "rationale" : "onHide is likely called to hide a currently visible Actor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "scrollPane.getStage() != null",
+    "rationale" : "Actor is typically part of a stage when shown and interacted with. onHide is likely invoked when on the stage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "scrollPane.getColor() != null",
+    "rationale" : "getColor() is invoked unguarded, suggesting it returns non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "scrollPane.hasActions() == false",
+    "rationale" : "Before hiding and adding fade out/removal actions, it is plausible that the Actor does not yet have actions queued.",
+    "meta" : [ ]
+  } ]
+}

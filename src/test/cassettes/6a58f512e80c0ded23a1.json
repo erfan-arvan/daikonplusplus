@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "region != null",
+    "rationale" : "The method relies on region not being null for method calls.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method assumes region is non-null to allow chained method calls."
+    } ]
+  }, {
+    "expression" : "result == (region.getTexture().getTextureData().getFormat() != null && formatHasAlpha(region.getTexture().getTextureData().getFormat()))",
+    "rationale" : "The method compute result as a conjunction of format non-nullness and the formatHasAlpha predicate.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result is defined as this composite boolean by the method logic."
+    } ]
+  }, {
+    "expression" : "region.getTexture().getTextureData().getFormat() == null || !result",
+    "rationale" : "The method returns false if format is null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If the format is null, result is false; otherwise, result follows the formatHasAlpha."
+    } ]
+  }, {
+    "expression" : "result || !formatHasAlpha(region.getTexture().getTextureData().getFormat())",
+    "rationale" : "result is true iff format is non-null and has alpha.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If result is false, then formatHasAlpha must be false or format is null."
+    } ]
+  }, {
+    "expression" : "formatHasAlpha(region.getTexture().getTextureData().getFormat()) || !result",
+    "rationale" : "result implies formatHasAlpha.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "result can only be true when formatHasAlpha is true."
+    } ]
+  } ]
+}

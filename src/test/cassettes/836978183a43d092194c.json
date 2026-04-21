@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "visibleTextStart >= 0",
+    "rationale" : "visibleTextStart is initialized to 0 and only set to i >= 0 in the loop.",
+    "meta" : [ ]
+  }, {
+    "expression" : "visibleTextEnd >= 0",
+    "rationale" : "visibleTextEnd is set to Math.max(0, end - 1), so it is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "visibleTextEnd >= visibleTextStart",
+    "rationale" : "visibleTextEnd is always at least visibleTextStart after the last visible char calculation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "renderOffset <= 0",
+    "rationale" : "renderOffset is reduced or clamped into negative/zero values, never positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textOffset <= visibleWidth",
+    "rationale" : "textOffset is set using visibleWidth and is adjusted based on alignment, so usually within visibleWidth.",
+    "meta" : [ ]
+  } ]
+}

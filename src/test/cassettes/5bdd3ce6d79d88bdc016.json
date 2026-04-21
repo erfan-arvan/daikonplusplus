@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "background != null",
+    "rationale" : "The background parameter is used to call draw, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "The batch parameter is passed to background.draw and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0",
+    "rationale" : "Width is generally non-negative when passed to drawing routines.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Height is generally non-negative when passed to drawing routines.",
+    "meta" : [ ]
+  }, {
+    "expression" : "background.isVisible() == false || background.getMinWidth() <= width",
+    "rationale" : "If background is visible, its minimum width should be less than or equal to the provided width (assumes isVisible and getMinWidth are Drawable methods).",
+    "meta" : [ ]
+  } ]
+}

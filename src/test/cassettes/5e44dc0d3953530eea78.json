@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "drawable == null",
+    "rationale" : "Captures the situation where there is no drawable associated with the object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable != null",
+    "rationale" : "Captures the complementary case to the above: a drawable is present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable == null || drawable.getMinHeight() >= 0",
+    "rationale" : "If a drawable is present, its minimum height is likely non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable == null || drawable.getMinHeight() == drawable.getMinHeight()",
+    "rationale" : "Ensures safe invocation of getMinHeight() only when drawable is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(drawable != null) || drawable.getMinHeight() >= 0",
+    "rationale" : "Alternative encoding: if drawable is present, its minimum height should be non-negative.",
+    "meta" : [ ]
+  } ]
+}

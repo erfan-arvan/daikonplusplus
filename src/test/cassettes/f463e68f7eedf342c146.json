@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "The method calls file.parent() immediately, so file must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "path != null",
+    "rationale" : "A new StringTokenizer(path, ...) is constructed, so path must be non-null for correct tokenization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.parent() != null",
+    "rationale" : "The result variable is initialized as file.parent(); if file.parent() returns null, subsequent .parent() or .child() calls may throw an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "path.length() >= 0",
+    "rationale" : "String.length() is always non-negative; this checks structural property of path as a String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(path.isEmpty()) || file.parent() != null",
+    "rationale" : "If path is empty, tokenizer will have no elements, so result will be file.parent().",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Both knob.getMinWidth() and bg.getMinWidth() are compared against zero, so the maximum cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 140 || result >= 0",
+    "rationale" : "If vertical is false, the method returns 140; otherwise, the result is the max of two non-negative values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 140 || result == Math.max(knob == null ? 0 : knob.getMinWidth(), bg == null ? 0 : bg.getMinWidth())",
+    "rationale" : "Either the method returns 140 (if vertical is false), or it returns the maximum of the min widths (if vertical is true).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 140 || result >= (knob == null ? 0 : knob.getMinWidth())",
+    "rationale" : "The result is at least as large as the minWidth of the knob if present when vertical is true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 140 || result >= (bg == null ? 0 : bg.getMinWidth())",
+    "rationale" : "The result is at least as large as the minWidth of the background if present when vertical is true.",
+    "meta" : [ ]
+  } ]
+}

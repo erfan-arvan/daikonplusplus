@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "maxY >= 0",
+    "rationale" : "maxY is used as a divisor and comparison to zero, suggesting it is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "amountY >= 0",
+    "rationale" : "amountY is divided by maxY to form a percent, so it may be expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "amountY <= maxY",
+    "rationale" : "amountY likely represents current scroll and maxY is the maximum, so current should not exceed the maximum.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxY != 0 || amountY == 0",
+    "rationale" : "If maxY is zero, the method returns 0, so amountY should also be zero in that case.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getScrollPercentY() >= 0 && getScrollPercentY() <= 1",
+    "rationale" : "The method clamps its return value between 0 and 1, so the result will always be within these bounds.",
+    "meta" : [ ]
+  } ]
+}

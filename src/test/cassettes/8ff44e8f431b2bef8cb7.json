@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "!needsLayout",
+    "rationale" : "At all points where the method completes normally, needsLayout is set to false immediately before return.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "method postcondition"
+    } ]
+  }, {
+    "expression" : "!layoutEnabled || !needsLayout",
+    "rationale" : "If layout is not enabled, the method returns early and does not reach this program point, so needsLayout must be false here if layoutEnabled is true.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "method structure"
+    } ]
+  } ]
+}

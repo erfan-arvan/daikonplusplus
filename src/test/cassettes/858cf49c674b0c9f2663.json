@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "this.items != null",
+    "rationale" : "The method accesses items.get(pressedIndex), so items must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.pressedIndex >= -1",
+    "rationale" : "pressedIndex is compared to -1; it is reasonable to assume -1 may be a sentinel value, so pressedIndex should not be less than -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.items.size() >= 0",
+    "rationale" : "A collection's size should never be negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.pressedIndex < this.items.size()",
+    "rationale" : "pressedIndex is passed to items.get(pressedIndex) if not -1; it should be less than size to avoid IndexOutOfBoundsException.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "!clamp || (overscrollX ? (amountX >= -overscrollDistance && amountX <= maxX + overscrollDistance) : (amountX >= 0 && amountX <= maxX))",
+    "rationale" : "When clamp is true, amountX is clamped within limits depending on overscrollX.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clamp || (overscrollY ? (amountY >= -overscrollDistance && amountY <= maxY + overscrollDistance) : (amountY >= 0 && amountY <= maxY))",
+    "rationale" : "When clamp is true, amountY is clamped within limits depending on overscrollY.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clamp || (MathUtils.clamp(amountX, (overscrollX ? -overscrollDistance : 0), (overscrollX ? maxX + overscrollDistance : maxX)) == (overscrollX ? MathUtils.clamp(amountX, -overscrollDistance, maxX + overscrollDistance) : MathUtils.clamp(amountX, 0, maxX)))",
+    "rationale" : "Clamping to the correct boundaries depending on overscrollX.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clamp || (MathUtils.clamp(amountY, (overscrollY ? -overscrollDistance : 0), (overscrollY ? maxY + overscrollDistance : maxY)) == (overscrollY ? MathUtils.clamp(amountY, -overscrollDistance, maxY + overscrollDistance) : MathUtils.clamp(amountY, 0, maxY)))",
+    "rationale" : "Clamping to the correct boundaries depending on overscrollY.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clamp || (maxX >= 0 && maxY >= 0)",
+    "rationale" : "Maximum scroll values are likely non-negative when clamp is true.",
+    "meta" : [ ]
+  } ]
+}

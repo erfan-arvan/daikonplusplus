@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Item height is likely non-negative since it represents a visual component's height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Heights are expected to be finite values, not infinity or NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == itemHeight",
+    "rationale" : "The method directly returns the value of itemHeight.",
+    "meta" : [ ]
+  } ]
+}

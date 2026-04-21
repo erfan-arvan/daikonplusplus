@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "Ensures that the main argument 'tile' is non-null for the intended operation of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "Ensures 'tileElement' exists and can be interrogated via getString/get methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getProperties() != null",
+    "rationale" : "Methods are about to assign to properties; MapProperties must be non-null for these mutations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.isObject() || tileElement.isArray() || tileElement.isValue()",
+    "rationale" : "JsonValue typically represents object, array, or value nodes in most JSON representations.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method operates on the 'map' parameter, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile != null",
+    "rationale" : "The method immediately dereferences 'tile' by calling its methods, so it must be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "'element' is passed to another method and likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getObjects() != null",
+    "rationale" : "'tile.getObjects()' is used as a parameter in a called method and should be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getTextureRegion() != null",
+    "rationale" : "'tile.getTextureRegion()' is used to call 'getRegionHeight()', necessitating non-nullness.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "(ellipsis && \"...\".equals(this.ellipsis)) || (!ellipsis && this.ellipsis == null)",
+    "rationale" : "The method sets this.ellipsis to \"...\" if ellipsis is true, otherwise sets it to null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!ellipsis || this.ellipsis == null)",
+    "rationale" : "If ellipsis is false, then this.ellipsis is set to null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(ellipsis || \"...\".equals(this.ellipsis) == false)",
+    "rationale" : "If ellipsis is false, this.ellipsis is set to null, so \"...\".equals(this.ellipsis) will be false.",
+    "meta" : [ ]
+  } ]
+}

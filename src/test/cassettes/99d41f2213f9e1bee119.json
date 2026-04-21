@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == rowMinHeight[rowIndex]",
+    "rationale" : "The method returns rowMinHeight[rowIndex]; thus, result should equal this array lookup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rowIndex >= 0",
+    "rationale" : "Array indices in Java should be non-negative to avoid IndexOutOfBoundsException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rowIndex < rowMinHeight.length",
+    "rationale" : "rowIndex must be within array bounds to avoid exceptions during rowMinHeight[rowIndex] access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "Minimum heights for rows are typically non-negative in UI contexts.",
+    "meta" : [ ]
+  } ]
+}

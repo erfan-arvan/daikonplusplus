@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "camera != null",
+    "rationale" : "The method receives 'camera' as a parameter and uses it without null checks, implying a non-null precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.viewportWidth > 0",
+    "rationale" : "The calculated width depends on a meaningful positive viewport width for valid rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.viewportHeight > 0",
+    "rationale" : "The method computes height based on viewportHeight, and a positive value is likely required for rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.zoom > 0",
+    "rationale" : "A zoom factor should be positive to avoid invalid projection matrix computations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.combined != null",
+    "rationale" : "The 'camera.combined' matrix is passed to setProjectionMatrix, implying it should not be null.",
+    "meta" : [ ]
+  } ]
+}

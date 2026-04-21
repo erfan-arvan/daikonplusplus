@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Prevent NullPointerException when passed to parseRegionName.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "String method parseRegionName(name) expects non-null input"
+    } ]
+  }, {
+    "expression" : "name.length() > 0",
+    "rationale" : "Empty string region names are typically invalid for atlas images.",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "Region names are generally non-empty in image resource loaders."
+    } ]
+  }, {
+    "expression" : "!name.trim().isEmpty()",
+    "rationale" : "Region names consisting of only whitespace are likely unintended.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Unexpected whitespace is usually stripped from valid resource names."
+    } ]
+  }, {
+    "expression" : "name.indexOf('#') < 0",
+    "rationale" : "Fragment identifiers may not be allowed before parsing region name.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Region name fragments may be stripped by parseRegionName."
+    } ]
+  }, {
+    "expression" : "Character.isJavaIdentifierStart(name.charAt(0))",
+    "rationale" : "Region names are often expected to start with standard identifier characters.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Valid region names often start with Java identifier characters."
+    } ]
+  } ]
+}

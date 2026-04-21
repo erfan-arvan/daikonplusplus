@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The draw method is expected to render with a valid Batch; passing null is likely a misuse.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values representing transparency are conventionally non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha in rendering is typically clamped to the range [0,1].",
+    "meta" : [ ]
+  } ]
+}

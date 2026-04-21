@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method assumes element is not null for nearly all operations and it is not re-assigned to null inside the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!element.has(\"firstgid\") || element.getString(\"firstgid\") != null",
+    "rationale" : "If element has the key 'firstgid', then getString(\"firstgid\") should not be null, per guard condition at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!element.has(\"image\") || element.getString(\"image\") != null",
+    "rationale" : "If 'image' key is present, imageSource is set using getString(\"image\").",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used as a FileHandle for various operations and not changed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is passed through to tile loader calls and assumed non-null for safe operation.",
+    "meta" : [ ]
+  } ]
+}

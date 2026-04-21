@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always creates a new TiledMap (this.map = new TiledMap()) and returns it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "The method depends on tmjFile for loading tile sets and layers, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "The method always passes imageResolver to loadTileSet and loadLayer, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter.projectFilePath != null || parameter.convertObjectToTileSpace == false",
+    "rationale" : "If parameter is non-null, its projectFilePath may be used to load a project file and its fields change loader behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLayers().size() >= 0",
+    "rationale" : "Layers are loaded and added, and the size is always non-negative (could be zero for empty maps).",
+    "meta" : [ ]
+  } ]
+}

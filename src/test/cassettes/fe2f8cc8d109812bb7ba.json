@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method accesses style.* fields unconditionally, so style must not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(style.disabledFontColor != null) || !isDisabled()",
+    "rationale" : "If the component is disabled, the method accesses style.disabledFontColor, so null access is only safe if !isDisabled() or style.disabledFontColor != null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(style.overFontColor != null) || (!isOver() && !scrollPane.hasParent())",
+    "rationale" : "If style.overFontColor is null, the code path where (isOver() || scrollPane.hasParent()) must not be taken.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.fontColor != null",
+    "rationale" : "The method always returns one of the style.*FontColor fields, falling back to style.fontColor, so style.fontColor must be non-null to avoid returning null.",
+    "meta" : [ ]
+  } ]
+}

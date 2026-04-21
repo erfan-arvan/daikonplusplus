@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of states.get(++index), which should not be null if the UndoState is valid.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "return value"
+    } ]
+  }, {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursor values in a text field are not negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "cursor validity"
+    } ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "Selection start indices should not be negative in text fields.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "selection validity"
+    } ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "Text argument should not be null when passed to storeCurrent and used in the context of undo/redo.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "text field"
+    } ]
+  }, {
+    "expression" : "!hasSelection || selectionStart != cursor",
+    "rationale" : "If there is an active selection, the selection start is not the same as cursor.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "selection logic"
+    } ]
+  } ]
+}

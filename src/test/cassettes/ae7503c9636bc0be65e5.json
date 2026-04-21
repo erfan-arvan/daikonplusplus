@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "Non-static method requires 'this' not to be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.cells != null",
+    "rationale" : "The method immediately accesses this.cells, so cells must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.cells.items != null",
+    "rationale" : "Cells array accessed without null checks, must be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.cells.size >= 0",
+    "rationale" : "A standard property for collections; size should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.columns >= 0 && this.rows >= 0",
+    "rationale" : "Table should not have negative columns or rows as layout is based on them.",
+    "meta" : [ ]
+  } ]
+}

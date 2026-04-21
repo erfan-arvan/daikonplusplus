@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Minimum width values are typically non-negative, and Math.max will propagate non-negative values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Math.max(style.plus.getMinWidth(), style.minus.getMinWidth()) || (style.plusOver != null && result == Math.max(Math.max(style.plus.getMinWidth(), style.minus.getMinWidth()), style.plusOver.getMinWidth())) || (style.minusOver != null && result == Math.max(Math.max(style.plus.getMinWidth(), style.minus.getMinWidth()), style.minusOver.getMinWidth())) || (style.plusOver != null && style.minusOver != null && result == Math.max(Math.max(Math.max(style.plus.getMinWidth(), style.minus.getMinWidth()), style.plusOver.getMinWidth()), style.minusOver.getMinWidth()))",
+    "rationale" : "result is defined as the maximum minWidth across a combination of 2 or 4 possible widgets, depending on which are non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= style.plus.getMinWidth()",
+    "rationale" : "result is always at least the minWidth of plus due to Math.max.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= style.minus.getMinWidth()",
+    "rationale" : "result is always at least the minWidth of minus as the initial Math.max includes both.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(style.plusOver == null || result >= style.plusOver.getMinWidth()) && (style.minusOver == null || result >= style.minusOver.getMinWidth())",
+    "rationale" : "If plusOver or minusOver are present, result must be at least as large as their minWidth, as these are considered in maximum calculation.",
+    "meta" : [ ]
+  } ]
+}

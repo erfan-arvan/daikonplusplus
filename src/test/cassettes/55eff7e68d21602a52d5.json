@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "overCache >= 0.0f",
+    "rationale" : "The method parameter represents a percentage, so negative values are likely invalid.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "A percentage should not be negative."
+    } ]
+  }, {
+    "expression" : "overCache <= 1.0f",
+    "rationale" : "The parameter overCache is described as a percentage, commonly constrained to [0,1].",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "A valid percentage should not exceed 1.0 (i.e., 100%)."
+    } ]
+  }, {
+    "expression" : "Float.isFinite(overCache)",
+    "rationale" : "Non-finite values would make percentage-based calculations invalid.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Percentages should be finite values, not NaN or infinite."
+    } ]
+  }, {
+    "expression" : "overCache != Float.NaN",
+    "rationale" : "NaN values for percentage inputs are generally invalid in this context.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "overCache should be a number."
+    } ]
+  }, {
+    "expression" : "overCache >= 0.5f",
+    "rationale" : "The documentation states the default is 0.5, so this may be a reasonable minimum for most uses.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "The documented default value is 0.5; values below this may not cover a typical use case."
+    } ]
+  } ]
+}

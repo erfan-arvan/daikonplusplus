@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', which is the current Cell<T> instance, so the result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.expandY == 1",
+    "rationale" : "The method sets expandY to onei, which is presumably defined as 1, so the invariant should hold if onei == 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.fillY == 1f",
+    "rationale" : "The method sets fillY to onef, which is presumably defined as 1f, so the invariant should hold if onef == 1f.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method literally returns 'this', so the result must equal this.",
+    "meta" : [ ]
+  } ]
+}

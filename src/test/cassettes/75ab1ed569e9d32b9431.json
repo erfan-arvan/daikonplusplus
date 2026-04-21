@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "point != null",
+    "rationale" : "Returning a Vector2 reference that should not be null; likely consistent with method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "point.x == point.x",
+    "rationale" : "Ensures point.x is not NaN, as x != x if x is NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "point.y == point.y",
+    "rationale" : "Ensures point.y is not NaN, for the same reason as x.",
+    "meta" : [ ]
+  } ]
+}

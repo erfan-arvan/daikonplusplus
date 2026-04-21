@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == fill",
+    "rationale" : "The method returns the same Array<T> instance as the fill parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size <= fill.items.length",
+    "rationale" : "The result array's size cannot exceed its storage array's capacity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "The size of the result array is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type != null",
+    "rationale" : "Class type is a required argument for the method to function properly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method never returns null (the result is always a valid Array<T> instance).",
+    "meta" : [ ]
+  } ]
+}

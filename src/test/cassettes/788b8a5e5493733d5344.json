@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this.flipHorizontally",
+    "rationale" : "The method returns the value of the flipHorizontally field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !this.flipHorizontally",
+    "rationale" : "If result is true, flipHorizontally is true; if result is false, flipHorizontally is false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || this.flipHorizontally",
+    "rationale" : "If result is false, flipHorizontally is false.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the map object, which is assumed to be initialized, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || (parameter.textureMinFilter != null && parameter.textureMagFilter != null)",
+    "rationale" : "If parameter is not null, the method accesses its textureMinFilter and textureMagFilter fields, suggesting these should also be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "The file parameter is provided to the method and expected to be non-null for map loading.",
+    "meta" : [ ]
+  } ]
+}

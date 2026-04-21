@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "map is expected to represent the tiled map being loaded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer != null",
+    "rationale" : "layer is expected to represent the relevant map layer and be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapElement != null",
+    "rationale" : "mapElement is used to obtain attributes and is dereferenced in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used as a file reference and is passed to other functions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapElement.getAttribute(\"template\") != null && !mapElement.getAttribute(\"template\").isEmpty()",
+    "rationale" : "The template filename is retrieved from mapElement, so it must be non-null and non-empty for correct method operation.",
+    "meta" : [ ]
+  } ]
+}

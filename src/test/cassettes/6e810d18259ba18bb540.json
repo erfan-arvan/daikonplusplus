@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this' explicitly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.fill == fill",
+    "rationale" : "The field 'fill' of 'this' is set to the parameter value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.fill == fill",
+    "rationale" : "Since result is 'this', its 'fill' field matches the parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.fill == this.fill",
+    "rationale" : "Both 'this' and 'result' refer to the same object, so their 'fill' fields are equal.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(actorWidth)",
+    "rationale" : "actorWidth should typically be a finite value representing a dimension, as infinite or NaN values are generally not meaningful in this UI context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorWidth >= 0",
+    "rationale" : "UI width parameters are commonly non-negative as negative widths are usually invalid for layout sizing.",
+    "meta" : [ ]
+  } ]
+}

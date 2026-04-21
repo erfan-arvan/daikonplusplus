@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || clazz.isInstance(result)",
+    "rationale" : "If result is not null, it should be an instance of clazz as per the method's contract and possible ClassCastException otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "A non-null key is a required input since map lookups require non-null keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clazz != null",
+    "rationale" : "A non-null clazz is necessary to determine the intended type for casting the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || key.length() > 0",
+    "rationale" : "It is unlikely that an empty key would yield a non-null result; if result is not null, key should have positive length.",
+    "meta" : [ ]
+  } ]
+}

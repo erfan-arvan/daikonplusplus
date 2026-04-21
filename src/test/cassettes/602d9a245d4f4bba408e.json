@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Rotation in 90 degree increments suggests non-negative values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result % 90 == 0",
+    "rationale" : "Rotation is described to be in 90 degree increments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= 270",
+    "rationale" : "Possible rotations are likely 0, 90, 180, or 270.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || result == 90 || result == 180 || result == 270",
+    "rationale" : "Typical values for rotation in 90-degree increments.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "template == null || template.isObject()",
+    "rationale" : "If the template is not null, it is intended as an object per merge semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null || parent.isObject()",
+    "rationale" : "If the parent is not null, it is used as an object for attribute merging.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent != null || template != null",
+    "rationale" : "At least one of parent or template must be non-null for the merge to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "template == null || template.child() != null",
+    "rationale" : "If template is not null, it likely has children as it is being iterated over.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null || parent.child() != null",
+    "rationale" : "If parent is not null, it likely has children that are being processed.",
+    "meta" : [ ]
+  } ]
+}

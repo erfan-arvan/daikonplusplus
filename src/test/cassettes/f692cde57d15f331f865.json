@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "interpolation != null",
+    "rationale" : "It may be desirable for the ProgressBar to only accept non-null Interpolation objects for display. Null interpolation could cause runtime exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.visualInterpolation == interpolation",
+    "rationale" : "The method sets the field visualInterpolation to the provided parameter interpolation, so they must be equal at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.visualInterpolation != null",
+    "rationale" : "If interpolation is required to be non-null, then visualInterpolation should not be null after assignment.",
+    "meta" : [ ]
+  } ]
+}

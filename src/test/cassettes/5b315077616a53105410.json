@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "isRunning == true",
+    "rationale" : "The first statement in the method explicitly sets isRunning to true, so it must be true at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!resetOnStart || particleEffect.isComplete() == false",
+    "rationale" : "If resetOnStart is true, the effect is reset and then started, so it should not be complete at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "particleEffect != null",
+    "rationale" : "particleEffect is dereferenced unconditionally in the method, so it cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "particleEffect.isComplete() == false",
+    "rationale" : "Regardless of the previous state, calling start() on particleEffect typically ensures it is not complete.",
+    "meta" : [ ]
+  } ]
+}

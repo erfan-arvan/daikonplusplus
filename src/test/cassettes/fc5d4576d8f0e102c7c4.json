@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getName().equals(\"layer\")",
+    "rationale" : "The method logic that creates and adds a TiledMapTileLayer is conditional on the element having the name 'layer'.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "TiledMapTileLayer always added for 'layer' elements"
+    } ]
+  }, {
+    "expression" : "parentLayers.size() >= 0",
+    "rationale" : "Collections in Java cannot have negative sizes, so parentLayers.size() is always non-negative.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "Layer list is never negative in size"
+    } ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "The method logic relies on map not being null for method calls, suggesting it is required.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "Map argument assumed non-null"
+    } ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The method calls several methods on element, so it must be non-null.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "Element argument assumed non-null"
+    } ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "The method adds a layer to parentLayers without null checks, implying non-nullity.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "parentLayers argument is assumed non-null"
+    } ]
+  } ]
+}

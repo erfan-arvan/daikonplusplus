@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "nodes is always used without null checks in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "Array.size is always non-negative by contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0 || result < 0",
+    "rationale" : "result is a float representing Y position; float can be any real number, but this captures that method never returns NaN (unless actorY could be NaN).",
+    "meta" : [ ]
+  }, {
+    "expression" : "indent >= 0",
+    "rationale" : "indent is used in addition operations for UI positioning and is unlikely to be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "plusMinusWidth >= 0",
+    "rationale" : "plusMinusWidth is used for width offsets for drawing icons and is likely non-negative.",
+    "meta" : [ ]
+  } ]
+}

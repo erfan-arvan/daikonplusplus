@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "delta >= 0",
+    "rationale" : "Delta represents time in seconds since last frame and is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Math.abs(difference) >= 0",
+    "rationale" : "The absolute difference should always be non-negative, per the documentation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "difference * delta == delta * difference",
+    "rationale" : "Multiplication is commutative; ensures the expression is well-typed and meaningful for smooth scroll computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "difference >= 0",
+    "rationale" : "Javadoc describes difference as an absolute value; thus it is likely always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "delta < 10",
+    "rationale" : "Delta represents elapsed seconds, so a frame-to-frame interval is highly unlikely to be very large.",
+    "meta" : [ ]
+  } ]
+}

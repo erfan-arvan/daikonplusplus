@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The returned float result should be finite since get(actor) is expected to return meaningful space values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "Space remaining is typically non-negative, unless negative space is used to represent overflow, but commonly would be zero or positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == spaceLeft.get(actor)",
+    "rationale" : "By direct inspection, the method always returns spaceLeft.get(actor) without any transformation.",
+    "meta" : [ ]
+  } ]
+}

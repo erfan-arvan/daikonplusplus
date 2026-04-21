@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of add(new Label(...)), and neither add nor the Label constructor is expected to return null under normal circumstances.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getActor() instanceof Label",
+    "rationale" : "The cell returned always contains a Label instance, as the method specifically adds a new Label.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((Label) result.getActor()).getText().equals(text)",
+    "rationale" : "The text field passed in is used as the Label constructor argument, so the Label contained in the result should have getText() equal to text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || ((Label) result.getActor()).getText() == null || ((Label) result.getActor()).getText().equals(text)",
+    "rationale" : "If text or Label.getText() is null, attempting to check equals directly could throw; this covers safe equality.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((Label) result.getActor()).getSkin() == skin",
+    "rationale" : "The created Label is constructed with the skin field, so its getSkin() result should be the same as the skin at this point.",
+    "meta" : [ ]
+  } ]
+}

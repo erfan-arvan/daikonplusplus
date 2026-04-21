@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "actor == null || actor instanceof com.badlogic.gdx.scenes.scene2d.Actor",
+    "rationale" : "The method accesses 'actor' and sometimes casts it to Layout or accesses methods, so actor is likely a subclass or equal to Actor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "The method accesses 'style.background', 'style.hScroll', and 'style.hScrollKnob' without null checks on 'style', so it must be non-null at entry.",
+    "meta" : [ ]
+  } ]
+}

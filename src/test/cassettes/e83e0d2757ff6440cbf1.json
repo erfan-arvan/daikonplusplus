@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Method accesses layer's content, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "Iterates over layer.getObjects(), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects().size() >= 0",
+    "rationale" : "A collection's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects().isEmpty() == (layer.getObjects().size() == 0)",
+    "rationale" : "isEmpty() and size()==0 are equivalent for Java collections.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects().iterator() != null",
+    "rationale" : "A valid collection must produce a non-null iterator.",
+    "meta" : [ ]
+  } ]
+}

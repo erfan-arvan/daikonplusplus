@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (o instanceof MapProperties && java.util.Objects.equals(properties, ((MapProperties)o).properties))",
+    "rationale" : "The method returns true if o is a MapProperties and properties are equal, so result reflects this combined condition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(! (o instanceof MapProperties)) || (result == java.util.Objects.equals(properties, ((MapProperties)o).properties))",
+    "rationale" : "If o is not a MapProperties, result is false; otherwise, result matches property equality.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (o != null && (o instanceof MapProperties) && java.util.Objects.equals(properties, ((MapProperties)o).properties))",
+    "rationale" : "For non-null o, result is true exactly when o is a MapProperties and properties are equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(o == null) || ((o instanceof MapProperties) == (result || !java.util.Objects.equals(properties, ((MapProperties)o).properties)))",
+    "rationale" : "If o is not null, method meaningfully compares properties only if o is a MapProperties.",
+    "meta" : [ ]
+  } ]
+}

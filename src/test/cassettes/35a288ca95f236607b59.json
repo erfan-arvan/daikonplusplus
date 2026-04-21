@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "getTree() == null || getTree() instanceof com.badlogic.gdx.scenes.scene2d.ui.Tree",
+    "rationale" : "The method calls getTree() and checks for null before using it as a Tree, so it's likely to be either null or a Tree instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "children != null",
+    "rationale" : "The method accesses 'children' (fields and methods), so it should be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != null",
+    "rationale" : "actor.getZIndex() is called, so 'actor' must be non-null at method entry.",
+    "meta" : [ ]
+  } ]
+}

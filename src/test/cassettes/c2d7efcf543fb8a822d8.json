@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result.getId() == id",
+    "rationale" : "Only tiles with a matching id are returned; otherwise, null is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof TiledMapTile",
+    "rationale" : "Any non-null result must be a TiledMapTile instance as per method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "id >= 0",
+    "rationale" : "Tile IDs are typically non-negative; negative IDs are unlikely to yield a non-null result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || id < 0 || id >= 0",
+    "rationale" : "If no tile with the given id is found, result is null. This covers all id values.",
+    "meta" : [ ]
+  } ]
+}

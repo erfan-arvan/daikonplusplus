@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "fontScaleY >= 0.0f",
+    "rationale" : "Font scaling factors are often non-negative in UI frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(fontScaleY)",
+    "rationale" : "It is generally desirable for scaling factors not to be NaN to avoid rendering errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(fontScaleY)",
+    "rationale" : "Infinite scaling factors would likely break expected label rendering.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "The method is expected to load a map from a file, so 'file' should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager ('manager') is required for resource management throughout the loading process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "A non-empty file name is needed for loading the map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || (parameter.textureMinFilter != null && parameter.textureMagFilter != null)",
+    "rationale" : "Texture filter fields are accessed if 'parameter' is not null, so if 'parameter' is not null, its filter fields must also not be null.",
+    "meta" : [ ]
+  } ]
+}

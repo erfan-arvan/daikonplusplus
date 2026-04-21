@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "layers != null",
+    "rationale" : "Accessing layers.size inside the method assumes that layers is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.size >= 0",
+    "rationale" : "Collection sizes are conventionally non-negative; negative sizes are generally invalid.",
+    "meta" : [ ]
+  } ]
+}

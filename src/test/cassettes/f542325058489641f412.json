@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (region.getTexture().getTextureData().getFormat() != null && formatHasAlpha(region.getTexture().getTextureData().getFormat()))",
+    "rationale" : "By directly matching the method body, this captures the exact returned value as a function of argument state.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "method-specification"
+    } ]
+  }, {
+    "expression" : "result == (region.getTexture().getTextureData().getFormat() != null && formatHasAlpha(region.getTexture().getTextureData().getFormat()))",
+    "rationale" : "The result is exclusively determined by the pixel format's non-nullness and formatHasAlpha outcome.",
+    "meta" : [ {
+      "key" : "redundancy",
+      "value" : "included for clarity"
+    } ]
+  }, {
+    "expression" : "result || !formatHasAlpha(region.getTexture().getTextureData().getFormat())",
+    "rationale" : "If the pixel format supports alpha, the result must be true.",
+    "meta" : [ {
+      "key" : "logical-implication",
+      "value" : "if formatHasAlpha is true, result must be true"
+    } ]
+  }, {
+    "expression" : "!result || region.getTexture().getTextureData().getFormat() == null || formatHasAlpha(region.getTexture().getTextureData().getFormat())",
+    "rationale" : "If the result is true, both return-guard conditions must be true.",
+    "meta" : [ {
+      "key" : "logical-implication",
+      "value" : "if result is true, both conditions in return are true"
+    } ]
+  }, {
+    "expression" : "!result || (region.getTexture().getTextureData().getFormat() != null && formatHasAlpha(region.getTexture().getTextureData().getFormat()))",
+    "rationale" : "A true result ensures both format non-nullness and the alpha-supporting condition.",
+    "meta" : [ {
+      "key" : "implication",
+      "value" : "result true guarantees preconditions"
+    } ]
+  } ]
+}

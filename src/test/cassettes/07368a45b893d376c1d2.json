@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "verticalAlign != null",
+    "rationale" : "The method returns verticalAlign, and a null return may not be intended; useful for callers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "verticalAlign.equals(\"top\") || verticalAlign.equals(\"center\") || verticalAlign.equals(\"bottom\")",
+    "rationale" : "Possible that verticalAlign is only allowed three values indicating alignment types.",
+    "meta" : [ ]
+  }, {
+    "expression" : "verticalAlign.length() > 0",
+    "rationale" : "verticalAlign is likely a non-empty string if it describes alignment.",
+    "meta" : [ ]
+  } ]
+}

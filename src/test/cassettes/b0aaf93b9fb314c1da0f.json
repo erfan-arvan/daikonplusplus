@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Layer is dereferenced and methods are called on it immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileWidth() > 0",
+    "rationale" : "Tile width is used as a divisor and to determine positions, so must be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileHeight() > 0",
+    "rationale" : "Tile height is used as a multiplier for coordinates and must be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getWidth() > 0",
+    "rationale" : "Layer width is likely positive in rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getHeight() > 0",
+    "rationale" : "Layer height is likely positive in rendering.",
+    "meta" : [ ]
+  } ]
+}

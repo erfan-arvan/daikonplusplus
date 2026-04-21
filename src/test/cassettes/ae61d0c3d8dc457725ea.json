@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used as a parameter to getDependencyFileHandles, so it must typically not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "tmjFile.exists()",
+    "rationale" : "tmjFile is likely expected to exist as it represents a Tiled map file being loaded.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "file state"
+    } ]
+  }, {
+    "expression" : "textureParameter == null || textureParameter instanceof TextureLoader.TextureParameter",
+    "rationale" : "textureParameter can legally be null or an instance of TextureLoader.TextureParameter, as it is passed through to AssetDescriptor.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  } ]
+}

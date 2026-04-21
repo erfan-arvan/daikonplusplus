@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Selection end index is likely non-negative, as negative indices are not standard for selection ranges.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= getText().length()",
+    "rationale" : "Selection end should not exceed the total length of the text in the TextField.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getSelectionStart() <= result",
+    "rationale" : "By convention, the selection start is less than or equal to the selection end.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getSelectionStart() >= 0",
+    "rationale" : "Selection start index should not be negative, for valid range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getSelectionStart() <= getText().length()",
+    "rationale" : "Selection start should not exceed the length of the text.",
+    "meta" : [ ]
+  } ]
+}

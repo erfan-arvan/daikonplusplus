@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "!Float.isNaN(pixels)",
+    "rationale" : "The method clamps the 'pixels' value and sets scrolling, which would not behave correctly with NaN input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(pixels)",
+    "rationale" : "A scroll position as positive or negative infinity is not meaningful; the method clamps scroll position.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pixels >= 0 || pixels < 0",
+    "rationale" : "Covers all cases except NaN, which is a reasonable invariant for scroll values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Since only 'pixels' is known and unconstrained, almost any non-tautological invariant would be speculative.",
+    "meta" : [ ]
+  } ]
+}

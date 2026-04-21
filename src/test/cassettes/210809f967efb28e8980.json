@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (this.value != value)",
+    "rationale" : "The result is true only if the progress bar's actual value was changed to the input value; otherwise false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || (this.value == value)",
+    "rationale" : "If the value was not changed (result is false), then this.value must equal the rounded and clamped input value at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!result) || (this.value == value)",
+    "rationale" : "If the method returns true, this.value was set to the provided (processed) value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (this.value == value)",
+    "rationale" : "After the method, result reflects whether the underlying value has been updated.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == !(this.value != value)",
+    "rationale" : "Alternative boolean form for describing the relationship between result and whether the value has changed.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "padRight >= 0",
+    "rationale" : "Padding is typically non-negative; negative padding is unusual for GUI layout and might not be semantically valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padRight <= Float.MAX_VALUE",
+    "rationale" : "As a float parameter, padRight should not exceed the maximum float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(padRight)",
+    "rationale" : "Padding should not be NaN; NaN would result in undefined or unpredictable layout behavior.",
+    "meta" : [ ]
+  } ]
+}

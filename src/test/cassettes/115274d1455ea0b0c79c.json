@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "wrap || (!wrap && (!sizeInvalid || (sizeInvalid && prefHeight == result)))",
+    "rationale" : "If wrap is true, result is always 0; if not, then unless sizeInvalid, result equals prefHeight (possibly after computeSize).",
+    "meta" : [ ]
+  }, {
+    "expression" : "wrap ? result == 0 : result == prefHeight",
+    "rationale" : "If wrap is true, result is 0; otherwise, result is the current prefHeight.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "PrefHeight is non-negative and wrap case directly returns 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "wrap || (result == prefHeight)",
+    "rationale" : "If not wrap, method will ultimately return prefHeight.",
+    "meta" : [ ]
+  } ]
+}

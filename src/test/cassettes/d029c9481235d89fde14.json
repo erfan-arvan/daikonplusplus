@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "drawable != null",
+    "rationale" : "The method performs type and method checks on drawable, so it must not be null when called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tint != null",
+    "rationale" : "The method passes tint to Drawable.tint, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable instanceof Drawable",
+    "rationale" : "The parameter 'drawable' is statically of type Drawable, so this always holds.",
+    "meta" : [ ]
+  } ]
+}

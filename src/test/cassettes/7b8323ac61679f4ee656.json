@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "y >= 0",
+    "rationale" : "UI coordinates are often non-negative, especially for item retrieval based on a y-coordinate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getItemIndexAt(y) >= -1",
+    "rationale" : "The method uses getItemIndexAt(y), and based on the context, the return value can be -1 if not over an item, so it cannot be less than -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "items != null",
+    "rationale" : "items.get(index) is called later, so items should not be null at any entry point to avoid NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

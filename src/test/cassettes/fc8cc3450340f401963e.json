@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "pointer >= 0",
+    "rationale" : "Pointers for input events are typically non-negative integers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button >= 0",
+    "rationale" : "Button codes are expected to be non-negative integers in UI frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event != null",
+    "rationale" : "The event should be non-null for a touchDown InputEvent handler to process it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0",
+    "rationale" : "x is likely a position parameter, and positions in UI coordinate spaces are often non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "y is likely a position parameter, and positions in UI coordinate spaces are often non-negative.",
+    "meta" : [ ]
+  } ]
+}

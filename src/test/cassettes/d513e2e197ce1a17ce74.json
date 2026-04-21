@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "knobPercent.x == 0 || knobPercent.y == 0",
+    "rationale" : "After knobPercent.set(0, 0), at least one coordinate is 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "knobPosition.x == getWidth() / 2",
+    "rationale" : "knobPosition is set to the center X.",
+    "meta" : [ ]
+  }, {
+    "expression" : "knobPosition.y == getHeight() / 2",
+    "rationale" : "knobPosition is set to the center Y.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deadzoneBounds.contains(getWidth() / 2, getHeight() / 2)",
+    "rationale" : "deadzoneBounds is centered on the middle of the touchpad.",
+    "meta" : [ ]
+  }, {
+    "expression" : "knobBounds.contains(getWidth() / 2, getHeight() / 2)",
+    "rationale" : "knobBounds is centered on the middle of the touchpad.",
+    "meta" : [ ]
+  } ]
+}

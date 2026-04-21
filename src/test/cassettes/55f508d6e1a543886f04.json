@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Used to safely call layer methods and access its properties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batchColor != null",
+    "rationale" : "Used to safely access fields/properties like r, g, b, a.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getCombinedTintColor() != null",
+    "rationale" : "Method getTileLayerColor() accesses layer.getCombinedTintColor(); this must be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() >= 0.0f",
+    "rationale" : "Opacity typically represents transparency and is usually non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() <= 1.0f",
+    "rationale" : "Opacity should not exceed 1.0 in standard alpha blending models.",
+    "meta" : [ ]
+  } ]
+}

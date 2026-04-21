@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "selection != null",
+    "rationale" : "Drawable#draw is invoked on selection, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "Batch is passed to Drawable#draw, requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "BitmapFont is used in various font.get* and font.getData() calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font.getLineHeight() > 0",
+    "rationale" : "font.getLineHeight() is used for geometry; a positive line height is typical and assumed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + 0.0f == x",
+    "rationale" : "x is used as a float coordinate; adding 0.0f does not change its value, confirming it is finite.",
+    "meta" : [ ]
+  } ]
+}

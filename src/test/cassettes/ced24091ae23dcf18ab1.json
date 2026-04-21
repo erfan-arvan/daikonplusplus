@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "format != null",
+    "rationale" : "All switch-cases on enum require that 'format' is not null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (format == Pixmap.Format.Alpha || format == Pixmap.Format.LuminanceAlpha || format == Pixmap.Format.RGBA4444 || format == Pixmap.Format.RGBA8888)",
+    "rationale" : "'result' is only true for listed formats, reflecting the core logic of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || (format != Pixmap.Format.Alpha && format != Pixmap.Format.LuminanceAlpha && format != Pixmap.Format.RGBA4444 && format != Pixmap.Format.RGBA8888)",
+    "rationale" : "Whenever result is false, format must not be one of the alpha-containing formats.",
+    "meta" : [ ]
+  } ]
+}

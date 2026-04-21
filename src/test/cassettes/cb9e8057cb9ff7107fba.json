@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == Color.toFloatBits(batchColor.r * layer.getCombinedTintColor().r, batchColor.g * layer.getCombinedTintColor().g, batchColor.b * layer.getCombinedTintColor().b, batchColor.a * layer.getCombinedTintColor().a * layer.getOpacity())",
+    "rationale" : "By definition of the method, result is the output of Color.toFloatBits with these computed arguments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() >= 0.0f && layer.getOpacity() <= 1.0f",
+    "rationale" : "Layer opacity for rendering is normally clamped between 0 and 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batchColor.r >= 0.0f && batchColor.r <= 1.0f",
+    "rationale" : "Color channel values in color representations are typically in the [0,1] range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getCombinedTintColor().a >= 0.0f && layer.getCombinedTintColor().a <= 1.0f",
+    "rationale" : "Alpha tint color is expected to be in normalized [0,1] range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0f",
+    "rationale" : "A float representation of color bits as packed RGBA typically yields a non-negative float.",
+    "meta" : [ ]
+  } ]
+}

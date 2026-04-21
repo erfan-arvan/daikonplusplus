@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new TextureRegion object is constructed and returned, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "images.get(name) is called, which requires 'name' to be non-null to avoid a possible NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getTexture() == images.get(name).getTexture()",
+    "rationale" : "The TextureRegion result wraps the Texture from the image obtained via images.get(name).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(new TextureRegion(images.get(name)))",
+    "rationale" : "result is constructed as new TextureRegion(images.get(name)), so it is equal per .equals to a new one constructed the same way.",
+    "meta" : [ ]
+  } ]
+}

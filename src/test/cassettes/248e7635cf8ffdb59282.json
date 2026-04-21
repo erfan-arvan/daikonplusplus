@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursorPatch != null",
+    "rationale" : "cursorPatch is dereferenced and has its draw method called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch is passed to cursorPatch.draw as a required argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "font is used to access font.getDescent() and font.getData().cursorX, requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + font.getData().cursorX >= 0",
+    "rationale" : "The x position plus font offset may often be expected to be non-negative when drawing UI elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y - font.getDescent() >= 0",
+    "rationale" : "The adjusted y coordinate (accounting for font descent) could be constrained by UI layout expectations.",
+    "meta" : [ ]
+  } ]
+}

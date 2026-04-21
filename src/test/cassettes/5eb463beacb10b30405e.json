@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null String since name is always returned (possibly substring of name), and String.substring() never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "name is used in non-null context such as contains and lastIndexOf, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() <= name.length()",
+    "rationale" : "If result is name, or a substring of name, its length cannot exceed the original.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.contains(\"atlas_imagelayer\") || result.equals(name)",
+    "rationale" : "If 'atlas_imagelayer' is not present, the method returns name directly; otherwise, a substring may be returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!name.contains(\"atlas_imagelayer\") || name.substring(Math.max(0, name.lastIndexOf('/') + 1)).equals(result))",
+    "rationale" : "If 'atlas_imagelayer' is found, result is a substring of name after the last '/'; if not found, result equals name.",
+    "meta" : [ ]
+  } ]
+}

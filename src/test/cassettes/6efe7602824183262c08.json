@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method dereferences and calls methods on layer, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batchColor != null",
+    "rationale" : "The method accesses fields of batchColor, requiring it not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getCombinedTintColor() != null",
+    "rationale" : "combinedTint is dereferenced to access its .a, .b, .g, .r fields, so getCombinedTintColor() must not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() >= 0f",
+    "rationale" : "Opacity values are typically non-negative when used for color rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() <= 1f",
+    "rationale" : "Opacity values are usually bounded above by 1.0, representing full opacity.",
+    "meta" : [ ]
+  } ]
+}

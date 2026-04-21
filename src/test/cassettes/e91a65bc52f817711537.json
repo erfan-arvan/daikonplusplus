@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "classProp != null",
+    "rationale" : "The method calls methods on classProp, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProp.getChildCount() >= 0",
+    "rationale" : "Element child counts are never negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProp.getText() != null",
+    "rationale" : "getText() is called directly and is expected to return a non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProp.getName() != null",
+    "rationale" : "Element objects should have non-null names for identification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProp.getAttributes().size() >= 0",
+    "rationale" : "Attribute map sizes are never negative.",
+    "meta" : [ ]
+  } ]
+}

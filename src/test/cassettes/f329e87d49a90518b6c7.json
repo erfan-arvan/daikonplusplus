@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returning 'this' ensures the return value is always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this' reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.rowAlign == rowAlign",
+    "rationale" : "The field 'rowAlign' is set to the parameter's value before return, and the returned 'result' is 'this'.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || name.equals(result.getName())",
+    "rationale" : "If result is not null, it must be the first layer whose name equals the input 'name'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || !existsLayerWithName(name)",
+    "rationale" : "If result is null, there does not exist any layer with the given name. (Assuming existence of helper existsLayerWithName as a predicate.)",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getName() != null",
+    "rationale" : "If a layer is returned, its name is not null by contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || !name.isEmpty()",
+    "rationale" : "If a layer is returned, 'name' is likely not empty, assuming layers cannot be unnamed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || layers.contains(result)",
+    "rationale" : "If result is not null, it was found in 'layers'.",
+    "meta" : [ ]
+  } ]
+}

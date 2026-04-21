@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result.getId() == tile.getId()",
+    "rationale" : "If an animated tile is created and returned, its id is set to be equal to the input tile's id; otherwise result is null.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "id propagation"
+    } ]
+  }, {
+    "expression" : "result == null || tileElement.getChildByName(\"animation\") != null",
+    "rationale" : "An animated tile is only created when an <animation> child exists in the tile XML element.",
+    "meta" : [ {
+      "key" : "control flow",
+      "value" : "animation present"
+    } ]
+  }, {
+    "expression" : "result != null || tileElement.getChildByName(\"animation\") == null",
+    "rationale" : "If the result is null, the <animation> element was not present in tileElement.",
+    "meta" : [ {
+      "key" : "control flow",
+      "value" : "animation absent"
+    } ]
+  }, {
+    "expression" : "result == null || result instanceof AnimatedTiledMapTile",
+    "rationale" : "The method only returns either null or an instance of AnimatedTiledMapTile.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "AnimatedTiledMapTile"
+    } ]
+  } ]
+}

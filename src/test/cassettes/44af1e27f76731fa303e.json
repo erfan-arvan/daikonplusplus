@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "parent != null",
+    "rationale" : "The method expects a valid parent MapLayer object, though null might be allowed; checking for null prevents NullPointerException during field/method access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent != this",
+    "rationale" : "By the method body, setting itself as parent is an error and will throw an exception, so at method entry, this should not be the same object as parent.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the initialized 'map' object, which is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The method's return type is TiledMap, so the result should always be a TiledMap instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "The implementation uses 'tmjFile' to read and is not guarded by a null check, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "The method uses imageResolver as a parameter to other method calls, and there are no internal null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter.projectFilePath != null",
+    "rationale" : "If parameter is not null, loadProjectFile is called with parameter.projectFilePath which is used, implying it is very likely not null in this code path.",
+    "meta" : [ ]
+  } ]
+}

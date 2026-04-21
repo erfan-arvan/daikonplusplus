@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "className != null",
+    "rationale" : "className is used as a key to look up class information, so it should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "classProperties != null",
+    "rationale" : "classProperties is populated during this method and passed to multiple functions, so it should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "classElement != null",
+    "rationale" : "classElement is used to extract properties by name, so it should be non-null for property extraction.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "!className.isEmpty()",
+    "rationale" : "An empty className would likely cause a failure in lookups and is probably invalid input.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string content"
+    } ]
+  }, {
+    "expression" : "classProperties.size() >= 0",
+    "rationale" : "MapProperties should always have a non-negative size; this is always true.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "container size"
+    } ]
+  } ]
+}

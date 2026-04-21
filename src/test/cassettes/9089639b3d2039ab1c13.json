@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "getName() == null",
+    "rationale" : "toString checks for nullity of getName(), so this may indicate its expected state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getClass() != null",
+    "rationale" : "getClass() is used within the method, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "image != null",
+    "rationale" : "image.getDrawable() is called, so image must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "label != null",
+    "rationale" : "label.getText() is called, so label must not be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "actorBefore != null || actor == null",
+    "rationale" : "If actorBefore is null, then actor must also be null, since adding before a null actor is not meaningful for a single-child ScrollPane.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorBefore != actor",
+    "rationale" : "actorBefore and actor are likely intended to be different, as it does not make sense to add an actor before itself.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "resources != null",
+    "rationale" : "resources must not be null for safe assignment and later disposal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resources.size >= 0",
+    "rationale" : "Array sizes in Java are always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resources.ordered == true",
+    "rationale" : "LibGDX Array is commonly ordered by default, and many operations rely on this property.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resources.items != null",
+    "rationale" : "The backing array for a LibGDX Array should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resources.size <= resources.items.length",
+    "rationale" : "The number of elements cannot exceed the length of the backing array in LibGDX Array.",
+    "meta" : [ ]
+  } ]
+}

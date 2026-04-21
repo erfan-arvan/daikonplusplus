@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "content == null || content.length() >= 0",
+    "rationale" : "String.length() always returns an integer >= 0 if the string is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "content == null || !content.isEmpty() || content.length() == 0",
+    "rationale" : "For any String, isEmpty() is true if and only if length() == 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fireChangeEvent == true || fireChangeEvent == false",
+    "rationale" : "As a boolean parameter, fireChangeEvent can only be true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "content == null || content.toString().equals(content)",
+    "rationale" : "Calling toString() on a String yields the same String object value.",
+    "meta" : [ ]
+  } ]
+}

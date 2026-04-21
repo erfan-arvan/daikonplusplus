@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method uses 'name' as a key to retrieve a value from the 'images' map, so it is reasonable to expect that 'name' should not be null to prevent a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "It is likely that 'name' should be a non-empty string, because empty strings are unlikely to be valid texture names for lookup in an atlas.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.trim().length() > 0",
+    "rationale" : "Ensures that 'name' is not just whitespace, which is unlikely to be a valid texture name.",
+    "meta" : [ ]
+  } ]
+}

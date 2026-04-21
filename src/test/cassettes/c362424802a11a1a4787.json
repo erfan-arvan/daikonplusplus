@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "newText == null || newText instanceof CharSequence",
+    "rationale" : "The parameter newText must be either null or a valid CharSequence due to the method signature.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "newText == null || !(newText instanceof CharArray) || newText.length() >= 0",
+    "rationale" : "If newText is not null and not a CharArray, it must be safe to call length(), which is available on CharSequence.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "type and method availability"
+    } ]
+  }, {
+    "expression" : "newText == null || newText.length() >= 0",
+    "rationale" : "If newText is non-null, then as a CharSequence, its length() must be non-negative.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "length property"
+    } ]
+  } ]
+}

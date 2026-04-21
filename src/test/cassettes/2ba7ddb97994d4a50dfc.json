@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (maxLength <= 0 || size < maxLength)",
+    "rationale" : "Directly reflects the logic used to compute the result; fundamental postcondition for this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || (maxLength > 0 && size >= maxLength)",
+    "rationale" : "If result is false, then maxLength must be positive and size must be at least maxLength.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || maxLength > 0",
+    "rationale" : "If result is false, maxLength must be positive since a non-positive maxLength always returns true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || size >= maxLength",
+    "rationale" : "If result is false, then size must be at least maxLength.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxLength <= 0 || size < maxLength || !result",
+    "rationale" : "The logical structure of the method ensures that result is only true if the condition holds.",
+    "meta" : [ ]
+  } ]
+}

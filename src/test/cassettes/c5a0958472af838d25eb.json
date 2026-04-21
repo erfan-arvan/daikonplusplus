@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "file is dereferenced at file.parent(), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "path != null",
+    "rationale" : "path is passed to StringTokenizer, which requires a non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result is updated via .parent() or .child(), neither of which should return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof FileHandle",
+    "rationale" : "result is assigned from file.parent() and result.child(), each returning a FileHandle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.path().endsWith(\"\") || result.path().length() >= 0",
+    "rationale" : "result.path() is a string representing the relative path: possibly empty but always non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "map is dereferenced in map.getLayers(), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getLayers() != null",
+    "rationale" : "map.getLayers() is iterated over in a for-each loop, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getLayers().size() >= 0",
+    "rationale" : "Collection sizes are always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "beginRender != null",
+    "rationale" : "beginRender() is called; beginRender must be a defined method (though in practice, this may refer to a method, but if it is a field, it should not be null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "endRender != null",
+    "rationale" : "endRender() is called; endRender must be a defined method (though in practice, this may be redundant if endRender is a method and not a field but is included for completeness if the field is present).",
+    "meta" : [ ]
+  } ]
+}

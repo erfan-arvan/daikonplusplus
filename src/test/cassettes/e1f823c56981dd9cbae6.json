@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "fileName should be non-null and non-empty to successfully load a TiledMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "If the method returns normally, a TiledMap object should be returned, not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The method is expected to return an object of type TiledMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.endsWith(\".tmx\") || fileName.endsWith(\".tmj\")",
+    "rationale" : "The method is intended to load files with .tmx or .tmj extension as per the Javadoc.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.endsWith(\".tmx\") && !fileName.endsWith(\".tmj\") || result == null",
+    "rationale" : "If the file extension is not supported, result may be null due to an exception being thrown.",
+    "meta" : [ ]
+  } ]
+}

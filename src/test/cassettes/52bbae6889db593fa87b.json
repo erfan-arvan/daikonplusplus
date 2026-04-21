@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Method dereferences layer immediately via setName etc.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Method dereferences JsonValue element for data access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.isObject()",
+    "rationale" : "Method expects to access keys in element by string; this is valid for object nodes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.has(\"name\")",
+    "rationale" : "element.getString(\"name\") is always used without a default; presence of 'name' key is required.",
+    "meta" : [ ]
+  } ]
+}

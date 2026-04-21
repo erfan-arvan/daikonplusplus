@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new Array, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "A newly created Array will have size at least 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size <= 1",
+    "rationale" : "At most one AssetDescriptor is added, so result can contain at most one element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(getAtlasFileHandle(tmxFile) == null && result.size == 0) || (getAtlasFileHandle(tmxFile) != null && result.size == 1)",
+    "rationale" : "If an atlas file handle is found, 1 descriptor is added; otherwise, the result is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size == 0 || result.get(0) != null",
+    "rationale" : "If the result contains any element, that element (the AssetDescriptor) is non-null.",
+    "meta" : [ ]
+  } ]
+}

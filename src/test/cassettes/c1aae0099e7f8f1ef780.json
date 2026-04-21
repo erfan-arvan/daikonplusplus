@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "It is common for resource lookup methods to require a non-null identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() > 0",
+    "rationale" : "Font names are likely to be non-empty strings for valid queries.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.trim().length() > 0",
+    "rationale" : "Font names consisting only of whitespace are probably invalid or unintended.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "Another way to express the non-emptiness constraint on the name.",
+    "meta" : [ ]
+  } ]
+}

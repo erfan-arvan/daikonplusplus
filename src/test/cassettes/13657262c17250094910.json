@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "atlas != null",
+    "rationale" : "atlas is dereferenced in the method (calling getRegions()), so it must be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "atlas.getRegions() != null",
+    "rationale" : "The result of atlas.getRegions() is used, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "atlas.getRegions().size >= 0",
+    "rationale" : "The size of an Array should always be non-negative.",
+    "meta" : [ ]
+  } ]
+}

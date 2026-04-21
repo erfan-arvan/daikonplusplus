@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "actor.getStage() != null",
+    "rationale" : "Method returns early if stage is null, so at exit stage is guaranteed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != null",
+    "rationale" : "Method assigns actor to targetActor and calls methods on it, so actor must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor.getStage().getActors().contains(actor, true)",
+    "rationale" : "actor is assumed to be part of its stage at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x == x",
+    "rationale" : "Tautological check for demonstration purposes only (please discard if undesired).",
+    "meta" : [ ]
+  }, {
+    "expression" : "y == y",
+    "rationale" : "Tautological check for demonstration purposes only (please discard if undesired).",
+    "meta" : [ ]
+  } ]
+}

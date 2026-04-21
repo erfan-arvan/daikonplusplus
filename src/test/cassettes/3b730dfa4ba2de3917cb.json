@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "getStage() == null || getStage().hasTouchFocus(flickScrollListener)",
+    "rationale" : "If stage is not null, it cancelled touch focus for all but flickScrollListener, so this invariant captures that possibility.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() == null || getStage().hasTouchFocus(this)",
+    "rationale" : "If stage is not null, it may still have touch focus for this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() == null || !getStage().hasTouchFocusExcept(flickScrollListener, this)",
+    "rationale" : "After the cancellation, no other listeners except flickScrollListener and this have touch focus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() == null || getStage().hasTouchFocus(flickScrollListener) || getStage().hasTouchFocus(this)",
+    "rationale" : "After cancellation, only flickScrollListener and this may have touch focus.",
+    "meta" : [ ]
+  } ]
+}

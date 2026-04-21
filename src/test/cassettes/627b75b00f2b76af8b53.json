@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "this.horizontalAlign == horizontalAlign",
+    "rationale" : "The method assigns the parameter to the field, so at exit these must be identical.",
+    "meta" : [ ]
+  }, {
+    "expression" : "horizontalAlign == this.horizontalAlign",
+    "rationale" : "Equivalent to the first invariant, confirming the assignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.horizontalAlign != null || horizontalAlign == null",
+    "rationale" : "If the field is null, the parameter must have been null as assigned directly.",
+    "meta" : [ ]
+  } ]
+}

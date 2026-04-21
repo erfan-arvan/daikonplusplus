@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "It is common for rendering methods to require a non-null Batch instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values for rendering are typically within [0, 1], so a negative value is likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Transparency values are not usually allowed to exceed 1.0f.",
+    "meta" : [ ]
+  } ]
+}

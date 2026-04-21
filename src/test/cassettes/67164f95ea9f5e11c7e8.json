@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= getMinWidth()",
+    "rationale" : "The method returns Math.max(getMinWidth(), ...), so the result is always at least getMinWidth().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Math.max(getMinWidth(), prefWidth.get(actor) + padLeft.get(this) + padRight.get(this)) || (background != null && result == Math.max(getMinWidth(), Math.max(prefWidth.get(actor), background.getMinWidth()) + padLeft.get(this) + padRight.get(this)))",
+    "rationale" : "This captures both cases: when background is null and when it is not, mirroring the method logic for returning result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= prefWidth.get(actor)",
+    "rationale" : "If background is null, result is at least prefWidth.get(actor), otherwise at least max(prefWidth.get(actor), background.getMinWidth()).",
+    "meta" : [ ]
+  }, {
+    "expression" : "background == null || result >= background.getMinWidth()",
+    "rationale" : "If background is not null, the result incorporates at least background.getMinWidth().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= padLeft.get(this) + padRight.get(this)",
+    "rationale" : "The returned value includes the sum of padLeft and padRight added to the main width value.",
+    "meta" : [ ]
+  } ]
+}

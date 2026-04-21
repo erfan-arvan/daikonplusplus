@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "Method access on element is performed without null check, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "map is used as a parameter to loadLayer, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is used to add groupLayer, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "\"group\".equals(element.getName()) == (element.getName().equals(\"group\"))",
+    "rationale" : "Explicit equivalence of equals checks for element name for logical directionality.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!element.getName().equals(\"group\") || parentLayers.getCount() > 0",
+    "rationale" : "If the element is a group, then a groupLayer is added to parentLayers, so the count increases (assuming it was initially empty or increases by at least one).",
+    "meta" : [ ]
+  } ]
+}

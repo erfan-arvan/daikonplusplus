@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Height values should be non-negative, as negative height is likely nonsensical for UI elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Math.max(Math.max(super.getPrefHeight(), style.up != null ? style.up.getMinHeight() : Float.NEGATIVE_INFINITY), Math.max(style.down != null ? style.down.getMinHeight() : Float.NEGATIVE_INFINITY, style.checked != null ? style.checked.getMinHeight() : Float.NEGATIVE_INFINITY))",
+    "rationale" : "The result represents the maximum value among the base prefHeight and the minHeights of the up/down/checked styles if present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.up == null || result >= style.up.getMinHeight()",
+    "rationale" : "If 'up' style is present, its minimum height participates in determining the result as a lower bound.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.down == null || result >= style.down.getMinHeight()",
+    "rationale" : "Similarly, if 'down' style is present, its minHeight is a lower bound for the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.checked == null || result >= style.checked.getMinHeight()",
+    "rationale" : "If 'checked' style is present, the returned height is at least the checked style's minHeight.",
+    "meta" : [ ]
+  } ]
+}

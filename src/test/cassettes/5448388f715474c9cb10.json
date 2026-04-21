@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "If wrap is true, result is 0. Otherwise, the computation always uses Math.max and background min width, both of which are non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result < 0)",
+    "rationale" : "Equivalent to result >= 0, emphasizing non-negativity.",
+    "meta" : [ ]
+  } ]
+}

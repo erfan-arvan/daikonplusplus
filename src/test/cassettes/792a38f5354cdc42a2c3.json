@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == super.keyTyped(event, character)",
+    "rationale" : "The returned value is the same as the result of calling super.keyTyped with the same arguments.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Method implementation"
+    } ]
+  }, {
+    "expression" : "event != null",
+    "rationale" : "The event parameter is required to be non-null for method calls.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "InputEvent"
+    } ]
+  }, {
+    "expression" : "getClass() == super.getClass() || getClass().isAssignableFrom(super.getClass())",
+    "rationale" : "The current class must be a subclass of the superclass being called.",
+    "meta" : [ {
+      "key" : "class relationship",
+      "value" : "Subclass"
+    } ]
+  } ]
+}

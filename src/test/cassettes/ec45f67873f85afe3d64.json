@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of getDependencyAssetDescriptors, which should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "The tmjFile parameter is used directly as input to json.parse and getDependencyAssetDescriptors, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || (parameter.textureMinFilter != null && parameter.textureMagFilter != null)",
+    "rationale" : "If parameter is not null, its texture filter fields are dereferenced and assigned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Arrays in LibGDX should never have a negative size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "As a required input string, fileName is expected not to be null.",
+    "meta" : [ ]
+  } ]
+}

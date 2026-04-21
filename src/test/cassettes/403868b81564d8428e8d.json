@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this' after setting the maxWidth.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxWidth == Fixed.valueOf(maxWidth)",
+    "rationale" : "After assignment, the field maxWidth equals Fixed.valueOf(maxWidth), as this is set unconditionally before return.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method immediately calls map.getProperties(), so map must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getProperties() != null",
+    "rationale" : "The code accesses map.getProperties() directly and expects a valid Properties object; otherwise, a NullPointerException would occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getLayers() != null",
+    "rationale" : "The code calls map.getLayers() and further calls .size() and .get(0), so map.getLayers() must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getLayers().size() >= 0",
+    "rationale" : "Layer lists are typically non-negative in size, and the code uses map.getLayers().size() for conditional logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getProperties().containsKey(\"staggeraxis\") || map.getProperties().containsKey(\"staggerindex\") || map.getProperties().containsKey(\"hexsidelength\") || map.getProperties().containsKey(\"tilewidth\") || map.getProperties().containsKey(\"tileheight\")",
+    "rationale" : "The method fetches and uses these properties, so at least one of these keys likely exists in typical usage.",
+    "meta" : [ ]
+  } ]
+}

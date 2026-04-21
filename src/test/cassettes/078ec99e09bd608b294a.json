@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "map is used to access properties and tile sets, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is used to add a layer, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is used extensively to retrieve layer data, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.isObject()",
+    "rationale" : "The method assumes element can provide string and integer properties, which is possible if element is an object-type JsonValue.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getTileSets() != null",
+    "rationale" : "The code retrieves map.getTileSets(), and expects the result to be non-null for tile lookups.",
+    "meta" : [ ]
+  } ]
+}

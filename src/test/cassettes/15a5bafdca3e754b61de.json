@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "viewBounds != null",
+    "rationale" : "The method returns viewBounds, so it is likely that viewBounds should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "viewBounds.width >= 0",
+    "rationale" : "Rectangle width should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "viewBounds.height >= 0",
+    "rationale" : "Rectangle height should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "viewBounds.x + viewBounds.width >= viewBounds.x",
+    "rationale" : "Sum of x and width should not underflow if width is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "viewBounds.y + viewBounds.height >= viewBounds.y",
+    "rationale" : "Sum of y and height should not underflow if height is non-negative.",
+    "meta" : [ ]
+  } ]
+}

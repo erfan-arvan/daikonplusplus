@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "overCache >= 0.0f && overCache <= 1.0f",
+    "rationale" : "Javadoc describes overCache as a percentage value, so it should be between 0 and 1 inclusive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(overCache)",
+    "rationale" : "Percentage should be a finite float (not NaN or infinity).",
+    "meta" : [ ]
+  }, {
+    "expression" : "overCache != Float.NaN",
+    "rationale" : "NaN is not a meaningful cache ratio; overCache should be an actual number.",
+    "meta" : [ ]
+  } ]
+}

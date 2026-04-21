@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always allocates a new int[] before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length == width * height",
+    "rationale" : "Array 'ids' is always created as new int[width * height] and returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0 && height >= 0",
+    "rationale" : "Negative width or height would throw NegativeArraySizeException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "A null 'element' would cause a NullPointerException at element.getChildByName.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length >= 0",
+    "rationale" : "Array lengths are always non-negative.",
+    "meta" : [ ]
+  } ]
+}

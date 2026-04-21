@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "File name should not be null to identify the TMX file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "The FileHandle referencing the TMX file must not be null, as it is used for parsing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter.generateMipMaps == true || parameter.generateMipMaps == false",
+    "rationale" : "If parameter is not null, it must have an accessible boolean generateMipMaps field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter.textureMinFilter != null",
+    "rationale" : "If parameter is not null, its textureMinFilter should be accessible and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter.textureMagFilter != null",
+    "rationale" : "If parameter is not null, its textureMagFilter should be accessible and non-null.",
+    "meta" : [ ]
+  } ]
+}

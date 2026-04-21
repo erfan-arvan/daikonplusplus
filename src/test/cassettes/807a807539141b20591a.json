@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this' after setting the padBottom value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.padBottom == padBottom",
+    "rationale" : "The method assigns the input value to the instance field 'padBottom'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.padBottom == padBottom",
+    "rationale" : "Because 'result' is 'this', the updated field value is the input argument.",
+    "meta" : [ ]
+  } ]
+}

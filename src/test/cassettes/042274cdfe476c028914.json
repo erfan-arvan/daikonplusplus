@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method uses 'element' extensively without checks after initial assignment; it must not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getName().equals(\"tileset\")",
+    "rationale" : "The method only performs actions if element.getName() is 'tileset', so it's likely still true at method exit within this guarded block.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "The method calls getRelativeFileHandle and other operations with tmxFile, which must therefore be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "The method passes imageResolver to addStaticTiles, which requires it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getChildrenByName(\"tile\") != null",
+    "rationale" : "The method retrieves tileElements via element.getChildrenByName(\"tile\"), assuming this will not return null.",
+    "meta" : [ ]
+  } ]
+}

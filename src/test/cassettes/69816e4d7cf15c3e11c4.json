@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "Array creation with new int[width * height] requires non-negative dimensions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Array creation with new int[width * height] requires non-negative dimensions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Method calls on 'element' are performed immediately without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width * height >= 0",
+    "rationale" : "int[] allocation with new int[width * height] is attempted; negative size causes errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getChildByName(\"data\") != null",
+    "rationale" : "The method assumes presence of a 'data' child element for further processing.",
+    "meta" : [ ]
+  } ]
+}

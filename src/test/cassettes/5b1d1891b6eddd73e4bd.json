@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "intervals != null",
+    "rationale" : "The method accesses intervals.length and intervals[i], so intervals must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "intervals.length == animationIntervals.length",
+    "rationale" : "The method throws if this is not true, so it's guaranteed upon method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "animationIntervals == intervals",
+    "rationale" : "The method assigns this.animationIntervals = intervals when intervals.length matches animationIntervals.length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "loopDuration >= 0",
+    "rationale" : "loopDuration is initialized to 0 and only incremented by intervals[i], which are ints, so it cannot decrease.",
+    "meta" : [ ]
+  }, {
+    "expression" : "intervals.length > 0 || loopDuration == 0",
+    "rationale" : "If there are no intervals, the only possible loopDuration is 0 (though probably intervals.length>0 at this point).",
+    "meta" : [ ]
+  } ]
+}

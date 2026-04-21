@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == fileHandles",
+    "rationale" : "The method returns fileHandles, so at exit result is always equal to fileHandles.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= fileHandles.size",
+    "rationale" : "Since fileHandles is returned (potentially augmented in-place), the result's size cannot be less than what fileHandles had at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is used after potential re-assignment and checked for properties, so it must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used in getRelativeFileHandle and potentially assigned to tsjFile, so it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "result is an Array<FileHandle> and its size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tiles != null",
+    "rationale" : "tiles must not be null for values().iterator() to be safely called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiles.values() != null",
+    "rationale" : "The call to tiles.values() must not return null for the iterator() call to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiles.size() >= 0",
+    "rationale" : "The size of a collection should always be non-negative.",
+    "meta" : [ ]
+  } ]
+}

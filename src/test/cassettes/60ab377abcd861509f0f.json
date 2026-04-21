@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "fill >= 0.0f",
+    "rationale" : "According to the Javadoc, fill=0 is meaningful and negative fill values are likely invalid.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "non-negative"
+    } ]
+  }, {
+    "expression" : "Float.isFinite(fill)",
+    "rationale" : "Fill should be a finite number representing a proportional value.",
+    "meta" : [ {
+      "key" : "numeric property",
+      "value" : "finite number"
+    } ]
+  }, {
+    "expression" : "fill <= 1.0f",
+    "rationale" : "Fill often represents a proportional value, typically in the range [0, 1].",
+    "meta" : [ {
+      "key" : "usage convention",
+      "value" : "fill as a proportion"
+    } ]
+  }, {
+    "expression" : "fill == 0.0f || fill > 0.0f",
+    "rationale" : "Corresponds to the Javadoc note about fill's meaning at 0.",
+    "meta" : [ {
+      "key" : "semantics",
+      "value" : "0 means use preferred width"
+    } ]
+  } ]
+}

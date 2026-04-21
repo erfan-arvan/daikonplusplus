@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == getCurrentFrame().getOffsetY()",
+    "rationale" : "The method directly returns getCurrentFrame().getOffsetY().",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Assumes getCurrentFrame().getOffsetY() returns a finite float value.",
+    "meta" : [ ]
+  } ]
+}

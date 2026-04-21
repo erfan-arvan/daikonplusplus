@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a TiledMap instance as constructed by 'loadTiledMap', which does not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "The resolved file is created from fileName; a null fileName would likely cause an exception prior to method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "The method dereferences fields of parameter multiple times, so it cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "Because 'result' is directly the return value from 'loadTiledMap', which returns a TiledMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getOwnedResources() != null",
+    "rationale" : "The method sets owned resources on 'result' before returning, so this getter should not return null.",
+    "meta" : [ ]
+  } ]
+}

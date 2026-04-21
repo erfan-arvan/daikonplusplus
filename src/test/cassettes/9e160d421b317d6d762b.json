@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "drawable == null || batch != null",
+    "rationale" : "If drawable is not null, drawable.draw(batch, x, y, width, height) was called; this likely requires batch to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable == null || width >= 0",
+    "rationale" : "draw is called only if drawable != null, and it is likely that width must be non-negative for meaningful rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable == null || height >= 0",
+    "rationale" : "Similarly, draw is only called if drawable != null, so height should be non-negative when drawable is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable == null || (x + width >= x)",
+    "rationale" : "If draw is called, the rectangle's right endpoint should be at least as great as the left (non-negative width assumption).",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable == null || (y + height >= y)",
+    "rationale" : "If draw is called, the rectangle's top endpoint should be at least as great as the bottom (non-negative height assumption).",
+    "meta" : [ ]
+  } ]
+}

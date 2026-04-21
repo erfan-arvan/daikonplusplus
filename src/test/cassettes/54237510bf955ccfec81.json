@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "Method calls on 'batch' would require that it is not null for the method to have behaved correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "Method calls on 'font' (specifically font.draw(...)) require 'font' to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font.getRegion() != null",
+    "rationale" : "BitmapFont.draw typically requires the font to have an associated region (texture), indicating it's initialized correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + textOffset >= 0",
+    "rationale" : "Drawing text at a negative X position may be undesirable; it's plausible text is only drawn at non-negative positions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "visibleTextEnd >= visibleTextStart",
+    "rationale" : "font.draw's substring indices (visibleTextStart, visibleTextEnd) should be well-formed.",
+    "meta" : [ ]
+  } ]
+}

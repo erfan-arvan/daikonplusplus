@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "The method uses tileSet.getProperties() and tileSet.getTile(), so tileSet must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "atlasResolver.getAtlas() != null",
+    "rationale" : "The atlas is dereferenced and used in multiple places, so it must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props.get(\"tilewidth\", Integer.class) == tilewidth",
+    "rationale" : "The property 'tilewidth' is set to tilewidth directly before method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(imageSource != null && imageSource.length() > 0) || (imageWidth > 0 && imageHeight > 0 && tilewidth > 0 && tileheight > 0)",
+    "rationale" : "Tile arrangement for the main image relies on positive nonzero dimensions; these are required only if a main imageSource is set and nonempty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiles != null && tiles.isArray()",
+    "rationale" : "The method iterates over tiles as an array, indicating tiles is not null and is an array at this program point.",
+    "meta" : [ ]
+  } ]
+}

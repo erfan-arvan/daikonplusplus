@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(rotation)",
+    "rationale" : "Input rotations are likely expected to be finite values.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "input validation"
+    } ]
+  }, {
+    "expression" : "!Float.isNaN(rotation)",
+    "rationale" : "Rotations should not be NaN for correct texture orientation.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "NaN avoidance"
+    } ]
+  } ]
+}

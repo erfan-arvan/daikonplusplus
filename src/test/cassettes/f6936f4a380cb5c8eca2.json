@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "item != null",
+    "rationale" : "item must be non-null to safely call item.toString() inside the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "item.toString() != null",
+    "rationale" : "item.toString() should not return null, as toString() is generally expected to return a string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "item.toString().length() >= 0",
+    "rationale" : "The result of item.toString() is a non-null String, so its length is non-negative.",
+    "meta" : [ ]
+  } ]
+}

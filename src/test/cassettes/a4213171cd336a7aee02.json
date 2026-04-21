@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result instanceof Color",
+    "rationale" : "The method returns a Color or null; ensures that the return type is either null or a Color instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result == style.disabledFontColor || result == style.checkedDownFontColor || result == style.downFontColor || result == style.checkedOverFontColor || result == style.overFontColor || result == style.checkedFocusedFontColor || result == style.checkedFontColor || result == style.focusedFontColor || result == style.fontColor",
+    "rationale" : "All possible return values for result must be one of the font color fields of style, or null if one of these fields is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || style != null",
+    "rationale" : "If the result is not null, then style must not be null, since all possible non-null results are fields of style.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "isoTransform != null",
+    "rationale" : "isoTransform is instantiated at the beginning of the method and not set to null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "invIsotransform != null",
+    "rationale" : "invIsotransform is always created as a new Matrix4 instance and not set to null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isoTransform != invIsotransform",
+    "rationale" : "They are two separate Matrix4 instances.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isoTransform.isIdentity() == false",
+    "rationale" : "isoTransform is modified by scale and rotate operations, so it should no longer be the identity matrix.",
+    "meta" : [ ]
+  }, {
+    "expression" : "invIsotransform.inv().equals(isoTransform)",
+    "rationale" : "invIsotransform is constructed as the inverse of isoTransform, so its inverse should be equal to isoTransform.",
+    "meta" : [ ]
+  } ]
+}

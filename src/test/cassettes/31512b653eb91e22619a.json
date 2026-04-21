@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "The method throws an exception if actor is null, so it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(actor == this.actor) == result",
+    "rationale" : "If actor is equal to this.actor, this method proceeds and returns the value from super.removeActor; otherwise, it returns false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((actor != this.actor) == (!result))",
+    "rationale" : "If actor is not equal to this.actor, the method returns false, so result is false.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this' unconditionally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The returned Table instance ('this') is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawableName != null || drawableName == null",
+    "rationale" : "'drawableName' can be any value, but this expresses that no assumptions are enforced (placeholder).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Table",
+    "rationale" : "The method always returns 'this', which is a Table.",
+    "meta" : [ ]
+  } ]
+}

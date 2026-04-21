@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "parentAlpha generally encodes transparency and is usually expected to be between 0 (fully transparent) and 1 (fully opaque).",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch is used unconditionally in method calls, indicating it should never be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style == null || style.background == null || batch != null",
+    "rationale" : "If the background is drawn, batch must be non-null (though batch is always non-null in this method, this expresses the conditional access logic).",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "As an upper bound on alpha values, to avoid exceeding normal transparency ranges.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "To ensure non-negative transparency according to typical alpha blending rules.",
+    "meta" : [ ]
+  } ]
+}

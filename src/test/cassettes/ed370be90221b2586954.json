@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "firstWidget == null || (firstWidgetBounds != null && firstWidget.getX() == firstWidgetBounds.x && firstWidget.getY() == firstWidgetBounds.y && firstWidget.getWidth() == firstWidgetBounds.width && firstWidget.getHeight() == firstWidgetBounds.height)",
+    "rationale" : "Ensures the first widget (if not null) has its bounds set to match firstWidgetBounds after layout().",
+    "meta" : [ ]
+  }, {
+    "expression" : "secondWidget == null || (secondWidgetBounds != null && secondWidget.getX() == secondWidgetBounds.x && secondWidget.getY() == secondWidgetBounds.y && secondWidget.getWidth() == secondWidgetBounds.width && secondWidget.getHeight() == secondWidgetBounds.height)",
+    "rationale" : "Ensures the second widget (if not null) has its bounds set to match secondWidgetBounds after layout().",
+    "meta" : [ ]
+  }, {
+    "expression" : "vertical || (!vertical && firstWidget != null && secondWidget != null)",
+    "rationale" : "If the split is not vertical, calculateHorizBoundsAndPositions() is called, which requires both widgets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstWidget != null || firstWidgetBounds == null",
+    "rationale" : "If firstWidget is null, its bounds likely should not be set, so firstWidgetBounds may be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "secondWidget != null || secondWidgetBounds == null",
+    "rationale" : "If secondWidget is null, its bounds likely should not be set, so secondWidgetBounds may be null.",
+    "meta" : [ ]
+  } ]
+}

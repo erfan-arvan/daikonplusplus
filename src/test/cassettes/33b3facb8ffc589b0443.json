@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "delta >= 0",
+    "rationale" : "Time deltas in game loops or animations are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(delta)",
+    "rationale" : "Delta value should be a valid float, not NaN, for animation or update methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(delta)",
+    "rationale" : "Delta should be a finite float value for consistent scene update logic.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "delta >= 0",
+    "rationale" : "Method arguments representing time deltas are typically non-negative in animation frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "delta < Float.POSITIVE_INFINITY",
+    "rationale" : "delta is a float value and should not be infinity at this point in most valid uses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "delta != Float.NaN",
+    "rationale" : "delta should not be NaN to make physical sense for animation timing.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "index >= 0",
+    "rationale" : "Index is typically expected to be non-negative when accessing a list or similar collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < tilesets.size()",
+    "rationale" : "Index must be less than the size of the tilesets collection to be a valid argument to get(index).",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets != null",
+    "rationale" : "The tilesets collection should not be null to safely use its methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets.isEmpty() || (index >= 0 && index < tilesets.size())",
+    "rationale" : "If tilesets is not empty, then index should be within valid bounds.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == minHeight.get(actor)",
+    "rationale" : "The method returns the value of minHeight.get(actor); thus, at method exit, 'result' equals minHeight.get(actor).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "UI component heights are typically non-negative; it is likely that minHeight.get(actor) does not return negative values.",
+    "meta" : [ ]
+  } ]
+}

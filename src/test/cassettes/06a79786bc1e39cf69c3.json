@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "projection != null",
+    "rationale" : "The method applies setProjectionMatrix using 'projection', so it is expected to be non-null.",
+    "meta" : [ {
+      "key" : "Null safety",
+      "value" : "Required for matrix operations"
+    } ]
+  }, {
+    "expression" : "width >= 0",
+    "rationale" : "After adjustment, width represents a rectangle width, which is typically non-negative.",
+    "meta" : [ {
+      "key" : "Rectangle Geometry",
+      "value" : "width should not be negative"
+    } ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Similarly, height represents a rectangle's size and should not be negative.",
+    "meta" : [ {
+      "key" : "Rectangle Geometry",
+      "value" : "height should not be negative"
+    } ]
+  }, {
+    "expression" : "viewBounds != null",
+    "rationale" : "The method sets viewBounds using viewBounds.set, so it should be non-null.",
+    "meta" : [ {
+      "key" : "Rect Assignment",
+      "value" : "viewBounds is set using .set"
+    } ]
+  }, {
+    "expression" : "spriteCache != null",
+    "rationale" : "spriteCache is used to set the projection matrix and is expected to be initialized.",
+    "meta" : [ {
+      "key" : "Projection Matrix",
+      "value" : "spriteCache is used for matrix operations"
+    } ]
+  } ]
+}

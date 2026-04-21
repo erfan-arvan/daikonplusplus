@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "skinFile != null",
+    "rationale" : "The method would throw a NullPointerException before exit if skinFile were null, as it is used as an argument to getJsonLoader and fromJson.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skinFile.exists()",
+    "rationale" : "The method tries to load the resources from skinFile; if the file did not exist, the method would throw an exception before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skinFile.isDirectory() == false",
+    "rationale" : "Skin JSON files are expected to be regular files, not directories. If skinFile is a directory, loading would produce an error.",
+    "meta" : [ ]
+  } ]
+}

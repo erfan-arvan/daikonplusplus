@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "Assuming the method expects a valid InputEvent parameter for touch interactions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pointer >= 0",
+    "rationale" : "Pointer indexes for input events are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(x)",
+    "rationale" : "Coordinates should be finite in GUI frameworks to represent valid positions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(y)",
+    "rationale" : "Vertical coordinate should be finite to represent a valid touch position.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "children != null",
+    "rationale" : "The method returns 'children', so it's likely non-null unless the class allows null children arrays.",
+    "meta" : [ ]
+  }, {
+    "expression" : "children.size >= 0",
+    "rationale" : "Array.size is non-negative, as sizes cannot be negative in a standard list/array implementation.",
+    "meta" : [ ]
+  } ]
+}

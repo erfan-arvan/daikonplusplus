@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "It's a common precondition for methods accepting reference parameters to require non-null arguments unless explicitly allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(actor instanceof com.badlogic.gdx.scenes.scene2d.ui.ScrollPane)",
+    "rationale" : "Nested ScrollPanes may not be intended; asserting that 'actor' is not itself a ScrollPane could prevent recursion or odd UI hierarchies.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor.isVisible() || !actor.isVisible()",
+    "rationale" : "This expresses that 'actor.isVisible()' is always defined and side-effect free, which may be important to ensure at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor.getParent() == null || actor.getParent() != null",
+    "rationale" : "Indicates that getParent() can be safely called, regardless of actual value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor.getStage() == null || actor.getStage() != null",
+    "rationale" : "Verifies that 'actor.getStage()' is always a valid call at this program point.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,7 @@
+{
+  "invariants" : [ {
+    "expression" : "actor == null || !(actor instanceof com.badlogic.gdx.scenes.scene2d.ui.ScrollPane)",
+    "rationale" : "Passing a ScrollPane as its own actor is disallowed by the method body, which checks and throws in this case. This invariant reflects that such assignment is not valid.",
+    "meta" : [ ]
+  } ]
+}

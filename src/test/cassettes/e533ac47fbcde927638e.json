@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || selection.contains(result)",
+    "rationale" : "If the result is not null, it must be contained in the selection—this captures the intent that the returned value is a selected item.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selection.isEmpty() == (result == null)",
+    "rationale" : "If the selection is empty, the result must be null; conversely, if result is null, selection should be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || selection.first() == result",
+    "rationale" : "If the result is non-null, it must be equal to the first item in the selection, as per the contract of selection.first().",
+    "meta" : [ ]
+  } ]
+}

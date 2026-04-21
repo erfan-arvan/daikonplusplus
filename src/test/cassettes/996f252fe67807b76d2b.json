@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "text != null",
+    "rationale" : "Text is assigned to a state object, and being null may be disallowed or unlikely in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursor positions are typically non-negative integers in text editing contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || selectionStart >= 0",
+    "rationale" : "If there is a selection, selectionStart is likely to be valid and non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || selectionStart <= text.length()",
+    "rationale" : "If a selection exists, its start index should not exceed the text length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor <= text.length()",
+    "rationale" : "In a text editing context, cursor should not exceed the length of the text.",
+    "meta" : [ ]
+  } ]
+}

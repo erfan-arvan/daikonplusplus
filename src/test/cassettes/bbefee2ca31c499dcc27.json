@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Dialog instance, never null, as it delegates to the result of another method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Dialog",
+    "rationale" : "The method signature and return type ensure the returned object is an instance of Dialog.",
+    "meta" : [ ]
+  }, {
+    "expression" : "labelStyle != null",
+    "rationale" : "The method creates a new Label with the supplied labelStyle, which must not be null for that constructor to work without error.",
+    "meta" : [ ]
+  } ]
+}

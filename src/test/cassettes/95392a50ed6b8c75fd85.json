@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "index >= 0",
+    "rationale" : "Index must be within list bounds for insertion; usually enforced by collection semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "node.parent == null",
+    "rationale" : "After insertion, node's parent is set to null (or not changed from null) before adding to the rootNodes list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rootNodes.get(index) == node",
+    "rationale" : "The node is inserted at the given index, so after insertion rootNodes at index points to node.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rootNodes.contains(node)",
+    "rationale" : "After insertion, node must be present in rootNodes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "node != null",
+    "rationale" : "Null nodes typically would not be inserted; method likely requires non-null node and uses its fields/methods.",
+    "meta" : [ ]
+  } ]
+}

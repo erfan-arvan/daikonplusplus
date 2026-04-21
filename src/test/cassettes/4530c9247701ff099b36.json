@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tooltip != null",
+    "rationale" : "The method operates on the Tooltip instance, and field/method calls are made on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.container != null",
+    "rationale" : "tooltip.container is accessed to check .hasParent(); so it must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.container.hasParent() || !tooltip.container.hasParent()",
+    "rationale" : "The method branches based on tooltip.container.hasParent(), so it must always be defined (safe to call).",
+    "meta" : [ ]
+  } ]
+}

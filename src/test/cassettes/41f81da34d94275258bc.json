@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this', so the result is always the current object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actors != null",
+    "rationale" : "The method loops over actors, so actors must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actors.length >= 0",
+    "rationale" : "Array length is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

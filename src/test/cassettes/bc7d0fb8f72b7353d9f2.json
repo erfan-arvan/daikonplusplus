@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "getWidth() == getPrefWidth()",
+    "rationale" : "pack() sets the width to getPrefWidth(), so at exit the width should match the preferred width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getHeight() == getPrefHeight()",
+    "rationale" : "pack() sets the height to getPrefHeight(), so at exit the height should match the preferred height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isValid()",
+    "rationale" : "validate() is called, which typically ensures the widget's state is valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getWidth() >= 0",
+    "rationale" : "Widget widths are generally expected to be non-negative after packing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getHeight() >= 0",
+    "rationale" : "Widget heights are generally expected to be non-negative after packing.",
+    "meta" : [ ]
+  } ]
+}

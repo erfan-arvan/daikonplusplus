@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0.0f",
+    "rationale" : "The clamp method restricts the output to a minimum of 0, ensuring no negative results.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= 1.0f",
+    "rationale" : "The clamp method's upper bound is 1, so the result cannot exceed 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0.0f || (result > 0.0f && result < 1.0f) || result == 1.0f",
+    "rationale" : "The result must be within the inclusive range [0,1] due to clamping, and is precisely 0 if maxY == 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result < 0.0f || result > 1.0f)",
+    "rationale" : "The result is always in the range [0,1]; thus, it's never less than 0 or greater than 1.",
+    "meta" : [ ]
+  } ]
+}

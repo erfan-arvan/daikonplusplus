@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "stage != null",
+    "rationale" : "Method would expect a valid Stage to operate on for proper dialog display.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(action == null) || (action != null)",
+    "rationale" : "Parameter action is allowed to be null, per Javadoc.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getRoot() != null",
+    "rationale" : "A Stage usually maintains a valid root for managing actors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getKeyboardFocus() == null || stage.getKeyboardFocus() instanceof Actor",
+    "rationale" : "Keyboard focus can be null or a valid Actor (as per code using getKeyboardFocus()).",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getScrollFocus() == null || stage.getScrollFocus() instanceof Actor",
+    "rationale" : "Scroll focus can be null or a valid Actor (as per code using getScrollFocus()).",
+    "meta" : [ ]
+  } ]
+}

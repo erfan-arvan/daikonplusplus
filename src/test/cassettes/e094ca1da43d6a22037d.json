@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "manager != null",
+    "rationale" : "manager is used to construct AssetManagerImageResolver",
+    "meta" : [ {
+      "key" : "nullcheck",
+      "value" : "AssetManager must not be null for resolver construction"
+    } ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is passed to loadTiledMap, likely to be dereferenced",
+    "meta" : [ {
+      "key" : "nullcheck",
+      "value" : "FileHandle is dereferenced for map loading"
+    } ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "fileName likely represents a resource name/path",
+    "meta" : [ {
+      "key" : "string",
+      "value" : "fileName is likely a path or resource name"
+    } ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "parameter is passed into loadTiledMap",
+    "meta" : [ {
+      "key" : "nullcheck",
+      "value" : "Parameters used in loadTiledMap"
+    } ]
+  }, {
+    "expression" : "tmjFile.exists()",
+    "rationale" : "tmjFile is used to load map; existence check is meaningful",
+    "meta" : [ {
+      "key" : "file",
+      "value" : "tmjFile must exist for loading map"
+    } ]
+  } ]
+}

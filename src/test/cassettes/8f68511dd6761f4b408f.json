@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == drawable",
+    "rationale" : "The method returns 'drawable'; at METHOD_EXIT, 'result' is always equal to the field 'drawable'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || drawable == null",
+    "rationale" : "If 'result' is not null, then 'drawable' must also not be null, since result is assigned drawable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.equals(drawable)",
+    "rationale" : "If result is not null, it equals drawable, as result is assigned drawable.",
+    "meta" : [ ]
+  } ]
+}

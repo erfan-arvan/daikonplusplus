@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "firstgid >= 0",
+    "rationale" : "Tiled map tiles typically use non-negative global IDs, so firstgid is generally expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement must be non-null for getChildByName(\"animation\") to be safely invoked.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is used for lookups and casting, so it should be non-null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile != null",
+    "rationale" : "tile's ID is set into the animated tile (tile.getId()), so tile should not be null.",
+    "meta" : [ ]
+  } ]
+}

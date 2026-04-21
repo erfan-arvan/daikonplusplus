@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "y >= -Float.MAX_VALUE",
+    "rationale" : "y is a float parameter, which can be any finite float value, including negative extremes; the lower bound is -Float.MAX_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y <= Float.MAX_VALUE",
+    "rationale" : "y is a float parameter, which can be any finite float value, including positive extremes; the upper bound is Float.MAX_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(y)",
+    "rationale" : "It is often desirable that position parameters are finite; this excludes NaN and infinity.",
+    "meta" : [ ]
+  } ]
+}

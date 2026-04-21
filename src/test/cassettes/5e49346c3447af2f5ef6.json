@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "background == null || background.getMinWidth() >= 0",
+    "rationale" : "Background minimum width is likely non-negative if present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tablePrefWidth >= 0",
+    "rationale" : "Preferred width of a table is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(sizeInvalid) || (sizeInvalid && tablePrefWidth >= 0)",
+    "rationale" : "If size is invalid, computeSize may update tablePrefWidth; tablePrefWidth is still expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "background == null || background.getMinWidth() <= Float.MAX_VALUE",
+    "rationale" : "Background min width should not exceed the largest float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tablePrefWidth <= Float.MAX_VALUE",
+    "rationale" : "Table preferred width should be within float range.",
+    "meta" : [ ]
+  } ]
+}

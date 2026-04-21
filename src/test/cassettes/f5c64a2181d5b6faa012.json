@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "hexSideLength == this.hexSideLength",
+    "rationale" : "The method sets the object's field to the value of the parameter.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "After the setter, the field equals the parameter."
+    } ]
+  }, {
+    "expression" : "Float.isNaN(hexSideLength) == Float.isNaN(this.hexSideLength)",
+    "rationale" : "Setting the field propagates any NaN value directly.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "If the parameter is NaN, the field also becomes NaN after the setter."
+    } ]
+  }, {
+    "expression" : "Float.isInfinite(hexSideLength) == Float.isInfinite(this.hexSideLength)",
+    "rationale" : "The field mirrors all special float values passed in.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "If the parameter is infinite, the field also becomes infinite."
+    } ]
+  } ]
+}

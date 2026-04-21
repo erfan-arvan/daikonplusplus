@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileHandles != null",
+    "rationale" : "Array to accumulate file handles must not be null to add elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used in method calls and dereferenced in getRelativeFileHandle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers == null || layers.isArray()",
+    "rationale" : "The method iterates over layers, so if not null it must be array-like (iterable).",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileHandles.size >= 0",
+    "rationale" : "fileHandles is an array; its size cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers == null || layers.size >= 0",
+    "rationale" : "layers.size is queried if layers is not null; size cannot be negative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "It is common for such methods to assume name is not null for correct operation or to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || !name.isEmpty()",
+    "rationale" : "If name is not null, it is likely expected to be non-empty for valid lookups.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || name.trim().length() > 0",
+    "rationale" : "If name is not null, it should not be just whitespace, so the trimmed length should be greater than zero.",
+    "meta" : [ ]
+  } ]
+}

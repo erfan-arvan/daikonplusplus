@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "padBottom >= 0",
+    "rationale" : "Padding values are often expected to be non-negative to prevent layout issues.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padBottom <= Float.MAX_VALUE",
+    "rationale" : "padBottom is a float and must not exceed the maximum float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(padBottom)",
+    "rationale" : "A finite padding value is likely required for proper layout handling.",
+    "meta" : [ ]
+  } ]
+}

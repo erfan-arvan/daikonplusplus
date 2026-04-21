@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clip || result == super.hit(x, y, touchable)",
+    "rationale" : "If 'clip' is false, the method always delegates to super.hit, otherwise it may return null early.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(clip && touchable && getTouchable() == Touchable.disabled) || result == null",
+    "rationale" : "When 'clip' is true, if touch events are disabled, result must be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(clip && (x < 0 || x >= getWidth() || y < 0 || y >= getHeight())) || result == null",
+    "rationale" : "If 'clip' is true and the (x, y) coordinate is out of bounds, result must be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || !clip || (x >= 0 && x < getWidth() && y >= 0 && y < getHeight() && (!touchable || getTouchable() != Touchable.disabled))",
+    "rationale" : "If result is non-null, necessary geometric and touch conditions must hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clip || result == super.hit(x, y, touchable)",
+    "rationale" : "If 'clip' is false, the only possible result is what super.hit returns.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "index >= 0",
+    "rationale" : "The method is expected to remove a tileset at a specified index; negative indices are typically invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < tilesets.size + 1",
+    "rationale" : "Prior to removal, a valid index must be less than the size of the collection. After removal, the removed index was less than the old size (now size + 1).",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets.size >= 0",
+    "rationale" : "Size of any collection should not be negative, especially after a removal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets != null",
+    "rationale" : "tilesets must not be null for removeIndex to be called safely.",
+    "meta" : [ ]
+  } ]
+}

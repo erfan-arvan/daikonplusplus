@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method unconditionally returns 'rootNodes', which is assumed to be initialized to a non-null Array<N>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array.size in libGDX is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.items != null",
+    "rationale" : "The 'items' backing array should be non-null if the Array<N> instance is non-null.",
+    "meta" : [ ]
+  } ]
+}

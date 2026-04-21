@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method's contract states it returns a loaded TiledMap unless an exception is thrown, so at method exit 'result' should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "The method requires a non-null path for loading, and delegation would not succeed with a null fileName.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.endsWith(\".tmx\") || fileName.endsWith(\".tmj\")",
+    "rationale" : "Per Javadoc, only .tmx or .tmj files are valid input; otherwise, an exception is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The method returns a TiledMap (or subclass), per the declaration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.isEmpty()",
+    "rationale" : "An empty fileName would not typically succeed for a loader requiring a path to a file, so at successful exit fileName should not be empty.",
+    "meta" : [ ]
+  } ]
+}

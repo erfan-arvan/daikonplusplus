@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "autocompleteOptions != null",
+    "rationale" : "Method parameter may be checked for non-nullness elsewhere, and is commonly expected to be non-null for autocomplete functionality.",
+    "meta" : [ ]
+  }, {
+    "expression" : "autocompleteOptions.length >= 0",
+    "rationale" : "Array length is always non-negative in Java; this expresses a trivial but correct property of the array.",
+    "meta" : [ ]
+  } ]
+}

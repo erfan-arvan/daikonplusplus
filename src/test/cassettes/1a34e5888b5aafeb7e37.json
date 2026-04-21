@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "The nodes parameter is used immediately, so null would lead to a NullPointerException.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "plusMinusWidth >= 0.0f",
+    "rationale" : "plusMinusWidth likely represents a UI dimension and is expected to be non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "layout-sanity"
+    } ]
+  }, {
+    "expression" : "indent >= 0.0f",
+    "rationale" : "indent is used for calculating x positions and should be non-negative for proper layout.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "layout-sanity"
+    } ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "y often represents a coordinate or remaining space and is usually non-negative at layout entry.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "layout-order"
+    } ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "The size of an Array should never be negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection"
+    } ]
+  } ]
+}

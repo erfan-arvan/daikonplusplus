@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "cursor == letterUnderCursor(x)",
+    "rationale" : "The method assigns cursor to letterUnderCursor(x), so at exit the values will be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursorOn == focused",
+    "rationale" : "The variable cursorOn is set to focused before method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "blinkTask.isScheduled() == focused",
+    "rationale" : "blinkTask is only scheduled if focused is true; otherwise, it's canceled.",
+    "meta" : [ ]
+  } ]
+}

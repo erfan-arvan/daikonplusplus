@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The method either returns 0 or drawable.getMinHeight(), which by API contract is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable != null ? result == drawable.getMinHeight() : result == 0",
+    "rationale" : "Directly models the conditional logic inside the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable == null || result == drawable.getMinHeight()",
+    "rationale" : "If drawable is not null, result must be equal to drawable.getMinHeight().",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable != null || result == 0",
+    "rationale" : "If drawable is null, result is 0.",
+    "meta" : [ ]
+  } ]
+}

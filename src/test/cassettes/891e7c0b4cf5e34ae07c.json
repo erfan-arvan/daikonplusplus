@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "actorArea != null",
+    "rationale" : "The method directly accesses actorArea.height, so actorArea must not be null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getScrollHeight() == actorArea.height",
+    "rationale" : "The method is implemented as a direct return of actorArea.height, so the method and the field always have equal values.",
+    "meta" : [ ]
+  } ]
+}

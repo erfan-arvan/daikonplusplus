@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "frameTiles != null",
+    "rationale" : "It is often expected that an array field returned by a getter is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "frameTiles.length > 0",
+    "rationale" : "If 'frameTiles' represents animation frames, it is likely expected to be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "frameTiles instanceof StaticTiledMapTile[]",
+    "rationale" : "Ensures that 'frameTiles' is of the correct array type for the method return signature.",
+    "meta" : [ ]
+  } ]
+}

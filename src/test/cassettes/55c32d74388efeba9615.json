@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null String, either the result of getName() (which must be a String) or a constructed String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "The returned String is always non-empty as it is either a valid name or a constructed description containing class and drawable information.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.indexOf(\":\") != -1 || getName() != null",
+    "rationale" : "If result contains a colon, it must be the case that getName() returned null and the fallback path was used; otherwise, getName() must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.startsWith(\"ImageButton\") || result.indexOf(\":\") != -1",
+    "rationale" : "If the result starts with 'ImageButton', it must be in the fallback string format, which always includes a colon.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getName() == null || result.equals(getName())",
+    "rationale" : "If getName() returns a non-null value, it's returned as result; otherwise, the constructed string is used.",
+    "meta" : [ ]
+  } ]
+}

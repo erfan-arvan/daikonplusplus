@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layers != null",
+    "rationale" : "The method iterates over layers, so it must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length >= 0",
+    "rationale" : "Array lengths in Java are always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length == 0 || map.getLayers().size() > 0",
+    "rationale" : "If there are any layers to render, the map must have layers to access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length == 0 || (layers[0] >= 0 && layers[0] < map.getLayers().size())",
+    "rationale" : "Indices taken from the layers array must be valid for map.getLayers().",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length == 0 || map.getLayers().get(layers[0]) instanceof MapLayer",
+    "rationale" : "The layer fetched via index from map.getLayers() is used as a MapLayer.",
+    "meta" : [ ]
+  } ]
+}

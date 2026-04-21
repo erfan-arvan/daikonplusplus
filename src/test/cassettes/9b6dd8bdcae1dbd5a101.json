@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursor positions are typically non-negative indexes in text manipulation contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "Selection start is expected to reference a valid index in the text, and negative values are likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "Text parameter should not be null for meaningful state saving and undo operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor <= text.length()",
+    "rationale" : "Cursor index should not exceed the length of the text, since it indicates a position in the string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart <= text.length()",
+    "rationale" : "Selection start index should also not exceed the length of the text.",
+    "meta" : [ ]
+  } ]
+}

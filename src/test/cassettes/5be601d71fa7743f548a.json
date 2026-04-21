@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0",
+    "rationale" : "Scroll coordinates are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "Scroll coordinates are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x < getWidth()",
+    "rationale" : "x should be less than the width of the ScrollPane region.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y < getHeight()",
+    "rationale" : "y should be less than the height of the ScrollPane region.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!touchable || getTouchable() != null",
+    "rationale" : "If touchable is true, getTouchable() must be defined for touch handling.",
+    "meta" : [ ]
+  } ]
+}

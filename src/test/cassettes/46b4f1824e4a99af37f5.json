@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method guarantees to load and return a TiledMap object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "The method relies on a file name to perform map loading; fileName should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "A non-empty file name is expected to load a map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof com.badlogic.gdx.maps.tiled.TiledMap",
+    "rationale" : "The result is documented and implemented as a TiledMap object in the return type.",
+    "meta" : [ ]
+  } ]
+}

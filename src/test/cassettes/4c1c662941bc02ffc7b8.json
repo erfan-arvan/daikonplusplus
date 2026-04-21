@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "newText == null || !(newText instanceof CharArray) || !text.equals(newText)",
+    "rationale" : "If newText is a CharArray and text equals newText, the method returns early before this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "newText == null || (newText instanceof CharArray) || !textEquals(newText)",
+    "rationale" : "If newText is not a CharArray and textEquals(newText), the method returns early before this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "newText != null || text.size != 0",
+    "rationale" : "If newText is null and text.size == 0, the method returns early before this point.",
+    "meta" : [ ]
+  } ]
+}

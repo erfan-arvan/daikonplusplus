@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "str != null",
+    "rationale" : "A null str is replaced by empty string at start of method, so str is never null upon exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "str.equals(\"\") || str.length() > 0",
+    "rationale" : "If incoming str is null, it is replaced with \"\", otherwise it is the original string, so str is either empty or non-empty upon exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "str != null && str.length() >= 0",
+    "rationale" : "str is guaranteed non-null and has finite length at exit (length >= 0 holds for all strings).",
+    "meta" : [ ]
+  } ]
+}

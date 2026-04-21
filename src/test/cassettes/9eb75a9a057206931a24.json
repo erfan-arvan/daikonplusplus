@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "values != null",
+    "rationale" : "The method operates on the parameter values, so it is expected to be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values.size >= 0",
+    "rationale" : "The size of a collection cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values.items != null",
+    "rationale" : "The backing array for an Array should be non-null if the Array instance itself is non-null.",
+    "meta" : [ ]
+  } ]
+}
