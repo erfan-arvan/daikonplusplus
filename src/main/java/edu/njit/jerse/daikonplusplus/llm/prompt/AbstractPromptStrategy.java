@@ -10,20 +10,20 @@ public abstract class AbstractPromptStrategy implements PromptStrategy {
     String system = buildSystemMessage(ctx);
     String user = buildUserMessage(ctx);
 
-    //    if (DEBUG_PRINT_FIRST_PROMPT && !printedOnce) {
-    printedOnce = true;
-    String full =
-        "===== FIRST PROMPT =====\n"
-            + "----- SYSTEM -----\n"
-            + system
-            + "\n"
-            + "----- USER -----\n"
-            + user
-            + "\n"
-            + "========================\n";
+    if (DEBUG_PRINT_FIRST_PROMPT && !printedOnce) {
+      printedOnce = true;
+      String full =
+          "===== FIRST PROMPT =====\n"
+              + "----- SYSTEM -----\n"
+              + system
+              + "\n"
+              + "----- USER -----\n"
+              + user
+              + "\n"
+              + "========================\n";
 
-    System.out.println(full);
-    //    }
+      System.out.println(full);
+    }
 
     return new Prompt(system, user);
   }
