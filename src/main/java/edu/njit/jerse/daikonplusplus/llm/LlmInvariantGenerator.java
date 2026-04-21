@@ -138,17 +138,17 @@ public final class LlmInvariantGenerator {
       final String system = prompt.systemMessage();
       final String user = prompt.userMessage();
 
-      if (!printedStrategyOnce) {
-        printedStrategyOnce = true;
-        System.out.println("[DP-LLM] Strategy: " + promptStrategy.name());
-      }
-
-      if (config.debug()) {
-        System.out.println("[DP] LLM REQUEST → " + point.kind() + " :: " + point.elementId());
-        if (!inScope.isEmpty()) {
-          System.out.println("[DP] Scope: " + inScope);
-        }
-      }
+//      if (!printedStrategyOnce) {
+//        printedStrategyOnce = true;
+//        System.out.println("[DP-LLM] Strategy: " + promptStrategy.name());
+//      }
+//
+//      if (config.debug()) {
+//        System.out.println("[DP] LLM REQUEST → " + point.kind() + " :: " + point.elementId());
+//        if (!inScope.isEmpty()) {
+//          System.out.println("[DP] Scope: " + inScope);
+//        }
+//      }
 
       // ----- Structured request via pluggable LlmClient -----
       List<InvariantsOut.Item> items;
