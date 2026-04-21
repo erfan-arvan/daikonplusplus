@@ -175,17 +175,31 @@ public final class ExternalCompileRunner {
   }
 
   private static int restoreOriginalFile(Path brokenFile, Path workSrcRoot, Path originalSrcRoot) {
-
     try {
       Path workRoot = workSrcRoot.toAbsolutePath().normalize();
       Path broken = brokenFile.toAbsolutePath().normalize();
 
-      if (!broken.startsWith(workRoot)) return 0;
+      System.out.println("[DP-RESTORE] broken = " + broken);
+      System.out.println("[DP-RESTORE] workRoot = " + workRoot);
+      System.out.println("[DP-RESTORE] originalSrcRoot = " + originalSrcRoot.toAbsolutePath().normalize());
+
+      if (!broken.startsWith(workRoot)) {
+        System.out.println("[DP-RESTORE] broken is NOT under workRoot");
+        return 0;
+      }
 
       Path rel = workRoot.relativize(broken);
-      Path original = originalSrcRoot.resolve(rel);
+      Path original = originalSrcRoot.resolve(rel).toAbsolutePath().normalize();
 
-      if (!Files.isRegularFile(original)) return 0;
+      System.out.println("[DP-RESTORE] rel = " + rel);
+      System.out.println("[DP-RESTORE] original = " + original);
+      System.out.println("[DP-RESTORE] original exists = " + Files.exists(original));
+      System.out.println("[DP-RESTORE] original regular file = " + Files.isRegularFile(original));
+
+      if (!Files.isRegularFile(original)) {
+        System.out.println("[DP-RESTORE] original file not found");
+        return 0;
+      }
 
       Path parent = broken.getParent();
       if (parent != null) {
@@ -193,14 +207,17 @@ public final class ExternalCompileRunner {
       }
 
       Files.copy(
-          original,
-          broken,
-          StandardCopyOption.REPLACE_EXISTING,
-          StandardCopyOption.COPY_ATTRIBUTES);
+              original,
+              broken,
+              StandardCopyOption.REPLACE_EXISTING,
+              StandardCopyOption.COPY_ATTRIBUTES);
 
+      System.out.println("[DP-RESTORE] restored OK");
       return 1;
 
     } catch (Exception e) {
+      System.out.println("[DP-RESTORE] exception: " + e);
+      e.printStackTrace(System.out);
       return 0;
     }
   }
