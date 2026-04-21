@@ -57,7 +57,7 @@ public final class JavaProjectScanner {
                                     });
                           });
                 } catch (Exception e) {
-                  throw new RuntimeException("Failed to parse " + file, e);
+                  System.err.println("[WARN] Skipping file (parse failed): " + file);
                 }
               });
     }
