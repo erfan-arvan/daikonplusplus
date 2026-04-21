@@ -234,7 +234,7 @@ public final class DpConfig {
 
     boolean includeBody = getBool("dp.includeBody", "DP_INCLUDE_BODY", true, env, file);
     boolean registryReset = getBool("dp.registryReset", "DP_REGISTRY_RESET", true, env, file);
-    boolean debug = getBool("dp.debug", "DP_DEBUG", true, env, file);
+    boolean debug = getBool("dp.debug", "DP_DEBUG", false, env, file);
     boolean keepWork = getBool("dp.keepWork", "DP_KEEP_WORK", true, env, file);
     boolean noQualityFilter =
         getBool("dp.noQualityFilter", "DP_NO_QUALITY_FILTER", false, env, file);
