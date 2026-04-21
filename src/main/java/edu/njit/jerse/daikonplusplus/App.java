@@ -967,7 +967,7 @@ public final class App {
     if (externalCompileScript != null) {
       // User-provided compile script IS the compiler
       ExternalCompileRunner.compileWithAutoFilter(
-          workProjectRoot, externalCompileScript, maxPasses);
+          workProjectRoot, srcRoot, userSrcRoot, externalCompileScript, maxPasses);
     } else {
       // Native javac-based autofilter
       JavaRunner.compileWithAutoFilter(srcRoot, userSrcRoot, classesDir, classpath, maxPasses);

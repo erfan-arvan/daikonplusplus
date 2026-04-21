@@ -22,8 +22,10 @@ public final class ExternalCompileRunner {
 
   public static void compileWithAutoFilter(
       Path workProjectRoot,
-      Path compileScript, // MAIN or TEST script (chosen by caller)
-      int maxPasses)
+      Path workSrcRoot, // NEW
+      Path originalSrcRoot, // NEW
+      Path compileScript,
+      int maxModifyPasses)
       throws Exception {
 
     if (!Files.isExecutable(compileScript)) {
@@ -32,7 +34,10 @@ public final class ExternalCompileRunner {
 
     Path errLog = workProjectRoot.resolve("dp-external-compile.err");
 
-    for (int pass = 1; pass <= maxPasses; pass++) {
+    int pass = 1;
+    int maxTotalPasses = maxModifyPasses + 20;
+
+    while (true) {
 
       System.out.println(
           "[DP] === external autofilter pass "
@@ -40,6 +45,9 @@ public final class ExternalCompileRunner {
               + " (script="
               + compileScript.getFileName()
               + ") ===");
+
+      boolean inModifyPhase = pass <= maxModifyPasses;
+      System.out.println("[DP] inModifyPhase = " + inModifyPhase);
 
       ProcessBuilder pb = new ProcessBuilder(compileScript.toAbsolutePath().toString());
 
@@ -59,6 +67,7 @@ public final class ExternalCompileRunner {
       }
 
       String err = Files.exists(errLog) ? Files.readString(errLog, StandardCharsets.UTF_8) : "";
+
       System.out.println("\n[DP-DEBUG] ===== RAW COMPILER OUTPUT =====");
       System.out.println(err.length() > 1500 ? err.substring(0, 1500) + "\n...[truncated]" : err);
       System.out.println("[DP-DEBUG] =================================\n");
@@ -84,32 +93,54 @@ public final class ExternalCompileRunner {
                 + err);
       }
 
-      if (errors.isEmpty()) {
-        throw new RuntimeException(
-            "External compile failed but no javac-style errors found.\n" + err);
-      }
-
       int touched = 0;
+      Set<String> seenErrors = new HashSet<>();
 
       for (JError je : errors) {
+
+        String key = je.file + ":" + je.line;
+        if (!seenErrors.add(key)) continue;
+
         Path file = normalizeCompilerPath(je.file);
 
         System.out.println("[DP] error file exists? " + Files.exists(file) + " :: " + file);
 
-        int removed = JavaRunner.removeInvariantRegion(file, je.line);
-        if (removed > 0) {
-          touched += removed;
-          System.out.println("[DP] disabled invariant in " + file + " @ line " + je.line);
+        // ---------- PHASE 1: try removing invariant ----------
+        if (inModifyPhase) {
+          int removed = JavaRunner.removeInvariantRegion(file, je.line);
+          System.out.println("[DP]   removeInvariantRegion → " + removed);
+
+          if (removed > 0) {
+            touched += removed;
+            System.out.println("[DP] disabled invariant in " + file + " @ line " + je.line);
+            continue;
+          }
+        }
+
+        // ---------- PHASE 2: restore original ----------
+        int restored = restoreOriginalFile(file, workSrcRoot, originalSrcRoot);
+        System.out.println("[DP]   restoreOriginalFile → " + restored);
+
+        if (restored > 0) {
+          touched += restored;
+          System.out.println("[DP] restored original file: " + file);
         }
       }
 
+      System.out.println("[DP] touched = " + touched);
+
       if (touched == 0) {
         throw new RuntimeException(
-            "External autofilter stuck: no invariant regions removed.\n" + err);
+            "External compile failed with no progress (no invariants removed or files restored).\n"
+                + err);
       }
-    }
 
-    throw new RuntimeException("External autofilter failed after " + maxPasses + " passes");
+      if (pass >= maxTotalPasses) {
+        throw new RuntimeException("External autofilter failed after " + pass + " passes\n" + err);
+      }
+
+      pass++;
+    }
   }
 
   public static void compile(Path workProjectRoot, Path compileScript) throws Exception {
@@ -141,5 +172,36 @@ public final class ExternalCompileRunner {
     }
 
     return Path.of(file).normalize();
+  }
+
+  private static int restoreOriginalFile(Path brokenFile, Path workSrcRoot, Path originalSrcRoot) {
+
+    try {
+      Path workRoot = workSrcRoot.toAbsolutePath().normalize();
+      Path broken = brokenFile.toAbsolutePath().normalize();
+
+      if (!broken.startsWith(workRoot)) return 0;
+
+      Path rel = workRoot.relativize(broken);
+      Path original = originalSrcRoot.resolve(rel);
+
+      if (!Files.isRegularFile(original)) return 0;
+
+      Path parent = broken.getParent();
+      if (parent != null) {
+        Files.createDirectories(parent);
+      }
+
+      Files.copy(
+          original,
+          broken,
+          StandardCopyOption.REPLACE_EXISTING,
+          StandardCopyOption.COPY_ATTRIBUTES);
+
+      return 1;
+
+    } catch (Exception e) {
+      return 0;
+    }
   }
 }
