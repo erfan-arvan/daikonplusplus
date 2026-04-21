@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method explicitly checks if the orders list is null before proceeding.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!orders.isEmpty()",
+    "rationale" : "The method returns immediately if the list is empty, implying non-emptiness is needed for normal processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.size() >= 0",
+    "rationale" : "The size of a List in Java is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

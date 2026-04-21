@@ -352,14 +352,18 @@ public final class App {
 
     CombinedTypeSolver solver = new CombinedTypeSolver();
 
-    // JDK types
     solver.add(new ReflectionTypeSolver());
-
-    // Project source (VERY IMPORTANT)
     solver.add(new JavaParserTypeSolver(mainSrcRoot.toFile()));
 
     JavaSymbolSolver symbolSolver = new JavaSymbolSolver(solver);
-    StaticJavaParser.getConfiguration().setSymbolResolver(symbolSolver);
+
+    com.github.javaparser.ParserConfiguration config =
+        new com.github.javaparser.ParserConfiguration()
+            .setSymbolResolver(symbolSolver)
+            .setLanguageLevel(
+                com.github.javaparser.ParserConfiguration.LanguageLevel.BLEEDING_EDGE);
+
+    StaticJavaParser.setConfiguration(config);
 
     // Scan only MAIN sources for program points
     System.out.println(">>> Scanning MAIN sources under (WORKING COPY): " + mainSrcRoot);

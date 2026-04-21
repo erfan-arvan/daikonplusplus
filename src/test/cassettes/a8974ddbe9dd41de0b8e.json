@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "The method immediately calls order.getQuantity(), so a non-null order is required to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantities are typically non-negative; the business logic likely assumes no negative quantity.",
+    "meta" : [ ]
+  } ]
+}

@@ -5,10 +5,6 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.resolution.types.ResolvedType;
-import com.github.javaparser.symbolsolver.JavaSymbolSolver;
-import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
-import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
-import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 import edu.njit.jerse.daikonplusplus.model.ProgramPoint;
 import edu.njit.jerse.daikonplusplus.model.ProgramPointKind;
 import edu.njit.jerse.daikonplusplus.parse.MethodSignatureUtil;
@@ -169,14 +165,6 @@ public final class ContextUtils {
 
   public static Optional<String> extractTypeDocumentation(ProgramPoint point, Path srcRoot)
       throws IOException {
-
-    // ensure solver
-    if (StaticJavaParser.getConfiguration().getSymbolResolver().isEmpty()) {
-      CombinedTypeSolver solver = new CombinedTypeSolver();
-      solver.add(new ReflectionTypeSolver());
-      solver.add(new JavaParserTypeSolver(srcRoot));
-      StaticJavaParser.getConfiguration().setSymbolResolver(new JavaSymbolSolver(solver));
-    }
 
     Path file = srcRoot.resolve(point.elementId().filePath()).normalize();
     CompilationUnit cu = StaticJavaParser.parse(file);

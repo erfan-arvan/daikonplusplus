@@ -4,10 +4,6 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.symbolsolver.JavaSymbolSolver;
-import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
-import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
-import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 import edu.njit.jerse.daikonplusplus.model.*;
 import java.io.IOException;
 import java.nio.file.*;
@@ -22,7 +18,6 @@ import java.util.List;
  */
 public final class JavaProjectScanner {
   public List<ProgramPoint> scanMethodEntryExit(Path srcRoot) throws IOException {
-    configureSymbolSolver(srcRoot);
     List<ProgramPoint> points = new ArrayList<>();
     try (var stream = Files.walk(srcRoot)) {
       stream
@@ -62,18 +57,5 @@ public final class JavaProjectScanner {
               });
     }
     return points;
-  }
-
-  private static void configureSymbolSolver(Path srcRoot) {
-    CombinedTypeSolver solver = new CombinedTypeSolver();
-
-    solver.add(new ReflectionTypeSolver());
-    solver.add(new JavaParserTypeSolver(srcRoot));
-
-    JavaSymbolSolver symbolSolver = new JavaSymbolSolver(solver);
-
-    StaticJavaParser.getConfiguration()
-        .setSymbolResolver(symbolSolver)
-        .setLanguageLevel(com.github.javaparser.ParserConfiguration.LanguageLevel.BLEEDING_EDGE);
   }
 }
