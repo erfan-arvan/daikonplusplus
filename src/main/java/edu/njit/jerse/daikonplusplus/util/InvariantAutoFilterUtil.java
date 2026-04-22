@@ -116,59 +116,46 @@ public final class InvariantAutoFilterUtil {
     List<JError> out = new ArrayList<>();
     if (output == null || output.isEmpty()) return out;
 
-    // ---- Pattern 1: javac / gradle / ant ----
-    // Examples:
-    // File.java:123: error: ...
-    // [javac] File.java:123: ...
-    Pattern p1 =
-        Pattern.compile(
-            "^\\s*(?:\\[[^]]+\\]\\s*)?(.+\\.java):(\\d+)(?::\\d+)?:", Pattern.MULTILINE);
+    // Strict: only match REAL javac-style errors
+    // Requires:
+    //   absolute path starting with /
+    //   ends with .java
+    //   followed by :line:
+    Pattern JAVAC =
+            Pattern.compile("(/[^:\\s]+\\.java):(\\d+):\\s*error");
 
-    Matcher m1 = p1.matcher(output);
+    // Maven style: File.java:[line,column]
+    Pattern MAVEN =
+            Pattern.compile("(/[^:\\s]+\\.java):\\[(\\d+),(\\d+)\\]");
 
-    while (m1.find()) {
-      String file = m1.group(1);
-      String lineStr = m1.group(2);
+    for (String rawLine : output.split("\n")) {
+      String line = rawLine.trim();
 
-      if (file == null || lineStr == null) continue;
+      // 🔥 HARD FILTER: kill Gradle noise
+      if (line.isEmpty()) continue;
+      if (line.startsWith("To honour the JVM settings")) continue;
+      if (line.startsWith("> Task")) continue;
+      if (line.startsWith("FAILURE:")) continue;
+      if (line.startsWith("* What went wrong")) continue;
+      if (line.startsWith("* Try:")) continue;
+      if (line.startsWith("BUILD FAILED")) continue;
 
-      file = file.trim();
-
-      int line;
-      try {
-        line = Integer.parseInt(lineStr);
-      } catch (NumberFormatException e) {
+      // ---- Pattern 1: javac ----
+      Matcher m1 = JAVAC.matcher(line);
+      if (m1.find()) {
+        String file = m1.group(1);
+        int lineNo = Integer.parseInt(m1.group(2));
+        out.add(new JError(file, lineNo, ""));
         continue;
       }
 
-      out.add(new JError(file, line, ""));
-    }
-
-    // ---- Pattern 2: Maven ([line,column]) ----
-    // Example:
-    // [ERROR] File.java:[1062,47] ...
-    Pattern p2 =
-        Pattern.compile(
-            "^\\s*(?:\\[[^]]+\\]\\s*)?(.+\\.java):\\[(\\d+),(\\d+)\\]", Pattern.MULTILINE);
-
-    Matcher m2 = p2.matcher(output);
-
-    while (m2.find()) {
-      String file = m2.group(1);
-      String lineStr = m2.group(2);
-
-      if (file == null || lineStr == null) continue;
-
-      file = file.trim();
-
-      int line;
-      try {
-        line = Integer.parseInt(lineStr);
-      } catch (NumberFormatException e) {
-        continue;
+      // ---- Pattern 2: Maven ----
+      Matcher m2 = MAVEN.matcher(line);
+      if (m2.find()) {
+        String file = m2.group(1);
+        int lineNo = Integer.parseInt(m2.group(2));
+        out.add(new JError(file, lineNo, ""));
       }
-
-      out.add(new JError(file, line, ""));
     }
 
     return out;
