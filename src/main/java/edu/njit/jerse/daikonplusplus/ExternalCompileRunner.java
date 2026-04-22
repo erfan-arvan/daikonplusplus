@@ -22,8 +22,8 @@ public final class ExternalCompileRunner {
 
   public static void compileWithAutoFilter(
       Path workProjectRoot,
-      Path workSrcRoot, // NEW
-      Path originalSrcRoot, // NEW
+      Path workSrcRoot,
+      Path originalSrcRoot,
       Path compileScript,
       int maxModifyPasses)
       throws Exception {
@@ -103,20 +103,20 @@ public final class ExternalCompileRunner {
 
         Path file;
         try {
-          file = normalizeCompilerPath(je.file);
+          file = normalizeCompilerPath(je.file).toRealPath();
 
-          // CRITICAL: canonicalize to avoid /scratch vs /mmfs1
-          file = file.toRealPath();
+          if (!file.startsWith(workSrcRoot.toRealPath())) {
+            System.out.println("[DP] skipping path outside workSrcRoot: " + file);
+            continue;
+          }
 
         } catch (Exception e) {
           System.out.println("[DP] skipping invalid path: " + je.file);
           continue;
         }
-        file = normalizeCompilerPath(je.file);
 
         System.out.println("[DP] error file exists? " + Files.exists(file) + " :: " + file);
 
-        // ---------- PHASE 1: try removing invariant ----------
         if (inModifyPhase) {
           int removed = JavaRunner.removeInvariantRegion(file, je.line);
           System.out.println("[DP]   removeInvariantRegion → " + removed);
@@ -128,7 +128,6 @@ public final class ExternalCompileRunner {
           }
         }
 
-        // ---------- PHASE 2: restore original ----------
         int restored = restoreOriginalFile(file, workSrcRoot, originalSrcRoot);
         System.out.println("[DP]   restoreOriginalFile → " + restored);
 
@@ -207,6 +206,8 @@ public final class ExternalCompileRunner {
         System.out.println("[DP] original not found: " + original);
         return 0;
       }
+
+      original = original.toRealPath();
 
       Path parent = brokenFile.getParent();
       if (parent != null) {
