@@ -378,6 +378,9 @@ public final class JavaRunner {
 
     Files.createDirectories(Optional.ofNullable(runLog.getParent()).orElse(Path.of(".")));
 
+    System.out.println("[DP] Running script: " + script.toAbsolutePath());
+    System.out.println("[DP] Working dir: " + workDir.toAbsolutePath());
+    System.out.println("[DP] Log file: " + runLog.toAbsolutePath());
     ProcessBuilder pb = new ProcessBuilder(script.toAbsolutePath().toString());
 
     // Run inside the working project copy
@@ -385,7 +388,6 @@ public final class JavaRunner {
 
     Map<String, String> env = pb.environment();
 
-    // Optional classpath exposure for scripts that want it
     if (fullRunCp != null && !fullRunCp.isBlank()) {
       env.put("DP_DAIKONPP_CLASSPATH", fullRunCp);
     }
@@ -395,7 +397,6 @@ public final class JavaRunner {
     Path invDir = workDir.resolve(".daikonpp-events");
     Files.createDirectories(invDir);
 
-    // Make invariants visible to child JVMs
     env.put("DP_INV_DIR", invDir.toAbsolutePath().toString());
 
     String jvmArgs = "-DDP_INV_DIR=" + invDir.toAbsolutePath();
@@ -407,42 +408,50 @@ public final class JavaRunner {
     pb.redirectErrorStream(true);
     Process p = pb.start();
 
-    long deadline =
-        System.nanoTime()
-            + java.util.concurrent.TimeUnit.MINUTES.toNanos(EXTERNAL_RUN_TIMEOUT_MINUTES);
+    // ---- ASYNC OUTPUT READER (FIX) ----
+    Thread readerThread =
+        new Thread(
+            () -> {
+              try (BufferedReader r =
+                      new BufferedReader(
+                          new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
+                  BufferedWriter w =
+                      Files.newBufferedWriter(
+                          runLog,
+                          StandardCharsets.UTF_8,
+                          StandardOpenOption.CREATE,
+                          StandardOpenOption.APPEND)) {
 
-    try (BufferedReader r =
-            new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
-        BufferedWriter w =
-            Files.newBufferedWriter(
-                runLog,
-                StandardCharsets.UTF_8,
-                StandardOpenOption.CREATE,
-                StandardOpenOption.APPEND)) {
+                String line;
+                while ((line = r.readLine()) != null) {
+                  w.write(line);
+                  w.newLine();
+                  w.flush(); // live streaming
+                }
 
-      String line;
+              } catch (IOException ignored) {
+              }
+            });
 
-      while (true) {
-        while (r.ready() && (line = r.readLine()) != null) {
-          w.write(line);
-          w.newLine();
-          w.flush(); // keep live output
-        }
+    readerThread.setDaemon(true);
+    readerThread.start();
 
-        if (!p.isAlive()) break;
+    // ---- TIMEOUT CONTROL ----
+    boolean finished =
+        p.waitFor(EXTERNAL_RUN_TIMEOUT_MINUTES, java.util.concurrent.TimeUnit.MINUTES);
 
-        if (System.nanoTime() > deadline) {
-          w.write(
-              "[DP] External runner TIMED OUT after " + EXTERNAL_RUN_TIMEOUT_MINUTES + " minutes");
-          w.newLine();
-          w.flush();
-          p.destroyForcibly();
-          break;
-        }
+    if (!finished) {
+      Files.writeString(
+          runLog,
+          "\n[DP] External runner TIMED OUT after " + EXTERNAL_RUN_TIMEOUT_MINUTES + " minutes\n",
+          StandardOpenOption.CREATE,
+          StandardOpenOption.APPEND);
 
-        Thread.sleep(100);
-      }
+      p.destroyForcibly();
     }
+
+    // wait for output thread to finish draining
+    readerThread.join();
 
     int exit = p.isAlive() ? -1 : p.exitValue();
 
