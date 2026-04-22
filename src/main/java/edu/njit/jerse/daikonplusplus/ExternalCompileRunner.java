@@ -116,7 +116,12 @@ public final class ExternalCompileRunner {
             int idx = s.indexOf("project-");
             if (idx != -1) {
               String sub = s.substring(idx);
-              raw = workProjectRoot.getParent().resolve(sub);
+              Path parent = workProjectRoot.getParent();
+              if (parent == null) {
+                System.out.println("[DP] cannot repair path (no parent): " + workProjectRoot);
+                continue;
+              }
+              raw = parent.resolve(sub);
             }
           }
 
