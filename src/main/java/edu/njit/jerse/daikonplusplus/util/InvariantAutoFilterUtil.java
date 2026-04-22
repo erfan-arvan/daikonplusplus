@@ -116,22 +116,14 @@ public final class InvariantAutoFilterUtil {
     List<JError> out = new ArrayList<>();
     if (output == null || output.isEmpty()) return out;
 
-    // Strict: only match REAL javac-style errors
-    // Requires:
-    //   absolute path starting with /
-    //   ends with .java
-    //   followed by :line:
-    Pattern JAVAC =
-            Pattern.compile("(/[^:\\s]+\\.java):(\\d+):\\s*error");
+    Pattern JAVAC = Pattern.compile("(/[^:\\s]+\\.java):(\\d+):\\s*error");
 
-    // Maven style: File.java:[line,column]
-    Pattern MAVEN =
-            Pattern.compile("(/[^:\\s]+\\.java):\\[(\\d+),(\\d+)\\]");
+    Pattern MAVEN = Pattern.compile("(/[^:\\s]+\\.java):\\[(\\d+),(\\d+)\\]");
 
     for (String rawLine : output.split("\n")) {
       String line = rawLine.trim();
 
-      // 🔥 HARD FILTER: kill Gradle noise
+      // filter noise
       if (line.isEmpty()) continue;
       if (line.startsWith("To honour the JVM settings")) continue;
       if (line.startsWith("> Task")) continue;
@@ -144,8 +136,15 @@ public final class InvariantAutoFilterUtil {
       Matcher m1 = JAVAC.matcher(line);
       if (m1.find()) {
         String file = m1.group(1);
-        int lineNo = Integer.parseInt(m1.group(2));
-        out.add(new JError(file, lineNo, ""));
+        String lineStr = m1.group(2);
+
+        if (file != null && lineStr != null) {
+          try {
+            int lineNo = Integer.parseInt(lineStr);
+            out.add(new JError(file, lineNo, ""));
+          } catch (NumberFormatException ignored) {
+          }
+        }
         continue;
       }
 
@@ -153,8 +152,15 @@ public final class InvariantAutoFilterUtil {
       Matcher m2 = MAVEN.matcher(line);
       if (m2.find()) {
         String file = m2.group(1);
-        int lineNo = Integer.parseInt(m2.group(2));
-        out.add(new JError(file, lineNo, ""));
+        String lineStr = m2.group(2);
+
+        if (file != null && lineStr != null) {
+          try {
+            int lineNo = Integer.parseInt(lineStr);
+            out.add(new JError(file, lineNo, ""));
+          } catch (NumberFormatException ignored) {
+          }
+        }
       }
     }
 
