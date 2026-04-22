@@ -103,9 +103,29 @@ public final class ExternalCompileRunner {
 
         Path file;
         try {
-          file = normalizeCompilerPath(je.file).toRealPath();
+          Path raw = normalizeCompilerPath(je.file);
 
-          if (!file.startsWith(workSrcRoot.toRealPath())) {
+          // case 1: relative path → resolve against project root
+          if (!raw.isAbsolute()) {
+            raw = workProjectRoot.resolve(raw);
+          }
+
+          // case 2: broken "/project-..." path → fix it
+          if (!Files.exists(raw)) {
+            String s = raw.toString();
+            int idx = s.indexOf("project-");
+            if (idx != -1) {
+              String sub = s.substring(idx);
+              raw = workProjectRoot.getParent().resolve(sub);
+            }
+          }
+
+          file = raw.toRealPath();
+
+          // compute once outside loop if you want (optional optimization)
+          Path workSrcRootReal = workSrcRoot.toRealPath();
+
+          if (!file.startsWith(workSrcRootReal)) {
             System.out.println("[DP] skipping path outside workSrcRoot: " + file);
             continue;
           }
