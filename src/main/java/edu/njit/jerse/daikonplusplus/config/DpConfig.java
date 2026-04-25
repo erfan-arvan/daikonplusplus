@@ -66,6 +66,9 @@ public final class DpConfig {
 
   private final String promptStrategy;
 
+  // ---- scan filtering whitelist ----
+  private final Set<String> scanIncludes;
+
   private DpConfig(
       int threads,
       Path registryPath,
@@ -87,6 +90,7 @@ public final class DpConfig {
       int llmPollStepMs,
       String externalCompileClasspath,
       String workDir,
+      Set<String> scanIncludes,
       String promptStrategy) {
 
     this.threads = threads;
@@ -109,7 +113,12 @@ public final class DpConfig {
     this.llmPollStepMs = llmPollStepMs;
     this.externalCompileClasspath = externalCompileClasspath;
     this.workDir = workDir;
+    this.scanIncludes = scanIncludes;
     this.promptStrategy = promptStrategy;
+  }
+
+  public Set<String> scanIncludes() {
+    return scanIncludes;
   }
 
   // ---- getters ----
@@ -311,6 +320,12 @@ public final class DpConfig {
                 System.getProperty("dp.promptStrategy"), env.get("DP_PROMPT_STRATEGY"), "baseline"),
             "baseline");
 
+    Set<String> scanIncludes =
+        parseCsvSet(
+            firstNonBlankNullable(
+                file.get("dp.scanIncludes"),
+                System.getProperty("dp.scanIncludes"),
+                env.get("DP_SCAN_INCLUDES")));
     return new DpConfig(
         threads,
         Path.of(regPath).toAbsolutePath().normalize(),
@@ -332,6 +347,7 @@ public final class DpConfig {
         llmPollStepMs,
         externalCompileClasspath,
         workDir,
+        scanIncludes,
         promptStrategy);
   }
 
@@ -481,6 +497,8 @@ public final class DpConfig {
 
     System.out.println("promptStrategy = " + promptStrategy);
 
+    System.out.println("scanIncludes = " + scanIncludes);
+
     System.out.println("=========================");
   }
 
@@ -491,5 +509,40 @@ public final class DpConfig {
     if (b != null && !b.isBlank()) return b;
     if (c != null && !c.isBlank()) return c;
     return null;
+  }
+
+  private static Set<String> parseCsvSet(@Nullable String value) {
+    if (value == null || value.isBlank()) {
+      return java.util.Collections.emptySet();
+    }
+
+    Set<String> result = new java.util.LinkedHashSet<>();
+
+    for (String part : value.split(",")) {
+      String s = part.trim();
+      if (s.isEmpty()) continue;
+
+      // normalize
+      s = s.replace("\\", "/");
+
+      // convert package-style to path-style
+      if (s.contains(".")) {
+        s = s.replace(".", "/");
+      }
+
+      // 🔴 VALIDATION
+      if (!s.matches("[a-zA-Z0-9_/]+")) {
+        throw new IllegalArgumentException("Invalid dp.scanIncludes entry: '" + part + "'");
+      }
+
+      if (s.contains("//")) {
+        throw new IllegalArgumentException(
+            "Invalid dp.scanIncludes (double slash): '" + part + "'");
+      }
+
+      result.add(s);
+    }
+
+    return java.util.Collections.unmodifiableSet(result);
   }
 }

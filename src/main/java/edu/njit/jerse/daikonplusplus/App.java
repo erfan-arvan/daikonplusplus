@@ -327,6 +327,9 @@ public final class App {
     }
 
     final DpConfig cfg = DpConfig.fromEnv();
+    if (!cfg.scanIncludes().isEmpty()) {
+      System.out.println(">>> Scan include filter: " + cfg.scanIncludes());
+    }
     if (BASE_CFG.registryReset()) {
       try {
         java.nio.file.Files.deleteIfExists(BASE_CFG.registryPath());
@@ -367,7 +370,22 @@ public final class App {
 
     // Scan only MAIN sources for program points
     System.out.println(">>> Scanning MAIN sources under (WORKING COPY): " + mainSrcRoot);
-    final List<ProgramPoint> points = scanner.scanMethodEntryExit(mainSrcRoot);
+    final List<ProgramPoint> allPoints = scanner.scanMethodEntryExit(mainSrcRoot);
+
+    final Set<String> scanIncludes = cfg.scanIncludes();
+
+    final List<ProgramPoint> points =
+        scanIncludes.isEmpty()
+            ? allPoints
+            : allPoints.stream()
+                .filter(pt -> isIncludedByScanFilter(pt.elementId().filePath(), scanIncludes))
+                .toList();
+
+    if (!scanIncludes.isEmpty()) {
+      System.out.println(">>> Scan include filter: " + scanIncludes);
+      System.out.println(">>> Points before filter: " + allPoints.size());
+      System.out.println(">>> Points after filter: " + points.size());
+    }
 
     long nEntry = points.stream().filter(p -> p.kind() == ProgramPointKind.METHOD_ENTRY).count();
     long nExit = points.stream().filter(p -> p.kind() == ProgramPointKind.METHOD_EXIT).count();
@@ -976,5 +994,30 @@ public final class App {
       // Native javac-based autofilter
       JavaRunner.compileWithAutoFilter(srcRoot, userSrcRoot, classesDir, classpath, maxPasses);
     }
+  }
+
+  private static boolean isIncludedByScanFilter(String filePath, Set<String> includes) {
+    String normalizedFile = filePath.replace("\\", "/");
+
+    for (String rawInclude : includes) {
+      String include = rawInclude.replace("\\", "/").trim();
+      if (include.isEmpty()) continue;
+
+      // Supports path-style filters:
+      //   com/badlogic/gdx/utils
+      //   src/com/badlogic/gdx/utils
+      if (normalizedFile.contains(include)) {
+        return true;
+      }
+
+      // Supports package-style filters:
+      //   com.badlogic.gdx.utils
+      String packageAsPath = include.replace(".", "/");
+      if (normalizedFile.contains(packageAsPath)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
