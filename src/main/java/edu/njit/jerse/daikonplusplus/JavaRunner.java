@@ -423,10 +423,20 @@ public final class JavaRunner {
                           StandardOpenOption.APPEND)) {
 
                 String line;
-                while ((line = r.readLine()) != null) {
+                while (true) {
+                  if (Thread.currentThread().isInterrupted()) break;
+
+                  if (!r.ready()) {
+                    try { Thread.sleep(50); } catch (InterruptedException e) { break; }
+                    continue;
+                  }
+
+                  line = r.readLine();
+                  if (line == null) break;
+
                   w.write(line);
                   w.newLine();
-                  w.flush(); // live streaming
+                  w.flush();
                 }
 
               } catch (IOException ignored) {
@@ -448,12 +458,14 @@ public final class JavaRunner {
           StandardOpenOption.APPEND);
 
       p.destroyForcibly();
+      p.waitFor();
+      readerThread.interrupt();
     }
 
-    // wait for output thread to finish draining
-    readerThread.join();
+// wait a bit for output thread, but don't block forever
+    readerThread.join(60000);
 
-    int exit = p.isAlive() ? -1 : p.exitValue();
+    int exit = finished ? p.exitValue() : -1;
 
     appendDpEvents(invDir, runLog);
 
