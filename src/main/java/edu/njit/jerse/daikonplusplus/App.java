@@ -535,8 +535,9 @@ public final class App {
           externalMainCompileScript);
 
       System.out.println(">>> Invariant auto-filter finished (external-project mode)");
+      System.out.println(">>> Running Tests!");
 
-      // Now run the real Gradle test script
+      // Now run the real external test script
       final String fullRunCp = "";
       JavaRunner.runExternalScript(resolvedScript, workProjectRoot, fullRunCp, runLog);
     } else {
