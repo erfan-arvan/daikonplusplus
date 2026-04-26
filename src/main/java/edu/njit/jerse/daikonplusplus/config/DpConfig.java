@@ -69,6 +69,11 @@ public final class DpConfig {
   // ---- scan filtering whitelist ----
   private final Set<String> scanIncludes;
 
+  private final String llmProvider; // openai | local
+  private final String llmLocalBackend; // ollama | hf | vllm
+  private final String llmLocalUrl;
+  private final String llmLocalModel;
+
   private DpConfig(
       int threads,
       Path registryPath,
@@ -91,7 +96,11 @@ public final class DpConfig {
       String externalCompileClasspath,
       String workDir,
       Set<String> scanIncludes,
-      String promptStrategy) {
+      String promptStrategy,
+      String llmProvider,
+      String llmLocalBackend,
+      String llmLocalUrl,
+      String llmLocalModel) {
 
     this.threads = threads;
     this.registryPath = registryPath;
@@ -115,6 +124,10 @@ public final class DpConfig {
     this.workDir = workDir;
     this.scanIncludes = scanIncludes;
     this.promptStrategy = promptStrategy;
+    this.llmProvider = llmProvider;
+    this.llmLocalBackend = llmLocalBackend;
+    this.llmLocalUrl = llmLocalUrl;
+    this.llmLocalModel = llmLocalModel;
   }
 
   public Set<String> scanIncludes() {
@@ -205,6 +218,22 @@ public final class DpConfig {
 
   public String promptStrategy() {
     return promptStrategy;
+  }
+
+  public String llmProvider() {
+    return llmProvider;
+  }
+
+  public String llmLocalBackend() {
+    return llmLocalBackend;
+  }
+
+  public String llmLocalUrl() {
+    return llmLocalUrl;
+  }
+
+  public String llmLocalModel() {
+    return llmLocalModel;
   }
 
   // ---- factory ----
@@ -326,6 +355,55 @@ public final class DpConfig {
                 file.get("dp.scanIncludes"),
                 System.getProperty("dp.scanIncludes"),
                 env.get("DP_SCAN_INCLUDES")));
+
+    String llmProvider =
+        firstNonBlank(
+            file.get("dp.llmProvider"),
+            firstNonBlank(
+                System.getProperty("dp.llmProvider"), env.get("DP_LLM_PROVIDER"), "openai"),
+            "openai");
+
+    String llmLocalBackend =
+        firstNonBlank(
+            file.get("dp.llmLocalBackend"),
+            firstNonBlank(
+                System.getProperty("dp.llmLocalBackend"),
+                env.get("DP_LLM_LOCAL_BACKEND"),
+                "ollama"),
+            "ollama");
+
+    String llmLocalModel =
+        firstNonBlank(
+            file.get("dp.llmLocalModel"),
+            firstNonBlank(
+                System.getProperty("dp.llmLocalModel"),
+                env.get("DP_LLM_LOCAL_MODEL"),
+                "qwen2.5:7b"),
+            "qwen2.5:7b");
+
+    String llmLocalUrl =
+        firstNonBlank(
+            file.get("dp.llmLocalUrl"),
+            firstNonBlank(
+                System.getProperty("dp.llmLocalUrl"),
+                env.get("DP_LLM_LOCAL_URL"),
+                "http://localhost:11434"),
+            "http://localhost:11434");
+
+    llmProvider = llmProvider.toLowerCase(Locale.ROOT);
+    llmLocalBackend = llmLocalBackend.toLowerCase(Locale.ROOT);
+
+    if (!llmProvider.equalsIgnoreCase("openai") && !llmProvider.equals("local")) {
+      throw new IllegalArgumentException("Invalid DP_LLM_PROVIDER: " + llmProvider);
+    }
+
+    if (llmProvider.equalsIgnoreCase("local")) {
+      if (llmLocalModel.isBlank()) {
+        throw new IllegalArgumentException(
+            "DP_LLM_LOCAL_MODEL must be set when DP_LLM_PROVIDER=local");
+      }
+    }
+
     return new DpConfig(
         threads,
         Path.of(regPath).toAbsolutePath().normalize(),
@@ -348,7 +426,11 @@ public final class DpConfig {
         externalCompileClasspath,
         workDir,
         scanIncludes,
-        promptStrategy);
+        promptStrategy,
+        llmProvider,
+        llmLocalBackend,
+        llmLocalUrl,
+        llmLocalModel);
   }
 
   // ---- helpers ----
@@ -498,6 +580,11 @@ public final class DpConfig {
     System.out.println("promptStrategy = " + promptStrategy);
 
     System.out.println("scanIncludes = " + scanIncludes);
+
+    System.out.println("llmProvider = " + llmProvider);
+    System.out.println("llmLocalBackend = " + llmLocalBackend);
+    System.out.println("llmLocalUrl = " + llmLocalUrl);
+    System.out.println("llmLocalModel = " + llmLocalModel);
 
     System.out.println("=========================");
   }

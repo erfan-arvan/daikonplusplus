@@ -299,36 +299,71 @@ public final class LlmInvariantGenerator {
   }
 
   private static LlmClient buildLlmFromEnv(DpConfig config) {
-    ChatModel model =
-        resolveModel(config.openaiModel())
-            .orElseGet(
-                () -> {
-                  if (config.debug()) {
-                    System.out.println("[DP-LLM] Unknown model, falling back to GPT_4_1_MINI");
-                  }
-                  return ChatModel.GPT_4_1_MINI;
-                });
 
-    if (!printedModelOnce) {
-      printedModelOnce = true;
-      System.out.println("[DP-LLM] Using model: " + model);
+    // ------------------------------
+    // 1. Choose REAL backend
+    // ------------------------------
+    LlmClient realClient;
+
+    if (config.llmProvider().equals("local")) {
+
+      if (config.debug()) {
+        System.out.println(
+            "[DP-LLM] Using LOCAL backend: "
+                + config.llmLocalBackend()
+                + " @ "
+                + config.llmLocalUrl());
+      }
+
+      realClient = new LocalLlmClient(config);
+
+      if (!printedModelOnce) {
+        printedModelOnce = true;
+        System.out.println("[DP-LLM] Using LOCAL model: " + config.llmLocalModel());
+      }
+
+    } else {
+
+      ChatModel model =
+          resolveModel(config.openaiModel())
+              .orElseGet(
+                  () -> {
+                    if (config.debug()) {
+                      System.out.println("[DP-LLM] Unknown model, fallback GPT_4_1_MINI");
+                    }
+                    return ChatModel.GPT_4_1_MINI;
+                  });
+
+      if (!printedModelOnce) {
+        printedModelOnce = true;
+        System.out.println("[DP-LLM] Using model: " + model);
+      }
+
+      realClient = new RealOpenAILlmClient(model);
     }
 
-    return buildLlmFromEnv(config, model);
-  }
-
-  private static LlmClient buildLlmFromEnv(DpConfig config, ChatModel model) {
+    // ------------------------------
+    // 2. KEEP cassette logic EXACTLY
+    // ------------------------------
     String cassetteDir = config.llmCassettesDir();
     boolean disableReal = config.disableRealLlm();
 
     if (cassetteDir != null && !cassetteDir.isBlank()) {
       Path dir = Path.of(cassetteDir);
       LlmClient replay = new ReplayingLlmClient(dir);
-      if (disableReal) return replay;
-      return new RecordingCompositeLlmClient(replay, new RealOpenAILlmClient(model), dir);
+
+      if (disableReal) {
+        return replay;
+      }
+
+      return new RecordingCompositeLlmClient(replay, realClient, dir);
     }
 
-    return new RealOpenAILlmClient(model);
+    return realClient;
+  }
+
+  private static LlmClient buildLlmFromEnv(DpConfig config, ChatModel model) {
+    return buildLlmFromEnv(config);
   }
 
   // =====================================================================
