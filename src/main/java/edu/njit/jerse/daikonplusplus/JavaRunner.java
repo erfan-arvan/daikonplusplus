@@ -427,7 +427,11 @@ public final class JavaRunner {
                   if (Thread.currentThread().isInterrupted()) break;
 
                   if (!r.ready()) {
-                    try { Thread.sleep(50); } catch (InterruptedException e) { break; }
+                    try {
+                      Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                      break;
+                    }
                     continue;
                   }
 
@@ -462,10 +466,16 @@ public final class JavaRunner {
       readerThread.interrupt();
     }
 
-// wait a bit for output thread, but don't block forever
-    readerThread.join(60000);
+    int exit;
 
-    int exit = finished ? p.exitValue() : -1;
+    if (!finished) {
+      // we timed out → give reader a SHORT chance to drain
+      readerThread.join(2000);
+      exit = -1;
+    } else {
+      // normal case → do NOT wait at all
+      exit = p.exitValue();
+    }
 
     appendDpEvents(invDir, runLog);
 
