@@ -11,13 +11,15 @@ import java.util.*;
  * Utility class for compiling and executing instrumented Java code in Daikon++.
  *
  * <p>Supports:
+ *
  * <ul>
- *   <li>Running Java programs and capturing their output and invariant events</li>
- *   <li>Compiling instrumented code with automatic removal of invariants that cause compilation errors</li>
+ *   <li>Running Java programs and capturing their output and invariant events
+ *   <li>Compiling instrumented code with automatic removal of invariants that cause compilation
+ *       errors
  * </ul>
  *
- * <p>Invariant removal is marker-based and operates either by disabling a specific invariant
- * region or restoring the original file if needed.
+ * <p>Invariant removal is marker-based and operates either by disabling a specific invariant region
+ * or restoring the original file if needed.
  */
 public final class JavaRunner {
 
@@ -112,9 +114,10 @@ public final class JavaRunner {
    * Compiles Java sources and removes invariants that cause compilation errors.
    *
    * <p>If compilation fails, the method parses compiler errors and either:
+   *
    * <ul>
-   *   <li>Disables the invariant region causing the error</li>
-   *   <li>Restores the original file if the error cannot be resolved locally</li>
+   *   <li>Disables the invariant region causing the error
+   *   <li>Restores the original file if the error cannot be resolved locally
    * </ul>
    *
    * <p>The process repeats until compilation succeeds or no further progress is possible.
@@ -365,8 +368,8 @@ public final class JavaRunner {
   /**
    * Resolves the path to a Java tool (e.g., {@code java}, {@code javac}).
    *
-   * <p>If {@code JAVA_HOME} is set, the tool is resolved from its {@code bin} directory.
-   * Otherwise, the tool name is returned as-is.
+   * <p>If {@code JAVA_HOME} is set, the tool is resolved from its {@code bin} directory. Otherwise,
+   * the tool name is returned as-is.
    *
    * @param base base name of the tool (e.g., "java", "javac")
    * @return resolved executable path

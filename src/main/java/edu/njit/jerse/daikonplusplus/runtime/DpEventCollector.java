@@ -13,9 +13,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Collects invariant execution and failure events at runtime and persists them on JVM shutdown.
  *
- * <p>Events are stored in-memory during execution and flushed to a per-process
- * sidecar file when the JVM terminates. This avoids synchronization overhead
- * during normal execution while ensuring durability at shutdown.
+ * <p>Events are stored in-memory during execution and flushed to a per-process sidecar file when
+ * the JVM terminates. This avoids synchronization overhead during normal execution while ensuring
+ * durability at shutdown.
  *
  * <p>The output location is controlled by the {@code DP_INV_DIR} system property.
  */
@@ -60,9 +60,7 @@ public final class DpEventCollector {
     Runtime.getRuntime().addShutdownHook(new Thread(DpEventCollector::flushSafely, "dp-flush"));
   }
 
-  /**
-   * Flushes collected events during JVM shutdown while suppressing all exceptions.
-   */
+  /** Flushes collected events during JVM shutdown while suppressing all exceptions. */
   private static void flushSafely() {
     try {
       flushToSidecar();
@@ -74,8 +72,8 @@ public final class DpEventCollector {
   /**
    * Writes collected events to a per-process sidecar file.
    *
-   * <p>The file is created under the directory specified by {@code DP_INV_DIR}
-   * and uses the process ID in its name to avoid collisions.
+   * <p>The file is created under the directory specified by {@code DP_INV_DIR} and uses the process
+   * ID in its name to avoid collisions.
    *
    * @throws IOException if writing fails
    */

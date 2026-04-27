@@ -1,15 +1,13 @@
 package edu.njit.jerse.daikonplusplus.llm.prompt;
 
 /**
- * Prompt strategy that guides the model to discover invariants in a structured,
- * stepwise manner.
+ * Prompt strategy that guides the model to discover invariants in a structured, stepwise manner.
  *
- * <p>The model is instructed to internally generate invariants in stages,
- * starting from simple unary properties, then relational constraints, and
- * finally method-call-based predicates.
+ * <p>The model is instructed to internally generate invariants in stages, starting from simple
+ * unary properties, then relational constraints, and finally method-call-based predicates.
  *
- * <p>This staged approach aims to improve coverage and organization of
- * invariants while maintaining relevance to the program context.
+ * <p>This staged approach aims to improve coverage and organization of invariants while maintaining
+ * relevance to the program context.
  */
 public final class StepwiseInvariantDiscoveryPromptStrategy extends AbstractPromptStrategy {
 

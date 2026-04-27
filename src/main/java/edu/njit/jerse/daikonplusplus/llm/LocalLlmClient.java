@@ -14,8 +14,8 @@ import java.util.List;
  *
  * <p>Currently targets an Ollama-compatible API at {@code /api/generate}.
  *
- * <p>Uses the same response format as the OpenAI client by parsing the returned
- * JSON into {@link LlmInvariantGenerator.InvariantsOut}.
+ * <p>Uses the same response format as the OpenAI client by parsing the returned JSON into {@link
+ * LlmInvariantGenerator.InvariantsOut}.
  */
 public final class LocalLlmClient implements LlmClient {
 

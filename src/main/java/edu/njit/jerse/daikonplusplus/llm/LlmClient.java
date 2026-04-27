@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * Interface for clients that interact with a Large Language Model (LLM) to generate invariants.
  *
- * <p>Implementations provide different backends for obtaining model outputs
- * (e.g., real API calls, replayed responses, or recorded executions).
+ * <p>Implementations provide different backends for obtaining model outputs (e.g., real API calls,
+ * replayed responses, or recorded executions).
  *
  * <p>Used by {@link LlmInvariantGenerator} to obtain structured invariant results.
  */

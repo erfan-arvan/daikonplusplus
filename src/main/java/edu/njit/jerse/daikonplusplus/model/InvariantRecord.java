@@ -7,8 +7,8 @@ import java.util.UUID;
 /**
  * Represents a generated invariant along with its associated program point and metadata.
  *
- * <p>Each record has a unique identifier and captures the invariant specification,
- * its location in the program, and creation time.
+ * <p>Each record has a unique identifier and captures the invariant specification, its location in
+ * the program, and creation time.
  */
 public final class InvariantRecord {
   private final UUID id;

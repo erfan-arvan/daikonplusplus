@@ -1,15 +1,14 @@
 package edu.njit.jerse.daikonplusplus.llm.prompt;
 
 /**
- * Prompt strategy that encourages the model to internally validate and refine
- * generated invariants before producing the final output.
+ * Prompt strategy that encourages the model to internally validate and refine generated invariants
+ * before producing the final output.
  *
- * <p>The model is instructed to check each candidate invariant for syntactic
- * validity, scope correctness, evaluability, and redundancy, and to remove or
- * revise invalid candidates.
+ * <p>The model is instructed to check each candidate invariant for syntactic validity, scope
+ * correctness, evaluability, and redundancy, and to remove or revise invalid candidates.
  *
- * <p>This aims to improve the quality and correctness of invariants without
- * requiring external post-processing.
+ * <p>This aims to improve the quality and correctness of invariants without requiring external
+ * post-processing.
  */
 public final class SelfRefinementPromptStrategy extends AbstractPromptStrategy {
 

@@ -12,8 +12,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 /**
  * Holds configuration values for Daikon++.
  *
- * <p>Values are resolved in the following order:
- * file (dpconfig.properties) → system properties → environment variables → defaults.
+ * <p>Values are resolved in the following order: file (dpconfig.properties) → system properties →
+ * environment variables → defaults.
  */
 public final class DpConfig {
 
@@ -199,6 +199,7 @@ public final class DpConfig {
   public @Nullable String compileTestScript() {
     return compileTestScript;
   }
+
   public int llmPollStepMs() {
     return llmPollStepMs;
   }
@@ -240,7 +241,8 @@ public final class DpConfig {
   }
 
   /**
-   * Creates a configuration instance from file, system properties, environment variables, and defaults.
+   * Creates a configuration instance from file, system properties, environment variables, and
+   * defaults.
    *
    * @return configuration instance
    */
@@ -580,9 +582,7 @@ public final class DpConfig {
     return map;
   }
 
-  /**
-   * Prints the current configuration values.
-   */
+  /** Prints the current configuration values. */
   public void printSummary() {
     System.out.println("==== Daikon++ Config ====");
 

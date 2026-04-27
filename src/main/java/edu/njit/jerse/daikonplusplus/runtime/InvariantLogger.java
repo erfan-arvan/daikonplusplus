@@ -3,18 +3,19 @@ package edu.njit.jerse.daikonplusplus.runtime;
 /**
  * Lightweight, stdout-based logger for invariant evaluation results.
  *
- * <p>This class emits structured, single-line JSON records to standard output
- * to enable easy downstream parsing (e.g., by log collectors or post-processing tools).
+ * <p>This class emits structured, single-line JSON records to standard output to enable easy
+ * downstream parsing (e.g., by log collectors or post-processing tools).
  *
  * <p>It is intentionally minimal and stateless:
+ *
  * <ul>
- *   <li>No buffering or aggregation</li>
- *   <li>No deduplication</li>
- *   <li>No synchronization</li>
+ *   <li>No buffering or aggregation
+ *   <li>No deduplication
+ *   <li>No synchronization
  * </ul>
  *
- * <p>Each invocation produces exactly one JSON line representing an invariant failure
- * or evaluation error.
+ * <p>Each invocation produces exactly one JSON line representing an invariant failure or evaluation
+ * error.
  *
  * <p>Typical usage: called from injected invariant guards during program execution.
  */
@@ -38,8 +39,8 @@ public final class InvariantLogger {
    * }
    * </pre>
    *
-   * <p>The {@code error} field is empty for normal falsifications and contains
-   * a description (e.g., exception class name) if evaluation failed due to a runtime error.
+   * <p>The {@code error} field is empty for normal falsifications and contains a description (e.g.,
+   * exception class name) if evaluation failed due to a runtime error.
    *
    * <p>All fields are JSON-escaped to ensure valid output.
    *
@@ -71,8 +72,7 @@ public final class InvariantLogger {
   /**
    * Escapes a string for safe inclusion in JSON output.
    *
-   * <p>Currently escapes backslashes and double quotes. Null inputs are converted
-   * to empty strings.
+   * <p>Currently escapes backslashes and double quotes. Null inputs are converted to empty strings.
    *
    * @param s input string
    * @return JSON-safe escaped string

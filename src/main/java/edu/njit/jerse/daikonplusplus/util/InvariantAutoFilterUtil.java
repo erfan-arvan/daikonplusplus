@@ -4,18 +4,20 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 import java.util.regex.*;
+
 /**
  * Utility methods for parsing compiler errors and disabling injected invariant regions.
  *
  * <p>This class supports the invariant auto-filtering pipeline by:
+ *
  * <ul>
- *   <li>Extracting file/line information from compiler output (javac, Gradle, Maven)</li>
- *   <li>Mapping errors back to injected invariant regions</li>
- *   <li>Disabling (commenting out) invariant blocks that cause compilation failures</li>
+ *   <li>Extracting file/line information from compiler output (javac, Gradle, Maven)
+ *   <li>Mapping errors back to injected invariant regions
+ *   <li>Disabling (commenting out) invariant blocks that cause compilation failures
  * </ul>
  *
- * <p>All methods are best-effort and designed to be robust against noisy or partially
- * structured compiler output.
+ * <p>All methods are best-effort and designed to be robust against noisy or partially structured
+ * compiler output.
  */
 public final class InvariantAutoFilterUtil {
 
@@ -24,8 +26,8 @@ public final class InvariantAutoFilterUtil {
   /**
    * Simple representation of a compiler error location.
    *
-   * <p>Only file path and line number are used by the autofilter.
-   * The message field is currently unused but reserved for future extensions.
+   * <p>Only file path and line number are used by the autofilter. The message field is currently
+   * unused but reserved for future extensions.
    */
   public static final class JError {
     public final String file;
@@ -43,9 +45,10 @@ public final class InvariantAutoFilterUtil {
    * Parses compiler stderr output and extracts error locations.
    *
    * <p>Supports common formats:
+   *
    * <ul>
-   *   <li>javac / Gradle: {@code file.java:line[:column]:}</li>
-   *   <li>Maven: {@code file.java:[line,column]}</li>
+   *   <li>javac / Gradle: {@code file.java:line[:column]:}
+   *   <li>Maven: {@code file.java:[line,column]}
    * </ul>
    *
    * <p>This method does not attempt to extract error messages, only file and line.
@@ -114,13 +117,14 @@ public final class InvariantAutoFilterUtil {
    * Disables the invariant block surrounding a given line number.
    *
    * <p>The method searches for markers:
+   *
    * <ul>
-   *   <li>{@code __DP_INVARIANT_BEGIN__}</li>
-   *   <li>{@code __DP_INVARIANT_END__}</li>
+   *   <li>{@code __DP_INVARIANT_BEGIN__}
+   *   <li>{@code __DP_INVARIANT_END__}
    * </ul>
    *
-   * <p>If a block is found, all lines within the region are commented out
-   * with a {@code // [DP] disabled invariant :: } prefix.
+   * <p>If a block is found, all lines within the region are commented out with a {@code // [DP]
+   * disabled invariant :: } prefix.
    *
    * <p>This operation is idempotent and safe to repeat.
    *
@@ -163,14 +167,15 @@ public final class InvariantAutoFilterUtil {
   }
 
   /**
-   * Parses compiler output from external build systems (e.g., Gradle, Maven)
-   * and extracts javac-style error locations.
+   * Parses compiler output from external build systems (e.g., Gradle, Maven) and extracts
+   * javac-style error locations.
    *
    * <p>This method:
+   *
    * <ul>
-   *   <li>Filters out common non-error noise lines</li>
-   *   <li>Supports absolute-path javac errors: {@code /path/File.java:line: error}</li>
-   *   <li>Supports Maven-style errors: {@code /path/File.java:[line,column]}</li>
+   *   <li>Filters out common non-error noise lines
+   *   <li>Supports absolute-path javac errors: {@code /path/File.java:line: error}
+   *   <li>Supports Maven-style errors: {@code /path/File.java:[line,column]}
    * </ul>
    *
    * <p>Only file and line number are extracted; error messages are ignored.

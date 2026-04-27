@@ -6,9 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * Coordinates concurrent writes to files using per-file locks.
- */
+/** Coordinates concurrent writes to files using per-file locks. */
 public final class FileWriteCoordinator {
   private final ConcurrentMap<Path, ReentrantLock> locks = new ConcurrentHashMap<>();
 

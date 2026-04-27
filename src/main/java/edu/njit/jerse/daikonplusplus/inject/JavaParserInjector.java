@@ -123,7 +123,6 @@ public final class JavaParserInjector {
     }
   }
 
-
   /**
    * Inserts invariant checks at method exit.
    *
@@ -437,7 +436,6 @@ public final class JavaParserInjector {
         rec.sourceFile(),
         rec.createdAt());
   }
-
 
   /**
    * Checks whether a return statement is in a context where rewriting is unsafe.

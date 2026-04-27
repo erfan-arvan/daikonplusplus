@@ -6,8 +6,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 /**
  * Identifies a program element such as a method.
  *
- * <p>The identifier includes package name, class hierarchy, source file,
- * and a descriptor to distinguish overloaded elements.
+ * <p>The identifier includes package name, class hierarchy, source file, and a descriptor to
+ * distinguish overloaded elements.
  */
 public final class ProgramElementId {
   private final String packageName;

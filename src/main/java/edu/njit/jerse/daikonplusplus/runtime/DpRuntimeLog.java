@@ -11,14 +11,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Lightweight runtime logger for invariant execution and failure events.
  *
- * <p>This class collects events in-memory during program execution and appends them
- * to a log file at JVM shutdown. It is designed to have minimal runtime overhead
- * and to be safe under concurrent access.
+ * <p>This class collects events in-memory during program execution and appends them to a log file
+ * at JVM shutdown. It is designed to have minimal runtime overhead and to be safe under concurrent
+ * access.
  *
  * <p>Events recorded:
+ *
  * <ul>
- *   <li>{@code INV_EXD:<id>} — invariant was executed at least once</li>
- *   <li>JSON lines — invariant failure records</li>
+ *   <li>{@code INV_EXD:<id>} — invariant was executed at least once
+ *   <li>JSON lines — invariant failure records
  * </ul>
  *
  * <p>The output file is determined by the {@code DP_RUN_LOG} system property.
@@ -50,8 +51,8 @@ public final class DpRuntimeLog {
   /**
    * Records a failed invariant.
    *
-   * <p>Only the first failure per invariant ID is retained. Subsequent failures
-   * of the same invariant are ignored to avoid duplicate log entries.
+   * <p>Only the first failure per invariant ID is retained. Subsequent failures of the same
+   * invariant are ignored to avoid duplicate log entries.
    *
    * @param id invariant identifier
    * @param jsonLine serialized failure record (JSON)
@@ -90,8 +91,8 @@ public final class DpRuntimeLog {
   /**
    * Appends recorded events to the runtime log file.
    *
-   * <p>The file is specified by the {@code DP_RUN_LOG} system property.
-   * If the property is not set, no output is written.
+   * <p>The file is specified by the {@code DP_RUN_LOG} system property. If the property is not set,
+   * no output is written.
    *
    * @throws IOException if writing to the log file fails
    */

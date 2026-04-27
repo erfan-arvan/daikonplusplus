@@ -19,15 +19,16 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 /**
  * LLM-backed generator that proposes candidate invariants for a {@link ProgramPoint}.
  *
- * <p>Uses a pluggable {@link LlmClient} to support multiple execution modes
- * (real API, replay, or recording).
+ * <p>Uses a pluggable {@link LlmClient} to support multiple execution modes (real API, replay, or
+ * recording).
  *
  * <p>Responsible for:
+ *
  * <ul>
- *   <li>building prompts via {@link PromptStrategy}</li>
- *   <li>invoking the LLM</li>
- *   <li>filtering, deduplicating, and validating expressions</li>
- *   <li>producing final {@link InvariantSpec} results</li>
+ *   <li>building prompts via {@link PromptStrategy}
+ *   <li>invoking the LLM
+ *   <li>filtering, deduplicating, and validating expressions
+ *   <li>producing final {@link InvariantSpec} results
  * </ul>
  */
 public final class LlmInvariantGenerator {

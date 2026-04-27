@@ -6,8 +6,8 @@ import java.nio.file.Path;
 /**
  * Extracts contextual information for a given program point.
  *
- * <p>Implementations provide specific types of context (e.g., method body,
- * documentation, call sites) used during invariant generation.
+ * <p>Implementations provide specific types of context (e.g., method body, documentation, call
+ * sites) used during invariant generation.
  */
 public interface ContextExtractor {
 

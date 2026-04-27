@@ -11,11 +11,11 @@ import java.util.regex.*;
 /**
  * Test-based invariant filtering that removes invariants causing test failures.
  *
- * <p>This class performs a search over groups of invariants (batched by method)
- * and disables them in the injected source until the external test suite passes.
+ * <p>This class performs a search over groups of invariants (batched by method) and disables them
+ * in the injected source until the external test suite passes.
  *
- * <p>The process operates on copies of the project to avoid mutating the original
- * injected code and uses marker-based regions to selectively disable invariants.
+ * <p>The process operates on copies of the project to avoid mutating the original injected code and
+ * uses marker-based regions to selectively disable invariants.
  */
 public final class TestInvariantFilter {
 
@@ -33,12 +33,9 @@ public final class TestInvariantFilter {
   /**
    * Executes test-based filtering to identify and remove invariants that break tests.
    *
-   * <p>The algorithm:
-   * - Takes a snapshot of the injected project
-   * - Identifies executed invariants from the initial run log
-   * - Groups invariants by method and batches them
-   * - Iteratively disables batches and reruns tests
-   * - Stops when a combination yields a passing test run
+   * <p>The algorithm: - Takes a snapshot of the injected project - Identifies executed invariants
+   * from the initial run log - Groups invariants by method and batches them - Iteratively disables
+   * batches and reruns tests - Stops when a combination yields a passing test run
    *
    * @param injectedProjectRoot root of the project with injected invariants
    * @param mainSrcRoot source root containing instrumented Java files
@@ -161,8 +158,8 @@ public final class TestInvariantFilter {
   /**
    * Groups invariants into batches based on their associated methods.
    *
-   * <p>Methods are sorted by decreasing number of invariants, and batches are formed
-   * by grouping a fixed number of methods together.
+   * <p>Methods are sorted by decreasing number of invariants, and batches are formed by grouping a
+   * fixed number of methods together.
    *
    * @param methodGroups mapping from method identifier to invariant IDs
    * @param methodBatchSize number of methods per batch
@@ -211,8 +208,8 @@ public final class TestInvariantFilter {
   /**
    * Disables invariant blocks corresponding to the given IDs by commenting them out.
    *
-   * <p>Blocks are grouped per file and processed in reverse order to preserve
-   * line offsets during modification.
+   * <p>Blocks are grouped per file and processed in reverse order to preserve line offsets during
+   * modification.
    *
    * @param index index of invariant blocks
    * @param ids invariant IDs to disable
@@ -250,8 +247,7 @@ public final class TestInvariantFilter {
   /**
    * Scans source files to locate invariant blocks and associate them with UUIDs.
    *
-   * <p>Blocks are identified using begin/end markers and mapped to their source
-   * file locations.
+   * <p>Blocks are identified using begin/end markers and mapped to their source file locations.
    *
    * @param mainSrcRoot root of the source tree
    * @return index mapping invariant IDs to source blocks
@@ -371,8 +367,8 @@ public final class TestInvariantFilter {
   /**
    * Executes an external test runner script and captures its output.
    *
-   * <p>The method sets required environment variables and appends invariant
-   * execution events to the log.
+   * <p>The method sets required environment variables and appends invariant execution events to the
+   * log.
    *
    * @param script executable test runner script
    * @param workDir working directory for execution
@@ -557,9 +553,7 @@ public final class TestInvariantFilter {
         });
   }
 
-  /**
-   * Index of invariant blocks keyed by their UUID.
-   */
+  /** Index of invariant blocks keyed by their UUID. */
   private static final class BlockIndex {
     final Map<UUID, Block> blocks = new HashMap<>();
   }

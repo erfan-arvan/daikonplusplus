@@ -9,8 +9,8 @@ import java.nio.file.Path;
 /**
  * Initializes JavaParser with symbol resolution for a given source root.
  *
- * <p>Configures a {@link JavaSymbolSolver} with reflection and source-based type solvers
- * and installs it into {@link StaticJavaParser}. Initialization is performed only once.
+ * <p>Configures a {@link JavaSymbolSolver} with reflection and source-based type solvers and
+ * installs it into {@link StaticJavaParser}. Initialization is performed only once.
  */
 public final class JavaParserSetup {
 

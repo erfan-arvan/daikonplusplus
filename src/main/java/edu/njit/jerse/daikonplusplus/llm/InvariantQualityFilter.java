@@ -9,11 +9,11 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 /**
  * Deterministic filter for LLM-proposed invariant expressions.
  *
- * <p>Rejects expressions that are likely to be trivial, unsafe, or invalid
- * in the target program context.
+ * <p>Rejects expressions that are likely to be trivial, unsafe, or invalid in the target program
+ * context.
  *
- * <p>Filtering is conservative: it prioritizes precision over recall to
- * avoid introducing invariants that break compilation or execution.
+ * <p>Filtering is conservative: it prioritizes precision over recall to avoid introducing
+ * invariants that break compilation or execution.
  */
 public final class InvariantQualityFilter {
 

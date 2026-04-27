@@ -3,9 +3,9 @@ package edu.njit.jerse.daikonplusplus.llm.prompt;
 /**
  * Factory for creating {@link PromptStrategy} instances from configuration strings.
  *
- * <p>This class maps user-provided strategy names (including aliases) to concrete
- * {@link PromptStrategy} implementations. If an unknown name is provided, it falls
- * back to the baseline strategy.
+ * <p>This class maps user-provided strategy names (including aliases) to concrete {@link
+ * PromptStrategy} implementations. If an unknown name is provided, it falls back to the baseline
+ * strategy.
  *
  * <p>Name matching is case-insensitive and ignores leading/trailing whitespace.
  */
@@ -15,8 +15,8 @@ public final class PromptStrategyFactory {
   /**
    * Resolves a strategy name to a concrete {@link PromptStrategy} implementation.
    *
-   * <p>This method performs normalization and alias resolution but does not log
-   * the selected strategy.
+   * <p>This method performs normalization and alias resolution but does not log the selected
+   * strategy.
    *
    * @param rawName user-provided strategy name (may be null)
    * @return corresponding {@link PromptStrategy}, or baseline if unknown
@@ -47,8 +47,8 @@ public final class PromptStrategyFactory {
   /**
    * Creates a {@link PromptStrategy} and logs the selected strategy name.
    *
-   * <p>This method delegates to {@link #createInternal(String)} and emits a
-   * diagnostic message indicating which strategy is being used.
+   * <p>This method delegates to {@link #createInternal(String)} and emits a diagnostic message
+   * indicating which strategy is being used.
    *
    * @param raw user-provided strategy name (may be null)
    * @return selected {@link PromptStrategy}

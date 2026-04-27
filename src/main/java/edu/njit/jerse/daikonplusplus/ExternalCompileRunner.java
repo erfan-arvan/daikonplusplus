@@ -8,14 +8,15 @@ import java.nio.file.*;
 import java.util.*;
 
 /**
- * Utility class for compiling instrumented projects using an external build script
- * with automatic invariant filtering.
+ * Utility class for compiling instrumented projects using an external build script with automatic
+ * invariant filtering.
  *
- * <p>The provided script acts as the compiler (e.g., Gradle or Maven build).
- * If compilation fails, compiler errors are parsed and used to:
+ * <p>The provided script acts as the compiler (e.g., Gradle or Maven build). If compilation fails,
+ * compiler errors are parsed and used to:
+ *
  * <ul>
- *   <li>Disable invariant regions causing errors</li>
- *   <li>Restore original files if local removal is insufficient</li>
+ *   <li>Disable invariant regions causing errors
+ *   <li>Restore original files if local removal is insufficient
  * </ul>
  *
  * <p>The process repeats until compilation succeeds or no further progress is possible.
@@ -28,8 +29,8 @@ public final class ExternalCompileRunner {
    * Runs an external compile script with automatic invariant filtering.
    *
    * <p>If the script fails, compiler output is parsed to locate errors, and the corresponding
-   * invariant regions are disabled or source files are restored. The process repeats until
-   * the script succeeds or no progress can be made.
+   * invariant regions are disabled or source files are restored. The process repeats until the
+   * script succeeds or no progress can be made.
    *
    * @param workProjectRoot root of the working project
    * @param workSrcRoot root of the instrumented source tree
@@ -224,8 +225,8 @@ public final class ExternalCompileRunner {
   /**
    * Normalizes a file path reported by the compiler.
    *
-   * <p>Handles platform-specific inconsistencies (e.g., macOS "/private/var" prefix)
-   * and returns a normalized {@link Path}.
+   * <p>Handles platform-specific inconsistencies (e.g., macOS "/private/var" prefix) and returns a
+   * normalized {@link Path}.
    *
    * @param file file path reported by the compiler
    * @return normalized path

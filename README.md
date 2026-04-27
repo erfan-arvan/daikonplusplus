@@ -385,7 +385,7 @@ When enabled (`DP_TEST_FILTER=1` in external mode), Daikon++ performs an additio
 1. Take a snapshot of the injected project
 2. Extract **executed invariant IDs** from the initial run
 3. Map invariants to their **containing methods**
-4. Group methods into batches (sorted by decreasing number of invariants)
+4. Group methods into batches (todo: make it smarter)
 5. Perform a **sliding-window search** over contiguous sequences of batches:
     - Start with window size `k = 1`
     - Disable all invariants in the selected window of batches

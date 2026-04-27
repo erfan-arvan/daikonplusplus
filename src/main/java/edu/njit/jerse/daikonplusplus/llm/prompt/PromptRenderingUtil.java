@@ -8,9 +8,9 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 /**
  * Utility methods for rendering prompt components into textual form.
  *
- * <p>This class is responsible for converting structured prompt inputs
- * (such as scope, program points, and optional context sections) into
- * formatted strings suitable for inclusion in LLM prompts.
+ * <p>This class is responsible for converting structured prompt inputs (such as scope, program
+ * points, and optional context sections) into formatted strings suitable for inclusion in LLM
+ * prompts.
  *
  * <p>All methods are stateless and operate purely on the provided inputs.
  */
@@ -21,8 +21,8 @@ final class PromptRenderingUtil {
    * Formats in-scope variables into a readable list.
    *
    * @param inScope mapping from variable names to their types
-   * @return formatted string where each variable is rendered on its own line,
-   *         or {@code "(none)"} if the scope is empty
+   * @return formatted string where each variable is rendered on its own line, or {@code "(none)"}
+   *     if the scope is empty
    */
   static String formatScope(Map<String, String> inScope) {
     if (inScope == null || inScope.isEmpty()) {
@@ -69,8 +69,8 @@ final class PromptRenderingUtil {
   /**
    * Renders all available contextual sections into a structured block.
    *
-   * <p>Only non-empty context fields are included. Sections are separated
-   * by blank lines and labeled with headers.
+   * <p>Only non-empty context fields are included. Sections are separated by blank lines and
+   * labeled with headers.
    *
    * @param ctx prompt context
    * @return formatted context block, or {@code "(none)"} if no context is available

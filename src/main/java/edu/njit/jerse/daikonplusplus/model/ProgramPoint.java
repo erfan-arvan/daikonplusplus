@@ -3,8 +3,8 @@ package edu.njit.jerse.daikonplusplus.model;
 /**
  * Represents a program point in the source code.
  *
- * <p>A program point identifies a specific location associated with a program element,
- * such as method entry or exit.
+ * <p>A program point identifies a specific location associated with a program element, such as
+ * method entry or exit.
  */
 public interface ProgramPoint {
   /**

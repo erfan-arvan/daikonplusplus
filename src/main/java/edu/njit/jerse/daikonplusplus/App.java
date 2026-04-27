@@ -31,15 +31,15 @@ import java.util.concurrent.*;
  * including:
  *
  * <ol>
- *   <li><b>Program analysis:</b> Scanning Java source files to extract program points
- *       (currently method ENTRY and EXIT).
+ *   <li><b>Program analysis:</b> Scanning Java source files to extract program points (currently
+ *       method ENTRY and EXIT).
  *   <li><b>Invariant proposal:</b> Querying an LLM to generate candidate invariants for each
  *       program point using configurable context.
  *   <li><b>Injection:</b> Instrumenting source files by inserting invariant checks as guard code.
  *   <li><b>Compilation and execution:</b> Compiling the instrumented project and executing it
  *       (either natively or via an external project runner such as Gradle).
- *   <li><b>Dynamic validation:</b> Observing invariant outcomes (held, falsified, non-compiled,
- *       or never executed) from execution logs.
+ *   <li><b>Dynamic validation:</b> Observing invariant outcomes (held, falsified, non-compiled, or
+ *       never executed) from execution logs.
  *   <li><b>Optional test-based filtering:</b> Removing spurious invariants using test-driven
  *       refinement.
  * </ol>
@@ -48,8 +48,8 @@ import java.util.concurrent.*;
  *
  * <ul>
  *   <li><b>NATIVE:</b> Compiles and runs Java sources directly using {@code javac/java}.
- *   <li><b>EXTERNAL_PROJECT:</b> Operates on a full project (e.g., Gradle/Maven) using a user-provided
- *       runner script.
+ *   <li><b>EXTERNAL_PROJECT:</b> Operates on a full project (e.g., Gradle/Maven) using a
+ *       user-provided runner script.
  * </ul>
  *
  * <h2>Key Design Properties</h2>
@@ -57,8 +57,8 @@ import java.util.concurrent.*;
  * <ul>
  *   <li><b>Soundness-oriented filtering:</b> Invariants are validated by execution; any invariant
  *       that is falsified is discarded.
- *   <li><b>Compilation-aware filtering:</b> Invariants that fail to compile are automatically removed
- *       through iterative recompilation.
+ *   <li><b>Compilation-aware filtering:</b> Invariants that fail to compile are automatically
+ *       removed through iterative recompilation.
  *   <li><b>Deterministic tracking:</b> Each invariant is assigned a unique identifier and tracked
  *       across compilation and execution phases via a registry.
  *   <li><b>Isolation via working copies:</b> All transformations occur on temporary copies of the
@@ -859,8 +859,10 @@ public final class App {
    *   <li>Extracts in-scope variables and optional contextual information (e.g., method body,
    *       Javadoc, type documentation) based on configuration.
    *   <li>Invokes the LLM to propose candidate invariants.
-   *   <li>Performs <b>run-level deduplication</b> to avoid duplicate expressions within the same run.
-   *   <li>Assigns a fresh UUID to each invariant and appends it to the registry if not already present.
+   *   <li>Performs <b>run-level deduplication</b> to avoid duplicate expressions within the same
+   *       run.
+   *   <li>Assigns a fresh UUID to each invariant and appends it to the registry if not already
+   *       present.
    * </ol>
    *
    * <p>Failures during processing are caught and result in no invariants for the given point.
@@ -1036,8 +1038,8 @@ public final class App {
   /**
    * Recursively copies a directory tree from a source location to a destination.
    *
-   * <p>This method preserves file attributes and prevents accidental recursive self-copy
-   * (i.e., copying a directory into itself or vice versa).
+   * <p>This method preserves file attributes and prevents accidental recursive self-copy (i.e.,
+   * copying a directory into itself or vice versa).
    *
    * @param from source directory
    * @param to destination directory
@@ -1158,6 +1160,7 @@ public final class App {
    * Determines whether a source file should be included based on configured scan filters.
    *
    * <p>Supports both:
+   *
    * <ul>
    *   <li>Path-based filters (e.g., {@code com/example/utils})
    *   <li>Package-style filters (e.g., {@code com.example.utils})

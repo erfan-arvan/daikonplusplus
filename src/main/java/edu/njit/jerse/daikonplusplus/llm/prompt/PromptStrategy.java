@@ -1,8 +1,6 @@
 package edu.njit.jerse.daikonplusplus.llm.prompt;
 
-/**
- * Strategy for constructing prompts used to query the LLM.
- */
+/** Strategy for constructing prompts used to query the LLM. */
 public interface PromptStrategy {
 
   /**
