@@ -4,11 +4,29 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 import java.util.regex.*;
-
+/**
+ * Utility methods for parsing compiler errors and disabling injected invariant regions.
+ *
+ * <p>This class supports the invariant auto-filtering pipeline by:
+ * <ul>
+ *   <li>Extracting file/line information from compiler output (javac, Gradle, Maven)</li>
+ *   <li>Mapping errors back to injected invariant regions</li>
+ *   <li>Disabling (commenting out) invariant blocks that cause compilation failures</li>
+ * </ul>
+ *
+ * <p>All methods are best-effort and designed to be robust against noisy or partially
+ * structured compiler output.
+ */
 public final class InvariantAutoFilterUtil {
 
   private InvariantAutoFilterUtil() {}
 
+  /**
+   * Simple representation of a compiler error location.
+   *
+   * <p>Only file path and line number are used by the autofilter.
+   * The message field is currently unused but reserved for future extensions.
+   */
   public static final class JError {
     public final String file;
     public final int line;
@@ -21,6 +39,20 @@ public final class InvariantAutoFilterUtil {
     }
   }
 
+  /**
+   * Parses compiler stderr output and extracts error locations.
+   *
+   * <p>Supports common formats:
+   * <ul>
+   *   <li>javac / Gradle: {@code file.java:line[:column]:}</li>
+   *   <li>Maven: {@code file.java:[line,column]}</li>
+   * </ul>
+   *
+   * <p>This method does not attempt to extract error messages, only file and line.
+   *
+   * @param stderr raw compiler stderr output
+   * @return list of extracted error locations (possibly empty)
+   */
   public static List<JError> parseErrors(String stderr) {
     List<JError> out = new ArrayList<>();
     if (stderr == null) return out;
@@ -78,6 +110,24 @@ public final class InvariantAutoFilterUtil {
     return out;
   }
 
+  /**
+   * Disables the invariant block surrounding a given line number.
+   *
+   * <p>The method searches for markers:
+   * <ul>
+   *   <li>{@code __DP_INVARIANT_BEGIN__}</li>
+   *   <li>{@code __DP_INVARIANT_END__}</li>
+   * </ul>
+   *
+   * <p>If a block is found, all lines within the region are commented out
+   * with a {@code // [DP] disabled invariant :: } prefix.
+   *
+   * <p>This operation is idempotent and safe to repeat.
+   *
+   * @param file source file containing injected invariants
+   * @param lineno 1-based line number where the error occurred
+   * @return 1 if a block was successfully disabled, 0 otherwise
+   */
   public static int removeInvariantRegion(Path file, int lineno) {
     try {
       if (!Files.isRegularFile(file)) return 0;
@@ -112,6 +162,22 @@ public final class InvariantAutoFilterUtil {
     }
   }
 
+  /**
+   * Parses compiler output from external build systems (e.g., Gradle, Maven)
+   * and extracts javac-style error locations.
+   *
+   * <p>This method:
+   * <ul>
+   *   <li>Filters out common non-error noise lines</li>
+   *   <li>Supports absolute-path javac errors: {@code /path/File.java:line: error}</li>
+   *   <li>Supports Maven-style errors: {@code /path/File.java:[line,column]}</li>
+   * </ul>
+   *
+   * <p>Only file and line number are extracted; error messages are ignored.
+   *
+   * @param output combined stdout/stderr from an external build process
+   * @return list of extracted error locations (possibly empty)
+   */
   public static List<JError> parseExternalCompilerErrors(String output) {
     List<JError> out = new ArrayList<>();
     if (output == null || output.isEmpty()) return out;

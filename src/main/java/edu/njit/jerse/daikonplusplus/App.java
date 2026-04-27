@@ -25,27 +25,61 @@ import java.util.*;
 import java.util.concurrent.*;
 
 /**
- * CLI entrypoint for Daikon++ with compile-and-run.
+ * Entry point for the Daikon++ pipeline.
+ *
+ * <p>This class orchestrates the full end-to-end workflow of LLM-guided invariant inference,
+ * including:
+ *
+ * <ol>
+ *   <li><b>Program analysis:</b> Scanning Java source files to extract program points
+ *       (currently method ENTRY and EXIT).
+ *   <li><b>Invariant proposal:</b> Querying an LLM to generate candidate invariants for each
+ *       program point using configurable context.
+ *   <li><b>Injection:</b> Instrumenting source files by inserting invariant checks as guard code.
+ *   <li><b>Compilation and execution:</b> Compiling the instrumented project and executing it
+ *       (either natively or via an external project runner such as Gradle).
+ *   <li><b>Dynamic validation:</b> Observing invariant outcomes (held, falsified, non-compiled,
+ *       or never executed) from execution logs.
+ *   <li><b>Optional test-based filtering:</b> Removing spurious invariants using test-driven
+ *       refinement.
+ * </ol>
+ *
+ * <h2>Execution Modes</h2>
+ *
+ * <ul>
+ *   <li><b>NATIVE:</b> Compiles and runs Java sources directly using {@code javac/java}.
+ *   <li><b>EXTERNAL_PROJECT:</b> Operates on a full project (e.g., Gradle/Maven) using a user-provided
+ *       runner script.
+ * </ul>
+ *
+ * <h2>Key Design Properties</h2>
+ *
+ * <ul>
+ *   <li><b>Soundness-oriented filtering:</b> Invariants are validated by execution; any invariant
+ *       that is falsified is discarded.
+ *   <li><b>Compilation-aware filtering:</b> Invariants that fail to compile are automatically removed
+ *       through iterative recompilation.
+ *   <li><b>Deterministic tracking:</b> Each invariant is assigned a unique identifier and tracked
+ *       across compilation and execution phases via a registry.
+ *   <li><b>Isolation via working copies:</b> All transformations occur on temporary copies of the
+ *       input project to avoid modifying the original sources.
+ * </ul>
+ *
+ * <h2>Pipeline Overview</h2>
+ *
+ * <pre>
+ * scan → LLM proposal → inject → compile (auto-filter) → execute → log parsing → outcome classification
+ * </pre>
+ *
+ * <p>The final output includes per-invariant outcomes and grouped summaries by method.
  *
  * <h2>Usage</h2>
  *
  * <pre>{@code
- * java -jar daikonplusplus.jar <srcRoot> <classpath> <mainClass> [maxInvariantsPerPoint] [-- program args...]
+ * java -jar daikonplusplus.jar <srcRoot> <classpath> <mainClass> [maxK] [-- program args...]
  * }</pre>
  *
- * <ul>
- *   <li><b>srcRoot</b>: path to Java sources
- *   <li><b>classpath</b>: paths needed to compile/run (use {@code :} on Unix/macOS, {@code ;} on
- *       Windows). You do NOT need to include this tool's own JAR; it is auto-appended.
- *   <li><b>mainClass</b>: e.g., {@code com.example.Main}
- *   <li><b>maxInvariantsPerPoint</b>: optional (default 5)
- *   <li>Anything after {@code --} is passed to your program as args.
- * </ul>
- *
- * <h2>Pipeline</h2>
- *
- * scan → LLM invariants → inject → <b>javac</b> → <b>java</b> → parse log → print held ENTRY
- * invariants per method.
+ * <p>See CLI help for full invocation formats including external-project mode.
  */
 public final class App {
 
@@ -815,6 +849,28 @@ public final class App {
 
   // ----- helpers -----
 
+  /**
+   * Processes a single program point by generating, deduplicating, and registering candidate
+   * invariants.
+   *
+   * <p>This method:
+   *
+   * <ol>
+   *   <li>Extracts in-scope variables and optional contextual information (e.g., method body,
+   *       Javadoc, type documentation) based on configuration.
+   *   <li>Invokes the LLM to propose candidate invariants.
+   *   <li>Performs <b>run-level deduplication</b> to avoid duplicate expressions within the same run.
+   *   <li>Assigns a fresh UUID to each invariant and appends it to the registry if not already present.
+   * </ol>
+   *
+   * <p>Failures during processing are caught and result in no invariants for the given point.
+   *
+   * @param point the program point (e.g., method ENTRY or EXIT)
+   * @param srcRoot root of the source tree used for context extraction
+   * @param llm the invariant generator backed by an LLM
+   * @param registry the global registry for storing invariant records
+   * @return a list of newly generated invariant records (may be empty)
+   */
   private static List<InvariantRecord> processPoint(
       ProgramPoint point, Path srcRoot, LlmInvariantGenerator llm, InvariantRegistry registry) {
 
@@ -897,7 +953,15 @@ public final class App {
     }
   }
 
-  /** registry view for reporting without full object re-hydration. */
+  /**
+   * Parses the invariant registry file into a lightweight in-memory representation.
+   *
+   * <p>This method avoids full object deserialization and instead extracts only essential fields
+   * (ID, expression, kind, and element) for reporting purposes.
+   *
+   * @param registryJsonl path to the registry file (JSONL format)
+   * @return map from invariant UUID to lightweight record
+   */
   private static Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> parseRegistryLite(
       Path registryJsonl) {
     Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> out = new HashMap<>();
@@ -941,7 +1005,17 @@ public final class App {
     }
   }
 
-  /** Create a fresh working copy of the user's src tree under build/daikonpp_work/<stamp>. */
+  /**
+   * Creates an isolated working copy of a source tree for instrumentation and execution.
+   *
+   * <p>The copy is placed under a timestamped directory inside the configured working directory.
+   * All transformations (injection, compilation, filtering) are applied to this copy to ensure that
+   * the original source tree remains unchanged.
+   *
+   * @param userSrcRoot the original source or project root
+   * @return path to the newly created working copy
+   * @throws IOException if copying fails
+   */
   private static Path prepareWorkingCopy(Path userSrcRoot) throws IOException {
     String base = BASE_CFG.workDir();
     Path baseDir = Path.of(base).toAbsolutePath().normalize();
@@ -959,7 +1033,17 @@ public final class App {
     return workRoot;
   }
 
-  /** Recursively copy one tree to another */
+  /**
+   * Recursively copies a directory tree from a source location to a destination.
+   *
+   * <p>This method preserves file attributes and prevents accidental recursive self-copy
+   * (i.e., copying a directory into itself or vice versa).
+   *
+   * @param from source directory
+   * @param to destination directory
+   * @throws IOException if an I/O error occurs during copying
+   * @throws IllegalStateException if the source and destination overlap
+   */
   private static void copyTree(Path from, Path to) throws IOException {
 
     Path src = from.toAbsolutePath().normalize();
@@ -996,7 +1080,15 @@ public final class App {
         });
   }
 
-  /** Delete a directory tree. Set DP_KEEP_WORK=1 to skip cleanup. */
+  /**
+   * Recursively deletes a directory tree.
+   *
+   * <p>This method is used to clean up working copies after execution unless explicitly disabled
+   * via configuration.
+   *
+   * @param root root of the directory tree to delete
+   * @throws IOException if deletion fails
+   */
   private static void deleteTree(Path root) throws IOException {
     if (!Files.exists(root)) return;
     Files.walkFileTree(
@@ -1017,6 +1109,31 @@ public final class App {
         });
   }
 
+  /**
+   * Compiles instrumented code with automatic invariant filtering.
+   *
+   * <p>This method ensures that only compilable invariants remain in the code by iteratively
+   * removing invariants that cause compilation failures.
+   *
+   * <p>Two modes are supported:
+   *
+   * <ul>
+   *   <li><b>External compilation:</b> Uses a user-provided script (e.g., Gradle build).
+   *   <li><b>Native compilation:</b> Uses an internal {@code javac}-based compilation pipeline.
+   * </ul>
+   *
+   * <p>The process may run for multiple passes until compilation succeeds or a maximum number of
+   * passes is reached.
+   *
+   * @param workProjectRoot root of the working project copy
+   * @param srcRoot instrumented source root
+   * @param userSrcRoot original source root (used for reference)
+   * @param classesDir output directory for compiled classes (native mode)
+   * @param classpath classpath used for compilation
+   * @param maxPasses maximum number of filtering passes
+   * @param externalCompileScript optional external compile script (null for native mode)
+   * @throws Exception if compilation fails irrecoverably
+   */
   private static void runAutoFilterCompile(
       Path workProjectRoot,
       Path srcRoot,
@@ -1037,6 +1154,19 @@ public final class App {
     }
   }
 
+  /**
+   * Determines whether a source file should be included based on configured scan filters.
+   *
+   * <p>Supports both:
+   * <ul>
+   *   <li>Path-based filters (e.g., {@code com/example/utils})
+   *   <li>Package-style filters (e.g., {@code com.example.utils})
+   * </ul>
+   *
+   * @param filePath relative path of the source file
+   * @param includes set of include filters
+   * @return true if the file matches any filter; false otherwise
+   */
   private static boolean isIncludedByScanFilter(String filePath, Set<String> includes) {
     String normalizedFile = filePath.replace("\\", "/");
 

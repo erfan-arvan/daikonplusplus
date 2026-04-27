@@ -20,8 +20,8 @@ import java.util.List;
  * @see Cassette
  */
 public final class RecordingCompositeLlmClient implements LlmClient {
-  private final LlmClient primary; // usually ReplayingLlmClient
-  private final LlmClient fallback; // RealOpenAILlmClient
+  private final LlmClient primary;
+  private final LlmClient fallback;
   private final Path cassetteDir;
 
   /**

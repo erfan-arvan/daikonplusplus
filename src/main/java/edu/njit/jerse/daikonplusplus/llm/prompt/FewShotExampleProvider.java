@@ -2,12 +2,23 @@ package edu.njit.jerse.daikonplusplus.llm.prompt;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+/**
+ * Provides few-shot examples for prompt strategies.
+ *
+ * <p>Examples are selected based on the program point type and available context.
+ */
 public final class FewShotExampleProvider {
 
   private static boolean isBlank(@Nullable String s) {
     return s == null || s.isBlank();
   }
 
+  /**
+   * Returns example prompts to guide invariant generation.
+   *
+   * @param ctx prompt context
+   * @return formatted examples or empty string
+   */
   public static String getExamples(PromptContext ctx) {
     boolean isBaseline =
         isBlank(ctx.methodJavadoc())

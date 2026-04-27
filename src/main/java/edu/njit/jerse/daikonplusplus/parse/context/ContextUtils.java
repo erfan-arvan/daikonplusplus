@@ -18,10 +18,20 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+/**
+ * Utility methods for extracting contextual information from source code for a given program point.
+ */
 public final class ContextUtils {
 
   private ContextUtils() {}
 
+  /**
+   * Executes a task with a timeout.
+   *
+   * @param task computation to execute
+   * @param millis timeout in milliseconds
+   * @return result wrapped in {@link Optional}, or empty if timeout or failure occurs
+   */
   public static <T> Optional<T> runWithTimeout(Callable<T> task, long millis) {
     ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -35,6 +45,13 @@ public final class ContextUtils {
     }
   }
 
+  /**
+   * Finds a class declaration in the source tree by its fully qualified name.
+   *
+   * @param qualifiedName fully qualified class name
+   * @param srcRoot root directory of the source code
+   * @return matching class declaration if found
+   */
   public static Optional<ClassOrInterfaceDeclaration> findClassInProject(
       String qualifiedName, Path srcRoot) {
 
@@ -59,9 +76,16 @@ public final class ContextUtils {
     }
   }
 
-  // ============================================================
-  // SCOPE
-  // ============================================================
+  /**
+   * Extracts variables and types available at a program point.
+   *
+   * <p>Includes method parameters and, for exit points, the return value as {@code result}.
+   *
+   * @param point program point
+   * @param srcRoot root directory of the source code
+   * @return map from variable name to type
+   * @throws IOException if parsing fails
+   */
   public static Map<String, String> extractScope(ProgramPoint point, Path srcRoot)
       throws IOException {
 
@@ -101,9 +125,14 @@ public final class ContextUtils {
     return Map.of();
   }
 
-  // ============================================================
-  // METHOD BODY
-  // ============================================================
+  /**
+   * Extracts the raw source code of the method corresponding to a program point.
+   *
+   * @param point program point
+   * @param srcRoot root directory of the source code
+   * @return method body as a string if found
+   * @throws IOException if parsing fails
+   */
   public static Optional<String> extractMethodBodyRaw(ProgramPoint point, Path srcRoot)
       throws IOException {
 
@@ -130,10 +159,14 @@ public final class ContextUtils {
     return Optional.empty();
   }
 
-  // ============================================================
-  // FUTURE CONTEXTS (SAFE DEFAULTS)
-  // ============================================================
-
+  /**
+   * Extracts Javadoc for the method corresponding to a program point.
+   *
+   * @param point program point
+   * @param srcRoot root directory of the source code
+   * @return method Javadoc text if present
+   * @throws IOException if parsing fails
+   */
   public static Optional<String> extractMethodJavadoc(ProgramPoint point, Path srcRoot)
       throws IOException {
 
@@ -156,6 +189,13 @@ public final class ContextUtils {
     return Optional.empty();
   }
 
+  /**
+   * Extracts documentation for the class associated with a program point.
+   *
+   * @param point program point
+   * @param srcRoot root directory of the source code
+   * @return class documentation if available
+   */
   public static Optional<String> extractClassDocumentation(ProgramPoint point, Path srcRoot) {
 
     String className = extractClassNameFromPoint(point);
@@ -163,6 +203,14 @@ public final class ContextUtils {
     return extractFullClassInfo(className, srcRoot);
   }
 
+  /**
+   * Extracts documentation for types referenced in a method's signature.
+   *
+   * @param point program point
+   * @param srcRoot root directory of the source code
+   * @return concatenated documentation for referenced types if available
+   * @throws IOException if parsing fails
+   */
   public static Optional<String> extractTypeDocumentation(ProgramPoint point, Path srcRoot)
       throws IOException {
 
@@ -229,14 +277,34 @@ public final class ContextUtils {
     return Optional.empty();
   }
 
+  /**
+   * Extracts call-site context for a program point.
+   *
+   * @param point program point
+   * @param srcRoot root directory of the source code
+   * @return call-site context if available
+   */
   public static Optional<String> extractCallSiteContext(ProgramPoint point, Path srcRoot) {
     return Optional.empty(); // TODO later
   }
 
+  /**
+   * Extracts input-output examples for a program point.
+   *
+   * @param point program point
+   * @param srcRoot root directory of the source code
+   * @return examples if available
+   */
   public static Optional<String> extractIOExamples(ProgramPoint point, Path srcRoot) {
     return Optional.empty(); // TODO later
   }
 
+  /**
+   * Collects a type and its nested type arguments recursively.
+   *
+   * @param type type to process
+   * @param out list to store collected types
+   */
   private static void collectTypesRecursively(
       com.github.javaparser.ast.type.Type type, List<com.github.javaparser.ast.type.Type> out) {
 
@@ -254,6 +322,14 @@ public final class ContextUtils {
     }
   }
 
+  /**
+   * Extracts documentation for methods called within a method.
+   *
+   * @param point program point
+   * @param srcRoot root directory of the source code
+   * @return documentation for called methods if available
+   * @throws IOException if parsing fails
+   */
   public static Optional<String> extractCalleeDocumentation(ProgramPoint point, Path srcRoot)
       throws IOException {
 
@@ -360,6 +436,13 @@ public final class ContextUtils {
     return Optional.empty();
   }
 
+  /**
+   * Extracts structured information for a class, including documentation, fields, and methods.
+   *
+   * @param qualifiedName fully qualified class name
+   * @param srcRoot root directory of the source code
+   * @return formatted class information if available
+   */
   public static Optional<String> extractFullClassInfo(String qualifiedName, Path srcRoot) {
 
     try {
@@ -427,6 +510,12 @@ public final class ContextUtils {
     }
   }
 
+  /**
+   * Extracts the class name from a program point identifier.
+   *
+   * @param point program point
+   * @return fully qualified class name
+   */
   public static String extractClassNameFromPoint(ProgramPoint point) {
     String full = point.elementId().toString();
     // e.g. com.example.OrderProcessor#processOrders(...)

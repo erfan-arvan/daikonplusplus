@@ -17,27 +17,18 @@ import java.util.*;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * LLM-backed invariant generator that uses a pluggable {@link LlmClient} to propose candidate
- * invariants for a given {@link ProgramPoint}. This allows the same class to run in:
+ * LLM-backed generator that proposes candidate invariants for a {@link ProgramPoint}.
  *
+ * <p>Uses a pluggable {@link LlmClient} to support multiple execution modes
+ * (real API, replay, or recording).
+ *
+ * <p>Responsible for:
  * <ul>
- *   <li><b>Real mode</b> — uses the live OpenAI API via {@link RealOpenAILlmClient}.
- *   <li><b>Replay mode</b> — uses recorded (mocked) responses via {@link ReplayingLlmClient}.
- *   <li><b>Record mode</b> — records new responses into cassette files via {@link
- *       RecordingCompositeLlmClient}.
+ *   <li>building prompts via {@link PromptStrategy}</li>
+ *   <li>invoking the LLM</li>
+ *   <li>filtering, deduplicating, and validating expressions</li>
+ *   <li>producing final {@link InvariantSpec} results</li>
  * </ul>
- *
- * <p>The client automatically chooses the correct mode based on environment variables:
- *
- * <ul>
- *   <li>{@code DP_LLM_CASSETTES}: path to directory containing (or to store) cassette JSON files.
- *   <li>{@code DP_DISABLE_REAL_LLM=1}: disables real network calls (for CI or offline testing).
- *   <li>{@code DP_OPENAI_MODEL}: optional model override (e.g., "gpt-4.1-mini").
- * </ul>
- *
- * <p>The core prompt structure (system + user messages) remains unchanged. This class handles:
- * building messages, invoking the {@link LlmClient}, filtering invalid or redundant expressions,
- * and returning final {@link InvariantSpec}s.
  */
 public final class LlmInvariantGenerator {
 
@@ -54,10 +45,9 @@ public final class LlmInvariantGenerator {
   private static boolean printedStrategyOnce = false;
 
   /**
-   * Creates a new generator using environment variables for configuration.
+   * Creates a generator using configuration from {@link DpConfig}.
    *
-   * <p>Automatically selects model and LLM backend based on {@code DP_*} environment variables.
-   *
+   * @param config configuration
    * @param maxInvariants maximum number of invariants to request
    */
   public LlmInvariantGenerator(DpConfig config, int maxInvariants) {
@@ -68,12 +58,10 @@ public final class LlmInvariantGenerator {
   }
 
   /**
-   * Creates a new generator with an explicit {@link ChatModel}.
+   * Creates a generator with an explicit model.
    *
-   * <p>Still respects cassette and disable flags ({@code DP_LLM_CASSETTES}, {@code
-   * DP_DISABLE_REAL_LLM}).
-   *
-   * @param model chat model to use (e.g., {@link ChatModel#GPT_4_1_MINI})
+   * @param config configuration
+   * @param model LLM model
    * @param maxInvariants maximum number of invariants to request
    */
   public LlmInvariantGenerator(DpConfig config, ChatModel model, int maxInvariants) {
@@ -98,11 +86,18 @@ public final class LlmInvariantGenerator {
   }
 
   /**
-   * Generates candidate invariants for a given program point using the selected LLM backend.
+   * Generates candidate invariants for a program point.
    *
-   * @param point program point to analyze
-   * @param methodBody optional method body (for context only)
-   * @return a list of syntactically valid and quality-filtered {@link InvariantSpec}s
+   * @param point program point
+   * @param inScope variables available at the point
+   * @param methodBody method body (optional context)
+   * @param methodJavadoc method documentation (optional)
+   * @param enclosingClassDoc class-level documentation (optional)
+   * @param typeDoc documentation for related types (optional)
+   * @param callSiteContext call-site context (optional)
+   * @param inputOutputExamples example inputs/outputs (optional)
+   * @param calleeDoc documentation of called methods (optional)
+   * @return list of filtered invariant specifications
    */
   public List<InvariantSpec> proposeInvariants(
       ProgramPoint point,
@@ -237,16 +232,6 @@ public final class LlmInvariantGenerator {
   // =====================================================================
   // Utilities and environment configuration
   // =====================================================================
-
-  /** Checks if a string parses as a valid Java expression. */
-  private static boolean isParsableExpression(String expr) {
-    try {
-      StaticJavaParser.parseExpression(expr);
-      return true;
-    } catch (Exception ex) {
-      return false;
-    }
-  }
 
   private static Optional<String> parseableExpression(String expr) {
     if (expr == null || expr.isBlank()) return Optional.empty();

@@ -4,15 +4,22 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
 import java.util.stream.Collectors;
 
-/** Utilities to produce fully-qualified JVM-like method descriptors to avoid collisions. */
+/**
+ * Utility class for constructing method descriptors used to uniquely identify methods.
+ *
+ * <p>Descriptors include the method name, parameter types, and return type to avoid collisions
+ * between overloaded methods.
+ */
 public final class MethodSignatureUtil {
   private MethodSignatureUtil() {}
 
   /**
-   * Builds a stable descriptor like: {@code m(int,java.lang.String):void}.
+   * Builds a descriptor for a resolved method using fully qualified type names.
    *
-   * <p>Requires symbol resolution for precise FQNs; if unavailable, falls back to simple type
-   * names.
+   * <p>Format: {@code methodName(paramType1,paramType2):returnType}
+   *
+   * @param rmd resolved method declaration
+   * @return descriptor string including fully qualified parameter and return types
    */
   public static String jvmDescriptor(ResolvedMethodDeclaration rmd) {
     String params =
@@ -25,7 +32,14 @@ public final class MethodSignatureUtil {
     return rmd.getName() + "(" + params + "):" + ret;
   }
 
-  /** Best-effort descriptor without full resolution */
+  /**
+   * Builds a descriptor for a method without requiring symbol resolution.
+   *
+   * <p>Uses syntactic type names from the source code, which may not be fully qualified.
+   *
+   * @param md method declaration
+   * @return descriptor string using best-effort type names
+   */
   public static String jvmDescriptorBestEffort(MethodDeclaration md) {
     String params =
         md.getParameters().stream()

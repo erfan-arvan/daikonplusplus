@@ -8,18 +8,36 @@ import java.nio.file.*;
 import java.util.*;
 
 /**
- * Autofilter using user-provided external compile scripts.
+ * Utility class for compiling instrumented projects using an external build script
+ * with automatic invariant filtering.
  *
- * <p>The user provides TWO scripts: - one for MAIN compilation - one for TEST compilation
+ * <p>The provided script acts as the compiler (e.g., Gradle or Maven build).
+ * If compilation fails, compiler errors are parsed and used to:
+ * <ul>
+ *   <li>Disable invariant regions causing errors</li>
+ *   <li>Restore original files if local removal is insufficient</li>
+ * </ul>
  *
- * <p>This class: - runs the script - parses javac-style errors - disables invariant regions
- *
- * <p>The script IS the compiler.
+ * <p>The process repeats until compilation succeeds or no further progress is possible.
  */
 public final class ExternalCompileRunner {
 
   private ExternalCompileRunner() {}
 
+  /**
+   * Runs an external compile script with automatic invariant filtering.
+   *
+   * <p>If the script fails, compiler output is parsed to locate errors, and the corresponding
+   * invariant regions are disabled or source files are restored. The process repeats until
+   * the script succeeds or no progress can be made.
+   *
+   * @param workProjectRoot root of the working project
+   * @param workSrcRoot root of the instrumented source tree
+   * @param originalSrcRoot root of the original source tree
+   * @param compileScript executable script used for compilation
+   * @param maxModifyPasses number of passes that attempt invariant-level removal before fallback
+   * @throws Exception if compilation ultimately fails
+   */
   public static void compileWithAutoFilter(
       Path workProjectRoot,
       Path workSrcRoot,
@@ -178,6 +196,13 @@ public final class ExternalCompileRunner {
     }
   }
 
+  /**
+   * Runs an external compile script without invariant filtering.
+   *
+   * @param workProjectRoot root of the working project
+   * @param compileScript executable script used for compilation
+   * @throws Exception if the script fails
+   */
   public static void compile(Path workProjectRoot, Path compileScript) throws Exception {
 
     if (!Files.isExecutable(compileScript)) {
@@ -196,6 +221,15 @@ public final class ExternalCompileRunner {
     }
   }
 
+  /**
+   * Normalizes a file path reported by the compiler.
+   *
+   * <p>Handles platform-specific inconsistencies (e.g., macOS "/private/var" prefix)
+   * and returns a normalized {@link Path}.
+   *
+   * @param file file path reported by the compiler
+   * @return normalized path
+   */
   private static Path normalizeCompilerPath(String file) {
     if (file == null || file.isEmpty()) {
       throw new IllegalArgumentException("Compiler error reported null/empty file path");
@@ -209,6 +243,14 @@ public final class ExternalCompileRunner {
     return Path.of(file).normalize();
   }
 
+  /**
+   * Restores a source file in the working project from the original source tree.
+   *
+   * @param brokenFile file that failed compilation
+   * @param workSrcRoot root of the working source tree
+   * @param originalSrcRoot root of the original source tree
+   * @return 1 if the file was restored, 0 otherwise
+   */
   private static int restoreOriginalFile(Path brokenFile, Path workSrcRoot, Path originalSrcRoot) {
 
     try {

@@ -4,10 +4,10 @@ import java.util.Objects;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * Stable identity for any program element (method, field, loop, etc.).
+ * Identifies a program element such as a method.
  *
- * <p>For the current implementation we focus on methods; however, this type is general so we can
- * later add other program points without redesign.
+ * <p>The identifier includes package name, class hierarchy, source file,
+ * and a descriptor to distinguish overloaded elements.
  */
 public final class ProgramElementId {
   private final String packageName;
@@ -29,6 +29,16 @@ public final class ProgramElementId {
     this.jvmDescriptor = jvmDescriptor;
   }
 
+  /**
+   * Creates an identifier for a method.
+   *
+   * @param packageName package name (may be empty)
+   * @param topLevelClass top-level class name
+   * @param nestedClassPath nested class path (may be empty)
+   * @param filePath source file path
+   * @param jvmDescriptor method descriptor
+   * @return program element identifier
+   */
   public static ProgramElementId forMethod(
       String packageName,
       String topLevelClass,
@@ -83,6 +93,11 @@ public final class ProgramElementId {
         && java.util.Objects.equals(jvmDescriptor, that.jvmDescriptor);
   }
 
+  /**
+   * Computes the hash code.
+   *
+   * @return hash code
+   */
   @Override
   public int hashCode() {
     return Objects.hash(packageName, topLevelClass, nestedClassPath, filePath, jvmDescriptor);

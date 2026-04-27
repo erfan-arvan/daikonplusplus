@@ -1,5 +1,11 @@
 package edu.njit.jerse.daikonplusplus.llm.prompt;
 
+/**
+ * Prompt strategy that encourages internal reasoning before producing invariants.
+ *
+ * <p>Adds guidance to reason about scope, safety, and program constraints,
+ * while requiring that only the final JSON output is returned.
+ */
 public final class ChainOfThoughtPromptStrategy extends AbstractPromptStrategy {
 
   @Override

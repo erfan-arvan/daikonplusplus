@@ -8,6 +8,15 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 import java.util.regex.*;
 
+/**
+ * Test-based invariant filtering that removes invariants causing test failures.
+ *
+ * <p>This class performs a search over groups of invariants (batched by method)
+ * and disables them in the injected source until the external test suite passes.
+ *
+ * <p>The process operates on copies of the project to avoid mutating the original
+ * injected code and uses marker-based regions to selectively disable invariants.
+ */
 public final class TestInvariantFilter {
 
   private static final String ONELINE_BEGIN = "/*__DP_ONELINE_BEGIN__*/";
@@ -21,6 +30,25 @@ public final class TestInvariantFilter {
 
   private TestInvariantFilter() {}
 
+  /**
+   * Executes test-based filtering to identify and remove invariants that break tests.
+   *
+   * <p>The algorithm:
+   * - Takes a snapshot of the injected project
+   * - Identifies executed invariants from the initial run log
+   * - Groups invariants by method and batches them
+   * - Iteratively disables batches and reruns tests
+   * - Stops when a combination yields a passing test run
+   *
+   * @param injectedProjectRoot root of the project with injected invariants
+   * @param mainSrcRoot source root containing instrumented Java files
+   * @param registryPath registry mapping invariant IDs to program elements
+   * @param initialRunLog log from the initial execution containing executed invariant IDs
+   * @param runnerScript external test runner script
+   * @param methodBatchSize number of methods per batch during search
+   * @return result object describing the final filtered project and removed invariants
+   * @throws Exception if execution fails
+   */
   public static Result run(
       Path injectedProjectRoot,
       Path mainSrcRoot,
@@ -63,34 +91,51 @@ public final class TestInvariantFilter {
     Set<UUID> removed = new LinkedHashSet<>();
     List<String> removedMethods = new ArrayList<>();
 
-    int pass = 1;
+    boolean solved = false;
 
-    for (List<UUID> batch : batches) {
-      Path attempt = freshCopy(snapshot, "test-filter-pass-" + pass);
-      Path attemptMainSrc =
-          attempt.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
+    for (int k = 1; k <= batches.size() && !solved; k++) {
 
-      BlockIndex attemptIndex = scanInvariantBlocks(attemptMainSrc);
+      System.out.println("[DP-TEST-FILTER] Trying k=" + k + " batches");
 
-      disableIds(attemptIndex, batch);
+      for (int start = 0; start + k <= batches.size(); start++) {
 
-      Path attemptLog = attempt.resolve("daikonpp-test-filter-pass-" + pass + ".log");
+        List<UUID> combined = new ArrayList<>();
 
-      int exit = runExternalTestRunner(runnerScript, attempt, attemptLog);
+        for (int j = start; j < start + k; j++) {
+          combined.addAll(batches.get(j));
+        }
 
-      String batchLabel = describeBatch(batch, idToMethod);
+        Path attempt = freshCopy(snapshot, "test-filter-k" + k + "-start" + start);
 
-      if (exit == 0) {
-        removed.addAll(batch);
-        removedMethods.add(batchLabel);
-        System.out.println(
-            "[DP-TEST-FILTER] PASS " + pass + " succeeded after disabling: " + batchLabel);
-      } else {
-        System.out.println(
-            "[DP-TEST-FILTER] PASS " + pass + " still failed after disabling: " + batchLabel);
+        Path attemptMainSrc =
+            attempt.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
+
+        BlockIndex attemptIndex = scanInvariantBlocks(attemptMainSrc);
+
+        disableIds(attemptIndex, combined);
+
+        Path attemptLog = attempt.resolve("daikonpp-test-filter-k" + k + "-start" + start + ".log");
+
+        int exit = runExternalTestRunner(runnerScript, attempt, attemptLog);
+
+        String label = describeBatch(combined, idToMethod);
+
+        if (exit == 0) {
+          System.out.println("[DP-TEST-FILTER] SUCCESS with k=" + k + " → " + label);
+
+          removed.addAll(combined);
+          removedMethods.add(label);
+
+          solved = true;
+          break;
+        } else {
+          System.out.println("[DP-TEST-FILTER] FAIL k=" + k + " start=" + start);
+        }
       }
+    }
 
-      pass++;
+    if (!solved) {
+      System.out.println("[DP-TEST-FILTER] ❌ No combination made tests pass");
     }
 
     Path finalProject = freshCopy(snapshot, "test-filter-final");
@@ -113,6 +158,16 @@ public final class TestInvariantFilter {
         snapshot, finalProject, finalMainSrc, finalLog, removed, removedMethods, finalExit);
   }
 
+  /**
+   * Groups invariants into batches based on their associated methods.
+   *
+   * <p>Methods are sorted by decreasing number of invariants, and batches are formed
+   * by grouping a fixed number of methods together.
+   *
+   * @param methodGroups mapping from method identifier to invariant IDs
+   * @param methodBatchSize number of methods per batch
+   * @return list of invariant batches
+   */
   private static List<List<UUID>> makeMethodBatches(
       Map<String, List<UUID>> methodGroups, int methodBatchSize) {
 
@@ -137,6 +192,13 @@ public final class TestInvariantFilter {
     return batches;
   }
 
+  /**
+   * Produces a human-readable description of a batch of invariants.
+   *
+   * @param ids invariant IDs in the batch
+   * @param idToMethod mapping from invariant IDs to method identifiers
+   * @return string representation of affected methods
+   */
   private static String describeBatch(List<UUID> ids, Map<UUID, String> idToMethod) {
     Set<String> methods = new TreeSet<>();
     for (UUID id : ids) {
@@ -146,6 +208,16 @@ public final class TestInvariantFilter {
     return methods.toString();
   }
 
+  /**
+   * Disables invariant blocks corresponding to the given IDs by commenting them out.
+   *
+   * <p>Blocks are grouped per file and processed in reverse order to preserve
+   * line offsets during modification.
+   *
+   * @param index index of invariant blocks
+   * @param ids invariant IDs to disable
+   * @throws IOException if file modification fails
+   */
   private static void disableIds(BlockIndex index, Collection<UUID> ids) throws IOException {
     Map<Path, List<Block>> byFile = new HashMap<>();
 
@@ -175,6 +247,16 @@ public final class TestInvariantFilter {
     }
   }
 
+  /**
+   * Scans source files to locate invariant blocks and associate them with UUIDs.
+   *
+   * <p>Blocks are identified using begin/end markers and mapped to their source
+   * file locations.
+   *
+   * @param mainSrcRoot root of the source tree
+   * @return index mapping invariant IDs to source blocks
+   * @throws IOException if file traversal fails
+   */
   private static BlockIndex scanInvariantBlocks(Path mainSrcRoot) throws IOException {
     BlockIndex index = new BlockIndex();
 
@@ -228,6 +310,13 @@ public final class TestInvariantFilter {
     return index;
   }
 
+  /**
+   * Reads invariant-to-method mappings from the registry file.
+   *
+   * @param registryPath path to registry file
+   * @return mapping from invariant UUID to method identifier
+   * @throws IOException if reading fails
+   */
   private static Map<UUID, String> readRegistryMethods(Path registryPath) throws IOException {
     Map<UUID, String> out = new HashMap<>();
 
@@ -250,6 +339,14 @@ public final class TestInvariantFilter {
     return out;
   }
 
+  /**
+   * Extracts a substring between two delimiters.
+   *
+   * @param s source string
+   * @param start starting delimiter
+   * @param end ending delimiter
+   * @return extracted substring if present
+   */
   private static Optional<String> extract(String s, String start, String end) {
     int i = s.indexOf(start);
     if (i < 0) return Optional.empty();
@@ -261,10 +358,29 @@ public final class TestInvariantFilter {
     return Optional.of(s.substring(from, j));
   }
 
+  /**
+   * Performs minimal unescaping of JSON string values.
+   *
+   * @param s escaped string
+   * @return unescaped string
+   */
   private static String unescapeJson(String s) {
     return s.replace("\\\"", "\"").replace("\\\\", "\\");
   }
 
+  /**
+   * Executes an external test runner script and captures its output.
+   *
+   * <p>The method sets required environment variables and appends invariant
+   * execution events to the log.
+   *
+   * @param script executable test runner script
+   * @param workDir working directory for execution
+   * @param runLog output log file
+   * @return exit code of the test run
+   * @throws IOException if execution fails
+   * @throws InterruptedException if execution is interrupted
+   */
   private static int runExternalTestRunner(Path script, Path workDir, Path runLog)
       throws IOException, InterruptedException {
 
@@ -329,6 +445,12 @@ public final class TestInvariantFilter {
     return exit;
   }
 
+  /**
+   * Appends recorded invariant event files to the main run log.
+   *
+   * @param invDir directory containing event files
+   * @param runLog log file to append to
+   */
   private static void appendDpEvents(Path invDir, Path runLog) {
     try {
       if (!Files.isDirectory(invDir)) return;
@@ -356,6 +478,13 @@ public final class TestInvariantFilter {
     }
   }
 
+  /**
+   * Creates a full copy of the project for isolated modification.
+   *
+   * @param projectRoot original project root
+   * @return path to snapshot copy
+   * @throws IOException if copying fails
+   */
   private static Path makeSnapshot(Path projectRoot) throws IOException {
     Path parent = projectRoot.getParent();
     if (parent == null) {
@@ -368,6 +497,14 @@ public final class TestInvariantFilter {
     return snapshot;
   }
 
+  /**
+   * Creates a new working copy from an existing snapshot.
+   *
+   * @param snapshot source snapshot
+   * @param prefix prefix for naming the new copy
+   * @return path to new copy
+   * @throws IOException if copying fails
+   */
   private static Path freshCopy(Path snapshot, String prefix) throws IOException {
     Path parent = snapshot.getParent();
     if (parent == null) {
@@ -379,6 +516,15 @@ public final class TestInvariantFilter {
     return dst;
   }
 
+  /**
+   * Recursively copies a directory tree.
+   *
+   * <p>Prevents copying into overlapping directories.
+   *
+   * @param from source directory
+   * @param to destination directory
+   * @throws IOException if copying fails
+   */
   private static void copyTree(Path from, Path to) throws IOException {
     Path src = from.toAbsolutePath().normalize();
     Path dst = to.toAbsolutePath().normalize();
@@ -411,10 +557,18 @@ public final class TestInvariantFilter {
         });
   }
 
+  /**
+   * Index of invariant blocks keyed by their UUID.
+   */
   private static final class BlockIndex {
     final Map<UUID, Block> blocks = new HashMap<>();
   }
 
+  /**
+   * Represents a contiguous invariant block in a source file.
+   *
+   * <p>Includes file location and line range.
+   */
   private static final class Block {
     final UUID id;
     final Path file;
@@ -429,6 +583,11 @@ public final class TestInvariantFilter {
     }
   }
 
+  /**
+   * Result of test-based invariant filtering.
+   *
+   * <p>Contains the final project state, removed invariants, and execution outcome.
+   */
   public static final class Result {
     public final Path snapshotProjectRoot;
     public final Path finalProjectRoot;
@@ -438,6 +597,15 @@ public final class TestInvariantFilter {
     public final List<String> removedMethodBatches;
     public final int finalExitCode;
 
+    /**
+     * @param snapshotProjectRoot initial snapshot of the injected project
+     * @param finalProjectRoot project after filtering
+     * @param finalMainSrcRoot final main source directory
+     * @param finalRunLog log from final test execution
+     * @param removedIds set of invariant IDs that were disabled
+     * @param removedMethodBatches descriptions of removed method groups
+     * @param finalExitCode exit code of final test run
+     */
     Result(
         Path snapshotProjectRoot,
         Path finalProjectRoot,

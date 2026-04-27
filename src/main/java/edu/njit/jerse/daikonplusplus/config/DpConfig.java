@@ -10,19 +10,10 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * Central configuration for Daikon++.
+ * Holds configuration values for Daikon++.
  *
- * <p>This class is immutable and resolves configuration values using the following precedence:
- *
- * <pre>
- *   dpconfig.properties (file)
- *     → System properties (-Ddp.xxx)
- *     → Environment variables (DP_XXX)
- *     → Built-in defaults
- * </pre>
- *
- * <p>This preserves backward compatibility while allowing users to define a configuration file
- * without modifying application code.
+ * <p>Values are resolved in the following order:
+ * file (dpconfig.properties) → system properties → environment variables → defaults.
  */
 public final class DpConfig {
 
@@ -141,8 +132,6 @@ public final class DpConfig {
     return scanIncludes;
   }
 
-  // ---- getters ----
-
   public int threads() {
     return threads;
   }
@@ -210,7 +199,6 @@ public final class DpConfig {
   public @Nullable String compileTestScript() {
     return compileTestScript;
   }
-
   public int llmPollStepMs() {
     return llmPollStepMs;
   }
@@ -251,11 +239,10 @@ public final class DpConfig {
     return testFilterMethodBatchSize;
   }
 
-  // ---- factory ----
-
   /**
-   * Constructs a configuration instance using file, system properties, environment variables, and
-   * defaults (in that order of precedence).
+   * Creates a configuration instance from file, system properties, environment variables, and defaults.
+   *
+   * @return configuration instance
    */
   public static DpConfig fromEnv() {
     Map<String, String> file = loadConfigFile();
@@ -455,8 +442,16 @@ public final class DpConfig {
         testFilterMethodBatchSize);
   }
 
-  // ---- helpers ----
-
+  /**
+   * Reads a boolean configuration value.
+   *
+   * @param sysKey system property key
+   * @param envKey environment variable key
+   * @param def default value
+   * @param env environment variables
+   * @param file configuration file entries
+   * @return resolved boolean value
+   */
   private static boolean getBool(
       String sysKey,
       String envKey,
@@ -485,6 +480,16 @@ public final class DpConfig {
     }
   }
 
+  /**
+   * Reads an integer configuration value.
+   *
+   * @param sysKey system property key
+   * @param envKey environment variable key
+   * @param def default value
+   * @param env environment variables
+   * @param file configuration file entries
+   * @return resolved integer value
+   */
   private static int getInt(
       String sysKey, String envKey, int def, Map<String, String> env, Map<String, String> file) {
 
@@ -500,6 +505,14 @@ public final class DpConfig {
     }
   }
 
+  /**
+   * Returns the first non-blank value among the inputs.
+   *
+   * @param a first value
+   * @param b second value
+   * @param c fallback value
+   * @return first non-blank value
+   */
   private static @NonNull String firstNonBlank(
       @Nullable String a, @Nullable String b, @NonNull String c) {
     if (a != null && !a.isBlank()) return a;
@@ -508,11 +521,11 @@ public final class DpConfig {
   }
 
   /**
-   * Parses context configuration.
+   * Parses enabled context kinds from configuration.
    *
-   * <p>Default: all contexts enabled.
-   *
-   * <p>If overridden: only specified contexts are enabled.
+   * @param env environment variables
+   * @param file configuration file entries
+   * @return set of enabled context kinds
    */
   private static Set<ContextKind> parseContexts(Map<String, String> env, Map<String, String> file) {
 
@@ -539,9 +552,9 @@ public final class DpConfig {
   }
 
   /**
-   * Loads configuration from {@code dpconfig.properties} if present.
+   * Loads key-value pairs from {@code dpconfig.properties} if present.
    *
-   * <p>This file is optional. Missing or invalid files are silently ignored.
+   * @return map of configuration entries
    */
   private static Map<String, String> loadConfigFile() {
     java.util.Map<String, String> map = new java.util.HashMap<>();
@@ -567,6 +580,9 @@ public final class DpConfig {
     return map;
   }
 
+  /**
+   * Prints the current configuration values.
+   */
   public void printSummary() {
     System.out.println("==== Daikon++ Config ====");
 
@@ -614,6 +630,14 @@ public final class DpConfig {
     System.out.println("=========================");
   }
 
+  /**
+   * Returns the first non-blank value among the inputs, or null if none.
+   *
+   * @param a first value
+   * @param b second value
+   * @param c third value
+   * @return first non-blank value or null
+   */
   private static @Nullable String firstNonBlankNullable(
       @Nullable String a, @Nullable String b, @Nullable String c) {
 
@@ -623,6 +647,12 @@ public final class DpConfig {
     return null;
   }
 
+  /**
+   * Parses a comma-separated list into a normalized set of strings.
+   *
+   * @param value input string
+   * @return set of normalized values
+   */
   private static Set<String> parseCsvSet(@Nullable String value) {
     if (value == null || value.isBlank()) {
       return java.util.Collections.emptySet();
@@ -642,7 +672,7 @@ public final class DpConfig {
         s = s.replace(".", "/");
       }
 
-      // 🔴 VALIDATION
+      // VALIDATION
       if (!s.matches("[a-zA-Z0-9_/]+")) {
         throw new IllegalArgumentException("Invalid dp.scanIncludes entry: '" + part + "'");
       }

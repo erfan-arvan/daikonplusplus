@@ -1,5 +1,13 @@
 package edu.njit.jerse.daikonplusplus.llm.prompt;
 
+/**
+ * Minimal prompt strategy that directly asks the model to generate invariants
+ * without additional guidance, constraints, or examples.
+ *
+ * <p>This strategy provides only basic instructions, the program point, in-scope
+ * variables, and optional context. It is intended as a simple baseline for
+ * comparison against more structured prompting approaches.
+ */
 public final class NaiveDirectPromptStrategy implements PromptStrategy {
 
   @Override

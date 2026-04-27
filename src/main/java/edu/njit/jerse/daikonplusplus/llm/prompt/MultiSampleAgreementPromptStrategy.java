@@ -1,5 +1,15 @@
 package edu.njit.jerse.daikonplusplus.llm.prompt;
 
+/**
+ * Prompt strategy that encourages internal agreement across multiple reasoning variants.
+ *
+ * <p>The model is instructed to internally generate multiple drafts with different focuses
+ * (e.g., parameter constraints, result relations, and method-call predicates) and then
+ * retain only invariants that are consistently supported.
+ *
+ * <p>This aims to improve robustness and reduce spurious or low-confidence invariants
+ * without requiring multiple external sampling calls.
+ */
 public final class MultiSampleAgreementPromptStrategy extends AbstractPromptStrategy {
 
   @Override

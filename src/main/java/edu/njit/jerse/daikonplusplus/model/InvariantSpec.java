@@ -3,29 +3,52 @@ package edu.njit.jerse.daikonplusplus.model;
 import java.util.Map;
 import java.util.Objects;
 
-/** Raw invariant proposal (from LLM) as a Java boolean expression with optional metadata. */
+/**
+ * Represents a candidate invariant expressed as a Java boolean expression.
+ *
+ * <p>Includes the expression along with optional explanation and metadata.
+ */
 public final class InvariantSpec {
   private final String expression;
   private final String rationale;
   private final Map<String, String> meta;
 
+  /**
+   * Creates a new invariant specification.
+   *
+   * @param expression Java boolean expression
+   * @param rationale optional explanation
+   * @param meta optional metadata
+   */
   public InvariantSpec(String expression, String rationale, Map<String, String> meta) {
     this.expression = Objects.requireNonNull(expression).trim();
     this.rationale = rationale == null ? "" : rationale;
     this.meta = meta;
   }
 
-  /** Java boolean expression, expected to be side-effect free. */
+  /**
+   * Returns the invariant expression.
+   *
+   * @return Java boolean expression
+   */
   public String expression() {
     return expression;
   }
 
-  /** optional free-text explanation. */
+  /**
+   * Returns the explanation associated with the invariant.
+   *
+   * @return rationale text (may be empty)
+   */
   public String rationale() {
     return rationale;
   }
 
-  /** optional metadata key/value pairs. */
+  /**
+   * Returns metadata associated with the invariant.
+   *
+   * @return metadata map (may be null)
+   */
   public Map<String, String> meta() {
     return meta;
   }

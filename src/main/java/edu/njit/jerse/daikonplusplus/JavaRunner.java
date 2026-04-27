@@ -7,7 +7,18 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 
-/** FINAL WORKING JAVARUNNER. Marker-based filtering only. Supports oneline + block invariants. */
+/**
+ * Utility class for compiling and executing instrumented Java code in Daikon++.
+ *
+ * <p>Supports:
+ * <ul>
+ *   <li>Running Java programs and capturing their output and invariant events</li>
+ *   <li>Compiling instrumented code with automatic removal of invariants that cause compilation errors</li>
+ * </ul>
+ *
+ * <p>Invariant removal is marker-based and operates either by disabling a specific invariant
+ * region or restoring the original file if needed.
+ */
 public final class JavaRunner {
 
   // Old style (oneline guards)
@@ -22,10 +33,15 @@ public final class JavaRunner {
 
   private JavaRunner() {}
 
-  // ============================================================
-  // RUN JAVA
-  // ============================================================
-
+  /**
+   * Runs a Java program in a separate JVM and appends its output to a log file.
+   *
+   * @param mainClass fully qualified name of the main class to execute
+   * @param classpath classpath used for execution
+   * @param args arguments passed to the program
+   * @param logFile file where output is written
+   * @throws Exception if execution fails
+   */
   public static void run(String mainClass, String classpath, List<String> args, Path logFile)
       throws Exception {
 
@@ -92,10 +108,24 @@ public final class JavaRunner {
     appendDpEvents(logDir.resolve(".daikonpp-events"), logFile);
   }
 
-  // ============================================================
-  // COMPILE WITH AUTOFILTER (JAVAC MODE)
-  // ============================================================
-
+  /**
+   * Compiles Java sources and removes invariants that cause compilation errors.
+   *
+   * <p>If compilation fails, the method parses compiler errors and either:
+   * <ul>
+   *   <li>Disables the invariant region causing the error</li>
+   *   <li>Restores the original file if the error cannot be resolved locally</li>
+   * </ul>
+   *
+   * <p>The process repeats until compilation succeeds or no further progress is possible.
+   *
+   * @param workSrcRoot root of the instrumented source tree
+   * @param originalSrcRoot root of the original source tree
+   * @param classesDir output directory for compiled classes
+   * @param classpath classpath for compilation
+   * @param maxModifyPasses maximum number of passes that attempt invariant removal
+   * @throws Exception if compilation ultimately fails
+   */
   public static void compileWithAutoFilter(
       Path workSrcRoot,
       Path originalSrcRoot,
@@ -219,16 +249,25 @@ public final class JavaRunner {
     }
   }
 
+  /**
+   * Returns a string representation of the first compilation error.
+   *
+   * @param list list of parsed compilation errors
+   * @return formatted message for the first error, or "<none>" if empty
+   */
   private static String firstErrorMsg(List<JError> list) {
     return list.isEmpty()
         ? "<none>"
         : list.get(0).file + ":" + list.get(0).line + " — " + list.get(0).msg;
   }
 
-  // ============================================================
-  // INVARIANT REMOVAL
-  // ============================================================
-
+  /**
+   * Disables the invariant region around a given line number by commenting it out.
+   *
+   * @param file source file containing the invariant
+   * @param lineno line number where the error occurred (1-based)
+   * @return 1 if a region was disabled, 0 otherwise
+   */
   static int removeInvariantRegion(Path file, int lineno) {
     try {
       if (!Files.isRegularFile(file)) return 0;
@@ -267,10 +306,14 @@ public final class JavaRunner {
     }
   }
 
-  // ============================================================
-  // RESTORE ORIGINAL FILE
-  // ============================================================
-
+  /**
+   * Restores a file in the working directory from the original source tree.
+   *
+   * @param brokenFile file that failed compilation
+   * @param workSrcRoot root of the working source tree
+   * @param originalSrcRoot root of the original source tree
+   * @return 1 if the file was restored, 0 otherwise
+   */
   private static int restoreOriginalFile(Path brokenFile, Path workSrcRoot, Path originalSrcRoot) {
 
     try {
@@ -300,10 +343,16 @@ public final class JavaRunner {
     }
   }
 
-  // ============================================================
-  // UTILITIES
-  // ============================================================
-
+  /**
+   * Executes a process and waits for it to complete.
+   *
+   * @param cmd command and arguments to execute
+   * @param wd working directory for the process
+   * @param out file to which standard output is redirected
+   * @param err file to which standard error is redirected
+   * @return exit code of the process
+   * @throws Exception if process execution fails
+   */
   private static int runProcess(List<String> cmd, Path wd, Path out, Path err) throws Exception {
 
     ProcessBuilder pb = new ProcessBuilder(cmd);
@@ -313,6 +362,15 @@ public final class JavaRunner {
     return pb.start().waitFor();
   }
 
+  /**
+   * Resolves the path to a Java tool (e.g., {@code java}, {@code javac}).
+   *
+   * <p>If {@code JAVA_HOME} is set, the tool is resolved from its {@code bin} directory.
+   * Otherwise, the tool name is returned as-is.
+   *
+   * @param base base name of the tool (e.g., "java", "javac")
+   * @return resolved executable path
+   */
   private static String tool(String base) {
     String ext = isWin() ? ".exe" : "";
     String home = System.getenv("JAVA_HOME");
@@ -323,19 +381,32 @@ public final class JavaRunner {
     return base + ext;
   }
 
+  /**
+   * Checks whether the current operating system is Windows.
+   *
+   * @return true if running on Windows, false otherwise
+   */
   private static boolean isWin() {
     return System.getProperty("os.name").toLowerCase().contains("win");
   }
 
+  /**
+   * Joins classpath entries using the platform-specific separator.
+   *
+   * @param parts classpath entries
+   * @return combined classpath string
+   */
   public static String joinCp(String... parts) {
     String sep = System.getProperty("path.separator");
     return String.join(sep, Arrays.stream(parts).filter(p -> p != null && !p.isBlank()).toList());
   }
 
-  // ============================================================
-  // EVENT MERGE
-  // ============================================================
-
+  /**
+   * Appends invariant event files from a directory into the main run log.
+   *
+   * @param invDir directory containing event files
+   * @param runLog log file to append to
+   */
   private static void appendDpEvents(Path invDir, Path runLog) {
     try {
       if (!Files.isDirectory(invDir)) return;
@@ -362,6 +433,16 @@ public final class JavaRunner {
     }
   }
 
+  /**
+   * Executes an external script (e.g., build or test runner) and appends its output to a log file.
+   *
+   * @param script executable script to run
+   * @param workDir working directory for the script
+   * @param fullRunCp classpath exposed to the script (may be empty)
+   * @param runLog file where output is written
+   * @throws IOException if the script cannot be executed
+   * @throws InterruptedException if execution is interrupted
+   */
   public static void runExternalScript(Path script, Path workDir, String fullRunCp, Path runLog)
       throws IOException, InterruptedException {
 

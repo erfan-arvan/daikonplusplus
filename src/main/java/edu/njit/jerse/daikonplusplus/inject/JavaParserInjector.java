@@ -17,16 +17,32 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
+/**
+ * Injects invariant checks into Java source code using JavaParser.
+ *
+ * <p>For each method, invariant guards are inserted at method entry and exit.
+ */
 public final class JavaParserInjector {
 
   private final FileWriteCoordinator coordinator;
 
   final int __dp_limit = 20;
 
+  /**
+   * Creates a new injector.
+   *
+   * @param coordinator file write coordinator
+   */
   public JavaParserInjector(FileWriteCoordinator coordinator) {
     this.coordinator = coordinator;
   }
 
+  /**
+   * Escapes a string for inclusion in generated code.
+   *
+   * @param s input string
+   * @return escaped string
+   */
   private static String esc(String s) {
     if (s == null) return "";
     return s.replace("\\", "\\\\")
@@ -36,6 +52,13 @@ public final class JavaParserInjector {
         .replace("\t", "\\t");
   }
 
+  /**
+   * Injects invariant checks into a source file.
+   *
+   * @param file source file to modify
+   * @param records invariants to inject
+   * @throws Exception if parsing or writing fails
+   */
   public void injectGuards(Path file, List<InvariantRecord> records) throws Exception {
     if (records == null || records.isEmpty()) {
       return;
@@ -83,10 +106,12 @@ public final class JavaParserInjector {
         });
   }
 
-  // ======================================================================================
-  // ENTRY
-  // ======================================================================================
-
+  /**
+   * Inserts invariant checks at method entry.
+   *
+   * @param md method declaration
+   * @param entries invariants for entry
+   */
   private void injectEntry(MethodDeclaration md, List<InvariantRecord> entries) {
     BlockStmt body = md.getBody().get();
     List<Statement> stmts = body.getStatements();
@@ -98,10 +123,13 @@ public final class JavaParserInjector {
     }
   }
 
-  // ======================================================================================
-  // EXIT
-  // ======================================================================================
 
+  /**
+   * Inserts invariant checks at method exit.
+   *
+   * @param md method declaration
+   * @param exits invariants for exit
+   */
   private void injectExit(MethodDeclaration md, List<InvariantRecord> exits) {
     BlockStmt body = md.getBody().get();
     boolean isVoid = md.getType().isVoidType();
@@ -133,6 +161,15 @@ public final class JavaParserInjector {
     }
   }
 
+  /**
+   * Rewrites a return statement to include invariant checks before returning.
+   *
+   * @param md method declaration
+   * @param ret original return statement
+   * @param exits invariants for exit
+   * @param counter counter for temporary variables
+   * @return replacement statement
+   */
   private Statement exitReturnBlock(
       MethodDeclaration md, ReturnStmt ret, List<InvariantRecord> exits, int[] counter) {
 
@@ -160,6 +197,12 @@ public final class JavaParserInjector {
     return block;
   }
 
+  /**
+   * Creates a block for void returns with invariant checks.
+   *
+   * @param exits invariants for exit
+   * @return block statement
+   */
   private Statement exitVoidBlock(List<InvariantRecord> exits) {
     BlockStmt block = new BlockStmt();
     int g = 0;
@@ -171,6 +214,14 @@ public final class JavaParserInjector {
     return block;
   }
 
+  /**
+   * Creates a temporary variable assignment for a return expression.
+   *
+   * @param md method declaration
+   * @param tmp temporary variable name
+   * @param rhs original return expression
+   * @return statement assigning the expression to the temporary variable
+   */
   private Statement hoistTemp(MethodDeclaration md, String tmp, Expression rhs) {
     String type = md.getType().toString();
 
@@ -181,6 +232,12 @@ public final class JavaParserInjector {
     return StaticJavaParser.parseStatement("final " + type + " " + tmp + " = " + rhs + ";");
   }
 
+  /**
+   * Returns the boxed type name for a primitive type.
+   *
+   * @param pt primitive type
+   * @return boxed type name
+   */
   private static String boxedType(PrimitiveType pt) {
     return switch (pt.getType()) {
       case BOOLEAN -> "Boolean";
@@ -194,10 +251,14 @@ public final class JavaParserInjector {
     };
   }
 
-  // ======================================================================================
-  // GUARD BUILDER
-  // ======================================================================================
-
+  /**
+   * Builds a guarded invariant check statement.
+   *
+   * @param rec invariant record
+   * @param phase execution phase ("ENTRY" or "EXIT")
+   * @param exVar exception variable name
+   * @return statement implementing the guard
+   */
   private Statement guardStatement(InvariantRecord rec, String phase, String exVar) {
     String id = rec.id().toString();
     String expr = rec.spec().expression();
@@ -360,6 +421,13 @@ public final class JavaParserInjector {
     return block;
   }
 
+  /**
+   * Rewrites occurrences of {@code result} in an invariant expression.
+   *
+   * @param rec original invariant record
+   * @param tmpVar replacement variable
+   * @return updated invariant record
+   */
   private InvariantRecord rewriteResult(InvariantRecord rec, String tmpVar) {
     String newExpr = rec.spec().expression().replaceAll("\\bresult\\b", tmpVar);
     return new InvariantRecord(
@@ -370,10 +438,14 @@ public final class JavaParserInjector {
         rec.createdAt());
   }
 
-  // ======================================================================================
-  // CONTEXT FILTERING
-  // ======================================================================================
 
+  /**
+   * Checks whether a return statement is in a context where rewriting is unsafe.
+   *
+   * @param ret return statement
+   * @param owner enclosing method
+   * @return true if rewriting should be skipped
+   */
   @SuppressWarnings("interned")
   private boolean isInForbiddenContext(ReturnStmt ret, MethodDeclaration owner) {
     Node n = ret;

@@ -9,6 +9,14 @@ import java.net.http.*;
 import java.time.Duration;
 import java.util.List;
 
+/**
+ * {@link LlmClient} implementation that calls a local LLM backend over HTTP.
+ *
+ * <p>Currently targets an Ollama-compatible API at {@code /api/generate}.
+ *
+ * <p>Uses the same response format as the OpenAI client by parsing the returned
+ * JSON into {@link LlmInvariantGenerator.InvariantsOut}.
+ */
 public final class LocalLlmClient implements LlmClient {
 
   private final DpConfig config;
@@ -20,6 +28,14 @@ public final class LocalLlmClient implements LlmClient {
     this.http = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10)).build();
   }
 
+  /**
+   * Sends a prompt to the local LLM and returns parsed invariant items.
+   *
+   * @param system system prompt
+   * @param user user prompt
+   * @return list of invariant items parsed from the model response
+   * @throws IOException if the request fails or the response cannot be parsed
+   */
   @Override
   public List<LlmInvariantGenerator.InvariantsOut.Item> complete(String system, String user)
       throws IOException {

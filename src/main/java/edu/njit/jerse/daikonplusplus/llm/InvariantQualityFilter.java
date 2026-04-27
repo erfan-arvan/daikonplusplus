@@ -7,8 +7,13 @@ import java.util.regex.Pattern;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
- * Conservative and deterministic filters for LLM-proposed invariants. Goal: reject expressions that
- * are likely to be useless or break compilation/runtime.
+ * Deterministic filter for LLM-proposed invariant expressions.
+ *
+ * <p>Rejects expressions that are likely to be trivial, unsafe, or invalid
+ * in the target program context.
+ *
+ * <p>Filtering is conservative: it prioritizes precision over recall to
+ * avoid introducing invariants that break compilation or execution.
  */
 public final class InvariantQualityFilter {
 
@@ -66,13 +71,12 @@ public final class InvariantQualityFilter {
       Set.of("Math.", "Integer.", "Long.", "Double.", "Short.", "Byte.", "Character.", "Objects.");
 
   /**
-   * Main filter.
+   * Decides whether an invariant expression should be kept.
    *
-   * @param exprString raw expression text
-   * @param inScope varName -> declared type (best-effort). If non-void EXIT, caller should include
-   *     "result".
-   * @param isExit true iff the program point is METHOD_EXIT
-   * @return true if the expression should be kept
+   * @param exprString candidate expression
+   * @param inScope variables available at the program point (name → type)
+   * @param isExit whether the point is a method exit
+   * @return true if the expression is acceptable
    */
   public static boolean keep(
       @NonNull String exprString, Map<String, String> inScope, boolean isExit) {

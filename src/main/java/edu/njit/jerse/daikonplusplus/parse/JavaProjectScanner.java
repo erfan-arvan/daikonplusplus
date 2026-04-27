@@ -11,12 +11,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Walks a Java source tree and emits {@link ProgramPoint}s.
+ * Scans a Java source tree and extracts program points for methods.
  *
- * <p>This version emits only {@link ProgramPointKind#METHOD_ENTRY} and {@link
- * ProgramPointKind#METHOD_EXIT} for each method with a body.
+ * <p>For each method with a body, this scanner emits two program points:
+ * {@link ProgramPointKind#METHOD_ENTRY} and {@link ProgramPointKind#METHOD_EXIT}.
+ *
+ * <p>Files that cannot be parsed are skipped.
  */
 public final class JavaProjectScanner {
+
+    /**
+     * Walks a source directory and returns method entry and exit program points.
+     *
+     * <p>Each Java file is parsed, and for every method with a body, a corresponding
+     * ENTRY and EXIT program point is created.
+     *
+     * @param srcRoot root directory containing Java source files
+     * @return list of discovered program points
+     * @throws IOException if file traversal fails
+     */
   public List<ProgramPoint> scanMethodEntryExit(Path srcRoot) throws IOException {
     List<ProgramPoint> points = new ArrayList<>();
     try (var stream = Files.walk(srcRoot)) {

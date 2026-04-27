@@ -1,5 +1,13 @@
 package edu.njit.jerse.daikonplusplus.llm.prompt;
 
+/**
+ * Base implementation of {@link PromptStrategy}.
+ *
+ * <p>Provides a shared structure for building system and user messages,
+ * including common instructions, scope formatting, and program context.
+ *
+ * <p>Subclasses customize prompts by overriding extension hooks.
+ */
 public abstract class AbstractPromptStrategy implements PromptStrategy {
 
   private static final boolean DEBUG_PRINT_FIRST_PROMPT = true;
@@ -119,14 +127,23 @@ public abstract class AbstractPromptStrategy implements PromptStrategy {
     return sb.toString();
   }
 
+  /**
+   * Additional system-level instructions appended to the default system message.
+   */
   protected String extraSystemInstructions(PromptContext ctx) {
     return "";
   }
 
+  /**
+   * Extra user instructions inserted before the program context section.
+   */
   protected String extraUserInstructionsBeforeContext(PromptContext ctx) {
     return "";
   }
 
+  /**
+   * Extra user instructions inserted after the program context section.
+   */
   protected String extraUserInstructionsAfterContext(PromptContext ctx) {
     return "";
   }
