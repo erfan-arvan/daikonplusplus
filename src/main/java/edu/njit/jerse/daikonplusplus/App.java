@@ -4,6 +4,7 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.*;
 import edu.njit.jerse.daikonplusplus.config.*;
+import edu.njit.jerse.daikonplusplus.filter.TestInvariantFilter;
 import edu.njit.jerse.daikonplusplus.inject.FileWriteCoordinator;
 import edu.njit.jerse.daikonplusplus.inject.JavaParserInjector;
 import edu.njit.jerse.daikonplusplus.llm.LlmInvariantGenerator;
@@ -742,6 +743,45 @@ public final class App {
     System.out.println(">>> Registry: " + cfg.registryPath().toAbsolutePath());
     System.out.println(">>> Outcomes: " + cfg.outcomesPath().toAbsolutePath());
     System.out.println(">>> Run log: " + runLog.toAbsolutePath());
+
+    if (execMode == ExecMode.EXTERNAL_PROJECT && BASE_CFG.enableTestFilter()) {
+      final Path resolvedScript =
+          runnerScriptPath.isAbsolute()
+              ? runnerScriptPath.toAbsolutePath().normalize()
+              : workProjectRoot.resolve(runnerScriptPath).normalize();
+
+      TestInvariantFilter.Result filterResult =
+          TestInvariantFilter.run(
+              workProjectRoot,
+              mainSrcRoot,
+              cfg.registryPath(),
+              runLog,
+              resolvedScript,
+              BASE_CFG.testFilterMethodBatchSize());
+
+      System.out.println(">>> TEST-FILTER REMOVED IDS:");
+      for (UUID id : filterResult.removedIds.stream().sorted().toList()) {
+        System.out.println("  " + id);
+      }
+
+      System.out.println(">>> TEST-FILTER REMOVED METHOD BATCHES:");
+      for (String m : filterResult.removedMethodBatches) {
+        System.out.println("  " + m);
+      }
+
+      System.out.println(">>> TEST-FILTER FINAL PROJECT: " + filterResult.finalProjectRoot);
+      System.out.println(">>> TEST-FILTER FINAL LOG: " + filterResult.finalRunLog);
+
+      Set<UUID> filteredFalsified = LogParser.readFalsifiedIds(filterResult.finalRunLog);
+      Set<UUID> filteredExecuted = LogParser.readExecutedIds(filterResult.finalRunLog);
+      Set<UUID> filteredNonCompiled = LogParser.readNonCompiledIds(filterResult.finalMainSrcRoot);
+
+      System.out.println(">>> TEST-FILTER FINAL TOTALS:");
+      System.out.println("  executed=" + filteredExecuted.size());
+      System.out.println("  falsified=" + filteredFalsified.size());
+      System.out.println("  non-compiled=" + filteredNonCompiled.size());
+      System.out.println("  removed-by-test-filter=" + filterResult.removedIds.size());
+    }
 
     if (!BASE_CFG.keepWork()) {
       try {

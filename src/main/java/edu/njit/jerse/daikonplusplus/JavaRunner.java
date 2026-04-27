@@ -470,7 +470,7 @@ public final class JavaRunner {
 
     if (!finished) {
       // we timed out → give reader a SHORT chance to drain
-      readerThread.join(2000);
+      readerThread.join(20000);
       exit = -1;
     } else {
       // normal case → do NOT wait at all

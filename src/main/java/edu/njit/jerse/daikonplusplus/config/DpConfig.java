@@ -74,6 +74,9 @@ public final class DpConfig {
   private final String llmLocalUrl;
   private final String llmLocalModel;
 
+  private final boolean enableTestFilter;
+  private final int testFilterMethodBatchSize;
+
   private DpConfig(
       int threads,
       Path registryPath,
@@ -100,7 +103,9 @@ public final class DpConfig {
       String llmProvider,
       String llmLocalBackend,
       String llmLocalUrl,
-      String llmLocalModel) {
+      String llmLocalModel,
+      boolean enableTestFilter,
+      int testFilterMethodBatchSize) {
 
     this.threads = threads;
     this.registryPath = registryPath;
@@ -128,6 +133,8 @@ public final class DpConfig {
     this.llmLocalBackend = llmLocalBackend;
     this.llmLocalUrl = llmLocalUrl;
     this.llmLocalModel = llmLocalModel;
+    this.enableTestFilter = enableTestFilter;
+    this.testFilterMethodBatchSize = testFilterMethodBatchSize;
   }
 
   public Set<String> scanIncludes() {
@@ -234,6 +241,14 @@ public final class DpConfig {
 
   public String llmLocalModel() {
     return llmLocalModel;
+  }
+
+  public boolean enableTestFilter() {
+    return enableTestFilter;
+  }
+
+  public int testFilterMethodBatchSize() {
+    return testFilterMethodBatchSize;
   }
 
   // ---- factory ----
@@ -404,6 +419,11 @@ public final class DpConfig {
       }
     }
 
+    boolean enableTestFilter = getBool("dp.testFilter", "DP_TEST_FILTER", false, env, file);
+
+    int testFilterMethodBatchSize =
+        getInt("dp.testFilterMethodBatchSize", "DP_TEST_FILTER_METHOD_BATCH_SIZE", 1, env, file);
+
     return new DpConfig(
         threads,
         Path.of(regPath).toAbsolutePath().normalize(),
@@ -430,7 +450,9 @@ public final class DpConfig {
         llmProvider,
         llmLocalBackend,
         llmLocalUrl,
-        llmLocalModel);
+        llmLocalModel,
+        enableTestFilter,
+        testFilterMethodBatchSize);
   }
 
   // ---- helpers ----
@@ -585,6 +607,9 @@ public final class DpConfig {
     System.out.println("llmLocalBackend = " + llmLocalBackend);
     System.out.println("llmLocalUrl = " + llmLocalUrl);
     System.out.println("llmLocalModel = " + llmLocalModel);
+
+    System.out.println("enableTestFilter = " + enableTestFilter);
+    System.out.println("testFilterMethodBatchSize = " + testFilterMethodBatchSize);
 
     System.out.println("=========================");
   }
