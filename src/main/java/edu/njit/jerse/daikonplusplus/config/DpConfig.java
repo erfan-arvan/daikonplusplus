@@ -16,6 +16,8 @@ public final class DpConfig {
   private final boolean registryReset;
   private final boolean debug;
   private final boolean keepWork;
+  private final long runTimeoutSec;
+  private final int maxRunRetries;
 
   private DpConfig(
       int threads,
@@ -24,7 +26,9 @@ public final class DpConfig {
       boolean includeBody,
       boolean registryReset,
       boolean debug,
-      boolean keepWork) {
+      boolean keepWork,
+      long runTimeoutSec,
+      int maxRunRetries) {
     this.threads = threads;
     this.registryPath = registryPath;
     this.outcomesPath = outcomesPath;
@@ -32,6 +36,8 @@ public final class DpConfig {
     this.registryReset = registryReset;
     this.debug = debug;
     this.keepWork = keepWork;
+    this.runTimeoutSec = runTimeoutSec;
+    this.maxRunRetries = maxRunRetries;
   }
 
   /** number of worker threads for parallel processing. */
@@ -69,6 +75,16 @@ public final class DpConfig {
     return keepWork;
   }
 
+  /** seconds before the child JVM run is killed and timeout-recovery kicks in (default 120) */
+  public long runTimeoutSec() {
+    return runTimeoutSec;
+  }
+
+  /** max number of timeout-recovery retries before giving up (default 3) */
+  public int maxRunRetries() {
+    return maxRunRetries;
+  }
+
   /** Convenience factory reading sane defaults from properties/env. */
   public static DpConfig fromEnv() {
     Map<String, String> env = System.getenv();
@@ -103,8 +119,16 @@ public final class DpConfig {
     boolean registryReset = getBool2("dp.registryReset", "DP_REGISTRY_RESET", /*def*/ true, env);
     boolean debug = getBool2("dp.debug", "DP_DEBUG", /*def*/ true, env);
     boolean keepWork = getBool2("dp.keepWork", "DP_KEEP_WORK", /*def*/ true, env);
+    long runTimeoutSec =
+        Math.max(
+            1, getLong2("dp.runTimeoutSec", "DP_RUN_TIMEOUT_SEC", /* def= */ 120L, env));
+    int maxRunRetries =
+        Math.max(
+            0, getInt2("dp.maxRunRetries", "DP_MAX_RUN_RETRIES", /* def= */ 3, env));
 
-    return new DpConfig(threads, reg, out, includeBody, registryReset, debug, keepWork);
+    return new DpConfig(
+        threads, reg, out, includeBody, registryReset, debug, keepWork, runTimeoutSec,
+        maxRunRetries);
   }
 
   // ---- helpers ----
@@ -136,6 +160,17 @@ public final class DpConfig {
     if (v == null || v.isBlank()) return def;
     try {
       return Integer.parseInt(v.trim());
+    } catch (NumberFormatException nfe) {
+      return def;
+    }
+  }
+
+  private static long getLong2(String sysKey, String envKey, long def, Map<String, String> env) {
+    String v = System.getProperty(sysKey);
+    if (v == null) v = env.get(envKey);
+    if (v == null || v.isBlank()) return def;
+    try {
+      return Long.parseLong(v.trim());
     } catch (NumberFormatException nfe) {
       return def;
     }

@@ -235,7 +235,7 @@ public final class App {
     injPool.shutdown();
     System.out.println(">>> Injection done. Updated files: " + injectedFiles);
 
-    // --- Phase 3: compile with javac and run with java
+    // --- Phase 3: compile with javac and run with java (timeout-recovery loop)
     final Path classesDir = srcRoot.resolve("daikonpp-classes"); // output dir for compiled classes
     final String selfCp =
         System.getProperty("java.class.path"); // include our runtime (InvariantLogger)
@@ -244,7 +244,47 @@ public final class App {
 
     JavaRunner.compileWithAutoFilter(srcRoot, classesDir, fullCompileCp, /*maxPasses*/ 10);
     final Path runLog = srcRoot.resolve("daikonpp-run.log");
-    JavaRunner.run(mainClass, fullRunCp, programArgs, runLog);
+
+    final long runTimeoutSec = cfg.runTimeoutSec();
+    final int maxRunRetries = cfg.maxRunRetries();
+    for (int attempt = 0; attempt <= maxRunRetries; attempt++) {
+      boolean timedOut = JavaRunner.run(mainClass, fullRunCp, programArgs, runLog, runTimeoutSec);
+      if (!timedOut) break;
+
+      System.err.println(
+          ">>> Run timed out (attempt "
+              + (attempt + 1)
+              + "/"
+              + (maxRunRetries + 1)
+              + ") after "
+              + runTimeoutSec
+              + "s");
+
+      if (attempt >= maxRunRetries) {
+        System.err.println(">>> Max run retries exceeded. Proceeding with partial log.");
+        break;
+      }
+
+      Optional<UUID> stuckId = LogParser.readLastExecutedId(runLog);
+      if (stuckId.isEmpty()) {
+        System.err.println(
+            ">>> Timeout with no INV_EXD in log; cannot identify stuck invariant."
+                + " Giving up retries.");
+        break;
+      }
+
+      System.out.println(">>> Removing stuck invariant region: " + stuckId.get());
+      boolean removed = JavaRunner.commentOutInvariantRegion(srcRoot, stuckId.get());
+      if (!removed) {
+        System.err.println(
+            ">>> Could not locate region for " + stuckId.get() + " in source."
+                + " Giving up retries.");
+        break;
+      }
+
+      // Recompile after removing the stuck region, then retry the run.
+      JavaRunner.compileWithAutoFilter(srcRoot, classesDir, fullCompileCp, /*maxPasses*/ 10);
+    }
 
     long exitLines = 0;
     try {

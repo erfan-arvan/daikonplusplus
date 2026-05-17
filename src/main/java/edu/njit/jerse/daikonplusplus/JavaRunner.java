@@ -5,6 +5,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Thin wrapper around {@code javac} and {@code java}.
@@ -26,8 +28,27 @@ public final class JavaRunner {
     return sb.toString();
   }
 
-  /** Runs {@code java -cp classpath mainClass [args...]} and captures stdout to {@code runLog}. */
+  /**
+   * Runs {@code java -cp classpath mainClass [args...]} and captures stdout to {@code runLog}.
+   *
+   * <p>Delegates to {@link #run(String, String, List, Path, long)} with no effective timeout.
+   */
   public static void run(String mainClass, String classpath, List<String> args, Path logFile)
+      throws Exception {
+    run(mainClass, classpath, args, logFile, Long.MAX_VALUE / 2);
+  }
+
+  /**
+   * Runs {@code java -cp classpath mainClass [args...]} and captures stdout to {@code runLog}.
+   *
+   * <p>If the child JVM does not finish within {@code timeoutSeconds}, it is killed forcibly and
+   * {@code true} is returned so the caller can apply timeout-recovery logic.
+   *
+   * @param timeoutSeconds wall-clock seconds to wait before killing the process
+   * @return {@code true} if the run timed out, {@code false} on normal completion
+   */
+  public static boolean run(
+      String mainClass, String classpath, List<String> args, Path logFile, long timeoutSeconds)
       throws Exception {
     // Ensure parent dir exists even if logFile has no parent
     Path parent = logFile.getParent();
@@ -48,15 +69,42 @@ public final class JavaRunner {
     pb.redirectErrorStream(true); // merge stderr into stdout
     Process p = pb.start();
 
-    // Stream stdout+stderr into the log file
-    try (var in = p.getInputStream();
-        var out =
-            Files.newOutputStream(
-                logFile, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
-      pump(in, out); // copy all bytes
+    // Pump stdout+stderr to the log file in a background thread so we can use waitFor(timeout).
+    Thread pumper =
+        new Thread(
+            () -> {
+              try (var in = p.getInputStream();
+                  var out =
+                      Files.newOutputStream(
+                          logFile,
+                          StandardOpenOption.CREATE,
+                          StandardOpenOption.TRUNCATE_EXISTING)) {
+                pump(in, out);
+              } catch (java.io.IOException ignored) {
+              }
+            },
+            "dp-log-pumper");
+    pumper.setDaemon(true);
+    pumper.start();
+
+    boolean finished = p.waitFor(timeoutSeconds, TimeUnit.SECONDS);
+    if (!finished) {
+      p.destroyForcibly();
+      pumper.join(2_000); // brief flush window before appending to the log
+      Files.writeString(
+          logFile,
+          System.lineSeparator()
+              + "[DP] Run timed out after "
+              + timeoutSeconds
+              + "s"
+              + System.lineSeparator(),
+          StandardOpenOption.CREATE,
+          StandardOpenOption.APPEND);
+      return true;
     }
 
-    int code = p.waitFor();
+    pumper.join(); // wait for all output to be written before reading size below
+    int code = p.exitValue();
 
     // If it failed, stamp the exit code, so we can see it in the run log
     if (code != 0) {
@@ -76,6 +124,44 @@ public final class JavaRunner {
           StandardOpenOption.CREATE,
           StandardOpenOption.APPEND);
     }
+    return false;
+  }
+
+  /**
+   * Searches all {@code .java} files under {@code srcRoot} for the injected one-liner region that
+   * carries {@code INV_EXD:<stuckId>} and comments it out. This removes an invariant that caused
+   * the child JVM to hang (e.g. infinite loop inside the checked expression).
+   *
+   * @return {@code true} if at least one region was found and commented out
+   */
+  public static boolean commentOutInvariantRegion(Path srcRoot, UUID stuckId) throws Exception {
+    String marker = "INV_EXD:" + stuckId.toString();
+    boolean found = false;
+
+    List<Path> javaFiles = new ArrayList<>();
+    try (var walk = Files.walk(srcRoot)) {
+      walk.filter(p -> p.toString().endsWith(".java")).forEach(javaFiles::add);
+    }
+
+    for (Path file : javaFiles) {
+      if (!Files.isRegularFile(file)) continue;
+      List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
+      boolean changed = false;
+      for (int i = 0; i < lines.size(); i++) {
+        String ln = lines.get(i);
+        if (ln.strip().startsWith("//")) continue; // already commented
+        if (ln.contains(marker)) {
+          lines.set(i, "//Timed-out Invariant (infinite loop removed): " + ln.strip());
+          changed = true;
+          found = true;
+          System.out.println("    ↳ Removed stuck invariant region in " + file + ":" + (i + 1));
+        }
+      }
+      if (changed) {
+        Files.write(file, lines, StandardCharsets.UTF_8);
+      }
+    }
+    return found;
   }
 
   // ---- internals ----
