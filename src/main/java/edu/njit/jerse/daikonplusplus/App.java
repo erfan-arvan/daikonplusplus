@@ -572,9 +572,41 @@ public final class App {
       System.out.println(">>> Invariant auto-filter finished (external-project mode)");
       System.out.println(">>> Running Tests!");
 
-      // Now run the real external test script
+      // Now run the real external test script (with timeout-recovery loop)
       final String fullRunCp = "";
-      JavaRunner.runExternalScript(resolvedScript, workProjectRoot, fullRunCp, runLog);
+      final int maxRunRetries = BASE_CFG.maxRunRetries();
+      for (int runAttempt = 0; runAttempt <= maxRunRetries; runAttempt++) {
+        boolean timedOut =
+            JavaRunner.runExternalScript(resolvedScript, workProjectRoot, fullRunCp, runLog);
+        if (!timedOut) break;
+
+        System.err.println(
+            "[DP] Run timed out (attempt "
+                + (runAttempt + 1)
+                + "/"
+                + (maxRunRetries + 1)
+                + ")");
+
+        if (runAttempt >= maxRunRetries) {
+          System.err.println("[DP] Max run retries exceeded. Proceeding with partial log.");
+          break;
+        }
+
+        Optional<UUID> stuckId = LogParser.readLastExecutedId(runLog);
+        if (stuckId.isEmpty()) {
+          System.err.println(
+              "[DP] No INV_EXD in log; cannot identify stuck invariant. Giving up.");
+          break;
+        }
+
+        System.out.println("[DP] Removing stuck invariant region: " + stuckId.get());
+        boolean removed = JavaRunner.removeRegionById(mainSrcRoot, stuckId.get());
+        if (!removed) {
+          System.err.println(
+              "[DP] Could not find region for " + stuckId.get() + ". Giving up.");
+          break;
+        }
+      }
     } else {
       // Native mode (UNCHANGED)
       final Path classesDir = mainSrcRoot.resolve("daikonpp-classes");

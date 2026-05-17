@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -84,6 +86,40 @@ public final class LogParser {
     }
 
     return out;
+  }
+
+  /**
+   * Reads the run log from the end and returns the UUID from the very last {@code INV_EXD:<uuid>}
+   * line. This identifies the most recently started invariant check — the one most likely to be
+   * stuck in an infinite loop when a timeout fires.
+   *
+   * @return the UUID of the last executed invariant, or empty if none was found
+   */
+  public static Optional<UUID> readLastExecutedId(Path logFile) {
+    if (!Files.exists(logFile)) return Optional.empty();
+    final Pattern p =
+        Pattern.compile(
+            "INV_EXD:([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})");
+    try {
+      List<String> lines = Files.readAllLines(logFile, StandardCharsets.UTF_8);
+      for (int i = lines.size() - 1; i >= 0; i--) {
+        Matcher m = p.matcher(lines.get(i));
+        UUID last = null;
+        while (m.find()) {
+          String idStr = m.group(1);
+          if (idStr != null) {
+            try {
+              last = UUID.fromString(idStr);
+            } catch (IllegalArgumentException ignore) {
+            }
+          }
+        }
+        if (last != null) return Optional.of(last);
+      }
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to read run log: " + e.getMessage(), e);
+    }
+    return Optional.empty();
   }
 
   /**

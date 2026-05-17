@@ -446,7 +446,7 @@ public final class JavaRunner {
    * @throws IOException if the script cannot be executed
    * @throws InterruptedException if execution is interrupted
    */
-  public static void runExternalScript(Path script, Path workDir, String fullRunCp, Path runLog)
+  public static boolean runExternalScript(Path script, Path workDir, String fullRunCp, Path runLog)
       throws IOException, InterruptedException {
 
     if (!Files.isRegularFile(script)) {
@@ -569,5 +569,41 @@ public final class JavaRunner {
           "\n[DP] External runner exited with code " + exit + "\n",
           StandardOpenOption.APPEND);
     }
+
+    return !finished;
+  }
+
+  /**
+   * Searches all {@code .java} files under {@code srcRoot} for a line containing {@code
+   * INV_EXD:<stuckId>} and removes the surrounding invariant region by delegating to {@link
+   * #removeInvariantRegion(Path, int)}.
+   *
+   * @return {@code true} if a region was found and removed
+   */
+  public static boolean removeRegionById(Path srcRoot, UUID stuckId) {
+    String marker = "INV_EXD:" + stuckId.toString();
+    try {
+      List<Path> javaFiles = new ArrayList<>();
+      try (var walk = Files.walk(srcRoot)) {
+        walk.filter(p -> p.toString().endsWith(".java")).forEach(javaFiles::add);
+      }
+      for (Path file : javaFiles) {
+        if (!Files.isRegularFile(file)) continue;
+        List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
+        for (int i = 0; i < lines.size(); i++) {
+          if (lines.get(i).contains(marker)) {
+            int removed = removeInvariantRegion(file, i + 1);
+            if (removed > 0) {
+              System.out.println(
+                  "[DP] Removed stuck invariant region (" + stuckId + ") in " + file + ":" + (i + 1));
+              return true;
+            }
+          }
+        }
+      }
+    } catch (Exception e) {
+      System.err.println("[DP] removeRegionById failed for " + stuckId + ": " + e.getMessage());
+    }
+    return false;
   }
 }

@@ -68,6 +68,9 @@ public final class DpConfig {
   private final boolean enableTestFilter;
   private final int testFilterMethodBatchSize;
 
+  // ---- timeout recovery ----
+  private final int maxRunRetries;
+
   private DpConfig(
       int threads,
       Path registryPath,
@@ -96,7 +99,8 @@ public final class DpConfig {
       String llmLocalUrl,
       String llmLocalModel,
       boolean enableTestFilter,
-      int testFilterMethodBatchSize) {
+      int testFilterMethodBatchSize,
+      int maxRunRetries) {
 
     this.threads = threads;
     this.registryPath = registryPath;
@@ -126,6 +130,7 @@ public final class DpConfig {
     this.llmLocalModel = llmLocalModel;
     this.enableTestFilter = enableTestFilter;
     this.testFilterMethodBatchSize = testFilterMethodBatchSize;
+    this.maxRunRetries = maxRunRetries;
   }
 
   public Set<String> scanIncludes() {
@@ -238,6 +243,11 @@ public final class DpConfig {
 
   public int testFilterMethodBatchSize() {
     return testFilterMethodBatchSize;
+  }
+
+  /** max number of timeout-recovery retries before giving up (default 3) */
+  public int maxRunRetries() {
+    return maxRunRetries;
   }
 
   /**
@@ -413,6 +423,9 @@ public final class DpConfig {
     int testFilterMethodBatchSize =
         getInt("dp.testFilterMethodBatchSize", "DP_TEST_FILTER_METHOD_BATCH_SIZE", 1, env, file);
 
+    int maxRunRetries =
+        Math.max(0, getInt("dp.maxRunRetries", "DP_MAX_RUN_RETRIES", 3, env, file));
+
     return new DpConfig(
         threads,
         Path.of(regPath).toAbsolutePath().normalize(),
@@ -441,7 +454,8 @@ public final class DpConfig {
         llmLocalUrl,
         llmLocalModel,
         enableTestFilter,
-        testFilterMethodBatchSize);
+        testFilterMethodBatchSize,
+        maxRunRetries);
   }
 
   /**
@@ -626,6 +640,7 @@ public final class DpConfig {
 
     System.out.println("enableTestFilter = " + enableTestFilter);
     System.out.println("testFilterMethodBatchSize = " + testFilterMethodBatchSize);
+    System.out.println("maxRunRetries = " + maxRunRetries);
 
     System.out.println("=========================");
   }
