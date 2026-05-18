@@ -572,49 +572,77 @@ public final class App {
       System.out.println(">>> Invariant auto-filter finished (external-project mode)");
       System.out.println(">>> Running Tests!");
 
-      // Now run the real external test script (with timeout-recovery loop)
+      // Now run the real external test script.
+      //
+      // Two-level recovery loop:
+      //   INNER loop — stale-invariant retries: when the stale detector kills the run
+      //     (no INV_EXD progress in staleCheckMinutes), remove the stuck invariant and
+      //     retry immediately.  staleCheckMinutes doubles on each stale kill (capped at
+      //     maxStaleCheckMinutes).  The inner loop runs until a hard timeout or normal finish.
+      //
+      //   OUTER loop — hard-timeout retries: when the wall-clock timeout fires without the
+      //     process finishing, double currentTimeoutMinutes (capped at maxTimeoutMinutes),
+      //     reset staleCheckMinutes to the base value, and retry.  Consumes one outer
+      //     attempt per hard timeout.  On hard timeout we do NOT remove an invariant — the
+      //     process simply needed more time.
+      //
       final String fullRunCp = "";
-      final int maxRunRetries = BASE_CFG.maxRunRetries();
+      final int maxHardRetries = BASE_CFG.maxRunRetries();
       long currentTimeoutMinutes = JavaRunner.EXTERNAL_RUN_TIMEOUT_MINUTES;
-      for (int runAttempt = 0; runAttempt <= maxRunRetries; runAttempt++) {
-        boolean timedOut =
-            JavaRunner.runExternalScript(
-                resolvedScript, workProjectRoot, fullRunCp, runLog,
-                currentTimeoutMinutes, BASE_CFG.staleCheckMinutes());
-        if (!timedOut) break;
+      final long maxTimeoutMinutes = BASE_CFG.maxTimeoutMinutes();
+      final long maxStaleCheckMinutes = BASE_CFG.maxStaleCheckMinutes();
+      final long baseStaleMinutes = BASE_CFG.staleCheckMinutes();
 
-        System.err.println(
-            "[DP] Run timed out (attempt "
-                + (runAttempt + 1)
-                + "/"
-                + (maxRunRetries + 1)
-                + ") after "
-                + currentTimeoutMinutes
-                + " min");
+      outerLoop:
+      for (int hardAttempt = 0; hardAttempt <= maxHardRetries; hardAttempt++) {
+        long currentStaleMinutes = baseStaleMinutes; // reset for each hard-timeout window
 
-        // Double the timeout for the next attempt
-        currentTimeoutMinutes *= 2;
-        System.out.println("[DP] Next attempt timeout: " + currentTimeoutMinutes + " min");
+        // Inner loop: stale-kill retries within the current hard-timeout window
+        while (true) {
+          JavaRunner.RunResult result =
+              JavaRunner.runExternalScript(
+                  resolvedScript, workProjectRoot, fullRunCp, runLog,
+                  currentTimeoutMinutes, currentStaleMinutes);
 
-        if (runAttempt >= maxRunRetries) {
-          System.err.println("[DP] Max run retries exceeded. Proceeding with partial log.");
-          break;
+          if (result == JavaRunner.RunResult.NORMAL) {
+            break outerLoop; // done — normal completion
+
+          } else if (result == JavaRunner.RunResult.STALE_KILLED) {
+            System.err.println(
+                "[DP] Stale kill (hard-timeout window "
+                    + (hardAttempt + 1) + "/" + (maxHardRetries + 1)
+                    + ", stale interval was " + currentStaleMinutes + " min)");
+
+            Optional<UUID> stuckId = LogParser.readLastExecutedId(runLog);
+            if (stuckId.isEmpty()) {
+              System.err.println("[DP] No INV_EXD in log after stale kill; giving up.");
+              break outerLoop;
+            }
+            System.out.println("[DP] Removing stuck invariant: " + stuckId.get());
+            if (!JavaRunner.removeRegionById(mainSrcRoot, stuckId.get())) {
+              System.err.println("[DP] Could not remove region for " + stuckId.get() + "; giving up.");
+              break outerLoop;
+            }
+            // Double the stale interval so we wait longer before next kill
+            currentStaleMinutes = Math.min(currentStaleMinutes * 2, maxStaleCheckMinutes);
+            System.out.println("[DP] Next stale check interval: " + currentStaleMinutes + " min");
+            // continue inner loop with the same hard timeout
+
+          } else { // HARD_TIMEOUT
+            System.err.println(
+                "[DP] Hard timeout after " + currentTimeoutMinutes + " min"
+                    + " (attempt " + (hardAttempt + 1) + "/" + (maxHardRetries + 1) + ")");
+            if (hardAttempt >= maxHardRetries) {
+              System.err.println("[DP] Max hard-timeout retries exceeded. Proceeding with partial log.");
+            } else {
+              currentTimeoutMinutes = Math.min(currentTimeoutMinutes * 2, maxTimeoutMinutes);
+              System.out.println("[DP] Next hard timeout: " + currentTimeoutMinutes + " min");
+            }
+            break; // break inner → outer loop increments hardAttempt
+          }
         }
 
-        Optional<UUID> stuckId = LogParser.readLastExecutedId(runLog);
-        if (stuckId.isEmpty()) {
-          System.err.println(
-              "[DP] No INV_EXD in log; cannot identify stuck invariant. Giving up.");
-          break;
-        }
-
-        System.out.println("[DP] Removing stuck invariant region: " + stuckId.get());
-        boolean removed = JavaRunner.removeRegionById(mainSrcRoot, stuckId.get());
-        if (!removed) {
-          System.err.println(
-              "[DP] Could not find region for " + stuckId.get() + ". Giving up.");
-          break;
-        }
+        if (hardAttempt >= maxHardRetries) break;
       }
     } else {
       // Native mode (UNCHANGED)

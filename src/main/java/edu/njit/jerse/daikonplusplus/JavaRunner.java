@@ -35,6 +35,16 @@ public final class JavaRunner {
 
   static final long EXTERNAL_RUN_TIMEOUT_MINUTES = 60;
 
+  /** Outcome of a {@link #runExternalScript} call. */
+  public enum RunResult {
+    /** Process finished within the timeout window with no stale kill. */
+    NORMAL,
+    /** Stale-invariant detector fired: no progress for {@code staleCheckMinutes}, process killed. */
+    STALE_KILLED,
+    /** Hard wall-clock timeout elapsed before the process finished, process killed. */
+    HARD_TIMEOUT
+  }
+
   private JavaRunner() {}
 
   /**
@@ -447,11 +457,11 @@ public final class JavaRunner {
    * @param runLog file where output is written
    * @param timeoutMinutes wall-clock minutes to wait before killing the process
    * @param staleCheckMinutes interval in minutes between stale-invariant checks (0 = disabled)
-   * @return {@code true} if the run timed out or was stale-killed, {@code false} on normal completion
+   * @return {@link RunResult} indicating how the run ended
    * @throws IOException if the script cannot be executed
    * @throws InterruptedException if execution is interrupted
    */
-  public static boolean runExternalScript(
+  public static RunResult runExternalScript(
       Path script, Path workDir, String fullRunCp, Path runLog,
       long timeoutMinutes, long staleCheckMinutes)
       throws IOException, InterruptedException {
@@ -608,29 +618,31 @@ public final class JavaRunner {
       readerThread.interrupt();
     }
 
-    boolean timedOut = !finished || staleKilled.get();
+    RunResult runResult =
+        !finished ? RunResult.HARD_TIMEOUT
+        : staleKilled.get() ? RunResult.STALE_KILLED
+        : RunResult.NORMAL;
 
     int exit;
 
-    if (timedOut) {
-      // timed out or stale-killed → give reader a short chance to drain
+    if (runResult != RunResult.NORMAL) {
+      // killed by timeout or stale detector → give reader a short chance to drain
       readerThread.join(20000);
       exit = -1;
     } else {
-      // normal case
       exit = p.exitValue();
     }
 
     appendDpEvents(invDir, runLog);
 
-    if (exit != 0 && !timedOut) {
+    if (exit != 0 && runResult == RunResult.NORMAL) {
       Files.writeString(
           runLog,
           "\n[DP] External runner exited with code " + exit + "\n",
           StandardOpenOption.APPEND);
     }
 
-    return timedOut;
+    return runResult;
   }
 
   /**

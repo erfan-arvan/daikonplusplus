@@ -71,6 +71,8 @@ public final class DpConfig {
   // ---- timeout recovery ----
   private final int maxRunRetries;
   private final int staleCheckMinutes;
+  private final int maxTimeoutMinutes;
+  private final int maxStaleCheckMinutes;
 
   private DpConfig(
       int threads,
@@ -102,7 +104,9 @@ public final class DpConfig {
       boolean enableTestFilter,
       int testFilterMethodBatchSize,
       int maxRunRetries,
-      int staleCheckMinutes) {
+      int staleCheckMinutes,
+      int maxTimeoutMinutes,
+      int maxStaleCheckMinutes) {
 
     this.threads = threads;
     this.registryPath = registryPath;
@@ -134,6 +138,8 @@ public final class DpConfig {
     this.testFilterMethodBatchSize = testFilterMethodBatchSize;
     this.maxRunRetries = maxRunRetries;
     this.staleCheckMinutes = staleCheckMinutes;
+    this.maxTimeoutMinutes = maxTimeoutMinutes;
+    this.maxStaleCheckMinutes = maxStaleCheckMinutes;
   }
 
   public Set<String> scanIncludes() {
@@ -256,6 +262,16 @@ public final class DpConfig {
   /** interval in minutes between stale-invariant checks during external runs (0 = disabled, default 10) */
   public int staleCheckMinutes() {
     return staleCheckMinutes;
+  }
+
+  /** hard cap on the run timeout after doubling (default 480 min / 8 h) */
+  public int maxTimeoutMinutes() {
+    return maxTimeoutMinutes;
+  }
+
+  /** hard cap on the stale-check interval after doubling (default 80 min) */
+  public int maxStaleCheckMinutes() {
+    return maxStaleCheckMinutes;
   }
 
   /**
@@ -432,10 +448,16 @@ public final class DpConfig {
         getInt("dp.testFilterMethodBatchSize", "DP_TEST_FILTER_METHOD_BATCH_SIZE", 1, env, file);
 
     int maxRunRetries =
-        Math.max(0, getInt("dp.maxRunRetries", "DP_MAX_RUN_RETRIES", 3, env, file));
+        Math.max(0, getInt("dp.maxRunRetries", "DP_MAX_RUN_RETRIES", 10, env, file));
 
     int staleCheckMinutes =
         Math.max(0, getInt("dp.staleCheckMinutes", "DP_STALE_CHECK_MINUTES", 10, env, file));
+
+    int maxTimeoutMinutes =
+        Math.max(1, getInt("dp.maxTimeoutMinutes", "DP_MAX_TIMEOUT_MINUTES", 480, env, file));
+
+    int maxStaleCheckMinutes =
+        Math.max(1, getInt("dp.maxStaleCheckMinutes", "DP_MAX_STALE_CHECK_MINUTES", 80, env, file));
 
     return new DpConfig(
         threads,
@@ -467,7 +489,9 @@ public final class DpConfig {
         enableTestFilter,
         testFilterMethodBatchSize,
         maxRunRetries,
-        staleCheckMinutes);
+        staleCheckMinutes,
+        maxTimeoutMinutes,
+        maxStaleCheckMinutes);
   }
 
   /**
@@ -654,6 +678,8 @@ public final class DpConfig {
     System.out.println("testFilterMethodBatchSize = " + testFilterMethodBatchSize);
     System.out.println("maxRunRetries = " + maxRunRetries);
     System.out.println("staleCheckMinutes = " + staleCheckMinutes);
+    System.out.println("maxTimeoutMinutes = " + maxTimeoutMinutes);
+    System.out.println("maxStaleCheckMinutes = " + maxStaleCheckMinutes);
 
     System.out.println("=========================");
   }
