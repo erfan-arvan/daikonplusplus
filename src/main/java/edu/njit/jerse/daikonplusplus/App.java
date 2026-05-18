@@ -584,8 +584,7 @@ public final class App {
       // limit doubles (capped at maxTimeoutMinutes) so the suite gets progressively
       // more room.  There is no cap on the number of removals.
       //
-      // All removed-stale UUIDs are persisted to .daikonpp-stale-removed.txt and
-      // re-applied at the start of every iteration so they are never re-introduced.
+      // All removed-stale UUIDs are recorded in .daikonpp-stale-removed.txt for stats.
       final String fullRunCp = "";
       long currentTimeoutMinutes = JavaRunner.EXTERNAL_RUN_TIMEOUT_MINUTES;
       final long maxTimeoutMinutes = BASE_CFG.maxTimeoutMinutes();
@@ -595,11 +594,6 @@ public final class App {
       final Path staleRecordFile = workProjectRoot.resolve(".daikonpp-stale-removed.txt");
 
       while (true) {
-        // Re-apply all known stale removals before each run (idempotent).
-        for (UUID knownStaleId : staleRemovedIds) {
-          JavaRunner.removeRegionById(mainSrcRoot, knownStaleId);
-        }
-
         JavaRunner.RunResult result =
             JavaRunner.runExternalScript(
                 resolvedScript, workProjectRoot, fullRunCp, runLog,
@@ -635,6 +629,14 @@ public final class App {
           currentTimeoutMinutes = Math.min(currentTimeoutMinutes * 2, maxTimeoutMinutes);
           System.out.println("[DP] Next timeout: " + currentTimeoutMinutes + " min");
         }
+      }
+
+      System.out.println(">>> Stale-removed invariants this run: " + staleRemovedIds.size());
+      if (!staleRemovedIds.isEmpty()) {
+        for (UUID id : staleRemovedIds) {
+          System.out.println("    stale: " + id);
+        }
+        System.out.println(">>> Stale record: " + staleRecordFile.toAbsolutePath());
       }
     } else {
       // Native mode (UNCHANGED)
