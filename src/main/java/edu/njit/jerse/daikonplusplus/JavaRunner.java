@@ -507,6 +507,16 @@ public final class JavaRunner {
     env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + jvmArgs).trim());
 
     pb.redirectErrorStream(true);
+
+    // Capture log size BEFORE starting the process so the stale detector
+    // only reads INV_EXD entries written by THIS run, not previous runs.
+    final long logStartOffset;
+    try {
+      logStartOffset = Files.exists(runLog) ? Files.size(runLog) : 0L;
+    } catch (IOException e) {
+      throw new IOException("Cannot determine log file size: " + e.getMessage(), e);
+    }
+
     Process p = pb.start();
 
     // ---- ASYNC OUTPUT READER ----
@@ -578,7 +588,7 @@ public final class JavaRunner {
 
                   UUID currentId;
                   try {
-                    currentId = LogParser.readLastExecutedId(runLog).orElse(null);
+                    currentId = LogParser.readLastExecutedIdFrom(runLog, logStartOffset).orElse(null);
                   } catch (Exception e) {
                     System.err.println("[DP] Stale detector: error reading log: " + e.getMessage());
                     continue; // keep polling — don't die on transient IO errors

@@ -1,7 +1,9 @@
 package edu.njit.jerse.daikonplusplus.results;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.HashSet;
@@ -120,6 +122,43 @@ public final class LogParser {
       throw new RuntimeException("Failed to read run log: " + e.getMessage(), e);
     }
     return Optional.empty();
+  }
+
+  /**
+   * Like {@link #readLastExecutedId(Path)} but only considers bytes written at or after
+   * {@code startOffset}. Pass the file size captured just before a run started so the stale
+   * detector ignores {@code INV_EXD} entries from previous runs.
+   */
+  public static Optional<UUID> readLastExecutedIdFrom(Path logFile, long startOffset) {
+    if (!Files.exists(logFile)) return Optional.empty();
+    final Pattern p =
+        Pattern.compile(
+            "INV_EXD:([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})");
+    try {
+      FileInputStream fis = new FileInputStream(logFile.toFile());
+      long skipped = fis.skip(startOffset);
+      if (skipped < startOffset) {
+        fis.close();
+        return Optional.empty();
+      }
+      UUID last = null;
+      try (BufferedReader br =
+          new BufferedReader(new InputStreamReader(fis, StandardCharsets.UTF_8))) {
+        String ln;
+        while ((ln = br.readLine()) != null) {
+          Matcher m = p.matcher(ln);
+          while (m.find()) {
+            try {
+              last = UUID.fromString(m.group(1));
+            } catch (IllegalArgumentException ignore) {
+            }
+          }
+        }
+      }
+      return Optional.ofNullable(last);
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to read run log: " + e.getMessage(), e);
+    }
   }
 
   /**
