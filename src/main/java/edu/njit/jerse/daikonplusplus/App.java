@@ -575,9 +575,11 @@ public final class App {
       // Now run the real external test script (with timeout-recovery loop)
       final String fullRunCp = "";
       final int maxRunRetries = BASE_CFG.maxRunRetries();
+      long currentTimeoutMinutes = JavaRunner.EXTERNAL_RUN_TIMEOUT_MINUTES;
       for (int runAttempt = 0; runAttempt <= maxRunRetries; runAttempt++) {
         boolean timedOut =
-            JavaRunner.runExternalScript(resolvedScript, workProjectRoot, fullRunCp, runLog);
+            JavaRunner.runExternalScript(
+                resolvedScript, workProjectRoot, fullRunCp, runLog, currentTimeoutMinutes);
         if (!timedOut) break;
 
         System.err.println(
@@ -585,7 +587,13 @@ public final class App {
                 + (runAttempt + 1)
                 + "/"
                 + (maxRunRetries + 1)
-                + ")");
+                + ") after "
+                + currentTimeoutMinutes
+                + " min");
+
+        // Double the timeout for the next attempt
+        currentTimeoutMinutes *= 2;
+        System.out.println("[DP] Next attempt timeout: " + currentTimeoutMinutes + " min");
 
         if (runAttempt >= maxRunRetries) {
           System.err.println("[DP] Max run retries exceeded. Proceeding with partial log.");

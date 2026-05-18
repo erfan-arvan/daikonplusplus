@@ -31,7 +31,7 @@ public final class JavaRunner {
   private static final String BLOCK_BEGIN = "__DP_INVARIANT_BEGIN__";
   private static final String BLOCK_END = "__DP_INVARIANT_END__";
 
-  private static final long EXTERNAL_RUN_TIMEOUT_MINUTES = 60;
+  static final long EXTERNAL_RUN_TIMEOUT_MINUTES = 60;
 
   private JavaRunner() {}
 
@@ -443,10 +443,13 @@ public final class JavaRunner {
    * @param workDir working directory for the script
    * @param fullRunCp classpath exposed to the script (may be empty)
    * @param runLog file where output is written
+   * @param timeoutMinutes wall-clock minutes to wait before killing the process
+   * @return {@code true} if the run timed out, {@code false} on normal completion
    * @throws IOException if the script cannot be executed
    * @throws InterruptedException if execution is interrupted
    */
-  public static boolean runExternalScript(Path script, Path workDir, String fullRunCp, Path runLog)
+  public static boolean runExternalScript(
+      Path script, Path workDir, String fullRunCp, Path runLog, long timeoutMinutes)
       throws IOException, InterruptedException {
 
     if (!Files.isRegularFile(script)) {
@@ -536,12 +539,12 @@ public final class JavaRunner {
 
     // ---- TIMEOUT CONTROL ----
     boolean finished =
-        p.waitFor(EXTERNAL_RUN_TIMEOUT_MINUTES, java.util.concurrent.TimeUnit.MINUTES);
+        p.waitFor(timeoutMinutes, java.util.concurrent.TimeUnit.MINUTES);
 
     if (!finished) {
       Files.writeString(
           runLog,
-          "\n[DP] External runner TIMED OUT after " + EXTERNAL_RUN_TIMEOUT_MINUTES + " minutes\n",
+          "\n[DP] External runner TIMED OUT after " + timeoutMinutes + " minutes\n",
           StandardOpenOption.CREATE,
           StandardOpenOption.APPEND);
 
