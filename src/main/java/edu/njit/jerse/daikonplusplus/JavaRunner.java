@@ -552,16 +552,23 @@ public final class JavaRunner {
     readerThread.start();
 
     // ---- STALE INVARIANT DETECTOR ----
+    // Polls every 2 minutes. Kills the process when the same UUID has been the
+    // last-executed invariant for staleCheckMinutes continuously — regardless of
+    // whether that spans one or many poll intervals. This fires after exactly
+    // staleCheckMinutes of no progress, not after 2x that.
     AtomicBoolean staleKilled = new AtomicBoolean(false);
     Thread staleThread = null;
     if (staleCheckMinutes > 0) {
+      final long pollMs = 2 * 60_000L; // poll every 2 min
+      final long thresholdMs = staleCheckMinutes * 60_000L;
       staleThread =
           new Thread(
               () -> {
-                UUID lastSeen = null;
+                UUID trackedId = null;
+                long trackedSince = 0;
                 while (!Thread.currentThread().isInterrupted() && p.isAlive()) {
                   try {
-                    Thread.sleep(staleCheckMinutes * 60_000L);
+                    Thread.sleep(pollMs);
                   } catch (InterruptedException e) {
                     break;
                   }
@@ -569,12 +576,26 @@ public final class JavaRunner {
 
                   Optional<UUID> current = LogParser.readLastExecutedId(runLog);
                   UUID currentId = current.orElse(null);
+                  long now = System.currentTimeMillis();
 
-                  if (lastSeen != null && lastSeen.equals(currentId)) {
+                  if (currentId == null) {
+                    trackedId = null;
+                    continue;
+                  }
+
+                  if (!currentId.equals(trackedId)) {
+                    // UUID changed — reset the clock
+                    trackedId = currentId;
+                    trackedSince = now;
+                    continue;
+                  }
+
+                  // Same UUID — check how long it has been stuck
+                  if (now - trackedSince >= thresholdMs) {
                     try {
                       Files.writeString(
                           runLog,
-                          "\n[DP] Stale invariant detected (" + currentId + ") - no progress in "
+                          "\n[DP] Stale invariant detected (" + currentId + ") - no progress for "
                               + staleCheckMinutes + " min, killing run\n",
                           StandardOpenOption.CREATE,
                           StandardOpenOption.APPEND);
@@ -587,7 +608,6 @@ public final class JavaRunner {
                     p.destroyForcibly();
                     break;
                   }
-                  lastSeen = currentId;
                 }
               });
       staleThread.setDaemon(true);
