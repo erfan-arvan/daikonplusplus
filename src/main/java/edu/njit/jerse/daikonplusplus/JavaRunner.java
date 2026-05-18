@@ -552,15 +552,17 @@ public final class JavaRunner {
     readerThread.start();
 
     // ---- STALE INVARIANT DETECTOR ----
-    // Polls every 2 minutes. Kills the process when the same UUID has been the
-    // last-executed invariant for staleCheckMinutes continuously — regardless of
-    // whether that spans one or many poll intervals. This fires after exactly
-    // staleCheckMinutes of no progress, not after 2x that.
+    // Polls every 60 seconds. Kills the process when the same UUID has been the
+    // last-executed invariant continuously for staleCheckMinutes. Fires after exactly
+    // staleCheckMinutes of no progress (not 2x like the old two-observation design).
     AtomicBoolean staleKilled = new AtomicBoolean(false);
     Thread staleThread = null;
     if (staleCheckMinutes > 0) {
-      final long pollMs = 2 * 60_000L; // poll every 2 min
+      final long pollMs = 60_000L; // poll every 60 seconds
       final long thresholdMs = staleCheckMinutes * 60_000L;
+      System.out.println(
+          "[DP] Stale detector started — threshold: " + staleCheckMinutes
+              + " min, poll: 60 s, log: " + runLog.toAbsolutePath());
       staleThread =
           new Thread(
               () -> {
@@ -574,24 +576,36 @@ public final class JavaRunner {
                   }
                   if (!p.isAlive()) break;
 
-                  Optional<UUID> current = LogParser.readLastExecutedId(runLog);
-                  UUID currentId = current.orElse(null);
+                  UUID currentId;
+                  try {
+                    currentId = LogParser.readLastExecutedId(runLog).orElse(null);
+                  } catch (Exception e) {
+                    System.err.println("[DP] Stale detector: error reading log: " + e.getMessage());
+                    continue; // keep polling — don't die on transient IO errors
+                  }
+
                   long now = System.currentTimeMillis();
 
                   if (currentId == null) {
+                    // no INV_EXD in log yet — reset and wait
                     trackedId = null;
                     continue;
                   }
 
                   if (!currentId.equals(trackedId)) {
-                    // UUID changed — reset the clock
+                    // UUID advanced — reset the clock
                     trackedId = currentId;
                     trackedSince = now;
                     continue;
                   }
 
-                  // Same UUID — check how long it has been stuck
-                  if (now - trackedSince >= thresholdMs) {
+                  long stuckForMs = now - trackedSince;
+                  System.out.println(
+                      "[DP] Stale detector: " + currentId
+                          + " unchanged for " + (stuckForMs / 60_000) + " min"
+                          + " (threshold " + staleCheckMinutes + " min)");
+
+                  if (stuckForMs >= thresholdMs) {
                     try {
                       Files.writeString(
                           runLog,
@@ -609,9 +623,12 @@ public final class JavaRunner {
                     break;
                   }
                 }
+                System.out.println("[DP] Stale detector thread exiting (staleKilled=" + staleKilled.get() + ")");
               });
       staleThread.setDaemon(true);
       staleThread.start();
+    } else {
+      System.out.println("[DP] Stale detector disabled (staleCheckMinutes=0)");
     }
 
     // ---- TIMEOUT CONTROL ----
