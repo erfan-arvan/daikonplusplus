@@ -70,6 +70,7 @@ public final class DpConfig {
 
   // ---- timeout recovery ----
   private final int maxRunRetries;
+  private final int staleCheckMinutes;
 
   private DpConfig(
       int threads,
@@ -100,7 +101,8 @@ public final class DpConfig {
       String llmLocalModel,
       boolean enableTestFilter,
       int testFilterMethodBatchSize,
-      int maxRunRetries) {
+      int maxRunRetries,
+      int staleCheckMinutes) {
 
     this.threads = threads;
     this.registryPath = registryPath;
@@ -131,6 +133,7 @@ public final class DpConfig {
     this.enableTestFilter = enableTestFilter;
     this.testFilterMethodBatchSize = testFilterMethodBatchSize;
     this.maxRunRetries = maxRunRetries;
+    this.staleCheckMinutes = staleCheckMinutes;
   }
 
   public Set<String> scanIncludes() {
@@ -248,6 +251,11 @@ public final class DpConfig {
   /** max number of timeout-recovery retries before giving up (default 3) */
   public int maxRunRetries() {
     return maxRunRetries;
+  }
+
+  /** interval in minutes between stale-invariant checks during external runs (0 = disabled, default 10) */
+  public int staleCheckMinutes() {
+    return staleCheckMinutes;
   }
 
   /**
@@ -426,6 +434,9 @@ public final class DpConfig {
     int maxRunRetries =
         Math.max(0, getInt("dp.maxRunRetries", "DP_MAX_RUN_RETRIES", 3, env, file));
 
+    int staleCheckMinutes =
+        Math.max(0, getInt("dp.staleCheckMinutes", "DP_STALE_CHECK_MINUTES", 10, env, file));
+
     return new DpConfig(
         threads,
         Path.of(regPath).toAbsolutePath().normalize(),
@@ -455,7 +466,8 @@ public final class DpConfig {
         llmLocalModel,
         enableTestFilter,
         testFilterMethodBatchSize,
-        maxRunRetries);
+        maxRunRetries,
+        staleCheckMinutes);
   }
 
   /**
@@ -641,6 +653,7 @@ public final class DpConfig {
     System.out.println("enableTestFilter = " + enableTestFilter);
     System.out.println("testFilterMethodBatchSize = " + testFilterMethodBatchSize);
     System.out.println("maxRunRetries = " + maxRunRetries);
+    System.out.println("staleCheckMinutes = " + staleCheckMinutes);
 
     System.out.println("=========================");
   }

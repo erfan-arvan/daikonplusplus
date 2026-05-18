@@ -579,7 +579,8 @@ public final class App {
       for (int runAttempt = 0; runAttempt <= maxRunRetries; runAttempt++) {
         boolean timedOut =
             JavaRunner.runExternalScript(
-                resolvedScript, workProjectRoot, fullRunCp, runLog, currentTimeoutMinutes);
+                resolvedScript, workProjectRoot, fullRunCp, runLog,
+                currentTimeoutMinutes, BASE_CFG.staleCheckMinutes());
         if (!timedOut) break;
 
         System.err.println(

@@ -1,11 +1,13 @@
 package edu.njit.jerse.daikonplusplus;
 
+import edu.njit.jerse.daikonplusplus.results.LogParser;
 import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil;
 import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil.JError;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Utility class for compiling and executing instrumented Java code in Daikon++.
@@ -444,12 +446,14 @@ public final class JavaRunner {
    * @param fullRunCp classpath exposed to the script (may be empty)
    * @param runLog file where output is written
    * @param timeoutMinutes wall-clock minutes to wait before killing the process
-   * @return {@code true} if the run timed out, {@code false} on normal completion
+   * @param staleCheckMinutes interval in minutes between stale-invariant checks (0 = disabled)
+   * @return {@code true} if the run timed out or was stale-killed, {@code false} on normal completion
    * @throws IOException if the script cannot be executed
    * @throws InterruptedException if execution is interrupted
    */
   public static boolean runExternalScript(
-      Path script, Path workDir, String fullRunCp, Path runLog, long timeoutMinutes)
+      Path script, Path workDir, String fullRunCp, Path runLog,
+      long timeoutMinutes, long staleCheckMinutes)
       throws IOException, InterruptedException {
 
     if (!Files.isRegularFile(script)) {
@@ -495,7 +499,7 @@ public final class JavaRunner {
     pb.redirectErrorStream(true);
     Process p = pb.start();
 
-    // ---- ASYNC OUTPUT READER (FIX) ----
+    // ---- ASYNC OUTPUT READER ----
     Thread readerThread =
         new Thread(
             () -> {
@@ -537,9 +541,57 @@ public final class JavaRunner {
     readerThread.setDaemon(true);
     readerThread.start();
 
+    // ---- STALE INVARIANT DETECTOR ----
+    AtomicBoolean staleKilled = new AtomicBoolean(false);
+    Thread staleThread = null;
+    if (staleCheckMinutes > 0) {
+      staleThread =
+          new Thread(
+              () -> {
+                UUID lastSeen = null;
+                while (!Thread.currentThread().isInterrupted() && p.isAlive()) {
+                  try {
+                    Thread.sleep(staleCheckMinutes * 60_000L);
+                  } catch (InterruptedException e) {
+                    break;
+                  }
+                  if (!p.isAlive()) break;
+
+                  Optional<UUID> current = LogParser.readLastExecutedId(runLog);
+                  UUID currentId = current.orElse(null);
+
+                  if (lastSeen != null && lastSeen.equals(currentId)) {
+                    try {
+                      Files.writeString(
+                          runLog,
+                          "\n[DP] Stale invariant detected (" + currentId + ") - no progress in "
+                              + staleCheckMinutes + " min, killing run\n",
+                          StandardOpenOption.CREATE,
+                          StandardOpenOption.APPEND);
+                    } catch (IOException ignored) {
+                    }
+                    System.err.println(
+                        "[DP] Stale invariant detected (" + currentId + ") after "
+                            + staleCheckMinutes + " min. Killing runner.");
+                    staleKilled.set(true);
+                    p.destroyForcibly();
+                    break;
+                  }
+                  lastSeen = currentId;
+                }
+              });
+      staleThread.setDaemon(true);
+      staleThread.start();
+    }
+
     // ---- TIMEOUT CONTROL ----
     boolean finished =
         p.waitFor(timeoutMinutes, java.util.concurrent.TimeUnit.MINUTES);
+
+    // Stop the stale checker regardless of how the process ended
+    if (staleThread != null) {
+      staleThread.interrupt();
+    }
 
     if (!finished) {
       Files.writeString(
@@ -551,29 +603,34 @@ public final class JavaRunner {
       p.destroyForcibly();
       p.waitFor();
       readerThread.interrupt();
+    } else if (staleKilled.get()) {
+      // Process was killed by stale detector; it already exited, just drain
+      readerThread.interrupt();
     }
+
+    boolean timedOut = !finished || staleKilled.get();
 
     int exit;
 
-    if (!finished) {
-      // we timed out → give reader a SHORT chance to drain
+    if (timedOut) {
+      // timed out or stale-killed → give reader a short chance to drain
       readerThread.join(20000);
       exit = -1;
     } else {
-      // normal case → do NOT wait at all
+      // normal case
       exit = p.exitValue();
     }
 
     appendDpEvents(invDir, runLog);
 
-    if (exit != 0) {
+    if (exit != 0 && !timedOut) {
       Files.writeString(
           runLog,
           "\n[DP] External runner exited with code " + exit + "\n",
           StandardOpenOption.APPEND);
     }
 
-    return !finished;
+    return timedOut;
   }
 
   /**
@@ -584,7 +641,7 @@ public final class JavaRunner {
    * @return {@code true} if a region was found and removed
    */
   public static boolean removeRegionById(Path srcRoot, UUID stuckId) {
-    String marker = "INV_EXD:" + stuckId.toString();
+    String marker = stuckId.toString();
     try {
       List<Path> javaFiles = new ArrayList<>();
       try (var walk = Files.walk(srcRoot)) {
