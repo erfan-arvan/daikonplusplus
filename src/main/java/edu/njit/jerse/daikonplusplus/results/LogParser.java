@@ -148,8 +148,10 @@ public final class LogParser {
         while ((ln = br.readLine()) != null) {
           Matcher m = p.matcher(ln);
           while (m.find()) {
+            String g = m.group(1);
+            if (g == null) continue;
             try {
-              last = UUID.fromString(m.group(1));
+              last = UUID.fromString(g);
             } catch (IllegalArgumentException ignore) {
             }
           }
