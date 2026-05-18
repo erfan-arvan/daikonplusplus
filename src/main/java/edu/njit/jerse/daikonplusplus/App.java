@@ -583,12 +583,23 @@ public final class App {
       // close to the deadline for stale to observe it twice; on each hard timeout the
       // limit doubles (capped at maxTimeoutMinutes) so the suite gets progressively
       // more room.  There is no cap on the number of removals.
+      //
+      // All removed-stale UUIDs are persisted to .daikonpp-stale-removed.txt and
+      // re-applied at the start of every iteration so they are never re-introduced.
       final String fullRunCp = "";
       long currentTimeoutMinutes = JavaRunner.EXTERNAL_RUN_TIMEOUT_MINUTES;
       final long maxTimeoutMinutes = BASE_CFG.maxTimeoutMinutes();
       final long staleCheckMinutes = BASE_CFG.staleCheckMinutes();
 
+      final Set<UUID> staleRemovedIds = new java.util.LinkedHashSet<>();
+      final Path staleRecordFile = workProjectRoot.resolve(".daikonpp-stale-removed.txt");
+
       while (true) {
+        // Re-apply all known stale removals before each run (idempotent).
+        for (UUID knownStaleId : staleRemovedIds) {
+          JavaRunner.removeRegionById(mainSrcRoot, knownStaleId);
+        }
+
         JavaRunner.RunResult result =
             JavaRunner.runExternalScript(
                 resolvedScript, workProjectRoot, fullRunCp, runLog,
@@ -612,6 +623,13 @@ public final class App {
           System.err.println("[DP] Could not remove region for " + stuckId.get() + ". Proceeding with partial log.");
           break;
         }
+
+        staleRemovedIds.add(stuckId.get());
+        try {
+          java.nio.file.Files.writeString(staleRecordFile, stuckId.get().toString() + "\n",
+              java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);
+        } catch (IOException ignore) {}
+        System.out.println("[DP] Stale record updated: " + staleRemovedIds.size() + " invariant(s) recorded");
 
         if (result == JavaRunner.RunResult.HARD_TIMEOUT) {
           currentTimeoutMinutes = Math.min(currentTimeoutMinutes * 2, maxTimeoutMinutes);
