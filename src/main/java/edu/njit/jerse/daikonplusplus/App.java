@@ -589,22 +589,37 @@ public final class App {
       long currentTimeoutMinutes = JavaRunner.EXTERNAL_RUN_TIMEOUT_MINUTES;
       final long maxTimeoutMinutes = BASE_CFG.maxTimeoutMinutes();
       final long staleCheckMinutes = BASE_CFG.staleCheckMinutes();
+      long currentStaleCheckMinutes = staleCheckMinutes;
+      final long maxStaleCheckMinutes = 60L;
 
       final Set<UUID> staleRemovedIds = new java.util.LinkedHashSet<>();
       final Path staleRecordFile = workProjectRoot.resolve(".daikonpp-stale-removed.txt");
+      int runIteration = 0;
 
       while (true) {
+        runIteration++;
+        // Rotate the previous run's log to an intermediate file so each call to
+        // runExternalScript starts with a fresh log and the log parser is never
+        // confused by entries from earlier iterations.
+        if (runIteration > 1 && Files.exists(runLog)) {
+          Path archivedLog =
+              workProjectRoot.resolve("daikonpp-run-" + (runIteration - 1) + ".log");
+          Files.move(runLog, archivedLog, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+          System.out.println(
+              "[DP] Archived run " + (runIteration - 1) + " log → " + archivedLog.getFileName());
+        }
+
         JavaRunner.RunResult result =
             JavaRunner.runExternalScript(
                 resolvedScript, workProjectRoot, fullRunCp, runLog,
-                currentTimeoutMinutes, staleCheckMinutes);
+                currentTimeoutMinutes, currentStaleCheckMinutes);
 
         if (result == JavaRunner.RunResult.NORMAL) break;
 
         // Both STALE_KILLED and HARD_TIMEOUT: identify and remove the stuck invariant
         String cause = result == JavaRunner.RunResult.HARD_TIMEOUT
             ? "Hard timeout (" + currentTimeoutMinutes + " min)"
-            : "Stale kill (" + staleCheckMinutes + " min no progress)";
+            : "Stale kill (" + currentStaleCheckMinutes + " min no progress)";
         System.err.println("[DP] " + cause + " — removing last executed invariant");
 
         Optional<UUID> stuckId = LogParser.readLastExecutedId(runLog);
@@ -629,6 +644,10 @@ public final class App {
           currentTimeoutMinutes = Math.min(currentTimeoutMinutes * 2, maxTimeoutMinutes);
           System.out.println("[DP] Next timeout: " + currentTimeoutMinutes + " min");
         }
+        // Both events double the stale threshold so a legitimately slow test suite
+        // isn't killed prematurely after the first removal.
+        currentStaleCheckMinutes = Math.min(currentStaleCheckMinutes * 2, maxStaleCheckMinutes);
+        System.out.println("[DP] Next stale threshold: " + currentStaleCheckMinutes + " min");
       }
 
       System.out.println(">>> Stale-removed invariants this run: " + staleRemovedIds.size());

@@ -602,6 +602,24 @@ public final class JavaRunner {
                     continue;
                   }
 
+                  // If the last-executed invariant was already falsified it completed
+                  // normally (the INV_FAIL was written). The process is stuck on
+                  // something else; reset tracking and let the hard timeout handle it.
+                  try {
+                    if (LogParser.readFalsifiedIds(runLog).contains(currentId)) {
+                      if (!currentId.equals(trackedId)) {
+                        System.out.println(
+                            "[DP] Stale detector: " + currentId
+                                + " already falsified — skipping stale check");
+                      }
+                      trackedId = null;
+                      continue;
+                    }
+                  } catch (Exception e) {
+                    System.err.println(
+                        "[DP] Stale detector: error reading falsified IDs: " + e.getMessage());
+                  }
+
                   if (!currentId.equals(trackedId)) {
                     // UUID advanced — reset the clock
                     trackedId = currentId;
