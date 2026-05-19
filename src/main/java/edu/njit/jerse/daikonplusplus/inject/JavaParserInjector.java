@@ -26,7 +26,6 @@ public final class JavaParserInjector {
 
   private final FileWriteCoordinator coordinator;
 
-  final int __dp_limit = 20;
 
   /**
    * Creates a new injector.
@@ -325,20 +324,21 @@ public final class JavaParserInjector {
             + "      }\n"
             + "    }\n"
 
-            // ================= DEPTH GUARD =================
+            // ================= RE-ENTRANCY GUARD =================
+            // A ThreadLocal<Boolean> stored in System.getProperties() under "DP_INV_GUARD".
+            // While any invariant is evaluating on this thread the flag is TRUE and all
+            // nested invariant checks (from method calls inside the expression) are skipped.
+            // This prevents infinite recursion and stops nested invariants from executing.
             + "    boolean __dp_ok = true;\n"
-            + "    ThreadLocal __dp_depth = (ThreadLocal) __dp_props.get(\"DP_INV_DEPTH\");\n"
-            + "    if (__dp_depth == null) {\n"
-            + "      __dp_depth = new ThreadLocal() {\n"
-            + "        protected Object initialValue() { return Integer.valueOf(0); }\n"
+            + "    ThreadLocal __dp_guard = (ThreadLocal) __dp_props.get(\"DP_INV_GUARD\");\n"
+            + "    if (__dp_guard == null) {\n"
+            + "      __dp_guard = new ThreadLocal() {\n"
+            + "        protected Object initialValue() { return Boolean.FALSE; }\n"
             + "      };\n"
-            + "      __dp_props.put(\"DP_INV_DEPTH\", __dp_depth);\n"
+            + "      __dp_props.put(\"DP_INV_GUARD\", __dp_guard);\n"
             + "    }\n"
-            + "    int __dp_d = ((Integer) __dp_depth.get()).intValue();\n"
-            + "    if (__dp_d < "
-            + __dp_limit
-            + ") {\n"
-            + "      __dp_depth.set(Integer.valueOf(__dp_d + 1));\n"
+            + "    if (!((Boolean) __dp_guard.get()).booleanValue()) {\n"
+            + "      __dp_guard.set(Boolean.TRUE);\n"
             + "      try {\n"
             + "        __dp_ok = ("
             + expr
@@ -346,7 +346,7 @@ public final class JavaParserInjector {
             + "      } catch (Throwable __t) {\n"
             + "        __dp_ok = false;\n"
             + "      } finally {\n"
-            + "        __dp_depth.set(Integer.valueOf(__dp_d));\n"
+            + "        __dp_guard.set(Boolean.FALSE);\n"
             + "      }\n"
             + "    }\n"
 
