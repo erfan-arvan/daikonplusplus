@@ -46,14 +46,13 @@ public class Main {
               }
           }
           boolean __dp_ok = true;
-          if (!Boolean.TRUE.equals(daikonpp.DpRuntime.GUARD.get())) {
-              daikonpp.DpRuntime.GUARD.set(Boolean.TRUE);
+          if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {
               try {
                   __dp_ok = (args != null);
               } catch (Throwable __t) {
                   __dp_ok = false;
               } finally {
-                  daikonpp.DpRuntime.GUARD.set(Boolean.FALSE);
+                  daikonpp.DpRuntime.GUARD.set(false);
               }
           }
           if (!__dp_ok) {
@@ -113,14 +112,13 @@ public class Main {
               }
           }
           boolean __dp_ok = true;
-          if (!Boolean.TRUE.equals(daikonpp.DpRuntime.GUARD.get())) {
-              daikonpp.DpRuntime.GUARD.set(Boolean.TRUE);
+          if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {
               try {
                   __dp_ok = (args.length >= 0);
               } catch (Throwable __t) {
                   __dp_ok = false;
               } finally {
-                  daikonpp.DpRuntime.GUARD.set(Boolean.FALSE);
+                  daikonpp.DpRuntime.GUARD.set(false);
               }
           }
           if (!__dp_ok) {
@@ -189,14 +187,13 @@ public class Main {
                 }
             }
             boolean __dp_ok = true;
-            if (!Boolean.TRUE.equals(daikonpp.DpRuntime.GUARD.get())) {
-                daikonpp.DpRuntime.GUARD.set(Boolean.TRUE);
+            if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {
                 try {
                     __dp_ok = (args != null);
                 } catch (Throwable __t) {
                     __dp_ok = false;
                 } finally {
-                    daikonpp.DpRuntime.GUARD.set(Boolean.FALSE);
+                    daikonpp.DpRuntime.GUARD.set(false);
                 }
             }
             if (!__dp_ok) {
@@ -256,14 +253,13 @@ public class Main {
                 }
             }
             boolean __dp_ok = true;
-            if (!Boolean.TRUE.equals(daikonpp.DpRuntime.GUARD.get())) {
-                daikonpp.DpRuntime.GUARD.set(Boolean.TRUE);
+            if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {
                 try {
                     __dp_ok = (args.length >= 0);
                 } catch (Throwable __t) {
                     __dp_ok = false;
                 } finally {
-                    daikonpp.DpRuntime.GUARD.set(Boolean.FALSE);
+                    daikonpp.DpRuntime.GUARD.set(false);
                 }
             }
             if (!__dp_ok) {

@@ -48,14 +48,13 @@ public class MathUtils {
               }
           }
           boolean __dp_ok = true;
-          if (!Boolean.TRUE.equals(daikonpp.DpRuntime.GUARD.get())) {
-              daikonpp.DpRuntime.GUARD.set(Boolean.TRUE);
+          if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {
               try {
                   __dp_ok = (a >= 0);
               } catch (Throwable __t) {
                   __dp_ok = false;
               } finally {
-                  daikonpp.DpRuntime.GUARD.set(Boolean.FALSE);
+                  daikonpp.DpRuntime.GUARD.set(false);
               }
           }
           if (!__dp_ok) {
@@ -118,14 +117,13 @@ public class MathUtils {
                     }
                 }
                 boolean __dp_ok = true;
-                if (!Boolean.TRUE.equals(daikonpp.DpRuntime.GUARD.get())) {
-                    daikonpp.DpRuntime.GUARD.set(Boolean.TRUE);
+                if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {
                     try {
                         __dp_ok = (__dp_res1 == a + b);
                     } catch (Throwable __t) {
                         __dp_ok = false;
                     } finally {
-                        daikonpp.DpRuntime.GUARD.set(Boolean.FALSE);
+                        daikonpp.DpRuntime.GUARD.set(false);
                     }
                 }
                 if (!__dp_ok) {
@@ -193,14 +191,13 @@ public class MathUtils {
                     }
                 }
                 boolean __dp_ok = true;
-                if (!Boolean.TRUE.equals(daikonpp.DpRuntime.GUARD.get())) {
-                    daikonpp.DpRuntime.GUARD.set(Boolean.TRUE);
+                if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {
                     try {
                         __dp_ok = (__dp_res1 >= a);
                     } catch (Throwable __t) {
                         __dp_ok = false;
                     } finally {
-                        daikonpp.DpRuntime.GUARD.set(Boolean.FALSE);
+                        daikonpp.DpRuntime.GUARD.set(false);
                     }
                 }
                 if (!__dp_ok) {
@@ -260,14 +257,13 @@ public class MathUtils {
                     }
                 }
                 boolean __dp_ok = true;
-                if (!Boolean.TRUE.equals(daikonpp.DpRuntime.GUARD.get())) {
-                    daikonpp.DpRuntime.GUARD.set(Boolean.TRUE);
+                if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {
                     try {
                         __dp_ok = (__dp_res1 >= b);
                     } catch (Throwable __t) {
                         __dp_ok = false;
                     } finally {
-                        daikonpp.DpRuntime.GUARD.set(Boolean.FALSE);
+                        daikonpp.DpRuntime.GUARD.set(false);
                     }
                 }
                 if (!__dp_ok) {
@@ -327,14 +323,13 @@ public class MathUtils {
                     }
                 }
                 boolean __dp_ok = true;
-                if (!Boolean.TRUE.equals(daikonpp.DpRuntime.GUARD.get())) {
-                    daikonpp.DpRuntime.GUARD.set(Boolean.TRUE);
+                if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {
                     try {
                         __dp_ok = (__dp_res1 == a || __dp_res1 == b);
                     } catch (Throwable __t) {
                         __dp_ok = false;
                     } finally {
-                        daikonpp.DpRuntime.GUARD.set(Boolean.FALSE);
+                        daikonpp.DpRuntime.GUARD.set(false);
                     }
                 }
                 if (!__dp_ok) {
