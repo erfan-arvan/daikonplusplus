@@ -125,9 +125,9 @@ public final class LogParser {
   }
 
   /**
-   * Like {@link #readLastExecutedId(Path)} but only considers bytes written at or after
-   * {@code startOffset}. Pass the file size captured just before a run started so the stale
-   * detector ignores {@code INV_EXD} entries from previous runs.
+   * Like {@link #readLastExecutedId(Path)} but only considers bytes written at or after {@code
+   * startOffset}. Pass the file size captured just before a run started so the stale detector
+   * ignores {@code INV_EXD} entries from previous runs.
    */
   public static Optional<UUID> readLastExecutedIdFrom(Path logFile, long startOffset) {
     if (!Files.exists(logFile)) return Optional.empty();

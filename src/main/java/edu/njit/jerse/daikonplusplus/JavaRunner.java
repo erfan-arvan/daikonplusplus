@@ -39,7 +39,9 @@ public final class JavaRunner {
   public enum RunResult {
     /** Process finished within the timeout window with no stale kill. */
     NORMAL,
-    /** Stale-invariant detector fired: no progress for {@code staleCheckMinutes}, process killed. */
+    /**
+     * Stale-invariant detector fired: no progress for {@code staleCheckMinutes}, process killed.
+     */
     STALE_KILLED,
     /** Hard wall-clock timeout elapsed before the process finished, process killed. */
     HARD_TIMEOUT
@@ -462,8 +464,12 @@ public final class JavaRunner {
    * @throws InterruptedException if execution is interrupted
    */
   public static RunResult runExternalScript(
-      Path script, Path workDir, String fullRunCp, Path runLog,
-      long timeoutMinutes, long staleCheckMinutes)
+      Path script,
+      Path workDir,
+      String fullRunCp,
+      Path runLog,
+      long timeoutMinutes,
+      long staleCheckMinutes)
       throws IOException, InterruptedException {
 
     if (!Files.isRegularFile(script)) {
@@ -571,8 +577,10 @@ public final class JavaRunner {
       final long pollMs = 60_000L; // poll every 60 seconds
       final long thresholdMs = staleCheckMinutes * 60_000L;
       System.out.println(
-          "[DP] Stale detector started — threshold: " + staleCheckMinutes
-              + " min, poll: 60 s, log: " + runLog.toAbsolutePath());
+          "[DP] Stale detector started — threshold: "
+              + staleCheckMinutes
+              + " min, poll: 60 s, log: "
+              + runLog.toAbsolutePath());
       staleThread =
           new Thread(
               () -> {
@@ -588,7 +596,8 @@ public final class JavaRunner {
 
                   UUID currentId;
                   try {
-                    currentId = LogParser.readLastExecutedIdFrom(runLog, logStartOffset).orElse(null);
+                    currentId =
+                        LogParser.readLastExecutedIdFrom(runLog, logStartOffset).orElse(null);
                   } catch (Exception e) {
                     System.err.println("[DP] Stale detector: error reading log: " + e.getMessage());
                     continue; // keep polling — don't die on transient IO errors
@@ -609,7 +618,8 @@ public final class JavaRunner {
                     if (LogParser.readFalsifiedIds(runLog).contains(currentId)) {
                       if (!currentId.equals(trackedId)) {
                         System.out.println(
-                            "[DP] Stale detector: " + currentId
+                            "[DP] Stale detector: "
+                                + currentId
                                 + " already falsified — skipping stale check");
                       }
                       trackedId = null;
@@ -629,29 +639,41 @@ public final class JavaRunner {
 
                   long stuckForMs = now - trackedSince;
                   System.out.println(
-                      "[DP] Stale detector: " + currentId
-                          + " unchanged for " + (stuckForMs / 60_000) + " min"
-                          + " (threshold " + staleCheckMinutes + " min)");
+                      "[DP] Stale detector: "
+                          + currentId
+                          + " unchanged for "
+                          + (stuckForMs / 60_000)
+                          + " min"
+                          + " (threshold "
+                          + staleCheckMinutes
+                          + " min)");
 
                   if (stuckForMs >= thresholdMs) {
                     try {
                       Files.writeString(
                           runLog,
-                          "\n[DP] Stale invariant detected (" + currentId + ") - no progress for "
-                              + staleCheckMinutes + " min, killing run\n",
+                          "\n[DP] Stale invariant detected ("
+                              + currentId
+                              + ") - no progress for "
+                              + staleCheckMinutes
+                              + " min, killing run\n",
                           StandardOpenOption.CREATE,
                           StandardOpenOption.APPEND);
                     } catch (IOException ignored) {
                     }
                     System.err.println(
-                        "[DP] Stale invariant detected (" + currentId + ") after "
-                            + staleCheckMinutes + " min. Killing runner.");
+                        "[DP] Stale invariant detected ("
+                            + currentId
+                            + ") after "
+                            + staleCheckMinutes
+                            + " min. Killing runner.");
                     staleKilled.set(true);
                     p.destroyForcibly();
                     break;
                   }
                 }
-                System.out.println("[DP] Stale detector thread exiting (staleKilled=" + staleKilled.get() + ")");
+                System.out.println(
+                    "[DP] Stale detector thread exiting (staleKilled=" + staleKilled.get() + ")");
               });
       staleThread.setDaemon(true);
       staleThread.start();
@@ -660,8 +682,7 @@ public final class JavaRunner {
     }
 
     // ---- TIMEOUT CONTROL ----
-    boolean finished =
-        p.waitFor(timeoutMinutes, java.util.concurrent.TimeUnit.MINUTES);
+    boolean finished = p.waitFor(timeoutMinutes, java.util.concurrent.TimeUnit.MINUTES);
 
     // Stop the stale checker regardless of how the process ended
     if (staleThread != null) {
@@ -684,9 +705,9 @@ public final class JavaRunner {
     }
 
     RunResult runResult =
-        !finished ? RunResult.HARD_TIMEOUT
-        : staleKilled.get() ? RunResult.STALE_KILLED
-        : RunResult.NORMAL;
+        !finished
+            ? RunResult.HARD_TIMEOUT
+            : staleKilled.get() ? RunResult.STALE_KILLED : RunResult.NORMAL;
 
     int exit;
 
@@ -732,7 +753,12 @@ public final class JavaRunner {
             int removed = removeInvariantRegion(file, i + 1);
             if (removed > 0) {
               System.out.println(
-                  "[DP] Removed stuck invariant region (" + stuckId + ") in " + file + ":" + (i + 1));
+                  "[DP] Removed stuck invariant region ("
+                      + stuckId
+                      + ") in "
+                      + file
+                      + ":"
+                      + (i + 1));
               return true;
             }
           }

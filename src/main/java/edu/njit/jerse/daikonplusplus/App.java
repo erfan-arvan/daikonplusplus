@@ -602,8 +602,7 @@ public final class App {
         // runExternalScript starts with a fresh log and the log parser is never
         // confused by entries from earlier iterations.
         if (runIteration > 1 && Files.exists(runLog)) {
-          Path archivedLog =
-              workProjectRoot.resolve("daikonpp-run-" + (runIteration - 1) + ".log");
+          Path archivedLog = workProjectRoot.resolve("daikonpp-run-" + (runIteration - 1) + ".log");
           Files.move(runLog, archivedLog, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
           System.out.println(
               "[DP] Archived run " + (runIteration - 1) + " log → " + archivedLog.getFileName());
@@ -611,34 +610,48 @@ public final class App {
 
         JavaRunner.RunResult result =
             JavaRunner.runExternalScript(
-                resolvedScript, workProjectRoot, fullRunCp, runLog,
-                currentTimeoutMinutes, currentStaleCheckMinutes);
+                resolvedScript,
+                workProjectRoot,
+                fullRunCp,
+                runLog,
+                currentTimeoutMinutes,
+                currentStaleCheckMinutes);
 
         if (result == JavaRunner.RunResult.NORMAL) break;
 
         // Both STALE_KILLED and HARD_TIMEOUT: identify and remove the stuck invariant
-        String cause = result == JavaRunner.RunResult.HARD_TIMEOUT
-            ? "Hard timeout (" + currentTimeoutMinutes + " min)"
-            : "Stale kill (" + currentStaleCheckMinutes + " min no progress)";
+        String cause =
+            result == JavaRunner.RunResult.HARD_TIMEOUT
+                ? "Hard timeout (" + currentTimeoutMinutes + " min)"
+                : "Stale kill (" + currentStaleCheckMinutes + " min no progress)";
         System.err.println("[DP] " + cause + " — removing last executed invariant");
 
         Optional<UUID> stuckId = LogParser.readLastExecutedId(runLog);
         if (stuckId.isEmpty()) {
-          System.err.println("[DP] No INV_EXD in log; cannot identify stuck invariant. Proceeding with partial log.");
+          System.err.println(
+              "[DP] No INV_EXD in log; cannot identify stuck invariant. Proceeding with partial log.");
           break;
         }
         System.out.println("[DP] Removing stuck invariant: " + stuckId.get());
         if (!JavaRunner.removeRegionById(mainSrcRoot, stuckId.get())) {
-          System.err.println("[DP] Could not remove region for " + stuckId.get() + ". Proceeding with partial log.");
+          System.err.println(
+              "[DP] Could not remove region for "
+                  + stuckId.get()
+                  + ". Proceeding with partial log.");
           break;
         }
 
         staleRemovedIds.add(stuckId.get());
         try {
-          java.nio.file.Files.writeString(staleRecordFile, stuckId.get().toString() + "\n",
-              java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);
-        } catch (IOException ignore) {}
-        System.out.println("[DP] Stale record updated: " + staleRemovedIds.size() + " invariant(s) recorded");
+          java.nio.file.Files.writeString(
+              staleRecordFile,
+              stuckId.get().toString() + "\n",
+              java.nio.file.StandardOpenOption.CREATE,
+              java.nio.file.StandardOpenOption.APPEND);
+        } catch (IOException ignore) {
+        }
+        System.out.println(
+            "[DP] Stale record updated: " + staleRemovedIds.size() + " invariant(s) recorded");
 
         if (result == JavaRunner.RunResult.HARD_TIMEOUT) {
           currentTimeoutMinutes = Math.min(currentTimeoutMinutes * 2, maxTimeoutMinutes);

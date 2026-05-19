@@ -248,7 +248,10 @@ public final class DpConfig {
     return testFilterMethodBatchSize;
   }
 
-  /** interval in minutes between stale-invariant checks during external runs (0 = disabled, default 15) */
+  /**
+   * interval in minutes between stale-invariant checks during external runs (0 = disabled, default
+   * 15)
+   */
   public int staleCheckMinutes() {
     return staleCheckMinutes;
   }
