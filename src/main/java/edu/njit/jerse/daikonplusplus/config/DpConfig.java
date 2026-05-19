@@ -120,14 +120,19 @@ public final class DpConfig {
     boolean debug = getBool2("dp.debug", "DP_DEBUG", /*def*/ true, env);
     boolean keepWork = getBool2("dp.keepWork", "DP_KEEP_WORK", /*def*/ true, env);
     long runTimeoutSec =
-        Math.max(
-            1, getLong2("dp.runTimeoutSec", "DP_RUN_TIMEOUT_SEC", /* def= */ 120L, env));
+        Math.max(1, getLong2("dp.runTimeoutSec", "DP_RUN_TIMEOUT_SEC", /* def= */ 120L, env));
     int maxRunRetries =
-        Math.max(
-            0, getInt2("dp.maxRunRetries", "DP_MAX_RUN_RETRIES", /* def= */ 3, env));
+        Math.max(0, getInt2("dp.maxRunRetries", "DP_MAX_RUN_RETRIES", /* def= */ 3, env));
 
     return new DpConfig(
-        threads, reg, out, includeBody, registryReset, debug, keepWork, runTimeoutSec,
+        threads,
+        reg,
+        out,
+        includeBody,
+        registryReset,
+        debug,
+        keepWork,
+        runTimeoutSec,
         maxRunRetries);
   }
 

@@ -14,7 +14,9 @@ repositories {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(
+            Integer.parseInt(System.getenv().getOrDefault("DP_JAVA_VERSION", "17"))
+        )
     }
 }
 

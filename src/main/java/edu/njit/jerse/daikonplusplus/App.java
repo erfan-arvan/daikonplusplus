@@ -5,6 +5,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import edu.njit.jerse.daikonplusplus.config.*;
+import edu.njit.jerse.daikonplusplus.inject.DpRuntimeWriter;
 import edu.njit.jerse.daikonplusplus.inject.FileWriteCoordinator;
 import edu.njit.jerse.daikonplusplus.inject.JavaParserInjector;
 import edu.njit.jerse.daikonplusplus.llm.LlmInvariantGenerator;
@@ -235,6 +236,9 @@ public final class App {
     injPool.shutdown();
     System.out.println(">>> Injection done. Updated files: " + injectedFiles);
 
+    // Write the DpRuntime helper class so injected code can compile without System.getProperties()
+    DpRuntimeWriter.write(srcRoot);
+
     // --- Phase 3: compile with javac and run with java (timeout-recovery loop)
     final Path classesDir = srcRoot.resolve("daikonpp-classes"); // output dir for compiled classes
     final String selfCp =
@@ -277,7 +281,9 @@ public final class App {
       boolean removed = JavaRunner.commentOutInvariantRegion(srcRoot, stuckId.get());
       if (!removed) {
         System.err.println(
-            ">>> Could not locate region for " + stuckId.get() + " in source."
+            ">>> Could not locate region for "
+                + stuckId.get()
+                + " in source."
                 + " Giving up retries.");
         break;
       }

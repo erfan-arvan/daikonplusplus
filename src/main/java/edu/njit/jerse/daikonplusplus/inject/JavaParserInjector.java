@@ -2,9 +2,16 @@ package edu.njit.jerse.daikonplusplus.inject;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
+import com.github.javaparser.ast.body.AnnotationDeclaration;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
+import com.github.javaparser.ast.body.EnumDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.Expression;
+import com.github.javaparser.ast.expr.LambdaExpr;
+import com.github.javaparser.ast.expr.ObjectCreationExpr;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.ReturnStmt;
 import com.github.javaparser.ast.stmt.Statement;
@@ -17,8 +24,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Performs source-to-source injection of invariant guards using JavaParser.
@@ -143,6 +148,7 @@ public final class JavaParserInjector {
                       final int[] counter = {0}; // unique temp names per return
 
                       for (ReturnStmt ret : body.findAll(ReturnStmt.class)) {
+                        if (isInForbiddenContext(ret, md)) continue;
                         Optional<Expression> oe = ret.getExpression();
 
                         if (oe.isPresent()) {
@@ -214,122 +220,111 @@ public final class JavaParserInjector {
                     }
                   });
 
-          String printed = LexicalPreservingPrinter.print(cu);
-          Files.writeString(file, collapseOnelineRegions(printed), StandardCharsets.UTF_8);
+          Files.writeString(file, LexicalPreservingPrinter.print(cu), StandardCharsets.UTF_8);
           return null;
         });
   }
 
-  // ENTRY/EXIT one-liner (caller supplies unique exVar), wrapped in markers
   private static Statement guardStatementWithExVarOneLine(
       InvariantRecord rec, String phase, String exVar) {
     final String expr = rec.spec().expression();
     final String id = rec.id().toString();
-    final String code =
-        "/*__DP_ONELINE_BEGIN__*/"
-            + "try{System.out.println(\"INV_EXD:"
+    final String tryCode =
+        "try {\n"
+            + "  if (daikonpp.DpRuntime.ENABLED) {\n"
+            + "    String __dp_id = \""
             + id
-            + "\");if(!("
+            + "\";\n"
+            + "    if (daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {\n"
+            + "      System.out.println(\"INV_EXD:\" + __dp_id);\n"
+            + "      if (daikonpp.DpRuntime.HOOK_REGISTERED.compareAndSet(false, true)) {\n"
+            + "        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {\n"
+            + "          public void run() {\n"
+            + "            try {\n"
+            + "              String __d = daikonpp.DpRuntime.INV_DIR;\n"
+            + "              if (__d == null || __d.trim().length() == 0) return;\n"
+            + "              java.io.File __dir = new java.io.File(__d);\n"
+            + "              __dir.mkdirs();\n"
+            + "              java.io.File __out = new java.io.File(\n"
+            + "                __dir,\n"
+            + "                \"dp-events-\" + java.util.UUID.randomUUID().toString() + \".log\"\n"
+            + "              );\n"
+            + "              StringBuilder __sb = new StringBuilder();\n"
+            + "              for (String __k : daikonpp.DpRuntime.EXECUTED.keySet()) {\n"
+            + "                __sb.append(\"INV_EXD:\").append(__k).append('\\n');\n"
+            + "              }\n"
+            + "              for (String __v : daikonpp.DpRuntime.FAIL_JSON.values()) {\n"
+            + "                if (__v != null && __v.trim().length() > 0)\n"
+            + "                  __sb.append(__v).append('\\n');\n"
+            + "              }\n"
+            + "              if (__sb.length() > 0) {\n"
+            + "                java.io.OutputStream __os = null;\n"
+            + "                try {\n"
+            + "                  __os = new java.io.FileOutputStream(__out, true);\n"
+            + "                  __os.write(__sb.toString().getBytes(\"UTF-8\"));\n"
+            + "                } finally {\n"
+            + "                  if (__os != null) try { __os.close(); } catch (Throwable __t) {}\n"
+            + "                }\n"
+            + "              }\n"
+            + "            } catch (Throwable __ignore) {}\n"
+            + "          }\n"
+            + "        }));\n"
+            + "      }\n"
+            + "    }\n"
+            + "    boolean __dp_ok = true;\n"
+            + "    if (!Boolean.TRUE.equals(daikonpp.DpRuntime.GUARD.get())) {\n"
+            + "      daikonpp.DpRuntime.GUARD.set(Boolean.TRUE);\n"
+            + "      try {\n"
+            + "        __dp_ok = ("
             + expr
-            + ")){System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
-            + "\\\"id\\\":\\\""
+            + ");\n"
+            + "      } catch (Throwable __t) {\n"
+            + "        __dp_ok = false;\n"
+            + "      } finally {\n"
+            + "        daikonpp.DpRuntime.GUARD.set(Boolean.FALSE);\n"
+            + "      }\n"
+            + "    }\n"
+            + "    if (!__dp_ok) {\n"
+            + "      String __json =\n"
+            + "        \"{\\\"type\\\":\\\"INV_FAIL\\\",\" +\n"
+            + "        \"\\\"id\\\":\\\""
             + id
-            + "\\\",\\\"element\\\":\\\""
+            + "\\\",\" +\n"
+            + "        \"\\\"element\\\":\\\""
             + esc(rec.point().elementId().toString())
-            + "\\\",\\\"file\\\":\\\""
+            + "\\\",\" +\n"
+            + "        \"\\\"file\\\":\\\""
             + esc(rec.sourceFile())
-            + "\\\",\\\"expr\\\":\\\""
+            + "\\\",\" +\n"
+            + "        \"\\\"expr\\\":\\\""
             + esc(expr)
-            + "\\\",\\\"phase\\\":\\\""
+            + "\\\",\" +\n"
+            + "        \"\\\"phase\\\":\\\""
             + phase
-            + "\\\",\\\"error\\\":\\\"\\\"}\");}}"
-            + "catch(Throwable "
+            + "\\\"}\";\n"
+            + "      if (daikonpp.DpRuntime.FAIL_JSON.putIfAbsent(__dp_id, __json) == null) {\n"
+            + "        System.out.println(__json);\n"
+            + "      }\n"
+            + "    }\n"
+            + "  }\n"
+            + "} catch (Throwable "
             + exVar
-            + "){System.out.println(\"{\\\"type\\\":\\\"INV_FAIL\\\","
-            + "\\\"id\\\":\\\""
+            + ") {\n"
+            + "  String __json =\n"
+            + "    \"{\\\"type\\\":\\\"INV_FAIL\\\",\" +\n"
+            + "    \"\\\"id\\\":\\\""
             + id
-            + "\\\",\\\"element\\\":\\\""
-            + esc(rec.point().elementId().toString())
-            + "\\\",\\\"file\\\":\\\""
-            + esc(rec.sourceFile())
-            + "\\\",\\\"expr\\\":\\\""
-            + esc(expr)
-            + "\\\",\\\"phase\\\":\\\""
-            + phase
-            + "\\\",\\\"error\\\":\\\"\"+"
+            + "\\\",\" +\n"
+            + "    \"\\\"error\\\":\\\"\" + "
             + exVar
-            + ".toString().replace(\"\\\\\", \"\\\\\\\\\").replace(\"\\\"\",\"\\\\\\\"\")+\"\\\"}\");}"
-            + "/*__DP_ONELINE_END__*/";
-    return StaticJavaParser.parseStatement(code);
-  }
-
-  // Collapse marked regions + pull a following '}' up onto the same line.
-  @SuppressWarnings({"nullness", "regexp"})
-  private static String collapseOnelineRegions(String src) {
-    String s = src;
-
-    // Pass 1: collapse our explicit marker regions.
-    {
-      Pattern p =
-          Pattern.compile(
-              "/\\*__DP_ONELINE_BEGIN__\\*/\\s*(.*?)\\s*/\\*__DP_ONELINE_END__\\*/",
-              Pattern.DOTALL);
-      Matcher m = p.matcher(s);
-      StringBuffer buf = new StringBuffer();
-      while (m.find()) {
-        String inner = m.group(1);
-        if (inner == null) inner = "";
-        inner = inner.replaceAll("\\s+", " ").trim();
-        m.appendReplacement(buf, Matcher.quoteReplacement(inner));
-      }
-      m.appendTail(buf);
-      s = buf.toString();
-    }
-
-    // Pass 2: collapse any injected try/catch using our __dp_ex_ pattern (defensive).
-    {
-      Pattern p =
-          Pattern.compile(
-              "(?s)try\\s*\\{\\s*.*?\\}\\s*catch\\s*\\(\\s*Throwable\\s+__dp_ex_[A-Za-z0-9_]+\\s*\\)\\s*\\{\\s*.*?\\}");
-      Matcher m = p.matcher(s);
-      StringBuffer buf = new StringBuffer();
-      while (m.find()) {
-        String seg = m.group();
-        String collapsed = seg.replaceAll("\\s+", " ").trim();
-        m.appendReplacement(buf, Matcher.quoteReplacement(collapsed));
-      }
-      m.appendTail(buf);
-      s = buf.toString();
-    }
-
-    // Pass 3 (SAFE): comment-aware brace hoist (optional; remove entirely if not needed).
-    {
-      String[] lines = s.split("\\R", -1);
-      List<String> out = new ArrayList<>(lines.length);
-      for (int i = 0; i < lines.length; i++) {
-        String line = lines[i];
-        if (i + 1 < lines.length) {
-          String next = lines[i + 1];
-          String trimmedNext = next.trim();
-          boolean nextIsSoloBrace = trimmedNext.equals("}");
-          boolean lineIsLineComment = line.trim().startsWith("//");
-          boolean lineEndsBlockComment = line.trim().endsWith("*/");
-
-          if (!lineIsLineComment && !lineEndsBlockComment && nextIsSoloBrace) {
-            String trimmed = line.trim();
-            if (trimmed.endsWith(";") || trimmed.endsWith("}")) {
-              out.add(line + " }");
-              i++; // consume the brace line
-              continue;
-            }
-          }
-        }
-        out.add(line);
-      }
-      s = String.join(System.lineSeparator(), out);
-    }
-
-    return s;
+            + ".toString() + \"\\\"}\";\n"
+            + "  if (daikonpp.DpRuntime.FAIL_JSON.putIfAbsent(\""
+            + id
+            + "\", __json) == null) {\n"
+            + "    System.out.println(__json);\n"
+            + "  }\n"
+            + "}\n";
+    return StaticJavaParser.parseStatement(tryCode);
   }
 
   /**
@@ -346,6 +341,29 @@ public final class JavaParserInjector {
     String expr = rec.spec().expression().replaceAll("\\bresult\\b", tmpVar);
     InvariantSpec spec = new InvariantSpec(expr, rec.spec().rationale(), rec.spec().meta());
     return new InvariantRecord(rec.id(), spec, rec.point(), rec.sourceFile(), rec.createdAt());
+  }
+
+  /**
+   * Returns {@code true} if {@code ret} is nested inside a scope that is not the direct body of
+   * {@code owner} — e.g. an anonymous class, lambda, nested method, or constructor that was itself
+   * injected into the body. In such cases the return should not be treated as a method exit point.
+   */
+  private static boolean isInForbiddenContext(ReturnStmt ret, MethodDeclaration owner) {
+    Node current = ret.getParentNode().orElse(null);
+    while (current != null) {
+      if (current.equals(owner)) return false;
+      if (current instanceof MethodDeclaration
+          || current instanceof ConstructorDeclaration
+          || current instanceof LambdaExpr
+          || current instanceof ClassOrInterfaceDeclaration
+          || current instanceof EnumDeclaration
+          || current instanceof AnnotationDeclaration
+          || current instanceof ObjectCreationExpr) {
+        return true;
+      }
+      current = current.getParentNode().orElse(null);
+    }
+    return false;
   }
 
   /**

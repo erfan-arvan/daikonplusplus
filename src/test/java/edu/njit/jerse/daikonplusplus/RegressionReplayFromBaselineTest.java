@@ -6,6 +6,7 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import edu.njit.jerse.daikonplusplus.inject.DpRuntimeWriter;
 import edu.njit.jerse.daikonplusplus.inject.FileWriteCoordinator;
 import edu.njit.jerse.daikonplusplus.inject.JavaParserInjector;
 import edu.njit.jerse.daikonplusplus.model.*;
@@ -96,7 +97,10 @@ public class RegressionReplayFromBaselineTest {
       injector.injectGuards(e.getKey(), e.getValue());
     }
 
-    // 5) Compile with javac and run with java to produce a fresh run log
+    // 5) Write DpRuntime helper so injected code can compile
+    DpRuntimeWriter.write(workSrc);
+
+    // 6) Compile with javac and run with java to produce a fresh run log
     Path classesDir = tmp.resolve("classes");
     Files.createDirectories(classesDir);
     String cp = System.getProperty("java.class.path");
