@@ -46,13 +46,13 @@ public class Main {
               }
           }
           boolean __dp_ok = true;
-          if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {
+          if (daikonpp.DpRuntime.GUARD.get().compareAndSet(false, true)) {
               try {
                   __dp_ok = (args != null);
               } catch (Throwable __t) {
                   __dp_ok = false;
               } finally {
-                  daikonpp.DpRuntime.GUARD.set(false);
+                  daikonpp.DpRuntime.GUARD.get().set(false);
               }
           }
           if (!__dp_ok) {
@@ -112,13 +112,13 @@ public class Main {
               }
           }
           boolean __dp_ok = true;
-          if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {
+          if (daikonpp.DpRuntime.GUARD.get().compareAndSet(false, true)) {
               try {
                   __dp_ok = (args.length >= 0);
               } catch (Throwable __t) {
                   __dp_ok = false;
               } finally {
-                  daikonpp.DpRuntime.GUARD.set(false);
+                  daikonpp.DpRuntime.GUARD.get().set(false);
               }
           }
           if (!__dp_ok) {
@@ -187,13 +187,13 @@ public class Main {
                 }
             }
             boolean __dp_ok = true;
-            if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {
+            if (daikonpp.DpRuntime.GUARD.get().compareAndSet(false, true)) {
                 try {
                     __dp_ok = (args != null);
                 } catch (Throwable __t) {
                     __dp_ok = false;
                 } finally {
-                    daikonpp.DpRuntime.GUARD.set(false);
+                    daikonpp.DpRuntime.GUARD.get().set(false);
                 }
             }
             if (!__dp_ok) {
@@ -253,13 +253,13 @@ public class Main {
                 }
             }
             boolean __dp_ok = true;
-            if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {
+            if (daikonpp.DpRuntime.GUARD.get().compareAndSet(false, true)) {
                 try {
                     __dp_ok = (args.length >= 0);
                 } catch (Throwable __t) {
                     __dp_ok = false;
                 } finally {
-                    daikonpp.DpRuntime.GUARD.set(false);
+                    daikonpp.DpRuntime.GUARD.get().set(false);
                 }
             }
             if (!__dp_ok) {

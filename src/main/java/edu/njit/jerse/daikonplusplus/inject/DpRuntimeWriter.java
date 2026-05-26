@@ -32,7 +32,7 @@ public final class DpRuntimeWriter {
             + "    public static final boolean ENABLED = true;\n"
             + "    public static final ConcurrentHashMap<String,Boolean> EXECUTED = new ConcurrentHashMap<>();\n"
             + "    public static final ConcurrentHashMap<String,String> FAIL_JSON = new ConcurrentHashMap<>();\n"
-            + "    public static final AtomicBoolean GUARD = new AtomicBoolean(false);\n"
+            + "    public static final ThreadLocal<AtomicBoolean> GUARD = ThreadLocal.withInitial(() -> new AtomicBoolean(false));\n"
             + "    public static final AtomicBoolean HOOK_REGISTERED = new AtomicBoolean(false);\n"
             + "    private DpRuntime() {}\n"
             + "}\n";

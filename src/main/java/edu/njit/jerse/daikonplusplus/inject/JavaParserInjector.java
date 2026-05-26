@@ -272,7 +272,7 @@ public final class JavaParserInjector {
             + "      }\n"
             + "    }\n"
             + "    boolean __dp_ok = true;\n"
-            + "    if (daikonpp.DpRuntime.GUARD.compareAndSet(false, true)) {\n"
+            + "    if (daikonpp.DpRuntime.GUARD.get().compareAndSet(false, true)) {\n"
             + "      try {\n"
             + "        __dp_ok = ("
             + expr
@@ -280,7 +280,7 @@ public final class JavaParserInjector {
             + "      } catch (Throwable __t) {\n"
             + "        __dp_ok = false;\n"
             + "      } finally {\n"
-            + "        daikonpp.DpRuntime.GUARD.set(false);\n"
+            + "        daikonpp.DpRuntime.GUARD.get().set(false);\n"
             + "      }\n"
             + "    }\n"
             + "    if (!__dp_ok) {\n"
