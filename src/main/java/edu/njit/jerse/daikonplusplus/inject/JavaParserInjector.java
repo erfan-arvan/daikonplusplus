@@ -235,7 +235,7 @@ public final class JavaParserInjector {
             + "    String __dp_id = \""
             + id
             + "\";\n"
-            + "    if (daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {\n"
+            + "    if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {\n"
             + "      System.out.println(\"INV_EXD:\" + __dp_id);\n"
             + "      if (daikonpp.DpRuntime.HOOK_REGISTERED.compareAndSet(false, true)) {\n"
             + "        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {\n"

@@ -5,7 +5,7 @@ public class Main {
   try {
       if (daikonpp.DpRuntime.ENABLED) {
           String __dp_id = "4f688a30-85d4-4042-a504-a84f59a1dc38";
-          if (daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {
+          if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {
               System.out.println("INV_EXD:" + __dp_id);
               if (daikonpp.DpRuntime.HOOK_REGISTERED.compareAndSet(false, true)) {
                   Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -71,7 +71,7 @@ public class Main {
   try {
       if (daikonpp.DpRuntime.ENABLED) {
           String __dp_id = "06eca5a1-52a2-4d1c-a739-1914d630ed25";
-          if (daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {
+          if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {
               System.out.println("INV_EXD:" + __dp_id);
               if (daikonpp.DpRuntime.HOOK_REGISTERED.compareAndSet(false, true)) {
                   Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -146,7 +146,7 @@ public class Main {
     try {
         if (daikonpp.DpRuntime.ENABLED) {
             String __dp_id = "2dce125c-4649-4d31-ae43-8341f79536d3";
-            if (daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {
+            if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {
                 System.out.println("INV_EXD:" + __dp_id);
                 if (daikonpp.DpRuntime.HOOK_REGISTERED.compareAndSet(false, true)) {
                     Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -212,7 +212,7 @@ public class Main {
     try {
         if (daikonpp.DpRuntime.ENABLED) {
             String __dp_id = "792b430a-ca45-4102-b456-c92dbf605892";
-            if (daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {
+            if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {
                 System.out.println("INV_EXD:" + __dp_id);
                 if (daikonpp.DpRuntime.HOOK_REGISTERED.compareAndSet(false, true)) {
                     Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {

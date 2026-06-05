@@ -249,10 +249,14 @@ public final class App {
     JavaRunner.compileWithAutoFilter(srcRoot, classesDir, fullCompileCp, /*maxPasses*/ 10);
     final Path runLog = srcRoot.resolve("daikonpp-run.log");
 
+    // Disabled invariants accumulate here across retries; passed to child JVM each attempt.
+    final Path disabledFile = srcRoot.resolve("daikonpp").resolve("disabled-invariants.txt");
+
     final long runTimeoutSec = cfg.runTimeoutSec();
     final int maxRunRetries = cfg.maxRunRetries();
     for (int attempt = 0; attempt <= maxRunRetries; attempt++) {
-      boolean timedOut = JavaRunner.run(mainClass, fullRunCp, programArgs, runLog, runTimeoutSec);
+      boolean timedOut =
+          JavaRunner.run(mainClass, fullRunCp, programArgs, runLog, runTimeoutSec, disabledFile);
       if (!timedOut) break;
 
       System.err.println(
@@ -277,19 +281,9 @@ public final class App {
         break;
       }
 
-      System.out.println(">>> Removing stuck invariant region: " + stuckId.get());
-      boolean removed = JavaRunner.commentOutInvariantRegion(srcRoot, stuckId.get());
-      if (!removed) {
-        System.err.println(
-            ">>> Could not locate region for "
-                + stuckId.get()
-                + " in source."
-                + " Giving up retries.");
-        break;
-      }
-
-      // Recompile after removing the stuck region, then retry the run.
-      JavaRunner.compileWithAutoFilter(srcRoot, classesDir, fullCompileCp, /*maxPasses*/ 10);
+      System.out.println(">>> Disabling stuck invariant: " + stuckId.get());
+      JavaRunner.disableInvariant(disabledFile, stuckId.get());
+      // No recompile needed — source is unchanged; disabledFile is read by DpRuntime at JVM start.
     }
 
     long exitLines = 0;

@@ -1,5 +1,6 @@
 package edu.njit.jerse.daikonplusplus;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Thin wrapper around {@code javac} and {@code java}.
@@ -31,24 +33,51 @@ public final class JavaRunner {
   /**
    * Runs {@code java -cp classpath mainClass [args...]} and captures stdout to {@code runLog}.
    *
-   * <p>Delegates to {@link #run(String, String, List, Path, long)} with no effective timeout.
+   * <p>Delegates to {@link #run(String, String, List, Path, long, Path)} with no effective timeout
+   * and no disabled-invariants file.
    */
   public static void run(String mainClass, String classpath, List<String> args, Path logFile)
       throws Exception {
-    run(mainClass, classpath, args, logFile, Long.MAX_VALUE / 2);
+    run(mainClass, classpath, args, logFile, Long.MAX_VALUE / 2, null);
   }
 
   /**
    * Runs {@code java -cp classpath mainClass [args...]} and captures stdout to {@code runLog}.
    *
-   * <p>If the child JVM does not finish within {@code timeoutSeconds}, it is killed forcibly and
-   * {@code true} is returned so the caller can apply timeout-recovery logic.
+   * <p>Delegates to {@link #run(String, String, List, Path, long, Path)} with no
+   * disabled-invariants file.
    *
    * @param timeoutSeconds wall-clock seconds to wait before killing the process
    * @return {@code true} if the run timed out, {@code false} on normal completion
    */
   public static boolean run(
       String mainClass, String classpath, List<String> args, Path logFile, long timeoutSeconds)
+      throws Exception {
+    return run(mainClass, classpath, args, logFile, timeoutSeconds, null);
+  }
+
+  /**
+   * Runs {@code java -cp classpath mainClass [args...]} and captures stdout to {@code runLog}.
+   *
+   * <p>If {@code disabledFile} exists, its path is passed to the child JVM as {@code
+   * -DDP_DISABLED_FILE=...} so that {@code daikonpp.DpRuntime} skips all invariants whose UUIDs
+   * appear in that file.
+   *
+   * <p>If the child JVM does not finish within {@code timeoutSeconds}, it is killed forcibly and
+   * {@code true} is returned so the caller can apply timeout-recovery logic.
+   *
+   * @param timeoutSeconds wall-clock seconds to wait before killing the process
+   * @param disabledFile path to a newline-delimited file of disabled invariant UUIDs, or {@code
+   *     null} to skip
+   * @return {@code true} if the run timed out, {@code false} on normal completion
+   */
+  public static boolean run(
+      String mainClass,
+      String classpath,
+      List<String> args,
+      Path logFile,
+      long timeoutSeconds,
+      @Nullable Path disabledFile)
       throws Exception {
     // Ensure parent dir exists even if logFile has no parent
     Path parent = logFile.getParent();
@@ -58,6 +87,9 @@ public final class JavaRunner {
     cmd.add(toolPath("java"));
     cmd.add("-Dfile.encoding=UTF-8");
     cmd.add("-Xshare:off");
+    if (disabledFile != null && Files.exists(disabledFile)) {
+      cmd.add("-DDP_DISABLED_FILE=" + disabledFile.toAbsolutePath());
+    }
     cmd.add("-cp");
     cmd.add(classpath);
     cmd.add(mainClass);
@@ -128,40 +160,22 @@ public final class JavaRunner {
   }
 
   /**
-   * Searches all {@code .java} files under {@code srcRoot} for the injected one-liner region that
-   * carries {@code INV_EXD:<stuckId>} and comments it out. This removes an invariant that caused
-   * the child JVM to hang (e.g. infinite loop inside the checked expression).
+   * Appends {@code stuckId} to {@code disabledFile} (one UUID per line). On the next run, the child
+   * JVM receives {@code -DDP_DISABLED_FILE=<path>} and {@code daikonpp.DpRuntime.DISABLED} skips
+   * every invariant whose UUID is in that file — across all return paths simultaneously, without
+   * touching source code.
    *
-   * @return {@code true} if at least one region was found and commented out
+   * <p>The file is created if it does not exist; existing entries are preserved.
    */
-  public static boolean commentOutInvariantRegion(Path srcRoot, UUID stuckId) throws Exception {
-    String marker = "INV_EXD:" + stuckId.toString();
-    boolean found = false;
-
-    List<Path> javaFiles = new ArrayList<>();
-    try (var walk = Files.walk(srcRoot)) {
-      walk.filter(p -> p.toString().endsWith(".java")).forEach(javaFiles::add);
-    }
-
-    for (Path file : javaFiles) {
-      if (!Files.isRegularFile(file)) continue;
-      List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
-      boolean changed = false;
-      for (int i = 0; i < lines.size(); i++) {
-        String ln = lines.get(i);
-        if (ln.strip().startsWith("//")) continue; // already commented
-        if (ln.contains(marker)) {
-          lines.set(i, "//Timed-out Invariant (infinite loop removed): " + ln.strip());
-          changed = true;
-          found = true;
-          System.out.println("    ↳ Removed stuck invariant region in " + file + ":" + (i + 1));
-        }
-      }
-      if (changed) {
-        Files.write(file, lines, StandardCharsets.UTF_8);
-      }
-    }
-    return found;
+  public static void disableInvariant(Path disabledFile, UUID stuckId) throws IOException {
+    Path dirPath = disabledFile.getParent();
+    Files.createDirectories(dirPath != null ? dirPath : Path.of("."));
+    Files.writeString(
+        disabledFile,
+        stuckId.toString() + System.lineSeparator(),
+        StandardOpenOption.CREATE,
+        StandardOpenOption.APPEND);
+    System.out.println("    ↳ Disabled stuck invariant " + stuckId + " → " + disabledFile);
   }
 
   // ---- internals ----
