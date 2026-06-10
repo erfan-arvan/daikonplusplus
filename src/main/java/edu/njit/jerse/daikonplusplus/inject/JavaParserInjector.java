@@ -337,6 +337,7 @@ public final class JavaParserInjector {
             + "        System.out.println(__json);\n"
             + "      }\n"
             + "    }\n"
+            + "    System.out.println(\"INV_DON:\" + __dp_id);\n"
             + "  }\n"
             + "} catch (Throwable "
             + exVar

@@ -597,7 +597,7 @@ public final class App {
       final long maxTimeoutMinutes = BASE_CFG.maxTimeoutMinutes();
       final long staleCheckMinutes = BASE_CFG.staleCheckMinutes();
       long currentStaleCheckMinutes = staleCheckMinutes;
-      final long maxStaleCheckMinutes = 5L;
+      final long maxStaleCheckMinutes = 10L;
 
       final Set<UUID> staleRemovedIds = new java.util.LinkedHashSet<>();
       final Path staleRecordFile = workProjectRoot.resolve(".daikonpp-stale-removed.txt");
