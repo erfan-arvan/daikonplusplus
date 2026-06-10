@@ -5,6 +5,7 @@ import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.*;
 import edu.njit.jerse.daikonplusplus.config.*;
 import edu.njit.jerse.daikonplusplus.filter.TestInvariantFilter;
+import edu.njit.jerse.daikonplusplus.inject.DpRuntimeWriter;
 import edu.njit.jerse.daikonplusplus.inject.FileWriteCoordinator;
 import edu.njit.jerse.daikonplusplus.inject.JavaParserInjector;
 import edu.njit.jerse.daikonplusplus.llm.LlmInvariantGenerator;
@@ -539,6 +540,12 @@ public final class App {
     injPool.shutdown();
     System.out.println(">>> Injection done. Updated MAIN files: " + injectedFiles);
 
+    // Write DpRuntime helper so injected guards can compile without System.getProperties()
+    DpRuntimeWriter.write(mainSrcRoot);
+
+    // File accumulating disabled invariant UUIDs across timeout-recovery iterations
+    final Path disabledFile = workProjectRoot.resolve(".daikonpp-disabled-invariants.txt");
+
     // --- Phase 3: compile and run ---
 
     final Path runLog;
@@ -615,7 +622,8 @@ public final class App {
                 fullRunCp,
                 runLog,
                 currentTimeoutMinutes,
-                currentStaleCheckMinutes);
+                currentStaleCheckMinutes,
+                disabledFile);
 
         if (result == JavaRunner.RunResult.NORMAL) break;
 
@@ -632,14 +640,8 @@ public final class App {
               "[DP] No INV_EXD in log; cannot identify stuck invariant. Proceeding with partial log.");
           break;
         }
-        System.out.println("[DP] Removing stuck invariant: " + stuckId.get());
-        if (!JavaRunner.removeRegionById(mainSrcRoot, stuckId.get())) {
-          System.err.println(
-              "[DP] Could not remove region for "
-                  + stuckId.get()
-                  + ". Proceeding with partial log.");
-          break;
-        }
+        System.out.println("[DP] Disabling stuck invariant: " + stuckId.get());
+        JavaRunner.disableInvariant(disabledFile, stuckId.get());
 
         staleRemovedIds.add(stuckId.get());
         try {
@@ -717,7 +719,7 @@ public final class App {
       }
 
       runLog = mainSrcRoot.resolve("daikonpp-run.log");
-      JavaRunner.run(entryClass, fullRunCp, programArgs, runLog);
+      JavaRunner.run(entryClass, fullRunCp, programArgs, runLog, disabledFile);
     }
 
     if (execMode == ExecMode.NATIVE) {

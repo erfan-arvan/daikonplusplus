@@ -6,6 +6,7 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import edu.njit.jerse.daikonplusplus.inject.DpRuntimeWriter;
 import edu.njit.jerse.daikonplusplus.inject.FileWriteCoordinator;
 import edu.njit.jerse.daikonplusplus.inject.JavaParserInjector;
 import edu.njit.jerse.daikonplusplus.model.*;
@@ -83,6 +84,9 @@ public class PipelineSmokeTest {
     for (Map.Entry<Path, List<InvariantRecord>> e : byFile.entrySet()) {
       injector.injectGuards(e.getKey(), e.getValue());
     }
+
+    // 4b) Write DpRuntime helper so injected guards can compile
+    DpRuntimeWriter.write(workSrc);
 
     // 5) Compile & run
     Path classesDir = tmp.resolve("classes");

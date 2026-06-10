@@ -26,7 +26,6 @@ public final class JavaParserInjector {
 
   private final FileWriteCoordinator coordinator;
 
-
   /**
    * Creates a new injector.
    *
@@ -261,84 +260,51 @@ public final class JavaParserInjector {
     String id = rec.id().toString();
     String expr = rec.spec().expression();
 
-    // Build the try/catch as a Statement (no markers in the code string)
+    // Build the try/catch using DpRuntime (no System.getProperties() — avoids JVM-wide lock)
     String tryCode =
         "try {\n"
-            + "  java.util.Properties __dp_props = System.getProperties();\n"
-            + "  String __dirStr = __dp_props.getProperty(\"DP_INV_DIR\");\n"
-            + "  if (__dirStr != null && __dirStr.trim().length() != 0) {\n"
+            + "  if (daikonpp.DpRuntime.ENABLED) {\n"
             + "    String __dp_id = \""
             + id
             + "\";\n"
-
-            // ================= EXECUTION LOG (ONCE) =================
-            + "    if (__dp_props.getProperty(\"DP_INV_EXD_\" + __dp_id) == null) {\n"
-            + "      __dp_props.setProperty(\"DP_INV_EXD_\" + __dp_id, \"1\");\n"
+            + "    if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {\n"
             + "      System.out.println(\"INV_EXD:\" + __dp_id);\n"
-            + "    }\n"
-
-            // ================= SHUTDOWN HOOK (BEST EFFORT) =================
-            + "    if (__dp_props.getProperty(\"DP_INV_HOOK\") == null) {\n"
-            + "      synchronized (__dp_props) {\n"
-            + "        if (__dp_props.getProperty(\"DP_INV_HOOK\") == null) {\n"
-            + "          __dp_props.setProperty(\"DP_INV_HOOK\", \"1\");\n"
-            + "          Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {\n"
-            + "            public void run() {\n"
-            + "              try {\n"
-            + "                java.util.Properties __p = System.getProperties();\n"
-            + "                String __d = __p.getProperty(\"DP_INV_DIR\");\n"
-            + "                if (__d == null || __d.trim().length() == 0) return;\n"
-            + "                java.io.File __dir = new java.io.File(__d);\n"
-            + "                __dir.mkdirs();\n"
-            + "                java.io.File __out = new java.io.File(\n"
-            + "                  __dir,\n"
-            + "                  \"dp-events-\" + java.util.UUID.randomUUID().toString() + \".log\"\n"
-            + "                );\n"
-            + "                StringBuilder __sb = new StringBuilder();\n"
-            + "                java.util.Enumeration __names = __p.propertyNames();\n"
-            + "                while (__names.hasMoreElements()) {\n"
-            + "                  String __k = (String) __names.nextElement();\n"
-            + "                  if (__k.startsWith(\"DP_INV_EXD_\")) {\n"
-            + "                    __sb.append(\"INV_EXD:\")\n"
-            + "                      .append(__k.substring(\"DP_INV_EXD_\".length()))\n"
-            + "                      .append('\\n');\n"
-            + "                  } else if (__k.startsWith(\"DP_INV_FAIL_JSON_\")) {\n"
-            + "                    String __v = __p.getProperty(__k);\n"
-            + "                    if (__v != null && __v.trim().length() > 0)\n"
-            + "                      __sb.append(__v).append('\\n');\n"
-            + "                  }\n"
+            + "      if (daikonpp.DpRuntime.HOOK_REGISTERED.compareAndSet(false, true)) {\n"
+            + "        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {\n"
+            + "          public void run() {\n"
+            + "            try {\n"
+            + "              String __d = daikonpp.DpRuntime.INV_DIR;\n"
+            + "              if (__d == null || __d.trim().length() == 0) return;\n"
+            + "              java.io.File __dir = new java.io.File(__d);\n"
+            + "              __dir.mkdirs();\n"
+            + "              java.io.File __out = new java.io.File(\n"
+            + "                __dir,\n"
+            + "                \"dp-events-\" + java.util.UUID.randomUUID().toString() + \".log\"\n"
+            + "              );\n"
+            + "              StringBuilder __sb = new StringBuilder();\n"
+            + "              for (String __k : daikonpp.DpRuntime.EXECUTED.keySet()) {\n"
+            + "                __sb.append(\"INV_EXD:\").append(__k).append('\\n');\n"
+            + "              }\n"
+            + "              for (String __v : daikonpp.DpRuntime.FAIL_JSON.values()) {\n"
+            + "                if (__v != null && __v.trim().length() > 0)\n"
+            + "                  __sb.append(__v).append('\\n');\n"
+            + "              }\n"
+            + "              if (__sb.length() > 0) {\n"
+            + "                java.io.OutputStream __os = null;\n"
+            + "                try {\n"
+            + "                  __os = new java.io.FileOutputStream(__out, true);\n"
+            + "                  __os.write(__sb.toString().getBytes(\"UTF-8\"));\n"
+            + "                } finally {\n"
+            + "                  if (__os != null) try { __os.close(); } catch (Throwable __t) {}\n"
             + "                }\n"
-            + "                if (__sb.length() > 0) {\n"
-            + "                  java.io.OutputStream __os = null;\n"
-            + "                  try {\n"
-            + "                    __os = new java.io.FileOutputStream(__out, true);\n"
-            + "                    __os.write(__sb.toString().getBytes(\"UTF-8\"));\n"
-            + "                  } finally {\n"
-            + "                    if (__os != null) try { __os.close(); } catch (Throwable __t) {}\n"
-            + "                  }\n"
-            + "                }\n"
-            + "              } catch (Throwable __ignore) {}\n"
-            + "            }\n"
-            + "          }));\n"
-            + "        }\n"
+            + "              }\n"
+            + "            } catch (Throwable __ignore) {}\n"
+            + "          }\n"
+            + "        }));\n"
             + "      }\n"
             + "    }\n"
-
-            // ================= RE-ENTRANCY GUARD =================
-            // A ThreadLocal<Boolean> stored in System.getProperties() under "DP_INV_GUARD".
-            // While any invariant is evaluating on this thread the flag is TRUE and all
-            // nested invariant checks (from method calls inside the expression) are skipped.
-            // This prevents infinite recursion and stops nested invariants from executing.
             + "    boolean __dp_ok = true;\n"
-            + "    ThreadLocal __dp_guard = (ThreadLocal) __dp_props.get(\"DP_INV_GUARD\");\n"
-            + "    if (__dp_guard == null) {\n"
-            + "      __dp_guard = new ThreadLocal() {\n"
-            + "        protected Object initialValue() { return Boolean.FALSE; }\n"
-            + "      };\n"
-            + "      __dp_props.put(\"DP_INV_GUARD\", __dp_guard);\n"
-            + "    }\n"
-            + "    if (!((Boolean) __dp_guard.get()).booleanValue()) {\n"
-            + "      __dp_guard.set(Boolean.TRUE);\n"
+            + "    if (daikonpp.DpRuntime.GUARD.get().compareAndSet(false, true)) {\n"
             + "      try {\n"
             + "        __dp_ok = ("
             + expr
@@ -346,33 +312,28 @@ public final class JavaParserInjector {
             + "      } catch (Throwable __t) {\n"
             + "        __dp_ok = false;\n"
             + "      } finally {\n"
-            + "        __dp_guard.set(Boolean.FALSE);\n"
+            + "        daikonpp.DpRuntime.GUARD.get().set(false);\n"
             + "      }\n"
             + "    }\n"
-
-            // ================= FAILURE LOG (IMMEDIATE) =================
             + "    if (!__dp_ok) {\n"
-            + "      String __failKey = \"DP_INV_FAIL_\" + __dp_id;\n"
-            + "      if (__dp_props.getProperty(__failKey) == null) {\n"
-            + "        __dp_props.setProperty(__failKey, \"1\");\n"
-            + "        String __json =\n"
-            + "          \"{\\\"type\\\":\\\"INV_FAIL\\\",\" +\n"
-            + "          \"\\\"id\\\":\\\""
+            + "      String __json =\n"
+            + "        \"{\\\"type\\\":\\\"INV_FAIL\\\",\" +\n"
+            + "        \"\\\"id\\\":\\\""
             + id
             + "\\\",\" +\n"
-            + "          \"\\\"element\\\":\\\""
+            + "        \"\\\"element\\\":\\\""
             + esc(rec.point().elementId().toString())
             + "\\\",\" +\n"
-            + "          \"\\\"file\\\":\\\""
+            + "        \"\\\"file\\\":\\\""
             + esc(rec.sourceFile())
             + "\\\",\" +\n"
-            + "          \"\\\"expr\\\":\\\""
+            + "        \"\\\"expr\\\":\\\""
             + esc(expr)
             + "\\\",\" +\n"
-            + "          \"\\\"phase\\\":\\\""
+            + "        \"\\\"phase\\\":\\\""
             + phase
             + "\\\"}\";\n"
-            + "        __dp_props.setProperty(\"DP_INV_FAIL_JSON_\" + __dp_id, __json);\n"
+            + "      if (daikonpp.DpRuntime.FAIL_JSON.putIfAbsent(__dp_id, __json) == null) {\n"
             + "        System.out.println(__json);\n"
             + "      }\n"
             + "    }\n"
@@ -380,23 +341,17 @@ public final class JavaParserInjector {
             + "} catch (Throwable "
             + exVar
             + ") {\n"
-            + "  java.util.Properties __p = System.getProperties();\n"
-            + "  String __failKey = \"DP_INV_FAIL_"
-            + id
-            + "\";\n"
-            + "  if (__p.getProperty(__failKey) == null) {\n"
-            + "    __p.setProperty(__failKey, \"1\");\n"
-            + "    String __json =\n"
-            + "      \"{\\\"type\\\":\\\"INV_FAIL\\\",\" +\n"
-            + "      \"\\\"id\\\":\\\""
+            + "  String __json =\n"
+            + "    \"{\\\"type\\\":\\\"INV_FAIL\\\",\" +\n"
+            + "    \"\\\"id\\\":\\\""
             + id
             + "\\\",\" +\n"
-            + "      \"\\\"error\\\":\\\"\" + "
+            + "    \"\\\"error\\\":\\\"\" + "
             + exVar
             + ".toString() + \"\\\"}\";\n"
-            + "    __p.setProperty(\"DP_INV_FAIL_JSON_"
+            + "  if (daikonpp.DpRuntime.FAIL_JSON.putIfAbsent(\""
             + id
-            + "\", __json);\n"
+            + "\", __json) == null) {\n"
             + "    System.out.println(__json);\n"
             + "  }\n"
             + "}\n";

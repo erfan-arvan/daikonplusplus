@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Utility class for compiling and executing instrumented Java code in Daikon++.
@@ -60,6 +61,16 @@ public final class JavaRunner {
    */
   public static void run(String mainClass, String classpath, List<String> args, Path logFile)
       throws Exception {
+    run(mainClass, classpath, args, logFile, null);
+  }
+
+  public static void run(
+      String mainClass,
+      String classpath,
+      List<String> args,
+      Path logFile,
+      @org.checkerframework.checker.nullness.qual.Nullable Path disabledFile)
+      throws Exception {
 
     Files.createDirectories(Optional.ofNullable(logFile.getParent()).orElse(Path.of(".")));
 
@@ -70,6 +81,10 @@ public final class JavaRunner {
 
     Path logDir = Optional.ofNullable(logFile.getParent()).orElse(Path.of("."));
     cmd.add("-DDP_INV_DIR=" + logDir.resolve(".daikonpp-events").toAbsolutePath());
+
+    if (disabledFile != null && Files.exists(disabledFile)) {
+      cmd.add("-DDP_DISABLED_FILE=" + disabledFile.toAbsolutePath());
+    }
 
     cmd.add("-cp");
     cmd.add(classpath);
@@ -471,6 +486,19 @@ public final class JavaRunner {
       long timeoutMinutes,
       long staleCheckMinutes)
       throws IOException, InterruptedException {
+    return runExternalScript(
+        script, workDir, fullRunCp, runLog, timeoutMinutes, staleCheckMinutes, null);
+  }
+
+  public static RunResult runExternalScript(
+      Path script,
+      Path workDir,
+      String fullRunCp,
+      Path runLog,
+      long timeoutMinutes,
+      long staleCheckMinutes,
+      @Nullable Path disabledFile)
+      throws IOException, InterruptedException {
 
     if (!Files.isRegularFile(script)) {
       throw new IllegalArgumentException("[DP] External runner script not found: " + script);
@@ -511,6 +539,15 @@ public final class JavaRunner {
     env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + jvmArgs).trim());
     env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + jvmArgs).trim());
     env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + jvmArgs).trim());
+
+    if (disabledFile != null) {
+      String disabledPath = disabledFile.toAbsolutePath().toString();
+      String disabledArg = "-DDP_DISABLED_FILE=" + disabledPath;
+      env.put("DP_DISABLED_FILE", disabledPath);
+      env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + disabledArg).trim());
+      env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + disabledArg).trim());
+      env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + disabledArg).trim());
+    }
 
     pb.redirectErrorStream(true);
 
@@ -738,6 +775,23 @@ public final class JavaRunner {
    *
    * @return {@code true} if a region was found and removed
    */
+  /**
+   * Appends {@code stuckId} to {@code disabledFile} (one UUID per line). On the next run the child
+   * JVM receives {@code -DDP_DISABLED_FILE=<path>} and {@code daikonpp.DpRuntime.DISABLED} skips
+   * every invariant with that UUID — across all return paths simultaneously, without touching
+   * source.
+   */
+  public static void disableInvariant(Path disabledFile, UUID stuckId) throws IOException {
+    Path dir = disabledFile.getParent();
+    if (dir != null) Files.createDirectories(dir);
+    Files.writeString(
+        disabledFile,
+        stuckId.toString() + System.lineSeparator(),
+        StandardOpenOption.CREATE,
+        StandardOpenOption.APPEND);
+    System.out.println("[DP] Disabled stuck invariant " + stuckId + " → " + disabledFile);
+  }
+
   public static boolean removeRegionById(Path srcRoot, UUID stuckId) {
     String marker = stuckId.toString();
     try {
