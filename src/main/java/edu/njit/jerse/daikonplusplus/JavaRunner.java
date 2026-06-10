@@ -504,11 +504,15 @@ public final class JavaRunner {
       throw new IllegalArgumentException("[DP] External runner script not found: " + script);
     }
 
+    // Ensure the script is executable — some HPC filesystems (GPFS/Lustre) strip the execute
+    // bit on copy even when COPY_ATTRIBUTES is used; chmod +x as a silent fallback.
     if (!Files.isExecutable(script)) {
-      throw new IllegalArgumentException(
-          "[DP] External runner script is not executable: "
-              + script
-              + " (did you forget chmod +x?)");
+      try {
+        script.toFile().setExecutable(true, false);
+        System.out.println("[DP] chmod +x applied to runner script: " + script);
+      } catch (SecurityException ignored) {
+        // best-effort; if it still fails ProcessBuilder will throw a clear error
+      }
     }
 
     Files.createDirectories(Optional.ofNullable(runLog.getParent()).orElse(Path.of(".")));
@@ -516,7 +520,8 @@ public final class JavaRunner {
     System.out.println("[DP] Running script: " + script.toAbsolutePath());
     System.out.println("[DP] Working dir: " + workDir.toAbsolutePath());
     System.out.println("[DP] Log file: " + runLog.toAbsolutePath());
-    ProcessBuilder pb = new ProcessBuilder(script.toAbsolutePath().toString());
+    // Use "bash <script>" so execution works even when the filesystem ignores execute bits.
+    ProcessBuilder pb = new ProcessBuilder("bash", script.toAbsolutePath().toString());
 
     // Run inside the working project copy
     pb.directory(workDir.toFile());
