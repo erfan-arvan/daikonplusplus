@@ -118,14 +118,12 @@ public class RegressionReplayFromBaselineTest {
     // 6a) Compare injected sources
     compareInjectedTrees(BASELINE_INJECTED, workSrc, "injected sources mismatch vs baseline");
 
-    // 6b) Compare run logs (exact)
+    // 6b) Compare run logs (filter environment noise, then exact)
     assertTrue(Files.exists(BASELINE_RUNLOG), "Missing baseline run log: " + BASELINE_RUNLOG);
-    byte[] baseLog = Files.readAllBytes(BASELINE_RUNLOG);
-    byte[] newLog = Files.readAllBytes(runLog);
-    if (!Arrays.equals(baseLog, newLog)) {
-      // Helpful diff context
-      String baseS = new String(baseLog, StandardCharsets.UTF_8);
-      String newS = new String(newLog, StandardCharsets.UTF_8);
+    String baseS =
+        filterLogNoise(new String(Files.readAllBytes(BASELINE_RUNLOG), StandardCharsets.UTF_8));
+    String newS = filterLogNoise(new String(Files.readAllBytes(runLog), StandardCharsets.UTF_8));
+    if (!baseS.equals(newS)) {
       fail(
           "Run log differs from baseline.\n--- baseline ---\n"
               + snippet(baseS)
@@ -248,6 +246,16 @@ public class RegressionReplayFromBaselineTest {
                 + snippet(newS));
       }
     }
+  }
+
+  /** Strips lines injected by the JVM environment (e.g. "Picked up JAVA_TOOL_OPTIONS: ..."). */
+  private static String filterLogNoise(String log) {
+    StringBuilder sb = new StringBuilder();
+    for (String line : log.split("\\R", -1)) {
+      if (line.startsWith("Picked up ")) continue;
+      sb.append(line).append("\n");
+    }
+    return sb.toString();
   }
 
   private static String snippet(String s) {
