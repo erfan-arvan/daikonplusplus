@@ -435,7 +435,7 @@ public final class DpConfig {
         getInt("dp.testFilterMethodBatchSize", "DP_TEST_FILTER_METHOD_BATCH_SIZE", 1, env, file);
 
     int staleCheckMinutes =
-        Math.max(0, getInt("dp.staleCheckMinutes", "DP_STALE_CHECK_MINUTES", 15, env, file));
+        Math.max(0, getInt("dp.staleCheckMinutes", "DP_STALE_CHECK_MINUTES", 1, env, file));
 
     int maxTimeoutMinutes =
         Math.max(1, getInt("dp.maxTimeoutMinutes", "DP_MAX_TIMEOUT_MINUTES", 480, env, file));
