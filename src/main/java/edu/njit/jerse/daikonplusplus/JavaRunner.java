@@ -628,6 +628,7 @@ public final class JavaRunner {
               () -> {
                 UUID trackedId = null;
                 long trackedSince = 0;
+                long trackedLogSize = -1;
                 while (!Thread.currentThread().isInterrupted() && p.isAlive()) {
                   try {
                     Thread.sleep(pollMs);
@@ -676,6 +677,24 @@ public final class JavaRunner {
                     // UUID advanced — reset the clock
                     trackedId = currentId;
                     trackedSince = now;
+                    trackedLogSize = -1;
+                    continue;
+                  }
+
+                  // UUID unchanged — also check if the log file is still growing.
+                  // Once all unique invariant IDs have been seen, INV_EXD stops appearing
+                  // even when the test is actively running (e.g. processing items in a loop).
+                  // Growing log size means the process is making real progress.
+                  long currentLogSize = -1;
+                  try {
+                    currentLogSize = Files.exists(runLog) ? Files.size(runLog) : -1;
+                  } catch (IOException ignored) {
+                  }
+
+                  if (currentLogSize > trackedLogSize) {
+                    // Log is still growing — process is making progress despite UUID not changing
+                    trackedLogSize = currentLogSize;
+                    trackedSince = now; // reset stale clock
                     continue;
                   }
 
