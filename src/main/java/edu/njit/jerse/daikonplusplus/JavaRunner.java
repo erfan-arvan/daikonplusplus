@@ -1,6 +1,5 @@
 package edu.njit.jerse.daikonplusplus;
 
-import edu.njit.jerse.daikonplusplus.results.LogParser;
 import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil;
 import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil.JError;
 import java.io.*;
@@ -81,6 +80,7 @@ public final class JavaRunner {
 
     Path logDir = Optional.ofNullable(logFile.getParent()).orElse(Path.of("."));
     cmd.add("-DDP_INV_DIR=" + logDir.resolve(".daikonpp-events").toAbsolutePath());
+    cmd.add("-DDP_OPEN_FILE=" + logDir.resolve(".daikonpp-open.txt").toAbsolutePath());
 
     if (disabledFile != null && Files.exists(disabledFile)) {
       cmd.add("-DDP_DISABLED_FILE=" + disabledFile.toAbsolutePath());
@@ -539,7 +539,12 @@ public final class JavaRunner {
 
     env.put("DP_INV_DIR", invDir.toAbsolutePath().toString());
 
-    String jvmArgs = "-DDP_INV_DIR=" + invDir.toAbsolutePath();
+    Path openFile = workDir.resolve(".daikonpp-open.txt");
+    env.put("DP_OPEN_FILE", openFile.toAbsolutePath().toString());
+
+    String jvmArgs =
+        "-DDP_INV_DIR=" + invDir.toAbsolutePath()
+            + " -DDP_OPEN_FILE=" + openFile.toAbsolutePath();
 
     env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + jvmArgs).trim());
     env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + jvmArgs).trim());
@@ -636,32 +641,33 @@ public final class JavaRunner {
                   }
                   if (!p.isAlive()) break;
 
-                  // Only consider an invariant stuck if it has an open EXD with no DON —
-                  // i.e., evaluation started but never returned. If every EXD has a DON
-                  // the process is idle between test batches (normal Gradle overhead) and
-                  // must never be killed.
-                  UUID currentId;
+                  // Read the status file written by DpRuntime.setOpen/clearOpen.
+                  // Non-empty → an invariant is mid-evaluation right now.
+                  // Empty / missing → process is between tests, never kill.
+                  UUID currentId = null;
                   try {
-                    currentId =
-                        LogParser.readOpenInvariantIdFrom(runLog, logStartOffset).orElse(null);
+                    if (Files.exists(openFile)) {
+                      String content =
+                          Files.readString(openFile, StandardCharsets.UTF_8).trim();
+                      if (!content.isEmpty()) currentId = UUID.fromString(content);
+                    }
                   } catch (Exception e) {
-                    System.err.println("[DP] Stale detector: error reading log: " + e.getMessage());
+                    System.err.println(
+                        "[DP] Stale detector: error reading open file: " + e.getMessage());
                     continue;
                   }
 
                   long now = System.currentTimeMillis();
 
                   if (currentId == null) {
-                    // No open invariant — process is between tests, not stuck. Reset.
                     if (trackedId != null) {
-                      System.out.println("[DP] Stale detector: open invariant closed — resetting");
+                      System.out.println("[DP] Stale detector: no open invariant — resetting");
                       trackedId = null;
                     }
                     continue;
                   }
 
                   if (!currentId.equals(trackedId)) {
-                    // Different open invariant — reset the clock
                     trackedId = currentId;
                     trackedSince = now;
                     System.out.println(
@@ -675,8 +681,7 @@ public final class JavaRunner {
                           + currentId
                           + " mid-evaluation for "
                           + (stuckForMs / 60_000)
-                          + " min"
-                          + " (threshold "
+                          + " min (threshold "
                           + staleCheckMinutes
                           + " min)");
 

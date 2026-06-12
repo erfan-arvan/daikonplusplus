@@ -269,7 +269,7 @@ public final class JavaParserInjector {
             + "\";\n"
             + "    if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id)\n"
             + "        && daikonpp.DpRuntime.GUARD.get().compareAndSet(false, true)) {\n"
-            + "      System.out.println(\"INV_EXD:\" + __dp_id);\n"
+            + "      daikonpp.DpRuntime.setOpen(__dp_id);\n"
             + "      if (daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {\n"
             + "        if (daikonpp.DpRuntime.HOOK_REGISTERED.compareAndSet(false, true)) {\n"
             + "          Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {\n"
@@ -314,6 +314,7 @@ public final class JavaParserInjector {
             + "        __dp_ok = false;\n"
             + "      } finally {\n"
             + "        daikonpp.DpRuntime.GUARD.get().set(false);\n"
+            + "        daikonpp.DpRuntime.clearOpen();\n"
             + "      }\n"
             + "      if (!__dp_ok) {\n"
             + "        String __json =\n"
@@ -333,11 +334,8 @@ public final class JavaParserInjector {
             + "          \"\\\"phase\\\":\\\""
             + phase
             + "\\\"}\";\n"
-            + "        if (daikonpp.DpRuntime.FAIL_JSON.putIfAbsent(__dp_id, __json) == null) {\n"
-            + "          System.out.println(__json);\n"
-            + "        }\n"
+            + "        daikonpp.DpRuntime.FAIL_JSON.putIfAbsent(__dp_id, __json);\n"
             + "      }\n"
-            + "      System.out.println(\"INV_DON:\" + __dp_id);\n"
             + "    }\n"
             + "  }\n"
             + "} catch (Throwable "
@@ -351,11 +349,10 @@ public final class JavaParserInjector {
             + "    \"\\\"error\\\":\\\"\" + "
             + exVar
             + ".toString() + \"\\\"}\";\n"
-            + "  if (daikonpp.DpRuntime.FAIL_JSON.putIfAbsent(\""
+            + "  daikonpp.DpRuntime.FAIL_JSON.putIfAbsent(\""
             + id
-            + "\", __json) == null) {\n"
-            + "    System.out.println(__json);\n"
-            + "  }\n"
+            + "\", __json);\n"
+            + "  daikonpp.DpRuntime.clearOpen();\n"
             + "}\n";
 
     Statement tryStmt = StaticJavaParser.parseStatement(tryCode);
