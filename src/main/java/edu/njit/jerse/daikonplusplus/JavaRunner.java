@@ -780,6 +780,10 @@ public final class JavaRunner {
       readerThread.join(20000);
       exit = -1;
     } else {
+      // Normal exit: wait for reader to drain all stdout before appending events.
+      // The shutdown hook writes INV_EXD/INV_FAIL lines to stdout, so we must not
+      // return until the reader has finished writing them to the log file.
+      readerThread.join(10000);
       exit = p.exitValue();
     }
 
