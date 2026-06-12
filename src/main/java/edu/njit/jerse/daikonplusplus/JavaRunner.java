@@ -465,6 +465,21 @@ public final class JavaRunner {
     }
   }
 
+  private static void killForStaleness(
+      Process p, Path runLog, AtomicBoolean staleKilled, String reason) {
+    try {
+      Files.writeString(
+          runLog,
+          "\n[DP] " + reason + ", killing run\n",
+          StandardOpenOption.CREATE,
+          StandardOpenOption.APPEND);
+    } catch (IOException ignored) {
+    }
+    System.err.println("[DP] " + reason + ". Killing runner.");
+    staleKilled.set(true);
+    p.destroyForcibly();
+  }
+
   /**
    * Executes an external script (e.g., build or test runner) and appends its output to a log file.
    *
@@ -614,9 +629,12 @@ public final class JavaRunner {
     readerThread.start();
 
     // ---- STALE INVARIANT DETECTOR ----
-    // Polls every 60 seconds. Kills the process when the same UUID has been the
-    // last-executed invariant continuously for staleCheckMinutes. Fires after exactly
-    // staleCheckMinutes of no progress (not 2x like the old two-observation design).
+    // Two complementary checks, each using the same staleCheckMinutes threshold:
+    //   1. UUID-based: same UUID stuck in .daikonpp-open.txt for staleCheckMinutes
+    //      (catches invariants in an infinite loop mid-evaluation).
+    //   2. Log-silence: log file stops growing for staleCheckMinutes
+    //      (catches cases where injected code deadlocks the test between invariant calls
+    //       so clearOpen() was already called and the status file is empty).
     AtomicBoolean staleKilled = new AtomicBoolean(false);
     Thread staleThread = null;
     if (staleCheckMinutes > 0) {
@@ -632,6 +650,8 @@ public final class JavaRunner {
               () -> {
                 UUID trackedId = null;
                 long trackedSince = 0;
+                long lastLogSize = -1;
+                long lastLogGrowthTime = System.currentTimeMillis();
                 while (!Thread.currentThread().isInterrupted() && p.isAlive()) {
                   try {
                     Thread.sleep(pollMs);
@@ -640,9 +660,12 @@ public final class JavaRunner {
                   }
                   if (!p.isAlive()) break;
 
+                  long now = System.currentTimeMillis();
+
+                  // --- Check 1: UUID stuck mid-evaluation ---
                   // Read the status file written by DpRuntime.setOpen/clearOpen.
                   // Non-empty → an invariant is mid-evaluation right now.
-                  // Empty / missing → process is between tests, never kill.
+                  // Empty / missing → process is between tests.
                   UUID currentId = null;
                   try {
                     if (Files.exists(openFile)) {
@@ -652,58 +675,65 @@ public final class JavaRunner {
                   } catch (Exception e) {
                     System.err.println(
                         "[DP] Stale detector: error reading open file: " + e.getMessage());
-                    continue;
                   }
-
-                  long now = System.currentTimeMillis();
 
                   if (currentId == null) {
                     if (trackedId != null) {
-                      System.out.println("[DP] Stale detector: no open invariant — resetting");
+                      System.out.println("[DP] Stale detector: no open invariant — resetting UUID tracker");
                       trackedId = null;
                     }
-                    continue;
-                  }
-
-                  if (!currentId.equals(trackedId)) {
+                  } else if (!currentId.equals(trackedId)) {
                     trackedId = currentId;
                     trackedSince = now;
                     System.out.println("[DP] Stale detector: tracking open invariant " + currentId);
-                    continue;
+                  } else {
+                    long stuckForMs = now - trackedSince;
+                    System.out.println(
+                        "[DP] Stale detector: "
+                            + currentId
+                            + " mid-evaluation for "
+                            + (stuckForMs / 60_000)
+                            + " min (threshold "
+                            + staleCheckMinutes
+                            + " min)");
+                    if (stuckForMs >= thresholdMs) {
+                      String reason =
+                          "Stale invariant detected ("
+                              + currentId
+                              + ") mid-evaluation for "
+                              + staleCheckMinutes
+                              + " min";
+                      killForStaleness(p, runLog, staleKilled, reason);
+                      break;
+                    }
                   }
 
-                  long stuckForMs = now - trackedSince;
-                  System.out.println(
-                      "[DP] Stale detector: "
-                          + currentId
-                          + " mid-evaluation for "
-                          + (stuckForMs / 60_000)
-                          + " min (threshold "
-                          + staleCheckMinutes
-                          + " min)");
-
-                  if (stuckForMs >= thresholdMs) {
-                    try {
-                      Files.writeString(
-                          runLog,
-                          "\n[DP] Stale invariant detected ("
-                              + currentId
-                              + ") - mid-evaluation for "
+                  // --- Check 2: log silence (test stuck between invariant calls) ---
+                  try {
+                    long currentLogSize = Files.exists(runLog) ? Files.size(runLog) : 0;
+                    if (currentLogSize > lastLogSize) {
+                      lastLogSize = currentLogSize;
+                      lastLogGrowthTime = now;
+                    } else {
+                      long silentMs = now - lastLogGrowthTime;
+                      System.out.println(
+                          "[DP] Stale detector: log silent for "
+                              + (silentMs / 60_000)
+                              + " min (threshold "
                               + staleCheckMinutes
-                              + " min, killing run\n",
-                          StandardOpenOption.CREATE,
-                          StandardOpenOption.APPEND);
-                    } catch (IOException ignored) {
+                              + " min)");
+                      if (silentMs >= thresholdMs) {
+                        String reason =
+                            "No log output for "
+                                + staleCheckMinutes
+                                + " min — process appears deadlocked between invariant calls";
+                        killForStaleness(p, runLog, staleKilled, reason);
+                        break;
+                      }
                     }
+                  } catch (IOException e) {
                     System.err.println(
-                        "[DP] Stale invariant detected ("
-                            + currentId
-                            + ") mid-evaluation for "
-                            + staleCheckMinutes
-                            + " min. Killing runner.");
-                    staleKilled.set(true);
-                    p.destroyForcibly();
-                    break;
+                        "[DP] Stale detector: error checking log size: " + e.getMessage());
                   }
                 }
                 System.out.println(
