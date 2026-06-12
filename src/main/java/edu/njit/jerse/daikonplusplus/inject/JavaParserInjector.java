@@ -267,11 +267,8 @@ public final class JavaParserInjector {
             + "    String __dp_id = \""
             + id
             + "\";\n"
-            + "    if (daikonpp.DpRuntime.DISABLED.contains(__dp_id)) {\n"
-            + "      System.out.println(\"INV_SKP_DIS:\" + __dp_id);\n"
-            + "    } else if (!daikonpp.DpRuntime.GUARD.get().compareAndSet(false, true)) {\n"
-            + "      System.out.println(\"INV_SKP_GUARD:\" + __dp_id);\n"
-            + "    } else {\n"
+            + "    if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id)\n"
+            + "        && daikonpp.DpRuntime.GUARD.get().compareAndSet(false, true)) {\n"
             + "      System.out.println(\"INV_EXD:\" + __dp_id);\n"
             + "      if (daikonpp.DpRuntime.EXECUTED.putIfAbsent(__dp_id, Boolean.TRUE) == null) {\n"
             + "        if (daikonpp.DpRuntime.HOOK_REGISTERED.compareAndSet(false, true)) {\n"
