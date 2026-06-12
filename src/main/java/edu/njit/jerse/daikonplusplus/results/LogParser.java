@@ -164,6 +164,58 @@ public final class LogParser {
   }
 
   /**
+   * Scans the log from {@code startOffset} and returns the UUID of the last {@code INV_EXD:<uuid>}
+   * that has no matching {@code INV_DON:<uuid>} after it — i.e., an invariant that started
+   * evaluation but never completed. Returns empty if every EXD has a corresponding DON (process is
+   * between test batches, not stuck inside an invariant check).
+   */
+  public static Optional<UUID> readOpenInvariantIdFrom(Path logFile, long startOffset) {
+    if (!Files.exists(logFile)) return Optional.empty();
+    final Pattern p =
+        Pattern.compile(
+            "INV_(EXD|DON):([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})");
+    try {
+      FileInputStream fis = new FileInputStream(logFile.toFile());
+      long skipped = fis.skip(startOffset);
+      if (skipped < startOffset) {
+        fis.close();
+        return Optional.empty();
+      }
+      // Track: index of last EXD line per UUID, and whether a DON appeared after it
+      java.util.LinkedHashMap<UUID, Boolean> openMap = new java.util.LinkedHashMap<>();
+      try (BufferedReader br =
+          new BufferedReader(new InputStreamReader(fis, StandardCharsets.UTF_8))) {
+        String ln;
+        while ((ln = br.readLine()) != null) {
+          Matcher m = p.matcher(ln);
+          while (m.find()) {
+            String kind = m.group(1);
+            String g = m.group(2);
+            if (g == null || kind == null) continue;
+            try {
+              UUID id = UUID.fromString(g);
+              if ("EXD".equals(kind)) {
+                openMap.put(id, true); // open: EXD seen, no DON yet
+              } else { // DON
+                openMap.put(id, false); // closed
+              }
+            } catch (IllegalArgumentException ignore) {
+            }
+          }
+        }
+      }
+      // Return the last UUID that is still open (EXD without DON)
+      UUID lastOpen = null;
+      for (java.util.Map.Entry<UUID, Boolean> e : openMap.entrySet()) {
+        if (e.getValue()) lastOpen = e.getKey();
+      }
+      return Optional.ofNullable(lastOpen);
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to read run log: " + e.getMessage(), e);
+    }
+  }
+
+  /**
    * Scans instrumented source files for lines commented out due to javac errors. Returns the set of
    * IDs marked with //Failed Invariant in Compilation: ...
    */

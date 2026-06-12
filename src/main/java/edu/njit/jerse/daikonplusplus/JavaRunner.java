@@ -628,7 +628,6 @@ public final class JavaRunner {
               () -> {
                 UUID trackedId = null;
                 long trackedSince = 0;
-                long trackedLogSize = -1;
                 while (!Thread.currentThread().isInterrupted() && p.isAlive()) {
                   try {
                     Thread.sleep(pollMs);
@@ -637,64 +636,36 @@ public final class JavaRunner {
                   }
                   if (!p.isAlive()) break;
 
+                  // Only consider an invariant stuck if it has an open EXD with no DON —
+                  // i.e., evaluation started but never returned. If every EXD has a DON
+                  // the process is idle between test batches (normal Gradle overhead) and
+                  // must never be killed.
                   UUID currentId;
                   try {
                     currentId =
-                        LogParser.readLastExecutedIdFrom(runLog, logStartOffset).orElse(null);
+                        LogParser.readOpenInvariantIdFrom(runLog, logStartOffset).orElse(null);
                   } catch (Exception e) {
                     System.err.println("[DP] Stale detector: error reading log: " + e.getMessage());
-                    continue; // keep polling — don't die on transient IO errors
+                    continue;
                   }
 
                   long now = System.currentTimeMillis();
 
                   if (currentId == null) {
-                    // no INV_EXD in log yet — reset and wait
-                    trackedId = null;
-                    continue;
-                  }
-
-                  // If the last-executed invariant was already falsified it completed
-                  // normally (the INV_FAIL was written). The process is stuck on
-                  // something else; reset tracking and let the hard timeout handle it.
-                  try {
-                    if (LogParser.readFalsifiedIds(runLog).contains(currentId)) {
-                      if (!currentId.equals(trackedId)) {
-                        System.out.println(
-                            "[DP] Stale detector: "
-                                + currentId
-                                + " already falsified — skipping stale check");
-                      }
+                    // No open invariant — process is between tests, not stuck. Reset.
+                    if (trackedId != null) {
+                      System.out.println("[DP] Stale detector: open invariant closed — resetting");
                       trackedId = null;
-                      continue;
                     }
-                  } catch (Exception e) {
-                    System.err.println(
-                        "[DP] Stale detector: error reading falsified IDs: " + e.getMessage());
+                    continue;
                   }
 
                   if (!currentId.equals(trackedId)) {
-                    // UUID advanced — reset the clock
+                    // Different open invariant — reset the clock
                     trackedId = currentId;
                     trackedSince = now;
-                    trackedLogSize = -1;
-                    continue;
-                  }
-
-                  // UUID unchanged — also check if the log file is still growing.
-                  // Once all unique invariant IDs have been seen, INV_EXD stops appearing
-                  // even when the test is actively running (e.g. processing items in a loop).
-                  // Growing log size means the process is making real progress.
-                  long currentLogSize = -1;
-                  try {
-                    currentLogSize = Files.exists(runLog) ? Files.size(runLog) : -1;
-                  } catch (IOException ignored) {
-                  }
-
-                  if (currentLogSize > trackedLogSize) {
-                    // Log is still growing — process is making progress despite UUID not changing
-                    trackedLogSize = currentLogSize;
-                    trackedSince = now; // reset stale clock
+                    System.out.println(
+                        "[DP] Stale detector: tracking open invariant " + currentId);
                     continue;
                   }
 
@@ -702,7 +673,7 @@ public final class JavaRunner {
                   System.out.println(
                       "[DP] Stale detector: "
                           + currentId
-                          + " unchanged for "
+                          + " mid-evaluation for "
                           + (stuckForMs / 60_000)
                           + " min"
                           + " (threshold "
@@ -715,7 +686,7 @@ public final class JavaRunner {
                           runLog,
                           "\n[DP] Stale invariant detected ("
                               + currentId
-                              + ") - no progress for "
+                              + ") - mid-evaluation for "
                               + staleCheckMinutes
                               + " min, killing run\n",
                           StandardOpenOption.CREATE,
@@ -725,7 +696,7 @@ public final class JavaRunner {
                     System.err.println(
                         "[DP] Stale invariant detected ("
                             + currentId
-                            + ") after "
+                            + ") mid-evaluation for "
                             + staleCheckMinutes
                             + " min. Killing runner.");
                     staleKilled.set(true);
