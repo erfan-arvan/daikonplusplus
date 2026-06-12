@@ -543,8 +543,7 @@ public final class JavaRunner {
     env.put("DP_OPEN_FILE", openFile.toAbsolutePath().toString());
 
     String jvmArgs =
-        "-DDP_INV_DIR=" + invDir.toAbsolutePath()
-            + " -DDP_OPEN_FILE=" + openFile.toAbsolutePath();
+        "-DDP_INV_DIR=" + invDir.toAbsolutePath() + " -DDP_OPEN_FILE=" + openFile.toAbsolutePath();
 
     env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + jvmArgs).trim());
     env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + jvmArgs).trim());
@@ -647,8 +646,7 @@ public final class JavaRunner {
                   UUID currentId = null;
                   try {
                     if (Files.exists(openFile)) {
-                      String content =
-                          Files.readString(openFile, StandardCharsets.UTF_8).trim();
+                      String content = Files.readString(openFile, StandardCharsets.UTF_8).trim();
                       if (!content.isEmpty()) currentId = UUID.fromString(content);
                     }
                   } catch (Exception e) {
@@ -670,8 +668,7 @@ public final class JavaRunner {
                   if (!currentId.equals(trackedId)) {
                     trackedId = currentId;
                     trackedSince = now;
-                    System.out.println(
-                        "[DP] Stale detector: tracking open invariant " + currentId);
+                    System.out.println("[DP] Stale detector: tracking open invariant " + currentId);
                     continue;
                   }
 
