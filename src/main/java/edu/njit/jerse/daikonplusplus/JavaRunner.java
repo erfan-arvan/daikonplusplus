@@ -79,6 +79,51 @@ public final class JavaRunner {
       long timeoutSeconds,
       @Nullable Path disabledFile)
       throws Exception {
+    return runExternalScript(
+        mainClass, classpath, args, logFile, timeoutSeconds, disabledFile, null, null);
+  }
+
+  /**
+   * Runs the instrumented program with optional /dev/shm-backed persistence support.
+   *
+   * <p>If {@code shmDir} is non-null, the environment variables {@code DP_SHM_DIR}, {@code
+   * JAVA_OPTS}, {@code _JAVA_OPTIONS}, and {@code GRADLE_OPTS} are set so the child JVM receives
+   * {@code -DDP_SHM_DIR=<path>} and writes invariant status to shared memory immediately (surviving
+   * SIGKILL).
+   *
+   * <p>If {@code prevLog} is non-null and exists on disk at call time, {@code DP_PREV_LOG} is set
+   * so the child JVM can pre-populate its SEEN set from the previous run's log.
+   *
+   * <p>The effective timeout threshold is controlled by the {@code DP_STALE_CHECK_MS} system
+   * property or environment variable. If present it overrides {@code timeoutSeconds * 1000}; the
+   * poll interval is derived as {@code Math.min(60_000, Math.max(500, thresholdMs / 4))}.
+   *
+   * @param timeoutSeconds wall-clock seconds before the child is killed (overridable via {@code
+   *     DP_STALE_CHECK_MS})
+   * @param disabledFile path to disabled-invariant UUIDs, or {@code null}
+   * @param shmDir /dev/shm directory for this run, or {@code null} to skip shm wiring
+   * @param prevLog previous run's log file (for {@code DP_PREV_LOG}), or {@code null}
+   * @return {@code true} if the run timed out, {@code false} on normal completion
+   */
+  public static boolean runExternalScript(
+      String mainClass,
+      String classpath,
+      List<String> args,
+      Path logFile,
+      long timeoutSeconds,
+      @Nullable Path disabledFile,
+      @Nullable Path shmDir,
+      @Nullable Path prevLog)
+      throws Exception {
+    // Resolve effective timeout from DP_STALE_CHECK_MS override or seconds param
+    String staleMsProp = System.getProperty("DP_STALE_CHECK_MS");
+    if (staleMsProp == null) staleMsProp = System.getenv("DP_STALE_CHECK_MS");
+    long thresholdMs =
+        (staleMsProp != null && !staleMsProp.isBlank())
+            ? Long.parseLong(staleMsProp)
+            : timeoutSeconds * 1_000L;
+    long pollMs = Math.min(60_000L, Math.max(500L, thresholdMs / 4));
+
     // Ensure parent dir exists even if logFile has no parent
     Path parent = logFile.getParent();
     Files.createDirectories(parent == null ? Path.of(".") : parent);
@@ -90,6 +135,9 @@ public final class JavaRunner {
     if (disabledFile != null && Files.exists(disabledFile)) {
       cmd.add("-DDP_DISABLED_FILE=" + disabledFile.toAbsolutePath());
     }
+    if (shmDir != null) {
+      cmd.add("-DDP_SHM_DIR=" + shmDir.toAbsolutePath());
+    }
     cmd.add("-cp");
     cmd.add(classpath);
     cmd.add(mainClass);
@@ -99,9 +147,23 @@ public final class JavaRunner {
 
     ProcessBuilder pb = new ProcessBuilder(cmd);
     pb.redirectErrorStream(true); // merge stderr into stdout
+
+    // Wire shm env vars so Gradle wrappers or nested JVMs also pick up the setting
+    if (shmDir != null) {
+      String dpFlag = "-DDP_SHM_DIR=" + shmDir.toAbsolutePath();
+      java.util.Map<String, String> env = pb.environment();
+      env.put("DP_SHM_DIR", shmDir.toAbsolutePath().toString());
+      env.merge("JAVA_OPTS", dpFlag, (a, b) -> a + " " + b);
+      env.merge("_JAVA_OPTIONS", dpFlag, (a, b) -> a + " " + b);
+      env.merge("GRADLE_OPTS", dpFlag, (a, b) -> a + " " + b);
+    }
+    if (prevLog != null && Files.exists(prevLog)) {
+      pb.environment().put("DP_PREV_LOG", prevLog.toAbsolutePath().toString());
+    }
+
     Process p = pb.start();
 
-    // Pump stdout+stderr to the log file in a background thread so we can use waitFor(timeout).
+    // Pump stdout+stderr to the log file in a background thread so we can poll with timeout.
     Thread pumper =
         new Thread(
             () -> {
@@ -119,9 +181,20 @@ public final class JavaRunner {
     pumper.setDaemon(true);
     pumper.start();
 
-    boolean finished = p.waitFor(timeoutSeconds, TimeUnit.SECONDS);
-    if (!finished) {
-      p.destroyForcibly();
+    // Poll loop: check every pollMs up to thresholdMs total
+    long start = System.currentTimeMillis();
+    boolean timedOut = false;
+    while (true) {
+      boolean done = p.waitFor(pollMs, TimeUnit.MILLISECONDS);
+      if (done) break;
+      if (System.currentTimeMillis() - start >= thresholdMs) {
+        p.destroyForcibly();
+        timedOut = true;
+        break;
+      }
+    }
+
+    if (timedOut) {
       pumper.join(2_000); // brief flush window before appending to the log
       Files.writeString(
           logFile,

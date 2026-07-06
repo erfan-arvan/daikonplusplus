@@ -252,11 +252,32 @@ public final class App {
     // Disabled invariants accumulate here across retries; passed to child JVM each attempt.
     final Path disabledFile = srcRoot.resolve("daikonpp").resolve("disabled-invariants.txt");
 
+    // Set up /dev/shm-backed persistence so invariant status survives SIGKILL.
+    String shmBaseEnv = System.getenv("DP_SHM_BASE");
+    @org.checkerframework.checker.nullness.qual.Nullable Path shmDir = null;
+    if (shmBaseEnv != null && !shmBaseEnv.isBlank()) {
+      shmDir = Path.of(shmBaseEnv).resolve("daikonpp-" + ProcessHandle.current().pid());
+      Files.createDirectories(shmDir);
+    } else if (Files.isDirectory(Path.of("/dev/shm"))) {
+      shmDir = Path.of("/dev/shm").resolve("daikonpp-" + ProcessHandle.current().pid());
+      Files.createDirectories(shmDir);
+    }
+
     final long runTimeoutSec = cfg.runTimeoutSec();
     final int maxRunRetries = cfg.maxRunRetries();
+    @org.checkerframework.checker.nullness.qual.Nullable Path prevLog = null;
     for (int attempt = 0; attempt <= maxRunRetries; attempt++) {
       boolean timedOut =
-          JavaRunner.run(mainClass, fullRunCp, programArgs, runLog, runTimeoutSec, disabledFile);
+          JavaRunner.runExternalScript(
+              mainClass,
+              fullRunCp,
+              programArgs,
+              runLog,
+              runTimeoutSec,
+              disabledFile,
+              shmDir,
+              prevLog);
+      prevLog = runLog;
       if (!timedOut) break;
 
       System.err.println(
@@ -294,9 +315,22 @@ public final class App {
     }
     System.out.println(">>> Run log — EXIT events: " + exitLines);
 
-    // --- Phase 4: parse run log and generate the results
-    final Set<UUID> falsified = LogParser.readFalsifiedIds(runLog);
-    final Set<UUID> executed = LogParser.readExecutedIds(runLog);
+    // --- Phase 4: parse run log (or shm) and generate the results
+    final Set<UUID> falsified;
+    final Set<UUID> executed;
+    if (shmDir != null && Files.isDirectory(shmDir)) {
+      executed = LogParser.readExecutedIdsFromShm(shmDir);
+      falsified = LogParser.readFalsifiedIdsFromShm(shmDir);
+      System.out.println(
+          ">>> Phase 4: using shm read-back (executed="
+              + executed.size()
+              + " falsified="
+              + falsified.size()
+              + ")");
+    } else {
+      executed = LogParser.readExecutedIds(runLog);
+      falsified = LogParser.readFalsifiedIds(runLog);
+    }
     final Set<UUID> nonCompiled = LogParser.readNonCompiledIds(srcRoot);
 
     final Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> all =
@@ -454,6 +488,16 @@ public final class App {
     System.out.println(">>> Registry: " + cfg.registryPath().toAbsolutePath());
     System.out.println(">>> Outcomes: " + cfg.outcomesPath().toAbsolutePath());
     System.out.println(">>> Run log: " + runLog.toAbsolutePath());
+
+    // Cleanup shm directory (always, regardless of DP_KEEP_WORK)
+    if (shmDir != null) {
+      try {
+        deleteTree(shmDir);
+        System.out.println(">>> Cleaned shm dir: " + shmDir);
+      } catch (IOException ioe) {
+        System.err.println("Warning: failed to delete shm dir: " + ioe.getMessage());
+      }
+    }
 
     if (!CFG.keepWork()) {
       try {

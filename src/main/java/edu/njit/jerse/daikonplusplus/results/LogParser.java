@@ -136,6 +136,70 @@ public final class LogParser {
   }
 
   /**
+   * Lists {@code shmDir/ex/} and returns the set of UUIDs whose filenames are valid UUID strings.
+   * Files written by {@code daikonpp.DpRuntime.recordExecuted} use the UUID as the filename.
+   *
+   * <p>Uses an explicit null check inside forEach to satisfy Checker Framework's null analysis — do
+   * not refactor to a filter+map chain.
+   *
+   * @param shmDir base shm directory (must contain an {@code ex/} subdirectory)
+   * @return set of executed invariant UUIDs found in the shm directory
+   */
+  public static Set<UUID> readExecutedIdsFromShm(Path shmDir) {
+    Set<UUID> out = new HashSet<>();
+    Path exDir = shmDir.resolve("ex");
+    if (!Files.exists(exDir)) return out;
+    try (var s = Files.list(exDir)) {
+      s.forEach(
+          p -> {
+            Path fn = p.getFileName();
+            if (fn == null) return;
+            try {
+              out.add(UUID.fromString(fn.toString()));
+            } catch (IllegalArgumentException ignore) {
+            }
+          });
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to list shm ex dir: " + e.getMessage(), e);
+    }
+    return out;
+  }
+
+  /**
+   * Lists {@code shmDir/fail/} and returns the set of UUIDs whose filenames are {@code <uuid>.json}
+   * (the {@code .json} suffix is stripped before parsing). Files written by {@code
+   * daikonpp.DpRuntime.recordFailed} use this naming convention.
+   *
+   * <p>Uses an explicit null check inside forEach to satisfy Checker Framework's null analysis — do
+   * not refactor to a filter+map chain.
+   *
+   * @param shmDir base shm directory (must contain a {@code fail/} subdirectory)
+   * @return set of falsified invariant UUIDs found in the shm directory
+   */
+  public static Set<UUID> readFalsifiedIdsFromShm(Path shmDir) {
+    Set<UUID> out = new HashSet<>();
+    Path failDir = shmDir.resolve("fail");
+    if (!Files.exists(failDir)) return out;
+    try (var s = Files.list(failDir)) {
+      s.forEach(
+          p -> {
+            Path fn = p.getFileName();
+            if (fn == null) return;
+            String name = fn.toString();
+            if (!name.endsWith(".json")) return;
+            String uuidStr = name.substring(0, name.length() - 5);
+            try {
+              out.add(UUID.fromString(uuidStr));
+            } catch (IllegalArgumentException ignore) {
+            }
+          });
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to list shm fail dir: " + e.getMessage(), e);
+    }
+    return out;
+  }
+
+  /**
    * Scans instrumented source files for lines commented out due to javac errors. Returns the set of
    * IDs marked with //Failed Invariant in Compilation: ...
    */
