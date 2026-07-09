@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method assigns the return value to 'this.partitioner' using a cast and returns it, which strongly suggests it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaUpsertPartitioner",
+    "rationale" : "Because the result is cast to JavaUpsertPartitioner before being returned, it must be an instance of this type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The parameter 'profile' is directly used as an argument in the super method call, so the method likely expects it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this.partitioner",
+    "rationale" : "The method stores the value from super.getUpsertPartitioner(profile) into 'this.partitioner' and returns it, so they are always equal at method exit.",
+    "meta" : [ ]
+  } ]
+}

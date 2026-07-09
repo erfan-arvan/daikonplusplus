@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "smallFiles != null",
+    "rationale" : "The method immediately dereferences smallFiles, so it must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "smallFiles.stream().allMatch(sf -> sf != null && sf.location != null && sf.location.getFileId() != null)",
+    "rationale" : "The method maps each SmallFile to its fileId via location, so all must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No parameters or side conditions are apparent, so no other invariants can be inferred without more context.",
+    "meta" : [ ]
+  } ]
+}

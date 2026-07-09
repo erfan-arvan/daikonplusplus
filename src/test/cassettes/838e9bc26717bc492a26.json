@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new TableWriteStats object, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The method dereferences writeMetadata, so it cannot be null on exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats() != null",
+    "rationale" : "A new TableWriteStats is constructed with a non-null list, so its getStats() is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats().size() == writeMetadata.getWriteStatuses().size()",
+    "rationale" : "The stats list in result is produced exactly from mapping every WriteStatus in writeMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats().stream().allMatch(java.util.Objects::nonNull)",
+    "rationale" : "Each WriteStatus#getStat() is mapped to a stat, so unless getStat() returns null, all stats should be non-null.",
+    "meta" : [ ]
+  } ]
+}

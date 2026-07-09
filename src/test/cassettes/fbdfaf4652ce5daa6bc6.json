@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= -1",
+    "rationale" : "As per the Javadoc, result is -1 if no such layer exists, else a non-negative index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == -1) == (get(name) == null)",
+    "rationale" : "If get(name) returns null, there is no such layer and result should be -1, otherwise, result is a valid index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null ? true : result == -1",
+    "rationale" : "If the input name is null, it likely matches no layer, so result should be -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result != -1) == (get(name) != null)",
+    "rationale" : "If result is not -1, get(name) must have returned a layer.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a non-null list of WriteStatus objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The clusteringGroup parameter must be non-null for clustering logic to execute.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "The strategyParams map is passed along to performClusteringWithRecordList and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to several method calls and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Result must be a List (of WriteStatus), as declared by the method signature.",
+    "meta" : [ ]
+  } ]
+}

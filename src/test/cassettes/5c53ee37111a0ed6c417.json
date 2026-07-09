@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "All possible return statements produce non-null values; each referenced style field is only returned if non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == style.checkboxOnDisabled || result == style.checkboxOffDisabled || result == style.checkboxOnOver || result == style.checkboxOn || result == style.checkboxOver || result == style.checkboxOff",
+    "rationale" : "The only possible return values are the style checkbox Drawable fields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(isDisabled()) || result == style.checkboxOn || result == style.checkboxOff || result == style.checkboxOnOver || result == style.checkboxOver",
+    "rationale" : "If not disabled, the result must come from 'checkboxOn', 'checkboxOff', 'checkboxOnOver', or 'checkboxOver'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isDisabled() || result != style.checkboxOnDisabled && result != style.checkboxOffDisabled",
+    "rationale" : "The result can only be 'checkboxOnDisabled' or 'checkboxOffDisabled' if the checkbox is disabled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isChecked || result != style.checkboxOn && result != style.checkboxOnDisabled && result != style.checkboxOnOver",
+    "rationale" : "The 'On' variants only occur as results if isChecked is true; otherwise, they cannot be returned.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context object must be provided for execution.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is not null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time string must not be null for commit timestamps.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The list of records to upsert should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "hoodieRecords list is not null"
+    } ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "hoodieRecords size non-negative"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "Instant time string should not be empty for timing semantics.",
+    "meta" : [ {
+      "key" : "string",
+      "value" : "instantTime is not empty"
+    } ]
+  } ]
+}

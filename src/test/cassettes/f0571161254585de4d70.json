@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "The method calls nodes.size and nodes.get(i), so nodes should not be null for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values != null",
+    "rationale" : "The method invokes values.add(node.value), so values should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "The Array.size field should always be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values.size >= 0",
+    "rationale" : "The Array.size field should always be non-negative.",
+    "meta" : [ ]
+  } ]
+}

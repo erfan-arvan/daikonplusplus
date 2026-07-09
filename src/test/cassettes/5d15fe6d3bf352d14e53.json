@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Defensive programming often expects collections passed as parameters to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition count parameters are usually expected to be positive integers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A List's size cannot be negative.",
+    "meta" : [ ]
+  } ]
+}

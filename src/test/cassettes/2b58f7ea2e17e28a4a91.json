@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method will throw a NullPointerException if style is null, so callers are likely expected to provide non-null style at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style instanceof TextButtonStyle",
+    "rationale" : "The first statement after the null check is a type check; this invariant captures that the argument should be a TextButtonStyle.",
+    "meta" : [ ]
+  } ]
+}

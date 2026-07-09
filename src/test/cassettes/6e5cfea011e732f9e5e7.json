@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to always return a valid HoodieTable instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The config parameter is required to create a HoodieTable and should never be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieTable",
+    "rationale" : "The return type is HoodieTable, so this should always hold.",
+    "meta" : [ ]
+  } ]
+}

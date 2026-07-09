@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "Batch should not be null for drawing operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "BitmapFont must be non-null for rendering text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0",
+    "rationale" : "Width of drawn area should be non-negative for text layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0",
+    "rationale" : "Drawing positions are usually non-negative in scene coordinates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "Vertical drawing positions in UI coordinate space are typically non-negative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "The method likely expects a valid HoodieDataCacheKey for removal operations; null input would be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cacheKey instanceof HoodieDataCacheKey",
+    "rationale" : "cacheKey parameter is expected to be of this class or its subclass at method entry.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "A valid HoodieWriteConfig is required to create a table; null configs are likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "A non-null HoodieTableMetaClient is necessary for table creation operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "The base path is essential for identifying the data location and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath().equals(config.getBasePath())",
+    "rationale" : "The metaClient is expected to be associated with the same base path as the configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "The table configuration should be loaded by the meta client before creating a table.",
+    "meta" : [ ]
+  } ]
+}

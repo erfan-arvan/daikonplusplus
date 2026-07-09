@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method uses data.collectAsList(), so data must not be null to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "seqOp::apply is passed as a method reference; seqOp must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "combOp::apply is used in the reduction; combOp must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.collectAsList() != null",
+    "rationale" : "collectAsList() must not return null since it will be streamed and reduced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "zeroValue is used as the initial value in reduce; must not be null for correct reduction.",
+    "meta" : [ ]
+  } ]
+}

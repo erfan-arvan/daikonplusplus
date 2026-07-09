@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null List of WriteStatus as expected from a collection-returning API.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input records should not be null for a bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is usually required for versioned operations like write or insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(records.isEmpty()) || !result.isEmpty()",
+    "rationale" : "If the input records are not empty, it's expected that the result contains at least one WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The returned value should always be a List according to the method signature.",
+    "meta" : [ ]
+  } ]
+}

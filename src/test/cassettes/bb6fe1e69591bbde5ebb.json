@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is dereferenced in the method, so it must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to writeClient.bulkInsertPreppedRecords and commit, so must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed as an argument to bulkInsertPreppedRecords and should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed to a method, so its reference should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.get(0) instanceof HoodieRecord",
+    "rationale" : "preppedRecordInputs is a list of HoodieRecord, so any contained elements should be HoodieRecord.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  } ]
+}

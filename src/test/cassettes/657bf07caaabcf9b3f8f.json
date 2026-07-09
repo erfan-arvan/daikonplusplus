@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parentLayers != null",
+    "rationale" : "The method adds the image layer to parentLayers, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The method performs operations on the element parameter, including field access and method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "The map parameter is dereferenced for values such as mapHeightInPixels and flipY.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is used for image resolving if an image is specified.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used to compute the relative file handle for the image source.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "commitTimeline != null",
+    "rationale" : "The method assumes commitTimeline is non-null to call its methods safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "hoodieWriteConfig is dereferenced for multiple method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() >= 0",
+    "rationale" : "Record size estimates should not be negative; likely ensured by configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() > 0",
+    "rationale" : "Parquet small file size limits should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() > 0",
+    "rationale" : "Estimation threshold as a multiplier logically must be positive.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,41 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always initializes and returns a non-null HoodieWriteMetadata instance.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "The result object is always initialized and returned"
+    }, {
+      "key" : "location",
+      "value" : "method exit"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Input records list should be non-null for the bulk insert to proceed.",
+    "meta" : [ {
+      "key" : "param_nonnull",
+      "value" : "inputRecords is expected to be non-null during bulk insert operations"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime string is required for timeline operations and commit actions.",
+    "meta" : [ {
+      "key" : "param_nonnull",
+      "value" : "instantTime timestamp string for commit is never null"
+    } ]
+  }, {
+    "expression" : "!performDedupe || result.getWriteStatuses().size() <= inputRecords.size()",
+    "rationale" : "If deduplication is disabled, the number of generated write statuses cannot exceed the number of input records.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "Number of write statuses is bounded by input size if no deduplication"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list within the result metadata is never null after bulk insert processing.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "Write statuses in result are initialized"
+    } ]
+  } ]
+}

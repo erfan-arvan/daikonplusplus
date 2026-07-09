@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The data list must not be null before invoking stream() to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "data must be non-null for stream() call"
+    } ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "The consumer must not be null so it can be passed safely to throwingForeachWrapper.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "consumer must be non-null for usage in throwingForeachWrapper"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "A positive parallelism value is expected for meaningful parallelism level.",
+    "meta" : [ {
+      "key" : "logical-sanity",
+      "value" : "parallelism should be positive"
+    } ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "The size of a list is always non-negative.",
+    "meta" : [ {
+      "key" : "list-size",
+      "value" : "size cannot be negative"
+    } ]
+  }, {
+    "expression" : "!data.contains(null)",
+    "rationale" : "Elements in data are expected to be non-null if the consumer does not handle nulls.",
+    "meta" : [ {
+      "key" : "element-null-safety",
+      "value" : "elements in data should not be null for safe consumer usage"
+    } ]
+  } ]
+}

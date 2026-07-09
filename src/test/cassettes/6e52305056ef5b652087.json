@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in createNewInstant(), which expects a non-null string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime should represent an instant identifier and should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "Ensures instantTime is not only non-empty but not just whitespace.",
+    "meta" : [ ]
+  } ]
+}

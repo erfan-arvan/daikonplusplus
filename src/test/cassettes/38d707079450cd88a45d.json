@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is needed for a bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instant time string should be specified for the bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "A non-null list of HoodieRecords is required to execute the bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "The records list is either empty or has positive size; this is always true and safe for List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option types representing the partitioner should not be null as per usage in Hudi.",
+    "meta" : [ ]
+  } ]
+}

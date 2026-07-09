@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a table object, which is generally expected to be non-null unless by design.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The method directly passes config to another method; config must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "The storageConf parameter is directly passed to helper methods, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "It is common for the created table to reference the same config object passed in.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getName().equals(config.getTableName())",
+    "rationale" : "Typically, table creation methods set the table's name from the configuration.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "Keys is a parameter and is expected to be non-null when passed to the delete method.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "parameters"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses inside the result should be non-null to represent the statuses of the write operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result internal state"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() == keys.size()",
+    "rationale" : "The number of WriteStatus objects returned is expected to match the number of keys passed in for deletion.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "mapping between keys and write statuses"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be non-null to identify the commit time for the delete operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "parameters"
+    } ]
+  } ]
+}

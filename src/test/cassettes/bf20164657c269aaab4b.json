@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method delegates directly to handleUpsertPartition and returns its value, and given the probable contract, the result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The method directly passes instantTime to another method; for many commit logic flows, a non-null instant is required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "The partition (as Integer) is used as an argument; typically partition references should not be null for data processing logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is handed off downstream and is required for partitioning logic, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is provided to another method and should be non-null for correct upsert operations.",
+    "meta" : [ ]
+  } ]
+}

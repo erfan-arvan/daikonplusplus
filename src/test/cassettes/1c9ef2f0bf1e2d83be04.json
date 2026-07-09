@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of clone, which should not be null unless metadata or collectAsList is null, but the method has no checks or early returns for such cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata != null",
+    "rationale" : "metadata is passed to the clone method; a null input would likely result in a NullPointerException before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != metadata",
+    "rationale" : "result is produced by calling metadata.clone(...), so it should be a distinct object from metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "By construction, result is instantiated with collectAsList() which produces a List, so result.getWriteStatuses() returns a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() == metadata.getWriteStatuses().collectAsList().size()",
+    "rationale" : "result is constructed from metadata by passing collectAsList() to the clone method, so sizes must be identical.",
+    "meta" : [ ]
+  } ]
+}

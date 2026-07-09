@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Config must be non-null to create a HoodieJavaTable instance.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is required and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "MetaClient must be non-null to determine table type.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() != null",
+    "rationale" : "TableType returned by metaClient should not be null to avoid exceptions.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely to be non-null, as it typically represents a required operation timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is likely required for engine operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "It is likely that instantTime should represent a meaningful timestamp, so it should not be an empty string if non-null.",
+    "meta" : [ ]
+  } ]
+}

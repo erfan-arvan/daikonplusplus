@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Stream<FileSlice> because it returns the result of a filter operation on a non-null superclass method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.allMatch(slice -> slice.getBaseFile().map(HoodieBaseFile::getFileSize).orElse(0L) < getWriteConfig().getClusteringSmallFileLimit())",
+    "rationale" : "By construction, result was filtered so that each FileSlice satisfies this size constraint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "The partition parameter is used to retrieve file slices; its being null would generally violate preconditions for file system partitioning.",
+    "meta" : [ ]
+  } ]
+}

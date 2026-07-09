@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Array<T> as it creates a new Array<T> and passes it to another method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array.size is always non-negative in the Array implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type != null",
+    "rationale" : "The method requires Class<T> type to find matching layers; a null type is typically invalid in this context.",
+    "meta" : [ ]
+  } ]
+}

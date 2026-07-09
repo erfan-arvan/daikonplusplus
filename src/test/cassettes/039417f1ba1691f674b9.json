@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedInputRecord != null",
+    "rationale" : "The method operates on preppedInputRecord, which is passed to bulkInsert; it may be required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in an exception message and passed to bulkInsert, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is used as an argument to bulkInsert and may be required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is passed to bulkInsert and likely required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null || true",
+    "rationale" : "userDefinedBulkInsertPartitioner is passed to bulkInsert; could be null but check for acceptability.",
+    "meta" : [ ]
+  } ]
+}

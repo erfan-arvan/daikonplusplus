@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager is required for AtlasResolver and thus must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "getAtlasFileHandle(tmjFile) and loadTiledMap(tmjFile, ...) require tmjFile to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "The fileName is used to reference the map being loaded and is likely required by convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "Parameter is passed to loadTiledMap and likely required; passing null could cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getAtlasFileHandle(tmjFile) != null",
+    "rationale" : "The atlasHandle, derived from tmjFile, must be non-null for further processing in the method.",
+    "meta" : [ ]
+  } ]
+}

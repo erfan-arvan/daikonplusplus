@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns an Iterator, guaranteed to be non-null by Collections.singletonList(...).iterator().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext()",
+    "rationale" : "The returned Iterator is created from a singleton list, so it always has at least one element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.hasNext() || result.next() != null",
+    "rationale" : "If there is a next element, it must not be null; createHandle.close() produces a WriteStatus object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is used to construct the handle, and is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "The recordMap parameter is passed to the handle and should not be null for processing inserts.",
+    "meta" : [ ]
+  } ]
+}

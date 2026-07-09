@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "projectFilePath != null",
+    "rationale" : "Null paths are checked at the start of the method; typically, projectFilePath should be non-null when meaningful processing occurs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!projectFilePath.trim().isEmpty()",
+    "rationale" : "The method returns early if projectFilePath is null or empty (whitespace-insensitive), so substantive logic expects a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "projectFilePath.length() > 0",
+    "rationale" : "Non-empty after trim implies original length is greater than zero, unless only whitespace was passed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "projectFilePath.trim().length() > 0",
+    "rationale" : "A string with only whitespace causes early return; otherwise, further processing is performed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "projectFilePath != null && !projectFilePath.trim().isEmpty()",
+    "rationale" : "Both checks are used at method entry for early return – the 'real work' path requires both true.",
+    "meta" : [ ]
+  } ]
+}

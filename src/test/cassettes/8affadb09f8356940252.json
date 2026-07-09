@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "getCurrentFrame() != null",
+    "rationale" : "The method immediately calls getOffsetY() on getCurrentFrame(); therefore, getCurrentFrame() must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getCurrentFrame().getOffsetY() >= 0",
+    "rationale" : "Offset values are typically non-negative in tile-based graphics and this likely reflects system conventions.",
+    "meta" : [ ]
+  } ]
+}

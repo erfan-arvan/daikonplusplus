@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method immediately dereferences element, such as element.getName(), so element must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "The map parameter is used without null checks, e.g. map.getTileSets(), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getName() != null",
+    "rationale" : "element.getName() is used in equals comparison right at method start.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getChildByName(\"Dimensions\") != null",
+    "rationale" : "Immediately after confirming element.getName().equals(\"Layer\"), the method gets Dimensions child and uses it, so must not be null for valid Layer input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getTileSets() != null",
+    "rationale" : "The method immediately calls map.getTileSets() and later uses its method getTileSet(...), so the result must not be null.",
+    "meta" : [ ]
+  } ]
+}

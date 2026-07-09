@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The parameter 'records' should not be null before calling collectAsList, as the method would otherwise throw NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof HoodieData",
+    "rationale" : "The parameter must be an instance of HoodieData at method entry, per the method signature.",
+    "meta" : [ ]
+  } ]
+}

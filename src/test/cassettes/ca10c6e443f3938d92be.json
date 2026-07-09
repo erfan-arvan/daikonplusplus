@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The code immediately processes writeStatuses; a null list would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "The method passes commitActionType to another method, expecting a non-null string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a key piece of commit metadata and is passed on.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds is provided to a downstream commitStats call which expects it non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == commitStats(instantTime, writeStatuses.stream().map(WriteStatus::getStat).collect(java.util.stream.Collectors.toList()), extraMetadata, commitActionType, partitionToReplacedFileIds, extraPreCommitFunc)",
+    "rationale" : "The result directly returns the result of commitStats with these arguments.",
+    "meta" : [ ]
+  } ]
+}

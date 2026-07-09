@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List after collecting results, so result should not be null.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "result is the returned list, not expected to be null"
+    } ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "dedupedRecords is passed as an argument to eager(), null check is required for safety.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "input parameter likely non-null"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "size_property",
+      "value" : "list size non-negative"
+    } ]
+  }, {
+    "expression" : "result.size() <= dedupedRecords.size()",
+    "rationale" : "Tagging with location generally does not increase the number of records.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "result size does not exceed dedupedRecords size"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is needed to call getIndex() and tagLocation(), must be non-null.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "table is used to get index and tag records"
+    } ]
+  } ]
+}

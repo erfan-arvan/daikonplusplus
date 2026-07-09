@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "A null instant time would likely be invalid for compaction operations; typical assumption in Hudi workflow.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A null execution context would prevent job execution and is likely forbidden by calling contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!compactionInstantTime.isEmpty()",
+    "rationale" : "Compaction instant time should be a non-empty identifier, as commonly required by Hudi timeline semantics.",
+    "meta" : [ ]
+  } ]
+}

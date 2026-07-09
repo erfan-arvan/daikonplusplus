@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a HoodieEngineContext to function; passing null would likely cause a failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "A compaction instant time is essential to identify the compaction action; it must not be null before running compaction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!logCompactionInstantTime.isEmpty()",
+    "rationale" : "The compaction instant time string should not be empty, as it identifies a specific compaction event.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "If fontFamily is non-null by class invariant or always set at construction, the getter will never return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || !result.isEmpty()",
+    "rationale" : "Result is always a String (never throws or replaced).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof String",
+    "rationale" : "The getter always returns a String as per its signature.",
+    "meta" : [ ]
+  } ]
+}

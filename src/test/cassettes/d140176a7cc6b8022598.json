@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is a required parameter and likely cannot be null in normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is a parameter and should not be null since it's an Option type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "Option always defines either present or not; included as a basic Option coverage.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null || bucketNumber < 0 || bucketNumber >= Integer.MAX_VALUE-1",
+    "rationale" : "The map get may return null if bucketNumber key is not present.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "result might be null if the bucketNumber is not found in the map"
+    } ]
+  }, {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Typically, bucketNumber is expected to be non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Bucket numbers are usually non-negative"
+    } ]
+  }, {
+    "expression" : "result == null || result instanceof org.apache.hudi.table.action.commit.JavaUpsertPartitioner.BucketInfo",
+    "rationale" : "The return type is BucketInfo, so either result is null or instance of BucketInfo.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result is expected to be of type BucketInfo or null"
+    } ]
+  } ]
+}

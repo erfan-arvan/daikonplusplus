@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a HoodieMergeHandle which should not be null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "File identifier should be a valid non-empty string when returning a merge handle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is required to locate data and is unlikely to be null here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instant time (commit time) is essential context and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The map of new records to be updated should be provided and is required for merge.",
+    "meta" : [ ]
+  } ]
+}

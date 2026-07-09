@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getName().equals(\"Layer\") || !element.getName().equals(\"Layer\")",
+    "rationale" : "All execution relevant to this method involves element.getName().equals(\"Layer\"), but the method doesn't early-return, so this captures the path distinction.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "structure"
+    } ]
+  }, {
+    "expression" : "map.getLayers() != null",
+    "rationale" : "The method invokes map.getLayers().add(layer), so map.getLayers() must be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "data structure"
+    } ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is used without null checks, so it must be non-null at this point.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "map is used without null checks, so it must be non-null at this point.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  } ]
+}

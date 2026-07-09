@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null list, as smallFileLocations is always initialized to a new ArrayList.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method is documented to receive a partition path and uses it for internal API calls, typically expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf != null)",
+    "rationale" : "Each SmallFile is added via 'smallFileLocations.add(sf)', no nulls are inserted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List in Java cannot have negative size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.sizeBytes < config.getParquetSmallFileLimit())",
+    "rationale" : "Only files with file.getFileSize() < config.getParquetSmallFileLimit() are wrapped as SmallFile and added to the result.",
+    "meta" : [ ]
+  } ]
+}

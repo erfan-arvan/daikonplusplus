@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is likely required to schedule log compaction and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is critical for scheduling compaction at a specific instant and should be a non-empty String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata, being an Option, should not be null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() == (extraMetadata.orElse(null) != null)",
+    "rationale" : "For Option types, isPresent should correspond with orElse(null) returning a non-null value if present.",
+    "meta" : [ ]
+  } ]
+}

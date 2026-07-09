@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The method expects a non-null list of columns to index.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient parameter must be non-null to carry out client operations.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "A list always has size >= 0.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "non-negative"
+    } ]
+  } ]
+}

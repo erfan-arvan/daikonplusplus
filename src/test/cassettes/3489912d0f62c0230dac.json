@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Bucket indices are typically non-negative integers.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "index-range"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition paths should not be null for meaningful partitioning.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "fileIdHint is used as a key and should not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "result < totalBuckets",
+    "rationale" : "Since totalBuckets was incremented after assigning the bucket, the returned bucket index is less than the current totalBuckets.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "returned-bucket-index"
+    } ]
+  }, {
+    "expression" : "result == totalBuckets - 1",
+    "rationale" : "The returned bucket index is the prior value of totalBuckets.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "bucket-assignment"
+    } ]
+  } ]
+}

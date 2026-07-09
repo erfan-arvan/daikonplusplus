@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null List<V> as per the chain of Java Stream collect operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Result is constructed using collect(Collectors.toList()), ensuring it is a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each input element can contribute to at most one key in the result; therefore, the result cannot be larger than the input size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter must be greater than 0 to execute in parallel, as is standard in concurrent stream APIs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method operates on 'data' and streams from it, so data must be non-null at this point.",
+    "meta" : [ ]
+  } ]
+}

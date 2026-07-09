@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "The parameter writeResult should not be null on method entry, as it is used in getWriteStatuses().",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() != null",
+    "rationale" : "Method getWriteStatuses() is called; it should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "The method streams over writeStatus elements, implying elements are likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of a list is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().map(ws -> ws.getStat().getPartitionPath()).distinct().count() >= 0",
+    "rationale" : "The number of distinct partition paths collected from the list is non-negative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition count is typically expected to be positive for partitioning to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Many Java APIs expect method parameters that are collections to be non-null; this enables safe access like records.isEmpty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "Common practice is to not create more partitions than records unless records is empty, though the implementation may allow it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "Ensures the passed 'records' parameter is a List as expected by the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 1",
+    "rationale" : "At least one partition is typically required; partitioning into zero or negative partitions is not meaningful.",
+    "meta" : [ ]
+  } ]
+}

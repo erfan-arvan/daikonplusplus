@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required as an argument and used in multiple method calls without explicit null handling, suggesting it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is passed to other methods (e.g., HoodieListData.eager(records)) without a null check, suggesting it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "userDefinedBulkInsertPartitioner, as an Option, should not be null; Option itself models presence/absence semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(records.isEmpty())",
+    "rationale" : "bulkInsert on an empty list is unusual and would likely be handled separately; typical calls expect records to contain entries.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is passed downstream where empty instants are likely not expected.",
+    "meta" : [ ]
+  } ]
+}

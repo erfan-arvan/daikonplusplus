@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Supplier implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() == 0L",
+    "rationale" : "The returned lambda always supplies 0L as its value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() >= 0L",
+    "rationale" : "Since result.get() always returns 0L, it is always greater than or equal to 0L.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && !result.isEmpty()",
+    "rationale" : "The result of upsert should not be null and should contain at least one WriteStatus.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The upsert operation typically returns a non-null, non-empty list of WriteStatus objects indicating the result of the operation."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Commit instant time is expected to be a non-null, non-empty string.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is used to identify the commit instant and should be non-null and non-empty to ensure valid operations."
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input records list should be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The records parameter is required for the upsert operation and should not be null."
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(ws -> ws.getWriteStatus() >= 0)",
+    "rationale" : "All WriteStatus objects should indicate successful writes by non-negative codes.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "WriteStatus typically contains status codes or flags indicating success or errors; non-negative status values indicate successful writes."
+    } ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "WriteStatus list size should not exceed the input records list size.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The number of WriteStatus objects typically should not exceed the number of input records."
+    } ]
+  } ]
+}

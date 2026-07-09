@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned iterator of List<WriteStatus> should never be null regardless of the control flow.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result.hasNext()",
+    "rationale" : "If the input iterator has data, the returned iterator should yield at least one result; otherwise, it may still return an iterator over an empty or singleton list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || fileId != null",
+    "rationale" : "If there are records to update (recordItr.hasNext()), a valid fileId must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The partitionPath parameter is always required for update handling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "The fileId parameter is necessary for processing both empty and non-empty buckets.",
+    "meta" : [ ]
+  } ]
+}

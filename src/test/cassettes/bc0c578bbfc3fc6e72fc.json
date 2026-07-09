@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "list != null",
+    "rationale" : "The method accesses list and its methods immediately, so list must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectBox != null",
+    "rationale" : "selectBox is dereferenced at the end of the method and thus must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hideListener != null",
+    "rationale" : "hideListener is passed to removeCaptureListener and must be non-null for correct listener removal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "list.isTouchable() == false || hasParent()",
+    "rationale" : "The early-return condition enforces that if the list is not touchable or we lack a parent, the method returns immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() == null || getStage().getScrollFocus() == null || isAscendantOf(getStage().getScrollFocus()) || previousScrollFocus != null",
+    "rationale" : "If the method reaches the point where previousScrollFocus is checked, the nested conditions on scroll focus and ascendant relation are relevant.",
+    "meta" : [ ]
+  } ]
+}

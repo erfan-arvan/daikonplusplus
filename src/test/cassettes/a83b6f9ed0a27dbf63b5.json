@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is required to perform insert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The operation needs a valid, non-empty instantTime for commit semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The method expects a valid list of HoodieRecords to insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords == null || !hoodieRecords.isEmpty()",
+    "rationale" : "If provided, hoodieRecords should contain at least one record to insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == instantTime.trim()",
+    "rationale" : "instantTime should not have leading or trailing whitespace for commit consistency.",
+    "meta" : [ ]
+  } ]
+}

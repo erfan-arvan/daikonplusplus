@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "(firstLineShowing <= cursorLine) && (cursorLine <= firstLineShowing + linesShowing - 1)",
+    "rationale" : "The postcondition guarantees the visible lines cover the cursor line: the first visible line is <= the cursor and the last visible line (firstLineShowing + linesShowing - 1) is >= cursorLine.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursorLine == firstLineShowing || cursorLine == firstLineShowing + linesShowing - 1 || (cursorLine > firstLineShowing && cursorLine < firstLineShowing + linesShowing - 1)",
+    "rationale" : "Covers the possibility that cursorLine is within the range of visible lines including the endpoints.",
+    "meta" : [ ]
+  } ]
+}

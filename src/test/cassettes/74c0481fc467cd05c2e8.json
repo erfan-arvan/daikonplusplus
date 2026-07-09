@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to a method that likely expects a valid String.",
+    "meta" : [ {
+      "key" : "inferred-from",
+      "value" : "usage as argument"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is used as an identifier and is likely required to be non-empty.",
+    "meta" : [ {
+      "key" : "depends-on",
+      "value" : "instantTime != null"
+    } ]
+  } ]
+}

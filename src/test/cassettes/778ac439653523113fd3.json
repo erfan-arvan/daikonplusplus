@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method returns the same list instance after sorting, so result and records refer to the same List object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Since no elements are added or removed, the size remains unchanged and is the same in both references.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Partition counts are very likely required to be non-negative as a basic contract of partitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(e -> e != null)",
+    "rationale" : "HoodieRecord lists likely prohibit nulls, as they would break downstream processing in a repartition operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(records)",
+    "rationale" : "After in-place sorting and since the same instance is returned, the content and order of result and records should be identical.",
+    "meta" : [ ]
+  } ]
+}

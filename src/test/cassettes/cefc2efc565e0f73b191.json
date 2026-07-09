@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of bulkInsert or throws, suggesting result is never null at exit.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class",
+    "rationale" : "The returned result's static type is HoodieWriteMetadata, suggesting runtime type consistency.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type consistency"
+    } ]
+  } ]
+}

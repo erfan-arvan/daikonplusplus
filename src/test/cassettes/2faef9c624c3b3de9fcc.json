@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Method operates on 'layer' and dereferences several of its fields and methods, ensuring it is non-null throughout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileWidth() > 0",
+    "rationale" : "Tile width must be positive for rendering computations to make sense and be safe.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileHeight() > 0",
+    "rationale" : "Tile height must be positive for rendering and coordinate transformations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getWidth() >= 0",
+    "rationale" : "A layer's width should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getHeight() >= 0",
+    "rationale" : "A layer's height should be non-negative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator as it comes from Collections.singletonList(...).iterator()",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap is always used as an argument to HoodieCreateHandle before returning, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is passed into HoodieCreateHandle, which would likely require non-null fileId.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used by HoodieCreateHandle, which would likely require a non-null partitionPath.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed into HoodieCreateHandle, which is likely to expect a valid value.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Checks that the list of partition paths provided as an argument is not null; avoids potential NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Ensures that the engine context parameter is not null, which is required for further operations in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() >= 0",
+    "rationale" : "The size of a List in Java is always non-negative if the list is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || !partitionPaths.contains(null)",
+    "rationale" : "List of partition paths should not contain null elements; important for downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.stream().allMatch(p -> p != null && !p.isEmpty())",
+    "rationale" : "If partitionPaths is not null, all elements should be non-null and non-empty, reflecting likely expectations on partition path data.",
+    "meta" : [ ]
+  } ]
+}

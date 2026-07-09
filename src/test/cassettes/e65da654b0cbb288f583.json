@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "textField != null",
+    "rationale" : "The show method is intended to display a keyboard for a specific TextField, which suggests the textField parameter should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.isVisible()",
+    "rationale" : "The method's purpose is to show a keyboard for a user-visible TextField, implying it is likely visible at the time of invocation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.isDisabled() == false",
+    "rationale" : "It is likely that the keyboard should only be shown for an enabled TextField, so textField is probably not disabled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.isFocusTraversal() || textField.isFocusable()",
+    "rationale" : "A keyboard is typically shown for fields that can gain focus, suggesting at method entry that the TextField allows either focus traversal or focus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.getOnscreenKeyboard() == null || textField.getOnscreenKeyboard().equals(this)",
+    "rationale" : "At method entry, either no onscreen keyboard is attached or it is this keyboard instance being displayed.",
+    "meta" : [ ]
+  } ]
+}

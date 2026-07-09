@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a list collected from a stream, which is guaranteed non-null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The sorted list should have the same number of elements as the original records list.",
+    "meta" : [ {
+      "key" : "sizeCheck",
+      "value" : "result has the same size as input records"
+    } ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition counts are typically positive at method exit.",
+    "meta" : [ {
+      "key" : "parameterCondition",
+      "value" : "outputPartitions must be positive"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input records list is expected to be non-null when method returns a valid list.",
+    "meta" : [ {
+      "key" : "inputParameter",
+      "value" : "records parameter not null"
+    } ]
+  }, {
+    "expression" : "result != records",
+    "rationale" : "The result is a new list from collecting the sorted stream, not the original list.",
+    "meta" : [ {
+      "key" : "resultDistinct",
+      "value" : "result is a different list instance than input records"
+    } ]
+  } ]
+}

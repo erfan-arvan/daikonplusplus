@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A drawable is always returned from the style for any path; the code always picks a non-null style field to return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == style.imageDisabled || result == style.imageCheckedDown || result == style.imageDown || result == style.imageCheckedOver || result == style.imageOver || result == style.imageChecked || result == style.imageUp",
+    "rationale" : "The only possible return values are these fields of the style, based on the method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.imageUp != null",
+    "rationale" : "style.imageUp is always returned as a fallback, so it must be non-null for the method to work.",
+    "meta" : [ ]
+  } ]
+}

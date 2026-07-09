@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the TiledMap instance created and configured in the body, hence it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "The fileName parameter is passed directly to critical resource resolution functions without null guard, so must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "parameter is dereferenced (parameter.textureMinFilter, parameter.textureMagFilter) without null guards, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getOwnedResources().size > 0",
+    "rationale" : "The method always sets an array of owned resources containing the TextureAtlas, so owned resources must be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getOwnedResources().get(0) instanceof com.badlogic.gdx.graphics.g2d.TextureAtlas",
+    "rationale" : "The method always sets the owned resources of result to an array containing a TextureAtlas as its first and only element.",
+    "meta" : [ ]
+  } ]
+}

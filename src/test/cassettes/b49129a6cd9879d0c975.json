@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Option<HoodieCompactionPlan> should not be null; Option should be instantiated even if empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely used as an identifier and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed into the executor; it's expected to be non-null for operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "scheduleCompactionExecutor != null",
+    "rationale" : "Executor instance is constructed immediately before return; cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Option",
+    "rationale" : "Method's return value must be an instance of Option according to its signature.",
+    "meta" : [ ]
+  } ]
+}

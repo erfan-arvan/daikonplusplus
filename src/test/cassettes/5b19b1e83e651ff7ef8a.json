@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result object is initialized and returned non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata always provides a non-null list of write statuses.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "write statuses list is non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "List size is never negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "size non-negative"
+    } ]
+  }, {
+    "expression" : "insertedRecords == null || insertedRecords.size() >= 0",
+    "rationale" : "Inserted records list is initialized in method and thus non-null and its size non-negative.",
+    "meta" : [ {
+      "key" : "parameter_relation",
+      "value" : "insertedRecords is non-null or empty"
+    } ]
+  }, {
+    "expression" : "recordsByFileId == null || recordsByFileId.size() >= 0",
+    "rationale" : "Records grouped by file ID is initialized and size non-negative.",
+    "meta" : [ {
+      "key" : "parameter_relation",
+      "value" : "recordsByFileId is non-null or empty"
+    } ]
+  } ]
+}

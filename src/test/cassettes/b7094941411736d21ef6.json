@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "buttonStyle != null",
+    "rationale" : "The method passes buttonStyle to the TextButton constructor, which likely requires a non-null style object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "If text is not null, calling length() is safe, and length is always non-negative for a String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "object == null || object != null",
+    "rationale" : "object is allowed to be null, per the documentation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "The method operates on 'nodes', so it is expected that it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "y represents a coordinate (likely pixel or layout position), thus it is often non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rowY >= 0.0f",
+    "rationale" : "rowY represents a vertical position (likely pixel or layout position), thus it is often non-negative at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "Array.size in libGDX is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size == 0 || nodes.get(0) != null",
+    "rationale" : "If nodes is not empty, its first element should not be null for tree structure correctness.",
+    "meta" : [ ]
+  } ]
+}

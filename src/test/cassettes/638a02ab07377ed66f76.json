@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new Label instance using the constructor, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStyle() == style",
+    "rationale" : "The Label is constructed with the given style, so calling getStyle() on result returns the same style instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getText().equals(text)",
+    "rationale" : "The Label is constructed with the parameter text, so getText() on result equals the text argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "Passing a null style to the Label constructor would likely cause a NullPointerException; style is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "Similarly, the text argument should be non-null to avoid potential issues; the Label is constructed directly with it.",
+    "meta" : [ ]
+  } ]
+}

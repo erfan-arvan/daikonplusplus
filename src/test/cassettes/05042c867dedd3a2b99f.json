@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option should not be null; it should be an Option instance (empty or containing value).",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is an Option and should not be null; this reflects typical Option usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime parameter is required by clustering actions and is likely non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is required for execution and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == (result.get() != null)",
+    "rationale" : "If result Option is present, get() should return non-null, and if absent, get() should not be called.",
+    "meta" : [ ]
+  } ]
+}

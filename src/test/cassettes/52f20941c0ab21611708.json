@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "partitionPath is typically a non-null, non-empty string representing the partition location.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPath is expected to be a meaningful string representing a partition path."
+    } ]
+  }, {
+    "expression" : "fileIdHint != null && !fileIdHint.isEmpty()",
+    "rationale" : "fileIdHint should be a non-null string identifier for the update operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "fileIdHint is expected to be a valid non-null string identifier."
+    } ]
+  }, {
+    "expression" : "totalBuckets >= 0",
+    "rationale" : "totalBuckets represents a bucket count and should be zero or positive.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "totalBuckets should be non-negative as a bucket count."
+    } ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "updateLocationToBucket is used to map fileIdHint to bucket, so must be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "updateLocationToBucket map must be initialized before method entry."
+    } ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "bucketInfoMap stores bucket information and must be non-null for the method's logic.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "bucketInfoMap map must be initialized before method entry."
+    } ]
+  } ]
+}

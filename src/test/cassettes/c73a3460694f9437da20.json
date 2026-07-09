@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "getParent() == null || getParent() instanceof Group",
+    "rationale" : "getParent() is assigned to Group parent; thus, if it is non-null, it must be a Group or subtype.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getParent() == null || getParent() instanceof Layout || !(getParent() instanceof Layout)",
+    "rationale" : "Covers all logical branches for the cast and call in the method; ensures no unchecked cast or call will occur if getParent() is non-null and is a Layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No parameters or fields are explicitly listed, so all expressions valid with the available methods are tautologies or basic type checks.",
+    "meta" : [ ]
+  } ]
+}

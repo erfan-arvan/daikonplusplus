@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method should always return a non-null list of WriteStatus objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method's logic expects a non-null input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid 'instantTime' must be specified for any write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method contract guarantees that the return value is a List of WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "preppedRecords must be a List as per the method's parameter definition.",
+    "meta" : [ ]
+  } ]
+}

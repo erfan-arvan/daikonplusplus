@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Caller may ensure partitionPath is non-null for proper HashMap access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.isEmpty() || !partitionPath.isEmpty()",
+    "rationale" : "All String values for partitionPath are possible at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "The field partitionPathToInsertBucketInfos must be non-null for the method implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "HashMap fields should be initialized before use in methods, indicative of proper constructor use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "smallFiles != null",
+    "rationale" : "The smallFiles field should be initialized before any bucket assignment or upsert operation.",
+    "meta" : [ ]
+  } ]
+}

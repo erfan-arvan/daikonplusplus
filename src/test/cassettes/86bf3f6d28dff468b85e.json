@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method must return a non-null List<WriteStatus> to satisfy its contract and avoid NullPointerExceptions in callers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The 'records' input should not be null for normal insert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' argument should be set for an insert operation since it represents the commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "'result' is expected to be an instance of List as declared in the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() == 0 || result.size() > 0",
+    "rationale" : "If records were provided (non-empty), then the result should contain some WriteStatus entries; if no records, result may be empty as well.",
+    "meta" : [ ]
+  } ]
+}

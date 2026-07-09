@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an object of HoodieSavepointMetadata by calling execute(), which is expected to provide non-null metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "A savepoint must be tied to a specific instant, so this parameter should never be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "A savepoint should be marked with a non-null user to attribute the action.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method queries files for the given partitionPath and likely expects it not to be null to avoid NPEs.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "ensures accessors don't fail"
+    } ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "The method likely expects a non-empty string to represent a valid partition path.",
+    "meta" : [ {
+      "key" : "not_empty",
+      "value" : "partitionPath should be non-empty"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Alternative to length check, enforcing that the partition path is not the empty string.",
+    "meta" : [ {
+      "key" : "alternative_form",
+      "value" : "ensures partitionPath has content"
+    } ]
+  }, {
+    "expression" : "partitionPath.trim().length() > 0",
+    "rationale" : "Avoids accidental use of partitionPaths that are blank spaces.",
+    "meta" : [ {
+      "key" : "robustness",
+      "value" : "no blank partitionPath"
+    } ]
+  }, {
+    "expression" : "partitionPath.indexOf(\"/\") >= 0",
+    "rationale" : "Partition paths are often represented by file-system-like strings, so the presence of a slash is likely common.",
+    "meta" : [ {
+      "key" : "format_check",
+      "value" : "partitionPath may be a file path"
+    } ]
+  } ]
+}

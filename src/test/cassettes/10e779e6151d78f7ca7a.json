@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "It is often expected that method parameters representing IDs are not null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId == null || !jobId.isEmpty()",
+    "rationale" : "If jobId is not null, it is often expected that it is not an empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Since the method is a no-op, any input is technically valid.",
+    "meta" : [ ]
+  } ]
+}

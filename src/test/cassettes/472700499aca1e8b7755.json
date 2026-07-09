@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method is about to process data; null would usually be an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "A non-null function is typically required for the mapping operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism == null || parallelism > 0",
+    "rationale" : "If parallelism is provided, it is generally expected to be positive for parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism == null || parallelism <= data.size()",
+    "rationale" : "Requested parallelism typically does not exceed the amount of data to process if both values are provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism == null || parallelism <= Runtime.getRuntime().availableProcessors()",
+    "rationale" : "Parallelism is usually chosen to not exceed the number of available processors in the system.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs 'result' by collecting elements from a stream, which never produces null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(fileId -> fileId != null)",
+    "rationale" : "Each fileId is obtained from 'smallFile.location.getFileId()', likely ensuring non-null file ids are returned in practice.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == smallFiles.size()",
+    "rationale" : "One fileId is returned for each SmallFile in 'smallFiles', so their counts must match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() <= result.size()",
+    "rationale" : "The list of file IDs could have duplicates, but the number of distinct elements is always less than or equal to the total size.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result should never be null at exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "The inputRecords parameter is used to build workload profile and partition, so it should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "inputRecords is not null parameter"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The result contains a list of WriteStatus objects that is populated by writeStatuses during the method.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result contains a non-null list of WriteStatus"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the writeStatuses list in result is non-negative as it is a List.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "result writeStatuses list size is non-negative"
+    } ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer != null",
+    "rationale" : "The parameter sourceReadAndIndexTimer is an input option, it should not be null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "sourceReadAndIndexTimer parameter is non-null input"
+    } ]
+  } ]
+}

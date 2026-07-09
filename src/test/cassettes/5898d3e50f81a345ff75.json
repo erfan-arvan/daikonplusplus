@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata<List<WriteStatus>> created by execute(), so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should always be a valid String as a time identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords should be a non-null List due to method contract.",
+    "meta" : [ ]
+  } ]
+}

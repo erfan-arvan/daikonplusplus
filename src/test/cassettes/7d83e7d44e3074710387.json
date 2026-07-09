@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', so result must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this', so result always equals the current object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result.align & com.badlogic.gdx.utils.Align.top) != 0",
+    "rationale" : "The method adds Align.top to align, so the top bit must be set in the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result.align & com.badlogic.gdx.utils.Align.bottom) == 0",
+    "rationale" : "The method clears Align.bottom from align, so the bottom bit must not be set in the result.",
+    "meta" : [ ]
+  } ]
+}

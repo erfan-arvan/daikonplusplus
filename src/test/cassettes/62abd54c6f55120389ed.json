@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this.textureRegion == textureRegion",
+    "rationale" : "The method sets the field; after assignment, the field and parameter should reference the same object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureRegion == null || this.textureRegion == null || this.textureRegion.equals(textureRegion)",
+    "rationale" : "If either reference is null, comparison by equals is safe; otherwise, after assignment, .equals holds.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The input list dedupedRecords is expected to be non-null when the method is entered.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "dedupedRecords is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The Partitioner object is expected to be non-null at method entry to perform partitioning.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitioner is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "dedupedRecords.size() >= 0",
+    "rationale" : "List size in Java is always non-negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "size is non-negative"
+    } ]
+  }, {
+    "expression" : "results != null",
+    "rationale" : "The return map results is non-null as it is instantiated before return.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "results is non-null"
+    } ]
+  }, {
+    "expression" : "!results.containsKey(null)",
+    "rationale" : "Partition keys are expected to be non-null as per the partitioner contract.",
+    "meta" : [ {
+      "key" : "keyNonNull",
+      "value" : "results does not contain null keys"
+    } ]
+  } ]
+}

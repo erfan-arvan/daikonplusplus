@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a map lookup which returns a List; assuming it is never null for valid keys.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null at method exit"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The key to the map lookup is expected to be non-null.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "partitionPath is assumed non-null as a key to the map"
+    } ]
+  }, {
+    "expression" : "result.isEmpty() || result.size() > 0",
+    "rationale" : "Standard property that list size is non-negative and can be zero or more.",
+    "meta" : [ {
+      "key" : "sizeCheck",
+      "value" : "result size is non-negative"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(pair -> pair != null)",
+    "rationale" : "Assuming the list does not contain null elements.",
+    "meta" : [ {
+      "key" : "contents",
+      "value" : "all elements in result are non-null"
+    } ]
+  }, {
+    "expression" : "result != null && partitionPath != null",
+    "rationale" : "Both inputs and result are expected to be non-null at this method exit.",
+    "meta" : [ {
+      "key" : "combinedNullness",
+      "value" : "both parameters non-null"
+    } ]
+  } ]
+}

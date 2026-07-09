@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Option parameters in Hudi codebase are almost always non-null, since they are used as wrappers to model optional values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "HoodieTableMetaClient is a required parameter to initialize metadata table; the method likely assumes it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "initializeMetadataTable(instantTime, metaClient) == null",
+    "rationale" : "The only operation in the method is a call to initializeMetadataTable, and as a void method, its return is always null.",
+    "meta" : [ ]
+  } ]
+}

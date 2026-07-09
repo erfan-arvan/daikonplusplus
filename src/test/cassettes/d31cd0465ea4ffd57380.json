@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method immediately uses 'context', so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "A valid rollbackInstantTime string is likely required for rollback logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "The commitInstant refers to the specific instant being rolled back, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "Instant times are typically non-empty strings to represent valid instants.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!rollbackInstantTime.isEmpty()",
+    "rationale" : "Functional duplicate to length > 0, expressing emptiness check directly.",
+    "meta" : [ ]
+  } ]
+}

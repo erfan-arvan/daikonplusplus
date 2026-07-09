@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null || activityDescription != null",
+    "rationale" : "If either parameter is set, at least one is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(activeModule == null && activityDescription != null) || activeModule != null",
+    "rationale" : "If activityDescription is non-null, activeModule may typically also be non-null for context, depending on usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule == null || activeModule.length() >= 0",
+    "rationale" : "String.length() is always >= 0 if the string is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription == null || activityDescription.length() >= 0",
+    "rationale" : "String.length() is always >= 0 if the string is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Method is a no-op, so all states are possible, but always terminates.",
+    "meta" : [ ]
+  } ]
+}

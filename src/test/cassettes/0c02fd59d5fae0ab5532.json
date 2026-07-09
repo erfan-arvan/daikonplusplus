@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A well-designed method returning a collection should never return null, but rather an empty list to indicate no elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> id != null)",
+    "rationale" : "Each file ID generated via the mapping from smallFile.location.getFileId() should be non-null as file IDs are expected to exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method is specified to return a List<String>, so at exit this must hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> !id.isEmpty())",
+    "rationale" : "File IDs are typically non-empty strings; this suggests none of the smallFiles had missing/blank file IDs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "new java.util.HashSet<>(result).size() == result.size()",
+    "rationale" : "The mapping to file IDs suggests a one-to-one correspondence; this invariant would hold if all smallFiles have distinct file IDs.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A commit or delete operation requires a valid (non-null) instantTime string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method must receive a non-null list of keys to delete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "HoodieWriteConfig is used for configuration lookups and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "HoodieTable is used for table operations and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "The deleteExecutor is used to perform the deletion action and must be present.",
+    "meta" : [ ]
+  } ]
+}

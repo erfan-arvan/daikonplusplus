@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method expects 'layer' to be a valid TiledMapImageLayer instance as it is used immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() == null || layer.getTextureRegion() instanceof com.badlogic.gdx.graphics.g2d.TextureRegion",
+    "rationale" : "The code safely handles the case where layer.getTextureRegion() returns null, otherwise expects it to be a TextureRegion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxX() >= 0.0f",
+    "rationale" : "Parallax factors are typically non-negative for image layers; negative parallax would lead to reversed scrolling, which is unusual.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxY() >= 0.0f",
+    "rationale" : "Similarly, parallaxY is expected to be non-negative in most use cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isVisible() == true",
+    "rationale" : "Image layers are generally rendered only if visible; this is a typical expectation for rendering routines.",
+    "meta" : [ ]
+  } ]
+}

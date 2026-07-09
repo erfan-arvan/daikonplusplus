@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new HashMap is always created and returned, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Map",
+    "rationale" : "The method always returns a Map object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() == 0 || result.size() <= partitionPaths.size()",
+    "rationale" : "If partitionPaths is null or empty, result is empty; otherwise, result has at most as many entries as partitionPaths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "For each partition, even if there are no small files, it appears a non-null list is used (from getSmallFiles).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(key -> partitionPaths != null && partitionPaths.contains(key))",
+    "rationale" : "All keys in the map must be from the input partitionPaths list if it is not null.",
+    "meta" : [ ]
+  } ]
+}

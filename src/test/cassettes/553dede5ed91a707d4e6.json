@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the 'map' object, which is always instantiated before any return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "Parameter tmxFile is required to determine the file being loaded and is used throughout the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is passed to multiple helper methods; its non-nullness avoids errors during tileset loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getProperties() != null",
+    "rationale" : "The getProperties() method is called and populated in all method paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLayers() != null",
+    "rationale" : "The getLayers() method is used in the parallax code, which would fail if layers was null.",
+    "meta" : [ ]
+  } ]
+}

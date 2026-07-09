@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "size != null",
+    "rationale" : "The method throws an IllegalArgumentException if size is null, so size must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this', so the returned value is the current object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.prefWidth == size",
+    "rationale" : "The prefWidth field is set to size before the method returns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.prefHeight == size",
+    "rationale" : "The prefHeight field is also set to size before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.prefWidth == result.prefHeight",
+    "rationale" : "Both prefWidth and prefHeight are assigned to the same value, so they are equal.",
+    "meta" : [ ]
+  } ]
+}

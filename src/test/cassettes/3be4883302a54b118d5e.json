@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method expects inputRecords to be a non-null list in order to safely process records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || inputRecords.size() >= 0",
+    "rationale" : "List size is always non-negative; if the list is empty, this holds trivially.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "clusteringPlan is required for clustering execution; null would likely prevent the method from running correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is essential for data operations; a null schema would make downstream operations invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime (usually a commit timestamp or marker) should not be null for clustering operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getInputGroups() != null",
+    "rationale" : "clusteringPlan.getInputGroups() is used in forEach loop; it is expected to be non-null for normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getStrategy() != null",
+    "rationale" : "clusteringPlan.getStrategy() is accessed for strategy parameters; thus, it should be non-null.",
+    "meta" : [ ]
+  } ]
+}

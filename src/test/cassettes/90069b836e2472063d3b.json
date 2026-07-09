@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null upon method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter should be a non-null string indicating the commit time.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The list of preppedRecords should not be null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecords is non-null"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List size is always zero or positive.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "preppedRecords list size is non-negative"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null && (preppedRecords.isEmpty() || preppedRecords.get(0) != null)",
+    "rationale" : "Usually the list elements are non-null, so checking first element for non-null.",
+    "meta" : [ {
+      "key" : "elementNullness",
+      "value" : "if list not empty, first element is non-null"
+    } ]
+  } ]
+}

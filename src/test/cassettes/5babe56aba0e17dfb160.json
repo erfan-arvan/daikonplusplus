@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "quantity >= 0",
+    "rationale" : "Order quantities are typically non-negative (cannot order negative items).",
+    "meta" : [ {
+      "key" : "field",
+      "value" : "quantity"
+    } ]
+  }, {
+    "expression" : "unitPrice >= 0.0",
+    "rationale" : "Unit prices for items in an order are usually non-negative.",
+    "meta" : [ {
+      "key" : "field",
+      "value" : "unitPrice"
+    } ]
+  }, {
+    "expression" : "getQuantity() == quantity",
+    "rationale" : "getQuantity() is a getter that directly returns the quantity field.",
+    "meta" : [ {
+      "key" : "method",
+      "value" : "getQuantity"
+    } ]
+  }, {
+    "expression" : "getUnitPrice() == unitPrice",
+    "rationale" : "getUnitPrice() is a getter that directly returns the unitPrice field.",
+    "meta" : [ {
+      "key" : "method",
+      "value" : "getUnitPrice"
+    } ]
+  } ]
+}

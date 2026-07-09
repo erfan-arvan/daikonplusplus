@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext parameter 'context' should be non-null at method entry for further operations.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "required for safe evaluation"
+    } ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "The 'compactionInstantTime' string parameter should be non-null to represent a valid timestamp.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "required for safe evaluation"
+    } ]
+  }, {
+    "expression" : "compactionInstantTime.length() > 0",
+    "rationale" : "Typically, instant time strings are expected to be non-empty.",
+    "meta" : [ {
+      "key" : "string_check",
+      "value" : "non-empty string"
+    } ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "The 'context' parameter must be an instance of HoodieEngineContext.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "parameter type"
+    } ]
+  }, {
+    "expression" : "!compactionInstantTime.trim().isEmpty()",
+    "rationale" : "Instant time should contain visible characters and not be empty or only whitespace.",
+    "meta" : [ {
+      "key" : "string_check",
+      "value" : "no empty or whitespace-only string"
+    } ]
+  } ]
+}

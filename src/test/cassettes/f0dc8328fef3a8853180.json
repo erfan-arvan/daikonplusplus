@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned value is the result of a method call and is not expected to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "The method takes tmjFile as a parameter and uses it in the call, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is passed into both the current and delegated method; null is likely not accepted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "The size of an Array is always non-negative in libGDX.",
+    "meta" : [ ]
+  } ]
+}

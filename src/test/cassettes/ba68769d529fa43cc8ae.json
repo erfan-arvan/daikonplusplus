@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new instance of a subclass of HoodieJavaTable, so result cannot be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns a new HoodieJavaTable instance, so result is non-null."
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "Only COPY_ON_WRITE and MERGE_ON_READ table types are handled, otherwise method throws exception.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The switch covers only these two types; unsupported types throw an exception."
+    } ]
+  }, {
+    "expression" : "result instanceof org.apache.hudi.table.HoodieJavaTable",
+    "rationale" : "The returned object is a subtype of HoodieJavaTable.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result is an instance of HoodieJavaTable or its subclass."
+    } ]
+  }, {
+    "expression" : "config != null && context != null && metaClient != null",
+    "rationale" : "config, context, and metaClient are non-null parameters used to construct result.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The constructor calls require non-null config, context, and metaClient."
+    } ]
+  } ]
+}

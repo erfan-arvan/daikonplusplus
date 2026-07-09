@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "It is common for method implementations to expect non-null collections as parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition counts are typically expected to be positive integers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size() of any List in Java is always non-negative, but this serves as a formal invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "When repartitioning, it is conventional that the number of partitions does not exceed the number of records, unless there are no records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof java.util.List",
+    "rationale" : "records is declared as List<HoodieRecord<T>>, so it must be an instance of List.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == order.getQuantity() * order.getUnitPrice()",
+    "rationale" : "Directly reflects the calculation performed by the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "Order quantity and unit price are expected to be non-negative, so the computed price cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "An order should have a non-negative quantity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "The price of a single unit in an order should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (double)(order.getQuantity()) * order.getUnitPrice()",
+    "rationale" : "Casts ensure that multiplication is performed in double precision, matching the method's computation.",
+    "meta" : [ ]
+  } ]
+}

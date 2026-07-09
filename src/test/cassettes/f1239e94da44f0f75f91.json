@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result should not be null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "Ensures result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list inside result should be initialized.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "Ensures write statuses list is not null"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "Bulk insert should produce some write statuses if successful.",
+    "meta" : [ {
+      "key" : "non-empty",
+      "value" : "Checks that at least some records were written"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getStat().getNumWrites() > 0)",
+    "rationale" : "Each WriteStatus should record a positive number of writes indicating actual data written.",
+    "meta" : [ {
+      "key" : "positiveWrites",
+      "value" : "All write statuses have positive number of writes"
+    } ]
+  }, {
+    "expression" : "result.getTotalRecords() >= 0",
+    "rationale" : "The total record count in the result should always be zero or positive.",
+    "meta" : [ {
+      "key" : "non-negative",
+      "value" : "Total records written must be non-negative"
+    } ]
+  } ]
+}

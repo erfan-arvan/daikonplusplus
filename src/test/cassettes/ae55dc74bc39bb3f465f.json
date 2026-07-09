@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null && !activeModule.isEmpty()",
+    "rationale" : "activeModule is likely intended to designate a non-empty module name",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null && !activityDescription.isEmpty()",
+    "rationale" : "activityDescription should describe the activity and not be blank",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.equals(activityDescription)",
+    "rationale" : "It is plausible that the module name and activity description should not be equal",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule != null || activityDescription != null",
+    "rationale" : "At least one of the arguments may be expected to be provided",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule == null || activityDescription == null || !activeModule.contains(activityDescription)",
+    "rationale" : "The module name should typically not contain the full activity description",
+    "meta" : [ ]
+  } ]
+}

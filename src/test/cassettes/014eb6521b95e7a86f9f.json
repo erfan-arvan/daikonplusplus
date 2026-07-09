@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Returned bucket numbers (result) represent valid partition indices and are non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "The method always casts key and dereferences methods on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < totalBuckets",
+    "rationale" : "The result represents a partition/bucket number, which should be less than totalBuckets.",
+    "meta" : [ ]
+  } ]
+}

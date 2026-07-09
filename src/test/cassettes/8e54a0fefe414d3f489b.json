@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is guaranteed to return a list of HoodieKey, so result should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns a list of HoodieKey, so result should not be null."
+    } ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "The list of deduplicated keys should not contain null elements.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result list should not contain null elements."
+    } ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "After deduplication, the size of the result should be less than or equal to the size of the original keys list.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The deduplicatedKeys list cannot be larger than the original keys list."
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "Input list keys is expected to be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Keys parameter must be non-null for method execution."
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "The parallelism parameter is an integer likely representing thread count or similar, so it is positive.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Parallelism parameter should be positive."
+    } ]
+  } ]
+}

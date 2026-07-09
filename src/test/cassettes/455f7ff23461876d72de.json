@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Compaction scheduling requires a valid instantTime; instantTime should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The Option wrapper for extraMetadata should not be null, ensuring Option methods can be safely called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is expected as an input to all table operations.",
+    "meta" : [ ]
+  } ]
+}

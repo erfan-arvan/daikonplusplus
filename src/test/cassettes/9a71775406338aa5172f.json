@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedInputRecord != null",
+    "rationale" : "The method expects preppedInputRecord to be a prepared input, which is unlikely to be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "userDefinedBulkInsertPartitioner should often be set (as an Option) before bulk insert operation is executed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedInputRecord.size() >= 0",
+    "rationale" : "The size() of a List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner.isPresent() || !userDefinedBulkInsertPartitioner.isPresent()",
+    "rationale" : "Option.isPresent() or its negation always holds, as userDefinedBulkInsertPartitioner is an Option.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedInputRecord instanceof List",
+    "rationale" : "preppedInputRecord is declared as List, so this will always be true at entry.",
+    "meta" : [ ]
+  } ]
+}

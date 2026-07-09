@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Result is an integer bucket index, which should never be negative as bucket indices increment from 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "fileIdHint is used as a map key, and should not be null for proper functioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed to BucketInfo and should not be null in valid usage.",
+    "meta" : [ ]
+  } ]
+}

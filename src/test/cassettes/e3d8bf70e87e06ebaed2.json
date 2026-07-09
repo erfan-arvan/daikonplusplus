@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "operationType != null",
+    "rationale" : "operationType is typically specified to determine the type of compaction operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is used for multiple method calls and field accesses, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is accessed for containsInstant, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to getCompactionInflightInstant and likely cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "The method throws an exception if operationType is LOG_COMPACT; thus this should not hold at method entry in expected usage.",
+    "meta" : [ ]
+  } ]
+}

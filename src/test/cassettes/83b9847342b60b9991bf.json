@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "text != null",
+    "rationale" : "Text is likely to be a non-null string when passed as a parameter to represent the field contents.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursor index in a text field is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "Selection start is typically a non-negative index for text fields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || (selectionStart != cursor)",
+    "rationale" : "If there is a selection, its start and the cursor position should differ.",
+    "meta" : [ ]
+  } ]
+}

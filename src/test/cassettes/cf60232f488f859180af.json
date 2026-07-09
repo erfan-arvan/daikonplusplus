@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "frameTiles != null",
+    "rationale" : "The array 'frameTiles' is dereferenced in the method, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getCurrentFrameIndex() >= 0",
+    "rationale" : "The index into the frameTiles array must be non-negative for valid array access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "frameTiles.length > getCurrentFrameIndex()",
+    "rationale" : "To avoid ArrayIndexOutOfBoundsException, 'getCurrentFrameIndex()' must be less than 'frameTiles.length'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "frameTiles.length > 0",
+    "rationale" : "Array 'frameTiles' must contain at least one element to be a valid source of tiles.",
+    "meta" : [ ]
+  } ]
+}

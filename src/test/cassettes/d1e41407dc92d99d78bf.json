@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Method relies on input writeStatuses, likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is passed and used, likely non-null as a precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "Table parameter used in the update process, should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Returned HoodieData should never be null as it is constructed via eager().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "Return value is explicitly converted to HoodieListData via HoodieListData.eager().",
+    "meta" : [ ]
+  } ]
+}

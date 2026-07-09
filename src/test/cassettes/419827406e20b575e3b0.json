@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The key is used as an argument to a Map.containsKey call, where null keys may not be supported by all map implementations and could cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key.length() >= 0",
+    "rationale" : "As key is a String (and, given non-null), its length is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!key.isEmpty()",
+    "rationale" : "Empty string keys are often treated as invalid or meaningless for property maps. This may be a reasonable restriction in such key-based property APIs.",
+    "meta" : [ ]
+  } ]
+}

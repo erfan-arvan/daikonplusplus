@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned HoodieWriteMetadata object should not be null as it is the result of wrapping the output of the compaction executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "The compaction instant time should be non-null as it is expected to identify the compaction transaction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext parameter is expected to be non-null as it is required for running the compaction executor.",
+    "meta" : [ ]
+  } ]
+}

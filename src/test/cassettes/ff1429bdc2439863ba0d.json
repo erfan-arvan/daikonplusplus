@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber)",
+    "rationale" : "Since getBucketInfo returns bucketInfoMap.get(bucketNumber), the map likely contains the key for a valid result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == bucketInfoMap.get(bucketNumber)",
+    "rationale" : "The method directly returns bucketInfoMap.get(bucketNumber), so this must always be true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "As bucketNumber is used as a key into the map and represents a bucket, it's likely non-negative.",
+    "meta" : [ ]
+  } ]
+}

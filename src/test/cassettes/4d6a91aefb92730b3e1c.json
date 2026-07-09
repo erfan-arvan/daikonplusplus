@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method parameter context should not be null at method entry.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The context parameter is expected to be non-null for method execution."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Method parameter instantTime should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The instantTime parameter should be non-null to schedule compaction properly."
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option object extraMetadata must be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The extraMetadata option object itself should not be null even if it is empty or None."
+    } ]
+  } ]
+}

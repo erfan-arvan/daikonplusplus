@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Supplier<Integer> instance and cannot legally return null as per the implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() == -1",
+    "rationale" : "The returned Supplier<Integer> always produces -1 when get() is called, as per the implementation.",
+    "meta" : [ ]
+  } ]
+}

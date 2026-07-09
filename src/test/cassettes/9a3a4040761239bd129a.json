@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (super.removeActor(actor, unfocus) && true)",
+    "rationale" : "The result is true only if super.removeActor returns true, otherwise false.",
+    "meta" : [ {
+      "key" : "method",
+      "value" : "result computation"
+    } ]
+  }, {
+    "expression" : "result == (super.removeActor(actor, unfocus))",
+    "rationale" : "This mirrors the method's early return structure: result is true iff super.removeActor returns true.",
+    "meta" : [ {
+      "key" : "effect",
+      "value" : "super method"
+    } ]
+  }, {
+    "expression" : "(!super.removeActor(actor, unfocus)) == (!result)",
+    "rationale" : "If the superclass method returns false, so does this method, creating a negation equivalence.",
+    "meta" : [ {
+      "key" : "logical negation",
+      "value" : "result mirrors super"
+    } ]
+  } ]
+}

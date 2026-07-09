@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == unitPrice",
+    "rationale" : "The method trivially returns unitPrice, so result always equals the field value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "A price per item is commonly non-negative; method context suggests result is not negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Double.isFinite(result)",
+    "rationale" : "unitPrice is likely to be a finite double value, so result should not be infinite or NaN.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method requires a context object to operate on, typically not expected to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata as an Option should not be null; Option is used to represent absence/presence, and the variable itself is usually non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "Option.isPresent() must return either true or false, covering all cases; demonstrates method is total.",
+    "meta" : [ ]
+  } ]
+}

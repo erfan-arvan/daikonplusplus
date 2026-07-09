@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null Iterator, either from a new JavaLazyInsertIterable or by delegation to super.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is a required argument for constructing file names; inferred to be non-null as used directly in constructors and super call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is required for insertion; used to create JavaLazyInsertIterable and passed to super. Likely assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The returned value must always be an Iterator, as dictated by the method signature.",
+    "meta" : [ ]
+  } ]
+}

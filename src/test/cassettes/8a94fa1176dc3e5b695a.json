@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient should represent a valid table metadata client object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The columnsToIndex parameter should not be null when passed to this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "A list, if not null, always has a non-negative size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(columnsToIndex.isEmpty()) || columnsToIndex.size() == 0",
+    "rationale" : "An empty list has size 0.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of execute(), which likely returns a non-null HoodieWriteMetadata object.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "result may be null only if execute() returns null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to identify the commit and is presumed non-null.",
+    "meta" : [ {
+      "key" : "parameter-non-null",
+      "value" : "instantTime is expected to identify the commit instant"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords is passed to the executor and is expected not to be null.",
+    "meta" : [ {
+      "key" : "parameter-null-check",
+      "value" : "hoodieRecords should at least be an empty list"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The result's getWriteStatuses method should return a non-null list representing write statuses.",
+    "meta" : [ {
+      "key" : "result-consistency",
+      "value" : "result's internal write status list should not be null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() <= hoodieRecords.size()",
+    "rationale" : "The number of write statuses in the result should not be more than the number of inserted records.",
+    "meta" : [ {
+      "key" : "logical-constraint",
+      "value" : "Number of write statuses should not exceed number of input records"
+    } ]
+  } ]
+}

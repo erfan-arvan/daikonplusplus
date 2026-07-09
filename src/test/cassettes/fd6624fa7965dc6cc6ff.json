@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs a new Array<FileHandle> and returns it; it never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "The method uses tmxFile for file path resolution; if null, it would likely fail earlier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array.size is always nonnegative in libGDX's Array implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size <= root.getChildCountRecursively()",
+    "rationale" : "The number of dependencies is limited by the total number of elements in the TMX tree.",
+    "meta" : [ ]
+  } ]
+}

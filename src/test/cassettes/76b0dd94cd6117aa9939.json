@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "min != null",
+    "rationale" : "The method likely expects a non-null TextureFilter for 'min' to set filter parameters safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mag != null",
+    "rationale" : "The method likely expects a non-null TextureFilter for 'mag' to prevent NullPointerExceptions in downstream code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min != mag",
+    "rationale" : "In some use-cases, developers set different filters for minification and magnification, making this a meaningful relationship to check.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "element == null || element.getName() == null || !element.getName().equals(\"properties\") || element.getChildrenByName(\"property\").size() >= 0",
+    "rationale" : "The method iterates over properties only if element.getName().equals(\"properties\"), so in that case getting children should return a non-negative size.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "element.getChildrenByName(\"property\") is called only if element.getName().equals(\"properties\") and element != null"
+    } ]
+  }, {
+    "expression" : "element == null || element.getName() == null || !element.getName().equals(\"properties\") || element.getChildrenByName(\"property\") != null",
+    "rationale" : "For 'properties' elements, getChildrenByName should not return null when iterated.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "If we reach iteration, element.getChildrenByName(\"property\") should not be null"
+    } ]
+  }, {
+    "expression" : "properties != null",
+    "rationale" : "The method would likely not make sense if 'properties' were null, and the code assumes it is non-null.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "The method's parameter is used as a target for property loading, so it must be non-null."
+    } ]
+  } ]
+}

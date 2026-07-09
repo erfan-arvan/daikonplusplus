@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method calls another method that likely returns a non-null array, barring exceptional control flow.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length == 2",
+    "rationale" : "Methods extracting word under cursor often return a two-element array representing word start and end positions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= Float.NEGATIVE_INFINITY && x <= Float.POSITIVE_INFINITY",
+    "rationale" : "A float parameter must be a finite or infinite float value; this captures the domain of 'x'.",
+    "meta" : [ ]
+  } ]
+}

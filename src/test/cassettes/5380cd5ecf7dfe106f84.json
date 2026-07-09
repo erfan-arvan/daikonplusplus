@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "padRight != null",
+    "rationale" : "The method throws an IllegalArgumentException if padRight is null, so at method exit padRight must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns this, which must be non-null for instance methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns the current object instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.padRight == padRight",
+    "rationale" : "The method assigns the parameter padRight to the field this.padRight before returning.",
+    "meta" : [ ]
+  } ]
+}

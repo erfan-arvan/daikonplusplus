@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "Required for calling file.parent() and file.child().",
+    "meta" : [ ]
+  }, {
+    "expression" : "path != null",
+    "rationale" : "Required for creating new StringTokenizer(path, ...).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!path.isEmpty()",
+    "rationale" : "Tokenization of an empty string would result in different logic; likely never intended.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.parent() != null",
+    "rationale" : "The method immediately calls file.parent(), which must be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.exists()",
+    "rationale" : "Operation assumes file exists, so its existence may be a precondition.",
+    "meta" : [ ]
+  } ]
+}

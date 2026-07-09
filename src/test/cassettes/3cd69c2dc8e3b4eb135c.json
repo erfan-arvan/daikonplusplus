@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method is expected to work with a prepared list of records, so this is likely not null on entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime represents a commit instant and should be a non-null, non-empty String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.get(0) != null",
+    "rationale" : "If the records list is not empty, its first element should not be null; records should be valid objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "The size of a list is always non-negative, reflecting correct API use.",
+    "meta" : [ ]
+  } ]
+}

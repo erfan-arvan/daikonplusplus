@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns either fileId (which may be non-null) or the result of BulkInsertPartitioner.super.getFileIdPfx(partitionId), which is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null ? result.equals(fileId) : true",
+    "rationale" : "If fileId is not null, result returns fileId.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId == null ? result.equals(BulkInsertPartitioner.super.getFileIdPfx(partitionId)) : true",
+    "rationale" : "If fileId is null, result comes from BulkInsertPartitioner.super.getFileIdPfx(partitionId).",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionId >= 0 ? result.length() > 0 : true",
+    "rationale" : "Likely, valid partitionId produces a non-empty prefix string.",
+    "meta" : [ ]
+  } ]
+}

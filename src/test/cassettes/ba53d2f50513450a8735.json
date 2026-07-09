@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The commit method is called with result, which is dereferenced; thus, it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method commits over result.getWriteStatuses(), implying it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "The code maps over result.getWriteStatuses() and commits, which is likely only meaningful when there are statuses to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "It is assumed that each WriteStatus in the list should be non-null to avoid errors in downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "The mapping WriteStatus::getStat is performed, so each WriteStatus should provide a non-null stat.",
+    "meta" : [ ]
+  } ]
+}

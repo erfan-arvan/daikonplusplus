@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always assigns a HoodieWriteMetadata object to 'result' before returning, never returning null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Both code paths assign a value to result's write statuses; in the case of no taggedValidRecords, it's set to Collections.EMPTY_LIST, which is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "WriteStatuses within the result list are non-null as per method construction, either returned from deleteExecutor or set to an empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty() || result.getWriteStatuses().isEmpty()",
+    "rationale" : "getWriteStatuses() is either empty or not empty; this covers all possible cases and asserts no unexpected null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used unconditionally; method expects it to be non-null at exit.",
+    "meta" : [ ]
+  } ]
+}

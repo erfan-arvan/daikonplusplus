@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a new TableWriteStats object, cannot be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "Input parameter writeMetadata is expected to be non-null for method to execute correctly.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "Method chains getWriteStatuses() on writeMetadata; should not be null to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStats().size() == writeMetadata.getWriteStatuses().size()",
+    "rationale" : "Each WriteStatus contributes one writeStat; sizes must match.",
+    "meta" : [ {
+      "key" : "correspondence",
+      "value" : "one-to-one between write statuses and collected stats"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStats().contains(null)",
+    "rationale" : "Collected statistics in result should be non-null as each stat is derived from WriteStatus.getStat().",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "collection elements non-null"
+    } ]
+  } ]
+}

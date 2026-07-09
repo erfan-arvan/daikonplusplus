@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this' unconditionally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(width)",
+    "rationale" : "Valid cell sizes should use finite float values; method likely assumes/preconditions finite width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(height)",
+    "rationale" : "Valid cell sizes should use finite float values; method likely assumes/preconditions finite height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0",
+    "rationale" : "Cell sizes are generally expected to be non-negative, as negative sizes are not meaningful for UI elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Cell sizes are generally expected to be non-negative, as negative sizes are not meaningful for UI elements.",
+    "meta" : [ ]
+  } ]
+}

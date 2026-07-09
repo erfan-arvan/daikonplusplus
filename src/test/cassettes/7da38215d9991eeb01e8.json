@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The 'preppedRecords' field is about to be passed to 'super.execute', so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof java.util.List",
+    "rationale" : "The field 'preppedRecords' is declared as a List, so it should always be an instance of List.",
+    "meta" : [ ]
+  } ]
+}

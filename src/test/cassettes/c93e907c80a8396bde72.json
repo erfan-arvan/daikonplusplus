@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Parallax factors are expected to be finite numeric values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0f",
+    "rationale" : "Parallax factors often represent scale or scroll speeds and are typically non-negative in practice.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= 1.0f",
+    "rationale" : "It is common for parallax factors to be limited between 0 and 1 to represent proportional scrolling.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns DeleteHelperHolder.JAVA_DELETE_HELPER, which is assumed to be a static instance and thus not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaDeleteHelper",
+    "rationale" : "The method is specified to return a JavaDeleteHelper, and result should, therefore, be a JavaDeleteHelper or its subtype.",
+    "meta" : [ ]
+  } ]
+}

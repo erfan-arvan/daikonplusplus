@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Many methods involving time parameters expect a non-null instantTime for correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method likely requires a valid HoodieEngineContext instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() || !instantTime.isEmpty()",
+    "rationale" : "instantTime is non-null; it must be either empty or not empty.",
+    "meta" : [ ]
+  } ]
+}

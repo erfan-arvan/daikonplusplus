@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0.0",
+    "rationale" : "The minimum width of a UI element is likely non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The result should not be NaN or infinite, as widths are expected to be finite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= padLeft.get(this) + padRight.get(this)",
+    "rationale" : "The returned minimum width should never be less than the total padding that's always added.",
+    "meta" : [ ]
+  } ]
+}

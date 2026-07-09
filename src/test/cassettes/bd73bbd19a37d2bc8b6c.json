@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "camera != null",
+    "rationale" : "The method expects a valid camera and uses its fields without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.combined != null",
+    "rationale" : "camera.combined is used in setProjectionMatrix; it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.up != null",
+    "rationale" : "camera.up.y and camera.up.x are accessed; therefore, up must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.position != null",
+    "rationale" : "camera.position.x and camera.position.y are accessed; therefore, position must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.zoom > 0",
+    "rationale" : "A positive zoom value is typically expected for proper rendering and for width and height calculations allowing correct bounds.",
+    "meta" : [ ]
+  } ]
+}

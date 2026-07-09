@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == bucketInfoMap.get(bucketNumber)",
+    "rationale" : "By method definition, the return value is always bucketInfoMap.get(bucketNumber).",
+    "meta" : [ {
+      "key" : "method-contract",
+      "value" : "return value is get(bucketNumber)"
+    } ]
+  }, {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "By convention, bucket numbers are typically non-negative integers.",
+    "meta" : [ {
+      "key" : "input-assumption",
+      "value" : "non-negative bucketNumber"
+    } ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber) == (result != null)",
+    "rationale" : "HashMap.get returns null if the key is not present.",
+    "meta" : [ {
+      "key" : "map-return-contract",
+      "value" : "null iff key not present"
+    } ]
+  }, {
+    "expression" : "bucketInfoMap.size() <= totalBuckets",
+    "rationale" : "The map should not contain more buckets than the total number.",
+    "meta" : [ {
+      "key" : "bucket-count-upper-bound",
+      "value" : "map size at most totalBuckets"
+    } ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "Method cannot operate if bucketInfoMap is null.",
+    "meta" : [ {
+      "key" : "field-non-null",
+      "value" : "map always initialized"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "If LOG_COMPACT is the operation type, the method throws before exit so the only way to reach the exit is if operationType is not LOG_COMPACT.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getMetaClient() != null",
+    "rationale" : "table.getMetaClient() must be non-null as it is used unconditionally if a certain path is taken.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getInstantGenerator() != null",
+    "rationale" : "table.getInstantGenerator() is invoked at the start for all cases that don't throw.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getConfig() != null",
+    "rationale" : "table.getConfig() is required to create TransactionManager if pendingCompactionTimeline contains inflight instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getStorage() != null",
+    "rationale" : "table.getStorage() is needed for TransactionManager if rolling back compaction.",
+    "meta" : [ ]
+  } ]
+}

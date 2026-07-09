@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "percentX >= 0f && percentX <= 1f",
+    "rationale" : "The method clamps percentX to the range [0,1] before using it, so it is likely correct for users of this method to expect percentX within [0,1].",
+    "meta" : [ {
+      "key" : "bound",
+      "value" : "percentage"
+    } ]
+  }, {
+    "expression" : "percentX <= 1f",
+    "rationale" : "The documentation and use of MathUtils.clamp suggest that percentX should not exceed 1.",
+    "meta" : [ {
+      "key" : "upper_bound",
+      "value" : "percentage"
+    } ]
+  }, {
+    "expression" : "percentX >= 0f",
+    "rationale" : "The documentation and use of MathUtils.clamp suggest that percentX should not be negative.",
+    "meta" : [ {
+      "key" : "lower_bound",
+      "value" : "percentage"
+    } ]
+  } ]
+}

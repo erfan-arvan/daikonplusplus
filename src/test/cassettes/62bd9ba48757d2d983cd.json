@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime is likely required for identifying the operation time in metadata operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The method is expected to operate on a collection of partitions, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions instanceof List",
+    "rationale" : "Ensures that the partitions parameter is truly a List as required by the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "An empty instantTime may not make sense for versioned metadata operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.isEmpty() || !partitions.isEmpty()",
+    "rationale" : "Covering that at method entry, partitions is a List and thus isEmpty can be safely called if non-null.",
+    "meta" : [ ]
+  } ]
+}

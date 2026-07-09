@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A method returning HoodieWriteMetadata is expected to provide a non-null result object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() should return a non-null collection representing write operation statuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A valid list's size must be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof java.util.List",
+    "rationale" : "The method is specified to return HoodieWriteMetadata<List<WriteStatus>>, so getWriteStatuses() should yield a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The result should be of type HoodieWriteMetadata as per method declaration.",
+    "meta" : [ ]
+  } ]
+}

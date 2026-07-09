@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fontScaleX >= 0.0f",
+    "rationale" : "Font scale values are typically non-negative for rendering UI text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScaleY >= 0.0f",
+    "rationale" : "Vertical font scale should also not be negative in general use cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScaleX != 0.0f || fontScaleY != 0.0f",
+    "rationale" : "At least one font scale being non-zero prevents the label from being invisible due to zero scaling in both dimensions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScaleX == this.fontScaleX",
+    "rationale" : "After assignment, the object's fontScaleX field should equal the input parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScaleY == this.fontScaleY",
+    "rationale" : "After assignment, the object's fontScaleY field should match the corresponding parameter.",
+    "meta" : [ ]
+  } ]
+}

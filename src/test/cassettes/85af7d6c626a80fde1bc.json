@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a list, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Method presumes hoodieRecords is a valid input and used directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> !r.isCurrentLocationKnown())",
+    "rationale" : "Only records for which isCurrentLocationKnown() is false are included in result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= hoodieRecords.size()",
+    "rationale" : "The result is a filtered subset of the input list, so its size cannot exceed the input's size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> hoodieRecords.contains(r))",
+    "rationale" : "Each record in the result must have originated from the input list.",
+    "meta" : [ ]
+  } ]
+}

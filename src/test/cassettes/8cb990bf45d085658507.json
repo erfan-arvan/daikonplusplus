@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is expected to be a valid HoodieTableMetaClient for method operations.",
+    "meta" : [ {
+      "key" : "invariant_origin",
+      "value" : "non-null method parameter"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is expected to be non-null to perform updates on columns.",
+    "meta" : [ {
+      "key" : "invariant_origin",
+      "value" : "non-null method parameter"
+    } ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "columnsToIndex is declared as List<String>.",
+    "meta" : [ {
+      "key" : "type_guarantee",
+      "value" : "List"
+    } ]
+  }, {
+    "expression" : "metaClient.getClass() == HoodieTableMetaClient.class || HoodieTableMetaClient.class.isAssignableFrom(metaClient.getClass())",
+    "rationale" : "metaClient's dynamic type should conform to HoodieTableMetaClient.",
+    "meta" : [ {
+      "key" : "type_guarantee",
+      "value" : "HoodieTableMetaClient"
+    } ]
+  } ]
+}

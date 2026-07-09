@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a valid engine context to function properly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "A non-null instant time is required for cleaning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!cleanInstantTime.isEmpty()",
+    "rationale" : "The cleaning instant time should not be an empty string for a valid operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime.trim().equals(cleanInstantTime)",
+    "rationale" : "The cleanInstantTime parameter should not have leading or trailing whitespace.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime.length() > 0",
+    "rationale" : "cleanInstantTime should be non-empty.",
+    "meta" : [ ]
+  } ]
+}

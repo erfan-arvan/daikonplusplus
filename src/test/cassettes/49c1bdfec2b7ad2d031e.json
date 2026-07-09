@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The method always returns 0 or a greater value--either 0 in the empty case, text.length() in the bounds case, or a character index (Math.max(0, i-1) or i).",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesBreak.size == 0 || (result >= linesBreak.items[cursorLine * 2] && result <= linesBreak.items[cursorLine * 2 + 1])",
+    "rationale" : "If there are any breaks, the computed result is always within the current line's start and end indices or at text.length().",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesBreak.size == 0 || result <= text.length()",
+    "rationale" : "If there are any line breaks, the result returned is at most text.length().",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesBreak.size == 0 || cursorLine * 2 < linesBreak.size || result == text.length()",
+    "rationale" : "If the cursorLine * 2 >= linesBreak.size, then result will be text.length() by direct return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesBreak.size == 0 || (cursorLine * 2 < linesBreak.size || result == text.length())",
+    "rationale" : "When linesBreak.size > 0 and cursorLine * 2 >= linesBreak.size, result is text.length(); if cursorLine * 2 < linesBreak.size, result is a char index in that line.",
+    "meta" : [ ]
+  } ]
+}

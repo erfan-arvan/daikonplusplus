@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null && !writeStatuses.isEmpty()",
+    "rationale" : "Committing should generally require at least one WriteStatus, and the implementation expects to map WriteStatus objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The commit instant time parameter should be present and non-empty for a commit to be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null && !commitActionType.isEmpty()",
+    "rationale" : "Commit action type should be specified and non-empty given its semantic importance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds is required by downstream commitStats (likely to not be null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is always constructed as an Option and should not be null.",
+    "meta" : [ ]
+  } ]
+}

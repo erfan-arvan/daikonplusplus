@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option should always be non-null, representing some or none.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is necessary for the action executor to function.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "The indexInstantTime parameter is forwarded to executor and must be a valid string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "Partitions to index are passed along for execution, and null would not be expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Partition paths are used by the ActionExecutor and should be non-null.",
+    "meta" : [ ]
+  } ]
+}

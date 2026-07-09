@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "map is dereferenced for getTileSets()",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is used for method calls",
+    "meta" : [ ]
+  }, {
+    "expression" : "tideFile != null",
+    "rationale" : "tideFile is passed to getRelativeFileHandle",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is dereferenced for getImage()",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getName().equals(\"TileSheet\") || true",
+    "rationale" : "the body only executes if element.getName().equals(\"TileSheet\") is true",
+    "meta" : [ ]
+  } ]
+}

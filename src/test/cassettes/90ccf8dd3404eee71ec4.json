@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "sizeInvalid == false",
+    "rationale" : "sizeInvalid is set to false at the start and is not modified again.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefHeight >= 0",
+    "rationale" : "prefHeight is initialized to 0 and only increased or replaced with Math.max of its value and positive numbers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefWidth >= 0",
+    "rationale" : "prefWidth is either set to pad sum or computed as a Math.max of non-negative values.",
+    "meta" : [ ]
+  } ]
+}

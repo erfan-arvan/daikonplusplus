@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "The configuration object 'conf' should not be null at method entry.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "The write configuration 'writeConfig' should not be null at method entry.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "The cleaning policy 'failedWritesCleaningPolicy' should not be null at method entry.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context 'context' should not be null at method entry.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "inflightInstantTimestamp == null || inflightInstantTimestamp.isPresent()",
+    "rationale" : "The inflightInstantTimestamp Option object is either null or contains a value at method entry.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "option"
+    } ]
+  } ]
+}

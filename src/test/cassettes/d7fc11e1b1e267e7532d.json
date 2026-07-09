@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == -1 || (name != null && result == x + name.length())",
+    "rationale" : "The method returns -1 if name is null; else it returns x + name.length(), so result matches that.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "When name is null, result is -1; otherwise, result equals x plus length of name."
+    } ]
+  }, {
+    "expression" : "result >= -1",
+    "rationale" : "result is either -1 or x + name.length(), and name.length() >= 0, so result >= -1.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "The method returns either -1 or a sum of non-negative integers."
+    } ]
+  }, {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "If name is not null, name.length() returns a non-negative integer.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "String.length() is always non-negative."
+    } ]
+  }, {
+    "expression" : "name != null || result == -1",
+    "rationale" : "The method returns -1 only if name is null.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If name is null, result is -1."
+    } ]
+  }, {
+    "expression" : "x <= result || result == -1",
+    "rationale" : "If result != -1, result == x + name.length(), so result >= x.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "result equals x + name.length() or -1, name.length() is non-negative."
+    } ]
+  } ]
+}

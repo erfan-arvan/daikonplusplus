@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Since bucket is set to totalBuckets which is incremented from zero, result should be non-negative.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "bucket index is non-negative"
+    } ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "fileIdHint is used as a key in updateLocationToBucket, so it should not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "fileIdHint used as key in map"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used to construct BucketInfo, so it is expected to be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "used in BucketInfo constructor"
+    } ]
+  }, {
+    "expression" : "result < totalBuckets + 1",
+    "rationale" : "Result equals the old totalBuckets value before increment.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "bucket equals old totalBuckets"
+    } ]
+  } ]
+}

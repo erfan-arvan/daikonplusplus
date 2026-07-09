@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "The tmxFile parameter is dereferenced for relative path resolution and property extraction, so null values are invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "The method likely expects the provided tmxFile to represent an existing map file since it reads it to find properties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.isDirectory() == false",
+    "rationale" : "tmxFile is processed as a file from which properties are read, so it should not be a directory.",
+    "meta" : [ ]
+  } ]
+}

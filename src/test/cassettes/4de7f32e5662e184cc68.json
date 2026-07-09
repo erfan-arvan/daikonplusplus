@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires a non-null HoodieWriteConfig to initialize a write client; this is enforced by most client construction patterns, though not strictly stated here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method requires a non-null HoodieEngineContext because it is passed to the HoodieJavaWriteClient constructor.",
+    "meta" : [ ]
+  } ]
+}

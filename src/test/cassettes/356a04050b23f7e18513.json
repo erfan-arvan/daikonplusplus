@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method creates and returns a new HoodieRollbackMetadata instance via an executor, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null && !rollbackInstantTime.isEmpty()",
+    "rationale" : "A non-empty rollbackInstantTime is required to identify the action being rolled back.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A valid commitInstant is necessary for rollback to operate on a specific instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRollbackMetadata",
+    "rationale" : "The object returned should be an instance of HoodieRollbackMetadata since that's the declared return type.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a user-provided argument and subsequent code passes it as an argument, so it is likely not expected to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "partitionPath likely represents a directory or partition identifier, which is usually not an empty string.",
+    "meta" : [ ]
+  } ]
+}

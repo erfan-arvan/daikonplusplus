@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Average size estimate should never be negative as it represents a number of bytes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate()",
+    "rationale" : "The estimate is initialized to CopyOnWriteRecordSizeEstimate and only increases if a larger computed average is found.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() > 0",
+    "rationale" : "The method multiplies with this value, so it is expected to be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() > 0",
+    "rationale" : "The threshold is used as a multiplier for file size estimation, so it should be positive.",
+    "meta" : [ ]
+  } ]
+}

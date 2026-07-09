@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always assigns a HoodieWriteMetadata instance to 'result' before returning, never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Both branches set write statuses before returning, never leaving it null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Config is used to call methods unconditionally, so it cannot be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Table is dereferenced for multiple method calls, so cannot be null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "deleteExecutor is called in both branches, so must be non-null.",
+    "meta" : [ ]
+  } ]
+}

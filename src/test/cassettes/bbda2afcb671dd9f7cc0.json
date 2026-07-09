@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is a parameter and expected to be provided by the caller.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is required for constructing partitioners and shouldn't be null based on typical usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.isEmpty() || strategyParams instanceof Map",
+    "rationale" : "strategyParams is a Map and either empty or a valid instance of Map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema instanceof HoodieSchema",
+    "rationale" : "schema must be an instance of HoodieSchema as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.keySet().stream().allMatch(key -> key != null)",
+    "rationale" : "Map keys should be non-null for correct behavior.",
+    "meta" : [ ]
+  } ]
+}

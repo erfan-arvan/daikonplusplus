@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method operates on the map parameter; a non-null map is a likely precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer != null",
+    "rationale" : "The method immediately dereferences layer via layer.getObjects(); layer should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The element parameter is used in a further call and must not be null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "layer.getObjects() is immediately called and passed along; it is expected not to return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(layer == null) || (layer.getObjects() == null)",
+    "rationale" : "If layer is null, layer.getObjects() would not be called; otherwise, if layer is not null, getObjects() is safe.",
+    "meta" : [ ]
+  } ]
+}

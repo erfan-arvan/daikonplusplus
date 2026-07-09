@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is collected using collect(Collectors.toList()), which produces a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "Each element in result is the representative of a group in the keyedRecords, whose keys are based on records; result cannot be larger than the original records list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 0",
+    "rationale" : "Parallelism is an integer parameter where negative values are rarely expected and may be protected against upstream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schemaStr != null",
+    "rationale" : "schemaStr is parsed unconditionally with HoodieSchema.parse(schemaStr), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "props is used in DeleteContext.fromRecordSchema without null checks, so it cannot be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == fileHandles",
+    "rationale" : "The method always returns the fileHandles parameter after mutating it.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "aliasing"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method always returns fileHandles, which is assumed non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-safety"
+    } ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used unguarded in getRelativeFileHandle and is not expected to be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-safety"
+    } ]
+  }, {
+    "expression" : "tileset != null",
+    "rationale" : "tileset is dereferenced for getAttribute and getChildByName, so it must be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-safety"
+    } ]
+  }, {
+    "expression" : "result.size >= fileHandles.size",
+    "rationale" : "fileHandles may be added to, but should not shrink.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection-size"
+    } ]
+  } ]
+}

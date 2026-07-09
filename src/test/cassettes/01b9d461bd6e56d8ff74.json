@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is an Option and by construction should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is a required argument for restore scheduling and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is required for identifying the savepoint to restore.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "For any Option, it must either be present or not; this is exhaustive and ensures that Option obeys its contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a non-null engine context for scheduling restores and should be non-null.",
+    "meta" : [ ]
+  } ]
+}

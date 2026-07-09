@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "actorAfter != null",
+    "rationale" : "Methods manipulating Actor references should handle non-null actorAfter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != null",
+    "rationale" : "Methods adding an Actor typically require a non-null actor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorAfter != actor",
+    "rationale" : "Ensuring the two Actors given as arguments are not the same prevents logical errors in ordering.",
+    "meta" : [ ]
+  } ]
+}

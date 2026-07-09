@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Ensures that the input collection is not null, which is typically required for operations like collectAsList().",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.count() >= 0",
+    "rationale" : "The count of records in a collection should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() == (records.count() == 0)",
+    "rationale" : "For a collection, isEmpty() returns true if and only if count() is zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.filter(r -> r == null).count() == 0",
+    "rationale" : "It is typical for record collections to not contain null elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.collectAsList() != null",
+    "rationale" : "Collecting records into a list should yield a non-null result.",
+    "meta" : [ ]
+  } ]
+}

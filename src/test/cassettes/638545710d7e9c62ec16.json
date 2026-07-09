@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "textField != null",
+    "rationale" : "'textField' must be non-null for typical usage, as it is passed as an argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Character.isDefined(c)",
+    "rationale" : "It's reasonable to assume that 'c' is usually a defined unicode character when passed as input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "c != '\\0'",
+    "rationale" : "It's uncommon for the null character to be used as input; this could express a precondition for valid input characters.",
+    "meta" : [ ]
+  } ]
+}

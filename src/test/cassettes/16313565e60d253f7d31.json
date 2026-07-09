@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result % 90 == 0",
+    "rationale" : "The method returns the rotation in 90 degree increments, so result should be a multiple of 90.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "Rotation values are often non-negative, representing 0, 90, 180, or 270 degrees.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= 270",
+    "rationale" : "The typical valid rotations for a cell are 0, 90, 180, or 270 degrees.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || result == 90 || result == 180 || result == 270",
+    "rationale" : "Enumerates the expected discrete set of possible rotations according to Tiled map conventions.",
+    "meta" : [ ]
+  } ]
+}

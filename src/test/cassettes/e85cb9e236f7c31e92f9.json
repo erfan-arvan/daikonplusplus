@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The commit method is likely called with a valid HoodieWriteMetadata argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method uses result.getWriteStatuses(), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "A commit action typically operates over a non-empty list of WriteStatus.",
+    "meta" : [ ]
+  } ]
+}

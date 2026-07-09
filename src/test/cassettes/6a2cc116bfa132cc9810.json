@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this' (the current instance), as shown by the implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.align == align",
+    "rationale" : "The method assigns the parameter 'align' to the field 'this.align', establishing equality at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.align == align",
+    "rationale" : "Since 'result' is 'this', and 'this.align' is set to 'align', 'result.align' will also be equal to 'align'.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "partitionPath should be a valid string representing the path partition.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPath typically denotes a partition and is expected to be non-null and non-empty"
+    } ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "fileId is expected to identify a file and should not be null or empty.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "fileId should be a valid id string"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The record iterator must be provided when calling the method.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "recordItr is an input parameter and should be non-null"
+    } ]
+  } ]
+}

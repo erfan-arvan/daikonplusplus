@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns HoodieListData.eager(...), which is not expected to return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Input HoodieData<WriteStatus> is directly used, and its methods are called without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to methods that require it, no null checks present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is passed to called methods and used directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieData",
+    "rationale" : "Return value is always a HoodieData per the method signature and return expression.",
+    "meta" : [ ]
+  } ]
+}

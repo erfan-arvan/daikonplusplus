@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this.partitioner",
+    "rationale" : "The method returns this.partitioner unconditionally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaUpsertPartitioner",
+    "rationale" : "The method assigns a JavaUpsertPartitioner (via cast) to this.partitioner and returns it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.partitioner instanceof JavaUpsertPartitioner",
+    "rationale" : "this.partitioner is set to the result of (JavaUpsertPartitioner) super.getUpsertPartitioner(profile), so its type is JavaUpsertPartitioner if assignment succeeds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A non-null value is required as (JavaUpsertPartitioner) cast and assignment are performed, and then the result is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.partitioner != null",
+    "rationale" : "this.partitioner is assigned before returning, so it cannot be null if the method completes normally.",
+    "meta" : [ ]
+  } ]
+}

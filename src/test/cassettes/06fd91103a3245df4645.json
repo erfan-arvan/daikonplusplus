@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 || a / b * b + a % b == a",
+    "rationale" : "If b == 0, division is not performed; otherwise, basic property of integer division and modulus ensures this holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != 0 || Integer.MIN_VALUE == Integer.MIN_VALUE",
+    "rationale" : "If b is 0, the method returns Integer.MIN_VALUE, so this invariant is trivially always true but conveys method's documented behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(b > 0) || (b <= 0)",
+    "rationale" : "This covers all integer possibilities for b, and is useful as a partitioning fact.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a == 0 || a != 0",
+    "rationale" : "This partitions the input space regarding 'a'; while tautological, it helps coverage analysis.",
+    "meta" : [ ]
+  } ]
+}

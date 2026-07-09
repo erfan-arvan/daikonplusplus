@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "map is about to be assigned as the internal map; nulls may not be permitted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getLayers() != null",
+    "rationale" : "Maps typically have non-null collections of layers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getProperties() != null",
+    "rationale" : "The properties of the map should exist for correct rendering and logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getLayers().size() >= 0",
+    "rationale" : "The layers collection size should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getProperties().size() >= 0",
+    "rationale" : "The properties map size should be non-negative.",
+    "meta" : [ ]
+  } ]
+}

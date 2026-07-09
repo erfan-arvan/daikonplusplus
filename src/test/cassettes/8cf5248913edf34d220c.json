@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "className == null || mapProperties != null",
+    "rationale" : "If the method is invoked and className is null, mapProperties must be valid for key operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "className == null || className.isEmpty() || mapProperties != null",
+    "rationale" : "If className is null or empty, mapProperties must be provided for loading properties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapProperties != null",
+    "rationale" : "mapProperties is accessed for containsKey and put operations, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(className == null) || mapProperties != null",
+    "rationale" : "If className is not provided, mapProperties should still be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

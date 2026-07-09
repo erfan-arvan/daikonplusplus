@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "Method execution reaches this point only if actor is not null due to the early return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= minWidth",
+    "rationale" : "The value of width is adjusted to be at least minWidth before setBounds is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= minHeight",
+    "rationale" : "The value of height is adjusted to be at least minHeight before setBounds is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxWidth <= 0 || width <= maxWidth",
+    "rationale" : "If maxWidth is positive, width is capped at maxWidth. Otherwise, no upper bound is enforced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxHeight <= 0 || height <= maxHeight",
+    "rationale" : "If maxHeight is positive, height is capped at maxHeight, as ensured by the conditional assignments.",
+    "meta" : [ ]
+  } ]
+}

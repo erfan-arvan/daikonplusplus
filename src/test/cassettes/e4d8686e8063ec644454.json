@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null",
+    "rationale" : "Addition with null would throw a NullPointerException, so a must not be null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == a + 1",
+    "rationale" : "Method returns the input parameter plus one.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Since a is not null and returns a + 1, result is also not null.",
+    "meta" : [ ]
+  } ]
+}

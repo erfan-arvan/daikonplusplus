@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime should be provided and non-null for a rollback operation to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant should be non-null as a rollback targets an existing instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipLocking || !skipLocking",
+    "rationale" : "skipLocking is always either true or false, indicating its boolean nature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteInstants || !deleteInstants",
+    "rationale" : "deleteInstants is a boolean parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is necessary for performing engine operations.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is always assigned before the method returns, in both branches handling tag location outcomes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Both code paths either obtain write statuses from deleteExecutor or set it to Collections.EMPTY_LIST; the collection itself is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "Write statuses are set to a List, either returned by deleteExecutor or as Collections.EMPTY_LIST.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Result is explicitly of type HoodieWriteMetadata in both assignment sites and as the declared return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a value passed to saveWorkloadProfileMetadataToInflight without checking for null; it is expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

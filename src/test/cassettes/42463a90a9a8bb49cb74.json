@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "cacheKey is a required parameter and may be expected non-null for caching operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids != null",
+    "rationale" : "The varargs parameter ids is expected to be a non-null array before use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids.length >= 0",
+    "rationale" : "Array length in Java is always non-negative; this checks that ids is at least of length 0.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a new HoodieSavepointMetadata object indicating a successful savepoint.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null"
+    } ]
+  }, {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "instantToSavepoint is passed as an argument for savepoint and expected to be non-null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "instantToSavepoint"
+    } ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "User creating the savepoint must be identified and thus user is non-null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "user"
+    } ]
+  }, {
+    "expression" : "result.getInstantTime().equals(instantToSavepoint)",
+    "rationale" : "The returned savepoint metadata should correspond to the specified instantToSavepoint.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "result matches input"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A non-null HoodieWriteMetadata is expected for a successful upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method is not expected to be called with a null records argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid, non-empty instantTime is typically required for upserts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null execution context is required for performing the upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a List in Java is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

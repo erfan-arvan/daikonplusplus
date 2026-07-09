@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method processes data from the non-null profile parameter.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "profile parameter must be non-null at method exit"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method uses the non-null context parameter for getting small files.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "context parameter must be non-null at method exit"
+    } ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "partitionPaths are fetched from the profile, so should not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPaths set is obtained from non-null profile"
+    } ]
+  }, {
+    "expression" : "profile.getPartitionPaths().size() >= 0",
+    "rationale" : "The set of partitionPaths cannot have negative size.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "size of partitionPaths set cannot be negative"
+    } ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "The mapping from partitionPath to insert buckets is populated in the method and should be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPathToInsertBucketInfos is updated and expected non-null after execution"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a map constructed via Collectors.toMap, which never returns null even if the input is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "At most one entry in the result map per element in the input list since Colllectors.toMap uses the key as the distinguishing factor, and duplicate keys replace previous values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method acts on data, which should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is invoked on elements of data, so must not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "parallelism is a parameter and used for configuring parallel operations; it is assumed not to be null at exit.",
+    "meta" : [ ]
+  } ]
+}

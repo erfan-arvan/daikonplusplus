@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "character != '\\0'",
+    "rationale" : "The parameter 'character' is likely to be a meaningful input; using the null character is typically not the intent for triggering focus traversal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character != '\\n' || character == '\\n'",
+    "rationale" : "Any char will either be newline or not; but focusing on the values is valid since this is the only param of interest.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character >= 0",
+    "rationale" : "A char in Java is non-negative; this is universally true for any char parameter.",
+    "meta" : [ ]
+  } ]
+}

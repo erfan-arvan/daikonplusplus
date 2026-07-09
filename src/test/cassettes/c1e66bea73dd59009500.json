@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method expects a non-null list of prepped records; null would likely cause failure or be checked elsewhere.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime represents a commit or instant identifier and is expected to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is an Option, which is typically not null but may be empty; null would likely be a bug.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty()",
+    "rationale" : "Bulk insert operations are typically performed on non-empty record lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner.isPresent() || !bulkInsertPartitioner.isPresent()",
+    "rationale" : "bulkInsertPartitioner is an Option, so it must be either present or not present, but this is tautological and might be removed depending on context.",
+    "meta" : [ ]
+  } ]
+}

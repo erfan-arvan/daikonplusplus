@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "As 'result' is returned from postWrite, it should not be null unless there is a bug, given typical HoodieJavaWriteClient contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The 'keys' argument represents records to delete; the method is unlikely to handle null keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents an operation timestamp and is essential for the operation, thus should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || !keys.isEmpty()",
+    "rationale" : "If the result list is empty, it likely means no keys were provided for deletion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "The number of WriteStatus objects returned should not exceed the number of keys requested for deletion.",
+    "meta" : [ ]
+  } ]
+}

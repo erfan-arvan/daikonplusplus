@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layers == null || layers.isArray()",
+    "rationale" : "The method iterates over layers, so if non-null, it must be iterable/array.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileHandles != null && fileHandles.size >= 0",
+    "rationale" : "Array size must be non-negative and fileHandles is never set to null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is always passed recursively, never set to null in this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers == null || !layers.iterator().hasNext() || layers.iterator().next().has(\"type\")",
+    "rationale" : "The code assumes the presence of a 'type' key for each element in layers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers == null || fileHandles.size >= 0",
+    "rationale" : "fileHandles can only grow or stay the same, never negative, even if layers == null.",
+    "meta" : [ ]
+  } ]
+}

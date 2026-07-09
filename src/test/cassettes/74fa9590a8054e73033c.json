@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "The parameter writeResult must be non-null to proceed with processing.",
+    "meta" : [ {
+      "key" : "Nullity",
+      "value" : "Ensures writeResult is not null at method entry"
+    } ]
+  }, {
+    "expression" : "partitionToExistingFileIds != null",
+    "rationale" : "The map for holding file IDs is always initialized at method entry.",
+    "meta" : [ {
+      "key" : "Initialized",
+      "value" : "partitionToExistingFileIds is initialized to a new HashMap at method start"
+    } ]
+  }, {
+    "expression" : "partitionToExistingFileIds.isEmpty()",
+    "rationale" : "The map begins empty before population.",
+    "meta" : [ {
+      "key" : "InitialState",
+      "value" : "True at method entry before any modification"
+    } ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.isEmpty()",
+    "rationale" : "No partition paths have been retrieved at method entry.",
+    "meta" : [ {
+      "key" : "InitialPartitionPaths",
+      "value" : "At method entry partitionPaths is not yet assigned or is null"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No other invariants can be inferred at method entry given only writeResult is in scope.",
+    "meta" : [ {
+      "key" : "DefaultInvariant",
+      "value" : "No other info about writeResult fields available"
+    } ]
+  } ]
+}

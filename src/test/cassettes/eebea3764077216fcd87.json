@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a map built from distinct partition paths, so the result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "writeResult is required to obtain write statuses; it must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() == !writeResult.getWriteStatuses().isEmpty()",
+    "rationale" : "If there are write statuses, there will be partition paths and thus the result will not be empty, and vice versa.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().containsAll(writeResult.getWriteStatuses().stream().map(status -> status.getStat().getPartitionPath()).distinct().collect(java.util.stream.Collectors.toList()))",
+    "rationale" : "All distinct partition paths found in write statuses serve as keys in the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "The method uses getAllExistingFileIds to populate values, so lists in the result should not be null.",
+    "meta" : [ ]
+  } ]
+}

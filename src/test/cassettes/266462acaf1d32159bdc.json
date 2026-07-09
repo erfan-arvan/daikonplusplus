@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == order.getQuantity() * order.getUnitPrice()",
+    "rationale" : "The method definition directly returns this computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order != null",
+    "rationale" : "The method dereferences 'order', thus it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "Assuming that both getQuantity() and getUnitPrice() are never negative, their product will be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Double.isFinite(result)",
+    "rationale" : "If getQuantity() and getUnitPrice() return finite values, so must the result.",
+    "meta" : [ ]
+  } ]
+}

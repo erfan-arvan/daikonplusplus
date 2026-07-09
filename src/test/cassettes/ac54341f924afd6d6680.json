@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "execute() either returns a non-null result from bulkInsert or throws an exception, so result should never be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getName().equals(\"org.apache.hudi.common.model.HoodieWriteMetadata\")",
+    "rationale" : "The method signature guarantees the return type to be HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "HoodieWriteMetadata parameterized by List<WriteStatus>; getWriteStatuses() should return a List.",
+    "meta" : [ ]
+  } ]
+}

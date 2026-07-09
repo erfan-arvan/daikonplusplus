@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object as the result of executing an action executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null && preppedRecords.size() >= 0",
+    "rationale" : "preppedRecords must be a non-null List, and size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses in the result metadata should be present if the execution was successful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is a required and non-empty String parameter guiding the write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!bulkInsertPartitioner.isPresent() || bulkInsertPartitioner.get() != null",
+    "rationale" : "If the Option is present, its value should be non-null.",
+    "meta" : [ ]
+  } ]
+}

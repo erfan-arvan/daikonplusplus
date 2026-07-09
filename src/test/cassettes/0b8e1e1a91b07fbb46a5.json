@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "stage != null",
+    "rationale" : "The method expects a Stage parameter, and all subsequent logic assumes it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getActors().contains(this) == false",
+    "rationale" : "At method entry, 'this' has not yet been added to the stage's actors list. This will happen at the beginning of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getRoot() != null",
+    "rationale" : "A valid Stage object in LibGDX always has a root Actor; required for Scene2D traversal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getHeight() >= 0",
+    "rationale" : "Height is non-negative for a Stage, which is a container for rendering UI elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getWidth() >= 0",
+    "rationale" : "Width is non-negative for a Stage, reflecting display or buffer size for layout computations.",
+    "meta" : [ ]
+  } ]
+}

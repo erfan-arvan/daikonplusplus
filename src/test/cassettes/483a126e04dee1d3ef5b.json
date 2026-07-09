@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "ownedResources == null || ownedResources.length >= 0",
+    "rationale" : "An array in Java always has a non-negative length; handles the possibility that ownedResources is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ownedResources == null || ownedResources instanceof Disposable[]",
+    "rationale" : "ownedResources is iterated as Disposable[], so if not null, it should be an array of Disposable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ownedResources == null || ownedResources.getClass().isArray()",
+    "rationale" : "Ensures ownedResources, if non-null, is an array.",
+    "meta" : [ ]
+  } ]
+}

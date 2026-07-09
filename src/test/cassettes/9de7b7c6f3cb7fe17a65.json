@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method is expected to process a list of orders, and passing null would commonly be disallowed or handled prior to validation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.size() >= 0",
+    "rationale" : "The size of a List is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!orders.isEmpty() || orders.isEmpty()",
+    "rationale" : "A tautology by definition, but expresses the dichotomy of a List being empty or not; omitted other tautologies as requested.",
+    "meta" : [ ]
+  } ]
+}

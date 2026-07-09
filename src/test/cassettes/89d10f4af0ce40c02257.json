@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "The writeResult parameter is expected to be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() != null",
+    "rationale" : "The method accesses writeResult.getWriteStatuses() without a null check, implying it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(status -> status != null)",
+    "rationale" : "Streams of WriteStatus objects are commonly expected not to contain nulls when further methods are called on their elements.",
+    "meta" : [ ]
+  } ]
+}

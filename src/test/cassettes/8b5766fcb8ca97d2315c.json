@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method always throws an exception and never returns normally, 'result' is unreachable and thus constrained.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Any boolean expression is vacuously true at a program point that is never reached due to an unconditional exception.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "The method requires 'metadata' to call its methods; null checks are often assumed at public static entry points.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "The method immediately uses 'metadata.getWriteStatuses()', so it must be non-null to avoid exceptions.",
+    "meta" : [ ]
+  } ]
+}

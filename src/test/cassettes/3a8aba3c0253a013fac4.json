@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new Element copy is always returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != sourceElement",
+    "rationale" : "A new Element instance is created and returned, not the input argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getName().equals(sourceElement.getName())",
+    "rationale" : "The name is copied from the source element during construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceElement.getText() == null || result.getText().equals(sourceElement.getText())",
+    "rationale" : "If sourceElement has text, it is copied to result; otherwise, result.getText() may also be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceElement.getAttributes() == null || result.getAttributes().equals(sourceElement.getAttributes())",
+    "rationale" : "If attributes exist, they are copied into result, so the attribute sets should be equal.",
+    "meta" : [ ]
+  } ]
+}

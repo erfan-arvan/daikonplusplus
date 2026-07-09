@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires a HoodieWriteConfig to construct a HoodieTable, so config must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config instanceof HoodieWriteConfig",
+    "rationale" : "The config parameter should be of type HoodieWriteConfig, reaffirming type safety at entry.",
+    "meta" : [ ]
+  } ]
+}

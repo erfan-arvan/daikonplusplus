@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && result.getWriteStatuses() != null && result.getWriteStatuses().size() >= 0",
+    "rationale" : "The method executes a delete action that returns write metadata; thus, result and its write statuses list should be non-null and possibly empty or non-empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "result should be non-null after successful execution and contain a non-null list of WriteStatus objects"
+    } ]
+  }, {
+    "expression" : "keys != null && !keys.isEmpty()",
+    "rationale" : "The keys to delete should not be null and generally not empty for a delete operation.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "keys are used in the delete operation, so likely not null or empty at this point"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime string should be a valid non-empty string representing the commit instant.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime used for commit should be non-null and non-empty string"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext used for the operation should be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "context is required for executing engine operations and should not be null"
+    } ]
+  } ]
+}

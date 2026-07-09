@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "postWrite should return a non-null List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "deletePrepped expects non-null input for preppedRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed through and should remain non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(preppedRecords.isEmpty()) ? !result.isEmpty() : true",
+    "rationale" : "If there are records to delete, expect write statuses to be returned; otherwise, allow empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= preppedRecords.size()",
+    "rationale" : "There cannot be more WriteStatus entries than the records supplied for deletion.",
+    "meta" : [ ]
+  } ]
+}

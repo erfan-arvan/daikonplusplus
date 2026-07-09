@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs and returns a Stream, which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "In typical Spark-style API usage, a parallelism of zero would be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method assumes 'data' Stream is non-null, as methods are invoked on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "flatMapToPairFunc is used as an argument for the 'throwingFlatMapToPairWrapper', so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc is wrapped and used, so it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

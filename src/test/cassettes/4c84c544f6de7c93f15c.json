@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this' unconditionally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.prefWidth.equals(Fixed.valueOf(prefWidth))",
+    "rationale" : "The field 'prefWidth' is set to the fixed-point representation of the argument before the return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.prefWidth.equals(Fixed.valueOf(prefWidth))",
+    "rationale" : "Since 'result == this', the result's 'prefWidth' must equal the fixed-point representation of the argument.",
+    "meta" : [ ]
+  } ]
+}

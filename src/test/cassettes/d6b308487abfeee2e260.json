@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result.getWriteStatuses() == null || result.getWriteStatuses() == result",
+    "rationale" : "The method sets the write statuses of result to the value returned.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "result carries WriteStatus"
+    } ]
+  }, {
+    "expression" : "result == null || result.getWriteStatuses() == null || result.getWriteStatuses().equals(result)",
+    "rationale" : "The result's write statuses content equals the returned value.",
+    "meta" : [ {
+      "key" : "equality",
+      "value" : "content equality between result and its WriteStatuses"
+    } ]
+  }, {
+    "expression" : "result == null || result.getIndexUpdateDuration() != null",
+    "rationale" : "The method always sets the index update duration on result before returning.",
+    "meta" : [ {
+      "key" : "durationSet",
+      "value" : "Index update duration is always set"
+    } ]
+  }, {
+    "expression" : "result == null || result.getWriteStatuses() == result",
+    "rationale" : "Result's write statuses is set to the return value, so the references should match.",
+    "meta" : [ {
+      "key" : "object identity",
+      "value" : "WriteStatuses identity equals result"
+    } ]
+  }, {
+    "expression" : "result == null || result.getWriteStatuses() != null",
+    "rationale" : "WriteStatuses is set before returning, so should not be null unless result is null.",
+    "meta" : [ {
+      "key" : "notNull",
+      "value" : "WriteStatuses is not null if result is not null"
+    } ]
+  } ]
+}

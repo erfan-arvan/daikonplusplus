@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (this.intValue != value)",
+    "rationale" : "Returns true if the new value is different from the old intValue; otherwise returns false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || this.intValue == value",
+    "rationale" : "If the result is false, then intValue must already equal value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == true || result == false",
+    "rationale" : "The method only returns boolean values true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.intValue == value == result",
+    "rationale" : "After a successful change (result == true), intValue always equals value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || this.intValue == value",
+    "rationale" : "If result is false, intValue was not changed and equals value.",
+    "meta" : [ ]
+  } ]
+}

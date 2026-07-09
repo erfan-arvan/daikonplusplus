@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an object created by execute(), which should never return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null && records.size() >= 0",
+    "rationale" : "If execution has reached a return, then records is expected to be an initialized List (possibly empty), never null or negative-sized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is dereferenced/cast in the body and therefore must be non-null at the return point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The commit instant time is typically required and should be non-empty for transactional operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed into another object and must be non-null (even if it may represent Option.empty()).",
+    "meta" : [ ]
+  } ]
+}

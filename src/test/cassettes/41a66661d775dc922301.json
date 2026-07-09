@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata instance as constructed by the executor's execute method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "To perform the insert operation, the input records should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is identifying the commit and should be non-null and non-empty for a valid insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext is required to perform the insert action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata result should return a non-null List of WriteStatus from its getter.",
+    "meta" : [ ]
+  } ]
+}

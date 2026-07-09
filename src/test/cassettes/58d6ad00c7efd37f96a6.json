@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Engine context objects are generally non-null for method operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time strings are typically required and not null for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime instanceof String",
+    "rationale" : "The parameter instantTime is declared as String, so this is guaranteed at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "The parameter context is declared as HoodieEngineContext, so this must hold at method entry.",
+    "meta" : [ ]
+  } ]
+}

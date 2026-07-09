@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result instanceof MapLayer",
+    "rationale" : "Ensures the returned value is null or a MapLayer, as documented and by method return type.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "instanceof check"
+    } ]
+  }, {
+    "expression" : "result == null || result != this",
+    "rationale" : "Returned parent should not be the current layer itself, avoiding self-parenting.",
+    "meta" : [ {
+      "key" : "self-reference-safety",
+      "value" : "no trivial cyclic reference"
+    } ]
+  }, {
+    "expression" : "result == null || result.getParent() != this",
+    "rationale" : "Immediate parent of this layer, if it exists, should not point back to this layer, avoiding immediate cycles.",
+    "meta" : [ {
+      "key" : "hierarchy",
+      "value" : "no direct cyclic parent link"
+    } ]
+  } ]
+}

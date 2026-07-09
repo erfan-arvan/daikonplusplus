@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "align >= 0",
+    "rationale" : "Align values are typically non-negative bitfield flags or enumerations in UI code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "align <= 15",
+    "rationale" : "Possible alignments in libGDX Scene2D UI are often in the range of 0-15 (combinations of LEFT, RIGHT, TOP, BOTTOM, CENTER).",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & ~15) == 0",
+    "rationale" : "Align is likely used as a bitmask with valid flags in the lower 4 bits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & align) == align",
+    "rationale" : "Bitwise AND of align with itself is always align; included in case align represents a bitmask.",
+    "meta" : [ ]
+  } ]
+}

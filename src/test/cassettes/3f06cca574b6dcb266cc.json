@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method accesses layer for method calls; null would likely cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() == null || layer.getTextureRegion().getTexture() != null",
+    "rationale" : "If getTextureRegion() is non-null, it is used for drawing later and must have a valid texture.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getX() >= 0",
+    "rationale" : "X coordinate is typically non-negative for visible map layers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getY() >= 0",
+    "rationale" : "Y coordinate is typically non-negative for visible map layers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxX() >= 0",
+    "rationale" : "Parallax factors are usually non-negative (>= 0) in graphics/tiled map code.",
+    "meta" : [ ]
+  } ]
+}

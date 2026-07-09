@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "table != null",
+    "rationale" : "The method implementation dereferences 'table', so it must be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "The method body calls methods on 'pendingCompactionTimeline', so it must be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "The method compares 'operationType' to an enum constant, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "InstantTime is dereferenced as an argument to a method call, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getInstantGenerator() != null",
+    "rationale" : "The method immediately calls 'table.getInstantGenerator()', so it must return non-null.",
+    "meta" : [ ]
+  } ]
+}

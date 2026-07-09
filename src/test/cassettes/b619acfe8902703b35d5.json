@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "this.icon == icon",
+    "rationale" : "After the assignment, the field 'icon' of 'this' must reference the value of the parameter 'icon'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.icon != null == (icon != null)",
+    "rationale" : "The nullity of the field 'icon' reflects the nullity of the input parameter 'icon' at this exit point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "icon == null || this.icon.equals(icon)",
+    "rationale" : "If 'icon' is not null, then 'this.icon' should be equal to 'icon' due to direct assignment.",
+    "meta" : [ ]
+  } ]
+}

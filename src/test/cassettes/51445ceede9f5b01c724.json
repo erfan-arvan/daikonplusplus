@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of calling 'execute()', which should produce non-null metadata on success.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The parameter hoodieRecords is expected to exist because it is passed to a downstream API.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required field for commit operations and is used as method parameter and passed to another API.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is required to construct the internal executor, so it must not be null here.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "It is expected that the method returns a non-null HoodieWriteMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The action likely requires a non-null instantTime to perform the upsert and ensure correct result generation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method likely requires a non-null records list to perform the upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The operation uses context to coordinate the execution and should not be called with a null context.",
+    "meta" : [ ]
+  } ]
+}

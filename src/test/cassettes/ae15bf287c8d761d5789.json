@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rectangle != null",
+    "rationale" : "rectangle must not be null to safely invoke rectangle.getY()",
+    "meta" : [ ]
+  }, {
+    "expression" : "rectangle.getY() >= 0",
+    "rationale" : "Y coordinates are often non-negative in graphical contexts",
+    "meta" : [ ]
+  }, {
+    "expression" : "rectangle.getHeight() >= 0",
+    "rationale" : "Rectangles typically have non-negative height",
+    "meta" : [ ]
+  }, {
+    "expression" : "rectangle.getWidth() >= 0",
+    "rationale" : "Rectangles typically have non-negative width",
+    "meta" : [ ]
+  }, {
+    "expression" : "rectangle.getY() <= rectangle.getY() + rectangle.getHeight()",
+    "rationale" : "The bottom edge is at or below the Y position",
+    "meta" : [ ]
+  } ]
+}

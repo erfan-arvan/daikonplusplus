@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Required because config is dereferenced as an argument to JavaHoodieIndexFactory.createIndex(config).",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required argument to getIndex and is likely to be used in downstream logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexType() != null",
+    "rationale" : "Index type is a fundamental property often needed for index construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getWriteConcurrencyMode() != null",
+    "rationale" : "Write concurrency mode is a key configuration aspect for index creation and operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName() != null && !config.getTableName().isEmpty()",
+    "rationale" : "A valid table name is typically required in config for index operations.",
+    "meta" : [ ]
+  } ]
+}

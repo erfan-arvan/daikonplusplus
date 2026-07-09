@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "type != null",
+    "rationale" : "Method uses 'type' as a key; if null, resources.get(type) will likely not find a resource.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "name is used as a key in typeResources.containsKey(name), which requires a non-null parameter.",
+    "meta" : [ ]
+  } ]
+}

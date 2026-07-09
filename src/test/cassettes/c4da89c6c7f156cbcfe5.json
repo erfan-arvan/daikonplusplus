@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returning null for List<WriteStatus> is likely avoided in Java APIs; empty list preferred.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The method requires a valid (non-null, non-empty) instant time for write operations.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Caller must pass a non-null record list to upsert; null records would likely fail early.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method's contract guarantees a List<WriteStatus> result.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "trivial"
+    } ]
+  } ]
+}

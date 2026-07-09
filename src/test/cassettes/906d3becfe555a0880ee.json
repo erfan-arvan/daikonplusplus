@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "The method is not expected to handle null clusteringPlan, so this is likely an implicit precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "The method expects a valid schema to define the data, so null schema is likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The clustering instant time should be a valid, non-empty string to identify the clustering operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getInputGroups() != null",
+    "rationale" : "The method directly calls getInputGroups() on clusteringPlan, so non-null result is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getStrategy() != null",
+    "rationale" : "The method uses clusteringPlan.getStrategy() to retrieve the strategy parameters, so it should not be null.",
+    "meta" : [ ]
+  } ]
+}

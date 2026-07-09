@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to always return a HoodieWriteMetadata object, not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata is constructed from a write operation, so its contained write statuses should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "Result is either exactly HoodieWriteMetadata or a subclass, as per return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof java.util.List",
+    "rationale" : "The type within HoodieWriteMetadata is List<WriteStatus>, so the write statuses must be a list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().isEmpty() || result.getWriteStatuses().get(0) != null",
+    "rationale" : "If the list isn't empty, it should contain at least one WriteStatus that is not null.",
+    "meta" : [ ]
+  } ]
+}

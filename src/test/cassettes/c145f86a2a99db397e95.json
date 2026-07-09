@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List by applying collect(Collectors.toList()), which cannot return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(Objects::nonNull)",
+    "rationale" : "The method filters out nulls before collecting into the result, ensuring all elements are non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "The deduplication logic groups and reduces input records, possibly decreasing or preserving the count.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schemaStr != null",
+    "rationale" : "schemaStr is passed directly to HoodieSchema.parse, which expects a non-null string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "The parallelism parameter likely controls parallel processing degree and should be positive.",
+    "meta" : [ ]
+  } ]
+}

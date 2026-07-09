@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method operates on 'layer', and it must be non-null to reach this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isVisible()",
+    "rationale" : "Method immediately returns if 'layer' is not visible, so any further execution implies it is visible.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(layer instanceof MapGroupLayer) || ((MapGroupLayer)layer).getLayers() != null",
+    "rationale" : "To execute the group-layer branch, childLayers is accessed, which must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(layer instanceof MapGroupLayer) || ((MapGroupLayer)layer).getLayers().size() >= 0",
+    "rationale" : "A MapLayers object should have a non-negative size, as used in the 'for' loop.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(layer instanceof TiledMapTileLayer) || ((TiledMapTileLayer)layer).isVisible()",
+    "rationale" : "Tile layers passed to renderTileLayer must also be visible, implied by the initial visible check.",
+    "meta" : [ ]
+  } ]
+}

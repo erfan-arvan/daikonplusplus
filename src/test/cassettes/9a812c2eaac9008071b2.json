@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null",
+    "rationale" : "writeStatus is a parameter and should not be null to perform potential operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required engine context parameter and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is a configuration parameter and required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be a valid time string and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "instantTime should represent a timestamp and usually should not be empty.",
+    "meta" : [ ]
+  } ]
+}

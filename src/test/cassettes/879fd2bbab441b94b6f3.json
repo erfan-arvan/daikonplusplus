@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method expects records parameter to be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is expected to be provided for engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "Operation requires a HoodieTable instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof HoodieData",
+    "rationale" : "records should be an instance of HoodieData as per the parameter type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.count() >= 0",
+    "rationale" : "The count of records should be non-negative if count is implemented per standard semantics.",
+    "meta" : [ ]
+  } ]
+}

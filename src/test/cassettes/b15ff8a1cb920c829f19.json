@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method is expected to process the records list, so it likely must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is required for this table operation, so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime marks the commit action and is required, so likely cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.size() == 0",
+    "rationale" : "If the records list is not empty, its size is not zero, and vice versa.",
+    "meta" : [ ]
+  } ]
+}

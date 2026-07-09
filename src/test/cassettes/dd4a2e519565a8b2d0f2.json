@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null && !activeModule.isEmpty()",
+    "rationale" : "The module name is typically a non-empty string to provide meaningful job status context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null && !activityDescription.isEmpty()",
+    "rationale" : "An activity description is generally expected to be a non-empty string for proper status reporting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.equals(activityDescription)",
+    "rationale" : "The module and activity description are likely conceptually different inputs and are rarely exactly the same.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule != null || activityDescription != null",
+    "rationale" : "It is expected that at least one of the parameters is provided to identify either the module or the activity.",
+    "meta" : [ ]
+  } ]
+}

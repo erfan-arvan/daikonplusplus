@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == style.imageDisabled || result == style.imageCheckedDown || result == style.imageDown || result == style.imageCheckedOver || result == style.imageOver || result == style.imageChecked || result == style.imageUp",
+    "rationale" : "The method returns one of these fields from 'style' only, as seen in the control flow.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Drawable because all style fields are checked for null before returning; the final fallback (style.imageUp) is always returned, assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == style.imageDisabled ? (isDisabled() && style.imageDisabled != null) : true",
+    "rationale" : "If the result is imageDisabled, it must be because isDisabled() and style.imageDisabled != null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == style.imageCheckedDown ? (isPressed() && isChecked() && style.imageCheckedDown != null) : true",
+    "rationale" : "If the result is imageCheckedDown, it must be because isPressed(), isChecked(), and style.imageCheckedDown != null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == style.imageUp ? (!isDisabled() && !isPressed() && !isOver() && (!isChecked() || style.imageChecked == null && !(isOver() && style.imageOver != null))) : true",
+    "rationale" : "The only way imageUp is returned is if none of the other conditional returns are true.",
+    "meta" : [ ]
+  } ]
+}

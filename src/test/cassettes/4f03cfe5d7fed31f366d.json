@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "It is common to expect non-null strings when retrieving resources by name to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.isEmpty() || !name.isEmpty()",
+    "rationale" : "This covers all possibilities for the string parameter, ensuring all branches are considered.",
+    "meta" : [ ]
+  } ]
+}

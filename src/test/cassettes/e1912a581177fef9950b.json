@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "From the context, bucketNumber is an int that represents a bucket index, which is unlikely to be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "The method always casts key and dereferences it, so key must not be null here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key instanceof Pair",
+    "rationale" : "The code casts key to Pair<HoodieKey, Option<HoodieRecordLocation>>, so the runtime type must conform.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != Integer.MIN_VALUE",
+    "rationale" : "bucketNumber is set from a list index or a map value and is not expected to equal Integer.MIN_VALUE, which is a sentinel for error in some partitioners.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == ((Pair<HoodieKey, Option<HoodieRecordLocation>>)key).getRight().isPresent() ? updateLocationToBucket.get(((Pair<HoodieKey, Option<HoodieRecordLocation>>)key).getRight().get().getFileId()) : result",
+    "rationale" : "If getRight().isPresent() is true, the result is exactly the mapped bucket from updateLocationToBucket.",
+    "meta" : [ ]
+  } ]
+}

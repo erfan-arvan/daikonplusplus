@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The map is dereferenced to getTiledSets() and potentially used to create objects, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects != null",
+    "rationale" : "The objects collection is always used and added to; it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is dereferenced continuously (getName(), getFloatAttribute(), etc.), so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "heightInPixels >= 0",
+    "rationale" : "heightInPixels is subtracted from attribute values and used as a graphical measurement, so negative values would likely be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getChildCount() >= 0",
+    "rationale" : "A child count should never be negative.",
+    "meta" : [ ]
+  } ]
+}

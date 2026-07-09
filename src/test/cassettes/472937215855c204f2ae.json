@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned list is a result of collecting over streams, which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data is streamed over and must not be null for the method's logic to execute without exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is applied within a flatMap and must not be null to safely evaluate the stream pipeline.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "parallelism is passed to indicate the parallel level; calling .parallel() typically only makes sense when positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "result is explicitly collected as a List by toList().",
+    "meta" : [ ]
+  } ]
+}

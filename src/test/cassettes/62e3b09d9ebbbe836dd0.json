@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null || x >= Integer.MIN_VALUE",
+    "rationale" : "Ensuring name is not null before calling methods on it.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "name can be null, so check is necessary before length() call"
+    } ]
+  }, {
+    "expression" : "x == (int) x",
+    "rationale" : "Parameter x is of type int, so this equality holds.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "int"
+    } ]
+  }, {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "If name is not null, its length is always non-negative.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "String"
+    } ]
+  }, {
+    "expression" : "name == null || name.length() <= Integer.MAX_VALUE",
+    "rationale" : "Length of a string is at most Integer.MAX_VALUE (by Java specification).",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "String"
+    } ]
+  }, {
+    "expression" : "x <= Integer.MAX_VALUE",
+    "rationale" : "x is an int, so always within Integer.MAX_VALUE.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "int"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of postWrite, which is expected to return a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is provided by the caller and used as input; it is not validated for null, but typically should not be null for write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is supplied to various method calls without null checks, implying it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method always returns an object of type List (typically ArrayList or similar) according to its declared return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "Any Java List's size() is always non-negative by contract.",
+    "meta" : [ ]
+  } ]
+}

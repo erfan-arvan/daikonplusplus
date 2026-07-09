@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a non-null HoodiWriteMetadata on normal execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class",
+    "rationale" : "The method guarantees the return of a HoodieWriteMetadata instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses are expected to be included in the metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The write statuses contained in the metadata should be a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

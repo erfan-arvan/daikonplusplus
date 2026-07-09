@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "The main method's args array is always allocated by the Java runtime and is non-null with a length >= 0.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "In Java, a String[] argument array to main is never null and has a length >= 0"
+    } ]
+  }, {
+    "expression" : "args instanceof String[]",
+    "rationale" : "The parameter args must always be an instance of String[].",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Parameter is declared as String[], so it must be instance of String[]"
+    } ]
+  } ]
+}

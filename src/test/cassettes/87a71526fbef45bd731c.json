@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of IOUtils.runMerge, which should be non-null if merging is successful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "By construction, result is the return value of IOUtils.runMerge and conforms to the declared return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The method gets keyToNewRecords from its parameters and passes it to getUpdateHandle; it's typically assumed to be non-null for updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "oldDataFile is used for updates and is passed directly to getUpdateHandle; it is generally required and thus non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && partitionPath != null && fileId != null",
+    "rationale" : "These parameters identify the update and are necessary for correct operation of merging logic.",
+    "meta" : [ ]
+  } ]
+}

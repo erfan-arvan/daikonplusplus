@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Factory methods typically return a non-null index unless there is an error, and there's no check for null before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "By method signature, result must implement HoodieIndex, and the factory's contract suggests such.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == JavaHoodieIndexFactory.createIndex(config)",
+    "rationale" : "The method's return statement returns exactly the factory result for the given config, regardless of context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Config is passed directly into the factory method, which likely expects a non-null argument.",
+    "meta" : [ ]
+  } ]
+}

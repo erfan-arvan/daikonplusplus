@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieMergeHandle created by HoodieMergeHandleFactory.create, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required for record updates and is used unconditionally in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed unconditionally and used in handle creation, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is required for locating the file to update and is directly passed into the handle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "keyToNewRecords is passed to the handle creation method and is expected to not be null.",
+    "meta" : [ ]
+  } ]
+}

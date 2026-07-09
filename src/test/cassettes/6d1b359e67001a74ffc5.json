@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && result.isPresent() == (result.get() != null)",
+    "rationale" : "If the option has a value, the value should be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If result is present, then value is not null."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime must be a non-null, non-empty string.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is a String representing a cluster instant time, usually cannot be null or empty."
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is an Option and should never be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The option wrapper extraMetadata should not be null."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context object should be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Context used to execute clustering must not be null."
+    } ]
+  } ]
+}

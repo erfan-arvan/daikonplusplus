@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method either returns a non-null name or a synthesized string, both of which are non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "Both return paths guarantee a non-empty string: either a name or a generated string describing the object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.indexOf(':') != -1 || getName() != null",
+    "rationale" : "If the returned string does not represent the name, the return expression always contains a colon separator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getName() == null || result.equals(getName())",
+    "rationale" : "If getName() is not null, the method returns it as the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getName() != null || result.contains(\": \")",
+    "rationale" : "If there is no name, the resulting string always contains the colon separator used in the fallback format.",
+    "meta" : [ ]
+  } ]
+}

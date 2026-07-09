@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An update operation should have a non-null, non-empty instantTime to identify the commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "The partitionPath should be specified for an update, so it's likely non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "A specific fileId is targeted for update, so should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null && !keyToNewRecords.isEmpty()",
+    "rationale" : "The update operation must have new records to update, so the map should be non-null and not empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "handleUpdate operates on an existing data file, so oldDataFile should be non-null.",
+    "meta" : [ ]
+  } ]
+}

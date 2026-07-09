@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The parameter profile should be non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "The input partition path stat map should be initialized and non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The output partition path stat map should be initialized and non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().keySet().containsAll(profile.getOutputPartitionPathStatMap().keySet())",
+    "rationale" : "The output partitions are derived from the input partitions, so output keys should be a subset of input keys.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "output partitions subset of input partitions"
+    } ]
+  }, {
+    "expression" : "!profile.getInputPartitionPathStatMap().isEmpty()",
+    "rationale" : "The method assigns updates only if input partitions exist; at exit input partitions are expected to be non-empty.",
+    "meta" : [ {
+      "key" : "non-emptiness",
+      "value" : "true"
+    } ]
+  } ]
+}

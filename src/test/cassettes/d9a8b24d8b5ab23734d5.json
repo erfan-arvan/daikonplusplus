@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method expects a non-null list of input records.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Parameter should not be null"
+    } ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "List sizes are never negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "Non-negative size"
+    } ]
+  }, {
+    "expression" : "partitionPathStatMap != null",
+    "rationale" : "The map is freshly initialized at method entry.",
+    "meta" : [ {
+      "key" : "local_var",
+      "value" : "initializedMap"
+    } ]
+  }, {
+    "expression" : "globalStat != null",
+    "rationale" : "The WorkloadStat instance is newly created.",
+    "meta" : [ {
+      "key" : "local_var",
+      "value" : "initializedStat"
+    } ]
+  } ]
+}

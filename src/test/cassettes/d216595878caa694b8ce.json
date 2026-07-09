@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "skinFile != null",
+    "rationale" : "The method needs a FileHandle to operate on; most usages will expect skinFile to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skinFile.exists()",
+    "rationale" : "The method attempts to read from the provided FileHandle, which generally expects the file to exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skinFile.isDirectory()",
+    "rationale" : "The skin resource should reference a file, not a directory, to be loaded as a skin JSON.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skinFile.extension().equals(\"json\")",
+    "rationale" : "Conventionally skin resources are in JSON files, so the extension should be 'json'.",
+    "meta" : [ ]
+  } ]
+}

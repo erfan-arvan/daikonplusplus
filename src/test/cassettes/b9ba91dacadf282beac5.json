@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "Method requires keys to operate, and it's common for incoming collections to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table argument must be provided for deduplication logic to use table.getIndex().",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism likely represents the number of threads or partitions and is expected to be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "A Java Collection's size() is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getIndex() != null",
+    "rationale" : "getIndex() must not return null for table to function correctly in deduplication.",
+    "meta" : [ ]
+  } ]
+}

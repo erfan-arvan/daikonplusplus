@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always constructs and returns a new AvroReaderContextFactory, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof AvroReaderContextFactory",
+    "rationale" : "Method returns a new AvroReaderContextFactory instance, so result is always of this type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The method requires a HoodieTableMetaClient to construct the return value, so metaClient is never null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((AvroReaderContextFactory) result).getMetaClient() == metaClient",
+    "rationale" : "The AvroReaderContextFactory is constructed with metaClient, so its internal metaClient reference should be equal to the metaClient parameter.",
+    "meta" : [ ]
+  } ]
+}

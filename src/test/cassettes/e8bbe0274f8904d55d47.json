@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an object created by new CopyOnWriteRestoreActionExecutor(...).execute(), expected to be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns a new HoodieRestoreMetadata object, so result should not be null."
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is a parameter used for restore operation and should be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "restoreInstantTimestamp is passed into the new CopyOnWriteRestoreActionExecutor constructor and likely essential."
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp == null || !savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "If savepointToRestoreTimestamp is given, it's expected to be non-empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "savepointToRestoreTimestamp may be null or non-empty string."
+    } ]
+  }, {
+    "expression" : "result.getRestoreStatus() != null",
+    "rationale" : "The returned metadata should contain a valid restore status, so getRestoreStatus() is non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result is HoodieRestoreMetadata and expected to have a restore status."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context should not be null at method exit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "context is a parameter to the method and required for restore operation."
+    } ]
+  } ]
+}

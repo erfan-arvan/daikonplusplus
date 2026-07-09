@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null || activeModule == null",
+    "rationale" : "Covers exhaustively all possible nullness states for activeModule, though this is trivial given the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null || activityDescription == null",
+    "rationale" : "Covers all possible nullness states for activityDescription, though this is also trivial due to method implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule instanceof String",
+    "rationale" : "Given type declarations, activeModule must be a String at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription instanceof String",
+    "rationale" : "Given type declarations, activityDescription must be a String at exit.",
+    "meta" : [ ]
+  } ]
+}

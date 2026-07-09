@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A method returning a List should not return null, but an empty list if there are no WriteStatus objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Input records should not be null for a bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime representing the commit time should always be set and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type is always a List as per the method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(ws -> ws != null)",
+    "rationale" : "The list of WriteStatus objects should not contain null elements.",
+    "meta" : [ ]
+  } ]
+}

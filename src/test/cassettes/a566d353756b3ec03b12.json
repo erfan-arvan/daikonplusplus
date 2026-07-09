@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator, either from Collections.singletonList().iterator() or new JavaLazyInsertIterable().",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is a required String parameter for handleInsert, and the function does not handle null idPfx values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is required for method function and always used; likely guaranteed non-null by callers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result.hasNext()",
+    "rationale" : "If input records exist, the result Iterator should also have output results.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || (result.next() != null)",
+    "rationale" : "If there are input records, at least one batch of WriteStatus is expected in the result.",
+    "meta" : [ ]
+  } ]
+}

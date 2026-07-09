@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of collecting a stream should never be null; java streams' collect returns a non-null collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Method expects a non-null input list for proper operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List in Java cannot have a negative size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism must be positive to make sense for parallel streams.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(o -> o != null)",
+    "rationale" : "flatMap/throwingFlatMapWrapper are expected to not produce null elements.",
+    "meta" : [ ]
+  } ]
+}

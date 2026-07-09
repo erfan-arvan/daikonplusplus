@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null HoodieWriteMetadata instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses are always set before the HoodieWriteMetadata is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "Schema is a required method parameter and is not modified.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "Clustering plan is a required method parameter and used throughout the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to downstream calls and must not be null.",
+    "meta" : [ ]
+  } ]
+}

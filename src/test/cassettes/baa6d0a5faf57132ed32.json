@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "A null writeStatuses would likely be invalid input for write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The result parameter represents a metadata container and should not be null at the method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

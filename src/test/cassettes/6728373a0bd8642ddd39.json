@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "Method is invoked on an instance; 'this' must be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "buttons != null",
+    "rationale" : "The method accesses 'buttons.size' and 'buttons.get(i)', which implies 'buttons' must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "minCheckCount >= 0",
+    "rationale" : "The minCheckCount field likely represents a minimum count and typical usage indicates it should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "buttons.size >= 0",
+    "rationale" : "By convention, collection sizes are non-negative; 'buttons.size' is used as upper loop bound.",
+    "meta" : [ ]
+  } ]
+}

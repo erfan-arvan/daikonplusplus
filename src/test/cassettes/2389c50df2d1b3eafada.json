@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method is called with instantTime as an argument, and it is passed directly to a method that likely expects it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is used as a commit/action identifier and is unlikely to be expected to be empty.",
+    "meta" : [ ]
+  } ]
+}

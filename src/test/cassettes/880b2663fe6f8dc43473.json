@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null || instantTime != null",
+    "rationale" : "At least one parameter often non-null as method requires context.",
+    "meta" : [ {
+      "key" : "nullSafety",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.size() >= 0",
+    "rationale" : "List size cannot be negative if preppedRecords is not null.",
+    "meta" : [ {
+      "key" : "collectionSize",
+      "value" : "nonNegative"
+    } ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.isEmpty()",
+    "rationale" : "If instantTime is not null, it commonly is non-empty string representing timestamp.",
+    "meta" : [ {
+      "key" : "stringNotEmpty",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "If preppedRecords is given, it should not contain null elements.",
+    "meta" : [ {
+      "key" : "noNullElements",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime == null || instantTime instanceof String",
+    "rationale" : "instantTime should be String or null.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "true"
+    } ]
+  } ]
+}

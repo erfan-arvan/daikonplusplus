@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "wrap || result == prefWidth",
+    "rationale" : "If wrap is true, result is 0; otherwise, it's prefWidth.",
+    "meta" : [ ]
+  }, {
+    "expression" : "wrap == (result == 0)",
+    "rationale" : "If wrap is true, result must be 0; if wrap is false, result cannot be 0 (unless prefWidth is 0).",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == 0) || (result == prefWidth)",
+    "rationale" : "Result is 0 only if wrap is true; otherwise, it's prefWidth (after size potentially recomputed).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!wrap || result == 0",
+    "rationale" : "If wrap is false, result must not be 0 unless prefWidth is 0; ensuring logical implication.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(wrap && result == 0) || (!wrap && result == prefWidth)",
+    "rationale" : "Expresses precisely the two return cases: if wrap, return 0; else return prefWidth.",
+    "meta" : [ ]
+  } ]
+}

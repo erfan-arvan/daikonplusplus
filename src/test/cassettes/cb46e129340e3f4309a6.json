@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method only returns instantiated subclasses; null is never returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "Method only returns for these two table types.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof org.apache.hudi.table.HoodieJavaCopyOnWriteTable || result instanceof org.apache.hudi.table.HoodieJavaMergeOnReadTable",
+    "rationale" : "Returned object is constructed as one of these two types.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null && result instanceof org.apache.hudi.table.HoodieJavaCopyOnWriteTable ? metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE : true",
+    "rationale" : "If result is a CopyOnWriteTable, the table type was COPY_ON_WRITE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null && result instanceof org.apache.hudi.table.HoodieJavaMergeOnReadTable ? metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ : true",
+    "rationale" : "If result is a MergeOnReadTable, the table type was MERGE_ON_READ.",
+    "meta" : [ ]
+  } ]
+}

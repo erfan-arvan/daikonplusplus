@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of an execute() call, so the return value should not be null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The input records list should be non-null for a bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is required for any table operation and should never be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime string is required for write operations; should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "The Option object should be non-null to represent the presence or absence of a partitioner.",
+    "meta" : [ ]
+  } ]
+}

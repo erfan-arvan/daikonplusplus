@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0",
+    "rationale" : "Tiles are usually rendered at non-negative coordinates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "Vertical positions in tiled rendering are generally non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "color >= 0f",
+    "rationale" : "Color values are typically non-negative floats.",
+    "meta" : [ ]
+  }, {
+    "expression" : "color <= 1f",
+    "rationale" : "Color values are often normalized between 0 and 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cell == null || cell.getTile() != null",
+    "rationale" : "If cell is not null, trying to render requires a non-null tile.",
+    "meta" : [ ]
+  } ]
+}

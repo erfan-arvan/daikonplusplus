@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "this.region == region",
+    "rationale" : "After setTextureRegion is called, the field this.region should be set to the argument region.",
+    "meta" : [ ]
+  }, {
+    "expression" : "region == null || region instanceof TextureRegion",
+    "rationale" : "If region is not null, it must be an instance of TextureRegion, consistent with its declared type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getTextureRegion() == region",
+    "rationale" : "If there is a getter named getTextureRegion(), it should return the value just set by setTextureRegion.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime is expected for write operations in Hudi.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The list of prepared records should not be null entering the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option objects representing partitioners should be non-null, even if empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is necessary for engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "An instantTime for bulk operations in Hudi is expected to be a non-empty string.",
+    "meta" : [ ]
+  } ]
+}

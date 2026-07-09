@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method always throws an exception and never completes normally, so 'result' is never assigned a value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "This program point is unreachable due to the thrown exception, so any invariant holds vacuously.",
+    "meta" : [ ]
+  }, {
+    "expression" : "throw new HoodieNotSupportedException(\"ScheduleCompaction is not supported on a CopyOnWrite table\") is always executed",
+    "rationale" : "The method unconditionally throws this exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "All input parameters must be non-null for the method invocation to take place.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null && instantTime != null",
+    "rationale" : "All input parameters are required to be non-null before an exception is thrown.",
+    "meta" : [ ]
+  } ]
+}

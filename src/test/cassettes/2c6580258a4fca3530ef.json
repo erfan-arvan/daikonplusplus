@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Map object either from a new HashMap instance or from the context.mapToPair call, with no path returning null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() == 0 || result.size() == partitionPaths.size()",
+    "rationale" : "If partitionPaths is not null and not empty, the map keys are 1:1 with the input partitions; otherwise, the map is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getParquetSmallFileLimit() <= 0 || (partitionPaths != null && partitionPaths.size() > 0) || result.isEmpty()",
+    "rationale" : "If the size limit is positive, non-trivial results only occur if there are non-empty partitionPaths, otherwise result is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getParquetSmallFileLimit() <= 0 || result.keySet().containsAll(partitionPaths)",
+    "rationale" : "When the small file limit is positive with non-empty partition paths, the result's keys match the input partitions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || partitionPaths == null || partitionPaths.isEmpty() || config.getParquetSmallFileLimit() <= 0",
+    "rationale" : "The result can only be empty if at least one of these preconditions is met.",
+    "meta" : [ ]
+  } ]
+}

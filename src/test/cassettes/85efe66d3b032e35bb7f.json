@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null && data.stream().count() >= 0",
+    "rationale" : "The number of elements in data is non-negative since count() is always >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "consumer must not be null to be used in forEach processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "parallelism is likely required to be a positive integer for parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data is passed to stream() and forEach, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().noneMatch(x -> x == null)",
+    "rationale" : "forEach would throw a NullPointerException if data contains nulls and consumer does not accept them.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= super.getPrefWidth()",
+    "rationale" : "Because result is the maximum of super.getPrefWidth() and the sum involving titleTable, it must be at least as large as super.getPrefWidth().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= titleTable.getPrefWidth() + getPadLeft() + getPadRight()",
+    "rationale" : "Result is the maximum of this sum and super.getPrefWidth(), so it must be at least as large as this sum.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Math.max(super.getPrefWidth(), titleTable.getPrefWidth() + getPadLeft() + getPadRight())",
+    "rationale" : "This directly reflects the expression returned by the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "If getPrefWidth() from super and titleTable, as well as getPadLeft() and getPadRight(), return non-negative values (commonly the case for UI dimensions), then result is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == super.getPrefWidth() || result == titleTable.getPrefWidth() + getPadLeft() + getPadRight()",
+    "rationale" : "Since result is the maximum of only two values, it must be equal to one or the other.",
+    "meta" : [ ]
+  } ]
+}

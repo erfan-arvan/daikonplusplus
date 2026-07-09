@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of another method call, which is expected to provide a non-null iterator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result.hasNext()",
+    "rationale" : "If the input iterator has elements, typically the result iterator should produce at least one batch.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "The partition parameter is required for downstream logic and likely should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "A partitioner is essential for partitioning, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid non-empty instantTime is necessary for commit/write operations tracking.",
+    "meta" : [ ]
+  } ]
+}

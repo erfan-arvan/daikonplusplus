@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "Method logic uses 'element' heavily and assumes non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers.add(layer) is called; parentLayers is expected to be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "map is used in y adjustment (e.g., mapHeightInPixels possibly from map fields).",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is required for handle computation and image resolution if an image layer is loaded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver.getImage(...) is called to resolve the texture; imageResolver must be non-null.",
+    "meta" : [ ]
+  } ]
+}

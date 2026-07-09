@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid commit should require a non-null instantTime to uniquely identify the commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null && !writeStatuses.isEmpty()",
+    "rationale" : "Committing is meaningful only if there is at least one WriteStatus to commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null && !commitActionType.isEmpty()",
+    "rationale" : "A non-empty commitActionType is necessary to specify the type of commit operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "The map of partitions to replaced file ids is required for maintaining commit metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraPreCommitFunc != null",
+    "rationale" : "The Option wrapper for the pre-commit function should be non-null, even if it may be Option.empty().",
+    "meta" : [ ]
+  } ]
+}

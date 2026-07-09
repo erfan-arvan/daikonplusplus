@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of bulkInsert, which should not be null under expected execution.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "By method signature, the returned value should always be of the declared generic type.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  } ]
+}

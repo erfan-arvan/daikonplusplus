@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "The method requires 'tile' to be non-null to perform map object population.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "'tileElement' is accessed for child elements, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"objectgroup\") == null || tileElement.getChildByName(\"objectgroup\").getChildrenByName(\"object\").size >= 0",
+    "rationale" : "Getting children returns a collection whose size is always at least 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"objectgroup\") == null || tileElement.getChildByName(\"objectgroup\") != null",
+    "rationale" : "After conditional check, safe to use this child accessor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"objectgroup\") == null || (tileElement.getChildByName(\"objectgroup\").getChildrenByName(\"object\") != null)",
+    "rationale" : "If 'objectgroup' element is present, its children list is safely accessible.",
+    "meta" : [ ]
+  } ]
+}

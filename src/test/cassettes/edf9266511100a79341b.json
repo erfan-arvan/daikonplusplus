@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "StorageConfiguration parameter is required to create a metadata writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "HoodieWriteConfig must not be null for creating a metadata writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "A failed writes cleanup policy is essential for this factory method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext must be present to create the writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "Option<String> parameters are usually initialized, even if empty.",
+    "meta" : [ ]
+  } ]
+}

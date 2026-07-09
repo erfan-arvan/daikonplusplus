@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element == null || \"properties\".equals(element.name())",
+    "rationale" : "Method returns immediately unless element is null or its name is 'properties'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties != null",
+    "rationale" : "Method takes MapProperties as a parameter and assumes it is not null throughout for property loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || element.isArray()",
+    "rationale" : "The for-each loop over 'element' indicates that, if not null, 'element' must be iterable (likely an array or similar).",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || element.name() != null",
+    "rationale" : "If element is not null, its name is checked and compared, suggesting the presence of a valid name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || element.size > 0 || element.iterator().hasNext() == false",
+    "rationale" : "If element is not null, either it contains children to iterate or the iterator has no next (covers both cases).",
+    "meta" : [ ]
+  } ]
+}

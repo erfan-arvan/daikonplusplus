@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null || columnsToIndex == null",
+    "rationale" : "The parameter is in scope and may be null or non-null; no modification occurs.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "columnsToIndex can be null or non-null since it's a parameter, method does not modify it."
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex instanceof List",
+    "rationale" : "Parameter type ensures this invariant.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "columnsToIndex is expected to be a List<String> if non-null."
+    } ]
+  } ]
+}

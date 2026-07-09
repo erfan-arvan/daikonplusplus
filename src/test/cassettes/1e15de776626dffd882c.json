@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is returned by execute(), so expected to be non-null in normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is passed through to the action executor and likely required to identify what to roll back.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant is central for rollback operation, and is passed through to the underlying executor, so is expected non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRollbackMetadata",
+    "rationale" : "The method returns a HoodieRollbackMetadata, so result must be instance of this type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required to execute rollback logic; the method does not mention handling null context.",
+    "meta" : [ ]
+  } ]
+}

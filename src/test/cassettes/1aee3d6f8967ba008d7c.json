@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method collects a sorted Stream into a list and returns it; collect(Collectors.toList()) never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The sorted operation is a permutation and does not drop or add any elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null ? result.containsAll(records) : true",
+    "rationale" : "All input records appear in the output, assuming input is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null ? records.containsAll(result) : true",
+    "rationale" : "No elements are added; all elements in the result are from the input, assuming input is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(result.stream().sorted((o1, o2) -> getComparableSortColumns(o1).compareTo(getComparableSortColumns(o2))).collect(java.util.stream.Collectors.toList()))",
+    "rationale" : "The result list is sorted according to the comparator used.",
+    "meta" : [ ]
+  } ]
+}

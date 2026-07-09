@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "min != null",
+    "rationale" : "min is provided to setFilter and must not be null to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mag != null",
+    "rationale" : "mag is provided to setFilter and must not be null to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "trackedTextures.isEmpty()",
+    "rationale" : "trackedTextures.clear() is called at the end of the method, so it should be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min == Texture.TextureFilter.Linear || min == Texture.TextureFilter.Nearest",
+    "rationale" : "min is likely expected to be a valid enum constant of TextureFilter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mag == Texture.TextureFilter.Linear || mag == Texture.TextureFilter.Nearest",
+    "rationale" : "mag is likely expected to be a valid enum constant of TextureFilter.",
+    "meta" : [ ]
+  } ]
+}

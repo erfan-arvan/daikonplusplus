@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method uses context in a cast, suggesting it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to another component and likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords is passed along and likely cannot be null for upsert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime probably identifies a commit instant and should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || hoodieRecords.get(0) != null",
+    "rationale" : "If hoodieRecords is not empty, its elements should be non-null records.",
+    "meta" : [ ]
+  } ]
+}

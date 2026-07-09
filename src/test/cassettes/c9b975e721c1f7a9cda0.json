@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "Method operates on tmjFile and would likely require it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is passed directly to another method and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.exists()",
+    "rationale" : "FileHandle parameters are typically expected to point to an existing file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet.isObject()",
+    "rationale" : "Tile set JSON values often represent objects; ensures downstream object-field accesses are safe.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!tileSet.isNull()",
+    "rationale" : "Prevents dereferencing null JsonValues, mirroring a null check in code but using JsonValue API.",
+    "meta" : [ ]
+  } ]
+}

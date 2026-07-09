@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "frameTiles != null",
+    "rationale" : "Method returns frameTiles; null would likely be an invalid state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "frameTiles.length > 0",
+    "rationale" : "Animated tiles should be defined by at least one frame.",
+    "meta" : [ ]
+  }, {
+    "expression" : "frameTiles[0] != null",
+    "rationale" : "First frame should be a valid StaticTiledMapTile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "frameTiles.length >= 1",
+    "rationale" : "Array should not be empty if animation is present.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a non-null HoodieWriteMetadata object as a result of the write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Since the return type is HoodieWriteMetadata<List<WriteStatus>>, the result should be an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

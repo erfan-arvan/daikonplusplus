@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "autocompleteOptions != null",
+    "rationale" : "It is common (but not required) for array-typed arguments to be non-null, especially when they represent a set of options for internal logic. The method assigns this to a field, so callers likely intend to provide an initialized array.",
+    "meta" : [ ]
+  }, {
+    "expression" : "autocompleteOptions.length >= 0",
+    "rationale" : "Java arrays always have a non-negative length, so this is a safe invariant if autocompleteOptions is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "autocompleteOptions == null || autocompleteOptions.length >= 0",
+    "rationale" : "If autocompleteOptions is null, accessing the length would throw, so this safely expresses non-negative length when array is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "autocompleteOptions == null || autocompleteOptions.getClass().isArray()",
+    "rationale" : "If autocompleteOptions is non-null, it is guaranteed to be an array.",
+    "meta" : [ ]
+  } ]
+}

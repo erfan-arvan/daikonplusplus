@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method is entered with a non-null context parameter as per the method signature and usage.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The method is entered with a non-null Option parameter extraMetadata as per the method signature.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "!extraMetadata.isPresent() || extraMetadata.get() != null",
+    "rationale" : "If extraMetadata is present, the underlying map should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "extraMetadata.isPresent() == false || extraMetadata.get().size() >= 0",
+    "rationale" : "If extraMetadata is present, the map size is non-negative by definition.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

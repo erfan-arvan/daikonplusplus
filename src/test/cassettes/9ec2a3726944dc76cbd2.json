@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a list of WriteStatus which should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null at method exit"
+    } ]
+  }, {
+    "expression" : "records == null || result.size() <= records.size()",
+    "rationale" : "The number of WriteStatus entries should not exceed the number of input records.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "result size is at most input records size"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter should be a valid non-null string.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(ws -> ws != null) || result.isEmpty()",
+    "rationale" : "All WriteStatus elements in the result list should be non-null. Provided as a style expression to indicate this invariant, not a lambda.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "no null entries in result list"
+    } ]
+  }, {
+    "expression" : "records != null || result.isEmpty()",
+    "rationale" : "If the input records list is null, the result should be empty (free from processing). This assumes method handles null gracefully.",
+    "meta" : [ {
+      "key" : "conditional_relation",
+      "value" : "if records null, result empty"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Method expects to operate on a non-null List; passing null would result in a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords instanceof List",
+    "rationale" : "The parameter must be a List, as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.stream().allMatch(record -> record != null)",
+    "rationale" : "Subsequent processing expects all records to be non-null.",
+    "meta" : [ ]
+  } ]
+}

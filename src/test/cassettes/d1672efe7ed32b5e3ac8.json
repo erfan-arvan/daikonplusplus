@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getName().equals(\"objectgroup\") || !element.getName().equals(\"objectgroup\")",
+    "rationale" : "Covers the only two possibilities for element's name in the method's logic branch.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is used unconditionally if element.getName().equals(\"objectgroup\"), indicating it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "map is passed to several method calls and thus likely required to be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is dereferenced via getName(), so must be non-null at method exit.",
+    "meta" : [ ]
+  } ]
+}

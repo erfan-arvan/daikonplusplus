@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Method execution relies on 'layer' being non-null for method calls and type checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isVisible() == true || layer.isVisible() == false",
+    "rationale" : "isVisible() is expected to return a boolean value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer instanceof MapLayer",
+    "rationale" : "'layer' is declared as type MapLayer, so this holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(layer instanceof MapGroupLayer) || ((MapGroupLayer)layer).getLayers() != null",
+    "rationale" : "If 'layer' is a MapGroupLayer, then 'getLayers()' must be safe to call and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(layer instanceof TiledMapTileLayer) || ((TiledMapTileLayer)layer).isVisible() == true || ((TiledMapTileLayer)layer).isVisible() == false",
+    "rationale" : "If 'layer' is a TiledMapTileLayer, 'isVisible()' is expected to be a valid boolean method.",
+    "meta" : [ ]
+  } ]
+}

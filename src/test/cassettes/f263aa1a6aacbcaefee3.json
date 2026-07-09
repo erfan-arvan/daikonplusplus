@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is likely required for bulk insert functionality.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is an important configuration for partitioning before a bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "A list in Java never has negative size, expressing a basic property of inputRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() == (inputRecords.size() == 0)",
+    "rationale" : "For all Java lists, .isEmpty() is equivalent to .size() == 0.",
+    "meta" : [ ]
+  } ]
+}

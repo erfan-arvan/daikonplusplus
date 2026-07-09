@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0.0f",
+    "rationale" : "In many input systems, touch coordinates are non-negative, representing positions within a control area.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "bound"
+    } ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "Similarly, y likely represents a screen or widget position, which is commonly non-negative.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "bound"
+    } ]
+  }, {
+    "expression" : "isTouchUp || !isTouchUp",
+    "rationale" : "isTouchUp is a boolean parameter, and thus always true or false at this point.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "boolean completeness"
+    } ]
+  }, {
+    "expression" : "java.lang.Float.isFinite(x)",
+    "rationale" : "Input float parameters for coordinates should be finite for correct processing.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "sanity"
+    } ]
+  }, {
+    "expression" : "java.lang.Float.isFinite(y)",
+    "rationale" : "Input float parameters for coordinates should not be infinity or NaN.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "sanity"
+    } ]
+  } ]
+}

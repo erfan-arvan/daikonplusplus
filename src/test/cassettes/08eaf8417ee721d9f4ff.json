@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method must return a List of WriteStatus; returning null would likely violate contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "The declared return type is List<WriteStatus>; it should always be a List instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preserveHoodieMetadata == false || preserveHoodieMetadata == true",
+    "rationale" : "preserveHoodieMetadata is a boolean parameter, so its only possible values are true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method relies on accessing clusteringGroup and its getters, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is passed to other methods; it must not be null or those calls would fail.",
+    "meta" : [ ]
+  } ]
+}

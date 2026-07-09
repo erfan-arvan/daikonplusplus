@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "The method immediately dereferences tile (calling getProperties()), so tile is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement is dereferenced to call getAttribute and getChildByName, so it must be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getProperties() != null",
+    "rationale" : "The method stores the result of tile.getProperties() and subsequently uses it, implying it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!tileElement.getAttribute(\"terrain\", null).isEmpty() || tileElement.getAttribute(\"terrain\", null) == null",
+    "rationale" : "If the 'terrain' attribute is present and not null, it may be an empty string, otherwise it is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"properties\") == null || tileElement.getChildByName(\"properties\") != null",
+    "rationale" : "If a child named \"properties\" exists, it may be used; otherwise it is null, and both cases are anticipated by later code.",
+    "meta" : [ ]
+  } ]
+}

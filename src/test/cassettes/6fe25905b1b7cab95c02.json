@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method is likely to require a non-null HoodieWriteConfig to function properly, and downstream method calls would expect config to be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "A non-null StorageConfiguration is necessary for most table creation logic, as it configures storage details.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(skipValidation) || config != null",
+    "rationale" : "If skipValidation is false (i.e., validation is not skipped), then config must be non-null for validation to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(skipValidation) || storageConf != null",
+    "rationale" : "If skipValidation is false, some validation of the storage configuration may take place, which would require storageConf to be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "It is likely required that the list of records to insert is provided (i.e., not null) at the entry of the bulk insert method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime (commit time) string is likely required to perform a bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid engine context must be provided to the method for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A Java List's size is never negative, thus this is always true if records is a valid list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Even though Option may be empty, the object itself should not be null at the method entry to check for presence safely.",
+    "meta" : [ ]
+  } ]
+}

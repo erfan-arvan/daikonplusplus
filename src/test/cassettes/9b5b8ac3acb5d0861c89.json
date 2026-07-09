@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "file is used for extension extraction and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "manager is used in downstream loader calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "extension is always invoked on file; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "loadSync always returns a TiledMap object or throws.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension().equalsIgnoreCase(\"tmx\") || file.extension().equalsIgnoreCase(\"tmj\")",
+    "rationale" : "Unsupported extensions result in an exception; thus only tmx/tmj map extensions are accepted.",
+    "meta" : [ ]
+  } ]
+}

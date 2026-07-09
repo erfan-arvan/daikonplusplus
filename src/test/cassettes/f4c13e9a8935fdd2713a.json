@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "Non-null instant times are typically required for rollback operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A valid commit instant is generally necessary to perform a rollback.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is mandatory for all engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "The rollback instant time string should be non-empty to specify a valid time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!deleteInstants || commitInstant != null",
+    "rationale" : "If deleteInstants is true, commitInstant must not be null to identify which instants to delete.",
+    "meta" : [ ]
+  } ]
+}

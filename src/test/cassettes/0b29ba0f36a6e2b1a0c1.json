@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter represents a commit timestamp and is expected to be non-null for valid operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method assumes that the list of prepped records to upsert is provided; null would result in failures.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for executing upserts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.get(0) != null",
+    "rationale" : "If the list is not empty, it should contain non-null records.",
+    "meta" : [ ]
+  } ]
+}

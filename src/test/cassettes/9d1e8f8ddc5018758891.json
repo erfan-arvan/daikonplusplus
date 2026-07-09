@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HoodieWriteMetadata instance.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The WriteStatuses in the result are always set before returning.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "The method uses clusteringPlan without null checks, indicating it must be non-null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is used as a string without null checks, implying it is non-null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The writeStatuses list is constructed from a possibly empty list, so size is non-negative.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  } ]
+}

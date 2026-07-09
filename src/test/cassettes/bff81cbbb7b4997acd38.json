@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "style instanceof CheckBoxStyle",
+    "rationale" : "The method throws unless 'style' is a CheckBoxStyle, so this must hold at exit.",
+    "meta" : [ {
+      "key" : "exception-condition",
+      "value" : "Only true if IllegalArgumentException was not thrown"
+    } ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "The 'instanceof' check would safely handle null, but typically a valid style is expected.",
+    "meta" : [ {
+      "key" : "argument-validation",
+      "value" : "Implies style should not be null as instance checks are used"
+    } ]
+  } ]
+}

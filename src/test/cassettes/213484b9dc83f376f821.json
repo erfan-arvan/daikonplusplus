@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "classProp != null",
+    "rationale" : "The method calls a method on classProp; it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The return value of getAttribute is guaranteed non-null as it falls back to classProp.getText().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(classProp.getAttribute(\"value\", classProp.getText()))",
+    "rationale" : "The method always returns the result of this expression.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(classProp.getText()) || result.equals(classProp.getAttribute(\"value\"))",
+    "rationale" : "getAttribute returns the attribute value if present, otherwise getText().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() >= 0",
+    "rationale" : "If result is not null, its length is at least zero.",
+    "meta" : [ ]
+  } ]
+}

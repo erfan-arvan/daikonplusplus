@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Method requires a non-null instant time to operate meaningfully; passing null could indicate misuse.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The method expects a list of partitions to delete; null input may not be intended and could result in exceptions elsewhere.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.isEmpty() || partitions.size() >= 0",
+    "rationale" : "If partitions is not empty, its size is non-negative; reflects correct List semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Typically, an instant time should be a non-empty string; helps prevent downstream errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitions.contains(null)",
+    "rationale" : "List of partitions should not contain null elements, as null partition types would be invalid for this operation.",
+    "meta" : [ ]
+  } ]
+}

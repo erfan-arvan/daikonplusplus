@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method immediately calls batch.setColor, so batch must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values are typically expected to be non-negative for valid rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha transparency multipliers are usually clamped to the [0,1] range.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "args being null is possible but unlikely, commonly non-null for command line args.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "Safe to call methods on args"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length in Java is always non-negative.",
+    "meta" : [ {
+      "key" : "array_length",
+      "value" : "Array length non-negative"
+    } ]
+  } ]
+}

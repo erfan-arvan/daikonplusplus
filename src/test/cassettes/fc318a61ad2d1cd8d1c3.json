@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method parameter context is expected to be non-null at entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is provided and should not be null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The list of preppedRecords should not be null on method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecords is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "preppedRecords size is non-negative"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "The Option wrapper for bulkInsertPartitioner is expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "bulkInsertPartitioner option object is non-null"
+    } ]
+  } ]
+}

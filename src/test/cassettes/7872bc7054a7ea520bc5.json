@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method accesses style, so it must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!disabled || style.disabledKnobAfter != null || style.knobAfter != null",
+    "rationale" : "If disabled is true, either disabledKnobAfter must be non-null or knobAfter must be non-null for this method to function properly.",
+    "meta" : [ ]
+  } ]
+}

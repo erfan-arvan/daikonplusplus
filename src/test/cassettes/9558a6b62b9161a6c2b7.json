@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The method uses key with a cast and calls methods on it, so it is not null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "key is non-null"
+    } ]
+  }, {
+    "expression" : "key instanceof Pair",
+    "rationale" : "The key is cast to Pair<HoodieKey, Option<HoodieRecordLocation>>, so it should be an instance of Pair.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "key is of type Pair"
+    } ]
+  }, {
+    "expression" : "((Pair<?, ?>) key).getRight() != null",
+    "rationale" : "The right element is used with isPresent(), so it is non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "right element is non-null"
+    } ]
+  }, {
+    "expression" : "((Pair<?, ?>) key).getLeft() != null",
+    "rationale" : "The left element's methods like getPartitionPath() and getRecordKey() are called, implying it is non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "left element is non-null"
+    } ]
+  } ]
+}

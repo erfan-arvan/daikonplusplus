@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method directly dereferences 'result', so it must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "'result.getWriteStatuses()' is used to construct the commit metadata, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "'result.getPartitionToReplaceFileIds()' is used in the buildMetadata call; it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getCommitMetadata().isPresent()",
+    "rationale" : "The method sets the commit metadata, so at exit it should be present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "The method constructs commit metadata from the stream of write statuses, which implies it is not empty.",
+    "meta" : [ ]
+  } ]
+}

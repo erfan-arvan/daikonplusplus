@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "A non-null Batch is required for rendering text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "A non-null BitmapFont is needed in order to draw text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font.getLineHeight() > 0",
+    "rationale" : "A positive line height is expected for correct text rendering and layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "Screen coordinates are typically non-negative, especially for drawing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0",
+    "rationale" : "Screen coordinates are typically constrained to the visible area for drawing.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the output of SortUtils.getComparableSortColumns, so unless that can return null, result should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "record != null",
+    "rationale" : "The method is called with a HoodieRecord parameter; returning a value based on record implies record should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof FlatLists.ComparableList",
+    "rationale" : "The static return type is FlatLists.ComparableList, so for all execution paths result should be that type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A list's size should not be negative; this is a standard postcondition for Java lists.",
+    "meta" : [ ]
+  } ]
+}

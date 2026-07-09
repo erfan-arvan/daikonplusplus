@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "It is common for methods to require their main data argument to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method likely uses context for engine operations, so this param is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "This table parameter is essential for index operations and so is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof HoodieData",
+    "rationale" : "records must be an instance of HoodieData as required by the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable instanceof HoodieTable",
+    "rationale" : "hoodieTable must be an instance of HoodieTable as per the argument type.",
+    "meta" : [ ]
+  } ]
+}

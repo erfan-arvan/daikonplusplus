@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method likely requires a valid engine context to proceed with delete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The timestamp parameter should be non-null for versioning and operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Cannot operate on records if the input list is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "preppedRecords must be a List as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "A valid operation likely has a non-empty instantTime.",
+    "meta" : [ ]
+  } ]
+}

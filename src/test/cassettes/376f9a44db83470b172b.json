@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the value from HoodieAtomicLongAccumulator.create(), which is expected to be non-null.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "newAccumulator always returns a non-null accumulator."
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieAccumulator",
+    "rationale" : "The return type of the method ensures this by construction.",
+    "meta" : [ {
+      "key" : "description",
+      "value" : "Result object must implement the HoodieAccumulator interface."
+    } ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since result is returned from execute(), which creates and returns a HoodieWriteMetadata, it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is a required input parameter for bulkinsert; bulkInsert in Hudi expects a non-null list of records.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "minWidth >= 0",
+    "rationale" : "UI element minimum sizes are rarely negative, so minWidth is likely intended to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(minWidth)",
+    "rationale" : "It's reasonable to expect UI dimension constraints to be finite, not infinite or NaN.",
+    "meta" : [ ]
+  } ]
+}

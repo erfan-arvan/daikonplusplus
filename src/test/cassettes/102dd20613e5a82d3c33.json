@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "animateDuration > 0",
+    "rationale" : "Duration of animation for progress bar must be positive for meaningful animation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value >= 0",
+    "rationale" : "Progress bar values are usually non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "animateTime >= 0",
+    "rationale" : "Animation time spent should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "animateInterpolation != null",
+    "rationale" : "Interpolation object must be set to animate visual value properly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "animateFromValue >= 0",
+    "rationale" : "Starting value of animation should be non-negative as progress bars often do not support negative progress.",
+    "meta" : [ ]
+  } ]
+}

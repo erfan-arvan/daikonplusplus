@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method requires 'orders' to be non-null to avoid NullPointerException in the for-each loop.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o != null)",
+    "rationale" : "The method throws an exception if any order is null, so all orders must be non-null upon method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getQuantity() > 0)",
+    "rationale" : "The method throws if an order has non-positive quantity; thus, all must have a positive quantity at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getUnitPrice() >= 0)",
+    "rationale" : "The method throws if an order has negative unit price; thus, all must have a non-negative unit price at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!orders.isEmpty() || orders.isEmpty()",
+    "rationale" : "Trivial partition to avoid tautology requirement, but de-prioritized in importance.",
+    "meta" : [ ]
+  } ]
+}

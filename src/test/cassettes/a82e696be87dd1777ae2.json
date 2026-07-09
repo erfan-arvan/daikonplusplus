@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieJavaTable.create should return a HoodieTable instance, so result is expected to be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The new HoodieTable created via HoodieJavaTable.create is expected to use the same config passed in.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getContext() == context",
+    "rationale" : "The result table likely references the context passed as a constructor argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "As the result is created via HoodieJavaTable.create, it should always be an instance of HoodieJavaTable.",
+    "meta" : [ ]
+  } ]
+}

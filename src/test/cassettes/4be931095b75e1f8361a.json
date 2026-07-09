@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "minHeight >= 0",
+    "rationale" : "UI dimension parameters like minHeight are commonly non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(minHeight)",
+    "rationale" : "It is often expected that method arguments are valid numbers, not NaN, for UI sizing operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(minHeight)",
+    "rationale" : "Passing infinity as a UI size is highly likely to be an error.",
+    "meta" : [ ]
+  } ]
+}

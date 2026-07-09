@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method expects dedupedRecords to be a valid input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A context is required to perform tagging operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "A table reference is needed to call getIndex and tagLocation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!dedupedRecords.isEmpty() || dedupedRecords.isEmpty()",
+    "rationale" : "This is implied by the definition of List; all lists are either empty or not, so it's justifiable, but not deep.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getIndex() != null",
+    "rationale" : "table.getIndex() is called in the method body; must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

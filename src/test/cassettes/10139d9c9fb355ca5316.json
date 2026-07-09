@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "It is typical to require metaClient to be non-null so that methods or fields can be safely accessed.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Checks for non-null metaClient before potential usage."
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Nullness check ensures that methods like isEmpty() or iteration over columnsToIndex are safe.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Ensures columnsToIndex is not null for safe access."
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.size() >= 0",
+    "rationale" : "List.size() in Java is always non-negative; this checks safe access when not null.",
+    "meta" : [ {
+      "key" : "structure",
+      "value" : "List size is always non-negative if list is non-null."
+    } ]
+  }, {
+    "expression" : "metaClient.getCommitsTimeline() != null",
+    "rationale" : "Many operations on HoodieTableMetaClient depend on a valid timeline for operations.",
+    "meta" : [ {
+      "key" : "API",
+      "value" : "Ensures returned timeline is usable."
+    } ]
+  } ]
+}

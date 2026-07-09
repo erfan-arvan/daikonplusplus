@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null Pair as the result, assuming the superclass returns non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is required for processing and passed unchanged to the superclass method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "fileSlices is passed directly to the superclass's method, so it should not be null.",
+    "meta" : [ ]
+  } ]
+}

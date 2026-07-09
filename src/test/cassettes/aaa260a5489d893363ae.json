@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null && !keys.isEmpty()",
+    "rationale" : "Keys list is not null and contains at least one element, since delete operations typically require keys to operate on.",
+    "meta" : [ {
+      "key" : "Rationale",
+      "value" : "Delete operation normally would expect at least one key to delete."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string is not null, representing the time of the operation.",
+    "meta" : [ {
+      "key" : "Rationale",
+      "value" : "Instant time should be provided for the write client delete operation."
+    } ]
+  }, {
+    "expression" : "keys.stream().allMatch(k -> k != null)",
+    "rationale" : "All HoodieKey elements in keys list are non-null.",
+    "meta" : [ {
+      "key" : "Rationale",
+      "value" : "All keys in the list should be non-null for a valid delete operation."
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instantTime string is not empty, meaning it has a valid value.",
+    "meta" : [ {
+      "key" : "Rationale",
+      "value" : "Instant time should be a non-empty string."
+    } ]
+  }, {
+    "expression" : "keys instanceof java.util.List",
+    "rationale" : "The keys variable is an instance of List as declared.",
+    "meta" : [ {
+      "key" : "Rationale",
+      "value" : "Keys is explicitly a List."
+    } ]
+  } ]
+}

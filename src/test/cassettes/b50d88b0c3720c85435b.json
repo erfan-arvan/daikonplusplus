@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "The method accesses 'tile' fields or methods and passes it to other functions, indicating it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement is dereferenced for getChildByName, so it must be non-null at this program point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"objectgroup\") == null || tileElement.getChildByName(\"objectgroup\").getName().equals(\"objectgroup\")",
+    "rationale" : "If the child named 'objectgroup' is present, its name should equal 'objectgroup', reflecting standard XML element structure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"objectgroup\") == null || tileElement.getChildByName(\"objectgroup\").getChildrenByName(\"object\") != null",
+    "rationale" : "If there is an 'objectgroup' element, then calling getChildrenByName('object') should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"objectgroup\") == null || tileElement.getChildByName(\"objectgroup\").getChildrenByName(\"object\").size() >= 0",
+    "rationale" : "The list of 'object' children in 'objectgroup' should have a non-negative size if present.",
+    "meta" : [ ]
+  } ]
+}

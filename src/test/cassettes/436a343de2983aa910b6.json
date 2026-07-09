@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'records', which cannot be null based on the method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == records",
+    "rationale" : "The method either returns 'records' directly or after sorting; both cases return the original list reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The method only sorts and returns 'records', never altering its size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || result == records",
+    "rationale" : "If the input 'records' is empty, the method returns 'records' directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type is always a List as per the method signature and implementation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always initializes and returns a non-null HashMap instance.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result is not null before returning"
+    } ]
+  }, {
+    "expression" : "result.size() == 0 || result.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "The map is either empty or contains exactly 'PLAN_STRATEGY_SORT_COLUMNS.key()' when sorting columns are set.",
+    "meta" : [ {
+      "key" : "conditional_key",
+      "value" : "result either empty or contains specific key"
+    } ]
+  }, {
+    "expression" : "!result.containsKey(null)",
+    "rationale" : "HashMap does not have a null key inserted explicitly in this logic.",
+    "meta" : [ {
+      "key" : "map_key_validity",
+      "value" : "null key absent"
+    } ]
+  }, {
+    "expression" : "!result.containsValue(null)",
+    "rationale" : "Inserted values come from getClusteringSortColumns() only if non-null and not empty.",
+    "meta" : [ {
+      "key" : "map_value_validity",
+      "value" : "null values absent"
+    } ]
+  }, {
+    "expression" : "result.size() <= 1",
+    "rationale" : "At most one key-value pair is inserted in this implementation.",
+    "meta" : [ {
+      "key" : "map_size_limit",
+      "value" : "map size at most 1"
+    } ]
+  } ]
+}

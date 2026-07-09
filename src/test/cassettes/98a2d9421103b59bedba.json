@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is expected to be a non-null argument to a clustering operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams must be a valid map for clustering rules.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should be a non-empty String representing the clustering commit/instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.isEmpty() || !strategyParams.isEmpty()",
+    "rationale" : "strategyParams may or may not contain parameters; this expresses no implied content constraint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preserveHoodieMetadata == true || preserveHoodieMetadata == false",
+    "rationale" : "preserveHoodieMetadata is a boolean and can only be true or false.",
+    "meta" : [ ]
+  } ]
+}

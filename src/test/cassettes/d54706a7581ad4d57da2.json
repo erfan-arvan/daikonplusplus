@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "threshold >= 0",
+    "rationale" : "Thresholds for snapping are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values == null || values.length >= 0",
+    "rationale" : "Array length is always non-negative, included if values is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values == null || java.util.Arrays.stream(values).allMatch(v -> !Float.isNaN(v))",
+    "rationale" : "Snap-to values likely should not contain NaN, given usage requirements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "threshold == threshold",
+    "rationale" : "Ensures threshold is not NaN, as NaN != NaN in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values == null || java.util.Arrays.stream(values).noneMatch(v -> Float.isNaN(v) || Float.isInfinite(v))",
+    "rationale" : "Snap-to values should not contain NaN or infinite values.",
+    "meta" : [ ]
+  } ]
+}

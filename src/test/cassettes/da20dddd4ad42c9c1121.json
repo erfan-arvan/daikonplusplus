@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "Methods operating on Actor instances often require a non-null reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorBefore != null",
+    "rationale" : "The method likely requires a reference point (actorBefore) to be specified, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != actorBefore",
+    "rationale" : "Adding an actor before itself may not make sense; typically these two should refer to different Actor objects.",
+    "meta" : [ ]
+  } ]
+}

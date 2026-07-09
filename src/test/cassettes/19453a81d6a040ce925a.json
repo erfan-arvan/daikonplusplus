@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(x)",
+    "rationale" : "x is likely intended to be a finite float value for a scaling factor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x != 0",
+    "rationale" : "Non-zero scale factors are common, as zero scaling would disappear the object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x > 0",
+    "rationale" : "Scale factors are often positive in graphics contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= -Float.MAX_VALUE && x <= Float.MAX_VALUE",
+    "rationale" : "x must be within the valid float range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(x)",
+    "rationale" : "A NaN scale factor would likely be invalid.",
+    "meta" : [ ]
+  } ]
+}

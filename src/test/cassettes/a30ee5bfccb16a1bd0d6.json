@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Method likely relies on a commit instant identifier string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition, as an Integer, is expected to be provided and used in logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "A non-null iterator of records is likely required for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The partitioner object typically partitions the data and must be set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.next() != null",
+    "rationale" : "If records are present, they likely cannot be null for processing.",
+    "meta" : [ ]
+  } ]
+}

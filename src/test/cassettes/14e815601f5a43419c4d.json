@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context should be non-null since it is essential for the insertOverwrite operation.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "context must be non-null for operation"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string should be non-null to represent a valid commit instant.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "instantTime must be non-null"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records list should be non-null since inserting requires records.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "records list must not be null"
+    } ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "Records can either be empty or contain some HoodieRecord elements.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "records can be empty or have elements"
+    } ]
+  } ]
+}

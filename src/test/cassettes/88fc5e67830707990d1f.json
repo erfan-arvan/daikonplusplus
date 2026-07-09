@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The parameter 'result' should not be null when the method starts.",
+    "meta" : [ {
+      "key" : "nullcheck",
+      "value" : "result must be non-null to proceed"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list should be non-null in the metadata object.",
+    "meta" : [ {
+      "key" : "nullcheck",
+      "value" : "Write statuses list"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The list of write statuses can be empty or contain elements, but cannot be negative in size.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "non-negative size"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "Each element in the write statuses list should be non-null.",
+    "meta" : [ {
+      "key" : "nullcheck",
+      "value" : "elements in write status list"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "Each WriteStatus object should have a non-null stat for mapping.",
+    "meta" : [ {
+      "key" : "nullcheck",
+      "value" : "stats in write statuses"
+    } ]
+  } ]
+}

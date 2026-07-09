@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned List<WriteStatus> should not be null, as a new ArrayList is created just before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= inputRecords.size()",
+    "rationale" : "Each input record produces at most one WriteStatus, possibly fewer if deduplication or filtering occurred.",
+    "meta" : [ ]
+  }, {
+    "expression" : "configuredParallelism > 0",
+    "rationale" : "Parallelism is typically positive for shuffle; negative or zero values would not make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!performDedupe || config.shouldCombineBeforeInsert()",
+    "rationale" : "If deduplication is performed, combineBeforeInsert should be enabled in the config.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The partitioner is always used, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

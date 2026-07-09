@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method receives context as a required parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null && !indexInstantTime.isEmpty()",
+    "rationale" : "Index instant time should be a non-null, non-empty String for indexing to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Even if Option is empty, the Option object itself should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "Partitions to index is critical input, should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Partition paths is a method parameter and should not be null.",
+    "meta" : [ ]
+  } ]
+}

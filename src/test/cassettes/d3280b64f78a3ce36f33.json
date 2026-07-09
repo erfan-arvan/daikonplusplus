@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List<WriteStatus> produced by JavaBulkInsertHelper.bulkInsert(), which is expected to always return a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "Clustering is parallelized over positive number of output groups for a meaningful clustering operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method passes inputRecords to bulkInsert, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a commit identifier, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= inputRecords.size()",
+    "rationale" : "Each WriteStatus typically corresponds to an output file or group; there shouldn't be more WriteStatus objects than input records.",
+    "meta" : [ ]
+  } ]
+}

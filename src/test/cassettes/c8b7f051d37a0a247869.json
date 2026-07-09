@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The upsert method likely requires a non-null list of records to upsert.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "records is not null on method exit"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns a list of WriteStatus results, so result should not be null.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "result is not null on method exit"
+    } ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "The list of WriteStatus is typically at most as large as the number of records upserted.",
+    "meta" : [ {
+      "key" : "Size relation",
+      "value" : "result size is at most records size"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used as a valid commit time and should be non-null and non-empty.",
+    "meta" : [ {
+      "key" : "Null/empty check",
+      "value" : "instantTime is not null or empty on exit"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List size must be non-negative.",
+    "meta" : [ {
+      "key" : "Non-negative size",
+      "value" : "result size is non-negative"
+    } ]
+  } ]
+}

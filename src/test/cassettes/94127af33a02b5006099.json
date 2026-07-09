@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (!scrollY || amountY <= 0)",
+    "rationale" : "The result must correspond exactly to the return value of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || (scrollY && amountY > 0)",
+    "rationale" : "If result is false, then both scrollY must be true and amountY must be greater than 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(scrollY && amountY > 0) || result",
+    "rationale" : "If both scrollY is true and amountY > 0, result must be false; otherwise, result may be true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!scrollY || amountY <= 0) == result",
+    "rationale" : "Result reflects the logical disjunction and comparison as in the method body.",
+    "meta" : [ ]
+  } ]
+}

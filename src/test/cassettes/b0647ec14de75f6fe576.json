@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The local variable result is explicitly assigned to a new instance before return.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result object is initialized and returned, so it is non-null."
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Since inputRecords is iterated or passed to bulkInsert, it is presumably non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method uses inputRecords without null checks, implying it is not null."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to query timeline; it must be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is used as a parameter in timeline methods without null checks."
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "No null checks on table; it is expected to be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method calls table methods directly assuming it is non-null."
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The configuration object is used directly, so it must be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "config is used to get configuration parameters without null checks."
+    } ]
+  } ]
+}

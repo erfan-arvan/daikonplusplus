@@ -1,0 +1,14 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a JavaDeleteHelper instance from a static holder, so result is not null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.getClass().getName().equals(\"org.apache.hudi.table.action.commit.JavaDeleteHelper\")",
+    "rationale" : "The returned result is an instance of JavaDeleteHelper class.",
+    "meta" : [ ]
+  } ]
+}

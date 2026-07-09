@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Bucket numbers are typically non-negative indices into a map; negative values are unlikely to be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "The method immediately calls bucketInfoMap.get(bucketNumber), so bucketInfoMap is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber)",
+    "rationale" : "The primary purpose of getBucketInfo is to retrieve a BucketInfo for a given bucketNumber; an invariant expressing that the key is present may help characterize expected calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber < totalBuckets",
+    "rationale" : "bucketNumber is most likely an index less than the total number of buckets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "totalBuckets > 0",
+    "rationale" : "For any meaningful upsert partitioner state, there should be at least one bucket available.",
+    "meta" : [ ]
+  } ]
+}

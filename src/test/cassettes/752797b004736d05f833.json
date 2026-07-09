@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "font != null",
+    "rationale" : "The method uses 'font.getDescent()' and 'font.usesIntegerPositions()' unconditionally, so 'font' must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "background == null || background.getBottomHeight() >= 0",
+    "rationale" : "If 'background' is not null, its bottom height is likely non-negative as it represents a UI dimension.",
+    "meta" : [ ]
+  }, {
+    "expression" : "background == null || background.getTopHeight() >= 0",
+    "rationale" : "Similarly, top height should also be non-negative for a valid UI drawable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font.getDescent() <= 0",
+    "rationale" : "BitmapFont's descent is conventionally non-positive, as descent means the portion of glyphs below the baseline.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font.getLineHeight() > 0",
+    "rationale" : "A BitmapFont must have a positive line height to render text meaningfully.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Methods that process record lists typically expect the input list to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter represents a unique commit or action time and is often expected to be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || instantTime != null",
+    "rationale" : "If there are records to upsert, an instantTime should be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.size() >= 0",
+    "rationale" : "If the list is not null, its size should be zero or greater (a property of Java Lists).",
+    "meta" : [ ]
+  } ]
+}

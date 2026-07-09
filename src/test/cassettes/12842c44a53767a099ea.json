@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method passes config to another method that likely expects a valid configuration object; null config would likely cause failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Returning null for a table instance is unlikely; method delegates to a factory expected to create a table every time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "It is common for factory-created objects to expose the configuration object used during their construction, and this relationship should hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "The delegate factory method is HoodieJavaTable::create, and so the returned object should be an instance of HoodieJavaTable.",
+    "meta" : [ ]
+  } ]
+}

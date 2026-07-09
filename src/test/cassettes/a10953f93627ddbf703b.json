@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "frameTiles != null",
+    "rationale" : "The method accesses frameTiles, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getCurrentFrameIndex() >= 0",
+    "rationale" : "Array indices must be non-negative; getCurrentFrameIndex() is used as an index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "frameTiles.length > getCurrentFrameIndex()",
+    "rationale" : "Indexing into frameTiles with getCurrentFrameIndex() requires the index to be less than the array's length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getCurrentFrameIndex() < frameTiles.length",
+    "rationale" : "Equivalent to the previous, reinforces valid array index usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "frameTiles.length > 0",
+    "rationale" : "frameTiles presumably contains at least one frame to display.",
+    "meta" : [ ]
+  } ]
+}

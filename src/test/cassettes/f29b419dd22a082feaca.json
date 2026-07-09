@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method uses 'context' to construct a RestorePlanActionExecutor, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "'restoreInstantTimestamp' is passed to a constructor and likely treated as non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "'savepointToRestoreTimestamp' is passed to a constructor and likely must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "Timestamp strings are likely required to be non-empty for restore operations to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "A meaningful savepoint should have a non-empty timestamp value.",
+    "meta" : [ ]
+  } ]
+}

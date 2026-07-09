@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method expects to operate on a list of records; assuming non-null input typically holds unless explicitly allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner is used to partition records by calling its getPartition method, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords instanceof List",
+    "rationale" : "Ensures that the dedupedRecords parameter is a List as expected by method signature and used as a stream source.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner instanceof Partitioner",
+    "rationale" : "Verifies that the partitioner parameter is of the required type before any calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.isEmpty() || dedupedRecords.get(0) != null",
+    "rationale" : "If the list is not empty, it's reasonable to expect that the first element is not null since records are processed immediately.",
+    "meta" : [ ]
+  } ]
+}

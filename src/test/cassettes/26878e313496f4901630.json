@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is collected as a list from a stream operation and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == data.size()",
+    "rationale" : "Each element of 'data' is mapped to an element of 'result' via the map operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "The mapping function is not expected to return null values; otherwise, they would explicitly appear in the collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter should always be positive to provide meaningful parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The input data list should not be null for the method to perform the map.",
+    "meta" : [ ]
+  } ]
+}

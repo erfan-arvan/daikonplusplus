@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Write metadata should not be null when commit is invoked.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses inside HoodieWriteMetadata should not be null for a valid commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "Size of the list returned from getWriteStatuses should not be negative.",
+    "meta" : [ ]
+  } ]
+}

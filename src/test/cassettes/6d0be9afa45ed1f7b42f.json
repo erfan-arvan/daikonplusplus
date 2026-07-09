@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The preppedRecords field should be initialized before method execution to avoid null pointer exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty()",
+    "rationale" : "It is likely that preppedRecords contains records to commit; executing with an empty list may not be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "preppedRecords is declared as a List, so it should always be an instance of List at this point.",
+    "meta" : [ ]
+  } ]
+}

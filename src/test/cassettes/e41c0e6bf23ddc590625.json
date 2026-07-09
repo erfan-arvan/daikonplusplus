@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The return statement is 'return records;', so the returned value is exactly the same reference as 'records'.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method directly returns the input 'records' list without modification, so the returned list 'result' must be the same object as 'records'."
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Since result and records are the same object, their sizes match.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "'result' and 'records' reference the same list object, so their size must always be the same."
+    } ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Number of partitions usually should not be negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Partition count is typically non-negative. While not guaranteed by code, this is a typical pre/postcondition."
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Directly returns 'records', guaranteed not to be null unless input was null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method never returns null; it always returns the (possibly empty) records list."
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Usually collections should not be null for such APIs.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If 'records' were null, the method would return null; this invariant holds if callers never pass null lists."
+    } ]
+  } ]
+}

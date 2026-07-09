@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new HoodieSavepointMetadata object via execute(), so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "instantToSavepoint is passed to SavepointActionExecutor and likely required for creating a valid savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "user is provided to SavepointActionExecutor and usually required for auditing or tracking purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed into the method and must be used by SavepointActionExecutor, so cannot be null for correct operation.",
+    "meta" : [ ]
+  } ]
+}

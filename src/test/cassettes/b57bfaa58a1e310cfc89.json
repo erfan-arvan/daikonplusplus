@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method contract suggests it returns a non-null List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Method returns the output of another method with records as a direct argument, likely implying records must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed along and likely required to be non-null for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Result is expected to be a List as per the signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "records parameter is of type List as per the signature.",
+    "meta" : [ ]
+  } ]
+}

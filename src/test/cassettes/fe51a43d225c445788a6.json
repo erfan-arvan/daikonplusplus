@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null && parallelism > 0",
+    "rationale" : "Parallelism should be positive and data should be non-null for parallel processing to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapToPairFunc != null",
+    "rationale" : "The mapToPairFunc is required to transform items and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "A non-null reduceFunc is necessary to combine grouped values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null && !data.isEmpty() ? parallelism <= data.size() : true",
+    "rationale" : "It is common that parallelism does not exceed the size of the data list when the list is non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null && parallelism > 0 ? data.size() >= parallelism : true",
+    "rationale" : "If processing in parallel, there should be at least as many data elements as the level of parallelism.",
+    "meta" : [ ]
+  } ]
+}

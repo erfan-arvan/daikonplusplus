@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit instant time should be non-null for the handleUpdate operation to proceed correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "A valid partition path is needed to locate the updated file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "A non-null fileId is essential to identify the target file being updated.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "A non-null map of record keys to records is necessary as these are the updates to apply.",
+    "meta" : [ ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "The old data file reference is required to perform a merge update.",
+    "meta" : [ ]
+  } ]
+}

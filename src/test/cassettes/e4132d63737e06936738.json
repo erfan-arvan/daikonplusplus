@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option should never be null, consistent with Option/Optional API contracts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required as an argument to perform a rollback action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "instantToRollback provides rollback context and should never be null as passed to the executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is necessary for operations and passed to the executor, so not expected to be null.",
+    "meta" : [ ]
+  } ]
+}

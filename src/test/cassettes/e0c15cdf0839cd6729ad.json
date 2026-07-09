@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == padTop.get(actor) + padBottom.get(actor)",
+    "rationale" : "The method's return value is the sum of padTop.get(actor) and padBottom.get(actor), directly reflecting its implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0f",
+    "rationale" : "Padding values are usually non-negative, so their sum (result) is likely non-negative as well.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == getPadTop() + getPadBottom()",
+    "rationale" : "According to Javadoc, getPadY returns the sum of getPadTop() and getPadBottom().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= padTop.get(actor)",
+    "rationale" : "If padBottom.get(actor) is non-negative, then result should be at least as large as padTop.get(actor).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= padBottom.get(actor)",
+    "rationale" : "If padTop.get(actor) is non-negative, then result should be at least as large as padBottom.get(actor).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The input list of records should normally not be null for repartitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Number of output partitions should be positive for repartition operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || outputPartitions <= records.size()",
+    "rationale" : "If records are not empty, it is expected that the number of partitions does not exceed the number of records (for coalesce).",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= Integer.MAX_VALUE",
+    "rationale" : "The number of partitions cannot exceed the maximum integer value.",
+    "meta" : [ ]
+  } ]
+}

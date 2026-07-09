@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null HoodieWriteMetadata object upon successful execution.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result must not be null at method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list inside result should be initialized and non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses list is non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The list size of write statuses cannot be negative, zero or more is valid.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "non-negative size"
+    } ]
+  }, {
+    "expression" : "result.getTotalRecords() >= 0",
+    "rationale" : "Number of total records processed should be zero or positive.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "totalRecords is non-negative"
+    } ]
+  }, {
+    "expression" : "result.getFailedRecords() >= 0",
+    "rationale" : "Count of the failed records must be zero or positive.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "failedRecords is non-negative"
+    } ]
+  } ]
+}

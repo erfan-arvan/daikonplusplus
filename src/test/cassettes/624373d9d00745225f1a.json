@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursor positions in text should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "Selection start positions are expected to be non-negative indices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || selectionStart <= cursor",
+    "rationale" : "If there is a selection, the selection start should not exceed the cursor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || selectionStart != cursor",
+    "rationale" : "If a selection exists, selection start and cursor should not be equal (otherwise, the selection would be empty).",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "Text stored in the undo state is expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

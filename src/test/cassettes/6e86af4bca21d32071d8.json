@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns result after postWrite which should not be null.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "result must be non-null as it is returned from postWrite"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input parameter records should not be null when bulkInsert is called.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "records"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed wrapped in Option.ofNullable, should be non-null for bulk insert.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "Partitioner option should not be null as it is passed.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "userDefinedBulkInsertPartitioner"
+    } ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "Result is of type List<WriteStatus>",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "resultType"
+    } ]
+  } ]
+}

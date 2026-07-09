@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "Method throws if style is null, so style is guaranteed to be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font != null",
+    "rationale" : "textHeight computation dereferences style.font, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font.getCapHeight() >= 0",
+    "rationale" : "Font cap height is typically non-negative; used in textHeight calculation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font.getDescent() <= 0",
+    "rationale" : "Font descent is typically zero or negative in most font metrics; related to how textHeight is calculated.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textHeight == style.font.getCapHeight() - style.font.getDescent() * 2",
+    "rationale" : "This direct assignment is performed in the method.",
+    "meta" : [ ]
+  } ]
+}

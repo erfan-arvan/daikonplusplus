@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Option values should never be null by convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "A valid HoodieTableMetaClient must be provided to initialize metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isPresent() || !instantTime.isPresent()",
+    "rationale" : "Covers both cases, but ensures Option is handled—mostly a tautology, but useful for Option type handling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Method has no return and no postconditions enforced; invariants on inputs can only be asserted for Option and non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Method likely requires non-null configuration; null check is typical for configuration parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName() != null",
+    "rationale" : "Table name is usually required for table creation; ensure not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "Base path of the table is foundational for table creation, so checking non-nullity is meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getSchema() != null",
+    "rationale" : "Schema config is typically needed for table operations and should be non-null if available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableType() != null",
+    "rationale" : "Table type (e.g., COPY_ON_WRITE or MERGE_ON_READ) is often mandated for table creation.",
+    "meta" : [ ]
+  } ]
+}

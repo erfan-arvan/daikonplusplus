@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method implementation returns the input list directly, so the result is exactly the same object as records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Since result and records are the same object, their sizes must be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Partition parameters for collections are typically non-negative; negative partition counts are not meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the (non-null) input records list, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method immediately returns 'records', so it must not be null at exit.",
+    "meta" : [ ]
+  } ]
+}

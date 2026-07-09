@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "blendMode == null",
+    "rationale" : "Ensures method handles potential null input gracefully.",
+    "meta" : [ {
+      "key" : "relates to safety",
+      "value" : "Possible argument value"
+    } ]
+  }, {
+    "expression" : "blendMode != null",
+    "rationale" : "Caller may be required to pass a non-null blendMode.",
+    "meta" : [ {
+      "key" : "relates to safety",
+      "value" : "Possible argument value"
+    } ]
+  } ]
+}

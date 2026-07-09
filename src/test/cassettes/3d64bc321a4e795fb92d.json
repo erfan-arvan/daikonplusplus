@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "values == null || values.length > 0",
+    "rationale" : "The method throws an exception if values is not null and length is 0, so at exit, values must be null or have length > 0.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "code"
+    } ]
+  }, {
+    "expression" : "threshold == this.threshold",
+    "rationale" : "The method sets this.threshold to the input threshold parameter.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "state update"
+    } ]
+  }, {
+    "expression" : "values == this.snapValues",
+    "rationale" : "The method assigns the parameter values to this.snapValues.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "state update"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "metadata is dereferenced by method calls, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A new HoodieWriteMetadata<List<WriteStatus>> is returned using metadata.clone().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "result is constructed via clone, so it should be an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is populated from metadata.getWriteStatuses().collectAsList(), which should not be null if metadata is valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().equals(metadata.getWriteStatuses().collectAsList())",
+    "rationale" : "By construction: the result collects metadata.getWriteStatuses() as a list and puts it into the returned object.",
+    "meta" : [ ]
+  } ]
+}

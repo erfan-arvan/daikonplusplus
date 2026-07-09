@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "UI width values are typically non-negative, since negative sizes are rarely meaningful in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(width)",
+    "rationale" : "Width should be a finite float value; NaN or infinite values likely do not make sense for widget dimensions.",
+    "meta" : [ ]
+  } ]
+}

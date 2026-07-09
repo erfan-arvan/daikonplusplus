@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "An instantTime should be non-null for a valid commit action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition is used to select the correct bucket and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The iterator over records is required by downstream logic and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner is cast and used for bucket info, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition instanceof Integer",
+    "rationale" : "Partition is declared as Integer and required for bucket lookup.",
+    "meta" : [ ]
+  } ]
+}

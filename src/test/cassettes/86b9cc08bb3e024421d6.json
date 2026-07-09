@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet.getTile is called unconditionally if animationElement != null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile != null",
+    "rationale" : "tile.getId() is called if animationElement != null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement.get(\"animation\") is called, so tileElement must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstgid >= 0",
+    "rationale" : "firstgid is used as an offset and commonly represents a non-negative tile id.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet.getTile(firstgid) instanceof StaticTiledMapTile || tileSet.getTile(firstgid) == null",
+    "rationale" : "Frame tiles are cast to StaticTiledMapTile after retrieval; either the tile is null or of the correct type to avoid runtime errors.",
+    "meta" : [ ]
+  } ]
+}

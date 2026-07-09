@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method immediately casts context to HoodieJavaEngineContext, so it must be non-null to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed directly to a constructor and likely represents a commit or time marker, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is passed to the executor and is expected to be a valid list input; null would likely lead to errors downstream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(preppedRecords != null && preppedRecords.isEmpty()) || preppedRecords.size() == 0",
+    "rationale" : "If preppedRecords is not null and isEmpty(), its size should be 0 by List contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "instantTime likely represents a timestamp or version string and should not be empty for a commit action.",
+    "meta" : [ ]
+  } ]
+}

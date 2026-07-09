@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is expected to be a valid string for partition-aware updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId must be available for update operations to identify target file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr must not be null since it provides records to update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr != null",
+    "rationale" : "If recordItr.hasNext() is called, recordItr must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Partition path is likely to be a non-empty string for valid updates.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "drawableName != null",
+    "rationale" : "The method is likely intended to be called with a valid drawable name; null would likely result in a runtime error when passed to skin.getDrawable(drawableName).",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawableName.isEmpty() == false",
+    "rationale" : "An empty string as drawableName would probably be invalid as a skin drawable key, though the method does not explicitly require it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawableName.length() >= 0",
+    "rationale" : "By Java specification, String.length() is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

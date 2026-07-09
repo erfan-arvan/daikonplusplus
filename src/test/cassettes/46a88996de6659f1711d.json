@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "prefHeight >= 0",
+    "rationale" : "prefHeight is assigned using Math.max with non-negative values (font heights, background dimensions), thus it is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefWidth >= 0",
+    "rationale" : "prefWidth is always set to 0 or greater, and only increased or set to Math.max of non-negative values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!selectedPrefWidth || prefWidth >= (bg != null ? bg.getLeftWidth() + bg.getRightWidth() : 0)",
+    "rationale" : "If selectedPrefWidth is true, prefWidth is at minimum the sum of bg's left and right widths (if bg not null), otherwise 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(scrollPane == null) || !scrollPane.disableY || prefWidth >= scrollWidth",
+    "rationale" : "If scrollPane is null or not disableY, prefWidth is set as Math.max(prefWidth, scrollWidth); so prefWidth is at least scrollWidth in these cases.",
+    "meta" : [ ]
+  } ]
+}

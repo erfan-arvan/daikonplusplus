@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null Iterator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "The idPfx prefix is passed to returned JavaLazyInsertIterable or super.handleInsert directly without modification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is directly passed to the returned value and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The method always returns an Iterator of List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(recordItr == null || idPfx == null) || result != null",
+    "rationale" : "If both inputs are non-null, result must be non-null.",
+    "meta" : [ ]
+  } ]
+}

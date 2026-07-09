@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be greater than zero for parallel execution.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parallelism constraint"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Input data list should be non-null for method correctness.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter validity"
+    } ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "SerializableConsumer must be non-null before use in forEach.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter validity"
+    } ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "Parallelism should not exceed data size unless data is empty.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "resource allocation"
+    } ]
+  }, {
+    "expression" : "parallelism <= Integer.MAX_VALUE",
+    "rationale" : "Parallelism should not exceed max integer value.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "bounds check"
+    } ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "horizontalAlign == this.horizontalAlign",
+    "rationale" : "The field is assigned to the parameter at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.horizontalAlign != null || horizontalAlign == null",
+    "rationale" : "If the field is null, it is because the parameter was null (direct assignment).",
+    "meta" : [ ]
+  } ]
+}

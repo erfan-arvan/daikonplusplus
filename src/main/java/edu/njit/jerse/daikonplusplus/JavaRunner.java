@@ -1,462 +1,820 @@
 package edu.njit.jerse.daikonplusplus;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import edu.njit.jerse.daikonplusplus.results.LogParser;
+import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil;
+import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil.JError;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * Thin wrapper around {@code javac} and {@code java}.
+ * Utility class for compiling and executing instrumented Java code in Daikon++.
  *
- * <p>Uses {@code JAVA_HOME/bin} if available; otherwise expects the tools on PATH.
+ * <p>Supports:
+ *
+ * <ul>
+ *   <li>Running Java programs and capturing their output and invariant events
+ *   <li>Compiling instrumented code with automatic removal of invariants that cause compilation
+ *       errors
+ * </ul>
+ *
+ * <p>Invariant removal is marker-based and operates either by disabling a specific invariant region
+ * or restoring the original file if needed.
  */
 public final class JavaRunner {
-  private JavaRunner() {}
 
-  /** joins classpath segments using the platform-specific separator. */
-  public static String joinCp(String... parts) {
-    String sep = System.getProperty("path.separator");
-    StringBuilder sb = new StringBuilder();
-    for (String p : parts) {
-      if (p == null || p.isBlank()) continue;
-      if (sb.length() > 0) sb.append(sep);
-      sb.append(p);
-    }
-    return sb.toString();
+  // Old style (oneline guards)
+  private static final String ONELINE_BEGIN = "/*__DP_ONELINE_BEGIN__*/";
+  private static final String ONELINE_END = "/*__DP_ONELINE_END__*/";
+
+  // New style (block guards)
+  private static final String BLOCK_BEGIN = "__DP_INVARIANT_BEGIN__";
+  private static final String BLOCK_END = "__DP_INVARIANT_END__";
+
+  static final long EXTERNAL_RUN_TIMEOUT_MINUTES = 60;
+
+  /** Outcome of a {@link #runExternalScript} call. */
+  public enum RunResult {
+    /** Process finished within the timeout window with no stale kill. */
+    NORMAL,
+    /**
+     * Stale-invariant detector fired: no progress for {@code staleCheckMinutes}, process killed.
+     */
+    STALE_KILLED,
+    /** Hard wall-clock timeout elapsed before the process finished, process killed. */
+    HARD_TIMEOUT
   }
 
+  private JavaRunner() {}
+
   /**
-   * Runs {@code java -cp classpath mainClass [args...]} and captures stdout to {@code runLog}.
+   * Runs a Java program in a separate JVM and appends its output to a log file.
    *
-   * <p>Delegates to {@link #run(String, String, List, Path, long, Path)} with no effective timeout
-   * and no disabled-invariants file.
+   * @param mainClass fully qualified name of the main class to execute
+   * @param classpath classpath used for execution
+   * @param args arguments passed to the program
+   * @param logFile file where output is written
+   * @throws Exception if execution fails
    */
   public static void run(String mainClass, String classpath, List<String> args, Path logFile)
       throws Exception {
-    run(mainClass, classpath, args, logFile, Long.MAX_VALUE / 2, null);
+    run(mainClass, classpath, args, logFile, null);
   }
 
-  /**
-   * Runs {@code java -cp classpath mainClass [args...]} and captures stdout to {@code runLog}.
-   *
-   * <p>Delegates to {@link #run(String, String, List, Path, long, Path)} with no
-   * disabled-invariants file.
-   *
-   * @param timeoutSeconds wall-clock seconds to wait before killing the process
-   * @return {@code true} if the run timed out, {@code false} on normal completion
-   */
-  public static boolean run(
-      String mainClass, String classpath, List<String> args, Path logFile, long timeoutSeconds)
-      throws Exception {
-    return run(mainClass, classpath, args, logFile, timeoutSeconds, null);
-  }
-
-  /**
-   * Runs {@code java -cp classpath mainClass [args...]} and captures stdout to {@code runLog}.
-   *
-   * <p>If {@code disabledFile} exists, its path is passed to the child JVM as {@code
-   * -DDP_DISABLED_FILE=...} so that {@code daikonpp.DpRuntime} skips all invariants whose UUIDs
-   * appear in that file.
-   *
-   * <p>If the child JVM does not finish within {@code timeoutSeconds}, it is killed forcibly and
-   * {@code true} is returned so the caller can apply timeout-recovery logic.
-   *
-   * @param timeoutSeconds wall-clock seconds to wait before killing the process
-   * @param disabledFile path to a newline-delimited file of disabled invariant UUIDs, or {@code
-   *     null} to skip
-   * @return {@code true} if the run timed out, {@code false} on normal completion
-   */
-  public static boolean run(
+  public static void run(
       String mainClass,
       String classpath,
       List<String> args,
       Path logFile,
-      long timeoutSeconds,
-      @Nullable Path disabledFile)
+      @org.checkerframework.checker.nullness.qual.Nullable Path disabledFile)
       throws Exception {
-    return runExternalScript(
-        mainClass, classpath, args, logFile, timeoutSeconds, disabledFile, null, null);
-  }
 
-  /**
-   * Runs the instrumented program with optional /dev/shm-backed persistence support.
-   *
-   * <p>If {@code shmDir} is non-null, the environment variables {@code DP_SHM_DIR}, {@code
-   * JAVA_OPTS}, {@code _JAVA_OPTIONS}, and {@code GRADLE_OPTS} are set so the child JVM receives
-   * {@code -DDP_SHM_DIR=<path>} and writes invariant status to shared memory immediately (surviving
-   * SIGKILL).
-   *
-   * <p>If {@code prevLog} is non-null and exists on disk at call time, {@code DP_PREV_LOG} is set
-   * so the child JVM can pre-populate its SEEN set from the previous run's log.
-   *
-   * <p>The effective timeout threshold is controlled by the {@code DP_STALE_CHECK_MS} system
-   * property or environment variable. If present it overrides {@code timeoutSeconds * 1000}; the
-   * poll interval is derived as {@code Math.min(60_000, Math.max(500, thresholdMs / 4))}.
-   *
-   * @param timeoutSeconds wall-clock seconds before the child is killed (overridable via {@code
-   *     DP_STALE_CHECK_MS})
-   * @param disabledFile path to disabled-invariant UUIDs, or {@code null}
-   * @param shmDir /dev/shm directory for this run, or {@code null} to skip shm wiring
-   * @param prevLog previous run's log file (for {@code DP_PREV_LOG}), or {@code null}
-   * @return {@code true} if the run timed out, {@code false} on normal completion
-   */
-  public static boolean runExternalScript(
-      String mainClass,
-      String classpath,
-      List<String> args,
-      Path logFile,
-      long timeoutSeconds,
-      @Nullable Path disabledFile,
-      @Nullable Path shmDir,
-      @Nullable Path prevLog)
-      throws Exception {
-    // Resolve effective timeout from DP_STALE_CHECK_MS override or seconds param
-    String staleMsProp = System.getProperty("DP_STALE_CHECK_MS");
-    if (staleMsProp == null) staleMsProp = System.getenv("DP_STALE_CHECK_MS");
-    long thresholdMs =
-        (staleMsProp != null && !staleMsProp.isBlank())
-            ? Long.parseLong(staleMsProp)
-            : timeoutSeconds * 1_000L;
-    long pollMs = Math.min(60_000L, Math.max(500L, thresholdMs / 4));
-
-    // Ensure parent dir exists even if logFile has no parent
-    Path parent = logFile.getParent();
-    Files.createDirectories(parent == null ? Path.of(".") : parent);
+    Files.createDirectories(Optional.ofNullable(logFile.getParent()).orElse(Path.of(".")));
 
     List<String> cmd = new ArrayList<>();
-    cmd.add(toolPath("java"));
+    cmd.add(tool("java"));
     cmd.add("-Dfile.encoding=UTF-8");
     cmd.add("-Xshare:off");
+
+    Path logDir = Optional.ofNullable(logFile.getParent()).orElse(Path.of("."));
+    cmd.add("-DDP_INV_DIR=" + logDir.resolve(".daikonpp-events").toAbsolutePath());
+
     if (disabledFile != null && Files.exists(disabledFile)) {
       cmd.add("-DDP_DISABLED_FILE=" + disabledFile.toAbsolutePath());
     }
-    if (shmDir != null) {
-      cmd.add("-DDP_SHM_DIR=" + shmDir.toAbsolutePath());
-    }
+
     cmd.add("-cp");
     cmd.add(classpath);
     cmd.add(mainClass);
     cmd.addAll(args);
 
-    System.out.println(">>> Running with java: " + String.join(" ", cmd));
+    ProcessBuilder pb = new ProcessBuilder(cmd);
+    pb.redirectErrorStream(true);
+
+    Process p = pb.start();
+
+    long deadline =
+        System.nanoTime()
+            + java.util.concurrent.TimeUnit.MINUTES.toNanos(EXTERNAL_RUN_TIMEOUT_MINUTES);
+
+    try (BufferedReader r =
+            new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
+        BufferedWriter w =
+            Files.newBufferedWriter(
+                logFile,
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.APPEND)) {
+
+      String line;
+      while (true) {
+        while (r.ready() && (line = r.readLine()) != null) {
+          w.write(line);
+          w.newLine();
+          w.flush();
+        }
+
+        if (!p.isAlive()) break;
+
+        if (System.nanoTime() > deadline) {
+          w.write("[DP] Runner TIMED OUT");
+          w.newLine();
+          w.flush();
+          p.destroyForcibly();
+          break;
+        }
+        Thread.sleep(100);
+      }
+    }
+
+    int code = p.waitFor();
+    if (code != 0) {
+      Files.writeString(
+          logFile, "\n[DP] Child JVM exit code: " + code + "\n", StandardOpenOption.APPEND);
+    }
+
+    appendDpEvents(logDir.resolve(".daikonpp-events"), logFile);
+  }
+
+  /**
+   * Compiles Java sources and removes invariants that cause compilation errors.
+   *
+   * <p>If compilation fails, the method parses compiler errors and either:
+   *
+   * <ul>
+   *   <li>Disables the invariant region causing the error
+   *   <li>Restores the original file if the error cannot be resolved locally
+   * </ul>
+   *
+   * <p>The process repeats until compilation succeeds or no further progress is possible.
+   *
+   * @param workSrcRoot root of the instrumented source tree
+   * @param originalSrcRoot root of the original source tree
+   * @param classesDir output directory for compiled classes
+   * @param classpath classpath for compilation
+   * @param maxModifyPasses maximum number of passes that attempt invariant removal
+   * @throws Exception if compilation ultimately fails
+   */
+  public static void compileWithAutoFilter(
+      Path workSrcRoot,
+      Path originalSrcRoot,
+      Path classesDir,
+      String classpath,
+      int maxModifyPasses)
+      throws Exception {
+
+    Files.createDirectories(classesDir);
+
+    System.out.println("[DP] compileWithAutoFilter START");
+    System.out.println("[DP] workSrcRoot = " + workSrcRoot.toAbsolutePath());
+    System.out.println("[DP] originalSrcRoot = " + originalSrcRoot.toAbsolutePath());
+
+    List<Path> sources = new ArrayList<>();
+    try (var walk = Files.walk(workSrcRoot)) {
+      walk.filter(p -> p.toString().endsWith(".java")).forEach(sources::add);
+    }
+
+    System.out.println("[DP] Found Java sources: " + sources.size());
+
+    if (sources.isEmpty()) {
+      throw new RuntimeException("No Java sources under " + workSrcRoot);
+    }
+
+    Path argFile = classesDir.resolve("dp_sources.txt");
+    try (PrintWriter pw =
+        new PrintWriter(Files.newBufferedWriter(argFile, StandardCharsets.UTF_8))) {
+      for (Path s : sources) {
+        pw.println(s.toAbsolutePath());
+      }
+    }
+
+    List<String> base = new ArrayList<>();
+    base.add(tool("javac"));
+    base.add("-encoding");
+    base.add("UTF-8");
+    base.add("-g");
+    base.add("-proc:none");
+    base.add("-cp");
+    base.add(classpath);
+    base.add("-d");
+    base.add(classesDir.toString());
+    base.add("@" + argFile);
+
+    Path outLog = classesDir.resolve("dp-javac.out");
+    Path errLog = classesDir.resolve("dp-javac.err");
+
+    int pass = 1;
+    int maxTotalPasses = maxModifyPasses + 20;
+
+    while (true) {
+
+      System.out.println("\n[DP] ===== PASS " + pass + " =====");
+
+      boolean inModifyPhase = pass <= maxModifyPasses;
+      System.out.println("[DP] inModifyPhase = " + inModifyPhase);
+
+      int code = runProcess(base, workSrcRoot, outLog, errLog);
+      System.out.println("[DP] javac exit code = " + code);
+
+      if (code == 0) {
+        System.out.println("[DP] Compilation SUCCESS");
+        return;
+      }
+
+      String err = Files.exists(errLog) ? Files.readString(errLog) : "";
+
+      System.out.println("[DP] --- RAW STDERR (first 1000 chars) ---");
+      System.out.println(err.length() > 1000 ? err.substring(0, 1000) + "\n...[truncated]" : err);
+      System.out.println("[DP] -------------------------------------");
+
+      List<JError> errors = InvariantAutoFilterUtil.parseErrors(err);
+
+      System.out.println("[DP] Parsed errors count = " + errors.size());
+      for (JError e : errors) {
+        System.out.println("[DP] ERROR → " + e.file + ":" + e.line);
+      }
+
+      int touched = 0;
+
+      Set<String> seen = new HashSet<>();
+
+      for (JError je : errors) {
+
+        String key = je.file + ":" + je.line;
+        if (!seen.add(key)) continue;
+
+        Path file = Path.of(je.file).toAbsolutePath().normalize();
+
+        System.out.println("[DP] Processing → " + file + ":" + je.line);
+
+        if (inModifyPhase) {
+          int removed = removeInvariantRegion(file, je.line);
+          System.out.println("[DP]   removeInvariantRegion → " + removed);
+
+          if (removed > 0) {
+            touched += removed;
+            continue;
+          }
+        }
+
+        int restored = restoreOriginalFile(file, workSrcRoot, originalSrcRoot);
+        System.out.println("[DP]   restoreOriginalFile → " + restored);
+
+        touched += restored;
+      }
+
+      System.out.println("[DP] touched = " + touched);
+
+      if (touched == 0) {
+        System.out.println("[DP] ❌ NO PROGRESS THIS PASS");
+        throw new RuntimeException("javac failed with no progress:\n" + firstErrorMsg(errors));
+      }
+
+      if (pass >= maxTotalPasses) {
+        throw new RuntimeException("javac still failing after " + pass + " passes");
+      }
+
+      pass++;
+    }
+  }
+
+  /**
+   * Returns a string representation of the first compilation error.
+   *
+   * @param list list of parsed compilation errors
+   * @return formatted message for the first error, or "<none>" if empty
+   */
+  private static String firstErrorMsg(List<JError> list) {
+    return list.isEmpty()
+        ? "<none>"
+        : list.get(0).file + ":" + list.get(0).line + " — " + list.get(0).msg;
+  }
+
+  /**
+   * Disables the invariant region around a given line number by commenting it out.
+   *
+   * @param file source file containing the invariant
+   * @param lineno line number where the error occurred (1-based)
+   * @return 1 if a region was disabled, 0 otherwise
+   */
+  static int removeInvariantRegion(Path file, int lineno) {
+    try {
+      if (!Files.isRegularFile(file)) return 0;
+
+      List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
+      int begin = -1, end = -1;
+
+      int idx = Math.max(0, Math.min(lineno - 1, lines.size() - 1));
+
+      for (int i = idx; i >= 0; i--) {
+        if (lines.get(i).contains(ONELINE_BEGIN) || lines.get(i).contains(BLOCK_BEGIN)) {
+          begin = i;
+          break;
+        }
+      }
+      for (int i = idx; i < lines.size(); i++) {
+        if (lines.get(i).contains(ONELINE_END) || lines.get(i).contains(BLOCK_END)) {
+          end = i;
+          break;
+        }
+      }
+
+      if (begin < 0 || end < 0) return 0;
+
+      for (int i = begin; i <= end; i++) {
+        if (!lines.get(i).trim().startsWith("// [DP] disabled")) {
+          lines.set(i, "// [DP] disabled invariant :: " + lines.get(i));
+        }
+      }
+
+      Files.write(file, lines, StandardCharsets.UTF_8);
+      return 1;
+
+    } catch (Exception e) {
+      return 0;
+    }
+  }
+
+  /**
+   * Restores a file in the working directory from the original source tree.
+   *
+   * @param brokenFile file that failed compilation
+   * @param workSrcRoot root of the working source tree
+   * @param originalSrcRoot root of the original source tree
+   * @return 1 if the file was restored, 0 otherwise
+   */
+  private static int restoreOriginalFile(Path brokenFile, Path workSrcRoot, Path originalSrcRoot) {
+
+    try {
+      Path workRoot = workSrcRoot.toAbsolutePath().normalize();
+      Path broken = brokenFile.toAbsolutePath().normalize();
+
+      if (!broken.startsWith(workRoot)) return 0;
+
+      Path rel = workRoot.relativize(broken);
+      Path original = originalSrcRoot.resolve(rel);
+
+      if (!Files.isRegularFile(original)) return 0;
+
+      Path parent = broken.getParent();
+      if (parent != null) {
+        Files.createDirectories(parent);
+      }
+      Files.copy(
+          original,
+          broken,
+          StandardCopyOption.REPLACE_EXISTING,
+          StandardCopyOption.COPY_ATTRIBUTES);
+      return 1;
+
+    } catch (Exception e) {
+      return 0;
+    }
+  }
+
+  /**
+   * Executes a process and waits for it to complete.
+   *
+   * @param cmd command and arguments to execute
+   * @param wd working directory for the process
+   * @param out file to which standard output is redirected
+   * @param err file to which standard error is redirected
+   * @return exit code of the process
+   * @throws Exception if process execution fails
+   */
+  private static int runProcess(List<String> cmd, Path wd, Path out, Path err) throws Exception {
 
     ProcessBuilder pb = new ProcessBuilder(cmd);
-    pb.redirectErrorStream(true); // merge stderr into stdout
+    pb.directory(wd.toFile());
+    pb.redirectOutput(out.toFile());
+    pb.redirectError(err.toFile());
+    return pb.start().waitFor();
+  }
 
-    // Wire shm env vars so Gradle wrappers or nested JVMs also pick up the setting
-    if (shmDir != null) {
-      String dpFlag = "-DDP_SHM_DIR=" + shmDir.toAbsolutePath();
-      java.util.Map<String, String> env = pb.environment();
-      env.put("DP_SHM_DIR", shmDir.toAbsolutePath().toString());
-      env.merge("JAVA_OPTS", dpFlag, (a, b) -> a + " " + b);
-      env.merge("_JAVA_OPTIONS", dpFlag, (a, b) -> a + " " + b);
-      env.merge("GRADLE_OPTS", dpFlag, (a, b) -> a + " " + b);
+  /**
+   * Resolves the path to a Java tool (e.g., {@code java}, {@code javac}).
+   *
+   * <p>If {@code JAVA_HOME} is set, the tool is resolved from its {@code bin} directory. Otherwise,
+   * the tool name is returned as-is.
+   *
+   * @param base base name of the tool (e.g., "java", "javac")
+   * @return resolved executable path
+   */
+  private static String tool(String base) {
+    String ext = isWin() ? ".exe" : "";
+    String home = System.getenv("JAVA_HOME");
+    if (home != null) {
+      Path p = Path.of(home, "bin", base + ext);
+      if (Files.isRegularFile(p)) return p.toString();
     }
-    if (prevLog != null && Files.exists(prevLog)) {
-      pb.environment().put("DP_PREV_LOG", prevLog.toAbsolutePath().toString());
+    return base + ext;
+  }
+
+  /**
+   * Checks whether the current operating system is Windows.
+   *
+   * @return true if running on Windows, false otherwise
+   */
+  private static boolean isWin() {
+    return System.getProperty("os.name").toLowerCase().contains("win");
+  }
+
+  /**
+   * Joins classpath entries using the platform-specific separator.
+   *
+   * @param parts classpath entries
+   * @return combined classpath string
+   */
+  public static String joinCp(String... parts) {
+    String sep = System.getProperty("path.separator");
+    return String.join(sep, Arrays.stream(parts).filter(p -> p != null && !p.isBlank()).toList());
+  }
+
+  /**
+   * Appends invariant event files from a directory into the main run log.
+   *
+   * @param invDir directory containing event files
+   * @param runLog log file to append to
+   */
+  private static void appendDpEvents(Path invDir, Path runLog) {
+    try {
+      if (!Files.isDirectory(invDir)) return;
+
+      List<Path> files = new ArrayList<>();
+      try (var s = Files.list(invDir)) {
+        s.filter(
+                p -> {
+                  Path name = p.getFileName();
+                  return name != null && name.toString().startsWith("dp-events-");
+                })
+            .sorted()
+            .forEach(files::add);
+      }
+
+      for (Path f : files) {
+        Files.writeString(
+            runLog,
+            Files.readString(f, StandardCharsets.UTF_8),
+            StandardOpenOption.CREATE,
+            StandardOpenOption.APPEND);
+      }
+    } catch (Exception ignored) {
+    }
+  }
+
+  /**
+   * Executes an external script (e.g., build or test runner) and appends its output to a log file.
+   *
+   * @param script executable script to run
+   * @param workDir working directory for the script
+   * @param fullRunCp classpath exposed to the script (may be empty)
+   * @param runLog file where output is written
+   * @param timeoutMinutes wall-clock minutes to wait before killing the process
+   * @param staleCheckMinutes interval in minutes between stale-invariant checks (0 = disabled)
+   * @return {@link RunResult} indicating how the run ended
+   * @throws IOException if the script cannot be executed
+   * @throws InterruptedException if execution is interrupted
+   */
+  public static RunResult runExternalScript(
+      Path script,
+      Path workDir,
+      String fullRunCp,
+      Path runLog,
+      long timeoutMinutes,
+      long staleCheckMinutes)
+      throws IOException, InterruptedException {
+    return runExternalScript(
+        script, workDir, fullRunCp, runLog, timeoutMinutes, staleCheckMinutes, null);
+  }
+
+  public static RunResult runExternalScript(
+      Path script,
+      Path workDir,
+      String fullRunCp,
+      Path runLog,
+      long timeoutMinutes,
+      long staleCheckMinutes,
+      @Nullable Path disabledFile)
+      throws IOException, InterruptedException {
+
+    if (!Files.isRegularFile(script)) {
+      throw new IllegalArgumentException("[DP] External runner script not found: " + script);
+    }
+
+    // Ensure the script is executable — some HPC filesystems (GPFS/Lustre) strip the execute
+    // bit on copy even when COPY_ATTRIBUTES is used; chmod +x as a silent fallback.
+    if (!Files.isExecutable(script)) {
+      try {
+        script.toFile().setExecutable(true, false);
+        System.out.println("[DP] chmod +x applied to runner script: " + script);
+      } catch (SecurityException ignored) {
+        // best-effort; if it still fails ProcessBuilder will throw a clear error
+      }
+    }
+
+    Files.createDirectories(Optional.ofNullable(runLog.getParent()).orElse(Path.of(".")));
+
+    System.out.println("[DP] Running script: " + script.toAbsolutePath());
+    System.out.println("[DP] Working dir: " + workDir.toAbsolutePath());
+    System.out.println("[DP] Log file: " + runLog.toAbsolutePath());
+    // Use "bash <script>" so execution works even when the filesystem ignores execute bits.
+    ProcessBuilder pb = new ProcessBuilder("bash", script.toAbsolutePath().toString());
+
+    // Run inside the working project copy
+    pb.directory(workDir.toFile());
+
+    Map<String, String> env = pb.environment();
+
+    if (fullRunCp != null && !fullRunCp.isBlank()) {
+      env.put("DP_DAIKONPP_CLASSPATH", fullRunCp);
+    }
+
+    env.put("DP_RUN_LOG", runLog.toAbsolutePath().toString());
+
+    Path invDir = workDir.resolve(".daikonpp-events");
+    Files.createDirectories(invDir);
+
+    env.put("DP_INV_DIR", invDir.toAbsolutePath().toString());
+
+    String jvmArgs = "-DDP_INV_DIR=" + invDir.toAbsolutePath();
+
+    env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + jvmArgs).trim());
+    env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + jvmArgs).trim());
+    env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + jvmArgs).trim());
+
+    if (disabledFile != null) {
+      String disabledPath = disabledFile.toAbsolutePath().toString();
+      String disabledArg = "-DDP_DISABLED_FILE=" + disabledPath;
+      env.put("DP_DISABLED_FILE", disabledPath);
+      env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + disabledArg).trim());
+      env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + disabledArg).trim());
+      env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + disabledArg).trim());
+    }
+
+    pb.redirectErrorStream(true);
+
+    // Capture log size BEFORE starting the process so the stale detector
+    // only reads INV_EXD entries written by THIS run, not previous runs.
+    final long logStartOffset;
+    try {
+      logStartOffset = Files.exists(runLog) ? Files.size(runLog) : 0L;
+    } catch (IOException e) {
+      throw new IOException("Cannot determine log file size: " + e.getMessage(), e);
     }
 
     Process p = pb.start();
 
-    // Pump stdout+stderr to the log file in a background thread so we can poll with timeout.
-    Thread pumper =
+    // ---- ASYNC OUTPUT READER ----
+    Thread readerThread =
         new Thread(
             () -> {
-              try (var in = p.getInputStream();
-                  var out =
-                      Files.newOutputStream(
-                          logFile,
+              try (BufferedReader r =
+                      new BufferedReader(
+                          new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
+                  BufferedWriter w =
+                      Files.newBufferedWriter(
+                          runLog,
+                          StandardCharsets.UTF_8,
                           StandardOpenOption.CREATE,
-                          StandardOpenOption.TRUNCATE_EXISTING)) {
-                pump(in, out);
-              } catch (java.io.IOException ignored) {
+                          StandardOpenOption.APPEND)) {
+
+                String line;
+                while (true) {
+                  if (Thread.currentThread().isInterrupted()) break;
+
+                  if (!r.ready()) {
+                    try {
+                      Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                      break;
+                    }
+                    continue;
+                  }
+
+                  line = r.readLine();
+                  if (line == null) break;
+
+                  w.write(line);
+                  w.newLine();
+                  w.flush();
+                }
+
+              } catch (IOException ignored) {
               }
-            },
-            "dp-log-pumper");
-    pumper.setDaemon(true);
-    pumper.start();
+            });
 
-    // Poll loop: check every pollMs up to thresholdMs total
-    long start = System.currentTimeMillis();
-    boolean timedOut = false;
-    while (true) {
-      boolean done = p.waitFor(pollMs, TimeUnit.MILLISECONDS);
-      if (done) break;
-      if (System.currentTimeMillis() - start >= thresholdMs) {
-        p.destroyForcibly();
-        timedOut = true;
-        break;
-      }
+    readerThread.setDaemon(true);
+    readerThread.start();
+
+    // ---- STALE INVARIANT DETECTOR ----
+    // Polls every 60 seconds. Kills the process when the same UUID has been the
+    // last-executed invariant continuously for staleCheckMinutes. Fires after exactly
+    // staleCheckMinutes of no progress (not 2x like the old two-observation design).
+    AtomicBoolean staleKilled = new AtomicBoolean(false);
+    Thread staleThread = null;
+    if (staleCheckMinutes > 0) {
+      final long pollMs = 60_000L; // poll every 60 seconds
+      final long thresholdMs = staleCheckMinutes * 60_000L;
+      System.out.println(
+          "[DP] Stale detector started — threshold: "
+              + staleCheckMinutes
+              + " min, poll: 60 s, log: "
+              + runLog.toAbsolutePath());
+      staleThread =
+          new Thread(
+              () -> {
+                UUID trackedId = null;
+                long trackedSince = 0;
+                while (!Thread.currentThread().isInterrupted() && p.isAlive()) {
+                  try {
+                    Thread.sleep(pollMs);
+                  } catch (InterruptedException e) {
+                    break;
+                  }
+                  if (!p.isAlive()) break;
+
+                  // Only consider an invariant stuck if it has an open EXD with no DON —
+                  // i.e., evaluation started but never returned. If every EXD has a DON
+                  // the process is idle between test batches (normal Gradle overhead) and
+                  // must never be killed.
+                  UUID currentId;
+                  try {
+                    currentId =
+                        LogParser.readOpenInvariantIdFrom(runLog, logStartOffset).orElse(null);
+                  } catch (Exception e) {
+                    System.err.println("[DP] Stale detector: error reading log: " + e.getMessage());
+                    continue;
+                  }
+
+                  long now = System.currentTimeMillis();
+
+                  if (currentId == null) {
+                    // No open invariant — process is between tests, not stuck. Reset.
+                    if (trackedId != null) {
+                      System.out.println("[DP] Stale detector: open invariant closed — resetting");
+                      trackedId = null;
+                    }
+                    continue;
+                  }
+
+                  if (!currentId.equals(trackedId)) {
+                    // Different open invariant — reset the clock
+                    trackedId = currentId;
+                    trackedSince = now;
+                    System.out.println("[DP] Stale detector: tracking open invariant " + currentId);
+                    continue;
+                  }
+
+                  long stuckForMs = now - trackedSince;
+                  System.out.println(
+                      "[DP] Stale detector: "
+                          + currentId
+                          + " mid-evaluation for "
+                          + (stuckForMs / 60_000)
+                          + " min"
+                          + " (threshold "
+                          + staleCheckMinutes
+                          + " min)");
+
+                  if (stuckForMs >= thresholdMs) {
+                    try {
+                      Files.writeString(
+                          runLog,
+                          "\n[DP] Stale invariant detected ("
+                              + currentId
+                              + ") - mid-evaluation for "
+                              + staleCheckMinutes
+                              + " min, killing run\n",
+                          StandardOpenOption.CREATE,
+                          StandardOpenOption.APPEND);
+                    } catch (IOException ignored) {
+                    }
+                    System.err.println(
+                        "[DP] Stale invariant detected ("
+                            + currentId
+                            + ") mid-evaluation for "
+                            + staleCheckMinutes
+                            + " min. Killing runner.");
+                    staleKilled.set(true);
+                    p.destroyForcibly();
+                    break;
+                  }
+                }
+                System.out.println(
+                    "[DP] Stale detector thread exiting (staleKilled=" + staleKilled.get() + ")");
+              });
+      staleThread.setDaemon(true);
+      staleThread.start();
+    } else {
+      System.out.println("[DP] Stale detector disabled (staleCheckMinutes=0)");
     }
 
-    if (timedOut) {
-      pumper.join(2_000); // brief flush window before appending to the log
+    // ---- TIMEOUT CONTROL ----
+    boolean finished = p.waitFor(timeoutMinutes, java.util.concurrent.TimeUnit.MINUTES);
+
+    // Stop the stale checker regardless of how the process ended
+    if (staleThread != null) {
+      staleThread.interrupt();
+    }
+
+    if (!finished) {
       Files.writeString(
-          logFile,
-          System.lineSeparator()
-              + "[DP] Run timed out after "
-              + timeoutSeconds
-              + "s"
-              + System.lineSeparator(),
+          runLog,
+          "\n[DP] External runner TIMED OUT after " + timeoutMinutes + " minutes\n",
           StandardOpenOption.CREATE,
           StandardOpenOption.APPEND);
-      return true;
+
+      p.destroyForcibly();
+      p.waitFor();
+      readerThread.interrupt();
+    } else if (staleKilled.get()) {
+      // Process was killed by stale detector; it already exited, just drain
+      readerThread.interrupt();
     }
 
-    pumper.join(); // wait for all output to be written before reading size below
-    int code = p.exitValue();
+    RunResult runResult =
+        !finished
+            ? RunResult.HARD_TIMEOUT
+            : staleKilled.get() ? RunResult.STALE_KILLED : RunResult.NORMAL;
 
-    // If it failed, stamp the exit code, so we can see it in the run log
-    if (code != 0) {
+    int exit;
+
+    if (runResult != RunResult.NORMAL) {
+      // killed by timeout or stale detector → give reader a short chance to drain
+      readerThread.join(20000);
+      exit = -1;
+    } else {
+      exit = p.exitValue();
+    }
+
+    appendDpEvents(invDir, runLog);
+
+    if (exit != 0 && runResult == RunResult.NORMAL) {
       Files.writeString(
-          logFile,
-          System.lineSeparator() + "[DP] Child JVM exit code: " + code + System.lineSeparator(),
-          StandardOpenOption.CREATE,
+          runLog,
+          "\n[DP] External runner exited with code " + exit + "\n",
           StandardOpenOption.APPEND);
     }
 
-    // Final sanity: make it obvious if nothing was produced
-    if (Files.size(logFile) == 0L) {
-      Files.writeString(
-          logFile,
-          "[DP] WARNING: child JVM produced no output (stdout/stderr). "
-              + "Check mainClass/classpath or early crashes.",
-          StandardOpenOption.CREATE,
-          StandardOpenOption.APPEND);
-    }
-    return false;
+    return runResult;
   }
 
   /**
-   * Appends {@code stuckId} to {@code disabledFile} (one UUID per line). On the next run, the child
-   * JVM receives {@code -DDP_DISABLED_FILE=<path>} and {@code daikonpp.DpRuntime.DISABLED} skips
-   * every invariant whose UUID is in that file — across all return paths simultaneously, without
-   * touching source code.
+   * Searches all {@code .java} files under {@code srcRoot} for a line containing {@code
+   * INV_EXD:<stuckId>} and removes the surrounding invariant region by delegating to {@link
+   * #removeInvariantRegion(Path, int)}.
    *
-   * <p>The file is created if it does not exist; existing entries are preserved.
+   * @return {@code true} if a region was found and removed
+   */
+  /**
+   * Appends {@code stuckId} to {@code disabledFile} (one UUID per line). On the next run the child
+   * JVM receives {@code -DDP_DISABLED_FILE=<path>} and {@code daikonpp.DpRuntime.DISABLED} skips
+   * every invariant with that UUID — across all return paths simultaneously, without touching
+   * source.
    */
   public static void disableInvariant(Path disabledFile, UUID stuckId) throws IOException {
-    Path dirPath = disabledFile.getParent();
-    Files.createDirectories(dirPath != null ? dirPath : Path.of("."));
+    Path dir = disabledFile.getParent();
+    if (dir != null) Files.createDirectories(dir);
     Files.writeString(
         disabledFile,
         stuckId.toString() + System.lineSeparator(),
         StandardOpenOption.CREATE,
         StandardOpenOption.APPEND);
-    System.out.println("    ↳ Disabled stuck invariant " + stuckId + " → " + disabledFile);
+    System.out.println("[DP] Disabled stuck invariant " + stuckId + " → " + disabledFile);
   }
 
-  // ---- internals ----
-
-  private static void pump(java.io.InputStream in, java.io.OutputStream out)
-      throws java.io.IOException {
-    byte[] buf = new byte[8192];
-    int n;
-    while ((n = in.read(buf)) != -1) out.write(buf, 0, n);
-    out.flush();
-  }
-
-  private static String toolPath(String base) {
-    String ext = isWindows() ? ".exe" : "";
-    String javaHome = System.getenv("JAVA_HOME");
-    if (javaHome != null && !javaHome.isBlank()) {
-      Path p = Path.of(javaHome, "bin", base + ext);
-      if (Files.isRegularFile(p)) return p.toString();
-    }
-    return base + ext; // rely on PATH
-  }
-
-  private static boolean isWindows() {
-    return System.getProperty("os.name").toLowerCase().contains("win");
-  }
-
-  /**
-   * Compiles all Java files under {@code srcRoot}, automatically commenting out one-line invariants
-   * that cause compilation errors. Repeats until successful or {@code maxPasses} is reached.
-   *
-   * @param srcRoot source root containing .java files
-   * @param classesDir output directory for compiled classes
-   * @param classpath classpath for javac
-   * @param maxPasses maximum number of compile attempts
-   * @throws Exception if I/O fails or compilation still fails after max passes
-   */
-  public static void compileWithAutoFilter(
-      Path srcRoot, Path classesDir, String classpath, int maxPasses) throws Exception {
-
-    Files.createDirectories(classesDir);
-
-    // gather source files and write @argfile
-    List<Path> sources = new ArrayList<>();
-    try (var walk = Files.walk(srcRoot)) {
-      walk.filter(p -> p.toString().endsWith(".java")).forEach(sources::add);
-    }
-    if (sources.isEmpty()) throw new IllegalStateException("No .java files found under " + srcRoot);
-
-    Path argFile = classesDir.resolve("dp_sources.txt");
-    try (PrintWriter pw =
-        new PrintWriter(Files.newBufferedWriter(argFile, StandardCharsets.UTF_8))) {
-      for (Path s : sources) pw.println(s.toAbsolutePath().normalize());
-    }
-
-    // shared javac cmd
-    String javacExe = toolPath("javac");
-    List<String> baseCmd = new ArrayList<>();
-    baseCmd.add(javacExe);
-    baseCmd.add("-encoding");
-    baseCmd.add("UTF-8");
-    baseCmd.add("-g");
-    baseCmd.add("-cp");
-    baseCmd.add(classpath);
-    baseCmd.add("-d");
-    baseCmd.add(classesDir.toString());
-    baseCmd.add("@" + argFile.toString());
-
-    // logs (overwrite per pass)
-    Path outLog = classesDir.resolve("dp-javac.out");
-    Path errLog = classesDir.resolve("dp-javac.err");
-
-    // iterate: compile -> parse errors -> comment failing inv lines -> repeat
-    int pass = 1;
-    while (true) {
-      System.out.println(
-          ">>> Compiling with javac (pass " + pass + "): " + String.join(" ", baseCmd));
-      int code = runProcessNoThrow(baseCmd, srcRoot, outLog, errLog);
-
-      if (code == 0) {
-        System.out.println(">>> javac OK on pass " + pass);
-        return;
-      }
-
-      // parse errors and decide what to comment
-      String err = Files.exists(errLog) ? Files.readString(errLog) : "";
-      List<JavacError> errs =
-          parsePrimaryJavacErrors(err); // only lines like ".../Foo.java:123: error: ..."
-
-      // map -> comment
-      int commented = 0;
-      for (JavacError je : errs) {
-        Path file = Path.of(je.file).toAbsolutePath().normalize();
-        if (!file.startsWith(srcRoot)) continue; // ignore external/dep paths
-        commented += commentInvariantLine(file, je.line, je.message);
-      }
-
-      if (commented == 0) {
-        throw new RuntimeException(
-            "javac failed, but no one-line invariants were found to comment.\n" + err);
-      }
-
-      if (pass++ >= Math.max(1, maxPasses)) {
-        throw new RuntimeException("javac still failing after " + (pass - 1) + " passes.\n" + err);
-      }
-    }
-  }
-
-  // parse primary javac error lines: "<path>.java:<line>: error: <message>" ---
-  private static List<JavacError> parsePrimaryJavacErrors(String stderr) {
-    List<JavacError> out = new ArrayList<>();
-    if (stderr == null || stderr.isBlank()) return out;
-
-    // Matches: /path/Foo.java:123: error: message...
-    // Works across platforms and with leading whitespace.
-    final java.util.regex.Pattern pat =
-        java.util.regex.Pattern.compile(
-            "^\\s*(.*\\.java):(\\d+):\\s+error:\\s+(.*)\\s*$", java.util.regex.Pattern.MULTILINE);
-
-    final java.util.regex.Matcher m = pat.matcher(stderr);
-    while (m.find()) {
-      final String fileStr = m.group(1);
-      final String lineStr = m.group(2);
-      final String msgStr = m.group(3);
-
-      // If any are missing, skip this match (keeps checker happy).
-      if (fileStr == null || lineStr == null || msgStr == null) continue;
-
-      final int line;
-      try {
-        line = Integer.parseInt(lineStr);
-      } catch (NumberFormatException nfe) {
-        continue; // malformed line number; ignore this match
-      }
-
-      // All non-null now; safe to construct.
-      out.add(new JavacError(fileStr, line, msgStr));
-    }
-    return out;
-  }
-
-  private static final class JavacError {
-    final String file;
-    final int line;
-    final String message;
-
-    JavacError(String file, int line, String message) {
-      this.file = file;
-      this.line = line;
-      this.message = message;
-    }
-  }
-
-  // comment a single source line if it looks like an injected one-liner ---
-  private static int commentInvariantLine(Path file, int lineNumber, String reason) {
+  public static boolean removeRegionById(Path srcRoot, UUID stuckId) {
+    String marker = stuckId.toString();
     try {
-      if (!Files.isRegularFile(file)) return 0;
-      List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
-      int idx = lineNumber - 1;
-      if (idx < 0 || idx >= lines.size()) return 0;
-
-      String src = lines.get(idx);
-      String trimmed = src.strip();
-
-      // Heuristics: treat as our one-line invariant if it contains our signatures
-      boolean looksLikeInvariant =
-          trimmed.startsWith("try { if (!(")
-              || // one-liner pattern
-              trimmed.contains("\"type\\\":\\\"INV_FAIL\\\"")
-              || // the JSON marker
-              trimmed.contains("/*__DP_ONELINE_BEGIN__*/")
-              || // if markers survived
-              trimmed.contains("__dp_ex_"); // our unique catch var prefix
-
-      // already commented?
-      if (trimmed.startsWith("//Failed Invariant in Compilation:")
-          || trimmed.startsWith("// try {")
-          || trimmed.startsWith("//try{")) {
-        return 0;
+      List<Path> javaFiles = new ArrayList<>();
+      try (var walk = Files.walk(srcRoot)) {
+        walk.filter(p -> p.toString().endsWith(".java")).forEach(javaFiles::add);
       }
-
-      if (!looksLikeInvariant) {
-        // Skip non-ours to avoid breaking user code
-        return 0;
+      for (Path file : javaFiles) {
+        if (!Files.isRegularFile(file)) continue;
+        List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
+        for (int i = 0; i < lines.size(); i++) {
+          if (lines.get(i).contains(marker)) {
+            int removed = removeInvariantRegion(file, i + 1);
+            if (removed > 0) {
+              System.out.println(
+                  "[DP] Removed stuck invariant region ("
+                      + stuckId
+                      + ") in "
+                      + file
+                      + ":"
+                      + (i + 1));
+              return true;
+            }
+          }
+        }
       }
-
-      // Replace the whole line with one comment, keeping original inline after the reason
-      String commented = "//Failed Invariant in Compilation: " + reason + " :: " + src.trim();
-      lines.set(idx, commented);
-
-      Files.write(file, lines, StandardCharsets.UTF_8);
-      System.out.println("    ↳ Commented " + file + ":" + lineNumber);
-      return 1;
-
     } catch (Exception e) {
-      System.err.println(
-          "    ! Failed to comment " + file + ":" + lineNumber + " — " + e.getMessage());
-      return 0;
+      System.err.println("[DP] removeRegionById failed for " + stuckId + ": " + e.getMessage());
     }
-  }
-
-  // non-throwing process runner so we can loop ---
-  private static int runProcessNoThrow(List<String> cmd, Path workDir, Path outLog, Path errLog)
-      throws Exception {
-    ProcessBuilder pb = new ProcessBuilder(cmd);
-    pb.directory(workDir.toFile());
-    pb.redirectOutput(outLog.toFile());
-    pb.redirectError(errLog.toFile());
-    Process p = pb.start();
-    return p.waitFor();
+    return false;
   }
 }

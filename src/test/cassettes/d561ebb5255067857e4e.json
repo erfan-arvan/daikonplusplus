@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Iterator<String> for property names, and should never return null by convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext() || !result.hasNext()",
+    "rationale" : "Trivially true, but ensures result is a valid Iterator. However, prefer more meaningful invariants—this checks interface contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.hasNext() || result.next() != null",
+    "rationale" : "If the iterator has elements, calling next() should yield a non-null property name.",
+    "meta" : [ ]
+  } ]
+}

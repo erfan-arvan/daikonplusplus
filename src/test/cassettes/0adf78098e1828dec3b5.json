@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null list created by the stream collect operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The returned list contains all elements from the input, just reordered.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == records.isEmpty()",
+    "rationale" : "If the input list is empty, the returned list will also be empty, and vice versa.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> records.contains(r))",
+    "rationale" : "All elements of the result are elements of the input list, since only sorting occurred.",
+    "meta" : [ ]
+  }, {
+    "expression" : "java.util.stream.IntStream.range(1, result.size()).allMatch(i -> getComparableSortColumns(result.get(i - 1)).compareTo(getComparableSortColumns(result.get(i))) <= 0)",
+    "rationale" : "The result list is sorted according to the comparator over getComparableSortColumns.",
+    "meta" : [ ]
+  } ]
+}

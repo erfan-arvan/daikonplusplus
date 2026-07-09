@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "List of records to delete is provided as input, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required to identify the operation's point in the timeline and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext instance is necessary for execution and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

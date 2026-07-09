@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "clusteringPlan must not be null to perform clustering operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "A non-null schema is required to structure the data properly during clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should not be null as it is used to tag and track the clustering operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is expected to be a non-empty string for valid metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getInputGroups() != null",
+    "rationale" : "The set of clustering input groups must not be null to process them.",
+    "meta" : [ ]
+  } ]
+}

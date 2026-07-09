@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null String, either a substring of name or name itself, both of which are non-null if name is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "If name is an empty string, result will also be empty. Otherwise, result contains at least one character. The method appears not to return null or a string with negative length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "The method is always called with a non-null String, as invoking contains or lastIndexOf on a null would throw an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.contains(\"atlas_imagelayer\") ? result.equals(name.substring(name.lastIndexOf('/') + 1)) : result.equals(name)",
+    "rationale" : "Captures exactly how result is computed based on whether the condition is true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(name) || (name.contains(\"atlas_imagelayer\") && result.equals(name.substring(name.lastIndexOf('/') + 1)))",
+    "rationale" : "Result is either the original name or the substring after the last slash, depending on 'atlas_imagelayer' in name.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "background == null",
+    "rationale" : "The Drawable parameter is annotated as @Null, so it is valid for background to be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "background != null || background == null",
+    "rationale" : "background can be either null or non-null as permitted by @Null annotation, establishing its domain.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for insert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Operations must have a defined commit instant time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Cannot perform insert overwrite with a null record list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.size() == 0",
+    "rationale" : "records is either empty or has elements; size is consistent with isEmpty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty string if it is not null.",
+    "meta" : [ ]
+  } ]
+}

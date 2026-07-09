@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "label.getText() returns a CharSequence and is unlikely to return null for a UI component label.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() >= 0",
+    "rationale" : "By the CharSequence contract, length() must return a non-negative integer.",
+    "meta" : [ ]
+  } ]
+}

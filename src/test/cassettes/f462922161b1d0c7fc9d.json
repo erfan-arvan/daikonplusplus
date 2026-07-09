@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "projection != null",
+    "rationale" : "batch.setProjectionMatrix(projection) will likely require projection to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width > 0",
+    "rationale" : "Width should be positive for a valid view rectangle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height > 0",
+    "rationale" : "Height should be positive for a valid view rectangle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + width > x",
+    "rationale" : "For positive width, the view's right bound should exceed its left bound.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y + height > y",
+    "rationale" : "For positive height, the view's upper bound should exceed its lower bound.",
+    "meta" : [ ]
+  } ]
+}

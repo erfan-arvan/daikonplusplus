@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "!Float.isNaN(fontScaleX)",
+    "rationale" : "Font scale is expected to be a numeric value, not NaN, as it is directly set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScaleX >= 0",
+    "rationale" : "Font scale is usually non-negative, as negative scale may not make sense for rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScaleX != Float.NEGATIVE_INFINITY",
+    "rationale" : "Negative infinity likely represents an invalid state for scaling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScaleX != Float.POSITIVE_INFINITY",
+    "rationale" : "Positive infinity as a scale is likely not intended or meaningful.",
+    "meta" : [ ]
+  } ]
+}

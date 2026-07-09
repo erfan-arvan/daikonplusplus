@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of a functional mapping, which should not be null in normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "Input parameter to the method is required for core logic and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || writeResult.getWriteStatuses().isEmpty()",
+    "rationale" : "If the returned map is empty, the stream of WriteStatus and collected partition paths must be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().containsAll(writeResult.getWriteStatuses().stream().map(status -> status.getStat().getPartitionPath()).distinct().collect(java.util.stream.Collectors.toList()))",
+    "rationale" : "Every partition corresponding to a WriteStatus is returned as a key in the result map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "Each map value (a list of file ids per partition) should be non-null since it's generated via getAllExistingFileIds.",
+    "meta" : [ ]
+  } ]
+}

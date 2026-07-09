@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "getTree() == null || expanded",
+    "rationale" : "If the method does not return immediately, either expanded is true or getTree() returned a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!expanded || getTree() != null",
+    "rationale" : "If expanded is true, the method can only reach exit if getTree() is not null (otherwise it returns early).",
+    "meta" : [ ]
+  }, {
+    "expression" : "expanded == (getTree() != null || !expanded)",
+    "rationale" : "Reflects control flow: if expanded is true, getTree() must not be null to reach this point; otherwise, expanded could be false and the method could have exited earlier.",
+    "meta" : [ ]
+  } ]
+}

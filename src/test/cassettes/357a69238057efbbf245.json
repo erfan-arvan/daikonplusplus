@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "getCurrentFrame() != null",
+    "rationale" : "getCurrentFrame() is called; should not be null at entry to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getCurrentFrame().getTextureRegion() != null",
+    "rationale" : "Method returns getCurrentFrame().getTextureRegion(); implausible to expect this to be null in normal operation.",
+    "meta" : [ ]
+  } ]
+}

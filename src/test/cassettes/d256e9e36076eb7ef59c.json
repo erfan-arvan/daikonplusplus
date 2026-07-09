@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context must be non-null to perform any processing.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "context is method parameter, assumed non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be non-null to represent the commit instant.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "instantTime is method parameter influencing commit time"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords list must be non-null, even if empty, for bulk insert.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "preppedRecords is method parameter for records to insert"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner option must be non-null to represent presence or absence of partitioner.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "bulkInsertPartitioner is an Option type parameter"
+    } ]
+  }, {
+    "expression" : "preppedRecords instanceof java.util.List",
+    "rationale" : "preppedRecords must be a List to be iterable and processable.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "preppedRecords should be a List of HoodieRecord<T>"
+    } ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of HoodieAvroKeyGeneratorFactory.createKeyGenerator(props), which is expected to not return null under normal circumstances.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "The parameter props is passed directly to a factory method and is unlikely to be null for correct usage.",
+    "meta" : [ ]
+  } ]
+}

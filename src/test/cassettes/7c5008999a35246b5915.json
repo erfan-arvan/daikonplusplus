@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tree != null",
+    "rationale" : "The tree parameter is used throughout the method and is assumed to be non-null during normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorIndex >= 0",
+    "rationale" : "actorIndex is used as an index, so it should be non-negative to index into an array or list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tree.size() >= 0",
+    "rationale" : "If tree has a size() method, it should not be negative.",
+    "meta" : [ ]
+  } ]
+}

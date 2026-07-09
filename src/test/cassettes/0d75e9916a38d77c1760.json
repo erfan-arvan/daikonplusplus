@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Iterator<List<WriteStatus>>, so result is non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is guaranteed to be non-null on method exit"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a method parameter of type String and is presumably non-null when invoking handleUpdate.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionPath comes from a non-null parameter"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is a method parameter of type String and expected not to be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "fileId comes from a non-null parameter"
+    } ]
+  }, {
+    "expression" : "result.hasNext() == true",
+    "rationale" : "The method returns an iterator wrapping at least one WriteStatus list, so it must have at least one element.",
+    "meta" : [ {
+      "key" : "iterator_state",
+      "value" : "result is not empty"
+    } ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr != null",
+    "rationale" : "recordItr is an input iterator, which can be empty or have elements; no modification here but valid as input.",
+    "meta" : [ {
+      "key" : "parameter_usage",
+      "value" : "recordItr is a possibly empty iterator"
+    } ]
+  } ]
+}

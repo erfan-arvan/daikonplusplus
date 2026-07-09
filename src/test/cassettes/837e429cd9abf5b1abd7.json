@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Indices into arrays are always non-negative, and 'i' starts at 0.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "non-negative"
+    } ]
+  }, {
+    "expression" : "result < animationIntervals.length",
+    "rationale" : "'result' is the first 'i' such that currentTime <= animationInterval, so it will be within array bounds.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "less than array length"
+    } ]
+  }, {
+    "expression" : "animationIntervals[result] >= (int)(lastTiledMapRenderTime % loopDuration)",
+    "rationale" : "'result' is returned when currentTime <= animationInterval for the interval at index 'result'.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "current animation interval covers currentTime"
+    } ]
+  }, {
+    "expression" : "animationIntervals[result] > 0",
+    "rationale" : "Animation intervals typically represent durations and should be positive.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "animation intervals should be positive"
+    } ]
+  }, {
+    "expression" : "animationIntervals.length > 0",
+    "rationale" : "If the array were empty, the exception would always be thrown; so, for this code to return, length > 0.",
+    "meta" : [ {
+      "key" : "array",
+      "value" : "must have at least one interval"
+    } ]
+  } ]
+}

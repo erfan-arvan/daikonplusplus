@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The upsert should return non-null metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records parameter is passed directly into the delegate, which expects a valid list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a fundamental upsert parameter and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used for execution and is required to perform the upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The resulting write metadata should contain non-null write status list.",
+    "meta" : [ ]
+  } ]
+}

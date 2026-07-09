@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "The method immediately dereferences order, so order must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantities are typically non-negative in purchasing contexts; negative quantities are usually not allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit prices should not be negative in standard business logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() * order.getQuantity() >= 0.0",
+    "rationale" : "If both quantity and unit price are non-negative, total price is also non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() == (int) order.getQuantity()",
+    "rationale" : "Quantities for orders are expected to be integer values (e.g., such as number of items).",
+    "meta" : [ ]
+  } ]
+}

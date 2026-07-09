@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Method uses config to create index, so config should not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Parameter config must be non-null to create index"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is a param for method; typically expected non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Parameter context is provided for the method operation"
+    } ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "Base path used internally for index creation, expected non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Base path must be defined in config"
+    } ]
+  }, {
+    "expression" : "config.getBasePath().length() > 0",
+    "rationale" : "Valid base path should have length greater than zero.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Base path string should not be empty"
+    } ]
+  }, {
+    "expression" : "config.getIndexType() != null",
+    "rationale" : "Index type is needed to determine what index to create.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Index type must be defined in config"
+    } ]
+  } ]
+}

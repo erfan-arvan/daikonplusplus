@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context object is used to create a BaseRollbackPlanActionExecutor and must not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context argument"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to the executor and should not be null to avoid errors.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime argument"
+    } ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "instantToRollback is required by the rollback operation and must not be null for meaningful execution.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantToRollback argument"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should specify a valid time, so it should not be an empty string.",
+    "meta" : [ {
+      "key" : "string check",
+      "value" : "instantTime not empty"
+    } ]
+  }, {
+    "expression" : "!shouldRollbackUsingMarkers || !isRestore",
+    "rationale" : "If restore is in progress, rollback using markers may be mutually exclusive; commonly enforced in rollback scheduling semantics.",
+    "meta" : [ {
+      "key" : "mutual exclusivity",
+      "value" : "shouldRollbackUsingMarkers/isRestore"
+    } ]
+  } ]
+}

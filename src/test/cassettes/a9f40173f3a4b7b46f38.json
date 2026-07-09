@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Option due to use of Option type for the return value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid (non-null, non-empty) instantTime is typically required for scheduling log compaction.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "layers != null",
+    "rationale" : "Method expects int[] as input and the method body iterates over its elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length >= 0",
+    "rationale" : "All Java arrays have a non-negative length by definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.getClass().isArray()",
+    "rationale" : "Validates layers is indeed an array.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The 'result' is always a non-null Option object since Option.empty() or Option.of() is returned.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method returns a non-null Option object, either empty or containing a HoodieTableMetadataWriter"
+    } ]
+  }, {
+    "expression" : "(result.isPresent() && !triggeringInstantTimestamp.isEmpty()) || !result.isPresent()",
+    "rationale" : "If the Option contains a metadata writer, it's created with a triggeringInstantTimestamp.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "When result is present, triggeringInstantTimestamp is expected to be non-empty."
+    } ]
+  }, {
+    "expression" : "(result.isPresent() && failedWritesCleaningPolicy != null) || !result.isPresent()",
+    "rationale" : "If Option is present, failedWritesCleaningPolicy used to create metadataWriter is non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "failedWritesCleaningPolicy is required for creation of metadataWriter when present."
+    } ]
+  }, {
+    "expression" : "(!result.isPresent() && !config.isMetadataTableEnabled()) || result.isPresent()",
+    "rationale" : "Result is empty if config.isMetadataTableEnabled() is false or isMetadataTable() is true, else present.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If the table is metadata table or metadata table not enabled, result is empty."
+    } ]
+  }, {
+    "expression" : "result.isEmpty() || isMetadataTableExists",
+    "rationale" : "If Option is present, metadata table existence must be true.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Metadata tables exist if metadata writer present in result."
+    } ]
+  } ]
+}

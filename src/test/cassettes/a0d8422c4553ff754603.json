@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == super.removeActorAt(index, unfocus)",
+    "rationale" : "The method returns the result of calling super.removeActorAt with the same arguments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index >= 0",
+    "rationale" : "The method likely assumes a valid index for removing an actor; negative indices are often invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result == null && super.removeActorAt(index, unfocus) != null)",
+    "rationale" : "If result is null, then calling super.removeActorAt with these arguments also would not return an actor.",
+    "meta" : [ ]
+  } ]
+}

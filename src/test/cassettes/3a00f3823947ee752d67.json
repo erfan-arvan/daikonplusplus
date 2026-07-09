@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "createTable returns the result of createTableAndValidate, which presumably returns a non-null HoodieTable instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieTable",
+    "rationale" : "As per the method signature, result must be of type HoodieTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is a required parameter used in the method call and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a required parameter used in the method call and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "It's likely that a HoodieTable created with a given config returns that config in getConfig().",
+    "meta" : [ ]
+  } ]
+}

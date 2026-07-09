@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "hexSideLength >= 0",
+    "rationale" : "A side length for a hexagon is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hexSideLength != Float.NaN",
+    "rationale" : "A length should not be NaN for meaningful geometric calculations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hexSideLength < Float.POSITIVE_INFINITY",
+    "rationale" : "Using an infinite length for a hexagon side is not meaningful.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "A non-null data list is essential for streaming and flatMap operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The mapping function must not be null to apply to elements of the data list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is expected to be a positive integer for parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "When data is not empty, parallelism should not exceed the data size for efficient processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism must be at least 1 to make sense in the context of parallel processing.",
+    "meta" : [ ]
+  } ]
+}

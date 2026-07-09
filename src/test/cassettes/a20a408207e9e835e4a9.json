@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned list is instantiated as a new ArrayList, so it is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method is designed to operate on a valid (non-null) partition path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf != null)",
+    "rationale" : "All added SmallFile objects to the result list are non-null before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.sizeBytes < config.getParquetSmallFileLimit())",
+    "rationale" : "Only files smaller than the configured small file limit are added to the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.location != null)",
+    "rationale" : "Each SmallFile has its location set before being added to the result.",
+    "meta" : [ ]
+  } ]
+}

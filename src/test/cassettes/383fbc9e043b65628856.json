@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit instant time should be specified before committing.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "A partition-to-records mapping should exist when committing metadata.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If there are partitions to commit, the instant time should not be the empty string.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input relationship"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet().stream().noneMatch(key -> key == null)",
+    "rationale" : "All partition keys in the map should be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection content"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap.values().stream().noneMatch(val -> val == null)",
+    "rationale" : "All values (HoodieData<HoodieRecord>) in the map should be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection content"
+    } ]
+  } ]
+}

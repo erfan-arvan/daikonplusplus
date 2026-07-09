@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this', so result should be identical to the current instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefWidth == Fixed.toFloat(this.prefWidth)",
+    "rationale" : "The method sets this.prefWidth to Fixed.valueOf(prefWidth), so the float conversion back should match the input argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.prefWidth == this.prefWidth",
+    "rationale" : "After assignment and returning this, both result and this are the same, so their prefWidth fields are equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Fixed.toFloat(result.prefWidth) == prefWidth",
+    "rationale" : "The returned object's prefWidth, converted to float, should equal the input argument at method exit.",
+    "meta" : [ ]
+  } ]
+}

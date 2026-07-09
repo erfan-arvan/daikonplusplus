@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "textField != null",
+    "rationale" : "The method takes a TextField parameter, and it is likely that it must be non-null for the keyboard to be shown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Gdx.input.isPeripheralAvailable(Input.Peripheral.OnscreenKeyboard)",
+    "rationale" : "Because the method attempts to show an onscreen keyboard, it is likely that the keyboard peripheral is available at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Gdx.input.isOnscreenKeyboardVisible()",
+    "rationale" : "The method calls setOnscreenKeyboardVisible(true), so the onscreen keyboard should be visible at exit.",
+    "meta" : [ ]
+  } ]
+}

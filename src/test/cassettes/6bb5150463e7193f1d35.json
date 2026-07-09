@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A compaction instant time should not be null for compaction to be scheduled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The extraMetadata Option object should be non-null (though its contained map may be absent).",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is necessary for scheduling compaction and should not be null.",
+    "meta" : [ ]
+  } ]
+}

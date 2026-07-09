@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result.getId() == tile.getId()",
+    "rationale" : "If result is non-null, its id is set to that of tile before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || (result.getFrameTiles() != null && result.getIntervals() != null)",
+    "rationale" : "When result is non-null, it was constructed with non-null arrays for frames and intervals.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement is used unconditionally in the method and is required for getChildByName.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == null) == (tileElement.getChildByName(\"animation\") == null)",
+    "rationale" : "If there is no animation child, the result is null, and vice versa.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getFrameTiles().size > 0",
+    "rationale" : "When result is non-null, it is constructed from at least one frame tile.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method always returns the result of execute(), it is likely that result is non-null unless execute() may return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "WriteMetadata#getWriteStatuses is likely required to be non-null for downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of a List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null && result.getWriteStatuses() != null && result.getWriteStatuses().size() <= keys.size()",
+    "rationale" : "After a delete, there typically cannot be more WriteStatus entries than HoodieKeys being deleted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Hudi operations are almost always associated with a non-empty instantTime representing commit time.",
+    "meta" : [ ]
+  } ]
+}

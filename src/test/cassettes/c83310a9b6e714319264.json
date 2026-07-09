@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "horizontalAlign != null",
+    "rationale" : "Common precondition for string assignment and many string methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "horizontalAlign.length() >= 0",
+    "rationale" : "The length of any Java string (including empty string) is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!horizontalAlign.isEmpty()",
+    "rationale" : "String alignment should typically be a named value, so expecting a non-empty string is reasonable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "horizontalAlign.equals(horizontalAlign.trim())",
+    "rationale" : "Alignment strings often should not have leading or trailing whitespace.",
+    "meta" : [ ]
+  }, {
+    "expression" : "horizontalAlign.equalsIgnoreCase(\"left\") || horizontalAlign.equalsIgnoreCase(\"center\") || horizontalAlign.equalsIgnoreCase(\"right\")",
+    "rationale" : "Typical values for horizontal alignment may be left, center, or right.",
+    "meta" : [ ]
+  } ]
+}

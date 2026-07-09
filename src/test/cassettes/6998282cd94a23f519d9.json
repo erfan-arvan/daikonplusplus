@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'result', so it is unlikely to be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Input argument, typically assumed not null by method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in downstream calls and is expected to not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result is declared as List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size cannot be negative; always a non-negative integer.",
+    "meta" : [ ]
+  } ]
+}

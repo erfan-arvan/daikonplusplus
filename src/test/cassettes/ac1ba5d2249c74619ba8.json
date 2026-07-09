@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is likely required for operations; null is usually not allowed for core client objects.",
+    "meta" : [ {
+      "key" : "safe evaluation",
+      "value" : "Ensures safe access to metaClient methods if used in future"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is likely to be used for column operations, so it should not be null.",
+    "meta" : [ {
+      "key" : "safe evaluation",
+      "value" : "Prevents NullPointerException on columnsToIndex usage"
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.isEmpty() || columnsToIndex.stream().allMatch(col -> col != null && !col.isEmpty())",
+    "rationale" : "Ensures that if the list is provided, all its elements are valid (non-null, non-empty strings).",
+    "meta" : [ {
+      "key" : "data quality",
+      "value" : "Assures the list is safely usable if non-null and non-empty"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "The method may expect a valid table config from metaClient.",
+    "meta" : [ {
+      "key" : "table config presence",
+      "value" : "Most operations require a present config"
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.stream().distinct().count() == columnsToIndex.size()",
+    "rationale" : "It is usually expected that column names to index are unique within the list.",
+    "meta" : [ {
+      "key" : "uniqueness",
+      "value" : "No duplicate column names"
+    } ]
+  } ]
+}

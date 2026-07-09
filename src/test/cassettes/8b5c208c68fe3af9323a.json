@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of execute(), which should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null upon method exit"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "Keys list is passed as a parameter and used in the executor; typically should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "keys is not null since passed to executor"
+    } ]
+  }, {
+    "expression" : "!keys.isEmpty() || (result.getWriteStatuses().isEmpty())",
+    "rationale" : "If keys is empty, then result write statuses should also be empty, as no deletes to process.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "keys and result relationship"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses list inside result should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "write statuses list is not null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time is critical for commit actions and so is expected non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime parameter non-null"
+    } ]
+  } ]
+}

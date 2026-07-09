@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(y)",
+    "rationale" : "Layer positions in map editors and rendering engines are typically finite and should not be NaN or infinite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= -Float.MAX_VALUE && y <= Float.MAX_VALUE",
+    "rationale" : "Parameter y must be within the valid range of float values, ensuring it is not outside the representable bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(y < -Float.MAX_VALUE)",
+    "rationale" : "A float parameter to set a map layer position should not be less than the minimum valid float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(y > Float.MAX_VALUE)",
+    "rationale" : "A float parameter to set a map layer position should not exceed the maximum valid float value.",
+    "meta" : [ ]
+  } ]
+}

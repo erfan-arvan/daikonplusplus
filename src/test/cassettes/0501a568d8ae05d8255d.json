@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method throws an IllegalArgumentException if name is null, so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type != null",
+    "rationale" : "type must be non-null for ObjectMap#get(type) to be valid; otherwise a NullPointerException would be thrown.",
+    "meta" : [ ]
+  } ]
+}

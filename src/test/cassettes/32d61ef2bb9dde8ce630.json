@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is used in method calls; likely assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is operated on; assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr.hasNext() || !recordItr.hasNext()",
+    "rationale" : "recordItr.hasNext() is called at the start of the method.",
+    "meta" : [ ]
+  } ]
+}

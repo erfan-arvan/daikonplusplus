@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a non-null engine context to operate, and similar methods take non-null context as well.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be a non-null string representing a timestamp, based on its use throughout the class.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime likely represents a meaningful timestamp and should not be empty.",
+    "meta" : [ ]
+  } ]
+}

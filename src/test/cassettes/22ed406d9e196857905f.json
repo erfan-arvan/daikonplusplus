@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Both sorting and returning the list requires it to not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Repartitioning into zero or negative partitions is not meaningful and usually disallowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List.size() is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "If records are empty, partitioning into more partitions than records may be allowed, but otherwise it is typical to have partition count not exceed record count.",
+    "meta" : [ ]
+  } ]
+}

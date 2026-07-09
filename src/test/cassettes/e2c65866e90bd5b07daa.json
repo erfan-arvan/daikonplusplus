@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursor positions in text fields are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!hasSelection) || (selectionStart >= 0)",
+    "rationale" : "If there is a selection, the selection start should be a valid index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!hasSelection) || (selectionStart != cursor)",
+    "rationale" : "A valid selection requires selectionStart and cursor to differ.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "Text fields should not store null Strings as content.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor <= (text == null ? 0 : text.length())",
+    "rationale" : "The cursor should not exceed the length of the text.",
+    "meta" : [ ]
+  } ]
+}

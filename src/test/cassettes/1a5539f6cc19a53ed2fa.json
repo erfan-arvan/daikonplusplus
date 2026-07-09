@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Bucket numbers are typically non-negative integers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "The method cannot function correctly with a null key; casts and field accesses assume non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == ((Pair<HoodieKey, Option<HoodieRecordLocation>>) key).getRight().isPresent() ? updateLocationToBucket.get(((Pair<HoodieKey, Option<HoodieRecordLocation>>) key).getRight().get().getFileId()) : computePartitionForInsert(((Pair<HoodieKey, Option<HoodieRecordLocation>>) key).getLeft())",
+    "rationale" : "The result is determined solely by whether the right side is present or not.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < Integer.MAX_VALUE",
+    "rationale" : "It is unlikely for a partition or bucket number to reach MAX_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == ((Pair<HoodieKey, Option<HoodieRecordLocation>>) key).getRight().isPresent() ? updateLocationToBucket.get(((Pair<HoodieKey, Option<HoodieRecordLocation>>) key).getRight().get().getFileId()) : ((partitionPathToInsertBucketInfos.get(((Pair<HoodieKey, Option<HoodieRecordLocation>>) key).getLeft().getPartitionPath()).get(Collections.binarySearch(partitionPathToInsertBucketInfos.get(((Pair<HoodieKey, Option<HoodieRecordLocation>>) key).getLeft().getPartitionPath()), new InsertBucketCumulativeWeightPair(new InsertBucket(), 1.0 * Math.floorMod(NumericUtils.getMessageDigestHash(\"MD5\", ((Pair<HoodieKey, Option<HoodieRecordLocation>>) key).getLeft().getRecordKey()), Math.max(1, workloadProfile.getWorkloadStat(((Pair<HoodieKey, Option<HoodieRecordLocation>>) key).getLeft().getPartitionPath()).getNumInserts())) / Math.max(1, workloadProfile.getWorkloadStat(((Pair<HoodieKey, Option<HoodieRecordLocation>>) key).getLeft().getPartitionPath()).getNumInserts())))).getKey().bucketNumber)",
+    "rationale" : "This unwinds the full method logic to express result deterministically based on key.",
+    "meta" : [ ]
+  } ]
+}

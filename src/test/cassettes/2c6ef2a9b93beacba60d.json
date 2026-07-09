@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the local map field, which is expected to be a valid TiledMap instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || (parameter.textureMinFilter != null && parameter.textureMagFilter != null)",
+    "rationale" : "If parameter was non-null, it was used to call setTextureFilters, which likely expects non-null filter values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "The file is required to load a TiledMap, so it should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "An AssetManager is required for loading assets and should not be null here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "The fileName should be non-null and non-empty to identify the map resource.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is likely required to perform overwrite operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required to track write actions and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records list is fundamental for insertOverwrite, and a null value likely would be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "records must be a List, as declared in the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is probably used as an identifier or timestamp and should not be empty.",
+    "meta" : [ ]
+  } ]
+}

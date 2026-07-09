@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() >= 0.0",
+    "rationale" : "From method use: estimation thresholds should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() > 0",
+    "rationale" : "Small file size limit must be positive for thresholds and file splits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() > 0",
+    "rationale" : "Record size estimate should be positive, used for initializing averages.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitTimeline != null",
+    "rationale" : "commitTimeline is actively used in method, must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "hoodieWriteConfig is actively used in method, must not be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "profile is explicitly checked for null at the method's entrance and an exception is thrown otherwise.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "ensures safe profile usage"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs and returns a new JavaUpsertPartitioner, which should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result always non-null"
+    } ]
+  } ]
+}

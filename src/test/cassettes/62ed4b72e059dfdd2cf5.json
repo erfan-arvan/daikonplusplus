@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new instance of a BulkInsertPartitioner implementation for all legal input values of sortMode, so result is always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "Only these two values allow execution to reach the return point; other values throw an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || result instanceof JavaGlobalSortPartitioner",
+    "rationale" : "If sortMode is not NONE, then the only other valid path is GLOBAL_SORT, where result is a JavaGlobalSortPartitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode != BulkInsertSortMode.NONE || result instanceof JavaNonSortPartitioner",
+    "rationale" : "If sortMode is NONE, result will always be an instance of JavaNonSortPartitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(sortMode == BulkInsertSortMode.NONE) == (result instanceof JavaNonSortPartitioner)",
+    "rationale" : "There is a one-to-one correspondence between sortMode being NONE and result being JavaNonSortPartitioner.",
+    "meta" : [ ]
+  } ]
+}

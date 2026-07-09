@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata object as specified by the implementation, which immediately returns the result of the execute() method, so null is unlikely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is passed directly to the executor and is expected to be a valid list of HoodieRecord objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context must be non-null for the bulkInsert operation as it is used to construct the executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed as a parameter and used in multiple methods, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(HoodieWriteMetadata.class) || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The returned object 'result' is always of a type assignable to HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

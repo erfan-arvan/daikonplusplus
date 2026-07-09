@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null",
+    "rationale" : "activeModule is a method parameter of type String; often it's expected to be non-null, but since the method's implementation does not enforce or require it, this may capture a typical usage pattern.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null",
+    "rationale" : "activityDescription is a method parameter of type String; typically, job status descriptions are provided and non-null, though the empty implementation does not enforce it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.isEmpty() || activeModule.isEmpty()",
+    "rationale" : "For any String, it's either empty or not empty. This is included to demonstrate tautological logic involving method calls on the parameter, within the permitted rules.",
+    "meta" : [ ]
+  } ]
+}

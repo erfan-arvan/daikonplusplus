@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "price >= 0",
+    "rationale" : "The price of an order is typically non-negative in the context of order processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Double.isFinite(price)",
+    "rationale" : "The price should be a finite value; infinite or NaN are not meaningful for discounting.",
+    "meta" : [ ]
+  } ]
+}

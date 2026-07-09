@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "sortMode != null",
+    "rationale" : "Switch statement on sortMode requires it be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "Method only handles these cases without throwing.",
+    "meta" : [ ]
+  } ]
+}

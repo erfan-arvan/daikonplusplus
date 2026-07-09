@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "records must not be null to be processed by the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime must be specified for versioned writes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If there are records to insert, instantTime must be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.size() == 0",
+    "rationale" : "If records is empty, its size is 0; relates emptiness and size.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "bucketNumber is likely an index or key for bucketInfoMap, which should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber < totalBuckets",
+    "rationale" : "bucketNumber is likely constrained by the total number of buckets managed by the partitioner.",
+    "meta" : [ ]
+  } ]
+}

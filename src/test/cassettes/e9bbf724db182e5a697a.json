@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method expects a non-null 'result' argument to perform its logic safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The 'commit' implementation immediately invokes 'getWriteStatuses' on 'result', so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "The code maps over the WriteStatuses, so all WriteStatus entries should be non-null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "The implementation immediately calls 'getStat' on each WriteStatus, so each must be non-null and have non-null stats.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size is always non-negative; ensures getWriteStatuses returns a valid List.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method uses clusteringGroup to obtain slices, so it must not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "clusteringGroup is expected to be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed as a parameter and used directly in the method.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "The method maps clusteringGroup.getSlices() implying it must not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "getSlices() should return a non-null list"
+    } ]
+  }, {
+    "expression" : "clusteringGroup.getSlices().isEmpty() || clusteringGroup.getSlices().size() > 0",
+    "rationale" : "The slices list size is always >= 0.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "List size is zero or more"
+    } ]
+  } ]
+}

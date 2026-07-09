@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method requires metaClient to operate and passes it to another method.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "metaClient should be provided for this method to work"
+    } ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "Non-static methods require a valid instance context.",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "non-static method, so instance should not be null"
+    } ]
+  } ]
+}

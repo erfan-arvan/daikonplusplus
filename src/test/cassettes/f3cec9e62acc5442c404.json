@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Method uses instantTime; null may not be expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a map key; should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is passed along and likely must be non-null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser is provided as an argument and may be required for method logic.",
+    "meta" : [ ]
+  } ]
+}

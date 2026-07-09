@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "com.badlogic.gdx.scenes.scene2d.ui.TooltipManager.files == null || com.badlogic.gdx.scenes.scene2d.ui.TooltipManager.files == com.badlogic.gdx.Gdx.files",
+    "rationale" : "The method checks if files is null or refers to a different Gdx.files, so this predicate reflects the logical condition at entry that determines slow path initialization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "com.badlogic.gdx.scenes.scene2d.ui.TooltipManager.instance == null || com.badlogic.gdx.scenes.scene2d.ui.TooltipManager.files == com.badlogic.gdx.Gdx.files",
+    "rationale" : "If an instance already exists, the shared files reference should match, or else reinitialization will occur.",
+    "meta" : [ ]
+  } ]
+}

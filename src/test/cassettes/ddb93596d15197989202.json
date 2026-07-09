@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Option, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "scheduleCompactionExecutor != null",
+    "rationale" : "The executor object is created as part of the return value computation so should be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed directly to the executor and should not be null during scheduleCompaction operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for compaction scheduling and used during executor construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(scheduleCompactionExecutor.execute())",
+    "rationale" : "The return value is precisely the result of execute() on the constructed executor.",
+    "meta" : [ ]
+  } ]
+}

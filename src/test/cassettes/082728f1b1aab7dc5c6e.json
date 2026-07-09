@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of bulkInsertPrepped should be a non-null List of WriteStatus objects.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result is assigned from table.bulkInsertPrepped, likely non-null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method usage implies preppedRecords is non-null as it's passed to bulkInsertPrepped.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "preppedRecords is a parameter to the method and used in bulkInsertPrepped call."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely non-null since it is used to initialize the table with Option.ofNullable.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "instantTime is passed to Option.ofNullable, possibly non-null at this point."
+    } ]
+  }, {
+    "expression" : "result.size() == preppedRecords.size()",
+    "rationale" : "Typically, bulk insert returns one WriteStatus per record inserted, so the sizes should match.",
+    "meta" : [ {
+      "key" : "collection_size",
+      "value" : "result size likely corresponds to preppedRecords size after bulk insert"
+    } ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "Each WriteStatus in result should be non-null after a bulk insert operation.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result should contain non-null WriteStatus instances."
+    } ]
+  } ]
+}

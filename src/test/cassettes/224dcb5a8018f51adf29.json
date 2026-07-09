@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cache != null",
+    "rationale" : "cache is dereferenced for getFont(), so must be non-null at this entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cache.getFont() != null",
+    "rationale" : "The value returned by cache.getFont() is dereferenced and used for various operations, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(fontScaleX)",
+    "rationale" : "fontScaleX is used in setScale; should not be NaN for scaling computations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(fontScaleY)",
+    "rationale" : "fontScaleY is used in setScale; should not be NaN for scaling computations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "computePrefSize != null",
+    "rationale" : "computePrefSize is called as a method, so it must refer to a valid method implementation or be resolvable at runtime.",
+    "meta" : [ ]
+  } ]
+}

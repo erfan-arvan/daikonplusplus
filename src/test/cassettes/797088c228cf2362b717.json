@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == supportsTransparency",
+    "rationale" : "The method returns the value of 'supportsTransparency', so result always equals it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !supportsTransparency",
+    "rationale" : "If supportsTransparency is true, result must be true; otherwise, result can be false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result && !supportsTransparency)",
+    "rationale" : "Result cannot be true if supportsTransparency is false.",
+    "meta" : [ ]
+  } ]
+}

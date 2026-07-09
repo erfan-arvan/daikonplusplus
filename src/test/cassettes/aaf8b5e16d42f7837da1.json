@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "Partition path is expected to be a non-empty String, as clustering operates on valid partition paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "The method expects a list of FileSlice objects to operate clustering logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices == null || fileSlices.size() >= 0",
+    "rationale" : "If fileSlices is not null, its size cannot be negative.",
+    "meta" : [ ]
+  } ]
+}

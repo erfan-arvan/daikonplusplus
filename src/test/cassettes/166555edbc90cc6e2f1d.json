@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "currentText != null",
+    "rationale" : "Many string operations require currentText to be non-null, and the method calls equals on it later; this would be necessary for safe execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!currentText.isEmpty()",
+    "rationale" : "The text likely represents an undo/redo state, which usually makes sense if non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "currentText.trim().length() == currentText.length()",
+    "rationale" : "It's possible that leading/trailing spaces are considered significant, or that whitespace is managed, making this a meaningful property to check.",
+    "meta" : [ ]
+  } ]
+}

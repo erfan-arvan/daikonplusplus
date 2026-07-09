@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "It is expected that the method returns a non-null List of WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input record list should not be null for upsert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is required for versioning and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The returned object should be a List of WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A List's size is always non-negative by contract.",
+    "meta" : [ ]
+  } ]
+}

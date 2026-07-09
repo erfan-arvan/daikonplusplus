@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "stage == null || stage != null",
+    "rationale" : "Covers both possible null and non-null cases for 'stage', which determine the method's branching.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "At exit, 'setStage' performs no direct mutation on the input reference 'stage'; this is a trivial truth but included as a placeholder for deeper field or state invariants.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "The method uses tileSet.getProperties() and passes tileSet to addStaticTiledMapTile, so tileSet must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver.getImage is invoked in both branches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "The method calls getRelativeFileHandle(tmjFile, ...), so tmjFile must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstgid >= 0",
+    "rationale" : "firstgid is used as a base ID for tiles and acts as an offset or starting index; negative IDs are unlikely intended.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilewidth > 0 && tileheight > 0",
+    "rationale" : "tilewidth and tileheight are used for region sizes and increments, and the loops imply they must be positive.",
+    "meta" : [ ]
+  } ]
+}

@@ -205,9 +205,26 @@ public class PipelineE2ETest {
 
     CfgLite cfg = loadCfg(caseDir.resolve("config.json"));
 
-    Properties prev = snapshotAndSetCaseProps(buildRegistry, buildOutcomes);
+    Map<String, String> prev = snapshotAndSetCaseProps(buildRegistry, buildOutcomes, cfg.dpProps);
     try {
-      List<String> args = List.of(inputDir.toString(), "", cfg.mainClass, String.valueOf(cfg.maxK));
+      final List<String> args;
+      if ("external".equals(cfg.execMode)) {
+        assertFalse(cfg.command.isEmpty(), "External mode requires a non-empty command list");
+        // Extract runner script name (last element of command, e.g. "run.sh" from
+        // ["bash","run.sh"])
+        String scriptName = cfg.command.get(cfg.command.size() - 1);
+        args =
+            List.of(
+                "--external-project",
+                "--project-root",
+                inputDir.toString(),
+                "--main-src",
+                ".",
+                "--runner-script",
+                scriptName);
+      } else {
+        args = List.of(inputDir.toString(), "", cfg.mainClass, String.valueOf(cfg.maxK));
+      }
       App.main(args.toArray(new String[0]));
 
       assertTrue(Files.exists(buildRegistry), "Pipeline produced no registry at " + buildRegistry);
@@ -341,9 +358,26 @@ public class PipelineE2ETest {
     /** Max K (domain-specific pipeline parameter). */
     final int maxK;
 
-    CfgLite(String mainClass, int maxK) {
+    /** Extra {@code dp.*} system properties from the {@code dp} section of config.json. */
+    final Map<String, String> dpProps;
+
+    /** Execution mode: {@code null} / {@code "native"} or {@code "external"}. */
+    final String execMode;
+
+    /** Command to run in external mode (e.g., {@code ["bash", "run.sh"]}). */
+    final List<String> command;
+
+    CfgLite(
+        String mainClass,
+        int maxK,
+        Map<String, String> dpProps,
+        String execMode,
+        List<String> command) {
       this.mainClass = mainClass;
       this.maxK = maxK;
+      this.dpProps = dpProps;
+      this.execMode = execMode;
+      this.command = command;
     }
   }
 
@@ -359,68 +393,86 @@ public class PipelineE2ETest {
   private static CfgLite loadCfg(Path jsonPath) throws IOException {
     String mainClass = "com.example.Main";
     int maxK = 5;
+    Map<String, String> dpProps = new LinkedHashMap<>();
+    String execMode = null;
+    List<String> command = new ArrayList<>();
     if (Files.isRegularFile(jsonPath)) {
       JsonNode j = OM.readTree(jsonPath.toFile());
       if (j.hasNonNull("mainClass")) mainClass = j.get("mainClass").asText();
       if (j.hasNonNull("maxK")) maxK = j.get("maxK").asInt(5);
+      if (j.hasNonNull("execMode")) execMode = j.get("execMode").asText();
+      if (j.hasNonNull("command") && j.get("command").isArray()) {
+        j.get("command").forEach(el -> command.add(el.asText()));
+      }
+      JsonNode dp = j.get("dp");
+      if (dp != null && dp.isObject()) {
+        dp.fields()
+            .forEachRemaining(
+                e -> {
+                  JsonNode v = e.getValue();
+                  if (v.isTextual()) {
+                    dpProps.put(e.getKey(), v.asText());
+                  } else if (v.isArray()) {
+                    // Serialize array values as comma-separated strings
+                    List<String> items = new ArrayList<>();
+                    v.forEach(el -> items.add(el.asText()));
+                    dpProps.put(e.getKey(), String.join(",", items));
+                  } else {
+                    dpProps.put(e.getKey(), v.asText());
+                  }
+                });
+      }
     }
-    return new CfgLite(mainClass, maxK);
+    return new CfgLite(mainClass, maxK, dpProps, execMode, command);
   }
 
   // ---------- System property scoping ----------
 
   /**
-   * Points the pipeline to per-case output files by setting system properties.
+   * Sets per-case system properties and returns a snapshot of the previous values.
+   *
+   * <p>Each entry maps a key to its previous value, or {@code null} if the key was absent before
+   * this call. Pass the result to {@link #restoreProps(Map)} in a finally block.
    *
    * @param buildRegistry destination path for the registry
    * @param buildOutcomes destination path for the outcomes
-   * @return snapshot of previous values so they can be restored
+   * @param dpProps extra {@code dp.*} props from the case config's {@code dp} section
+   * @return snapshot of all modified keys (null value = was absent)
    */
-  private static Properties snapshotAndSetCaseProps(Path buildRegistry, Path buildOutcomes) {
-    Properties prev = new Properties();
-    copyIfSet(prev, "dp.registry");
-    copyIfSet(prev, "dp.outcomes");
-    copyIfSet(prev, "dp.registryReset");
+  private static Map<String, String> snapshotAndSetCaseProps(
+      Path buildRegistry, Path buildOutcomes, Map<String, String> dpProps) {
+    Map<String, String> prev = new LinkedHashMap<>();
+    // Core props
+    prev.put("dp.registry", System.getProperty("dp.registry"));
+    prev.put("dp.outcomes", System.getProperty("dp.outcomes"));
+    prev.put("dp.registryReset", System.getProperty("dp.registryReset"));
+    for (String key : dpProps.keySet()) {
+      prev.put("dp." + key, System.getProperty("dp." + key));
+    }
 
     System.setProperty("dp.registry", buildRegistry.toAbsolutePath().toString());
     System.setProperty("dp.outcomes", buildOutcomes.toAbsolutePath().toString());
     System.setProperty("dp.registryReset", "true");
+    for (Map.Entry<String, String> e : dpProps.entrySet()) {
+      System.setProperty("dp." + e.getKey(), e.getValue());
+    }
     return prev;
   }
 
   /**
-   * Copies a system property into a {@link Properties} map if it is currently set.
+   * Restores system properties to the state captured by {@link #snapshotAndSetCaseProps}.
    *
-   * @param dst destination to receive the snapshot
-   * @param key system property name
-   */
-  private static void copyIfSet(Properties dst, String key) {
-    String v = System.getProperty(key);
-    if (v != null) dst.setProperty(key, v);
-  }
-
-  /**
-   * Restores system properties that were previously snapshotted.
+   * <p>A {@code null} value in the map means the key was absent before the test and is cleared.
    *
-   * @param prev prior values captured by {@link #snapshotAndSetCaseProps(Path, Path)}
+   * @param prev snapshot produced by {@link #snapshotAndSetCaseProps}
    */
-  private static void restoreProps(Properties prev) {
-    restoreKey(prev, "dp.registry");
-    restoreKey(prev, "dp.outcomes");
-    restoreKey(prev, "dp.registryReset");
-  }
-
-  /**
-   * Restores a single system property to a prior value or clears it if none was present.
-   *
-   * @param prev snapshot map
-   * @param key system property name
-   */
-  private static void restoreKey(Properties prev, String key) {
-    if (prev.containsKey(key)) {
-      System.setProperty(key, prev.getProperty(key));
-    } else {
-      System.clearProperty(key);
+  private static void restoreProps(Map<String, String> prev) {
+    for (Map.Entry<String, String> e : prev.entrySet()) {
+      if (e.getValue() != null) {
+        System.setProperty(e.getKey(), e.getValue());
+      } else {
+        System.clearProperty(e.getKey());
+      }
     }
   }
 }

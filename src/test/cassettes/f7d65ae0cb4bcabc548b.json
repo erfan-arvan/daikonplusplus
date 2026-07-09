@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "atlas.findRegion(regionName) typically returns a non-null TextureRegion if a matching region exists in the atlas; the method is expected to return a valid region.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TextureRegion",
+    "rationale" : "The method's return type guarantees this will hold, as 'result' will either be a TextureRegion or null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getRegionWidth() >= 0",
+    "rationale" : "A valid TextureRegion should have a non-negative width; null check is required for safety.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getRegionHeight() >= 0",
+    "rationale" : "A valid TextureRegion should have a non-negative height; null check is required for safety.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getTexture() != null",
+    "rationale" : "If a TextureRegion is returned, its underlying texture should not be null.",
+    "meta" : [ ]
+  } ]
+}

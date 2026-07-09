@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fontScaleY == fontScaleY",
+    "rationale" : "fontScaleY is a parameter and always defined at this program point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(fontScaleY)",
+    "rationale" : "It's likely the method expects fontScaleY to be a valid float value, not NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(fontScaleY)",
+    "rationale" : "The value for fontScaleY should be finite, as it is typically used for scaling and an infinite value would be problematic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScaleY >= 0.0f",
+    "rationale" : "Font scale factors are commonly non-negative, so fontScaleY is likely expected to be zero or greater.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScaleY <= Float.MAX_VALUE",
+    "rationale" : "fontScaleY, as a float, cannot exceed Float.MAX_VALUE.",
+    "meta" : [ ]
+  } ]
+}

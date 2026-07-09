@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context must be provided for execution",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid instantTime is required for bulk insert operations",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Records to be inserted should not be null",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The action executor should return a non-null metadata object",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The metadata should contain a non-null list of WriteStatus objects",
+    "meta" : [ ]
+  } ]
+}

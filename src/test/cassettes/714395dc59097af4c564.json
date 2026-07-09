@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method likely expects a valid 'instantTime', and it is used in downstream method calls without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "An empty string for 'instantTime' may not represent a meaningful instant, and is commonly disallowed for identifiers or timestamps.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "This ensures 'instantTime' is not only non-empty but also not whitespace, which is commonly required for identifiers.",
+    "meta" : [ ]
+  } ]
+}

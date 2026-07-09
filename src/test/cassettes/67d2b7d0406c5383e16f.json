@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Option, so the result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isMetadataTable() || result.isEmpty()",
+    "rationale" : "If this table is itself a metadata table, the method immediately returns Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "(config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()) || result.isEmpty()",
+    "rationale" : "If metadata table is not enabled and unavailable, the method only returns Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == isMetadataTableExists",
+    "rationale" : "The result is present if and only if the metadata table exists flag is set (per method code).",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!autoDetectAndDeleteMetadataPartitions) || result.isEmpty() || result.isPresent()",
+    "rationale" : "If autoDetectAndDeleteMetadataPartitions is true, the result will only be Option.empty() or Option.of(metadataWriter).",
+    "meta" : [ ]
+  } ]
+}

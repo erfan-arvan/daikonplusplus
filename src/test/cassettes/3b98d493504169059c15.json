@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "maxPixelWidth >= 0",
+    "rationale" : "Tile width cannot be negative as it represents a dimension.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelHeight >= 0",
+    "rationale" : "Tile height cannot be negative as it represents a dimension.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelWidth + maxPixelHeight >= 0",
+    "rationale" : "Sum of non-negative dimensions must itself be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelWidth == 0 || maxPixelWidth > 0",
+    "rationale" : "Width is expected to be zero or positive (default documented as 0,0).",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelHeight == 0 || maxPixelHeight > 0",
+    "rationale" : "Height is expected to be zero or positive (default documented as 0,0).",
+    "meta" : [ ]
+  } ]
+}

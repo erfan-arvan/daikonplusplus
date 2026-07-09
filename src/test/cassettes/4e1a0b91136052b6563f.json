@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Config is required to create a HoodieTable; it's unlikely this parameter would be null in correct usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "A non-null StorageConfiguration is typically necessary for table creation operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.isValid()",
+    "rationale" : "The configuration object may have a validity check, and a valid config is expected to be passed in for correct table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipValidation == false || config.isValidSchema()",
+    "rationale" : "If validation is not skipped, the schema in the config should be valid; logical implication reflects this relationship.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName() != null",
+    "rationale" : "A valid hoodie table configuration should specify a non-null table name.",
+    "meta" : [ ]
+  } ]
+}

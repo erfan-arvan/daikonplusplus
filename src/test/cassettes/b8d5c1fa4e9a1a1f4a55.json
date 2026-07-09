@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is used as an argument, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is passed to methods and assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to readRecordsForGroup and performClusteringWithRecordList, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is used as a clustering instant, which is generally expected to be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.isEmpty() || strategyParams.keySet().stream().allMatch(key -> key != null)",
+    "rationale" : "Map keys should not be null or the map is empty.",
+    "meta" : [ ]
+  } ]
+}

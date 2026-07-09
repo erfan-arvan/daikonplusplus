@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A method returning an object type typically should not return null; helps clients avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().equals(\"HoodieWriteMetadata\")",
+    "rationale" : "As per the signature, result should be an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStats() != null",
+    "rationale" : "The metadata object should always provide a non-null list of write stats.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStats().size() >= 0",
+    "rationale" : "A list's size is always non-negative; validates no inconsistent state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getCommitMetadata() != null",
+    "rationale" : "Successful execution should produce non-null commit metadata in the result.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns Option.empty() or Option.of(...), neither of which is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is a required method parameter and is used in all return paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == !config.populateMetaFields()",
+    "rationale" : "If config.populateMetaFields() is true, result is Option.empty(); otherwise result is Option.of(...).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isPresent() == config.populateMetaFields()",
+    "rationale" : "Equivalently, if config.populateMetaFields() is true, result is empty.",
+    "meta" : [ ]
+  } ]
+}

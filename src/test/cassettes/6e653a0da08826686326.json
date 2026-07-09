@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "atlas != null",
+    "rationale" : "Returning a valid TextureAtlas likely requires atlas to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "atlas.getTextures().size > 0",
+    "rationale" : "The atlas should contain at least one texture to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "atlas.getRegions().size() > 0",
+    "rationale" : "A properly initialized atlas should have at least one region.",
+    "meta" : [ ]
+  }, {
+    "expression" : "atlas.isLoaded()",
+    "rationale" : "The atlas resource should be loaded before being accessed and returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!atlas.getRegions().isEmpty()",
+    "rationale" : "Atlas regions list should not be empty for a valid return value.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,41 @@
+{
+  "invariants" : [ {
+    "expression" : "b.doubleValue() != 0.0",
+    "rationale" : "Since the method returns null if b.doubleValue() is 0.0, any return must have b.doubleValue() != 0.0.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "method returns null if b is zero, so at exit b is not zero"
+    }, {
+      "key" : "source",
+      "value" : "method implementation"
+    } ]
+  }, {
+    "expression" : "result != null || b.doubleValue() == 0.0",
+    "rationale" : "The result is null if and only if b.doubleValue() is zero.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "method returns null only when b is zero"
+    } ]
+  }, {
+    "expression" : "result == null || (a instanceof Integer && result instanceof Integer) || (a instanceof Double && result instanceof Double)",
+    "rationale" : "Result is null or result is Integer or Double according to a's type.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "result is null or matches type of a"
+    } ]
+  }, {
+    "expression" : "result == null || (a instanceof Integer && ((Integer)result).intValue() == a.intValue() / b.intValue())",
+    "rationale" : "For Integer a, result equals integer division a/b.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "For Integer types, result equals a/b"
+    } ]
+  }, {
+    "expression" : "result == null || (a instanceof Double && ((Double)result).doubleValue() == a.doubleValue() / b.doubleValue())",
+    "rationale" : "For Double a, result equals double division a/b.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "For Double types, result equals a/b"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required and must be non-null for compaction operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is an Option type and should be non-null by convention, as null Option is discouraged in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is expected for all table write operations.",
+    "meta" : [ ]
+  } ]
+}

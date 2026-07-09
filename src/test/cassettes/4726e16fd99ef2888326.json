@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "The method requires a valid FileHandle to load the map, so it is likely tmjFile should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "The imageResolver parameter is used to resolve images in the map. It must be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter.projectFilePath != null",
+    "rationale" : "If parameter is non-null, it is used to load a project file, which likely requires a valid projectFilePath.",
+    "meta" : [ ]
+  } ]
+}

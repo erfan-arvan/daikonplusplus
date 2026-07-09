@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is a parameter and is expected to be a valid HoodieEngineContext object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null && !indexInstantTime.isEmpty()",
+    "rationale" : "indexInstantTime typically should represent a valid instant time string and must not be null or empty for the operation to behave correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime == indexInstantTime.trim()",
+    "rationale" : "The index instant time parameter for scheduling should not include leading or trailing whitespace.",
+    "meta" : [ ]
+  } ]
+}

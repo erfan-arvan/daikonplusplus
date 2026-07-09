@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "A width parameter for a rectangle should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "A height parameter for a rectangle should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "centerHorizontal || !centerHorizontal",
+    "rationale" : "The centerHorizontal parameter is always a boolean, so it's either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "centerVertical || !centerVertical",
+    "rationale" : "The centerVertical parameter is always a boolean, so it's either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width == Math.abs(width)",
+    "rationale" : "If width >= 0, its absolute value equals itself.",
+    "meta" : [ ]
+  } ]
+}

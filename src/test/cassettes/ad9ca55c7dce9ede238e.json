@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since result = a + 1 and adding 1 to a non-null Integer always yields a non-null Integer, result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a != null",
+    "rationale" : "The method performs arithmetic addition (a + 1), which throws NullPointerException if a is null, so a must be non-null on any successful return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == a + 1",
+    "rationale" : "By the method's implementation, result is always exactly one greater than a.",
+    "meta" : [ ]
+  } ]
+}

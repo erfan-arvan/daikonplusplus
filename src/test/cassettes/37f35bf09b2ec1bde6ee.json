@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Bucket numbers are typically non-negative indices for data structures mapping buckets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "bucketInfoMap is accessed inside the method, so it should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber) == (bucketInfoMap.get(bucketNumber) != null)",
+    "rationale" : "For maps, containsKey and get(key)!=null are correlated unless null values are stored.",
+    "meta" : [ ]
+  } ]
+}

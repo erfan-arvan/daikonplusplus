@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is expected to be non-null for executing compaction scheduling.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is not null at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string must be provided to identify the compaction instant.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null at method entry"
+    } ]
+  }, {
+    "expression" : "extraMetadata == null || extraMetadata.isDefined() || extraMetadata.isEmpty()",
+    "rationale" : "extraMetadata is an Option and can be either empty or contain a Map.",
+    "meta" : [ {
+      "key" : "OptionSemantic",
+      "value" : "extraMetadata can be empty or defined"
+    } ]
+  } ]
+}

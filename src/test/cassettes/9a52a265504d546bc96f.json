@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method contracts across similar API methods suggest non-null preppedRecords are required for insert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is likely required since it typically represents the commit or operation timestamp in Hudi actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is essential for distributed writing operations and thus must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() > 0",
+    "rationale" : "List invariants: the List is either empty or has at least one element (standard for lists, tautological but captures dichotomy at method entry).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() || preppedRecords.size() == 0",
+    "rationale" : "If the List is not empty, it does not have size 0, otherwise it does (bidirectional).",
+    "meta" : [ ]
+  } ]
+}

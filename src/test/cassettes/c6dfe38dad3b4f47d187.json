@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && result instanceof HoodieSavepointMetadata && result.getSavepoint() != null && result.getSavepoint().equals(instantToSavepoint)",
+    "rationale" : "The method returns a HoodieSavepointMetadata object corresponding to the savepoint instantToSavepoint.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "user != null && !user.isEmpty()",
+    "rationale" : "A non-empty user string is expected for recording the savepoint.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "comment == null || !comment.isEmpty()",
+    "rationale" : "Comment is either null or a non-empty string.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context must be non-null for the savepoint action executor to function.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "instantToSavepoint != null && !instantToSavepoint.isEmpty()",
+    "rationale" : "The savepoint instant identifier is expected to be a non-empty string.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  } ]
+}

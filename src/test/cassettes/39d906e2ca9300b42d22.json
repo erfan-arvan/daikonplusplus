@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Method parameter key is expected to represent an EngineProperty and typically should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getProperty(key) != null",
+    "rationale" : "If properties are being tracked, the property for the given key should be queryable. The actual implementation may be a no-op, but this reflects the contract clients may expect.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getProperty(key).isPresent() || !getProperty(key).isPresent()",
+    "rationale" : "Option<String> returned by getProperty(key) must be either present or absent, showing the contract is well-typed even if nothing is set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value == null || value instanceof String",
+    "rationale" : "Method parameter value must either be null or a String, given its declared type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key instanceof EngineProperty",
+    "rationale" : "Key parameter must be an instance of EngineProperty, following the declared type.",
+    "meta" : [ ]
+  } ]
+}

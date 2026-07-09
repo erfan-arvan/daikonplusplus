@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a BulkInsertPartitioner instance; neither code path returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is used without null checks and is expected to be non-null by contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is used for further method calls (HoodieSchemaUtils.addMetadataFields) and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof BulkInsertPartitioner",
+    "rationale" : "The result is always a BulkInsertPartitioner instance constructed from the two branches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()) || !strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "This tautology expresses completeness of the two return branches.",
+    "meta" : [ ]
+  } ]
+}

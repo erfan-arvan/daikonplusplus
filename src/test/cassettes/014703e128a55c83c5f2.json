@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is called with a non-null result object to set metadata; a null would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is used directly in the method without null check, so it must not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "PartitionToReplaceFileIds is used as an argument to a builder method, so it must not be null at exit.",
+    "meta" : [ ]
+  } ]
+}

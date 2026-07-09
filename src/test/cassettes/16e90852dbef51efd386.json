@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method creates and returns a HoodieIndex instance in all paths.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always returns a HoodieIndex instance"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The code uses config methods without null checks, implying config is non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method parameter is expected to be non-null for index creation"
+    } ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().contains(\"Index\")",
+    "rationale" : "All returned objects are instances of subclasses of HoodieIndex, so class names contain 'Index'.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The returned object is a subtype of HoodieIndex"
+    } ]
+  }, {
+    "expression" : "!StringUtils.isNullOrEmpty(config.getIndexClass()) || config.getIndexType() != null",
+    "rationale" : "Either indexClass is set or indexType is not null to reach a return point.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The method returns an index either from indexClass or indexType"
+    } ]
+  }, {
+    "expression" : "(result instanceof HoodieSimpleIndex) || (result instanceof HoodieGlobalSimpleIndex) || (result instanceof HoodieInMemoryHashIndex) || (result instanceof HoodieBloomIndex) || (result == HoodieIndexUtils.createUserDefinedIndex(config))",
+    "rationale" : "The returned result is one of these specific index implementations or the user defined index.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Result is one of the index types created by the factory"
+    } ]
+  } ]
+}

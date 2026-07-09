@@ -1,38 +1,31 @@
 {
   "invariants" : [ {
-    "expression" : "x >= Integer.MIN_VALUE",
-    "rationale" : "x is an int parameter without further restrictions.",
-    "meta" : [ {
-      "key" : "reason",
-      "value" : "x is an int parameter, so it ranges from Integer.MIN_VALUE to Integer.MAX_VALUE."
-    } ]
-  }, {
     "expression" : "name == null || name.length() >= 0",
-    "rationale" : "String length is never negative.",
+    "rationale" : "If name is not null, its length is nonnegative.",
     "meta" : [ {
-      "key" : "reason",
-      "value" : "If name is non-null, length() returns a non-negative int."
+      "key" : "nullness",
+      "value" : "name may be null"
+    }, {
+      "key" : "property",
+      "value" : "string length nonnegative"
     } ]
   }, {
-    "expression" : "name == null || name.length() <= 2147483647",
-    "rationale" : "String length is within valid int range.",
+    "expression" : "x >= Integer.MIN_VALUE",
+    "rationale" : "x is an int, so within full integer range.",
     "meta" : [ {
-      "key" : "reason",
-      "value" : "Maximum length of a Java String is Integer.MAX_VALUE."
+      "key" : "range",
+      "value" : "x is int"
     } ]
   }, {
-    "expression" : "name == null || name.length() + x >= Integer.MIN_VALUE",
-    "rationale" : "Sum of valid integers within int range.",
+    "expression" : "x <= Integer.MAX_VALUE",
+    "rationale" : "x is an int, so within full integer range.",
     "meta" : [ {
-      "key" : "reason",
-      "value" : "Sum of two ints remains >= Integer.MIN_VALUE."
+      "key" : "range",
+      "value" : "x is int"
     } ]
   }, {
-    "expression" : "name == null || name.length() + x <= Integer.MAX_VALUE",
-    "rationale" : "Sum valid int addition without overflow.",
-    "meta" : [ {
-      "key" : "reason",
-      "value" : "Sum does not overflow int max value."
-    } ]
+    "expression" : "name != null || name == null",
+    "rationale" : "name is either null or not null; this is tautological but valid.",
+    "meta" : [ ]
   } ]
 }

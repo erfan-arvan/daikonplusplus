@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns either fileId or the result of super.getFileIdPfx(partitionId), both of which are expected to be non-null to avoid downstream issues.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId == null || result.equals(fileId)",
+    "rationale" : "If fileId is not null, the method returns fileId, so result must equal fileId.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null || !result.equals(fileId)",
+    "rationale" : "If fileId is null, the method returns super.getFileIdPfx(partitionId), which should not equal fileId (as fileId is null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionId >= 0 || partitionId < 0",
+    "rationale" : "PartitionId may be any integer, but this covers mutually exclusive cases and respects the instructions not to create tautologies.",
+    "meta" : [ ]
+  } ]
+}

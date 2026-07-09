@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method receives dedupedRecords as a parameter and is likely to expect it not to be null for normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is used in subsequent method calls, so it should not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table parameter is used to access getIndex() and other methods, indicating that it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.isEmpty() || dedupedRecords.get(0) != null",
+    "rationale" : "If dedupedRecords is not empty, its first element should not be null to avoid downstream errors in processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getIndex() != null",
+    "rationale" : "The tag method calls table.getIndex(), so getIndex() should not return null at this entry point.",
+    "meta" : [ ]
+  } ]
+}

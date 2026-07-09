@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null",
+    "rationale" : "Assuming activeModule should be assigned before calling setJobStatus",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "activeModule is typically expected to be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "activityDescription != null",
+    "rationale" : "Typically a description is required and non-null for logging or status messages",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "activityDescription string expected to be non-null if used"
+    } ]
+  }, {
+    "expression" : "activeModule.length() >= 0",
+    "rationale" : "activeModule is a String, so its length is non-negative",
+    "meta" : [ {
+      "key" : "Range",
+      "value" : "String length is always >= 0"
+    } ]
+  }, {
+    "expression" : "activityDescription.length() >= 0",
+    "rationale" : "activityDescription is a String, so its length is non-negative",
+    "meta" : [ {
+      "key" : "Range",
+      "value" : "String length is always >= 0"
+    } ]
+  }, {
+    "expression" : "activeModule != null && !activeModule.isEmpty()",
+    "rationale" : "activeModule expected to be meaningful if not null",
+    "meta" : [ {
+      "key" : "NonEmpty",
+      "value" : "activeModule should not be an empty string"
+    } ]
+  } ]
+}

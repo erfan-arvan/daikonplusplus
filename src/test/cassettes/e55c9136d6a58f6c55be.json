@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is expected to refer to the table meta client and should not be null when invoked.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The list of columns to index should not be null when this method runs, or the caller could get a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "columnsToIndex is declared as List<String>, ensure that the reference type is consistent for call safety.",
+    "meta" : [ ]
+  } ]
+}

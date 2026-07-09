@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a String parameter and likely represents a file or partition path; null is likely not valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "fileIdHint is used as a key in a HashMap and probably must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath being an empty string is likely not meaningful for a partition path identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileIdHint.isEmpty()",
+    "rationale" : "fileIdHint is likely used as a file identifier hint and should be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "updateLocationToBucket is used for put operations immediately; must be non-null.",
+    "meta" : [ ]
+  } ]
+}

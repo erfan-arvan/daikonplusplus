@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Required for method calls on data, such as stream().",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "Reduce function is required for reduce operation; passing null would lead to an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive to process data in parallel meaningfully.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List size is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().allMatch(p -> p != null)",
+    "rationale" : "All elements in data should be non-null to safely access getKey() and getValue().",
+    "meta" : [ ]
+  } ]
+}

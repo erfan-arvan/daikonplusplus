@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "The parameter 'metadata' must be provided to the method and not null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "metadata is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "The method calls getWriteStatuses() and expects a valid collection.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses collection is non-null"
+    } ]
+  }, {
+    "expression" : "metadata.clone(metadata.getWriteStatuses().collectAsList()) != null",
+    "rationale" : "The method returns the clone result which should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "clone result is non-null"
+    } ]
+  }, {
+    "expression" : "metadata.equals(metadata)",
+    "rationale" : "An object equals itself.",
+    "meta" : [ {
+      "key" : "reflexivity",
+      "value" : "true"
+    } ]
+  } ]
+}

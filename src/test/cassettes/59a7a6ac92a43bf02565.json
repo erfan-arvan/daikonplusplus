@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Return value is constructed by collecting a stream, which never produces null.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "prevents NullPointerException on consumer"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> id != null)",
+    "rationale" : "Mapping from small file locations' file IDs should not produce nulls.",
+    "meta" : [ {
+      "key" : "element integrity",
+      "value" : "IDs returned are non-null"
+    } ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "Mapping to file IDs should yield distinct file IDs assuming underlying smallFiles are unique.",
+    "meta" : [ {
+      "key" : "uniqueness",
+      "value" : "All returned file IDs are unique"
+    } ]
+  }, {
+    "expression" : "result.isEmpty() == smallFiles.isEmpty()",
+    "rationale" : "Mapping is 1-to-1 from smallFiles to result.",
+    "meta" : [ {
+      "key" : "correlation",
+      "value" : "Result is empty iff source is empty"
+    } ]
+  }, {
+    "expression" : "result.size() == smallFiles.size()",
+    "rationale" : "Each smallFile yields exactly one file ID.",
+    "meta" : [ {
+      "key" : "size correspondence",
+      "value" : "Result length equals smallFiles count"
+    } ]
+  } ]
+}

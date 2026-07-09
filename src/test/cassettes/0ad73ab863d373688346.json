@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime is required for table operations, and null instant times are typically invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records list must be non-null to insert or overwrite in the table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is necessary for executing table actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "A List's size is always non-negative, so this is implied by Java List invariants.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The return value is either 140 or the maximum of non-negative minHeights (or 0).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 140 || result == Math.max(style.knob == null ? 0 : style.knob.getMinHeight(), getBackgroundDrawable() == null ? 0 : getBackgroundDrawable().getMinHeight())",
+    "rationale" : "The method returns either 140 when vertical is true or the computed max otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 140 || result >= (style.knob == null ? 0 : style.knob.getMinHeight())",
+    "rationale" : "If not vertical, result is at least as large as the knob's min height (if knob exists).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 140 || result >= (getBackgroundDrawable() == null ? 0 : getBackgroundDrawable().getMinHeight())",
+    "rationale" : "If not vertical, result is at least as large as the background drawable's min height (if background exists).",
+    "meta" : [ ]
+  } ]
+}

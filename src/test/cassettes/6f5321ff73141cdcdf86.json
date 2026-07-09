@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == bucketInfoMap.get(bucketNumber)",
+    "rationale" : "The method simply returns bucketInfoMap.get(bucketNumber), so this relationship always holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber) == (result != null)",
+    "rationale" : "If the map contains the key, the result cannot be null; if it does not, the result is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "As a bucket number in a partitioning context, it is conventionally non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.size() >= 0",
+    "rationale" : "A map's size is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap instanceof java.util.HashMap",
+    "rationale" : "As per the class field declaration, bucketInfoMap is a HashMap instance.",
+    "meta" : [ ]
+  } ]
+}

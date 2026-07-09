@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The implementation immediately checks that style is an instance of ImageButtonStyle, so a null style would immediately fail the instanceof check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style instanceof ButtonStyle",
+    "rationale" : "The type of the parameter guarantees that style is a ButtonStyle object or subclass at this point.",
+    "meta" : [ ]
+  } ]
+}

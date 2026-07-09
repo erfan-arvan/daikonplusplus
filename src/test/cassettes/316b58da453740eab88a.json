@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is produced by postWrite and should always be non-null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Returned list should not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method assumes a non-null input record list for writing operations.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "Input records list must not be null"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A Java List cannot have a negative size.",
+    "meta" : [ {
+      "key" : "size-nonnegative",
+      "value" : "Returned List size should be non-negative"
+    } ]
+  } ]
+}

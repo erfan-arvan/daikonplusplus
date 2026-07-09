@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metadataWriteConfig.isMetricsOn() ? metrics.isPresent() : !metrics.isPresent()",
+    "rationale" : "Metrics are present if and only if metrics are enabled in config.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "mirrors core method logic"
+    } ]
+  }, {
+    "expression" : "metadataWriteConfig.isMetricsOn() == metrics.isPresent()",
+    "rationale" : "The metrics field presence logic is exactly matched to the config flag.",
+    "meta" : [ {
+      "key" : "logic",
+      "value" : "bidirectional equivalence"
+    } ]
+  }, {
+    "expression" : "!metadataWriteConfig.isMetricsOn() || metrics.get() instanceof HoodieMetadataMetrics",
+    "rationale" : "If metrics are enabled, metrics (if present) must be HoodieMetadataMetrics.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "type of metrics when present"
+    } ]
+  }, {
+    "expression" : "!metadataWriteConfig.isMetricsOn() || metrics.get() != null",
+    "rationale" : "If metrics are enabled, Option.of is used so get() is non-null",
+    "meta" : [ {
+      "key" : "nullability",
+      "value" : "present implies non-null"
+    } ]
+  }, {
+    "expression" : "!metadataWriteConfig.isMetricsOn() || metrics.get().getConfig().equals(metadataWriteConfig.getMetricsConfig())",
+    "rationale" : "When metrics are present, configuration objects must match setup.",
+    "meta" : [ {
+      "key" : "config relationship",
+      "value" : "config objects equality"
+    } ]
+  } ]
+}

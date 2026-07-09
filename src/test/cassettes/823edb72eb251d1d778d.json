@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The method may expect columnsToIndex to be non-null, as it represents a list of columns to update for indexing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The method likely depends on metaClient being a valid HoodieTableMetaClient instance, not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "Either the list is empty, or if not, its size is at least zero. This is safe since List.size() always returns a non-negative int.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!columnsToIndex.contains(null)",
+    "rationale" : "Lists of column names usually do not contain null values, as column names must be non-null for correct metadata operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null && metaClient != null",
+    "rationale" : "Both arguments are expected to be non-null for proper semantics; the method signature provides no indication they are optional.",
+    "meta" : [ ]
+  } ]
+}

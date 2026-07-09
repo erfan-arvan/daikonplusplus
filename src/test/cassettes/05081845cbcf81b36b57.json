@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null map (partitionSmallFilesMap is instantiated to new HashMap at the beginning and returned either directly or after population).",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() == 0 || result.size() <= partitionPaths.size()",
+    "rationale" : "A mapping is created only for entries of partitionPaths, so the result can't have more keys than partitionPaths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().isEmpty() || (partitionPaths != null && partitionPaths.containsAll(result.keySet()))",
+    "rationale" : "Each key in result corresponds to a partitionPath given in partitionPaths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || partitionPaths != null",
+    "rationale" : "Non-empty result means partitionPaths was provided as non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(k -> result.get(k) != null)",
+    "rationale" : "Each mapped value for a partition path is a non-null list according to how values are constructed in mapToPair.",
+    "meta" : [ ]
+  } ]
+}

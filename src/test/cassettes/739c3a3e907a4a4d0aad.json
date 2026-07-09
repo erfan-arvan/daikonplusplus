@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "value == 0",
+    "rationale" : "The method checks if value is zero as a special case.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value >= -10",
+    "rationale" : "The method checks value >= -10 as a branch condition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value <= 100",
+    "rationale" : "The method checks that value must not exceed 100 for the cache branch.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value == (int)value",
+    "rationale" : "The method contains a branch for integer-valued floats.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(value >= -10 && value <= 100) == (value + 10 >= 0 && value + 10 <= 110)",
+    "rationale" : "The value is used as an array index in the cache, offset by 10. These bounds are related.",
+    "meta" : [ ]
+  } ]
+}

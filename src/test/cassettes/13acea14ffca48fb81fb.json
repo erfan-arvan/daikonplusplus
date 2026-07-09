@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == price * 0.9",
+    "rationale" : "The returned value is always price multiplied by 0.9, reflecting a 10% discount.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= price",
+    "rationale" : "After applying the discount, result cannot exceed the original price.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "Assuming price is non-negative (reasonable for an order price), the discount cannot make the result negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "price == 0.0 || result < price",
+    "rationale" : "If price is positive, result will be strictly less than price due to the discount; if zero, result is also zero.",
+    "meta" : [ ]
+  } ]
+}

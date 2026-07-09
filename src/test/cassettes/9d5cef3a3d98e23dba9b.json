@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "It is common for methods expecting a List parameter to require it be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.get(0) != null",
+    "rationale" : "If the list is non-empty, its first element is likely not null for valid column names.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!columnsToIndex.contains(\"\")",
+    "rationale" : "Column names should not be empty strings; none of the entries should be an empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "List size is always non-negative by Java List contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(s -> s != null && !s.isEmpty())",
+    "rationale" : "All column names in the list should be non-null and not empty.",
+    "meta" : [ ]
+  } ]
+}

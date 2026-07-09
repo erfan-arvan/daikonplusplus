@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns an Iterator<List<WriteStatus>>, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition is used as an argument in method calls, and should be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner must be non-null because it's cast and invoked within the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required to identify commit context and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Iterator is used in downstream method calls, so it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

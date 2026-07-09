@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Because getInsertPartitioner delegates directly to getUpsertPartitioner and is expected to always provide a valid Partitioner, the result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Partitioner",
+    "rationale" : "Since result is returned as Partitioner, it should always be an instance of Partitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The profile parameter is passed directly to getUpsertPartitioner, so for correct logic, it is expected to be non-null at method exit.",
+    "meta" : [ ]
+  } ]
+}

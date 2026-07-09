@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter likely represents a commit timestamp and should not be null for writes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The hoodieRecords collection should be non-null to perform an upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is necessary to execute table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || hoodieRecords.size() >= 0",
+    "rationale" : "If hoodieRecords is empty, its size is zero or greater; this is always true if hoodieRecords is non-null, verifying safe method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "A commit instant should not be an empty string; this checks that instantTime is not the empty string, assuming instantTime is non-null.",
+    "meta" : [ ]
+  } ]
+}

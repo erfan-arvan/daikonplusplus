@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method must return a non-null metadata object as per contract.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "METHOD_EXIT"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Result object is the return value of type HoodieWriteMetadata<List<WriteStatus>>.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "METHOD_EXIT"
+    } ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "jobId must be non-null because it represents the identifier of the job to be cancelled.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method expects a non-null jobId parameter to identify the job to cancel."
+    } ]
+  }, {
+    "expression" : "!jobId.isEmpty()",
+    "rationale" : "jobId should not be empty, indicating that a valid job identifier is provided.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "jobId is assumed not to be empty since it should represent a valid job identifier."
+    } ]
+  }, {
+    "expression" : "jobId instanceof String",
+    "rationale" : "jobId is declared as a String parameter.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Ensures that jobId is of type String as declared."
+    } ]
+  } ]
+}

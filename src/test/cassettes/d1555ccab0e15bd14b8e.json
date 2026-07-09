@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Many table operations require a non-null instantTime to identify the commit or operation being referenced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is likely required to perform any operation on the table, including rollbackBootstrap.",
+    "meta" : [ ]
+  } ]
+}

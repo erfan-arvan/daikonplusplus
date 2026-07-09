@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "getParent() == null || !(getParent() instanceof Layout) || !((Layout)getParent()).needsLayout()",
+    "rationale" : "If parent is a Layout, its invalidateHierarchy() method is called, which should propagate invalidation until the hierarchy is valid, meaning needsLayout() should be false after return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!needsLayout()",
+    "rationale" : "invalidate() sets this widget's layout as invalid, which should have been resolved by the end of the hierarchy invalidation process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(getParent() == null) || (getParent() instanceof Layout)",
+    "rationale" : "Control flow only branches on whether parent is Layout or not, but at this exit, parent cannot change type, so permissible types are null or Layout.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method likely expects a valid, non-null instantTime string to identify the transaction instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition is used as a key for retrieving bucket info, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is cast and invoked, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to handlers that likely perform operations, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition >= 0",
+    "rationale" : "Partition likely refers to a valid partition index or number, which should be non-negative.",
+    "meta" : [ ]
+  } ]
+}

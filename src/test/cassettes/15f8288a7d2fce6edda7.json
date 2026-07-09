@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "this.actor == actor",
+    "rationale" : "The 'actor' field is always set to the method argument at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor == null || this.actor == actor",
+    "rationale" : "If the actor parameter is non-null, the 'actor' field will be set to it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != this",
+    "rationale" : "The method throws an exception if 'actor' is the same as 'this'.",
+    "meta" : [ ]
+  } ]
+}

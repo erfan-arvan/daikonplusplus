@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "The method assumes nodes should not be null since it is used in a for-loop and methods are called on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "Array 'size' should never be negative according to typical collection properties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "The code immediately calls value.equals(...), which would throw if value were null, suggesting a precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.items != null",
+    "rationale" : "Backing array of libGDX's Array should always be non-null if Array is initialized.",
+    "meta" : [ ]
+  } ]
+}

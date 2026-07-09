@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method likely expects a non-null list of records as input.",
+    "meta" : [ {
+      "key" : "nullSafety",
+      "value" : "records can be non-null because it is an input parameter"
+    } ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Number of partitions should be positive.",
+    "meta" : [ {
+      "key" : "positivePartitions",
+      "value" : "outputPartitions should be positive for partitioning"
+    } ]
+  }, {
+    "expression" : "records instanceof java.util.List",
+    "rationale" : "Ensures 'records' is a List as declared.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "records is explicitly declared as List<HoodieRecord<T>>"
+    } ]
+  }, {
+    "expression" : "records.isEmpty() || records.get(0) instanceof HoodieRecord",
+    "rationale" : "Records list should contain HoodieRecord elements if not empty.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "First element, if present, is a HoodieRecord"
+    } ]
+  }, {
+    "expression" : "outputPartitions == java.lang.Math.max(1, outputPartitions)",
+    "rationale" : "Ensures outputPartitions is at least 1 as expected.",
+    "meta" : [ {
+      "key" : "nonNegative",
+      "value" : "outputPartitions cannot be zero or less"
+    } ]
+  } ]
+}

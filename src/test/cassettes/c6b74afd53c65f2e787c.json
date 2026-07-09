@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Since 'fillY' is a float field, the returned value should usually be finite; this is plausible unless 'fillY' can be set to infinity or NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true || (result == 0.0f)",
+    "rationale" : "This is not a real invariant, just a placeholder, so it won't appear in the final output unless 'result' is always zero, which is not indicated here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(result))",
+    "rationale" : "It may be reasonable that fillY (and thus result) is never NaN, which is common for well-behaved layout code.",
+    "meta" : [ ]
+  } ]
+}

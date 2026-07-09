@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the output of postWrite, which should not return null according to common design patterns for write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Method contracts for bulk write operations expect a non-null list of records as input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || !result.isEmpty()",
+    "rationale" : "The returned result is always a List, so it is either empty or not empty (non-null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result is always of type List<WriteStatus> by method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required for write operations, and the method passes it through the stack.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "rotation >= 0",
+    "rationale" : "Rotation in discrete 90-degree increments is often non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation < 4",
+    "rationale" : "There are typically four 90-degree orientations: 0, 1, 2, 3.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation % 1 == 0",
+    "rationale" : "Rotation increments are integral (no fractional values).",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation == ((rotation % 4 + 4) % 4)",
+    "rationale" : "Rotation value is normalized to the range 0-3 using modulo arithmetic.",
+    "meta" : [ ]
+  } ]
+}

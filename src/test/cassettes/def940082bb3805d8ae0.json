@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == mouseOver",
+    "rationale" : "The method simply returns the value of mouseOver, so result will always be equal to mouseOver.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !mouseOver",
+    "rationale" : "If result is false, that means mouseOver is also false; if result is true, no further restriction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || mouseOver",
+    "rationale" : "If result is true, mouseOver must also be true by the method logic.",
+    "meta" : [ ]
+  } ]
+}

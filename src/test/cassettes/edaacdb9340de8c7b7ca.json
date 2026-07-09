@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method unconditionally returns the result of a static factory; it's reasonable to expect it does not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().equals(\"HoodieAtomicLongAccumulator\")",
+    "rationale" : "The method always returns an instance created by HoodieAtomicLongAccumulator.create(), so the concrete class is fixed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieAccumulator",
+    "rationale" : "The method returns a 'HoodieAccumulator', so the result must be of this type.",
+    "meta" : [ ]
+  } ]
+}

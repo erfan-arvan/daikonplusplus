@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "The method unconditionally uses tmjFile as input, so it is likely required to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input precondition"
+    } ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "The method constructs an AssetManagerImageResolver with manager, implying that manager must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input precondition"
+    } ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "After completion, the map field is set using loadTiledMap, so it is likely non-null at method exit.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "postcondition"
+    } ]
+  }, {
+    "expression" : "parameter != null || parameter == null",
+    "rationale" : "parameter can be null or non-null, suggesting code handles both cases.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input"
+    } ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "fileName is expected to reference a valid file, so it is probably non-null and non-empty.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input precondition"
+    } ]
+  } ]
+}

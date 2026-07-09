@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is often required to be positive for parallel operations in Java streaming contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Input data must be non-null to safely invoke data.stream() in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "Consumer must not be null to safely execute foreach with the provided consumer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "Parallelism should not exceed the size of the data unless data is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= Integer.MAX_VALUE",
+    "rationale" : "Parallelism should not be greater than Integer.MAX_VALUE, due to Java int constraints.",
+    "meta" : [ ]
+  } ]
+}

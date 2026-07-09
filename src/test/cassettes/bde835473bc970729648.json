@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Method contract typically does not expect null collections unless specified.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "columnsToIndex is declared as List<String>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "List.size() is always non-negative; a list is empty or has zero or more elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(col -> col != null)",
+    "rationale" : "Column names as Strings should generally not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(col -> !col.isEmpty())",
+    "rationale" : "Column names as Strings should generally not be empty.",
+    "meta" : [ ]
+  } ]
+}

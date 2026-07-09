@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == order.getQuantity() * order.getUnitPrice()",
+    "rationale" : "The method directly returns the product of getQuantity() and getUnitPrice().",
+    "meta" : [ ]
+  }, {
+    "expression" : "order != null",
+    "rationale" : "The method immediately dereferences order, implying it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "Assuming quantities and unit prices are non-negative in a valid order, the price will be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantities are typically non-negative in an order processing context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price should not be negative in a typical order.",
+    "meta" : [ ]
+  } ]
+}

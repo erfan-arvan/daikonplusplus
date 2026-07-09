@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parent != null || template != null",
+    "rationale" : "At least one of parent or template should be non-null, or the merge would return null which is unlikely given the method's semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null || parent.isObject()",
+    "rationale" : "The parent JsonValue is expected to be a map/object or null, as inferred from the merge logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "template == null || template.isObject()",
+    "rationale" : "The template JsonValue is expected to be a map/object or null, as inferred from the merge logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent != template",
+    "rationale" : "parent and template should not be the same object, as merging an element with itself is unlikely the intent.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent != null || template.isObject()",
+    "rationale" : "If parent is null, template should be a valid object for the merge to return a valid result.",
+    "meta" : [ ]
+  } ]
+}

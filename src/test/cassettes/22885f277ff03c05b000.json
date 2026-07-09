@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the output of postWrite, which is expected to provide a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method receives records as a parameter and passes it into other methods without null checks, implying it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is passed to multiple methods (including Option.ofNullable and others) in a manner suggesting nulls are handled or expected, so it may be non-null here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method returns a List<WriteStatus> as per the signature and the postWrite method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result.isEmpty()) || !records.isEmpty()",
+    "rationale" : "Typically, an empty list of records likely leads to empty results, or if there are no results, there were probably no records processed.",
+    "meta" : [ ]
+  } ]
+}

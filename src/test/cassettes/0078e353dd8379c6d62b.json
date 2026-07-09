@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method expects clusteringGroup to be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as an argument and likely should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is expected to represent a timestamp or instant and usually is non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "The method calls clusteringGroup.getSlices(), so it should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clusteringGroup.getSlices().isEmpty()",
+    "rationale" : "A clustering group without any slices is unlikely to require reading records.",
+    "meta" : [ ]
+  } ]
+}

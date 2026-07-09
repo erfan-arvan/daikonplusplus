@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a constant string, which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(\"replace_commit\")",
+    "rationale" : "By inspecting the method body, 'result' is always HoodieTimeline.REPLACE_COMMIT_ACTION which is the string literal \"replace_commit\".",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "The returned string is non-empty as it is a constant action type identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == HoodieTimeline.REPLACE_COMMIT_ACTION",
+    "rationale" : "The method returns this constant from HoodieTimeline.",
+    "meta" : [ ]
+  } ]
+}

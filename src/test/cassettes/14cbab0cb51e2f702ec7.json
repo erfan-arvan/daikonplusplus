@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "The method cannot load a map without a filename; typically, a null fileName would be an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "A non-empty filename is likely required to resolve a file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.trim().length() > 0",
+    "rationale" : "Filenames that are only whitespace are not valid and would not resolve to real files.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.endsWith(\".tmj\") || fileName.endsWith(\".json\")",
+    "rationale" : "TMX/JSON are typical Tiled map formats; fileName should likely have a compatible extension.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.indexOf(\"\\0\") == -1",
+    "rationale" : "Filenames should not contain null characters, as these are invalid in file names.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "parseRegionName(name) likely requires name to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() > 0",
+    "rationale" : "Texture region names are likely not empty strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parseRegionName(name) != null",
+    "rationale" : "parseRegionName should return a valid region name, not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parseRegionName(name).length() > 0",
+    "rationale" : "The parsed region name should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "atlas.findRegion(parseRegionName(name)) != null",
+    "rationale" : "The region should exist in the atlas before retrieval.",
+    "meta" : [ ]
+  } ]
+}

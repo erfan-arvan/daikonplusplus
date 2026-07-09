@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator, either from super.handleUpdate(...) or Collections.singletonList(...).iterator().",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is passed through from the method argument and is used in logging and object creation without a null check, indicating it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument and passed into constructors without a null check, suggesting it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed as a method argument and used in object construction, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext() == true || !result.hasNext()",
+    "rationale" : "result is always a valid Iterator and must either have elements or not, capturing totality.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 || b != 0",
+    "rationale" : "Trivially true, representing the possible cases for b.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "b is either zero or not, always true"
+    } ]
+  }, {
+    "expression" : "(b == 0 && result == Integer.MIN_VALUE) || (b != 0 && result == a / b)",
+    "rationale" : "The method returns Integer.MIN_VALUE when b is zero, else a/b.",
+    "meta" : [ {
+      "key" : "meaning",
+      "value" : "result matches return specification"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "By method spec, if divisor is zero, the method returns Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "meaning",
+      "value" : "if b is zero then result is Integer.MIN_VALUE"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Ensures result matches contract when b is zero.",
+    "meta" : [ {
+      "key" : "meaning",
+      "value" : "ensures safeDivide contract for zero divisor"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Reinforces that result shows Integer.MIN_VALUE if division by zero.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "repeated to emphasize contract"
+    } ]
+  } ]
+}

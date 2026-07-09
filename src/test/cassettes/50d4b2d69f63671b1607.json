@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method sets fields on 'result', indicating it should not be null at the exit point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() == result",
+    "rationale" : "The method sets write statuses of 'result' to the returned statuses, which is also 'result'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size() is always zero or positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != writeStatuses",
+    "rationale" : "The returned list ('result') is a new list derived from updating the index, not the original input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return value is explicitly constructed as a List<WriteStatus>.",
+    "meta" : [ ]
+  } ]
+}

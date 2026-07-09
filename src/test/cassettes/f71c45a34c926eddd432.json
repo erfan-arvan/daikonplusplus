@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of postWrite, which should not be null under normal execution.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is used as an argument and likely required to be non-null when the write operation occurs.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method return type is List<WriteStatus> and the implementation returns a List.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to several methods, and is likely required to be non-null for correct operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A List in Java cannot have a negative size.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection size"
+    } ]
+  } ]
+}

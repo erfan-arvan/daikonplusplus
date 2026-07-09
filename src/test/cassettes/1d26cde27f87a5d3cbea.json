@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "fill >= 0.0f",
+    "rationale" : "The Javadoc suggests that 0 is a valid value and interprets its effect, so negative values may not make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(fill)",
+    "rationale" : "fill should be a finite float for correct behavior in layout operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fill != Float.NaN",
+    "rationale" : "fill should not be NaN, since NaN likely does not have a defined meaning in layout.",
+    "meta" : [ ]
+  } ]
+}

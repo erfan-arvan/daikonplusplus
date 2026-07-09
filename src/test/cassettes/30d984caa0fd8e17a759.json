@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method 'draw' is invoked on 'batch', which would throw a NullPointerException if 'batch' were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values are typically non-negative in rendering APIs, and are directly used for color blending.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha values in rendering frameworks are conventionally clamped to 1.0.",
+    "meta" : [ ]
+  } ]
+}

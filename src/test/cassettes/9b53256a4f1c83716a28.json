@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null iterator over lists of WriteStatus; merging output cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Commit timestamp should be a valid, non-empty string for any update operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "Partition path used for updates should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "File identifier for the update should always be a valid non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null && !keyToNewRecords.isEmpty()",
+    "rationale" : "There should be at least one record updated, so the map must not be null or empty.",
+    "meta" : [ ]
+  } ]
+}

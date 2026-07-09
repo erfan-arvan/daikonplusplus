@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Iterator; it never returns null in any execution path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result instanceof JavaLazyInsertIterable",
+    "rationale" : "If recordItr has next value, the result is a JavaLazyInsertIterable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr.hasNext() || (result.hasNext() && result.next().isEmpty())",
+    "rationale" : "When no records are present, result is an iterator with a single empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result.hasNext()",
+    "rationale" : "If there are records to process, the returned iterator is not empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(idPfx != null) == (result instanceof JavaLazyInsertIterable || result.hasNext())",
+    "rationale" : "idPfx is always passed to the underlying JavaLazyInsertIterable or reflected in the singleton result.",
+    "meta" : [ ]
+  } ]
+}

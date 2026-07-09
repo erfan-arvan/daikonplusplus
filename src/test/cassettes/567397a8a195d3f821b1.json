@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method relies on profile throughout, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method uses context, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "Partition paths are required for the method's iteration and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "Buckets are assigned to partitions; this mapping must be initialized and valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "Bucket info is put into bucketInfoMap and must be initialized.",
+    "meta" : [ ]
+  } ]
+}

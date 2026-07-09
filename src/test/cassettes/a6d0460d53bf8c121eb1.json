@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "Method is called with a non-null InputEvent parameter to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "Mouse coordinates are often non-negative within a scene or widget; likely to be true at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "Mouse coordinates are likely non-negative within a local context at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event.getListenerActor() != null",
+    "rationale" : "The event is expected to have an associated listener actor for tooltip positioning logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event.getStage() != null",
+    "rationale" : "The event is likely to originate from an active stage context at method entry.",
+    "meta" : [ ]
+  } ]
+}

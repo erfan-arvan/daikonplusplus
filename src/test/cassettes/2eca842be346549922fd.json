@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "dedupedRecords will be used in a stream, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is used for partitioning and must be non-null to call methods on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords instanceof List",
+    "rationale" : "dedupedRecords is declared as a List; type compatibility is guaranteed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner instanceof Partitioner",
+    "rationale" : "partitioner must be of type Partitioner as declared.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "All records in dedupedRecords are likely to be non-null to correctly perform partitioning and key extraction.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a field named rootNodes, which must be a non-null Array<N> according to typical Java field semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array<N>.size should always be non-negative, since it represents the number of elements in the result array.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() == (result.size > 0)",
+    "rationale" : "For Array<N>, isEmpty() and size() > 0 should be logically related in this way.",
+    "meta" : [ ]
+  } ]
+}

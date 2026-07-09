@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "Alpha blending parameters are usually clamped between 0 and 1 for rendering transparency.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "Typical rendering pipelines require a non-null Batch object to draw.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha != Float.NaN",
+    "rationale" : "Rendering code expects the alpha parameter to be a valid number, not NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getColor() != null",
+    "rationale" : "getColor() is called in the method; presumes it returns a non-null Color for proper rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getWidth() >= 0.0f",
+    "rationale" : "Widget/component widths in UIs are usually non-negative.",
+    "meta" : [ ]
+  } ]
+}

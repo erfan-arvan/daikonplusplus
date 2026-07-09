@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result || !file.extension().toLowerCase().equals(\"tmx\") && !file.extension().toLowerCase().equals(\"tmj\")",
+    "rationale" : "If the result is true, then the file's extension must be either 'tmx' or 'tmj'; otherwise, if the extension is neither, result must be false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "The method calls methods on 'file', so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || file.extension().toLowerCase().equals(\"tmx\") || file.extension().toLowerCase().equals(\"tmj\")",
+    "rationale" : "If the method returns true, the file's extension must be 'tmx' or 'tmj'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (file.extension().toLowerCase().equals(\"tmx\") || file.extension().toLowerCase().equals(\"tmj\")) && result",
+    "rationale" : "The method only returns true when the extension is one of the supported types and an 'atlas' property is found, which is only possible for those extensions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!file.extension().toLowerCase().equals(\"tmx\") && !file.extension().toLowerCase().equals(\"tmj\") ? !result : true",
+    "rationale" : "If the file is neither 'tmx' nor 'tmj', the result must be false.",
+    "meta" : [ ]
+  } ]
+}

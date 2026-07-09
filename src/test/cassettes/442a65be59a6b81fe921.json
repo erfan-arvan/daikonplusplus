@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "result is derived from totalBuckets, which should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket.get(fileIdHint) == result",
+    "rationale" : "The mapping is updated to associate fileIdHint with the returned bucket.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result) != null",
+    "rationale" : "A BucketInfo object is put into bucketInfoMap with key result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result).partitionPath.equals(partitionPath)",
+    "rationale" : "The inserted BucketInfo object has its partitionPath equal to the argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result).fileId.equals(fileIdHint)",
+    "rationale" : "The inserted BucketInfo object has its fileId equal to fileIdHint.",
+    "meta" : [ ]
+  } ]
+}

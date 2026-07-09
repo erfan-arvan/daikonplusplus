@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the value from performClusteringWithRecordList, which is expected to return a non-null List<WriteStatus> according to its documentation and typical usage patterns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "This method always uses clusteringGroup without null checks, so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is used directly (passed to performClusteringWithRecordList), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as parameter to other methods, which expect a non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "The method returns a List<WriteStatus>, so result is always a List instance.",
+    "meta" : [ ]
+  } ]
+}

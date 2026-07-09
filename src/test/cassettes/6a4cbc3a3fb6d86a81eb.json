@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "Common precondition to prevent NullPointerException when accessing methods on clusteringGroup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is expected for clustering operations to identify the relevant commit or operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "An empty instantTime string is unlikely to be valid for identifying clustering operation instants.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "It is necessary that clusteringGroup can yield slices to proceed with clustering operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clusteringGroup.getSlices().isEmpty()",
+    "rationale" : "Clustering should operate on at least one slice; an empty slice list would result in no work.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method requires a List of input records and would likely not be called with a null argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Returning a null result would be an exceptional case and likely avoided by contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write status list returned in the metadata should not be null, as per typical result contracts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "getWriteStatuses() is expected to return a List as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "List size is always non-negative, enforced by the List contract.",
+    "meta" : [ ]
+  } ]
+}

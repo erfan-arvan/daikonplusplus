@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter typically identifies the commit time and is expected to be non-null for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The hoodieRecords parameter represents the set of records to upsert and must be non-null to perform an upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is required for the operation to execute in any distributed data-processing scenario.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hoodieRecords.isEmpty()",
+    "rationale" : "Upsert operations usually require at least one record to process; empty record lists may be considered invalid for upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instantTime string should be non-empty as it typically represents a timestamp or version identifier.",
+    "meta" : [ ]
+  } ]
+}

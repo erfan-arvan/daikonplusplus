@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is likely required for this operation to proceed, as in most methods in this class.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "The rollbackInstantTime String likely identifies an instant and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "The commitInstant parameter is used to indicate the commit to rollback and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "It is probable that rollbackInstantTime should not be the empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteInstants == true || deleteInstants == false",
+    "rationale" : "deleteInstants is a boolean and should only be true or false.",
+    "meta" : [ ]
+  } ]
+}

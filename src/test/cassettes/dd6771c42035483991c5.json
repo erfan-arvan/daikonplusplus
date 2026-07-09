@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns the result of execute(), which should provide HoodieRestoreMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is required for restore and is passed directly to the action executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is required for restore and is passed directly to the action executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is an engine context required for distributed operations and is passed to the executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRestoreMetadata",
+    "rationale" : "The return type of the method is HoodieRestoreMetadata, so result must be an instance of it.",
+    "meta" : [ ]
+  } ]
+}

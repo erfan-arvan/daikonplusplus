@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "flingTimer >= 0",
+    "rationale" : "Based on typical timer usage, flingTimer should not be negative at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flingTimer == 0 || flingTimer > 0",
+    "rationale" : "flingTimer is likely initialized to 0 or set to positive values; this expresses the non-negativity in another way.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isFlinging() || flingTimer > 0",
+    "rationale" : "If isFlinging() returns true, then flingTimer must be greater than 0 by the method's return statement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isFlinging() == (flingTimer > 0)",
+    "rationale" : "The method always returns (flingTimer > 0), capturing equivalence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flingTimer <= Integer.MAX_VALUE",
+    "rationale" : "flingTimer, being an int, cannot exceed Integer.MAX_VALUE.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List<WriteStatus> created by internal postprocessing, so null is not expected.",
+    "meta" : [ {
+      "key" : "drafts",
+      "value" : "A,B"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Throughout the method instantTime is passed to several APIs and used as required, so it must be non-null.",
+    "meta" : [ {
+      "key" : "drafts",
+      "value" : "A,B"
+    } ]
+  } ]
+}

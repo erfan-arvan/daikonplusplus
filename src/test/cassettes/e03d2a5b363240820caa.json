@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "type != null",
+    "rationale" : "The method requires a Class parameter for type; being non-null is often needed in type-based queries.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type.isInterface() || !type.isInterface()",
+    "rationale" : "No restriction: the method should support both interfaces and concrete classes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "MapLayer.class.isAssignableFrom(type)",
+    "rationale" : "The generic bound indicates that T extends MapLayer, so type must be a Class representing MapLayer or its subclasses.",
+    "meta" : [ ]
+  } ]
+}

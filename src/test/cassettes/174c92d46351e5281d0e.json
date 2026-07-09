@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a stream collected to a list, which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(f -> f != null)",
+    "rationale" : "Each fileId returned by fg.getFileId() is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "Distinct is called in the stream, so all elements in result must be unique.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || table.getSliceView().getLatestFileSlices(partitionPath).count() == 0",
+    "rationale" : "If result is empty, then there were no file slices to produce fileIds for the given partitionPath.",
+    "meta" : [ ]
+  } ]
+}

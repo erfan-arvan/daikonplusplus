@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of collecting to a list is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each data element belongs to one key group, but result contains one value per key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Input data list should not be null as it is immediately operated upon.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || data.isEmpty()",
+    "rationale" : "If result is empty, input data must have been empty as well.",
+    "meta" : [ ]
+  } ]
+}

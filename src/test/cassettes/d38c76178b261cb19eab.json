@@ -1,0 +1,35 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null ",
+    "rationale" : "The args parameter array is always not null at method entry.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "args array is defined as a method parameter, guaranteed non-null"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "The length of the args array cannot be negative.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Array length is always non-negative"
+    } ]
+  }, {
+    "expression" : "(args.length == 0) || (args.length > 0)",
+    "rationale" : "The length of the args array is either zero or positive, mutually exclusive cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "The args variable is an array instance at method entry.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "args is an array type"
+    } ]
+  }, {
+    "expression" : "java.util.Objects.nonNull(args)",
+    "rationale" : "Second assertion of not null guarantee for args.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Safe to call static method for null check"
+    } ]
+  } ]
+}

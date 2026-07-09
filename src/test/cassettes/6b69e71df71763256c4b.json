@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Array<FileHandle> (the 'images' array), which is non-null due to its initialization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "root != null",
+    "rationale" : "A method operating on root would throw a NullPointerException if root were null, so it is assumed non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tideFile != null",
+    "rationale" : "tideFile is used to construct FileHandle objects, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "The size of a newly created Array<FileHandle> is always zero or positive after possibly adding elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size == root.getChildByName(\"TileSheets\").getChildrenByName(\"TileSheet\").size",
+    "rationale" : "An image FileHandle is added to the result for each TileSheet element, so the counts match.",
+    "meta" : [ ]
+  } ]
+}

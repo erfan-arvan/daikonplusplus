@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is used throughout the method and methods are called on it, so it cannot be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageWidth >= 0 && imageHeight >= 0",
+    "rationale" : "imageWidth and imageHeight are used to compute tile layout; negative values are not meaningful for dimensions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstgid >= 0",
+    "rationale" : "GIDs (global tile IDs) in tiled maps are non-negative integers; negative IDs would be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilewidth > 0 && tileheight > 0",
+    "rationale" : "Tile dimensions must be positive to correctly divide imageWidth and imageHeight.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElements != null",
+    "rationale" : "tileElements is iterated over, so it cannot be null at method exit.",
+    "meta" : [ ]
+  } ]
+}

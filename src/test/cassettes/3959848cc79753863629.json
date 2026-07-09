@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "If metaClient were null, later operations involving metaClient would likely fail, so this invariant expresses a likely precondition.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "metaClient parameter is likely required for operations within the method or downstream method calls."
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "A null columnsToIndex would prevent column-index operations. This expresses a likely intended precondition.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "columnsToIndex may be iterated or its size checked."
+    } ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.get(0) instanceof String",
+    "rationale" : "Checks that any elements in the columnsToIndex list are Strings, consistent with the declared generic type.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "If the list is not empty, its elements should be Strings, matching the List<String> type."
+    } ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "This is a property of all Java lists; the size method always returns a value >= 0.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "List sizes are always non-negative in Java."
+    } ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "Base path is a central aspect of table meta clients, so it is likely non-null in all valid metaClient instances.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "HoodieTableMetaClient instances are expected to have a non-null base path."
+    } ]
+  } ]
+}

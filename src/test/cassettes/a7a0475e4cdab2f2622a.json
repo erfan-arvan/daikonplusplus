@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is used as an argument to various methods without null checks, implying it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative for valid Java lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer != null",
+    "rationale" : "sourceReadAndIndexTimer, of type Option<HoodieTimer>, is used as an argument and is expected to be non-null as per usage in codebase.",
+    "meta" : [ ]
+  } ]
+}

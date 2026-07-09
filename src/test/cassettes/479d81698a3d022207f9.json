@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata<List<WriteStatus>>, which is typically non-null after clustering commit actions. A null would indicate a severe failure or design issue.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "A clustering instant time should be provided and not null when cluster is invoked, as it identifies the clustering operation context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is required for all data operations and should not be null at the exit of the cluster method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned HoodieWriteMetadata's write status list should never be null, as it represents the result of clustering operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "The list of WriteStatus should usually be non-empty after performing successful clustering, indicating work was done.",
+    "meta" : [ ]
+  } ]
+}

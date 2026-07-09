@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Bucket numbers are typically non-negative indices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber < bucketInfoMap.size()",
+    "rationale" : "If bucketNumber is used as a key to access bucketInfoMap, it's reasonable to expect it not to exceed the size of the map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber)",
+    "rationale" : "If get is called on bucketInfoMap using bucketNumber, it often follows that the key is expected to exist.",
+    "meta" : [ ]
+  } ]
+}

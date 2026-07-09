@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is used to call methods and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to methods and must be non-null for correct behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs are passed to upsertPreppedRecords and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.isCommitInFlight(instantTime)",
+    "rationale" : "After upserting and committing, the commit for instantTime should be in flight according to the Hoodie write protocol.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecordInputs.isEmpty() || writeClient.upsertPreppedRecords(preppedRecordInputs, instantTime).isEmpty()",
+    "rationale" : "If there are no input records, the upsert result is likely empty as well.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "!result || (focusTraversal && (character == TAB || ((character == CARRIAGE_RETURN || character == NEWLINE) && (UIUtils.isAndroid || UIUtils.isIos))))",
+    "rationale" : "If result is true, the method's returned value must match exactly the right-hand side of the return expression.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (focusTraversal && (character == TAB || ((character == CARRIAGE_RETURN || character == NEWLINE) && (UIUtils.isAndroid || UIUtils.isIos))))",
+    "rationale" : "The returned result is exactly the computed Boolean from the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character == TAB || character == CARRIAGE_RETURN || character == NEWLINE || !result",
+    "rationale" : "Result can only be true if the character is one of the expected values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!focusTraversal || !result || (character == TAB || ((character == CARRIAGE_RETURN || character == NEWLINE) && (UIUtils.isAndroid || UIUtils.isIos)))",
+    "rationale" : "If focusTraversal is false, result must be false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !focusTraversal || (character != TAB && (character != CARRIAGE_RETURN && character != NEWLINE || !(UIUtils.isAndroid || UIUtils.isIos)))",
+    "rationale" : "If result is false, this is equivalent to the negation of the condition for returning true.",
+    "meta" : [ ]
+  } ]
+}

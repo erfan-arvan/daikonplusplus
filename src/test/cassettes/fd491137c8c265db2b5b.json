@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is cast without null check, implying it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a String used as an argument and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is passed to another method without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a List is always non-negative by contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option argument passed forward without null check, implying it should be non-null.",
+    "meta" : [ ]
+  } ]
+}

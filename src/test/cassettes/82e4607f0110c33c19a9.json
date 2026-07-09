@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, which should not be null under normal circumstances unless the executor fails catastrophically (which is unlikely if returned).",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method delegates to another executor using the records parameter, and most Hudi operations expect records to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "By method signature and construction, the return value must be of HoodieWriteMetadata type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The operation is a table overwrite for a specific instant and typically requires a valid, non-null timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is fundamental for distributed execution and is generally required and validated at the top level.",
+    "meta" : [ ]
+  } ]
+}

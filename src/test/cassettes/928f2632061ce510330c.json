@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Method calls with 'name' (e.g., parseRegionName(name)) would typically require 'name' not be null to operate safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() >= 0",
+    "rationale" : "If 'name' is non-null, String.length() returns a non-negative integer by definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty() || name.length() == 0",
+    "rationale" : "The result of String.isEmpty() matches whether name.length() is zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.trim().length() <= name.length()",
+    "rationale" : "Trimming a String cannot increase the length.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method throws an exception if profile is null, so upon exit profile must be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Defensive null check at start of method"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new instance, so result is never null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Result is constructed via 'new', never null"
+    } ]
+  } ]
+}

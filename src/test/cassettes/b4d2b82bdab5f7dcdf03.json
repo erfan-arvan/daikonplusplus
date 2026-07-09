@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required for commitInternal and likely cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a key in singletonMap, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is passed into a collection and then down to commit logic; null would likely cause failures.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser is accepted as parameter and may be used for subsequent logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is often a commit marker, and should not be an empty string.",
+    "meta" : [ ]
+  } ]
+}

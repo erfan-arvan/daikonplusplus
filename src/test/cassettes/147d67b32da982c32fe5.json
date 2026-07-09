@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an instance (never null) as per the construction and return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Prepped records should be non-null to perform deletions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime represents a commit instant and should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null context is required for engine operations and is passed through to all actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStats() != null",
+    "rationale" : "HoodieWriteMetadata must have non-null write statistics, as it is constructed via execute.",
+    "meta" : [ ]
+  } ]
+}

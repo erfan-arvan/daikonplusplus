@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned map result should never be null; mapToPair should always return a non-null map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "The method expects a non-null writeResult to produce a valid mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(partitionPath -> partitionPath != null)",
+    "rationale" : "All entries in the map should correspond to a non-null partition path from status.getStat().getPartitionPath().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "Each value (list of file IDs) should not be null, as getAllExistingFileIds should return a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().size() == writeResult.getWriteStatuses().stream().map(status -> status.getStat().getPartitionPath()).distinct().count()",
+    "rationale" : "Each unique partition path in the write statuses corresponds to exactly one entry in the resulting map.",
+    "meta" : [ ]
+  } ]
+}

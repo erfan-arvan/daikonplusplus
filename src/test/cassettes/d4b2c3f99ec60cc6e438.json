@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "getPrefHeight() == lastPrefHeight",
+    "rationale" : "At method exit, if prefHeight differed from lastPrefHeight it was set equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getChildren().size >= 0",
+    "rationale" : "By definition, the children list size is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rowSizes != null",
+    "rationale" : "rowSizes is accessed multiple times in the method, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getWidth() >= 0",
+    "rationale" : "The width of a group is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getPrefHeight() >= 0",
+    "rationale" : "Preferred height should be non-negative.",
+    "meta" : [ ]
+  } ]
+}

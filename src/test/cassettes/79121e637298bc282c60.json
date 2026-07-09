@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A commit is made using instantTime; it should not be null for a valid commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a map key and should not be null for proper operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is passed to commitInternal; a null records argument might indicate a logic error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser is part of the method contract and may be needed for metadata operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime likely represents a unique commit identifier and should not be empty.",
+    "meta" : [ ]
+  } ]
+}

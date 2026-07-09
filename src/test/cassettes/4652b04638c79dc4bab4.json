@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "transitionInflight(String) likely expects a valid instant time string for correct operation.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "Method likely assumes instantTime is not null to proceed safely"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "An empty instantTime would likely be rejected by metaClient and timeline methods.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "Empty instantTime is likely invalid for creating instant objects"
+    } ]
+  } ]
+}

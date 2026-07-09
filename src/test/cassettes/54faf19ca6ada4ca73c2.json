@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "padBottom >= 0",
+    "rationale" : "UI padding values are typically non-negative, so this invariant may often be true to guard against undesired negative spacing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(padBottom)",
+    "rationale" : "Padding values should not be NaN to avoid propagation of invalid layout values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(padBottom)",
+    "rationale" : "Infinite padding does not make sense in UI layout, so this checks for validity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padBottom <= Float.MAX_VALUE",
+    "rationale" : "Ensures the provided value is not out of bound for a float parameter.",
+    "meta" : [ ]
+  } ]
+}

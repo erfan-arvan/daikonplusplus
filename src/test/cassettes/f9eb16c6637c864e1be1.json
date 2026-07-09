@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new HashMap is always returned if small file limit <= 0; otherwise context.mapToPair or HashMap is assigned. Method never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.keySet().containsAll(partitionPaths)",
+    "rationale" : "If partitionPaths are not null or empty, the map is created over all partitionPaths, so returned map contains the keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() == 0 || result.size() <= partitionPaths.size()",
+    "rationale" : "At most, there can be one entry per partition path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() == 0 || result.size() == partitionPaths.size()",
+    "rationale" : "Each partition path gets one list of small files; no aggregation, so count matches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "Each value is constructed as a List<SmallFile> from getSmallFiles or new HashMap, never null.",
+    "meta" : [ ]
+  } ]
+}

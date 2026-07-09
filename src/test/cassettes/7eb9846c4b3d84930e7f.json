@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == clickListener.isOver()",
+    "rationale" : "Because isOver() directly returns clickListener.isOver(), their values are always the same at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (clickListener != null && clickListener.isOver())",
+    "rationale" : "If clickListener could be null, safe access requires a null check, but since it is called unguarded, likely clickListener is non-null.",
+    "meta" : [ ]
+  } ]
+}

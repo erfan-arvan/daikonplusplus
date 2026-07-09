@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "pad >= 0",
+    "rationale" : "Padding values are generally expected to be non-negative in UI layout contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(pad)",
+    "rationale" : "NaN values for padding would likely result in layout errors or unexpected behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pad <= Float.MAX_VALUE",
+    "rationale" : "Padding should not exceed the maximum representable float value.",
+    "meta" : [ ]
+  } ]
+}

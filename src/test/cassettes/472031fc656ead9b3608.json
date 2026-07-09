@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always instantiates and initializes a new Json object, assigning it to 'json' and returning it as 'result'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getSerializer(Skin.class) != null",
+    "rationale" : "The method calls json.setSerializer(Skin.class, ...), so a serializer for Skin.class will be registered in 'result'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getSerializer(BitmapFont.class) != null",
+    "rationale" : "The method calls json.setSerializer(BitmapFont.class, ...), so a serializer for BitmapFont.class will be registered in 'result'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getSerializer(Color.class) != null",
+    "rationale" : "The method sets a serializer for Color.class, so it's expected to be present in the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getSerializer(TintedDrawable.class) != null",
+    "rationale" : "The method sets a serializer for TintedDrawable.class, so it must be present in the result on return.",
+    "meta" : [ ]
+  } ]
+}

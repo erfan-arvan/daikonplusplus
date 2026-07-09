@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time is used in the commit operation and is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is used as a key in a map passed to commitInternal and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records collection is provided by callers and used in commit operations, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser is an argument that might be used by callers for consistent metadata parsing and expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime, representing a commit or operation timestamp, is expected to be a non-empty string.",
+    "meta" : [ ]
+  } ]
+}

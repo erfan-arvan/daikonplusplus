@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Padding values are often non-negative in layout contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == padTop.get(this) + padBottom.get(this)",
+    "rationale" : "By method implementation and Javadoc, result sums padTop and padBottom paddings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "As the sum of two finite paddings, the result should also be finite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= padTop.get(this)",
+    "rationale" : "Unless padBottom is negative and greater in magnitude than padTop, result is at least padTop.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= padBottom.get(this)",
+    "rationale" : "Symmetric to padTop, result is at least padBottom unless padTop is negative and dominates.",
+    "meta" : [ ]
+  } ]
+}

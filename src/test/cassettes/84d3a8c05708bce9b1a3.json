@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is used to invoke methods in the method, so it cannot be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to invoked writeClient methods, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed as an argument to a method call, requiring it to be non-null at usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.upsertPreppedRecords(preppedRecordInputs, instantTime) != null",
+    "rationale" : "Result of upsertPreppedRecords is immediately used in commit, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.upsertPreppedRecords(preppedRecordInputs, instantTime).size() >= 0",
+    "rationale" : "The result is a List, and List.size() is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

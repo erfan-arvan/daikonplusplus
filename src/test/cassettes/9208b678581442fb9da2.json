@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "this.background == background",
+    "rationale" : "After assignment, the container's background field should equal the background parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!adjustPadding || (this.background == background)",
+    "rationale" : "If padding was meant to be adjusted, the background field must be up to date.",
+    "meta" : [ ]
+  }, {
+    "expression" : "background == null || (background.getTopHeight() >= 0 && background.getLeftWidth() >= 0 && background.getBottomHeight() >= 0 && background.getRightWidth() >= 0)",
+    "rationale" : "drawable dimensions should be non-negative if a background is present, as commonly required by UI layout constraints.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!adjustPadding || background == null || (background.getTopHeight() >= 0 && background.getLeftWidth() >= 0 && background.getBottomHeight() >= 0 && background.getRightWidth() >= 0)",
+    "rationale" : "If adjustPadding is true and background is non-null, its dimensions should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(this.background == background && !adjustPadding) || this.background == background",
+    "rationale" : "When no adjustment is requested, the only effect is setting the background field.",
+    "meta" : [ ]
+  } ]
+}

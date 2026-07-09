@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The method assumes writeMetadata is used and is therefore expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "The implementation immediately calls getWriteStatuses(), which would throw if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() instanceof List",
+    "rationale" : "getWriteStatuses() is called and then stream() is invoked, suggesting it must be a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().stream() != null",
+    "rationale" : "The stream() method must be safely callable, implying getWriteStatuses() returns a non-null collection.",
+    "meta" : [ ]
+  } ]
+}

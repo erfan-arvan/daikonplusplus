@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returning null metadata would likely indicate an error or exceptional path, and in standard implementations of execute, a non-null result is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method signature guarantees result's type, but this property can still be stated explicitly.",
+    "meta" : [ ]
+  } ]
+}

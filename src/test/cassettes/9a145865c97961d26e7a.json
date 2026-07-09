@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The factory method requires a non-null configuration object for correct behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexType() != null",
+    "rationale" : "The index type is accessed and switched on; it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!StringUtils.isNullOrEmpty(config.getIndexClass()) || config.getIndexType() != null",
+    "rationale" : "Either a custom index class is specified or a known index type is required.",
+    "meta" : [ ]
+  } ]
+}

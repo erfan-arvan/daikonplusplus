@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method expects to process a list of records; null is not handled within.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null check"
+    } ]
+  }, {
+    "expression" : "index != null",
+    "rationale" : "Index is used via method calls and should not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null check"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive for parallel operations to be meaningful.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "parameter range"
+    } ]
+  }, {
+    "expression" : "schemaStr != null",
+    "rationale" : "Schema string is parsed and must not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null check"
+    } ]
+  }, {
+    "expression" : "recordMerger != null",
+    "rationale" : "Record merger is required for deduplication logic.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null check"
+    } ]
+  } ]
+}

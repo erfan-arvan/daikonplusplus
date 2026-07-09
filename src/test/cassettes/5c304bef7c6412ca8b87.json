@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned String should not be null since it originates from getCommitActionType() on a MetaClient instance, suggesting a meaningful constant is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "Usually, an action type should be a non-empty string to represent a commit action correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(result.trim())",
+    "rationale" : "Commit action types are typically normalized and should not have leading or trailing whitespace.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(result.toUpperCase())",
+    "rationale" : "Commit action type constants are often all uppercase strings (e.g., 'COMMIT', 'DELTA_COMMIT').",
+    "meta" : [ ]
+  } ]
+}

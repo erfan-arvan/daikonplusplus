@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The execution likely requires a non-null context for engine operations.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "context is a method parameter and typically non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime must be non-null to represent a valid commit time.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "instantTime is a method parameter and used as a string timestamp"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "List of records to insert cannot be null to avoid NullPointerExceptions.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "hoodieRecords is a list of records passed as parameter"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner == null || bulkInsertPartitioner.isPresent()",
+    "rationale" : "The bulkInsertPartitioner can be either null or a present Option object.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "bulkInsertPartitioner is an Option and can be null or non-null"
+    } ]
+  }, {
+    "expression" : "hoodieRecords instanceof java.util.List",
+    "rationale" : "hoodieRecords is declared as List<HoodieRecord<T>> so it is instance of java.util.List.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "hoodieRecords expected to be List"
+    } ]
+  } ]
+}

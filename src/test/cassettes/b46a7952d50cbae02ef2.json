@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option values are not expected to be null in Java/Scala idioms; should always use Option.empty if absent.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is always required for scheduling operations and should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context should be non-null for all operations using the engine context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == false || result.get() != null",
+    "rationale" : "If the Option contains a value, it should be a non-null HoodieCompactionPlan.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option values are not expected to be null; should be Option.empty if not present.",
+    "meta" : [ ]
+  } ]
+}

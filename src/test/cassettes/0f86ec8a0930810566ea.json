@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of 'postWrite', which should not be null to indicate a successful write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter is expected to be a valid string identifying the write instant and is used in pre/post processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The 'records' parameter must be non-null for the method to function, and it is wrapped in 'HoodieListData.eager'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The result is a list, so its size should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The input records list should have a non-negative size.",
+    "meta" : [ ]
+  } ]
+}

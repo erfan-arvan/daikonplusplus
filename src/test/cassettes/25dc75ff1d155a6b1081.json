@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns an Option, which is non-null but may be empty or contain a value.",
+    "meta" : [ {
+      "key" : "non_null",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is a String and assumed non-null at method exit.",
+    "meta" : [ {
+      "key" : "param_non_null",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata parameter is an Option type and assumed non-null.",
+    "meta" : [ {
+      "key" : "param_non_null",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!result.isPresent() || (result.get() != null)",
+    "rationale" : "If result contains a value, it should be non-null.",
+    "meta" : [ {
+      "key" : "option_content_valid",
+      "value" : "true"
+    } ]
+  } ]
+}

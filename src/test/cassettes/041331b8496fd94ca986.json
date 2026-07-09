@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result.size > 0",
+    "rationale" : "If result is non-null, it probably contains at least one entry (based on the method purpose).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.keys() != null",
+    "rationale" : "If result is non-null, its keys() method should be safe and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.values() != null",
+    "rationale" : "If result is non-null, its values() method should be safe and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.size >= 0",
+    "rationale" : "If result is non-null, size must be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.get(result.keys().next()) instanceof MapObject",
+    "rationale" : "If result is non-null and not empty, getting a value by a key yields a MapObject.",
+    "meta" : [ ]
+  } ]
+}

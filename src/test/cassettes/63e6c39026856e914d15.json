@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method must handle a possible null orders list; checking for null ensures robustness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || !orders.isEmpty()",
+    "rationale" : "If orders is not null, it is expected that an empty list is handled early in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders instanceof List<?>",
+    "rationale" : "orders is expected to be a List instance when not null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument in getLatestFileSlices, so it should be non-null for correct behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "All Java strings have non-negative length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath may be expected to represent a valid directory or partition, which is likely not an empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.trim().length() > 0",
+    "rationale" : "A partitionPath consisting only of whitespace may be semantically invalid; this checks for significant content.",
+    "meta" : [ ]
+  } ]
+}

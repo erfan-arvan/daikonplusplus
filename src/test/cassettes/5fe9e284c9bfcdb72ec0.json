@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The TiledMap reference should not be null for object loading to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer != null",
+    "rationale" : "The MapLayer must not be null when accessing its objects or calling methods on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "JsonValue element should not be null as it is likely used to parse map object data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "Objects collection of the MapLayer should be initialized to store loaded map objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null && layer != null && layer.getObjects() != null",
+    "rationale" : "If map and layer are not null, then the objects list on the layer should also be non-null.",
+    "meta" : [ ]
+  } ]
+}

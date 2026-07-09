@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null",
+    "rationale" : "activeModule is passed as a parameter and may typically be non-null, unless null is allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null",
+    "rationale" : "activityDescription is passed as a parameter and may typically be non-null, unless null is allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule == null || !activeModule.isEmpty()",
+    "rationale" : "If activeModule is not null, it may be expected to contain a non-empty value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription == null || !activityDescription.isEmpty()",
+    "rationale" : "If activityDescription is not null, it is likely that a non-empty description is provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "The method is currently a no-op, so no assumptions about parameter changes or side effects can be made.",
+    "meta" : [ ]
+  } ]
+}

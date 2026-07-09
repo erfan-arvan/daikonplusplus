@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Iterator<List<WriteStatus>>, so result should not be null on normal return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition is directly used both for computing bucketInfo and in error messages, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is cast and dereferenced, so it must not be null at any execution path reaching the return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "javaUpsertPartitioner.getBucketInfo(partition).bucketType == BucketType.INSERT || javaUpsertPartitioner.getBucketInfo(partition).bucketType == BucketType.UPDATE",
+    "rationale" : "A return can only happen if the bucketType is INSERT or UPDATE, otherwise an exception is thrown before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required by downstream logic and is a required parameter.",
+    "meta" : [ ]
+  } ]
+}

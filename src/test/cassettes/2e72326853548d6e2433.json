@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager parameter should be valid for asset loading operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "A non-null, non-empty file name is likely required to identify the file resource.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "A FileHandle is necessary to represent the map file to be loaded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof Parameters",
+    "rationale" : "Parameter is allowed to be null or of correct type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.exists()",
+    "rationale" : "The corresponding file should exist for successful loading.",
+    "meta" : [ ]
+  } ]
+}

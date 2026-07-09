@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option.empty() is never null, by the contract of Option.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isPresent()",
+    "rationale" : "Method always returns Option.empty(), which is not present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(Option.empty())",
+    "rationale" : "Method explicitly returns Option.empty(), so equality holds.",
+    "meta" : [ ]
+  } ]
+}

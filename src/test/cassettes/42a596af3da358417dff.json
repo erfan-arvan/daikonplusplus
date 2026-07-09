@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is required for the operation and is always accessed without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer != null",
+    "rationale" : "Option objects are typically expected to be non-null as null Option has little practical meaning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || inputRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative; this expresses an invariant about the List's size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inputRecords.isEmpty() || inputRecords.size() == 0",
+    "rationale" : "If the list is empty, its size is 0; if not empty, size is positive. This captures correlation between .isEmpty() and .size().",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer.isPresent() || !sourceReadAndIndexTimer.isPresent()",
+    "rationale" : "Option.isPresent() must always be true or false, never throw, which serves as a well-formedness check.",
+    "meta" : [ ]
+  } ]
+}

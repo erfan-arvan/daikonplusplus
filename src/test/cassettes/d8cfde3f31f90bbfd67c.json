@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required to be a non-null string representing the commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath specifies the partition and is used as a key; it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is passed to Collections.singletonMap and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser is supplied as a parameter and may be required downstream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath is used as a key and should not be empty for correct operation.",
+    "meta" : [ ]
+  } ]
+}

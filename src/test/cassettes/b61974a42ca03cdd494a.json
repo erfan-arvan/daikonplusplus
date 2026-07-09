@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method is expected to operate on a given list of prepared records; null would lead to failures.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is likely used as a commit or operation identifier and should be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.get(0) != null",
+    "rationale" : "If the list is non-empty, the first record should be non-null, reflecting data integrity assumptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() || preppedRecords.size() == 0",
+    "rationale" : "If the list is empty, its size should be zero. This reinforces consistency between isEmpty and size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List sizes in Java are always non-negative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is a field required for bulkInsert; it is likely non-null before method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used in the bulkInsert call, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is used in the bulkInsert call, so it should be initialized before execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in the bulkInsert call; likely initialized prior to execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "Non-static method, so 'this' should always be non-null.",
+    "meta" : [ ]
+  } ]
+}

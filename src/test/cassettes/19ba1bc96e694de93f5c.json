@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "to != null",
+    "rationale" : "The method calls to.length() and to.substring(...), so null would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "position >= 0",
+    "rationale" : "The method uses position as an index in substring; negative values would cause an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "position <= to.length()",
+    "rationale" : "substring's second argument can be equal to to.length(), so this ensures position is not out of bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "The method returns text.toString(); if text were null, this would throw a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "to.length() >= 0",
+    "rationale" : "String.length() always returns a non-negative integer.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns either the input records or a sorted version of the same; it never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == records",
+    "rationale" : "In both branches (records.isEmpty() or not), the returned list is the same instance as the input 'records'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The method never adds or removes elements from the list; it only sorts it if not empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0 || !records.isEmpty() || result == records",
+    "rationale" : "For safety, expressing that if outputPartitions is non-positive but records are empty, result is the same as records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() == result.isEmpty()",
+    "rationale" : "The emptiness of the input and result is always the same; sorting does not affect emptiness.",
+    "meta" : [ ]
+  } ]
+}

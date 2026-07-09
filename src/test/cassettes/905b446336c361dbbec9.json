@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned iterator for inserted records/writes is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "Prefix for IDs should be non-null in normal execution path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(recordItr == null)",
+    "rationale" : "Record iterator used for insertion should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext() == false || result.next() instanceof java.util.List",
+    "rationale" : "If result has next, then next yields a List (of WriteStatus).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result.hasNext()) || result.next() != null",
+    "rationale" : "Each element of the returned iterator is not null (if any).",
+    "meta" : [ ]
+  } ]
+}

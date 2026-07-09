@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieJavaTable.create(config, context) is expected to always create and return a non-null HoodieTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieTable",
+    "rationale" : "The return type of the method is HoodieTable, and result is the (non-null) value returned from HoodieJavaTable.create(...).",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Method cannot create a hoodie table without configuration; result depends on config being non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is required to call HoodieJavaTable.create and to return a HoodieTable.",
+    "meta" : [ ]
+  } ]
+}

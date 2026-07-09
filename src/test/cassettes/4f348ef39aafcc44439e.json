@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method immediately returns the result of super.execute, and this is a commit operation, a null result is likely not allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned write metadata should contain a non-null list of WriteStatus objects from the commit action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "A commit action is expected to produce at least one WriteStatus, so the result list should not be empty.",
+    "meta" : [ ]
+  } ]
+}

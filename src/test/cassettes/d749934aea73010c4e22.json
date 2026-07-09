@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Bucket numbers are typically non-negative in partitioning and mapping contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "The method immediately dereferences bucketInfoMap, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber < totalBuckets",
+    "rationale" : "The number of buckets is commonly bounded by totalBuckets.",
+    "meta" : [ ]
+  } ]
+}

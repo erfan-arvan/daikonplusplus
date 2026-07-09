@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null write metadata object after execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input list of records to insert/overwrite should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime must be a valid, non-null, non-empty string identifying the commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null execution context is required for the operation.",
+    "meta" : [ ]
+  } ]
+}

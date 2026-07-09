@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "parent != null || template != null",
+    "rationale" : "At least one of parent or template must be non-null, otherwise the method would return null immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null || parent instanceof Element",
+    "rationale" : "parent is expected to be either null or an instance of Element as per method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "template == null || template instanceof Element",
+    "rationale" : "template is expected to be either null or an instance of Element as per method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(parent == null && template == null)",
+    "rationale" : "If both are null, the method would end up returning null, which according to method usage/context is likely not expected.",
+    "meta" : [ ]
+  } ]
+}

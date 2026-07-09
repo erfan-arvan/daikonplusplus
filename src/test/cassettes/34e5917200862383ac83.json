@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "object == null || object != null",
+    "rationale" : "Reflects that 'object' parameter is allowed to be null or non-null, per Javadoc.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "If 'text' is not null, its length is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || !text.isEmpty() || text.isEmpty()",
+    "rationale" : "Covers all possibilities for the 'text' string: either null or empty/non-empty, emphasizing allowed states.",
+    "meta" : [ ]
+  } ]
+}

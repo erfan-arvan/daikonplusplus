@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(pixelsX)",
+    "rationale" : "The scroll amount in pixels is expected to be a finite value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pixelsX >= 0f",
+    "rationale" : "Scroll position in pixels is typically non-negative, representing an offset from zero or the left edge.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pixelsX <= Float.MAX_VALUE",
+    "rationale" : "Scroll positions should not exceed the maximum representable float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(pixelsX)",
+    "rationale" : "The scroll amount should not be NaN, as it represents a meaningful visual coordinate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pixelsX == (float)pixelsX",
+    "rationale" : "pixelsX is a float, this checks that the incoming value is not a double cast down, which could matter for invariant analysis.",
+    "meta" : [ ]
+  } ]
+}

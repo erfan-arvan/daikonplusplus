@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "text != null",
+    "rationale" : "The text parameter should be a valid String and method logic likely expects a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor >= 0",
+    "rationale" : "The cursor is an index into the text, which should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "selectionStart, representing a position in the text, should also not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!hasSelection) || (selectionStart <= cursor)",
+    "rationale" : "If there is a selection, selectionStart is often less than or equal to cursor in text entry components.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor <= (text != null ? text.length() : 0)",
+    "rationale" : "Cursor should not exceed the length of the text.",
+    "meta" : [ ]
+  } ]
+}

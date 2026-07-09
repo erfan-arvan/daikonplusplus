@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null && !records.isEmpty()",
+    "rationale" : "bulkInsert expects a non-empty list of input records",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime represents a timestamp string and should be provided",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "userDefinedBulkInsertPartitioner should be non-null Option instance",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "All items in records should be non-null HoodieRecord instances",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner.isPresent() || !userDefinedBulkInsertPartitioner.isPresent()",
+    "rationale" : "Option may or may not hold a BulkInsertPartitioner (covers both cases and may be refined later)",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null && indexInstantTime != null && partitionsToIndex != null && partitionPaths != null",
+    "rationale" : "Method parameters must be non-null to invoke operations safely.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "All parameters should be non-null at method entry."
+    } ]
+  }, {
+    "expression" : "!indexInstantTime.isEmpty()",
+    "rationale" : "indexInstantTime usually represents a timestamp or unique ID, expected non-empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "indexInstantTime string should be non-empty."
+    } ]
+  }, {
+    "expression" : "!partitionsToIndex.isEmpty()",
+    "rationale" : "Operation presumably requires partitions to process.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The list of partitions to index should contain at least one element."
+    } ]
+  }, {
+    "expression" : "!partitionPaths.isEmpty()",
+    "rationale" : "The method likely requires partition paths to proceed.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "There must be at least one partition path specified."
+    } ]
+  }, {
+    "expression" : "partitionsToIndex.stream().allMatch(p -> p != null)",
+    "rationale" : "All partition types must be non-null for processing.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "No null elements in partitionsToIndex list."
+    } ]
+  } ]
+}

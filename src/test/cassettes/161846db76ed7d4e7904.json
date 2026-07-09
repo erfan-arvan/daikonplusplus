@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required String argument and should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext context should not be null when scheduling compaction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option typically should not be null, as Option type should represent 'no value' via Option.empty() instead.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty String for scheduling-related methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "Option.isPresent() is always a safe check and does not throw, and this is safe to evaluate.",
+    "meta" : [ ]
+  } ]
+}

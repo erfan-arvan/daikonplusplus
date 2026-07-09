@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method dereferences and calls methods on 'layer' without null checks, so it should not be null.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "method precondition"
+    } ]
+  }, {
+    "expression" : "layer.getTextureRegion() == null || layer.getTextureRegion().getTexture() != null",
+    "rationale" : "If the TextureRegion is present, its texture will be used; presumably, this must not be null.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "region returned by layer may be passed to spriteCache.add"
+    } ]
+  }, {
+    "expression" : "layer.getCombinedTintColor() != null",
+    "rationale" : "The result of getCombinedTintColor() is used for color calculations.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "combinedTint is used unconditionally in first lines"
+    } ]
+  }, {
+    "expression" : "layer.getOpacity() >= 0f && layer.getOpacity() <= 1f",
+    "rationale" : "Layer opacity is normally constrained to [0, 1] range for alpha blending.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "Opacity is typically a normalized float"
+    } ]
+  }, {
+    "expression" : "layer.getX() >= 0 && layer.getY() >= 0",
+    "rationale" : "Layer positions are typically non-negative, though negative coordinates may be possible depending on use.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "TiledMapLayers locations"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "textureRegion != null",
+    "rationale" : "For methods setting a resource, a non-null value is commonly required and might be an expectation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureRegion.getRegionWidth() > 0",
+    "rationale" : "A valid texture region should have a positive width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureRegion.getRegionHeight() > 0",
+    "rationale" : "A valid texture region should have a positive height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureRegion.getTexture() != null",
+    "rationale" : "TextureRegion should reference a valid Texture object.",
+    "meta" : [ ]
+  } ]
+}

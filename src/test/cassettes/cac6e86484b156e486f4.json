@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Drawable, chosen from style fields which are expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (node.expanded ? style.minus : style.plus) || result == (node.expanded ? style.minusOver : style.plusOver)",
+    "rationale" : "Result is always determined by either the normal icons or the hover (Over) variants depending on control flow.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!node.expanded || (result == style.minus || result == style.minusOver))",
+    "rationale" : "If the node is expanded, only minus or minusOver icons can be returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(node.expanded || (result == style.plus || result == style.plusOver))",
+    "rationale" : "If the node is not expanded, only plus or plusOver icons can be returned.",
+    "meta" : [ ]
+  } ]
+}

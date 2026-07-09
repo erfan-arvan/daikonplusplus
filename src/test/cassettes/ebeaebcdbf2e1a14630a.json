@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || name.equals(result.getName())",
+    "rationale" : "Returned tileset must match the requested name, if not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || name != null",
+    "rationale" : "If we found a result, name must not be null since name.equals was called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getName() != null",
+    "rationale" : "A found tileset must have a non-null name as getName() is compared.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getName().equals(name)",
+    "rationale" : "Return value's name equals the requested name if found.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || true",
+    "rationale" : "If result is null, no tileset with name was found; tautological but reflects possible null value.",
+    "meta" : [ ]
+  } ]
+}

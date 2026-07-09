@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient should be a valid reference for the method to be called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Method likely expects a valid List to operate on, even if the implementation is a no-op.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || !columnsToIndex.contains(null)",
+    "rationale" : "It is common to require that collections of Strings not contain null entries.",
+    "meta" : [ ]
+  } ]
+}

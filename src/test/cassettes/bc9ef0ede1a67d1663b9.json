@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Method always throws an exception, so no value is returned; at the exit point result must be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true == false",
+    "rationale" : "Method cannot return normally, so any non-trivial invariant that refers to state after normal completion is unreachable.",
+    "meta" : [ ]
+  } ]
+}

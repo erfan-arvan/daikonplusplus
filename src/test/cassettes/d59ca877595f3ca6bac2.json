@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "It is generally expected that method parameters, especially collections, are not null when processing begins.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "The parameter records is declared as List<WriteStatus>, so it must be an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.get(0) instanceof WriteStatus",
+    "rationale" : "If the list is not empty, we expect its elements to be instances of WriteStatus.",
+    "meta" : [ ]
+  } ]
+}

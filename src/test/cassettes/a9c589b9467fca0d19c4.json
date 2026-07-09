@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b != null",
+    "rationale" : "The parameter b should be non-null to avoid NullPointerException when calling b.doubleValue()",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "b is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "a != null",
+    "rationale" : "The parameter a should be non-null to avoid NullPointerException when calling a.doubleValue or a.intValue",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "a is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "b.doubleValue() != 0.0",
+    "rationale" : "To avoid division by zero, b.doubleValue() should not be zero at the entry since the method checks for zero",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "b.doubleValue() is non-zero"
+    } ]
+  }, {
+    "expression" : "a instanceof Number",
+    "rationale" : "The method assumes a is a numeric type since it uses intValue and doubleValue",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "a is a Number subtype"
+    } ]
+  }, {
+    "expression" : "b instanceof Number",
+    "rationale" : "The method assumes b is a numeric type since it uses intValue and doubleValue",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "b is a Number subtype"
+    } ]
+  } ]
+}

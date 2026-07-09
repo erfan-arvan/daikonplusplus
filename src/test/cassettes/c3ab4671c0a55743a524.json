@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method uses 'batch' in calls inside its body, which requires 'batch' to be non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "required"
+    } ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values in rendering code are typically non-negative as they represent opacity.",
+    "meta" : [ {
+      "key" : "semantic-reasoning",
+      "value" : "alpha-is-usually-nonnegative"
+    } ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha values are generally within [0,1] to represent normalized opacity.",
+    "meta" : [ {
+      "key" : "semantic-reasoning",
+      "value" : "alpha-in-normalized-range"
+    } ]
+  } ]
+}

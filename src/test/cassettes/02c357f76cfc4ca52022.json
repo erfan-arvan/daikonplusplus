@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Method likely requires a valid instant time string; null would typically not be allowed for meaningful processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Empty string probably not a valid instant time; committing events need non-empty identifiers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "Ensures the instant time is not the empty string, which would usually be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime instanceof String",
+    "rationale" : "instantTime is declared as String, so this will always be true at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "Instant time without only whitespace is likely required.",
+    "meta" : [ ]
+  } ]
+}

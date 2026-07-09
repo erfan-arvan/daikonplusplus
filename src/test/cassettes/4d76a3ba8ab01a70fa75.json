@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Bucket indices are non-negative integers, as totalBuckets starts from 0 and increments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket.get(fileIdHint) == result",
+    "rationale" : "The map updateLocationToBucket is updated with (fileIdHint, bucket), where 'bucket' is the returned result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result) != null",
+    "rationale" : "A new BucketInfo instance is put into bucketInfoMap with the key 'bucket', which equals 'result'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < totalBuckets",
+    "rationale" : "After incrementing totalBuckets, 'result' is equal to its previous value, and thus always less than the new totalBuckets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "fileIdHint is used as a key in HashMap operations and as an argument to BucketInfo, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

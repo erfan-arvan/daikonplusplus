@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of collectAsList(), which should always be non-null as a List implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == table.getIndex().tagLocation(HoodieListData.eager(dedupedRecords), context, table).collectAsList().size()",
+    "rationale" : "The returned list is exactly the result of collectAsList() on the tagged data, so their sizes must be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(table.getIndex().tagLocation(HoodieListData.eager(dedupedRecords), context, table).collectAsList())",
+    "rationale" : "The result is obtained directly from the method call, so it must be equal to that call's output.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method expects dedupedRecords to be non-null to perform processing and create HoodieListData.",
+    "meta" : [ ]
+  } ]
+}

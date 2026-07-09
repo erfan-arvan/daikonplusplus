@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a non-null Iterator as its main output.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required to identify the timeline instant and is used in IOUtils.runMerge.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId uniquely identifies a file to update and is passed throughout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The method parameter enforces this as an input, and update operations must have records to update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "oldDataFile is passed as a parameter and used to get the update handle for the merge; cannot be null.",
+    "meta" : [ ]
+  } ]
+}

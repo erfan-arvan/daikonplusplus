@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "result must equal HoodieTimeline.REPLACE_COMMIT_ACTION as the method always returns this constant.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns a constant string field so result is never null."
+    } ]
+  }, {
+    "expression" : "result.equals(HoodieTimeline.REPLACE_COMMIT_ACTION)",
+    "rationale" : "The returned value is always HoodieTimeline.REPLACE_COMMIT_ACTION, so string equality must always hold.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The returned value is always HoodieTimeline.REPLACE_COMMIT_ACTION, so string equality must always hold."
+    } ]
+  } ]
+}

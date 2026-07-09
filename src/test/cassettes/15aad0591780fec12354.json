@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of a collect operation, which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || smallFiles.isEmpty()",
+    "rationale" : "If the result is empty, it is because the input list smallFiles is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == smallFiles.size()",
+    "rationale" : "Each element in smallFiles produces exactly one String in the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(fileId -> fileId != null)",
+    "rationale" : "Each fileId is obtained from smallFile.location.getFileId(), which is expected to be non-null for valid locations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() <= result.size()",
+    "rationale" : "The number of distinct file IDs is at most the total number of file IDs returned.",
+    "meta" : [ ]
+  } ]
+}

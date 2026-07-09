@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is required for any engine operation; null context likely causes failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime identifies the operation and should not be null for record tracking.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Operations expect a list of records to process; null would indicate misusage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof java.util.List",
+    "rationale" : "preppedRecords should adhere to the expected Java List interface.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should not be empty; it's typically a timestamp or unique identifier.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned string is always non-null due to string concatenation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.startsWith(\"ProjectClassMember{\")",
+    "rationale" : "The returned string always starts with the specified prefix.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.endsWith(\"}\")",
+    "rationale" : "The output of toString always ends with '}'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.contains(\"name='\")",
+    "rationale" : "The string always contains the field label 'name='.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.indexOf(\", type='\") > 0",
+    "rationale" : "\"type='\" appears after the prefix in every result.",
+    "meta" : [ ]
+  } ]
+}

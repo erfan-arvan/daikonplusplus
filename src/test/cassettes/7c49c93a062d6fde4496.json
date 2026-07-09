@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Method is called on a layer; many calls and field accesses in the body assume non-nullness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getWidth() >= 0",
+    "rationale" : "Layer width is used for bounding calculations and should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getHeight() >= 0",
+    "rationale" : "Layer height is used for bounding calculations and should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileWidth() > 0",
+    "rationale" : "Tile width is multiplied by scaling constants; zero or negative widths likely indicate an invalid layer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileHeight() > 0",
+    "rationale" : "Tile height is used for position calculations and should be positive.",
+    "meta" : [ ]
+  } ]
+}

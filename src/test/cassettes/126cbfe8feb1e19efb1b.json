@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == order.getQuantity() * order.getUnitPrice()",
+    "rationale" : "By direct inspection of the method implementation, the return value is always the product of order.getQuantity() and order.getUnitPrice().",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0 || result <= 0",
+    "rationale" : "If the quantity is negative, the result would not be positive, since a negative quantity times any price can't yield a positive price.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0 || result <= 0",
+    "rationale" : "If the unit price is negative, the result would not be positive, as a negative unit price times any quantity can't yield a positive price.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0.0 || (order.getQuantity() == 0 || order.getUnitPrice() == 0.0)",
+    "rationale" : "If the result is zero, it must be because at least one of the operands (quantity or unit price) was zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0 || (order.getQuantity() < 0 && order.getUnitPrice() < 0)",
+    "rationale" : "The result can only be negative if both quantity and unit price are negative; otherwise, it will be non-negative.",
+    "meta" : [ ]
+  } ]
+}

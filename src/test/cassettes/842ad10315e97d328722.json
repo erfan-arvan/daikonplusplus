@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is required for engine operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a core parameter identifying the compaction instant and should be defined.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata Option should be a valid Option instance, not null, to allow has/isEmpty/isPresent checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!extraMetadata.isPresent() || extraMetadata.get() != null",
+    "rationale" : "If extraMetadata Option is present, its contained value (the Map) should not be null.",
+    "meta" : [ ]
+  } ]
+}

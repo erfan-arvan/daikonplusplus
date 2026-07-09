@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is called on in method body, so it must not be null to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "config is dereferenced in the method body"
+    } ]
+  }, {
+    "expression" : "config instanceof HoodieWriteConfig",
+    "rationale" : "Static typing ensures config is a HoodieWriteConfig object.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "config is typed as HoodieWriteConfig"
+    } ]
+  } ]
+}

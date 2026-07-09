@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Return type and return statement guarantee result is a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords are dereferenced before any null check/assignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "configuredParallelism >= 1",
+    "rationale" : "Parallelism cannot reasonably be less than 1 for shuffle/repartition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced for getTaskContextSupplier.",
+    "meta" : [ ]
+  } ]
+}

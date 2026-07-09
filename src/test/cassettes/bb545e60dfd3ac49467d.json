@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Option, as it is created by a new executor call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "indexInstantTime is passed to the executor and required for scheduling, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "partitionsToIndex is provided as an argument and required by the executor, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "partitionPaths is also required by the executor and expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is a required argument for the executor; should never be null at this program point.",
+    "meta" : [ ]
+  } ]
+}

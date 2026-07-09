@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Engine context should not be null for scheduling indexing actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "An indexing instant time is required; should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "The list of partitions to index should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "The list of partition paths should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex.isEmpty() || partitionsToIndex.size() <= partitionPaths.size()",
+    "rationale" : "Usually, there should be at least as many partition paths as partitions to index.",
+    "meta" : [ ]
+  } ]
+}

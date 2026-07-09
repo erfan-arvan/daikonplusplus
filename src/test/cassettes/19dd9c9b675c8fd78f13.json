@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of JavaBulkInsertHelper.newInstance().bulkInsert(...), and will throw if any exception occurs, so result should not be null upon normal return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().equals(\"HoodieWriteMetadata\")",
+    "rationale" : "Since the return type is HoodieWriteMetadata<List<WriteStatus>>, at runtime result should have the corresponding class name.",
+    "meta" : [ ]
+  } ]
+}

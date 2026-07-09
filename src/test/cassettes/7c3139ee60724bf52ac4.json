@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is expected to be a non-null engine context for scheduling log compaction",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is expected to be non-null and non-empty as a valid time marker for scheduling",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata (being an Option) should be non-null as per usual method argument discipline",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() ? extraMetadata.get() != null : true",
+    "rationale" : "If extraMetadata Option is present, the value map inside it should be non-null",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.contains(\" \")",
+    "rationale" : "instantTime should not contain spaces, adhering to timestamp/id conventions",
+    "meta" : [ ]
+  } ]
+}

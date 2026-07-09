@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "maxAmount >= 0",
+    "rationale" : "Based on the method's runtime check, negative values are rejected, so callers should probably pass non-negative values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxAmount <= 1",
+    "rationale" : "The method enforces an upper bound of 1 for maxAmount, so this is a likely invariant for valid uses.",
+    "meta" : [ ]
+  } ]
+}

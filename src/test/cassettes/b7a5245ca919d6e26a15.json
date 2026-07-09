@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "(!scrollX && result == 0) || (scrollX && result == visualAmountX)",
+    "rationale" : "Captures the two possible return paths: if scrollX is false, result is always 0; if scrollX is true, result is visualAmountX.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (scrollX ? visualAmountX : 0)",
+    "rationale" : "Describes the exact conditional assignment to result in terms of scrollX and visualAmountX.",
+    "meta" : [ ]
+  }, {
+    "expression" : "scrollX || result == 0",
+    "rationale" : "If scrollX is false, must return 0, so either scrollX is true or result is 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!scrollX || result == visualAmountX || result == 0",
+    "rationale" : "If scrollX is false, result is 0; if true, all that is possible is result equals visualAmountX or 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "Assuming visualAmountX is non-negative, result is always greater than or equal to 0.",
+    "meta" : [ ]
+  } ]
+}

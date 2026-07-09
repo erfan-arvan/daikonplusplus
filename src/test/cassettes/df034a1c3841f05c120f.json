@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == partitioner",
+    "rationale" : "The method directly returns the field 'partitioner' after assignment, so 'result' always equals 'partitioner'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The method assigns 'partitioner' from the superclass's non-null return and then returns it, so 'partitioner' should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'partitioner', which is immediately set before return, so 'result' is never null.",
+    "meta" : [ ]
+  } ]
+}

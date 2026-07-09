@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method likely expects non-null data to parallelize.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter should be positive to enable parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "It is common to limit parallelism to the size of the data unless the list is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= Integer.MAX_VALUE",
+    "rationale" : "Parallelism should not exceed integer bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism < 10000",
+    "rationale" : "Parallelism is typically much less than 10000 in practical applications.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The return value of rollback should be a valid HoodieRollbackMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "The rollback instant time should be provided to execute a rollback.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A commit instant should be specified for rollback operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteInstants || !deleteInstants",
+    "rationale" : "deleteInstants is a boolean and always true or false; this serves as a boolean domain check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipLocking || !skipLocking",
+    "rationale" : "skipLocking is a boolean flag and always holds either value.",
+    "meta" : [ ]
+  } ]
+}

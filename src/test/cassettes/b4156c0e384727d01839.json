@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "To safely operate on 'data' with stream operations and collect results, 'data' must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapToPairFunc != null",
+    "rationale" : "The mapping function is passed to a wrapper and invoked, so it must be non-null to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The reduce function is similarly wrapped and invoked, thus must be non-null for safe execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is intended to control the degree of parallel execution and should be a positive integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism > 0",
+    "rationale" : "If data is not empty, parallelism is required and must be positive to enable parallel processing.",
+    "meta" : [ ]
+  } ]
+}

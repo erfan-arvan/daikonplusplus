@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method delegates to super.execute and returns its result, which should be non-null as per contract of HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "Result must be an instance of HoodieWriteMetadata or a subclass due to the return type.",
+    "meta" : [ ]
+  } ]
+}

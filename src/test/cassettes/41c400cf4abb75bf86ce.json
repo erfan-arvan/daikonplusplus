@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Method always throws and never returns, so result is never assigned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true == false",
+    "rationale" : "Method always throws, so method exit with a return value is unreachable; a contradiction expresses this unreachable code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((Object)result) == null",
+    "rationale" : "Casts for result always null, since result is never set due to exception.",
+    "meta" : [ ]
+  } ]
+}

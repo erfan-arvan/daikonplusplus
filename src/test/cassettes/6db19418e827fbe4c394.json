@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method assumes the input collection exists; many collection methods would throw otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The reduction cannot proceed if the function is null, and this is often a precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive for partitioned parallel stream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "parallelism often does not exceed the data size, unless data is empty; more threads than elements is wasteful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().allMatch(Objects::nonNull)",
+    "rationale" : "Input data collection should not contain nulls for grouping and mapping to work as expected.",
+    "meta" : [ ]
+  } ]
+}

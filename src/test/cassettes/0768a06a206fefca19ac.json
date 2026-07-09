@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an object, so result should not be null under normal conditions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is input to the method and should be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is input to the method and should be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getMetaClient() == metaClient",
+    "rationale" : "The resulting HoodieTable is created for the provided metaClient, so its getMetaClient() should return the input metaClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The resulting HoodieTable is created for the provided config, so its getConfig() should return the input config.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid commit instant should always be provided for a delete operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of keys to delete should be given for this API to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(keys == null) || (!keys.isEmpty())",
+    "rationale" : "If keys is not null, it should not be empty as deleting nothing would have no effect.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext should be provided to execute the action.",
+    "meta" : [ ]
+  } ]
+}

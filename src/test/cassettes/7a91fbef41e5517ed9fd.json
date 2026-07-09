@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Partition indices typically represent bucket numbers and are expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < totalBuckets",
+    "rationale" : "Partition indices should be less than the total number of buckets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket.containsValue(result) || partitionPathToInsertBucketInfos.values().stream().flatMap(java.util.Collection::stream).anyMatch(pair -> pair.getKey().bucketNumber == result)",
+    "rationale" : "The result should correspond to a valid bucket number present either in updateLocationToBucket or defined in partitionPathToInsertBucketInfos.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "The method casts and operates on 'key', so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (updateLocationToBucket.containsKey(((Pair<HoodieKey, Option<HoodieRecordLocation>>) key).getRight().isPresent() ? ((Pair<HoodieKey, Option<HoodieRecordLocation>>) key).getRight().get().getFileId() : \"\") ? updateLocationToBucket.get(((Pair<HoodieKey, Option<HoodieRecordLocation>>) key).getRight().get().getFileId()) : result)",
+    "rationale" : "If the key indicates a present location, result directly comes from updateLocationToBucket mapping.",
+    "meta" : [ ]
+  } ]
+}

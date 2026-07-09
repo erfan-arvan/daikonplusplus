@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "The method operates on 'nodes' (calls nodes.size, uses nodes.get(i)), so it is likely assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "low <= high",
+    "rationale" : "Usually, range parameters such as 'low' and 'high' follow the convention low <= high.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "The size of a collection cannot be negative in Java, so nodes.size >= 0 always holds if nodes is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "low >= Float.NEGATIVE_INFINITY",
+    "rationale" : "A float parameter cannot be less than its minimum value; this ensures 'low' is within the float domain.",
+    "meta" : [ ]
+  }, {
+    "expression" : "high <= Float.POSITIVE_INFINITY",
+    "rationale" : "A float parameter cannot be greater than its maximum value; this ensures 'high' is within the float domain.",
+    "meta" : [ ]
+  } ]
+}

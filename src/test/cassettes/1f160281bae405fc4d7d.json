@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned Option should not be null as Option objects are used instead of raw nulls in this codebase.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method operates on a HoodieEngineContext which must be non-null for the plan creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == false || (result.get() != null)",
+    "rationale" : "If the Option result is present, its value should not be null (by Option contract).",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option arguments should not be null; Option.empty() should be used instead.",
+    "meta" : [ ]
+  } ]
+}

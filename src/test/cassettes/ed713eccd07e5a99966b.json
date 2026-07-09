@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of a stream .collect, which never yields null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(fid -> fid != null)",
+    "rationale" : "Each fileId comes from fg.getFileId(), which should be non-null for valid file groups.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The stream applies .distinct(), so the resulting list has no duplicate file ids.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null || result.isEmpty()",
+    "rationale" : "If partitionPath is null, it's likely that getLatestFileSlices returns an empty stream, yielding an empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

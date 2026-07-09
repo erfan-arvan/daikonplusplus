@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required to identify the commit; must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "partitionRecordsMap is an important argument mapping partitions to data; should be non-null for commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty()",
+    "rationale" : "A commit should contain some partition records; empty commit likely does nothing.",
+    "meta" : [ ]
+  } ]
+}

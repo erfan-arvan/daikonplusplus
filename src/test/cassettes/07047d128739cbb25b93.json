@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "index >= 1",
+    "rationale" : "index is incremented at the start of the method; it is at least 1 unless method is called with index at Integer.MIN_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(states.size == index + 1) || (states.size == index + 2)",
+    "rationale" : "After increment, if index == states.size-1, states.removeLast() is called, which reduces size by 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "states.size >= 0",
+    "rationale" : "states.size cannot become negative via removeLast().",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < states.size + 1",
+    "rationale" : "If index == states.size-1, size is decremented after removeLast(), otherwise index < size still holds.",
+    "meta" : [ ]
+  } ]
+}

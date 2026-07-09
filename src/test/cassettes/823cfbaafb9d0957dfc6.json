@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "maxHeight >= 0",
+    "rationale" : "Typical height values are non-negative; negative heights may be treated as invalid in UI contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxHeight == 0 || maxHeight > 0",
+    "rationale" : "Javadoc specifies maxHeight==0 means 'no maximum', so maxHeight may typically be zero or positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(maxHeight)",
+    "rationale" : "Height parameters should usually not be infinite or NaN for UI layout purposes.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "A non-null fileName is usually required for loading a TiledMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.isEmpty()",
+    "rationale" : "An empty fileName would likely not point to a valid resource.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.endsWith(\".tmj\") || fileName.endsWith(\".json\")",
+    "rationale" : "Common file extensions for TiledMap files are .tmj or .json.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.trim().length() == fileName.length()",
+    "rationale" : "The fileName should not have leading or trailing whitespace.",
+    "meta" : [ ]
+  } ]
+}

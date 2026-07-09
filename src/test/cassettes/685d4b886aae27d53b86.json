@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "textureRegion != null",
+    "rationale" : "Assigning a possibly-null TextureRegion to an instance field may not make sense for a TiledMapTile; may be expected non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureRegion.getRegionWidth() >= 0",
+    "rationale" : "Texture region should have a non-negative width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureRegion.getRegionHeight() >= 0",
+    "rationale" : "Texture region should have a non-negative height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureRegion.getTexture() != null",
+    "rationale" : "TextureRegion should be associated with a Texture instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureRegion.getRegionWidth() > 0 && textureRegion.getRegionHeight() > 0",
+    "rationale" : "A region with positive dimensions is expected for rendering a tile.",
+    "meta" : [ ]
+  } ]
+}

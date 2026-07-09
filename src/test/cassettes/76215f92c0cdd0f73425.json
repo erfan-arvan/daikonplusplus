@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null",
+    "rationale" : "Parameter 'a' is used as an Order reference, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getQuantity() >= 0",
+    "rationale" : "Order quantity is typically non-negative in most applications.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price is generally expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getQuantity() == a.quantity",
+    "rationale" : "Assumes getQuantity() returns the quantity field value, so the two should be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getUnitPrice() == a.unitPrice",
+    "rationale" : "Assumes getUnitPrice() returns the unitPrice field value, so the two should be equal.",
+    "meta" : [ ]
+  } ]
+}

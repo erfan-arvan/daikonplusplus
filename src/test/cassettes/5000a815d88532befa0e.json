@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returning non-null metadata is expected for successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method is likely specified to require non-null inputRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().isAssignableFrom(HoodieWriteMetadata.class)",
+    "rationale" : "The method is declared to return HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

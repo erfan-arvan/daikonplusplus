@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient parameter is critical for table metadata operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The list of columns to index must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!columnsToIndex.isEmpty() || columnsToIndex.isEmpty()",
+    "rationale" : "The columnsToIndex list is a valid List and should support isEmpty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "The metaClient should have a non-null table configuration.",
+    "meta" : [ ]
+  } ]
+}

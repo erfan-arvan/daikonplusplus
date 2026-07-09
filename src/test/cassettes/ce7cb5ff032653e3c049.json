@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of performClusteringWithRecordList, and this method likely returns a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "Method dereferences clusteringGroup by calling clusteringGroup.getSlices(), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is used as an input parameter, passed to performClusteringWithRecordList, and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a parameter and passed to called methods, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= clusteringGroup.getNumOutputFileGroups()",
+    "rationale" : "performClusteringWithRecordList is documented to return at most numOutputGroups WriteStatus; numOutputGroups is clusteringGroup.getNumOutputFileGroups().",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method expects a non-null execution context; passing null would likely violate API contracts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An 'instant time' parameter is typically a required string value referencing the current commit, and is likely to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method requires a list of records to upsert, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || !preppedRecords.isEmpty()",
+    "rationale" : "If preppedRecords is not null, it should contain at least one record for the upsert to make sense.",
+    "meta" : [ ]
+  } ]
+}

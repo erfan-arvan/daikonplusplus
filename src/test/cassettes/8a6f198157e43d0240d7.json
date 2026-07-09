@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "Ensures the parameter is not null before any method calls are made.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "Ensures the list of WriteStatus objects is not null before further processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().isEmpty() || writeMetadata.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of a valid List returned from getWriteStatuses() should be non-negative if the list is not empty.",
+    "meta" : [ ]
+  } ]
+}

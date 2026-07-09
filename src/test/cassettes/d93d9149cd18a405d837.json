@@ -1,0 +1,10 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null && result != null && writeStatuses instanceof java.util.List && result instanceof org.apache.hudi.common.table.HoodieWriteMetadata<?>",
+    "rationale" : "writeStatuses and result are method parameters and generally expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "Ensures parameters are non-null for safe method invocation"
+    } ]
+  } ]
+}

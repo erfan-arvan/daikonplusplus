@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The method immediately uses writeClient, so it must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to downstream functions and is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is used as an argument to a method and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs instanceof java.util.List",
+    "rationale" : "preppedRecordInputs should be a List as expected by the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime probably represents a commit or operation instant, which should not be an empty string.",
+    "meta" : [ ]
+  } ]
+}

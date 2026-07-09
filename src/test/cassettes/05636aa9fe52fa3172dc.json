@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && !result.contains(null)",
+    "rationale" : "The method collects records into a list and returns it; thus the result should not contain nulls.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The returned list is created and populated with valid HoodieRecord objects only, so it should not be null or contain null elements."
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "A list's size is never negative."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime string is used to filter records and expected non-null and non-empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is used as a parameter and thus expected to be non-null and non-empty."
+    } ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is a method parameter and must not be null for the method to process.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The parameter clusteringGroup is expected to be non-null to get slices from it."
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> r.getRecordKey() != null)",
+    "rationale" : "Each record is expected to have a non-null record key.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "HoodieRecords are expected to have non-null keys."
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a (possibly empty) Map, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || (partitionPaths != null && partitionPaths.size() > 0 && config.getParquetSmallFileLimit() > 0)",
+    "rationale" : "If the result is non-empty, then both partitionPaths must exist and the config small file limit must be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= (partitionPaths == null ? 0 : partitionPaths.size())",
+    "rationale" : "The number of result entries does not exceed the input partitionPaths size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || result.keySet().containsAll(partitionPaths) || result.keySet().isEmpty()",
+    "rationale" : "Any keys present in result are partition paths passed in, unless result is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "All entries in the result map have non-null lists, as returned by getSmallFiles.",
+    "meta" : [ ]
+  } ]
+}

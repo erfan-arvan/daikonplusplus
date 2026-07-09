@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "node != null",
+    "rationale" : "The method immediately checks and uses node.parent, so node should not be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Ensures node can be safely dereferenced in logic"
+    } ]
+  }, {
+    "expression" : "index >= 0",
+    "rationale" : "The index parameter is used to insert into a collection. Typically, indices should be non-negative.",
+    "meta" : [ {
+      "key" : "index-validity",
+      "value" : "Index must be non-negative for use as an insertion index"
+    } ]
+  } ]
+}

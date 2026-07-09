@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method receives a HoodieWriteConfig parameter and requires non-null config for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == true || config.populateMetaFields() == false",
+    "rationale" : "populateMetaFields() must deterministically return either true or false since it returns a boolean.",
+    "meta" : [ ]
+  } ]
+}

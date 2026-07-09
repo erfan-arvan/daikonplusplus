@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new or existing partitioner, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "The method accesses strategyParams without null checks, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is passed to addMetadataFields without a null check, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()) == (result instanceof JavaCustomColumnsSortPartitioner)",
+    "rationale" : "If the key is present, the returned object is always a JavaCustomColumnsSortPartitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()) == (result instanceof BulkInsertPartitioner)",
+    "rationale" : "When the key is not present, result is an instance of BulkInsertPartitioner (by definition of the method).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "maxPixelWidth >= 0",
+    "rationale" : "Negative tile widths do not make sense in the context of tile size; value is likely expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelHeight >= 0",
+    "rationale" : "Negative tile heights do not make sense in the context of tile size; value is likely expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelWidth + maxPixelHeight >= 0",
+    "rationale" : "The sum of two non-negative values (or a negative and a positive with greater magnitude) should also be non-negative, indicating valid ranges.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelWidth == maxPixelWidth",
+    "rationale" : "Trivially true for float values, can be relevant for establishing definedness but not informative here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelHeight == maxPixelHeight",
+    "rationale" : "Trivially true for float values for the same reason as above.",
+    "meta" : [ ]
+  } ]
+}

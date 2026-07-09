@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a constant String value, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(HoodieTimeline.CLUSTERING_ACTION)",
+    "rationale" : "getCommitActionType always returns HoodieTimeline.CLUSTERING_ACTION.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == HoodieTimeline.CLUSTERING_ACTION",
+    "rationale" : "The returned value is the constant HoodieTimeline.CLUSTERING_ACTION.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "HoodieTimeline.CLUSTERING_ACTION is expected to be a non-empty String constant.",
+    "meta" : [ ]
+  } ]
+}

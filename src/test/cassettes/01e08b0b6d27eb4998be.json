@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Factory or creation methods typically should never return null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null return"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used to retrieve base path and configuration, so must be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter non-null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used for storage configuration and must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter non-null"
+    } ]
+  }, {
+    "expression" : "result.getBasePath().equals(config.getBasePath())",
+    "rationale" : "The base path in the created table should match that from the config.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "configuration consistency"
+    } ]
+  } ]
+}

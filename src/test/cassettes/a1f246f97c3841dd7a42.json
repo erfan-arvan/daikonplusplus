@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == tilesets.get(index)",
+    "rationale" : "The return value is always the tileset at the specified index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index >= 0",
+    "rationale" : "The index used for list access should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < tilesets.size()",
+    "rationale" : "The index must be less than the size to avoid IndexOutOfBoundsException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets.contains(result)",
+    "rationale" : "Returned result must be an element of tilesets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "tilesets.get(index) returns null only if the element at that position is null, which is uncommon for such containers.",
+    "meta" : [ ]
+  } ]
+}

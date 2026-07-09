@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Map keys must be non-null for lookup.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Map property keys are typically required to be non-null to perform lookups."
+    } ]
+  }, {
+    "expression" : "clazz != null",
+    "rationale" : "Class object must not be null for casting.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The cast to (T) requires a non-null Class object."
+    } ]
+  }, {
+    "expression" : "defaultValue == null || clazz.isInstance(defaultValue)",
+    "rationale" : "defaultValue must be an instance of clazz if not null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If defaultValue is not null, it should be an instance of clazz to ensure type safety."
+    } ]
+  } ]
+}

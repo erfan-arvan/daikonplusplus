@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collectors.toMap never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each key in the result map originates from an entry in 'data', and duplicate keys are overwritten.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "'data' is used as input to a stream pipeline.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The mapping function must be valid for the stream mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "A non-null 'parallelism' value is implied for parallel processing, even if not directly used in Streams here.",
+    "meta" : [ ]
+  } ]
+}

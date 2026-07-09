@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tree != null",
+    "rationale" : "The tree parameter should not be null to invoke removeActorAt and related methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorIndex >= 0",
+    "rationale" : "actorIndex is used as an index in tree.removeActorAt and in recursive calls, so it should be >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorIndex < tree.getActors().size()",
+    "rationale" : "actorIndex should be a valid index for actors in the tree.",
+    "meta" : [ ]
+  } ]
+}

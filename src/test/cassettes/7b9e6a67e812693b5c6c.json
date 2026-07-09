@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method is expected to process a non-null list of HoodieRecord objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is required for the upsert operation and is used in several method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.get(0) != null",
+    "rationale" : "If records is not empty, it should not contain a null at the first position.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List.size() always returns a value greater than or equal to 0.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List<WriteStatus> via postWrite and should never return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is critical for versioned writes, and validated upstream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects a list of prepped records, which should not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A list's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The returned List<WriteStatus> must have a non-negative size.",
+    "meta" : [ ]
+  } ]
+}

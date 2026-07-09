@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to commitInternal and likely must not be null for a commit operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a key in singletonMap, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is used as a value in a map passed to commitInternal; a null records value is likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser is an explicit parameter expected to be non-null for metadata operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Collections.singletonMap(partitionPath, records).size() == 1",
+    "rationale" : "singletonMap always produces a map of size 1; the contract is preserved at this point.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "getImage always returns a new TextureRegion which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getTexture() == images.get(name)",
+    "rationale" : "The TextureRegion returned is constructed directly from images.get(name).",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || images.containsKey(name) == (result.getTexture() != null)",
+    "rationale" : "If name is in the map, images.get(name) is not null, resulting in a non-null TextureRegion texture.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRegionWidth() == result.getTexture() != null ? result.getTexture().getWidth() : 0",
+    "rationale" : "If the underlying texture is not null, the region width matches the texture width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRegionHeight() == result.getTexture() != null ? result.getTexture().getHeight() : 0",
+    "rationale" : "If the underlying texture is not null, the region height matches the texture height.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method expects a list of HoodieRecord; should not be null to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer != null",
+    "rationale" : "Option<HoodieTimer> parameter likely expected to not be null; Option type will be used safely if present.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || inputRecords.size() >= 0",
+    "rationale" : "A List in Java cannot have negative size; always true unless inputRecords is null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "size"
+    } ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Processing assumes HoodieRecords are not null for downstream operations.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection content nullness"
+    } ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer.isPresent() || !sourceReadAndIndexTimer.isPresent()",
+    "rationale" : "Option.isPresent() is always either true or false, ensuring consistent use of Option API.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "optionality"
+    } ]
+  } ]
+}

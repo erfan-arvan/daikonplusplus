@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method requires access to clusteringGroup methods and fields, which must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is passed down to other method calls and likely must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to read records and must represent a valid instant, so null is likely not allowed.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime must be a non-empty string representing a timestamp or commit instant.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string-validation"
+    } ]
+  }, {
+    "expression" : "clusteringGroup.getNumOutputFileGroups() > 0",
+    "rationale" : "Clustering would only be performed if there is at least one output file group to write to.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "domain-specific"
+    } ]
+  } ]
+}

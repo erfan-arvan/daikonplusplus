@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "templateProps == null || templateProps.isArray()",
+    "rationale" : "If templateProps is used as an iterable, it should be an array if not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentProps == null || parentProps.isArray()",
+    "rationale" : "If parentProps is used as an iterable, it should be an array if not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "templateProps != parentProps",
+    "rationale" : "templateProps and parentProps represent two different property sources.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(parentProps == null && templateProps != null) || (parentProps != null && templateProps == null) || (parentProps != null && templateProps != null)",
+    "rationale" : "At least one of parentProps or templateProps is provided, as otherwise merged result would be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "templateProps == null || templateProps.size >= 0",
+    "rationale" : "If templateProps is not null, its size should be non-negative.",
+    "meta" : [ ]
+  } ]
+}

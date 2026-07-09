@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "sortMode != null",
+    "rationale" : "sortMode is used in a switch statement, so it must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT || sortMode != BulkInsertSortMode.NONE && sortMode != BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "sortMode can be any value of the BulkInsertSortMode enum, with specific logic for NONE and GLOBAL_SORT.",
+    "meta" : [ ]
+  } ]
+}

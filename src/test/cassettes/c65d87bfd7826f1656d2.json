@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient is used to reload table config, so it is expected to be non-null when accessed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "inFlightInstantTimestamp is passed to writer methods and should be non-null for such usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "The table config may be reloaded and is expected to be accessible.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inFlightInstantTimestamp.isPresent() || inFlightInstantTimestamp.get() != null",
+    "rationale" : "If there is an in-flight instant, its value should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "A HoodieTableMetaClient instance should have a non-null base path.",
+    "meta" : [ ]
+  } ]
+}

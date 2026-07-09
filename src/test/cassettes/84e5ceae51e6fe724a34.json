@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is expected to be a valid string identifying a partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used to identify a file, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is required to iterate over records for update handling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "partitionPath is likely non-empty, as it refers to a partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId.length() > 0",
+    "rationale" : "fileId is likely non-empty, as it is used to identify a file for update.",
+    "meta" : [ ]
+  } ]
+}

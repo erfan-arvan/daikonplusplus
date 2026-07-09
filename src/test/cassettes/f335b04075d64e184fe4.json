@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "'batch' is used as a parameter in a method call, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "'font' is called upon with 'draw', requiring it to be non-null for safe execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "Screen/text drawing coordinates are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "Screen/text drawing coordinates are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font instanceof BitmapFont",
+    "rationale" : "The method signature ensures 'font' is a BitmapFont, and this redundant check can reveal class invariants or subclassing cases.",
+    "meta" : [ ]
+  } ]
+}

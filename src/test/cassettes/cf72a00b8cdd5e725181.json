@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is used as a key argument in the rollback process and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant represents a specific instant to rollback and its presence is necessary for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for any data operation, including rollback.",
+    "meta" : [ ]
+  } ]
+}

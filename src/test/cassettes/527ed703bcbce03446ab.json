@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metadataWriteConfig.isMetricsOn() ? this.metrics.isPresent() : !this.metrics.isPresent()",
+    "rationale" : "If metrics are enabled, this.metrics should be present, otherwise it should be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadataWriteConfig.isMetricsOn() ? this.metrics.get().getClass() == HoodieMetadataMetrics.class : true",
+    "rationale" : "If metrics are enabled, metrics is set to a new HoodieMetadataMetrics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.metrics != null",
+    "rationale" : "this.metrics is always assigned (never left uninitialized).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!metadataWriteConfig.isMetricsOn() || metadataWriteConfig.getMetricsConfig() != null",
+    "rationale" : "When metrics are enabled, metrics config is passed to HoodieMetadataMetrics and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!metadataWriteConfig.isMetricsOn() || dataMetaClient.getStorage() != null",
+    "rationale" : "When metrics are enabled, storage is passed to HoodieMetadataMetrics and should not be null.",
+    "meta" : [ ]
+  } ]
+}

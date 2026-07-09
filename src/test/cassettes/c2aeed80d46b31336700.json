@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The getPrefHeight method accesses style.usually ProgressBar's style must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getBackgroundDrawable() != null || style.knob != null",
+    "rationale" : "At least one of the background or knob drawables must be non-null for getMinHeight().",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.knob == null || style.knob.getMinHeight() >= 0",
+    "rationale" : "The knob's minimum height should be non-negative if knob is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getBackgroundDrawable() == null || getBackgroundDrawable().getMinHeight() >= 0",
+    "rationale" : "The background drawable's minimum height should be non-negative if it exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getPrefHeight() >= 0",
+    "rationale" : "Preferred height should not be negative, as it is the max of two nonnegative heights.",
+    "meta" : [ ]
+  } ]
+}

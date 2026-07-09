@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is likely required to identify a specific commit/version for delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The keys list of HoodieKey to be deleted must be present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is required for execution, and a null context would likely result in a failure when executing the delete operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys == null || !keys.isEmpty()",
+    "rationale" : "If keys is provided, it is likely expected to be non-empty for a delete operation to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.isEmpty()",
+    "rationale" : "If instantTime is provided, it should not be an empty string as it is used to identify a commit.",
+    "meta" : [ ]
+  } ]
+}

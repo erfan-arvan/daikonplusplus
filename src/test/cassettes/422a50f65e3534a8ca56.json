@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "fontScale >= 0",
+    "rationale" : "Font scale typically should not be negative; this is a reasonable invariant to check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScale == (float)fontScale",
+    "rationale" : "fontScale is a float; this checks that it is not NaN or infinite, although those cases are rare.",
+    "meta" : [ ]
+  } ]
+}

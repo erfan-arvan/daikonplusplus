@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires config to be non-null for field and method accesses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!StringUtils.isNullOrEmpty(config.getIndexClass()) || config.getIndexType() != null",
+    "rationale" : "If indexClass is null or empty, switch on indexType requires indexType to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "StringUtils.isNullOrEmpty(config.getIndexClass()) || config.getIndexClass() != null",
+    "rationale" : "If index class is empty, it's either null or non-empty, so null or non-null check is valid.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The upsert method is expected to return a non-null write metadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The operation is likely performed for a specific instant and this parameter must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The records to upsert must be supplied as input, so the list should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null context is required for the action executor to perform the upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The result should be an instance of HoodieWriteMetadata as per the method signature.",
+    "meta" : [ ]
+  } ]
+}

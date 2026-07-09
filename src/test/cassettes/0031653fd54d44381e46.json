@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically a positive integer for parallel processing, capturing precondition expectation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method likely expects a non-null list to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data == null ? 0 : data.size()",
+    "rationale" : "Parallelism should not exceed the data size; if data is null, cap parallelism at 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "At least one parallel unit is commonly required in parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data == null || data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "If the data is empty or null, parallelism exceeding data size is not meaningful.",
+    "meta" : [ ]
+  } ]
+}

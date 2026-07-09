@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an instance of HoodieWriteMetadata; it's likely that it should never return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned metadata should contain a non-null list of WriteStatus as part of the contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A list's size is always non-negative; this holds unless null, which is covered above.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords == null || !hoodieRecords.isEmpty() ? result.getWriteStatuses().size() > 0 : true",
+    "rationale" : "If any input records are supplied, the write should produce at least one WriteStatus; if input is empty, size could be zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToWriteStats() == null || !result.getPartitionToWriteStats().isEmpty()",
+    "rationale" : "If partition-to-write stats are provided, they should not be empty if there was work done.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "To perform bulk insert, inputRecords must be non-null.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "inputRecords must not be null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a string representing commit time and should be non-null to proceed.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "instantTime must not be null"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table must be non-null to perform the bulk insert.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "table must not be null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config object is required for the bulk insert configuration and must be non-null.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "config must not be null"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "The bulkInsertPartitioner strategy is necessary and expected to be non-null.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "bulkInsertPartitioner must not be null"
+    } ]
+  } ]
+}

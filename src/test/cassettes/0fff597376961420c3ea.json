@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which cannot be null.",
+    "meta" : [ {
+      "key" : "required-for-field-access",
+      "value" : "Java requires non-null for field access"
+    } ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "This method always returns the current object reference.",
+    "meta" : [ {
+      "key" : "method-contract",
+      "value" : "method returns this"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of table.getMetaClient().getCommitActionType(), which is expected to be non-null when reading commit action types.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "Commit action type is likely a non-empty string, as used in logic referring to commit types.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.trim().length() > 0",
+    "rationale" : "Extra check for the commit action type string being non-blank after trimming, as would be expected for an action type identifier.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result list is expected to be non-null after the delete operation completes.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "The method returns a list of WriteStatus objects, which should not be null but may be empty."
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method receives a list of prepared records to delete, which cannot be null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Input parameter must be non-null as it is used in delete operation."
+    } ]
+  }, {
+    "expression" : "result.size() <= preppedRecords.size()",
+    "rationale" : "Since each delete operation corresponds to a WriteStatus, the result list size should not exceed the number of records passed.",
+    "meta" : [ {
+      "key" : "sizeRelation",
+      "value" : "The number of WriteStatus entries corresponds to the number of records processed or fewer."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter should be valid throughout the write lifecycle.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Commit instant time should be non-null at method exit."
+    } ]
+  }, {
+    "expression" : "result.stream().noneMatch(ws -> ws == null)",
+    "rationale" : "Each WriteStatus should be a valid non-null object representing the status of a delete operation.",
+    "meta" : [ {
+      "key" : "elementNullness",
+      "value" : "No null elements in the result list."
+    } ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieTable created by a helper; non-null is expected.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "non-null return"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Method assumes config is not null as it is passed to helper methods.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The created HoodieTable is initialized with the same config passed to the method.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "ownership"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "The table is created via HoodieJavaTable::create, so the result is a HoodieJavaTable.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "dynamic type"
+    } ]
+  } ]
+}

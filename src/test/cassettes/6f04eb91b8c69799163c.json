@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method only returns a FileHandle after ensuring it is valid and created; otherwise, it throws.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.exists()",
+    "rationale" : "The method checks fileHandle.exists() before returning it, so the result must exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != tmxFile",
+    "rationale" : "The result is a FileHandle produced by getRelativeFileHandle, not directly the tmxFile argument.",
+    "meta" : [ ]
+  } ]
+}

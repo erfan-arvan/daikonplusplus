@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is passed to the restore action executor and likely must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null && !restoreInstantTimestamp.isEmpty()",
+    "rationale" : "restoreInstantTimestamp is likely expected to be a non-null, non-empty timestamp string for restore operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp == null || !savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "If present, the savepointToRestoreTimestamp should not be empty; otherwise, it may be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.equals(savepointToRestoreTimestamp)",
+    "rationale" : "restoreInstantTimestamp and savepointToRestoreTimestamp should refer to different instants in a restore operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp.matches(\"\\\\d+\")",
+    "rationale" : "Hudi timestamps are frequently encoded as numeric strings representing instants.",
+    "meta" : [ ]
+  } ]
+}

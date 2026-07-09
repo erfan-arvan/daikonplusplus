@@ -1,10 +1,17 @@
 {
   "invariants" : [ {
     "expression" : "args != null",
-    "rationale" : "The argument array 'args' is never null when main is invoked.",
+    "rationale" : "The main method receives a non-null array of Strings for command-line arguments.",
     "meta" : [ {
-      "key" : "nullness",
-      "value" : "args is not null"
+      "key" : "can_be_null",
+      "value" : "false"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array lengths in Java are always non-negative.",
+    "meta" : [ {
+      "key" : "array_length",
+      "value" : "non_negative"
     } ]
   } ]
 }

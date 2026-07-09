@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || (x >= 0 && x < getWidth() && y >= 0 && y < getHeight())",
+    "rationale" : "If result is not null, then the coordinates (x,y) are within valid bounds as per the first return statement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != this || (touchable && getTouchable() == Touchable.enabled && isVisible() && ((scrollX && touchScrollH && hScrollBounds.contains(x, y)) || (scrollY && touchScrollV && vScrollBounds.contains(x, y))))",
+    "rationale" : "If result is 'this', then the second block must have been satisfied.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result == this || result == super.hit(x, y, touchable)",
+    "rationale" : "The only possible return values are 'null', 'this', or the result of 'super.hit(x, y, touchable)'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!touchable || getTouchable() != Touchable.enabled || !isVisible()) || (result != this || ((scrollX && touchScrollH && hScrollBounds.contains(x, y)) || (scrollY && touchScrollV && vScrollBounds.contains(x, y))))",
+    "rationale" : "If the touchable/visibility conditions are not met, then 'this' cannot be returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) == (result == null)",
+    "rationale" : "The method returns null if and only if the coordinate bounds are invalid.",
+    "meta" : [ ]
+  } ]
+}

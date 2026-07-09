@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed as an argument to create the merge handle, which may expect a non-null value",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionPath may be required to be non-null by downstream operations"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used as a parameter in HoodieMergeHandleFactory.create, which probably expects a non-null fileId",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "fileId likely required by downstream operations"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The record iterator is required for creating or updating data, so it should not be null",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "recordItr likely required for proper record iteration"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A successfully created HoodieMergeHandle should not be null if no exception was thrown",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is returned from Factory.create, which should not return null on success"
+    } ]
+  }, {
+    "expression" : "result instanceof org.apache.hudi.table.action.commit.HoodieMergeHandle",
+    "rationale" : "The factory method is expected to return a HoodieMergeHandle instance; this checks the return type",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result is expected to be a HoodieMergeHandle"
+    } ]
+  } ]
+}

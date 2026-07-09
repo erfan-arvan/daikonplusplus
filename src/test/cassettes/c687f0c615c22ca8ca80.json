@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == order.getQuantity() * order.getUnitPrice()",
+    "rationale" : "Directly expresses the method's contract based on its implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "The price computed from quantity and unit price should not be negative if both inputs are non-negative, which reflects typical price domain constraints.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() == order.getQuantity()",
+    "rationale" : "getQuantity() is pure; ensures no mutation in method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() == order.getUnitPrice()",
+    "rationale" : "getUnitPrice() is pure; ensures price consistency in calculation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order != null",
+    "rationale" : "The method dereferences 'order', so it cannot be null at this program point.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method requires a TiledMap parameter, which is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer != null",
+    "rationale" : "MapLayer parameter is used for providing map layer context and is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapElement != null",
+    "rationale" : "The mapElement is essential for XML parsing operations in the method and is expected to be present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "The tmxFile is necessary to resolve relative paths and parse XML, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapElement.getAttribute(\"template\") != null",
+    "rationale" : "The method immediately accesses this attribute, implying that a template attribute is expected on mapElement.",
+    "meta" : [ ]
+  } ]
+}

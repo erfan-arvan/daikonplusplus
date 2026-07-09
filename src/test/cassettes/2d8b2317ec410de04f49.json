@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "spaceRight != null",
+    "rationale" : "The method throws an exception if spaceRight is null, so it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.spaceRight == spaceRight",
+    "rationale" : "The method assigns this.spaceRight = spaceRight and returns this, so after assignment the field equals the parameter.",
+    "meta" : [ ]
+  } ]
+}

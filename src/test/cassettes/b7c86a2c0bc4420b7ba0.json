@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result list returned by collectAsList() should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input parameter records should be non-null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.size() == records.count()",
+    "rationale" : "The size of the result list corresponds to the number of elements in the input HoodieData.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "equal size"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "non-negative"
+    } ]
+  }, {
+    "expression" : "records.count() >= 0",
+    "rationale" : "Count of elements in the HoodieData is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "non-negative"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter must be non-null to proceed with the method execution.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "required for safe evaluation"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is an Option type and should be non-null for valid operation.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "required for safe evaluation"
+    } ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "Since extraMetadata is an Option type, it is either present or not but not null.",
+    "meta" : [ {
+      "key" : "logicalTruth",
+      "value" : "always true"
+    } ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context must be an instance of HoodieEngineContext as declared by the method signature.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "parameter type guarantee"
+    } ]
+  }, {
+    "expression" : "extraMetadata instanceof Option",
+    "rationale" : "extraMetadata must be an instance of Option because of the method signature.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "parameter type guarantee"
+    } ]
+  } ]
+}

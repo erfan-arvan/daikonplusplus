@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a list; null is not a valid value for the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input parameter 'records' is expected by the underlying call and is likely not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter is required for identifying the timeline instant and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method's return type guarantees that 'result' is some implementation of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size() is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

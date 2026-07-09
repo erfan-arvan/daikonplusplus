@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null",
+    "rationale" : "The method uses a methods and instanceof checks, so a should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != null",
+    "rationale" : "The method calls b.doubleValue() and b.intValue(); b must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a instanceof Integer || a instanceof Double",
+    "rationale" : "Only Integer and Double are supported as per the method logic; otherwise an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getClass().equals(b.getClass())",
+    "rationale" : "The operation uses methods like intValue or doubleValue on both; inconsistent types may not be handled.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "An Array is allocated and returned in all execution paths that do not throw.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is always used to parse XML, so it cannot be null in any successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is used in exception construction, so it cannot be null if the point is reached.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null || parameter == null",
+    "rationale" : "parameter is not dereferenced anywhere, so can be null or non-null; this is not tautological as it documents the param's non-use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "A newly created Array always has non-negative size, potentially zero if there are no tile sheets.",
+    "meta" : [ ]
+  } ]
+}

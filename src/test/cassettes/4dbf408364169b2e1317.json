@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method compact() always returns the result of convertMetadata(), which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "A compaction instant time is required for compaction and is passed as argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context object is always passed and required for compaction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Method always returns a HoodieWriteMetadata<List<WriteStatus>>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime.length() > 0",
+    "rationale" : "Compaction instant time typically should be a non-empty String identifying the instant.",
+    "meta" : [ ]
+  } ]
+}

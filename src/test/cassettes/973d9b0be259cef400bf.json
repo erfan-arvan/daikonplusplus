@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient should be a valid instance to interact with the table metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex should not be null to prevent NullPointerExceptions if used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex instanceof java.util.List",
+    "rationale" : "columnsToIndex is declared as List<String> and should therefore always be a List.",
+    "meta" : [ ]
+  } ]
+}

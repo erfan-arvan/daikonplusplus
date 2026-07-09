@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "table != null",
+    "rationale" : "The method expects a valid HoodieTable to operate on.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "A non-null HoodieTimeline is required for compaction checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "The WriteOperationType needs to be specified for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is required to identify compaction instants.",
+    "meta" : [ ]
+  } ]
+}

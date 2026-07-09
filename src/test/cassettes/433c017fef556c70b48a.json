@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null && !activeModule.isEmpty()",
+    "rationale" : "A job status typically requires an 'activeModule' to be set and not empty for meaningful identification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null && !activityDescription.isEmpty()",
+    "rationale" : "A job status likely requires a meaningful description for logging or tracking, so this should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.equals(\"\")",
+    "rationale" : "An empty string for 'activeModule' may not be meaningful in the context of setting job status.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activityDescription.equals(\"\")",
+    "rationale" : "An empty 'activityDescription' may indicate a missing or uninformative status update.",
+    "meta" : [ ]
+  } ]
+}

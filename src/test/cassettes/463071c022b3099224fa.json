@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method delegates to convertMetadata and always returns a non-null HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "compactionInstantTime is used in instantiation and likely required non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to RunCompactionActionExecutor constructor and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata returned should have its WriteStatuses list non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "List size is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

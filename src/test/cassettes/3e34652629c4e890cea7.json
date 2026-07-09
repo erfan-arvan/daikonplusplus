@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method's only implementation is to throw an exception, result will never be assigned, so it must be null at exit.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "method always throws exception"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Any invariant holds trivially as the method always throws an exception.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "unreachable code"
+    } ]
+  }, {
+    "expression" : "throw new HoodieNotSupportedException(\"Expression index not supported for Java metadata table writer yet.\") != null",
+    "rationale" : "The method always throws an exception so normal postconditions are vacuously satisfied.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "method always throws"
+    } ]
+  }, {
+    "expression" : "parallelism == parallelism",
+    "rationale" : "Since the method never assigns to parallelism or returns, parameters are unchanged.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "unmodified parameter"
+    } ]
+  }, {
+    "expression" : "partitionFilePathAndSizeTriplet != null",
+    "rationale" : "The method does not dereference or modify partitionFilePathAndSizeTriplet, so if it was non-null at entry, it remains so at (exceptional) exit.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "method throws immediately without changing inputs"
+    } ]
+  } ]
+}

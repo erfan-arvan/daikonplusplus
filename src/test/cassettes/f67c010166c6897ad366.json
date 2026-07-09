@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "flingTime >= 0",
+    "rationale" : "Fling time, representing a duration, is likely non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(velocityX == 0 && velocityY == 0)",
+    "rationale" : "A fling with both velocities zero is likely a no-op; method is intended to generate noticeable gesture motion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Math.abs(velocityX) >= 0",
+    "rationale" : "Absolute velocity is never negative by definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Math.abs(velocityY) >= 0",
+    "rationale" : "Absolute velocity is never negative; checks property of the parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flingTime < 1000",
+    "rationale" : "Duration for a fling in seconds is unlikely to be very large; 1000 seconds is a generous upper bound.",
+    "meta" : [ ]
+  } ]
+}

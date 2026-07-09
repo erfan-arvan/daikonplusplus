@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HoodieWriteMetadata object, as it is instantiated at the beginning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class",
+    "rationale" : "The object returned is always a direct instance of HoodieWriteMetadata, not a subclass.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses in the result should always be a valid, initialized list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The sizes of the lists in result cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "Auxiliary metadata structures are likely initialized during action execution.",
+    "meta" : [ ]
+  } ]
+}

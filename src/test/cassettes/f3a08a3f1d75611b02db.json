@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "data is used (data.stream()), so a null input would throw before method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "consumer must be non-null as it is wrapped and applied to each element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "parallelism parameter often represents degree of parallel execution and is likely required to be >= 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().count() >= 0",
+    "rationale" : "A List's stream count is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().allMatch(e -> true)",
+    "rationale" : "all elements in the list satisfy a vacuously true predicate.",
+    "meta" : [ ]
+  } ]
+}

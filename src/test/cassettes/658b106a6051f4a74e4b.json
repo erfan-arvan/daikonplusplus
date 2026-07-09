@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layers != null",
+    "rationale" : "The method iterates over 'layers'; it will throw a NullPointerException if 'layers' is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length >= 0",
+    "rationale" : "The .length of a Java array is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "java.util.Arrays.stream(layers).allMatch(i -> i >= 0)",
+    "rationale" : "Layer indices should be non-negative integers as they are used to access mapLayers.get(i).",
+    "meta" : [ ]
+  }, {
+    "expression" : "java.util.Arrays.stream(layers).distinct().count() == layers.length",
+    "rationale" : "It is likely that rendering the same layer multiple times is undesired, so 'layers' likely contains no duplicates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "java.util.Arrays.stream(layers).noneMatch(i -> i >= map.getLayers().size())",
+    "rationale" : "All layer indices should be within the bounds of mapLayers; accessing out-of-bounds would throw an exception.",
+    "meta" : [ ]
+  } ]
+}

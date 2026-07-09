@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "orders is checked for null at method entry before proceeding to main logic; for any non-zero result, orders must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || !orders.isEmpty()",
+    "rationale" : "Method returns immediately if orders is null or empty, so if method runs main logic, orders is non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "Total price sums non-negative order prices after optional discount; negative totals should not arise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(orders == null || orders.isEmpty()) == (result == 0.0)",
+    "rationale" : "Only returns zero if orders is null or empty; if not, result must be sum of processed prices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders != null && !orders.isEmpty() ? result > 0.0 : result == 0.0",
+    "rationale" : "If orders is non-null and non-empty, at least one order price is summed and discounted as needed, making result positive.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "columnIndex >= 0",
+    "rationale" : "Array indices are expected to be non-negative; negative columnIndex would cause an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == columnMinWidth[columnIndex]",
+    "rationale" : "The method returns columnMinWidth[columnIndex], so result is exactly that value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!sizeInvalid || !computeSizeCalledAfter(sizeInvalid)",
+    "rationale" : "If sizeInvalid is true, computeSize() is called before accessing the array, ensuring its state is valid. (Assuming computeSizeCalledAfter is symbolic for context understanding.)",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnIndex < columnMinWidth.length",
+    "rationale" : "Array access requires columnIndex to be within bounds of the columnMinWidth array.",
+    "meta" : [ ]
+  } ]
+}

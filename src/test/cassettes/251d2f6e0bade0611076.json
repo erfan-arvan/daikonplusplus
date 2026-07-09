@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method always returns Option.empty(), result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isPresent()",
+    "rationale" : "Option.empty() always returns an Option whose isPresent method is false.",
+    "meta" : [ ]
+  } ]
+}

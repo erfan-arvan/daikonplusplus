@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 || a / b == (int)((double) a / b)",
+    "rationale" : "If b is not zero, integer division a / b truncates towards zero; if b==0, the method handles division by zero explicitly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != 0 || a >= Integer.MIN_VALUE",
+    "rationale" : "For b == 0, the method returns Integer.MIN_VALUE regardless of a's value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b == 0 || b * (a / b) <= a && b * (a / b) >= (a - Math.abs(b) + 1)",
+    "rationale" : "If b != 0, b * (a / b) provides the largest multiple of b less than or equal to a (for positive b), capturing properties of integer division.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b == 0 || (a / b) * b + a % b == a",
+    "rationale" : "For b != 0, the division and remainder relationship holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != Integer.MIN_VALUE || b != 0",
+    "rationale" : "b can be Integer.MIN_VALUE or zero, but special care might be required in those extreme values.",
+    "meta" : [ ]
+  } ]
+}

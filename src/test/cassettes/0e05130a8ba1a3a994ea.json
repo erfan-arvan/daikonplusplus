@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object constructed by another executor and we expect valid executions to yield non-null metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method is passed a List of records to upsert, which should not be null for normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required argument, likely representing a commit timestamp and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for engine operations, and is cast and used inside the executor, so should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method contract specifies returning HoodieWriteMetadata, so this invariant should hold at the exit point.",
+    "meta" : [ ]
+  } ]
+}

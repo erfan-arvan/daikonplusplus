@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null HoodieWriteMetadata as per typical contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The implementation immediately passes preppedRecords to another method without null checks, implying preppedRecords is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is directly used and passed through, implying it's expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is directly cast and delegated, so it's expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed through to the action executor, implying it is never null.",
+    "meta" : [ ]
+  } ]
+}

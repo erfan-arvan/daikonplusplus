@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "triggeringInstantTimestamp != null && !triggeringInstantTimestamp.isEmpty()",
+    "rationale" : "The timestamp string is generally expected to be initialized and non-empty before method execution.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "triggeringInstantTimestamp is likely expected to be a non-null, non-empty string timestamp"
+    } ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "The cleaning policy parameter should not be null at the method entry point.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The policy parameter should be properly initialized before usage"
+    } ]
+  }, {
+    "expression" : "(streamingWrites == true || streamingWrites == false)",
+    "rationale" : "streamingWrites is a boolean parameter and must be either true or false.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "streamingWrites is a boolean"
+    } ]
+  }, {
+    "expression" : "(autoDetectAndDeleteMetadataPartitions == true || autoDetectAndDeleteMetadataPartitions == false)",
+    "rationale" : "autoDetectAndDeleteMetadataPartitions is a boolean parameter and must be either true or false.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "autoDetectAndDeleteMetadataPartitions is a boolean"
+    } ]
+  }, {
+    "expression" : "!triggeringInstantTimestamp.contains(\" \")",
+    "rationale" : "The triggeringInstantTimestamp string should not contain whitespace characters.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Timestamp strings should not have spaces"
+    } ]
+  } ]
+}

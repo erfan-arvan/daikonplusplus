@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitions != null && !partitions.isEmpty()",
+    "rationale" : "DeletePartitions method expects a list of partitions to delete, so partitions list should be non-null and non-empty",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Partitions should be provided and not empty at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "As instantTime identifies a specific commit time, it should be a non-null, non-empty string",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime must be a non-null, non-empty string identifying the instant"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter should not be null to operate the deletePartitions method safely",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "context should be a valid HoodieEngineContext instance"
+    } ]
+  }, {
+    "expression" : "partitions.stream().allMatch(p -> p != null && !p.isEmpty())",
+    "rationale" : "Each partition name is expected to be a valid non-null, non-empty string",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Each partition string in the list should be non-null and non-empty"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Method entry invariant: always true for base state",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "At method entry, no state mutations have happened yet"
+    } ]
+  } ]
+}

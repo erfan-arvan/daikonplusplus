@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "The method requires access to the order parameter, so it is likely not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Quantity in an order is typically non-negative in order systems.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price should not be negative for any product in an order.",
+    "meta" : [ ]
+  } ]
+}

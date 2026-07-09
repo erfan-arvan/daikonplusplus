@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method always streams over writeStatuses, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed directly to another method; a null value would likely cause a failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "commitActionType is passed to another method and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds is directly forwarded and expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == commitStats(instantTime, writeStatuses.stream().map(WriteStatus::getStat).collect(Collectors.toList()), extraMetadata, commitActionType, partitionToReplacedFileIds, extraPreCommitFunc)",
+    "rationale" : "The result is exactly the value returned from commitStats with the mapped arguments.",
+    "meta" : [ ]
+  } ]
+}

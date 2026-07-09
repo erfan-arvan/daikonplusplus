@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Many methods that accept complex object parameters like 'key' require them to be non-null, which might be a precondition.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "String parameters commonly have non-null preconditions, particularly when representing configuration values.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "key instanceof EngineProperty",
+    "rationale" : "Since 'key' is declared as EngineProperty, it should be an instance of that type at method entry.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "value == null || !value.isEmpty()",
+    "rationale" : "If a string value is provided, it is often expected to be non-empty, especially for configuration properties; 'null' is checked for safety.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "string-property"
+    } ]
+  }, {
+    "expression" : "key.toString() != null",
+    "rationale" : "The contract of 'toString()' on any Java object is to return a non-null string, unless violated.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "object-to-string"
+    } ]
+  } ]
+}

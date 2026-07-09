@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Because MathUtils.clamp is called with minimum 0, so result is never less than 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= 1",
+    "rationale" : "Because MathUtils.clamp is called with maximum 1, so result is never greater than 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || result >= 0",
+    "rationale" : "If maxY == 0 the method returns 0, otherwise the value is clamped between 0 and 1, but it is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || result == MathUtils.clamp(visualAmountY / maxY, 0, 1)",
+    "rationale" : "If maxY == 0 returns 0, otherwise returns the clamped value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != Float.NaN",
+    "rationale" : "MathUtils.clamp(always finite arguments) and division by 0 is protected, so NaN results are avoided.",
+    "meta" : [ ]
+  } ]
+}

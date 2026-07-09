@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Supplier<Integer> as it creates a new lambda.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() == -1",
+    "rationale" : "The returned supplier always supplies the integer -1 regardless of invocation.",
+    "meta" : [ ]
+  } ]
+}

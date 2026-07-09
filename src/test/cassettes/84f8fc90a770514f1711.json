@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid clustering instant time is likely required and should not be null or empty.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The Option wrapper for extraMetadata should not be null to indicate presence or absence properly.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "extraMetadata"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is necessary for the operation being performed.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "context"
+    } ]
+  }, {
+    "expression" : "extraMetadata.isPresent() ? extraMetadata.get() != null : true",
+    "rationale" : "If extraMetadata Option is present, its value should be non-null.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "extraMetadata"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "getTree() == null || !getTree().getNodes().contains(this)",
+    "rationale" : "After removal from the tree, this node should no longer be present in the tree's node collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null || !parent.children.contains(this)",
+    "rationale" : "After removal from the parent, this node should no longer be a child of its parent.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getTree() != null || parent != null",
+    "rationale" : "Either the node had a tree or a parent before removal, according to the method's logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(getTree() == null || parent == null)",
+    "rationale" : "After removal, the node should not belong to both a tree and a parent at the same time.",
+    "meta" : [ ]
+  } ]
+}

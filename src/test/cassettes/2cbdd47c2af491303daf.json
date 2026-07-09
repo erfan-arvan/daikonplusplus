@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Null input for layer would result in errors, so method expects a non-null layer.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method assumes 'layer' is used for rendering; a null 'layer' would cause exceptions."
+    } ]
+  }, {
+    "expression" : "layer.getWidth() >= 0",
+    "rationale" : "A negative width would be meaningless in the context of tiled map rendering.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Layer width must be non-negative for a valid tiled map."
+    } ]
+  }, {
+    "expression" : "layer.getHeight() >= 0",
+    "rationale" : "A negative height would not make sense for a map layer.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Layer height must be non-negative for a valid tiled map."
+    } ]
+  }, {
+    "expression" : "layer.getTileWidth() > 0",
+    "rationale" : "Zero or negative tile width would not be useful in rendering.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Tile width must be positive for rendering to make sense."
+    } ]
+  }, {
+    "expression" : "layer.getTileHeight() > 0",
+    "rationale" : "Rendering with nonpositive tile heights would not be semantically correct.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Tile height should be positive for correct rendering."
+    } ]
+  } ]
+}

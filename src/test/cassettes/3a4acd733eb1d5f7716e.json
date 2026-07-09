@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires the context parameter for execution and passes it to another method, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is an identifier for the commit/insert operation, and it's passed to a downstream executor, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords is the main input data list; passing null would likely cause downstream failures.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(hoodieRecords != null && hoodieRecords.isEmpty())",
+    "rationale" : "It is probable that insert is intended to be called with non-empty record lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "instantTime is likely a required identifier and should not be the empty string.",
+    "meta" : [ ]
+  } ]
+}

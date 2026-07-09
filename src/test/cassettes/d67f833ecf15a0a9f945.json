@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "drawable != null",
+    "rationale" : "drawable.draw(...) is called, so drawable must not be null to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch is passed to drawable.draw(), so must not be null to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "w >= 0.0f",
+    "rationale" : "Width (w) should be non-negative for drawing regions; negative width is likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "h >= 0.0f",
+    "rationale" : "Height (h) should be non-negative for drawing regions; negative height is likely invalid.",
+    "meta" : [ ]
+  } ]
+}

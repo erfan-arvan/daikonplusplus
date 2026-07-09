@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "The method likely expects a non-null tile to add an object group.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement is dereferenced inside the method, implying it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"objectgroup\") == null || tileElement.getChildByName(\"objectgroup\").getName().equals(\"objectgroup\")",
+    "rationale" : "If an 'objectgroup' child is present, its name should match 'objectgroup'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"objectgroup\") == null || tileElement.getChildByName(\"objectgroup\").getChildrenByName(\"object\").size() >= 0",
+    "rationale" : "Getting children by name should always return a non-negative size (possibly zero).",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"objectgroup\") == null || tileElement.getChildByName(\"objectgroup\") != null",
+    "rationale" : "If getChildByName is called and not null, it is indeed not null. (Trivially true and can be considered a type check, though not strictly meaningful in practice, included here due to program context limitations.)",
+    "meta" : [ ]
+  } ]
+}

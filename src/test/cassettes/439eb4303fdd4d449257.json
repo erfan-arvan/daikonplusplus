@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the object created by HoodieMergeHandleFactory.create(), which should not return null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The method operates on keyToNewRecords and passes it to HoodieMergeHandleFactory.create; it is expected to be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "partitionPath is a fundamental identifier for the operation and must be non-null and non-empty for correct behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "fileId is used to identify the file being updated and must be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dataFileToBeMerged != null",
+    "rationale" : "dataFileToBeMerged represents the base file to merge into and is required for the merge; it should not be null.",
+    "meta" : [ ]
+  } ]
+}

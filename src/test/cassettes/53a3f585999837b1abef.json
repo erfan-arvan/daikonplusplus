@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result list should not be null upon returning, as it is retrieved from the map for the given partitionPath.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns the mapped value for the given partitionPath, which is expected to be non-null if present."
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method expects a non-null partition path to retrieve insert buckets.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Partition path used for retrieval should be non-null."
+    } ]
+  }, {
+    "expression" : "result.isEmpty() || result.size() > 0",
+    "rationale" : "The result list size is well-defined and cannot be negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result list is a standard Java List."
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method explicitly returns a new JavaHoodieBackedTableMetadataWriter, which must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null return object"
+    } ]
+  }, {
+    "expression" : "result instanceof JavaHoodieBackedTableMetadataWriter",
+    "rationale" : "The returned object is always constructed as a JavaHoodieBackedTableMetadataWriter.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "specific implementation"
+    } ]
+  }, {
+    "expression" : "result != conf",
+    "rationale" : "Result is a new JavaHoodieBackedTableMetadataWriter and cannot be identical to the configuration object.",
+    "meta" : [ {
+      "key" : "object identity",
+      "value" : "result is not a parameter"
+    } ]
+  }, {
+    "expression" : "result != writeConfig",
+    "rationale" : "Result is a writer object, distinct from the write configuration passed as parameter.",
+    "meta" : [ {
+      "key" : "object identity",
+      "value" : "result is not a parameter"
+    } ]
+  }, {
+    "expression" : "result != context",
+    "rationale" : "The result is a newly constructed writer, not the same as context parameter.",
+    "meta" : [ {
+      "key" : "object identity",
+      "value" : "result is not a parameter"
+    } ]
+  } ]
+}

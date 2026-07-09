@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The reduce operation over non-null inputs typically ensures a non-null result if zeroValue is non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The data to reduce should be non-null for aggregation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "data parameter is non-null"
+    } ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "The zeroValue serves as the identity for aggregation, generally non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "zeroValue parameter is non-null"
+    } ]
+  }, {
+    "expression" : "result == zeroValue || data.collectAsList().size() > 0",
+    "rationale" : "If data is empty, the result is the zeroValue, else aggregation modifies it.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "result equals zeroValue only if data is empty"
+    } ]
+  } ]
+}

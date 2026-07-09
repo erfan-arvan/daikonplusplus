@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "triggeringInstantTimestamp != null",
+    "rationale" : "Timestamp should be provided for operations that alter metadata.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "The cleaning policy should be specified for proper metadata writer behavior.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "triggeringInstantTimestamp.isEmpty() == false",
+    "rationale" : "A triggering instant is expected when bootstrapping metadata.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "string-nonempty"
+    } ]
+  }, {
+    "expression" : "streamingWrites == true || streamingWrites == false",
+    "rationale" : "Boolean arguments should only hold true or false.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "boolean-domain"
+    } ]
+  }, {
+    "expression" : "autoDetectAndDeleteMetadataPartitions == true || autoDetectAndDeleteMetadataPartitions == false",
+    "rationale" : "Boolean flag is always true or false in Java.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "boolean-domain"
+    } ]
+  } ]
+}

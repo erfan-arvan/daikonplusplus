@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a non-null Option object; Option types are usually non-null containers for potential null values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a parameter required for compaction scheduling and expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is typically required for engine operations and must not be null when passed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata as an Option is generally non-null even if it contains no value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == (result != null && result.isPresent())",
+    "rationale" : "Checking that isPresent() can only be called safely if result is non-null.",
+    "meta" : [ ]
+  } ]
+}

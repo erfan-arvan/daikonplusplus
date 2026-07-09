@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A write metadata object should always be returned upon successful method execution.",
+    "meta" : [ {
+      "key" : "method_contract",
+      "value" : "return-non-null"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input record list should not be null for an insertOverwrite operation.",
+    "meta" : [ {
+      "key" : "input_contract",
+      "value" : "precondition-also-postcondition"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instant time string is required for overwrite.",
+    "meta" : [ {
+      "key" : "input_contract",
+      "value" : "precondition-also-postcondition"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is necessary for performing any write operation.",
+    "meta" : [ {
+      "key" : "input_contract",
+      "value" : "precondition-also-postcondition"
+    } ]
+  } ]
+}

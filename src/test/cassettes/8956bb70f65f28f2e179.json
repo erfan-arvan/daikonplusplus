@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is expected to be non-null for coordinator and parallel job execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An instant time represents the commit or operation instant; it is generally required and expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "List of HoodieRecords to be upserted must be non-null for the operation to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() >= 0",
+    "rationale" : "If preppedRecords is not empty, its size is at least zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instantTime string should be non-empty to denote a valid commit instant.",
+    "meta" : [ ]
+  } ]
+}

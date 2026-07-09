@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "drawble != null",
+    "rationale" : "Method will call several methods on drawble; it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawble.getLeftWidth() >= 0",
+    "rationale" : "Drawable width values are expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawble.getRightWidth() >= 0",
+    "rationale" : "Drawable width values are expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawble.getMinWidth() >= 0",
+    "rationale" : "Drawable minimum width should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawble.getMinHeight() >= 0",
+    "rationale" : "Drawable minimum height should be non-negative.",
+    "meta" : [ ]
+  } ]
+}

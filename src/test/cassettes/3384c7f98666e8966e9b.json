@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method relies on 'profile' and accesses its fields and methods; a null 'profile' would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "Used for iteration; required to be non-null for method functionality.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.getInputPartitionPathStatMap().isEmpty() || profile.getInputPartitionPathStatMap().isEmpty()",
+    "rationale" : "Partition stat entries are always present (could be empty), so this covers both only as an example of partition stats state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "The boolean from 'hasOutputWorkLoadStats()' is likely tied to presence/absence of the output partition map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null || !profile.hasOutputWorkLoadStats()",
+    "rationale" : "If hasOutputWorkLoadStats() is true, the output map should exist.",
+    "meta" : [ ]
+  } ]
+}

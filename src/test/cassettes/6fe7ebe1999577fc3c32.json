@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method only returns as part of the try block, which returns the object. If an exception occurred, control wouldn't reach the return, so result should be non-null.",
+    "meta" : [ {
+      "key" : "motivation",
+      "value" : "Returned metadata object should not be null on successful bulk insert."
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method is declared to return a HoodieWriteMetadata<List<WriteStatus>>, so the result should always be an instance of HoodieWriteMetadata.",
+    "meta" : [ {
+      "key" : "motivation",
+      "value" : "Return type must match method signature."
+    } ]
+  } ]
+}

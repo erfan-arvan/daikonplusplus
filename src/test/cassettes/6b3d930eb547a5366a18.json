@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null",
+    "rationale" : "Method parameter; likely required non-null for compaction logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is typically required for distributed operations and compaction execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "HoodieWriteConfig required for configuration-driven actions in compactor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Commit/instant time is necessary to track compaction versioning; likely required non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "An empty instantTime would be invalid for commit tracking in compaction.",
+    "meta" : [ ]
+  } ]
+}

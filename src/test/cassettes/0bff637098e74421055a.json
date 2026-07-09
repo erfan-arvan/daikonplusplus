@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method expects a valid Stream<I> input parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "The method assumes the transformation function is provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "Required for reducing pairs by key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive integer for meaningful parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof Stream<?>",
+    "rationale" : "Data parameter should always be a Stream.",
+    "meta" : [ ]
+  } ]
+}

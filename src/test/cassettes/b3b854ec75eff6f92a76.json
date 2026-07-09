@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is typically required for downstream operations and should not be null.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "partitionPath is expected to represent the partition, and null would likely be invalid."
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is usually a required identifier for data modification.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "fileId is expected to uniquely identify a file and is usually mandatory."
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "A non-null iterator is necessary for processing records.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Iterator is expected to provide records for the merge handle."
+    } ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Partition path being empty would likely be incorrectly configured.",
+    "meta" : [ {
+      "key" : "sanity",
+      "value" : "Partition path is likely expected to be non-empty."
+    } ]
+  }, {
+    "expression" : "fileId.length() > 0",
+    "rationale" : "File id should not be an empty string.",
+    "meta" : [ {
+      "key" : "sanity",
+      "value" : "FileId is expected to be a non-empty identifier."
+    } ]
+  } ]
+}

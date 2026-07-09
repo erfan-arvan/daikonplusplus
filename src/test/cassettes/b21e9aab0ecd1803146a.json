@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The key parameter should not be null for a valid engine property.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "key can be safely used after null check"
+    } ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "The value parameter may be expected to be non-null for setting a property.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "value can be safely used after null check"
+    } ]
+  }, {
+    "expression" : "value instanceof String",
+    "rationale" : "value is a String parameter; this verifies its type remains valid.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "value is a String"
+    } ]
+  }, {
+    "expression" : "key.toString() != null",
+    "rationale" : "The string representation of key should not be null.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "key.toString() is non-null"
+    } ]
+  }, {
+    "expression" : "value.length() >= 0",
+    "rationale" : "Length of a string is always non-negative and can be used in further checks.",
+    "meta" : [ {
+      "key" : "always-true",
+      "value" : "value length non-negative"
+    } ]
+  } ]
+}

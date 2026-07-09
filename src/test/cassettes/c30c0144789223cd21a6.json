@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of execute(), which is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is received as a parameter and would be required for the execution of the commit action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is cast and used as a non-null argument in the commit action executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in the commit executor and is likely required to be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata object should contain a valid list of WriteStatus objects as part of the bulk insert contract.",
+    "meta" : [ ]
+  } ]
+}

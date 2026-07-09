@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name == null ? result == -1 : result == x + name.length()",
+    "rationale" : "Direct correspondence between inputs and result as per the branching in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || result >= x",
+    "rationale" : "If name is not null, result = x + name.length() >= x.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null || result == -1",
+    "rationale" : "If name is null, the method always returns -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null || x + 1 > x",
+    "rationale" : "For all executions, the trivial inner path is always possible (syntactically true for integer domain).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= -1",
+    "rationale" : "Both possible results are -1 or greater (because name.length() >= 0 and x is integer).",
+    "meta" : [ ]
+  } ]
+}

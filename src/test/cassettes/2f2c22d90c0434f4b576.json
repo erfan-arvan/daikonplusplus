@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == properties.hashCode()",
+    "rationale" : "The method directly returns the hash code of the 'properties' object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == ((Object) properties).hashCode()",
+    "rationale" : "Casts ensure hashCode of properties follows standard Object contract.",
+    "meta" : [ ]
+  } ]
+}

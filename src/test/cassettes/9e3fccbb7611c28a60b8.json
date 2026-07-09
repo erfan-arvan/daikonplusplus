@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result of a write operation should not be null upon normal method return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The return type is declared as HoodieWriteMetadata, so result should always be an instance of it.",
+    "meta" : [ ]
+  } ]
+}

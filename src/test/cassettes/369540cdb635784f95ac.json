@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The stream collect operation toList should always produce a non-null result.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "result is expected to be non-null as it is returned from a stream collect operation"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method processes the data list, so it should be non-null at exit.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "data is a method parameter and should not be null for this method to work correctly."
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "size_nonnegative",
+      "value" : "size always non-negative in collections"
+    } ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism given to streaming is usually at least 1 (method contract or usage reason)",
+    "meta" : [ {
+      "key" : "valid_parallelism",
+      "value" : "parallelism parameter representing parallelism level"
+    } ]
+  }, {
+    "expression" : "result.size() >= data.size() || result.size() <= data.size() * 10",
+    "rationale" : "The result size might be related to the data size magnified by the functional mapping, though exact ratio depends on func.",
+    "meta" : [ {
+      "key" : "size_bound",
+      "value" : "heuristic bounds, not guaranteed but plausible based on map expansion"
+    } ]
+  } ]
+}

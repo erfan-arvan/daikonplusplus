@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new Pair, so result cannot be null.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Returned pair is never null"
+    } ]
+  }, {
+    "expression" : "result.getLeft() != null && result.getRight() != null",
+    "rationale" : "The left and right Pair components are always non-null new objects.",
+    "meta" : [ {
+      "key" : "content",
+      "value" : "Both map and stat are non-null"
+    } ]
+  }, {
+    "expression" : "result.getLeft() instanceof Map",
+    "rationale" : "PartitionPathStatMap is a HashMap and returned in the pair.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Left element is a Map"
+    } ]
+  }, {
+    "expression" : "result.getRight() instanceof WorkloadStat",
+    "rationale" : "GlobalStat is a WorkloadStat and returned as the right element.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Right element is a WorkloadStat"
+    } ]
+  }, {
+    "expression" : "!inputRecords.isEmpty() || result.getLeft().isEmpty()",
+    "rationale" : "If there are no input records, the returned partition statistics map must be empty.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "If input is empty, returned stats map is empty"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should not be null for scheduling clustering, as it represents the clustering instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Ensures the Option parameter itself is non-null before used, even if empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext must be provided to schedule clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(extraMetadata.isPresent()) || extraMetadata.get() != null",
+    "rationale" : "If extraMetadata is present, its contained Map should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "An empty instantTime is likely invalid for clustering scheduling.",
+    "meta" : [ ]
+  } ]
+}

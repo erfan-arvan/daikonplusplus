@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "getStage() == null",
+    "rationale" : "The method immediately checks if getStage() is null, so this is a possible precondition considered at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() != null",
+    "rationale" : "The code explicitly branches on whether getStage() is null, so it's plausible that getStage() can also be non-null.",
+    "meta" : [ ]
+  } ]
+}

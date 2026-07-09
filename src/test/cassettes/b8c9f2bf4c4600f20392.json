@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collectors.toMap never returns null, a Map object is always returned.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Nullness"
+    } ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each element in data may produce at most one entry in the map; duplicate keys cause merging.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Size"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "NullList would cause a NullPointerException earlier, so at exit data must be non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Nullness"
+    } ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "parallelism is required and would cause a NullPointerException if null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Nullness"
+    } ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is passed to a wrapper and to map(), so it must be non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Nullness"
+    } ]
+  } ]
+}

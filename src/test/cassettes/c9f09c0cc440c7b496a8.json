@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method accesses 'layer' fields; thus, it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The method calls methods on 'element', so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getName() == null || layer.getName().equals(element.getAttribute(\"name\", null))",
+    "rationale" : "If the layer's name is non-null, it matches the 'name' attribute in the element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() == Float.parseFloat(element.getAttribute(\"opacity\", \"1.0\"))",
+    "rationale" : "The opacity set in the layer matches the parsed opacity attribute from element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isVisible() == (element.getIntAttribute(\"visible\", 1) == 1)",
+    "rationale" : "The visibility flag in the layer matches the 'visible' attribute in the element.",
+    "meta" : [ ]
+  } ]
+}

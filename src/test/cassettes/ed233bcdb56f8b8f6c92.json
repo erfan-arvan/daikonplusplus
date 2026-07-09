@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition paths should typically be non-null to properly locate files within partitions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "File id hints are used as keys for upsert bucket allocation and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "totalBuckets >= 0",
+    "rationale" : "The number of buckets tracked should never be negative as it is incremented monotonically.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "HashMap for tracking update locations should be initialized before use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "HashMap for storing bucket information must be initialized to avoid NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

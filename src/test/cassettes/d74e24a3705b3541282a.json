@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Iterator, which is never explicitly set to null in the code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext()",
+    "rationale" : "Since result is created by Collections.singletonList(...).iterator(), it always starts with one element, so hasNext() is true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The partitionPath is passed directly to HoodieCreateHandle; a null value would likely be prevented earlier for correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used in constructing HoodieCreateHandle and should not be null for correct behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap is passed to HoodieCreateHandle and used in handle.write(), indicating it should not be null.",
+    "meta" : [ ]
+  } ]
+}

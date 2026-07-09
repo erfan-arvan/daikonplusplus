@@ -11,59 +11,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Walks a Java source tree and emits {@link ProgramPoint}s.
+ * Scans a Java source tree and extracts program points for methods.
  *
- * <p>This version emits only {@link ProgramPointKind#METHOD_ENTRY} and {@link
- * ProgramPointKind#METHOD_EXIT} for each method with a body.
+ * <p>For each method with a body, this scanner emits two program points: {@link
+ * ProgramPointKind#METHOD_ENTRY} and {@link ProgramPointKind#METHOD_EXIT}.
+ *
+ * <p>Files that cannot be parsed are skipped.
  */
 public final class JavaProjectScanner {
 
   /**
-   * Scans the given source root for .java files and returns all method-entry program points.
+   * Walks a source directory and returns method entry and exit program points.
    *
-   * @param srcRoot root directory containing Java sources
+   * <p>Each Java file is parsed, and for every method with a body, a corresponding ENTRY and EXIT
+   * program point is created.
+   *
+   * @param srcRoot root directory containing Java source files
+   * @return list of discovered program points
+   * @throws IOException if file traversal fails
    */
-  public List<ProgramPoint> scanMethodEntries(Path srcRoot) throws IOException {
-    List<ProgramPoint> points = new ArrayList<>();
-    try (var stream = Files.walk(srcRoot)) {
-      stream
-          .filter(p -> p.toString().endsWith(".java"))
-          .forEach(
-              file -> {
-                try {
-                  CompilationUnit cu = StaticJavaParser.parse(file);
-                  String pkg =
-                      cu.getPackageDeclaration().map(pd -> pd.getName().asString()).orElse("");
-                  cu.findAll(ClassOrInterfaceDeclaration.class)
-                      .forEach(
-                          cls -> {
-                            String top = cls.getNameAsString();
-                            String nested = ""; // Can be extended for nested classes if needed.
-
-                            cls.findAll(MethodDeclaration.class, md -> md.getBody().isPresent())
-                                .forEach(
-                                    md -> {
-                                      String desc = MethodSignatureUtil.jvmDescriptorBestEffort(md);
-                                      ProgramElementId peid =
-                                          ProgramElementId.forMethod(
-                                              pkg,
-                                              top,
-                                              nested,
-                                              srcRoot.relativize(file).toString(),
-                                              desc);
-                                      points.add(
-                                          new ProgramPointImpl(
-                                              peid, ProgramPointKind.METHOD_ENTRY));
-                                    });
-                          });
-                } catch (Exception e) {
-                  throw new RuntimeException("Failed to parse " + file + ": " + e.getMessage(), e);
-                }
-              });
-    }
-    return points;
-  }
-
   public List<ProgramPoint> scanMethodEntryExit(Path srcRoot) throws IOException {
     List<ProgramPoint> points = new ArrayList<>();
     try (var stream = Files.walk(srcRoot)) {
@@ -99,7 +65,7 @@ public final class JavaProjectScanner {
                                     });
                           });
                 } catch (Exception e) {
-                  throw new RuntimeException("Failed to parse " + file, e);
+                  System.err.println("[WARN] Skipping file (parse failed): " + file);
                 }
               });
     }

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "pad != null",
+    "rationale" : "Method throws IllegalArgumentException if pad is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns this, which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "Method always returns this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.padTop == pad",
+    "rationale" : "padTop is always set to pad before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.padTop == result.padLeft && result.padTop == result.padBottom && result.padTop == result.padRight",
+    "rationale" : "All pad fields are set to the same value pad before returning.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "min <= max",
+    "rationale" : "The method throws an IllegalArgumentException if min > max, so at the entry point a likely intended invariant is that min should be less than or equal to max.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min >= Float.NEGATIVE_INFINITY",
+    "rationale" : "min being a float, it's meaningful to consider if min can be negative infinity or lower, but usually min is at least negative infinity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "max <= Float.POSITIVE_INFINITY",
+    "rationale" : "max being a float, a standard contract is that it should not exceed positive infinity.",
+    "meta" : [ ]
+  } ]
+}

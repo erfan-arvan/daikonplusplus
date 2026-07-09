@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || checkedButtons.contains(result)",
+    "rationale" : "The result is either null (if no button is checked) or is among the checked buttons.",
+    "meta" : [ ]
+  }, {
+    "expression" : "checkedButtons.size == 0 ? result == null : result == checkedButtons.get(0)",
+    "rationale" : "If there are no checked buttons, result is null; otherwise, result is the first checked button.",
+    "meta" : [ ]
+  }, {
+    "expression" : "checkedButtons.size >= 0",
+    "rationale" : "The size of checkedButtons cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || checkedButtons.size > 0",
+    "rationale" : "If result is not null, there must be at least one checked button.",
+    "meta" : [ ]
+  } ]
+}

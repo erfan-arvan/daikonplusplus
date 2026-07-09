@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new TextureRegion is always constructed and returned, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getTexture() != null",
+    "rationale" : "The TextureRegion is constructed from images.get(name), which must be non-null to construct a valid TextureRegion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null ? images.get(name) != null : true",
+    "rationale" : "If the provided name is not null, images.get(name) is passed to TextureRegion; likely the contract expects a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TextureRegion",
+    "rationale" : "The method always returns a TextureRegion object.",
+    "meta" : [ ]
+  } ]
+}

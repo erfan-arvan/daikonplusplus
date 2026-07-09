@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "args parameter is usually not null at method exit in main methods",
+    "meta" : [ {
+      "key" : "null_checked_variable",
+      "value" : "args"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length of args is always non-negative",
+    "meta" : [ {
+      "key" : "array_length_non_negative",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "args is a String array as declared",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "args.length == 0 || args[0] != null",
+    "rationale" : "If args is not empty, first element is likely non-null",
+    "meta" : [ {
+      "key" : "safety_check",
+      "value" : "safe to access first element if present"
+    } ]
+  }, {
+    "expression" : "args.length < 1000",
+    "rationale" : "args is typically not excessively large at program exit",
+    "meta" : [ {
+      "key" : "reasonable_length",
+      "value" : "heuristic"
+    } ]
+  } ]
+}

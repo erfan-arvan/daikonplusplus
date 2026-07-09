@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs a new HoodieWriteMetadata instance and returns it, ensuring result is never null along any execution path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "result represents metadata about the write and write statuses are populated before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The write status collection in the returned metadata is constructed as a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size is always non-negative; this holds for any List returned.",
+    "meta" : [ ]
+  } ]
+}

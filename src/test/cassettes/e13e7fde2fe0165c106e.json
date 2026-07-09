@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a required parameter and likely must be non-null to interact with table metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex should be non-null so the method can work with a defined set of columns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.isEmpty() || columnsToIndex.get(0) != null",
+    "rationale" : "If columnsToIndex is non-null and non-empty, its first element should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.stream().allMatch(col -> col != null)",
+    "rationale" : "If columnsToIndex is non-null, it is likely meant to contain only non-null column names.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.size() >= 0",
+    "rationale" : "A valid List in Java always has a non-negative size; this checks for a consistent list state if columnsToIndex is not null.",
+    "meta" : [ ]
+  } ]
+}

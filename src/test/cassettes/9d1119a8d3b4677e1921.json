@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method uses map in a call to loadObject, so it is likely not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer != null",
+    "rationale" : "layer is dereferenced via layer.getObjects(), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is passed to a method, so it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "layer.getObjects() is passed to loadObject and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapHeightInPixels >= 0",
+    "rationale" : "mapHeightInPixels is likely a dimension and typically would be non-negative.",
+    "meta" : [ ]
+  } ]
+}

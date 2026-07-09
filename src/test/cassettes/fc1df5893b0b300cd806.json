@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Factory methods like getComparableSortColumns are generally expected to return a non-null collection.",
+    "meta" : [ {
+      "key" : "invariant_type",
+      "value" : "non-null result"
+    } ]
+  }, {
+    "expression" : "record != null",
+    "rationale" : "Assuming the contract of the method expects a valid HoodieRecord as input.",
+    "meta" : [ {
+      "key" : "invariant_type",
+      "value" : "non-null input"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "Collection size in Java is always non-negative.",
+    "meta" : [ {
+      "key" : "invariant_type",
+      "value" : "non-negative collection size"
+    } ]
+  }, {
+    "expression" : "((FlatLists.ComparableList) result).stream().allMatch(elem -> elem instanceof Comparable)",
+    "rationale" : "The result is parametrized as Comparable<HoodieRecord>; all elements should be Comparable.",
+    "meta" : [ {
+      "key" : "invariant_type",
+      "value" : "type correctness"
+    } ]
+  }, {
+    "expression" : "result.stream().noneMatch(e -> e == null)",
+    "rationale" : "List of sort columns should not contain null entries.",
+    "meta" : [ {
+      "key" : "invariant_type",
+      "value" : "elements non-null"
+    } ]
+  } ]
+}

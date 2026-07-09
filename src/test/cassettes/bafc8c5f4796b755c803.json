@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "values() returns a non-null Iterator. Returning null would violate the contract of the method and standard collection behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext() == (result instanceof java.util.Iterator && result.hasNext())",
+    "rationale" : "hasNext() is always callable on a non-null Iterator, and its result accurately reflects whether there are elements to iterate over.",
+    "meta" : [ ]
+  } ]
+}

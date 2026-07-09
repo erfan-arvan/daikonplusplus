@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "fontFamily == null || !fontFamily.isEmpty()",
+    "rationale" : "If provided, the fontFamily might be expected to be non-empty.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string-content"
+    } ]
+  }, {
+    "expression" : "fontFamily == null || fontFamily.length() >= 0",
+    "rationale" : "String length is always non-negative, included as a general property.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string-length"
+    } ]
+  }, {
+    "expression" : "fontFamily == null || fontFamily.trim().length() >= 0",
+    "rationale" : "Trimming a string never causes its length to go negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string-trim"
+    } ]
+  } ]
+}

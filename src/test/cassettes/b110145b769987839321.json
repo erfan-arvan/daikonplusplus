@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returning null is likely considered an error; result should always be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "The instant time parameter is used as identifier and likely must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is required for compaction actions and should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method return type ensures result is an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses are a core part of the result; null would indicate an implementation failure.",
+    "meta" : [ ]
+  } ]
+}

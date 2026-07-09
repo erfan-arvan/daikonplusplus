@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cached",
+    "rationale" : "The cached flag is always set to true by the first-time branch and never set to false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "spriteCache != null",
+    "rationale" : "spriteCache is accessed unconditionally, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "map is dereferenced multiple times, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getLayers() != null",
+    "rationale" : "The method calls map.getLayers() repeatedly, safely, so the result must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "spriteCache.isDrawing() == false",
+    "rationale" : "spriteCache.end() is always called before return, so drawing should have ended.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method dereferences element, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "The method calls 'loadLayer' with map, indicating it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "The method calls parentLayers.add(groupLayer), so parentLayers must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "The method passes imageResolver to other methods, so it is expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

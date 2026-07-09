@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Pair, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The first element of the returned Pair is partitionPathStatMap, which is always a non-null Map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The second element of the returned Pair is globalStat, which is always a WorkloadStat object and not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft().size() <= inputRecords.size()",
+    "rationale" : "There can be at most one partitionPathStatMap entry per partitionPath present in inputRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft().size() >= 0",
+    "rationale" : "A Map cannot have negative size.",
+    "meta" : [ ]
+  } ]
+}

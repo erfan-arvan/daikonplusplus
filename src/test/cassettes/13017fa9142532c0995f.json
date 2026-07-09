@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method uses config non-null immediately; a null value would cause a NullPointerException.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method invokes methods on context, so it should not be null to avoid a NullPointerException.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "config.getBasePath() is passed to setBasePath; a null base path would likely break functionality.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "context.getStorageConf() != null",
+    "rationale" : "context.getStorageConf() is used to create a configuration instance, and should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "config.getConsistencyGuardConfig() != null",
+    "rationale" : "config.getConsistencyGuardConfig() is used in the builder and should not be null for correct behavior.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

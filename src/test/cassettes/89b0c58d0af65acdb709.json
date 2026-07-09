@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The parameter metaClient is directly passed to another method and must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == getEngineReaderContextFactory(metaClient)",
+    "rationale" : "The method returns the result of getEngineReaderContextFactory(metaClient), so result and this call must always be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Assuming getEngineReaderContextFactory never returns null, or the design expects a valid factory object. Protects against null usage downstream.",
+    "meta" : [ ]
+  } ]
+}

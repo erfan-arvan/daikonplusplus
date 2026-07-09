@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method likely expects a non-null instantTime to function correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "The instantTime should not be empty for it to represent a valid time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "A valid instantTime typically has a non-zero length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime instanceof String",
+    "rationale" : "instantTime is declared as a String parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "instantTime should not contain only whitespace.",
+    "meta" : [ ]
+  } ]
+}

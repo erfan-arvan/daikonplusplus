@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List<WriteStatus> as created by postWrite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records parameter is expected to be non-null; null values are not handled in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is passed to several methods without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result is returned as a List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(ws -> ws != null)",
+    "rationale" : "WriteStatus objects in the result list are expected to be non-null, as they are produced by hoodie processes.",
+    "meta" : [ ]
+  } ]
+}

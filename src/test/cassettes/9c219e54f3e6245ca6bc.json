@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Option, which should never be null by project conventions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == false || result.get() != null",
+    "rationale" : "If result is present, the contained HoodieCleanerPlan is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is never set to null in the method and is used as a parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used directly and passed to constructors without null checks.",
+    "meta" : [ ]
+  } ]
+}

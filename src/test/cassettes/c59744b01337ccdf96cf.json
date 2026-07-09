@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context should be initialized and not null before being used in the method.",
+    "meta" : [ {
+      "key" : "reliability",
+      "value" : "prevents NullPointerException"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime string is required for the insert operation.",
+    "meta" : [ {
+      "key" : "correctness",
+      "value" : "time identifier must be provided"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records list should not be null to perform the insert operation.",
+    "meta" : [ {
+      "key" : "data_integrity",
+      "value" : "records collection required"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is likely a version or timestamp string and should not be empty.",
+    "meta" : [ {
+      "key" : "usefulness",
+      "value" : "non-empty time identifier"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No constraints on the generic type parameter T at this program entry.",
+    "meta" : [ {
+      "key" : "default",
+      "value" : "no constraints on generic parameter T"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new JavaHoodieBackedTableMetadataWriter instance; result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "conf != null",
+    "rationale" : "conf is passed to the constructor, and would throw a NullPointerException if null—method assumes non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is required for the construction of JavaHoodieBackedTableMetadataWriter and thus must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is directly passed to the constructor and assumed always non-null at method exit.",
+    "meta" : [ ]
+  } ]
+}

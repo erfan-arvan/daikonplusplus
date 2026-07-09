@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "String[] args is never explicitly set to null and is provided by the JVM; it should never be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

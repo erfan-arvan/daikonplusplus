@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The parameter 'profile' is used throughout the method assuming it is not null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "Check that profile is not null at method entry"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The parameter 'context' is required and expected not to be null when the method is called.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "Check that context is not null at method entry"
+    } ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "Method uses 'getPartitionPaths' assuming it returns a non-null set.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "getPartitionPaths returns a Set<String>"
+    } ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "Method calls getOutputPartitionPathStatMap expecting a non-null map.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "profile's output partition stats map"
+    } ]
+  }, {
+    "expression" : "!profile.getPartitionPaths().isEmpty()",
+    "rationale" : "The method computes workloads per partition path assuming partitions exist.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "partition paths non-empty"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method calls are likely made on context, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null && !indexInstantTime.isEmpty()",
+    "rationale" : "indexInstantTime likely represents a timestamp and should be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "partitionsToIndex is used for processing and should be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "partitionPaths is a key parameter and should be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex == null || partitionsToIndex.size() >= 0",
+    "rationale" : "If partitionsToIndex is not null, its size cannot be negative.",
+    "meta" : [ ]
+  } ]
+}

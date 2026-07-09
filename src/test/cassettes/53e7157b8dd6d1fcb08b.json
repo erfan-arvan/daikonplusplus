@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result must be non-null since the method operates on it and calls methods on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is called, so it must be safe; thus, result.getWriteStatuses() must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "getPartitionToReplaceFileIds() is passed to a method and relied upon; nullness is necessary for correctness.",
+    "meta" : [ ]
+  } ]
+}

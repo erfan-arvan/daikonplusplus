@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is an instance method parameter representing the table meta client, which is typically required to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "object state"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is a List parameter expected to be non-null for method operations.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.get(0) != null",
+    "rationale" : "If columnsToIndex is not empty, the first column name should not be null, reflecting a typical invariant in schema management.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "list"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "HoodieTableMetaClient should provide a valid table configuration, important for most operations.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "table configuration"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(s -> s != null)",
+    "rationale" : "All column names to index should be non-null strings.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "list"
+    } ]
+  } ]
+}

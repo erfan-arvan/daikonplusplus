@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is documented to return the object's properties set, which is likely non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null result"
+    } ]
+  }, {
+    "expression" : "result instanceof MapProperties",
+    "rationale" : "As the method returns a MapProperties reference, result must be an instance of MapProperties if not null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type invariant"
+    } ]
+  } ]
+}

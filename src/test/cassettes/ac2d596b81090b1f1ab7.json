@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null HoodieIndex instance, as all return statements construct or fetch and return a HoodieIndex object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!StringUtils.isNullOrEmpty(config.getIndexClass()) ? result == HoodieIndexUtils.createUserDefinedIndex(config) : true",
+    "rationale" : "If config.getIndexClass() is not null or empty, the method returns the result of HoodieIndexUtils.createUserDefinedIndex(config).",
+    "meta" : [ ]
+  }, {
+    "expression" : "StringUtils.isNullOrEmpty(config.getIndexClass()) ? (config.getIndexType() == HoodieIndex.IndexType.SIMPLE || config.getIndexType() == HoodieIndex.IndexType.GLOBAL_SIMPLE || config.getIndexType() == HoodieIndex.IndexType.INMEMORY || config.getIndexType() == HoodieIndex.IndexType.BLOOM) : true",
+    "rationale" : "If the index class is empty or null, result comes from one of the four supported index types.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "Result is always an instance of HoodieIndex or its subclass.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used in method body, so must not be null.",
+    "meta" : [ ]
+  } ]
+}

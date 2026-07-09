@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method calls stream() on dedupedRecords, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The method uses partitioner.getPartition(), so partitioner must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!dedupedRecords.isEmpty() || dedupedRecords.size() == 0",
+    "rationale" : "This ensures the isEmpty/size relationship holds for any List; it is implied by the Java Collection API.",
+    "meta" : [ ]
+  } ]
+}

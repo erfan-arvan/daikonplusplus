@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata instance, which is expected to be non-null after an insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records parameter is passed directly to the executor, so a null value would likely result in an exception, meaning it is expected to be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses method of HoodieWriteMetadata should return the List of WriteStatus objects, which should be non-null as part of a successful insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required context for the insert, so it should be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required to perform the insert operation.",
+    "meta" : [ ]
+  } ]
+}

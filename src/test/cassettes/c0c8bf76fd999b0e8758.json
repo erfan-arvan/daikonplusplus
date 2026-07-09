@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "Input list should not be null for deduplication operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "A valid HoodieTable is required as an argument for deduplication logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive integer for parallel operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getIndex() != null",
+    "rationale" : "Index instance is used within the method and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

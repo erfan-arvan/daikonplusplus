@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Ensures no NullPointerException when inputRecords is used.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Common method entry contract to require non-null arguments."
+    } ]
+  }, {
+    "expression" : "inputRecords instanceof List",
+    "rationale" : "inputRecords is explicitly typed as a List.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Parameter type ensures inputRecords is a List at entry."
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Trivially true at method entry.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method entry point is always reachable, so 'true' is a trivial invariant."
+    } ]
+  } ]
+}

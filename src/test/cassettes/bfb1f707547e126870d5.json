@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the output from SortUtils.getComparableSortColumns, which should return a non-null ComparableList.",
+    "meta" : [ ]
+  }, {
+    "expression" : "record != null",
+    "rationale" : "The method contract likely requires a non-null record to produce a ComparableList for sorting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A valid ComparableList's size should be non-negative by definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == SortUtils.getComparableSortColumns(record, sortColumnNames, schema, suffixRecordKey, consistentLogicalTimestampEnabled).size()",
+    "rationale" : "The result is the exact object returned from SortUtils.getComparableSortColumns, so sizes match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof FlatLists.ComparableList",
+    "rationale" : "The method is declared to return FlatLists.ComparableList, so the result always has this type.",
+    "meta" : [ ]
+  } ]
+}

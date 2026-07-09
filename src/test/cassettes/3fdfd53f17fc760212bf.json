@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a new object via 'new ...().execute()', implying no null result.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "return-value-non-null"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Likely required for correct execution and consistent with method signature usage.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "param-non-null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is cast and used in another object, requiring it to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "param-non-null"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Result is always constructed via 'JavaBulkInsertDeltaCommitActionExecutor...execute()', which is expected to produce HoodieWriteMetadata.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "result-type"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option type parameters are conventionally non-null; their contents may be empty but the reference itself is typically not null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "param-non-null"
+    } ]
+  } ]
+}

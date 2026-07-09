@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method typically expects a non-null list of records to delete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The timestamp or instant of the operation should be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "The instantTime string should not be empty for meaningful operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "Parameter type should match the declared generic List type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Each record to delete should not be null.",
+    "meta" : [ ]
+  } ]
+}

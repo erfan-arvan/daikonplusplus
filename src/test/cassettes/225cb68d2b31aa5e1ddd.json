@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The call to the constructor and method execute suggests 'context' is required to be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "If context were null, MergeOnReadRestoreActionExecutor constructor or execute() may throw NullPointerException."
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is passed to a constructor and likely used for restore identity.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "Passed as argument to a method/constructor likely requiring identity."
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is also required to be non-null for restore semantics.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "Passed as non-optional argument for restore operation."
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result is created by a call to execute() and is expected to provide metadata; null would likely indicate severe error.",
+    "meta" : [ {
+      "key" : "logic",
+      "value" : "new MergeOnReadRestoreActionExecutor(...).execute() presumably returns non-null HoodieRestoreMetadata on success."
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieRestoreMetadata",
+    "rationale" : "By method signature, result is a HoodieRestoreMetadata instance.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result"
+    } ]
+  } ]
+}

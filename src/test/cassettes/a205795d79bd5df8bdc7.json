@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber) == (result != null)",
+    "rationale" : "If the bucketInfoMap contains the given bucketNumber as key, result must be non-null; otherwise, result is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == bucketInfoMap.get(bucketNumber)",
+    "rationale" : "The result is always exactly the value returned by bucketInfoMap.get for the given key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Bucket numbers representing map keys are usually non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "The method directly delegates to bucketInfoMap.get, which must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.size() <= totalBuckets",
+    "rationale" : "The number of buckets in the map should not exceed the totalBuckets field.",
+    "meta" : [ ]
+  } ]
+}

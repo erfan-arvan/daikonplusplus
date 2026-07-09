@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is necessary for engine operations and should not be null when calling savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "A valid instant (commit timestamp) should be specified to create a savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "The user requesting the savepoint should be known and provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "A non-null comment captures the reason or context for the savepoint operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantToSavepoint.isEmpty()",
+    "rationale" : "The instant to savepoint should not be an empty string to identify a valid savepoint.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Drawable (as every path checks for non-null before returning style fields).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == style.disabledBackground || result == style.focusedBackground || result == style.background",
+    "rationale" : "The method returns exactly one of these three fields from style.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(disabled && style.disabledBackground != null) ? result == style.disabledBackground : true",
+    "rationale" : "If the TextField is disabled and disabledBackground is non-null, it is the returned result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!disabled && style.focusedBackground != null && hasKeyboardFocus()) ? result == style.focusedBackground : true",
+    "rationale" : "If not disabled and focusedBackground is non-null and has focus, that is what is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((!disabled && (style.focusedBackground == null || !hasKeyboardFocus())) ? result == style.background : true)",
+    "rationale" : "If not disabled, and either focusedBackground is null or TextField does not have keyboard focus, the result is background.",
+    "meta" : [ ]
+  } ]
+}

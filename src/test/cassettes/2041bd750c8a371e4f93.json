@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns new HoodieRollbackMetadata, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is passed as a parameter to the executor and likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant is used in creating a new executor, suggesting it is required and should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used to construct the executor and likely required to be non-null.",
+    "meta" : [ ]
+  } ]
+}

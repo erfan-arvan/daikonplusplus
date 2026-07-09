@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method cannot safely execute if profile is null, and it is used heavily throughout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "This map is iterated upon; it must not be null for method progress.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!profile.hasOutputWorkLoadStats() || profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "If output workload stats are present, the related map must also be non-null to store updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().size() >= 0",
+    "rationale" : "Map size cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "Since addUpdateBucket is called, updateLocationToBucket must be a valid map.",
+    "meta" : [ ]
+  } ]
+}

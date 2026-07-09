@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method calls checkState(result != null && !result.isEmpty()), so result must be non-null at the exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "The checkState method asserts that result is not empty; otherwise, an exception is thrown, so at normal exit, result is not empty.",
+    "meta" : [ ]
+  } ]
+}

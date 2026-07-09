@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == rectangle.getY()",
+    "rationale" : "The method always returns rectangle.getY() based on the implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Assuming rectangle.getY() returns a finite float, result will always be finite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= Float.NEGATIVE_INFINITY && result <= Float.POSITIVE_INFINITY",
+    "rationale" : "All float values must be within the float range.",
+    "meta" : [ ]
+  } ]
+}

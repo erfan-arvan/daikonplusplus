@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is a partition identifier and is likely required for downstream logic; it being non-null is a reasonable assumption.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId identifies a file and is needed for update handle creation, so it being non-null is likely an invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is used to iterate over HoodieRecord<T>, and downstream code expects an iterator, so a non-null assumption is reasonable.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || tileElement.get(\"animation\") != null",
+    "rationale" : "Result is null only if there is no 'animation' value in tileElement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getId() == tile.getId()",
+    "rationale" : "If result is not null, its id is set from the input tile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "Method uses tileElement.get(\"animation\") and iterates without checking for tileElement being null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof AnimatedTiledMapTile",
+    "rationale" : "A non-null result is always an AnimatedTiledMapTile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile != null",
+    "rationale" : "tile.getId() is always accessed without null check.",
+    "meta" : [ ]
+  } ]
+}

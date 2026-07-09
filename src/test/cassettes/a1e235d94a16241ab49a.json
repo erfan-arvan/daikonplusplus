@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method collects the result of a stream operation into a list, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A list's size is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method is called on a non-null List parameter, as it is streamed directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The method directly calls 'throwingFlatMapWrapper(func)' on the function, implying 'func' must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism likely represents a positive degree of parallel execution and is used to control parallelism within a stream context.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "Profile is required for the method to function and is used throughout without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is used directly (passed to helper methods) and is required to not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null && !profile.getPartitionPaths().isEmpty()",
+    "rationale" : "Partition paths are used for iteration; it's assumed that there are partitions to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "partitionPathToInsertBucketInfos is a field updated in this method; it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "bucketInfoMap is manipulated in method and assumed to be initialized.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "batch is presumably required to perform the drawing operations, and is used in method calls without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "parentAlpha represents alpha blending and is likely clamped between 0 and 1 for rendering transparency.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "x specifies a coordinate position on the screen or layout, which is often non-negative in UI frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "y specifies a coordinate position on the screen or layout, which is often non-negative in UI frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "titleTable != null",
+    "rationale" : "titleTable is used unconditionally in the method, so it is likely non-null at exit.",
+    "meta" : [ ]
+  } ]
+}

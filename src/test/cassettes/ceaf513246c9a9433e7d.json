@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter represents a timestamp for the compaction, which is generally expected to be non-null for scheduling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for the method's core operation and is typically not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option parameters are generally non-null wrappers, though their internal value may be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "A non-empty string is expected for the instantTime, reflecting a valid timeline instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "As Option is used, either case is possible, expressing that the value is either present or not.",
+    "meta" : [ ]
+  } ]
+}

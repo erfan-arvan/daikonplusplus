@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null || result == -1",
+    "rationale" : "If name is null, bar returns -1. Otherwise, the result is something else.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || result == x + name.length()",
+    "rationale" : "If name is not null, result is the sum of x and name.length() as per the method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -1 || result == x + name.length()",
+    "rationale" : "The only valid return values are -1 (for null names) or x + name.length() (for non-null names), covering all cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= -1",
+    "rationale" : "Since the only values returned are either -1 or x + name.length() (where name.length() >= 0), result cannot be less than -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null == (result == -1)",
+    "rationale" : "The result is -1 if and only if name is null.",
+    "meta" : [ ]
+  } ]
+}

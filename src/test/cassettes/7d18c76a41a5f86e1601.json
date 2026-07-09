@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method creates and returns a new HoodieWriteMetadata object; this should not be null under correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata<List<WriteStatus>> instance's write status list is expected to be non-null after execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "getWriteStatuses() should return a List as per the declared type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records parameter is always passed to the commit action executor and should not be null for normal execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is expected to be non-null as it is used for commit identification.",
+    "meta" : [ ]
+  } ]
+}

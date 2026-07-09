@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method expects config to be a valid HoodieWriteConfig; a null config would most likely be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexType() != null",
+    "rationale" : "The method switches on config.getIndexType(), so it must be safely callable and non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexType() != org.apache.hudi.index.HoodieIndex.IndexType.SIMPLE || getKeyGeneratorForSimpleIndex(config) != null",
+    "rationale" : "If the index type is SIMPLE, getKeyGeneratorForSimpleIndex(config) must be non-null since it is used to construct the index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexType() != org.apache.hudi.index.HoodieIndex.IndexType.GLOBAL_SIMPLE || getKeyGeneratorForSimpleIndex(config) != null",
+    "rationale" : "Similarly, for GLOBAL_SIMPLE index type, getKeyGeneratorForSimpleIndex(config) must provide a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "StringUtils.isNullOrEmpty(config.getIndexClass()) || HoodieIndexUtils.createUserDefinedIndex(config) != null",
+    "rationale" : "If getIndexClass() is not null or empty, the method calls createUserDefinedIndex, which should return a non-null index.",
+    "meta" : [ ]
+  } ]
+}

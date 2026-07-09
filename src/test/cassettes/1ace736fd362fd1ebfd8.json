@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "If the method returns successfully, it is likely that a valid HoodieWriteMetadata object is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write status list in the metadata object should not be null upon successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the returned List<WriteStatus> should never be negative.",
+    "meta" : [ ]
+  } ]
+}

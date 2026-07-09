@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The method expects a non-null key to perform the lookup.",
+    "meta" : [ {
+      "key" : "Javadoc",
+      "value" : "Per @param key the key of the object"
+    } ]
+  }, {
+    "expression" : "clazz != null",
+    "rationale" : "The provided class is used for casting and should not be null.",
+    "meta" : [ {
+      "key" : "Javadoc",
+      "value" : "Per @param clazz the desired type"
+    } ]
+  }, {
+    "expression" : "result == null || clazz.isInstance(result)",
+    "rationale" : "If result is non-null, it must be of type clazz according to the specification.",
+    "meta" : [ {
+      "key" : "Javadoc",
+      "value" : "Guarantees result is a clazz instance or null, or ClassCastException is thrown"
+    } ]
+  }, {
+    "expression" : "result == null || result.getClass() == clazz || clazz.isInstance(result)",
+    "rationale" : "Covers both exact and subclass matches for return type.",
+    "meta" : [ {
+      "key" : "Spec",
+      "value" : "Casts to clazz; result must be compatible"
+    } ]
+  }, {
+    "expression" : "result == null || key != null",
+    "rationale" : "A non-null result can only come from a valid key.",
+    "meta" : [ {
+      "key" : "API",
+      "value" : "If result is found, key must have been non-null"
+    } ]
+  } ]
+}

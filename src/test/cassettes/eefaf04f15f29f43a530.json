@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List via collect; result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords is a method parameter and is passed to other methods; likely not null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> !r.isCurrentLocationKnown())",
+    "rationale" : "The result list is filtered to include only records with isCurrentLocationKnown == false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= hoodieRecords.size()",
+    "rationale" : "The result is a filtered subset of the input; it cannot have more elements than the input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> hoodieRecords.contains(r))",
+    "rationale" : "The result is a filtered sublist of hoodieRecords; all elements of result come from hoodieRecords.",
+    "meta" : [ ]
+  } ]
+}

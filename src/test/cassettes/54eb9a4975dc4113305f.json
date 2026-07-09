@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HoodieWriteMetadata object, even on the branch that returns a new instance.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Drafts A, B, C"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "After execution, the write statuses are always set (either via deleteExecutor or explicitly).",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Drafts B, C"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The HoodieWriteConfig is always dereferenced unconditionally, so must be non-null at exit.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Drafts A, B"
+    } ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "deleteExecutor is always used before return, implying it must be non-null.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Drafts A, B"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced in all code paths and must be non-null at method exit.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Drafts A, C"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Method input List should not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || hoodieRecords.get(0) != null",
+    "rationale" : "If the list is not empty, its first element should not be null to avoid issues in downstream code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Assumes all HoodieRecord<T> elements in the input list should be non-null for method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "List size is always non-negative by definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hoodieRecords.isEmpty() || hoodieRecords.size() == 0",
+    "rationale" : "If the list is empty, its size should be zero.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Padding values are typically non-negative. Negative padding would not make sense in layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Padding should be a finite value, not NaN or infinity.",
+    "meta" : [ ]
+  } ]
+}

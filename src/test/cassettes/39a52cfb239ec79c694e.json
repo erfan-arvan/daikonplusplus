@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returning a singleton instance implies the result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == JavaUpgradeDowngradeHelper.SINGLETON_INSTANCE",
+    "rationale" : "The method returns SINGLETON_INSTANCE, so result must equal it.",
+    "meta" : [ ]
+  } ]
+}

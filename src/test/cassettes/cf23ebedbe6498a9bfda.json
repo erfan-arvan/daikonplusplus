@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is typically expected to be a non-null commit/instant id when performing table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath designates a location and is expected to be a valid string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used to identify the file being updated, and is usually non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The map of keys to new records should be instantiated for any update operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "An update requires an existing data file to merge with.",
+    "meta" : [ ]
+  } ]
+}

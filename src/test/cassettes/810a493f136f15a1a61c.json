@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is usually required and should be non-null for commit actions.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "instantTime should never be null at method entry"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords represents records to write and must be non-null.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "inputRecords must be non-null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used for flags and parallelism, must be non-null.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "configuration object should not be null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context typically holds runtime info and must be non-null.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "context object should be initialized"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is needed for write operations and must be non-null.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "table reference must be non-null"
+    } ]
+  } ]
+}

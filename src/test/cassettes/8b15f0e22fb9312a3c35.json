@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this' after setting the field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.columnAlign == columnAlign",
+    "rationale" : "The field 'columnAlign' is set to the parameter value before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof VerticalGroup",
+    "rationale" : "The method returns 'this', which is always a VerticalGroup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnAlign == this.columnAlign",
+    "rationale" : "After assignment, the parameter and the field must be equal.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects a non-null list of HoodieRecord<T> to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is a required string parameter representing the commit instant and must be non-null and non-empty for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Bulk-insert operations require a valid HoodieEngineContext.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option should generally not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List size is always non-negative in Java, capturing a safe usage property.",
+    "meta" : [ ]
+  } ]
+}

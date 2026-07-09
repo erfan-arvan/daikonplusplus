@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element == null || element.getName() != null",
+    "rationale" : "If element is non-null, its name is accessed; method will call getName() if not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || element.getChildrenByName(\"property\") != null",
+    "rationale" : "The method iterates over element.getChildrenByName(\"property\") when element is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || properties != null",
+    "rationale" : "The method accesses properties (e.g., puts to it) if element is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties != null",
+    "rationale" : "The method uses properties unconditionally (e.g., passes it to other methods), so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || element.getName().equals(\"properties\") || element.getName() != null",
+    "rationale" : "If element.getName() equals \"properties\", it must also be non-null.",
+    "meta" : [ ]
+  } ]
+}

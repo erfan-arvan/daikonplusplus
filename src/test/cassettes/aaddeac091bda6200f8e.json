@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "The args array passed as parameter is non-null and has length >= 0 at program exit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is the command line arguments array, always non-null with non-negative length at program exit"
+    } ]
+  }, {
+    "expression" : "java.util.Objects.equals(args, args) == true",
+    "rationale" : "args is equal to itself; this is a trivial identity check, usually not useful but valid.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args compared to itself for identity"
+    } ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "args is of type String[], so its class is an array.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is a String array, checking if it is an array type"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "The length of the args array is always zero or positive.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Array length is always non-negative"
+    } ]
+  }, {
+    "expression" : "args.length <= 1000",
+    "rationale" : "Length of args is reasonable (example upper bound for invariants)",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Assuming normal usage, command line args count won't be unreasonably large"
+    } ]
+  } ]
+}

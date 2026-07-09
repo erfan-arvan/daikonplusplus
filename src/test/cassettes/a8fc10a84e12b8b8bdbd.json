@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "If name is not null, its length is non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "String length is non-negative when name is not null"
+    } ]
+  }, {
+    "expression" : "x == x",
+    "rationale" : "Trivially true, should not be included.",
+    "meta" : [ {
+      "key" : "discard",
+      "value" : "Always true"
+    } ]
+  }, {
+    "expression" : "name == null || name.length() <= Integer.MAX_VALUE",
+    "rationale" : "Name length is within integer range if not null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "String length cannot exceed max integer value"
+    } ]
+  }, {
+    "expression" : "x >= Integer.MIN_VALUE",
+    "rationale" : "x is an int, always within integer bounds.",
+    "meta" : [ {
+      "key" : "discard",
+      "value" : "Trivially true for int"
+    } ]
+  }, {
+    "expression" : "name == null || !name.isEmpty() || name.isEmpty()",
+    "rationale" : "Always true, avoided due to redundancy.",
+    "meta" : [ {
+      "key" : "discard",
+      "value" : "Always true"
+    } ]
+  } ]
+}

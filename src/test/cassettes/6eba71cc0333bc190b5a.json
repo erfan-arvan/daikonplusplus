@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns Collections.emptyList(), which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Collections.emptyList() returns an immutable empty list, so result is always empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "An empty list always has size 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Collections.emptyList() returns an object that implements the List interface.",
+    "meta" : [ ]
+  } ]
+}

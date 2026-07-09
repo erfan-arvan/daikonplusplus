@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "The method assumes event is non-null, as it immediately calls event.getListenerActor() without a null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pointer == -1 || pointer != -1",
+    "rationale" : "The pointer parameter is used in a comparison with -1, indicating its valid values may include -1 and others.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fromActor == null || fromActor != null",
+    "rationale" : "fromActor is annotated @Null, indicating it may be null or non-null, and is checked for nullness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x == x",
+    "rationale" : "x is a float parameter and represents a coordinate, so it is a well-formed float value at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y == y",
+    "rationale" : "y is a float parameter and represents a coordinate, so it is a well-formed float value at method entry.",
+    "meta" : [ ]
+  } ]
+}

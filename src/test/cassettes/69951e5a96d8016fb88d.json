@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Method immediately casts key to Pair, suggesting it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key instanceof Pair",
+    "rationale" : "The method casts key to Pair<HoodieKey, Option<HoodieRecordLocation>>, so key should be a Pair.",
+    "meta" : [ ]
+  } ]
+}

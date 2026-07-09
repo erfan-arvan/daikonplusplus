@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method expects a valid HoodieEngineContext to execute indexing operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "indexInstantTime is required for identifying the commit instant for the index operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!indexInstantTime.isEmpty()",
+    "rationale" : "An empty indexInstantTime may not represent a valid commit instant for indexing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "The context parameter should be an instance of HoodieEngineContext, matching the method signature.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a newly constructed JavaHoodieBackedTableMetadataWriter instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaHoodieBackedTableMetadataWriter",
+    "rationale" : "The method returns a new JavaHoodieBackedTableMetadataWriter using the arguments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "conf != null",
+    "rationale" : "conf is forwarded to the constructor and needed for instantiation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is required by the constructor of JavaHoodieBackedTableMetadataWriter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is forwarded to the constructor and needed for instantiation.",
+    "meta" : [ ]
+  } ]
+}

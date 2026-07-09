@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "rowIndex >= 0",
+    "rationale" : "Row indices are typically non-negative and used as array indexes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rowIndex < rowPrefHeight.length",
+    "rationale" : "To prevent IndexOutOfBoundsException when accessing rowPrefHeight[rowIndex], rowIndex must be less than the array's length.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "Method calls on profile are likely required in the partitioner creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getGlobalStat() != null",
+    "rationale" : "WorkloadProfile typically exposes workload stats; global stats presence is fundamental for partitioning logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPathStatMap() != null",
+    "rationale" : "Partition-based partitioners require knowledge of path stats, and the map must exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPathStatMap().size() > 0",
+    "rationale" : "An insert is likely to require at least one partition path being available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.getGlobalStat().hasErrors()",
+    "rationale" : "Meaningful operations depend on a valid, error-free global stat for workload partitioning.",
+    "meta" : [ ]
+  } ]
+}

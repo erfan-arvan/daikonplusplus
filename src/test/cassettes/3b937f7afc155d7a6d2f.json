@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a key into a map and must not be null based on usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos.containsKey(partitionPath) == (result != null)",
+    "rationale" : "If the map contains the partitionPath, result is the mapped value; else, result is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == partitionPathToInsertBucketInfos.get(partitionPath)",
+    "rationale" : "The method directly returns the value from the map for the given key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || !result.isEmpty() == (partitionPathToInsertBucketInfos.get(partitionPath) != null && !partitionPathToInsertBucketInfos.get(partitionPath).isEmpty())",
+    "rationale" : "Non-null results are empty if and only if the map maps the key to an empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof List",
+    "rationale" : "When result is non-null, it is always a List as returned from the map.",
+    "meta" : [ ]
+  } ]
+}

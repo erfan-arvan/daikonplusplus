@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "The method sets properties and fetches tiles from tileSet, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "The properties object returned by tileSet.getProperties() is used for multiple assignments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilewidth > 0 && tileheight > 0",
+    "rationale" : "tilewidth and tileheight are divisors when computing number of tiles, so must be strictly positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageWidth >= 0 && imageHeight >= 0",
+    "rationale" : "Image width and height are used as bounds for logical tile layout and should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElements != null",
+    "rationale" : "The method iterates over tileElements, so it cannot be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter should not be null to use any HoodieEngineContext methods.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should not be null as it represents a time identifier string.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty string representing a valid instant.",
+    "meta" : [ {
+      "key" : "string_non_empty",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context is declared as HoodieEngineContext, it should always be an instance of it.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "true"
+    } ]
+  } ]
+}

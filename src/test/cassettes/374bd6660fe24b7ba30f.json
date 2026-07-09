@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is likely required for method logic to execute.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "An indexing instant time is likely required for index operation semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!indexInstantTime.isEmpty()",
+    "rationale" : "Instant time should not be an empty string, assuming it represents a meaningful identifier.",
+    "meta" : [ ]
+  } ]
+}

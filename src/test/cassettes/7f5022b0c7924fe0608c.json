@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A method accepting a context parameter typically expects it to be non-null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required to identify a specific operation time; should be non-null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "To operate on partition lists, the reference should not be null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "partitions.isEmpty() || partitions.stream().allMatch(p -> p != null)",
+    "rationale" : "If partitions is non-empty, probably none of its elements should be null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "Typically, operational instant time strings are not empty.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "low"
+    } ]
+  } ]
+}

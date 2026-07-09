@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method upsertPrepped returns the result of a non-null execute() call, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method signature requires preppedRecords as input, and it is passed directly to the executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used as an argument for the commit action, so it should be a non-null, non-empty String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() should return a valid List even if empty, per HoodieWriteMetadata contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is cast to HoodieJavaEngineContext and used in the executor, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

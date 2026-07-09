@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == 0 || rowHeight != null",
+    "rationale" : "If rowHeight is null, the result is 0; otherwise, rowHeight is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || (rowHeight != null && rowIndex >= 0 && rowIndex < rowHeight.length)",
+    "rationale" : "If the result is not 0, rowHeight must be non-null and rowIndex is within valid bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rowHeight == null || (rowIndex >= 0 && rowIndex < rowHeight.length)",
+    "rationale" : "If rowHeight is not null, rowIndex is always within bounds to prevent exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "Row height is expected to be a non-negative float value, including 0 if not validated.",
+    "meta" : [ ]
+  } ]
+}

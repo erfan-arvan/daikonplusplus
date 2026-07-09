@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Methods that produce metadata objects generally should not return null, so the result is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The returned object must be of HoodieWriteMetadata type or a subclass, matching the declared return type.",
+    "meta" : [ ]
+  } ]
+}

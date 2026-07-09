@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "An instantTime representing a time or commit id is generally expected to be non-null when processing writes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The method expects a list of prepped records to upsert and commit, so this input should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "This parameter identifies file groups to update and is expected to be non-null for processing.",
+    "meta" : [ ]
+  } ]
+}

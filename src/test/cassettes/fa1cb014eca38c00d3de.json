@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method initializes result as a new HashMap and never assigns null, so result is not null at exit.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The returned Map should not be null at method exit."
+    } ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "Partition paths from FSUtils.getAllPartitionPaths should not contain null keys, so keys in result map are not null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Map keys should not be null."
+    } ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "The value is constructed via getAllExistingFileIds which returns a List, never null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Each list value in the map should not be null."
+    } ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list.stream().allMatch(s -> s != null))",
+    "rationale" : "File IDs are strings and expected to be non-null identifiers.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Elements inside each list should not be null."
+    } ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list.size() >= 0)",
+    "rationale" : "List sizes are non-negative by definition of List interface.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "List size should never be negative."
+    } ]
+  } ]
+}

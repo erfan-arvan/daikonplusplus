@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Stream object, which may be empty but never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is used as a hint for parallel operations; it should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "flatMapToPairFunc is accessed and applied, so it must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc is wrapped and executed, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data.parallel() is called and would throw if data were null.",
+    "meta" : [ ]
+  } ]
+}

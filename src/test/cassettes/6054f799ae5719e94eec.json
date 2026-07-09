@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, which should not be null under normal circumstances.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus objects in the metadata should not be null after deletion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The getWriteStatuses() method of HoodieWriteMetadata should return a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime should be a non-null, non-empty String identifying the instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of keys provided for deletion should not be null.",
+    "meta" : [ ]
+  } ]
+}

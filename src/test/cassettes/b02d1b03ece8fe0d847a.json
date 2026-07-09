@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context should be non-null for the method execution to proceed.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter should not be null as it is used to identify the instant.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "instantToRollback should be non-null to specify which instant to rollback.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "skipTimelinePublish == false || skipTimelinePublish == true",
+    "rationale" : "skipTimelinePublish parameter is a boolean primitive, must be either true or false.",
+    "meta" : [ {
+      "key" : "boolean-type",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "shouldRollbackUsingMarkers == false || shouldRollbackUsingMarkers == true",
+    "rationale" : "shouldRollbackUsingMarkers parameter is a boolean primitive, must be either true or false.",
+    "meta" : [ {
+      "key" : "boolean-type",
+      "value" : "true"
+    } ]
+  } ]
+}

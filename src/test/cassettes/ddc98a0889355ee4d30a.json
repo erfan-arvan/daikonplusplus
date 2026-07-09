@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is typically expected to represent the instant of the operation and should not be null for commit actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition key should be defined when handling upsert for a partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "A non-null Partitioner is required for partitioning and bucket info lookup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The iterator with records must exist to process upserts in the partition.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == commitStats(instantTime, writeStatuses.stream().map(WriteStatus::getStat).collect(java.util.stream.Collectors.toList()), extraMetadata, commitActionType, partitionToReplacedFileIds, extraPreCommitFunc)",
+    "rationale" : "This directly follows from the return value assignment in the method: the result is exactly what commitStats(...) returns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is dereferenced using stream(), so it must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "commitActionType is used in the method call and must be non-null to ensure safe operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is passed into a method and, if null, could lead to a NullPointerException in commitStats; safe method usage implies it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds is passed to commitStats, and must not be null to safely fulfill that contract.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "padding >= 0",
+    "rationale" : "Padding typically represents a non-negative distance or space.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "domain"
+    } ]
+  }, {
+    "expression" : "Float.isFinite(padding)",
+    "rationale" : "The padding value should be a finite float value, not infinite or NaN.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "sanity"
+    } ]
+  } ]
+}

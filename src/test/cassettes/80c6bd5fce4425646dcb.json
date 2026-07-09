@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "data is used in the implementation, so it should not be null to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is passed to a wrapper and ultimately called, so it should not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "parallelism is accepted as an Integer argument and may be required for downstream operations.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "parallelism == null || parallelism > 0",
+    "rationale" : "Parallelism typically must be positive if provided, though may be left null for default.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "range"
+    } ]
+  }, {
+    "expression" : "data.isEmpty() || data.size() > 0",
+    "rationale" : "A List is either empty or has positive size; this expresses the basic property of a List.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "structure"
+    } ]
+  } ]
+}

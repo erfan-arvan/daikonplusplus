@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition counts are typically required to be positive for repartitioning operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is a required input to repartition and must not be null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size()",
+    "rationale" : "In certain repartition contexts, the number of partition outputs cannot exceed the number of records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.get(0) != null",
+    "rationale" : "If the list is non-empty, the first record is expected to be non-null for correct processing.",
+    "meta" : [ ]
+  } ]
+}

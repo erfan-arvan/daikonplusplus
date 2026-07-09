@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Method parameter 'key' should be non-null to properly identify a property.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "key is not null"
+    } ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "Property value is expected to be non-null when setting a property.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "value is not null"
+    } ]
+  }, {
+    "expression" : "value == null || value.length() >= 0",
+    "rationale" : "String length is always non-negative if value is not null.",
+    "meta" : [ {
+      "key" : "length",
+      "value" : "value length is non-negative"
+    } ]
+  }, {
+    "expression" : "key.toString() != null",
+    "rationale" : "toString() on a non-null enum should be non-null.",
+    "meta" : [ {
+      "key" : "toString",
+      "value" : "key.toString() is non-null"
+    } ]
+  } ]
+}

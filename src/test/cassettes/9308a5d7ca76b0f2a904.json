@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, which should be non-null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() should return a non-null List according to HoodieWriteMetadata contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class",
+    "rationale" : "The result should be of the declared return type unless a subclass is intentionally used.",
+    "meta" : [ ]
+  } ]
+}

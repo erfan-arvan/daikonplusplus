@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "configuredParallelism > 0",
+    "rationale" : "configuredParallelism is used to deduce shuffle parallelism; typically, parallelism must be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is passed to partitioner and deduplication routines and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is dereferenced (e.g., config.shouldCombineBeforeInsert()), so is expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

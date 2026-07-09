@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "Ensures jobId is not null when canceling a job, which is a common precondition for job identifiers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId.isEmpty() == false",
+    "rationale" : "A jobId should be a non-empty string to reference a valid job.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId.trim().length() > 0",
+    "rationale" : "Ensures that jobId does not consist only of whitespace, ensuring it refers to a valid job identifier.",
+    "meta" : [ ]
+  } ]
+}

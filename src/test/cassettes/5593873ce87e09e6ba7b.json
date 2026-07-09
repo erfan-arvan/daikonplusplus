@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a static singleton instance, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == JavaUpgradeDowngradeHelper.SINGLETON_INSTANCE",
+    "rationale" : "The method returns the SINGLETON_INSTANCE static field, so result must be equal to it.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Option, which is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is required to execute index actions and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "The indexInstantTime parameter is needed for index commit and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Option",
+    "rationale" : "The returned result should always be an Option instance.",
+    "meta" : [ ]
+  } ]
+}

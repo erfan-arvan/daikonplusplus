@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always creates a new list by collecting from a stream, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The stream returns a sorted version of 'records', so the size is preserved.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == records.isEmpty()",
+    "rationale" : "If input is empty, the return value is also empty; non-empty input yields non-empty output.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "The return type is a List as mandated by the method's signature and implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "java.util.Collections.unmodifiableList(new java.util.ArrayList<>(records)).equals(java.util.Collections.unmodifiableList(new java.util.ArrayList<>(result))) || !records.stream().sorted((o1, o2) -> getComparableSortColumns(o1).compareTo(getComparableSortColumns(o2))).collect(java.util.stream.Collectors.toList()).equals(records)",
+    "rationale" : "If records are already sorted, result equals records; otherwise, result is the sorted version.",
+    "meta" : [ ]
+  } ]
+}

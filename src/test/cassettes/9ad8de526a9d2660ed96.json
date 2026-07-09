@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method collects results into a list and returns it; it should never return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(java.util.Objects::nonNull)",
+    "rationale" : "The stream operation filters non-null results before collecting, so result should not contain null elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "Deduplication never introduces more records than the initial input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method expects a non-null input records list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter is likely required to be a positive integer for processing.",
+    "meta" : [ ]
+  } ]
+}

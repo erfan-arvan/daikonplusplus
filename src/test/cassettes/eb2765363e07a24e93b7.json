@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive to benefit from parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Input data list must not be null for stream operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapToPairFunc != null",
+    "rationale" : "A mapping function is required for the method to operate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "A reduction function is required for reducing grouped values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "A Java List's size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

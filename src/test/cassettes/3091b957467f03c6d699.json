@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should be a valid, non-null string for correct bucket allocation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "File id hint must be a valid identifier, thus non-null, for the update bucket mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Partition path should not be empty; empty would imply no partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileIdHint.isEmpty()",
+    "rationale" : "File id hint should not be empty, as it identifies the target for the update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath instanceof String",
+    "rationale" : "partitionPath argument must be a String per the method signature.",
+    "meta" : [ ]
+  } ]
+}

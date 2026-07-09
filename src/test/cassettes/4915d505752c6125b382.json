@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "data is passed into the method and must be non-null for aggregate computation",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "seqOp function must be provided to perform the aggregation sequence operation",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "combOp function must be provided to perform the combiner operation",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "zeroValue is the initial value for aggregation and typically required to be non-null",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof HoodieData",
+    "rationale" : "data should be an instance of HoodieData as per method signature",
+    "meta" : [ ]
+  } ]
+}

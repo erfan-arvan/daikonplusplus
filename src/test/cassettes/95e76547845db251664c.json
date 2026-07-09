@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null iterator, either from Collections.singletonList(...).iterator() or JavaLazyInsertIterable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is used as an argument, suggesting it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is used as an argument and for method calls, indicating it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext() == (!recordItr.hasNext() || recordItr.hasNext())",
+    "rationale" : "If recordItr had no next, result is a singleton iterator; otherwise, result is a JavaLazyInsertIterable, which relies on recordItr.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result instanceof JavaLazyInsertIterable",
+    "rationale" : "If recordItr has elements, result is JavaLazyInsertIterable; otherwise, it's a singleton iterator.",
+    "meta" : [ ]
+  } ]
+}

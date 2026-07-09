@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == -1 || result <= rowY",
+    "rationale" : "If an early return occurs when a node matches, 'result' is -1. Otherwise, node traversal decreases rowY and returns it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= rowY",
+    "rationale" : "'rowY' is only returned when none of the early exits happen, implying 'result' cannot exceed 'rowY'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes != null",
+    "rationale" : "'nodes' is dereferenced and iterated in the loop, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "Array.size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -1 || result <= y",
+    "rationale" : "If an early return doesn't occur, 'result' (rowY) represents a decreasing y-position.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The upsert method always returns a HoodieWriteMetadata and does not return null in the provided implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The parameter 'records' is required by the internal JavaUpsertCommitActionExecutor constructor, so it is likely non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter is used for versioning and must be non-null for the upsert to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method depends on 'context' for engine operations; it is unlikely to be null at method exit.",
+    "meta" : [ ]
+  } ]
+}

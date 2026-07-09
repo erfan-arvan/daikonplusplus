@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "It is likely the method expects a non-null profile object to operate; most code assumes parameters are valid unless otherwise checked.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "Subsequent code calls entrySet() on this, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().entrySet() != null",
+    "rationale" : "Used directly without a null check, so likely guaranteed to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "Output map is accessed directly in the method, so it is expected to be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().size() >= 0",
+    "rationale" : "A map's size is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Option<HoodieIndexPlan>, thus result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "The method delegates directly to an executor using the input parameters, so partitionsToIndex must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "partitionPaths is passed through from the parameters to the called executor; likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null && !indexInstantTime.isEmpty()",
+    "rationale" : "indexInstantTime is an identifier for indexing and is very likely required to be a valid, non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is always expected to be provided for engine operations, and the method does not guard against null.",
+    "meta" : [ ]
+  } ]
+}

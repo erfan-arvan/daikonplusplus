@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getName().equals(\"layer\") || !element.getName().equals(\"layer\")",
+    "rationale" : "Method logic is only applied if element.getName().equals(\"layer\"); this covers the branch split.",
+    "meta" : [ {
+      "key" : "coverage",
+      "value" : "Complete branches for loadTileLayer logic"
+    } ]
+  }, {
+    "expression" : "!element.getName().equals(\"layer\") || parentLayers.getCount() > 0",
+    "rationale" : "If the element is a 'layer', the layer is added to parentLayers, so its count increases.",
+    "meta" : [ {
+      "key" : "layer",
+      "value" : "Modification"
+    } ]
+  }, {
+    "expression" : "element.getName().equals(\"layer\") || parentLayers.getCount() == parentLayers.getCount()",
+    "rationale" : "If the element is not a layer, there's no effect; otherwise, the parent's count may change.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "No layer added for non-layer elements"
+    } ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Method calls on element assume it is not null.",
+    "meta" : [ {
+      "key" : "guard",
+      "value" : "Safe to invoke methods on element"
+    } ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "Since map is dereferenced (e.g., getProperties()), it must be non-null.",
+    "meta" : [ {
+      "key" : "guard",
+      "value" : "Safe to invoke methods on map"
+    } ]
+  } ]
+}

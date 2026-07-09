@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object assigned in all paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "executor is passed to the method and used without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is used to obtain the active timeline and transition state, indicating it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is provided to updateIndexAndMaybeRunPreCommitValidations and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(userDefinedBulkInsertPartitioner != null && !userDefinedBulkInsertPartitioner.isPresent())",
+    "rationale" : "Option types are expected to be non-null or present, by usage of orElseGet.",
+    "meta" : [ ]
+  } ]
+}

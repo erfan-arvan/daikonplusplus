@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result instanceof TextureAtlas",
+    "rationale" : "Ensures the returned value is either null or a TextureAtlas, matching method documentation and return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || !result.equals(null)",
+    "rationale" : "If result is not null, it cannot be equal to null; this is a safe and non-trivial invariant.",
+    "meta" : [ ]
+  } ]
+}

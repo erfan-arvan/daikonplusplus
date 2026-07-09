@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null || result == -1",
+    "rationale" : "If 'name' is null, the method returns -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || result == x + name.length()",
+    "rationale" : "If 'name' is not null, the method returns x + name.length().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -1 || result == x + name.length()",
+    "rationale" : "All returns are either -1 (if name is null) or x + name.length() (otherwise).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= -1",
+    "rationale" : "The minimum possible result is -1, when name is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "String.length() is always non-negative if name is not null.",
+    "meta" : [ ]
+  } ]
+}

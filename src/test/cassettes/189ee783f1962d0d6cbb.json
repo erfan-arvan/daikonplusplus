@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should typically be a valid, non-null string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "The provided list of file slices should be non-null as method likely performs operations on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method guarantees a non-null return value unless a contract violation occurs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The left component (stream of clustering groups) in the result pair should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The right component (Boolean flag) in the result pair should not be null, given the method signature.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a parameter to another method shortly, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition is used as a method parameter, so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to another method and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is passed directly to another method, so must not be null.",
+    "meta" : [ ]
+  } ]
+}

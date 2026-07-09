@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "children != null",
+    "rationale" : "The children collection is dereferenced and used throughout the method, so it must be non-null prior to method return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "children.size >= 0",
+    "rationale" : "Array sizes in Java are always non-negative; children.size is accessed and looped on.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!wrap",
+    "rationale" : "If wrap were true, the method would return early via the layoutWrapped() and return statement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "i == n || i == n + incr || i == n - incr",
+    "rationale" : "After the for-loop, i has passed n by incr, which is a classic off-by-one termination property.",
+    "meta" : [ ]
+  }, {
+    "expression" : "n == children.size || n == -1",
+    "rationale" : "n is set to children.size for forward iteration, -1 for reverse.",
+    "meta" : [ ]
+  } ]
+}

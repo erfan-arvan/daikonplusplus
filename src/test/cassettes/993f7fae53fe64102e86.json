@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "It's likely that the map parameter should be non-null for object group loading to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is expected to be a valid container for layers, so non-nullness would be necessary.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is accessed immediately and its methods are called; null would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used for resolving template objects and hence should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getName() != null",
+    "rationale" : "The method element.getName().equals() is called, so getName() should return non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method returns the result of a call to bulkInsert, and only throws on exception, the result will be non-null if the method returns normally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method signature and return path guarantee result is an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

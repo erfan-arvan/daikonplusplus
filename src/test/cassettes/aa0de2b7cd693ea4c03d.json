@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a list, so it should not be null at method exit.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "safe evaluation"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.sizeBytes < config.getParquetSmallFileLimit())",
+    "rationale" : "All SmallFile objects in result should have size smaller than the configured small file limit.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "small files size limit"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.location.getCommitTime() != null && sf.location.getFileId() != null)",
+    "rationale" : "Each SmallFile in result should have a valid location with non-null commit time and file ID.",
+    "meta" : [ {
+      "key" : "validLocation",
+      "value" : "HoodieRecordLocation fields"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> partitionPath != null)",
+    "rationale" : "partitionPath is a parameter and should not be null, thus all SmallFiles are related to a valid partitionPath.",
+    "meta" : [ {
+      "key" : "parameterValidity",
+      "value" : "partitionPath is used"
+    } ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "The return type is List<SmallFile>, so result should be an instance of List.",
+    "meta" : [ {
+      "key" : "returnType",
+      "value" : "List<SmallFile>"
+    } ]
+  } ]
+}

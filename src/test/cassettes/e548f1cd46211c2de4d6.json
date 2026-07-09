@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A TableWriteStats object is returned, so the reference is not null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-nullness"
+    } ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The parameter is dereferenced via method calls, so it must be non-null before return.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-nullness"
+    } ]
+  }, {
+    "expression" : "result.getWriteStats() != null",
+    "rationale" : "The constructor for TableWriteStats receives a non-null list created from stream operations.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection non-nullness"
+    } ]
+  }, {
+    "expression" : "result.getWriteStats().size() == writeMetadata.getWriteStatuses().size()",
+    "rationale" : "Each WriteStatus from writeMetadata is mapped to a Stat for result; both collections share the same size.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "cardinality"
+    } ]
+  }, {
+    "expression" : "result.getWriteStats().stream().allMatch(java.util.Objects::nonNull)",
+    "rationale" : "Stat objects are collected from mapping WriteStatus.getStat(); likely ensuring all entries are non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "element non-nullness"
+    } ]
+  } ]
+}

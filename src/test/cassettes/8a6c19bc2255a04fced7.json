@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is required to perform operations in distributed/engine environments.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a unique identifier for the operation and must be non-null.",
+    "meta" : [ {
+      "key" : "used_for_commit",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method requires a list of preprocessed records to perform the upsert; hence, it cannot be null.",
+    "meta" : [ {
+      "key" : "collection",
+      "value" : "input"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Commit instant time strings are typically non-empty.",
+    "meta" : [ {
+      "key" : "format",
+      "value" : "nonempty"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A list's size is always non-negative in Java; even an empty list has size 0.",
+    "meta" : [ {
+      "key" : "valid_collection",
+      "value" : "true"
+    } ]
+  } ]
+}

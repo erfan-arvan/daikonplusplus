@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == totalBuckets",
+    "rationale" : "The method always returns the value of the 'totalBuckets' field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "The number of partitions (totalBuckets) is unlikely to be negative in a partitioning context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= Integer.MAX_VALUE",
+    "rationale" : "result is of type int, guaranteed by the Java type system, but reflects the field's range.",
+    "meta" : [ ]
+  } ]
+}

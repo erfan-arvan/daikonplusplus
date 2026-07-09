@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The insert method returns a HoodieWriteMetadata object indicating the write results, so result should not be null.",
+    "meta" : [ {
+      "key" : "Null safety",
+      "value" : "result is expected to be the outcome of the insert execution and should not be null"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records parameter is provided by the caller and cannot be null for the insert operation.",
+    "meta" : [ {
+      "key" : "Null safety",
+      "value" : "records is passed to the insert method and should not be null"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime represents the commit instant, which should be non-empty for a valid operation.",
+    "meta" : [ {
+      "key" : "Non-empty string",
+      "value" : "instantTime should represent a valid commit time"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() == records.size()",
+    "rationale" : "The write metadata's WriteStatus list should correspond one-to-one with the input records.",
+    "meta" : [ {
+      "key" : "Consistency",
+      "value" : "Each record corresponds to one WriteStatus"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext is required for the insert execution and should not be null.",
+    "meta" : [ {
+      "key" : "Null safety",
+      "value" : "context is required for engine execution"
+    } ]
+  } ]
+}

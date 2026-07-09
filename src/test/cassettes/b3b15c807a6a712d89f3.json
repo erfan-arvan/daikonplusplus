@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == atlas",
+    "rationale" : "The method returns the field 'atlas', so 'result' is always equal to the current value of 'atlas'.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "return-value"
+    } ]
+  }, {
+    "expression" : "result instanceof TextureAtlas",
+    "rationale" : "The method's return type is TextureAtlas and always returns atlas, which (to be type-correct) is an instance of TextureAtlas.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "implements contract"
+    } ]
+  }, {
+    "expression" : "result == null || result instanceof TextureAtlas",
+    "rationale" : "Covers the safe case even if atlas may be null, preserving type-safety.",
+    "meta" : [ {
+      "key" : "potential-null",
+      "value" : "result may be null"
+    } ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns HoodieListPairData.eager(Collections.emptyList()), which should never be null; thus, result is always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The method wraps an empty list, so the result should be empty according to reasonable HoodiePairData contract.",
+    "meta" : [ ]
+  } ]
+}

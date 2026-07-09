@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method interacts with instantTime as a parameter in other method calls, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is assumed to represent a meaningful point in time (e.g., a commit instant), which should not be empty.",
+    "meta" : [ ]
+  } ]
+}

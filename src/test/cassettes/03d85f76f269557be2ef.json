@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is almost certainly expected to be non-null for correct downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "String.length() is guaranteed to be non-negative for any string, including the empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty() || partitionPath.length() == 0",
+    "rationale" : "If partitionPath is empty, its length is 0 by the String contract.",
+    "meta" : [ ]
+  } ]
+}

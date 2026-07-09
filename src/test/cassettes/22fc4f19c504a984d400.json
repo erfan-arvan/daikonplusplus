@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method always throws and never returns, result is never assigned.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always throws before returning"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "All invariants are trivially true at unreachable code.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Unreachable after exception; all conditions vacuously true"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Parameter context is never modified and generally expected to be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "context is a parameter and should not be null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Parameter instantTime is generally used as a valid string, so not null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is a parameter and should not be null"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Declared return type, but vacuously true as result is never set.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Declared return type"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter should generally be non-null to represent a valid commit instant for delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The keys parameter, representing records to be deleted, should be a valid (non-null) list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter, required for distributed operations, should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys == null || keys.isEmpty() || keys.get(0) != null",
+    "rationale" : "If the keys list is non-empty, its first element should not be null, implying the list holds valid HoodieKey values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.isEmpty()",
+    "rationale" : "If instantTime is not null, it should not be an empty string, as empty instants are likely invalid.",
+    "meta" : [ ]
+  } ]
+}

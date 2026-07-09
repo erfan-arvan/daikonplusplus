@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The configuration is required for table creation and is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "A valid StorageConfiguration is likely required for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "The base path is a fundamental property for table identification and should be set in the config.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName() != null",
+    "rationale" : "A table name is almost always required and configured in HoodieWriteConfig.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName().length() > 0",
+    "rationale" : "Table name should be a non-empty string for valid table creation.",
+    "meta" : [ ]
+  } ]
+}

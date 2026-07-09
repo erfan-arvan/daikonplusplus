@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "Timestamps are typically required identifiers in table operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "A savepoint timestamp is generally needed to identify the point to restore from.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "An engine context is necessary for table operations and must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "A valid restore instant should not be an empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "A valid savepoint timestamp should not be an empty string.",
+    "meta" : [ ]
+  } ]
+}

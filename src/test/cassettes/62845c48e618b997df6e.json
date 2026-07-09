@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "parentProps != null || templateProps != null",
+    "rationale" : "At least one of parentProps or templateProps must be non-null for the merge to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentProps == null || parentProps instanceof Element",
+    "rationale" : "If parentProps is non-null, it must be an Element instance, as enforced by the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "templateProps == null || templateProps instanceof Element",
+    "rationale" : "If templateProps is non-null, it must be an Element instance per the method signature.",
+    "meta" : [ ]
+  } ]
+}

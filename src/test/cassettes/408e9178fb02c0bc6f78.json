@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method should not return null; it should always return a List (possibly empty).",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Input to the method should not be null as assumption for correct behavior.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is an identifier (e.g., a timestamp), so it should not be null for correct writes.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Ensures that the result is of the expected type.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-check"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The size of a List cannot be negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "size"
+    } ]
+  } ]
+}

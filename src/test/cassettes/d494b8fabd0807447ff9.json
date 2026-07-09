@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "A jobId should not be null when attempting to cancel a job.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId.isEmpty() || !jobId.isEmpty()",
+    "rationale" : "jobId can be either empty or non-empty, expressing the full input space.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "The method is no-op so no constraints except those over method parameters are possible.",
+    "meta" : [ ]
+  } ]
+}

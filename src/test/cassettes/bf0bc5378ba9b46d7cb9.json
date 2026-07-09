@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Factory methods are expected to return non-null indexes based on provided config.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The method contract requires a non-null HoodieWriteConfig for creating the index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "JavaHoodieIndexFactory.createIndex(config) == result",
+    "rationale" : "The method directly returns the value from the factory method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "BaseHoodieWriteClient is used for upsert and commit, so it should not be null or the method would fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a commit instant identifier for upsert and commit; it should not be null for correct write logics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is used as input to upsertPreppedRecords and must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecordInputs.isEmpty() || preppedRecordInputs.isEmpty()",
+    "rationale" : "Covers the possibility that preppedRecordInputs may be empty or not, but avoids assumptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient instanceof BaseHoodieWriteClient",
+    "rationale" : "writeClient should be an instance of BaseHoodieWriteClient due to the method signature.",
+    "meta" : [ ]
+  } ]
+}

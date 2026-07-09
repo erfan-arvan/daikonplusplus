@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieTable object, so result should not be null upon method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The parameter config is used to create the table and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "The parameter storageConf is provided and expected to be non-null as it likely configures storage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipValidation == false || result != null",
+    "rationale" : "If validation is skipped, the result is still expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().contains(\"HoodieTable\")",
+    "rationale" : "The returned result is expected to be an instance of HoodieTable or its subclass.",
+    "meta" : [ ]
+  } ]
+}

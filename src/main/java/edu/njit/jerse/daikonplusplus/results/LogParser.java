@@ -1,6 +1,9 @@
 package edu.njit.jerse.daikonplusplus.results;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.HashSet;
@@ -25,44 +28,30 @@ public final class LogParser {
   public static Set<UUID> readFalsifiedIds(Path logFile) {
     Set<UUID> out = new HashSet<>();
     if (!Files.exists(logFile)) return out;
-    try {
-      List<String> lines = Files.readAllLines(logFile, StandardCharsets.UTF_8);
-      for (String ln : lines) {
+
+    try (BufferedReader br = Files.newBufferedReader(logFile, StandardCharsets.UTF_8)) {
+      String ln;
+      while ((ln = br.readLine()) != null) {
         if (!ln.contains("\"type\":\"INV_FAIL\"")) continue;
         int i = ln.indexOf("\"id\":\"");
         if (i < 0) continue;
         int j = ln.indexOf("\"", i + 6);
         if (j < 0) continue;
+
         String idStr = ln.substring(i + 6, j).replace("\\\"", "\"").replace("\\\\", "\\");
         try {
           out.add(UUID.fromString(idStr));
         } catch (IllegalArgumentException ignore) {
+          // skip malformed IDs
         }
       }
     } catch (IOException e) {
       throw new RuntimeException("Failed to read run log: " + e.getMessage(), e);
     }
+
     return out;
   }
 
-  /**
-   * Reads a log file and returns the set of IDs that appeared in INV_EXD markers, meaning the
-   * invariant was executed at least once.
-   */
-  /**
-   * Reads a log file and returns the set of IDs that appeared in INV_EXD markers, meaning the
-   * invariant was executed at least once.
-   *
-   * <p>Accepts lines containing: INV_EXD:<uuid> Ignores surrounding text and multiple markers per
-   * line.
-   */
-  /**
-   * Reads a log file and returns the set of IDs that appeared in INV_EXD markers, meaning the
-   * invariant was executed at least once.
-   *
-   * <p>Accepts lines containing: INV_EXD:<uuid> Ignores surrounding text and multiple markers per
-   * line.
-   */
   /**
    * Reads a log file and returns the set of IDs that appeared in INV_EXD markers, meaning the
    * invariant was executed at least once.
@@ -79,9 +68,9 @@ public final class LogParser {
         Pattern.compile(
             "INV_EXD:([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})");
 
-    try {
-      List<String> lines = Files.readAllLines(logFile, StandardCharsets.UTF_8);
-      for (String ln : lines) {
+    try (BufferedReader br = Files.newBufferedReader(logFile, StandardCharsets.UTF_8)) {
+      String ln;
+      while ((ln = br.readLine()) != null) {
         Matcher m = p.matcher(ln);
         while (m.find()) {
           String idStr = m.group(1);
@@ -97,6 +86,7 @@ public final class LogParser {
     } catch (IOException e) {
       throw new RuntimeException("Failed to read run log: " + e.getMessage(), e);
     }
+
     return out;
   }
 
@@ -114,7 +104,6 @@ public final class LogParser {
             "INV_EXD:([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})");
     try {
       List<String> lines = Files.readAllLines(logFile, StandardCharsets.UTF_8);
-      // Scan from the end — the last INV_EXD is the most recent execution start.
       for (int i = lines.size() - 1; i >= 0; i--) {
         Matcher m = p.matcher(lines.get(i));
         UUID last = null;
@@ -136,67 +125,94 @@ public final class LogParser {
   }
 
   /**
-   * Lists {@code shmDir/ex/} and returns the set of UUIDs whose filenames are valid UUID strings.
-   * Files written by {@code daikonpp.DpRuntime.recordExecuted} use the UUID as the filename.
-   *
-   * <p>Uses an explicit null check inside forEach to satisfy Checker Framework's null analysis — do
-   * not refactor to a filter+map chain.
-   *
-   * @param shmDir base shm directory (must contain an {@code ex/} subdirectory)
-   * @return set of executed invariant UUIDs found in the shm directory
+   * Like {@link #readLastExecutedId(Path)} but only considers bytes written at or after {@code
+   * startOffset}. Pass the file size captured just before a run started so the stale detector
+   * ignores {@code INV_EXD} entries from previous runs.
    */
-  public static Set<UUID> readExecutedIdsFromShm(Path shmDir) {
-    Set<UUID> out = new HashSet<>();
-    Path exDir = shmDir.resolve("ex");
-    if (!Files.exists(exDir)) return out;
-    try (var s = Files.list(exDir)) {
-      s.forEach(
-          p -> {
-            Path fn = p.getFileName();
-            if (fn == null) return;
+  public static Optional<UUID> readLastExecutedIdFrom(Path logFile, long startOffset) {
+    if (!Files.exists(logFile)) return Optional.empty();
+    final Pattern p =
+        Pattern.compile(
+            "INV_EXD:([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})");
+    try {
+      FileInputStream fis = new FileInputStream(logFile.toFile());
+      long skipped = fis.skip(startOffset);
+      if (skipped < startOffset) {
+        fis.close();
+        return Optional.empty();
+      }
+      UUID last = null;
+      try (BufferedReader br =
+          new BufferedReader(new InputStreamReader(fis, StandardCharsets.UTF_8))) {
+        String ln;
+        while ((ln = br.readLine()) != null) {
+          Matcher m = p.matcher(ln);
+          while (m.find()) {
+            String g = m.group(1);
+            if (g == null) continue;
             try {
-              out.add(UUID.fromString(fn.toString()));
+              last = UUID.fromString(g);
             } catch (IllegalArgumentException ignore) {
             }
-          });
+          }
+        }
+      }
+      return Optional.ofNullable(last);
     } catch (IOException e) {
-      throw new RuntimeException("Failed to list shm ex dir: " + e.getMessage(), e);
+      throw new RuntimeException("Failed to read run log: " + e.getMessage(), e);
     }
-    return out;
   }
 
   /**
-   * Lists {@code shmDir/fail/} and returns the set of UUIDs whose filenames are {@code <uuid>.json}
-   * (the {@code .json} suffix is stripped before parsing). Files written by {@code
-   * daikonpp.DpRuntime.recordFailed} use this naming convention.
-   *
-   * <p>Uses an explicit null check inside forEach to satisfy Checker Framework's null analysis — do
-   * not refactor to a filter+map chain.
-   *
-   * @param shmDir base shm directory (must contain a {@code fail/} subdirectory)
-   * @return set of falsified invariant UUIDs found in the shm directory
+   * Scans the log from {@code startOffset} and returns the UUID of the last {@code INV_EXD:<uuid>}
+   * that has no matching {@code INV_DON:<uuid>} after it — i.e., an invariant that started
+   * evaluation but never completed. Returns empty if every EXD has a corresponding DON (process is
+   * between test batches, not stuck inside an invariant check).
    */
-  public static Set<UUID> readFalsifiedIdsFromShm(Path shmDir) {
-    Set<UUID> out = new HashSet<>();
-    Path failDir = shmDir.resolve("fail");
-    if (!Files.exists(failDir)) return out;
-    try (var s = Files.list(failDir)) {
-      s.forEach(
-          p -> {
-            Path fn = p.getFileName();
-            if (fn == null) return;
-            String name = fn.toString();
-            if (!name.endsWith(".json")) return;
-            String uuidStr = name.substring(0, name.length() - 5);
+  public static Optional<UUID> readOpenInvariantIdFrom(Path logFile, long startOffset) {
+    if (!Files.exists(logFile)) return Optional.empty();
+    final Pattern p =
+        Pattern.compile(
+            "INV_(EXD|DON):([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})");
+    try {
+      FileInputStream fis = new FileInputStream(logFile.toFile());
+      long skipped = fis.skip(startOffset);
+      if (skipped < startOffset) {
+        fis.close();
+        return Optional.empty();
+      }
+      // Track: index of last EXD line per UUID, and whether a DON appeared after it
+      java.util.LinkedHashMap<UUID, Boolean> openMap = new java.util.LinkedHashMap<>();
+      try (BufferedReader br =
+          new BufferedReader(new InputStreamReader(fis, StandardCharsets.UTF_8))) {
+        String ln;
+        while ((ln = br.readLine()) != null) {
+          Matcher m = p.matcher(ln);
+          while (m.find()) {
+            String kind = m.group(1);
+            String g = m.group(2);
+            if (g == null || kind == null) continue;
             try {
-              out.add(UUID.fromString(uuidStr));
+              UUID id = UUID.fromString(g);
+              if ("EXD".equals(kind)) {
+                openMap.put(id, true); // open: EXD seen, no DON yet
+              } else { // DON
+                openMap.put(id, false); // closed
+              }
             } catch (IllegalArgumentException ignore) {
             }
-          });
+          }
+        }
+      }
+      // Return the last UUID that is still open (EXD without DON)
+      UUID lastOpen = null;
+      for (java.util.Map.Entry<UUID, Boolean> e : openMap.entrySet()) {
+        if (e.getValue()) lastOpen = e.getKey();
+      }
+      return Optional.ofNullable(lastOpen);
     } catch (IOException e) {
-      throw new RuntimeException("Failed to list shm fail dir: " + e.getMessage(), e);
+      throw new RuntimeException("Failed to read run log: " + e.getMessage(), e);
     }
-    return out;
   }
 
   /**
@@ -213,8 +229,9 @@ public final class LogParser {
       walk.filter(pth -> pth.toString().endsWith(".java"))
           .forEach(
               pth -> {
-                try {
-                  for (String ln : Files.readAllLines(pth, StandardCharsets.UTF_8)) {
+                try (BufferedReader br = Files.newBufferedReader(pth, StandardCharsets.UTF_8)) {
+                  String ln;
+                  while ((ln = br.readLine()) != null) {
                     if (!ln.contains("//Failed Invariant in Compilation:")) continue;
                     Matcher m = p.matcher(ln);
                     while (m.find()) {
@@ -223,6 +240,7 @@ public final class LogParser {
                       try {
                         out.add(UUID.fromString(g));
                       } catch (IllegalArgumentException ignore) {
+                        // skip malformed
                       }
                     }
                   }

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "forward || !forward",
+    "rationale" : "Boolean parameters are always either true or false, making this technically correct (but ultimately tautological).",
+    "meta" : [ ]
+  }, {
+    "expression" : "jump || !jump",
+    "rationale" : "Boolean parameters must be one of two values; this covers exhaustiveness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "forward == true || forward == false",
+    "rationale" : "Ensures the value of 'forward' is strictly a boolean.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jump == true || jump == false",
+    "rationale" : "Captures the domain of the 'jump' parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "forward != jump || forward == jump",
+    "rationale" : "Either the two booleans are equal or different.",
+    "meta" : [ ]
+  } ]
+}

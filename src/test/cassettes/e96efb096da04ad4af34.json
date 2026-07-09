@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "A job identifier is typically expected to be non-null in a 'cancelJob' operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!jobId.isEmpty()",
+    "rationale" : "A valid jobId should not be empty; canceling an empty job is likely meaningless.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId.trim().length() > 0",
+    "rationale" : "A jobId consisting solely of whitespace is probably not a valid identifier.",
+    "meta" : [ ]
+  } ]
+}

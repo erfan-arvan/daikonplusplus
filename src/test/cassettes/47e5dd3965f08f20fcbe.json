@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The input records parameter should not be null at method entry.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is expected to be non-null to perform engine context operations.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "The hoodieTable parameter is necessary for accessing table metadata and is expected non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "records.count() >= 0",
+    "rationale" : "The count of records should be non-negative, representing a valid data set size.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

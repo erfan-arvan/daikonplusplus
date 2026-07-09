@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method returns the same list object that was passed as input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is operated on by .sort(), which would throw if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Method returns a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Partition count is generally expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() == result.size()",
+    "rationale" : "Since the method only sorts the records in-place, the size remains unchanged.",
+    "meta" : [ ]
+  } ]
+}

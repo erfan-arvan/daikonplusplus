@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A successful KeyGenerator creation should return a non-null result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "The method requires 'props' to create a KeyGenerator; null 'props' may cause failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof KeyGenerator",
+    "rationale" : "The method returns a KeyGenerator, ensuring the result is of the correct type.",
+    "meta" : [ ]
+  } ]
+}

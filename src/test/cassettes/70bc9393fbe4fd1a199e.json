@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method unconditionally returns a new TableWriteStats instance, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The method body uses writeMetadata without null checks, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats().equals(writeMetadata.getWriteStatuses().stream().map(writeStatus -> writeStatus.getStat()).collect(java.util.stream.Collectors.toList()))",
+    "rationale" : "The returned TableWriteStats is constructed directly from the mapped list of stats of writeStatuses from writeMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats().size() == writeMetadata.getWriteStatuses().size()",
+    "rationale" : "Each WriteStatus from writeMetadata corresponds to exactly one stat in the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!writeMetadata.getWriteStatuses().isEmpty() ? !result.getStats().isEmpty() : result.getStats().isEmpty()",
+    "rationale" : "If the input list is empty, the result's stat list is also empty; otherwise, it is non-empty.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option is a wrapper, and the method always returns a non-null Option (may be empty or non-empty).",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "Input List parameter is expected to be non-null for correct processing in the method and downstream actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Input List parameter is expected to be non-null for correct downstream execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required to carry out index scheduling and is checked before invocation of actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "indexInstantTime String parameter is required for indexing and scheduling, thus expected to be non-null for correct operation.",
+    "meta" : [ ]
+  } ]
+}

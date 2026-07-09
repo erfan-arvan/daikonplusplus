@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method uses profile extensively; it should not be null at the exit point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context object is used in method calls within assignInserts; it is expected to be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "Partition paths are used to iterate over partitions for workload assignments, so should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "The assignInserts method updates this mapping, which must be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "The code puts entries into bucketInfoMap, which must be initialized prior to assignment.",
+    "meta" : [ ]
+  } ]
+}

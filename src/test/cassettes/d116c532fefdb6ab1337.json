@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The 'args' parameter is passed to main by the JVM and is never null per the Java Language Specification, but some JVMs may allow this via manipulation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "An array's length is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

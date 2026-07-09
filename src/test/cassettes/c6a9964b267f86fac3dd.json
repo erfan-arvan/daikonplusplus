@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "The clustering plan is always referenced and methods are invoked on it, requiring it to be non-null.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "Clustering plan argument must be provided and non-null for clustering to proceed."
+    } ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "Schema is required to properly perform clustering and passed directly.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "Schema must be available to perform clustering operations correctly."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is always used for the clustering operation and cannot be null.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "Clustering requires an instant time to identify the clustering event."
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "An empty instant time would not make sense for tracking clustering events.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "The clustering instant time should be non-empty."
+    } ]
+  }, {
+    "expression" : "clusteringPlan.getInputGroups() != null",
+    "rationale" : "Method calls on getInputGroups are made and then iterated, expecting a non-null value.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "Input groups are retrieved and iterated over, so must be non-null."
+    } ]
+  } ]
+}

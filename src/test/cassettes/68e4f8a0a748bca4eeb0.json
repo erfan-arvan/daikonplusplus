@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is returning 'statuses', which is later assigned to result; this should never be null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == result",
+    "rationale" : "The result value is consistent; this is included only if nontrivial self-comparison is allowed, but may be omitted as trivial.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method's return type is List<WriteStatus>, so result should always be a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The parameter is used as an argument and eagerly passed to HoodieListData.eager(), which likely does not allow nulls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size() is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

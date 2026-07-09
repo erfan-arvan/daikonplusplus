@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "The method accesses tileSet and its properties, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver.getImage(...) is called in both branches, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile.path() and other FileHandle operations are used, so tmxFile cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is used in child element accesses, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElements != null",
+    "rationale" : "tileElements is iterated over in the else branch, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

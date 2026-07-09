@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method makes a call passing 'map' as an argument, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer != null",
+    "rationale" : "The method accesses 'layer.getObjects()', so 'layer' cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The method passes 'element' to a method call, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "'layer.getObjects()' is passed to another method and must not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != layer",
+    "rationale" : "It is unlikely that 'map' and 'layer' refer to the same object, given their distinct roles and types.",
+    "meta" : [ ]
+  } ]
+}

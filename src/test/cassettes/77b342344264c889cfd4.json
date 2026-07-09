@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "In Java's main method, the args parameter is guaranteed to be non-null by the JVM specification; even when no command-line arguments are supplied, it will be an empty array.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "The length of any array in Java, including the args parameter, is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

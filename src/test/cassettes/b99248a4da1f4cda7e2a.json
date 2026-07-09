@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.fill(fill) == result",
+    "rationale" : "Calling fill again with the same argument returns the same object due to idempotence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(fill ? result.fillX == onef : result.fillX == zerof)",
+    "rationale" : "When fill is true, fillX is set to onef; else set to zerof.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(fill ? result.fillY == onef : result.fillY == zerof)",
+    "rationale" : "When fill is true, fillY is set to onef; else set to zerof.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "percentY >= 0.0f",
+    "rationale" : "Because MathUtils.clamp is used with lower limit 0, so percentY is clamped to be at least 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percentY <= 1.0f",
+    "rationale" : "Because MathUtils.clamp is used with upper limit 1, so percentY is clamped to be at most 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percentY == MathUtils.clamp(percentY, 0, 1)",
+    "rationale" : "After clamping in the method body, the value used is guaranteed to be in [0, 1].",
+    "meta" : [ ]
+  } ]
+}

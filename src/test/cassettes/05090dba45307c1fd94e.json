@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null HoodieWriteMetadata object as produced by JavaWriteHelper#write.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The returned object is always of type HoodieWriteMetadata<List<WriteStatus>>.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "object type"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses list in result is typically non-null after upsert operations.",
+    "meta" : [ {
+      "key" : "postcondition",
+      "value" : "output validity"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The write statuses returned should conform to the returned type List<WriteStatus>.",
+    "meta" : [ {
+      "key" : "data structure",
+      "value" : "List<WriteStatus>"
+    } ]
+  } ]
+}

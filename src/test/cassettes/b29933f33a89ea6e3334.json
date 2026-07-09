@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method expects a HoodieWriteConfig parameter that is likely required to be non-null for subsequent calls such as config.populateMetaFields().",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "config.getProps() is used within the method body, and a non-null result is likely required for HoodieAvroKeyGeneratorFactory.createKeyGenerator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps().containsKey(\"hoodie.datasource.write.recordkey.field\")",
+    "rationale" : "Key generator instantiation in Hudi often depends on the presence of this record key field in properties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == true || config.populateMetaFields() == false",
+    "rationale" : "populateMetaFields() is used in a ternary and should deterministically return a boolean value.",
+    "meta" : [ ]
+  } ]
+}

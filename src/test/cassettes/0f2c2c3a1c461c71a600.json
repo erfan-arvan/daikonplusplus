@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is used to set fields, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() == result",
+    "rationale" : "The method sets the write statuses of result to the value it returns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "The index update duration is always set before return.",
+    "meta" : [ ]
+  } ]
+}

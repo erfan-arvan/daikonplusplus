@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns the result of a helper's bulkInsert method, which is expected to not return null when successful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().equals(\"HoodieWriteMetadata\")",
+    "rationale" : "Result is declared as HoodieWriteMetadata<List<WriteStatus>>, and should be an instance of that type.",
+    "meta" : [ ]
+  } ]
+}

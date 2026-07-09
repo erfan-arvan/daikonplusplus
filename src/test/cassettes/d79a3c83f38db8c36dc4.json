@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this.tiles.get(id)",
+    "rationale" : "The method returns exactly the value from tiles.get(id).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result != null",
+    "rationale" : "Result may be null or non-null depending on whether a tile for the id exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "id >= 0",
+    "rationale" : "Tile ids are generally expected to be non-negative (domain property).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || this.tiles.containsKey(id)",
+    "rationale" : "If result is not null, the key id must be present in the tiles map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || !this.tiles.containsKey(id)",
+    "rationale" : "If result is null, the key id does not exist in the tiles map.",
+    "meta" : [ ]
+  } ]
+}

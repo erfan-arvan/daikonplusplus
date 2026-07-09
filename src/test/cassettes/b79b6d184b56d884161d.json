@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method returns the internal items array, it is expected to always return a non-null reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof com.badlogic.gdx.utils.Array",
+    "rationale" : "The result is guaranteed to be an instance of Array<T> as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Arrays have non-negative sizes, so the size of the result array cannot be less than zero.",
+    "meta" : [ ]
+  } ]
+}

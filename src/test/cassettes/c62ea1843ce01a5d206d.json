@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Engine context is typically required for distributed operations and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit instant time should be specified for delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of keys to delete should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.isEmpty() || keys.size() >= 0",
+    "rationale" : "If the keys list is empty, its size is zero or greater, reflecting list properties.",
+    "meta" : [ ]
+  } ]
+}

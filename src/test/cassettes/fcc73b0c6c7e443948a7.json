@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "recordItr != null",
+    "rationale" : "The method expects a valid iterator to process insert records.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "recordItr is an input parameter that is assumed to be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "The identifier prefix for record IDs is expected to be provided.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "idPfx is an input parameter that should be non-null for prefixing IDs"
+    } ]
+  } ]
+}

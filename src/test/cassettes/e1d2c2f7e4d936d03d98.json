@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects a non-null input list to perform delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is typically used as an operation timestamp and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "preppedRecords should be a List as per its type signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty string representing a valid instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.stream().allMatch(record -> record != null)",
+    "rationale" : "All elements in preppedRecords should be non-null HoodieRecord objects.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Prepped records are about to be processed; null is likely not meaningful input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required operation timestamp, and methods often require it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() > 0",
+    "rationale" : "List invariants: if preppedRecords is empty, its size is 0; otherwise, size is positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime typically encodes an instant/commit and should be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "It is conventional for record lists to not contain null elements.",
+    "meta" : [ ]
+  } ]
+}

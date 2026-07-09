@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result should not be null on normal completion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "clusteringInstantTime is passed through to another call and must be valid, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is provided to the constructor of JavaExecuteClusteringCommitActionExecutor and hence must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "result is expected to return a List of WriteStatus objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method contract suggests that a valid result will contain a non-null list of WriteStatus objects.",
+    "meta" : [ ]
+  } ]
+}

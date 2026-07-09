@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "minHeight != null",
+    "rationale" : "Access to minHeight is needed for getMinHeight.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padTop != null",
+    "rationale" : "padTop is dereferenced via get(this), so should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padBottom != null",
+    "rationale" : "padBottom is accessed via get(this), so should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != null || minHeight.get(null) == minHeight.get(actor)",
+    "rationale" : "If actor is null, minHeight.get is still called, so minHeight.get(null) may be valid.",
+    "meta" : [ ]
+  } ]
+}

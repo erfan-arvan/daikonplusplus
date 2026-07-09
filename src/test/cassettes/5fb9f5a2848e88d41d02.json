@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "type != null",
+    "rationale" : "The method accesses resources.get(type), which would throw NullPointerException if type were null, so type must not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null || resource != null",
+    "rationale" : "The method throws an exception if either name or resource is null, so at least one must be non-null at all times.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name instanceof String",
+    "rationale" : "The parameter name is of type String, so it must be an instance of String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type instanceof Class",
+    "rationale" : "The parameter type is of type Class, so it must be an instance of Class.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resource != null || name != null",
+    "rationale" : "If resource is null, the method will throw an exception if name is also null; this expresses the required relationship for safe progress.",
+    "meta" : [ ]
+  } ]
+}

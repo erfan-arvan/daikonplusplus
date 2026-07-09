@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is constructed with Collectors.toList(), which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(v -> v != null)",
+    "rationale" : "After .filter(Objects::nonNull), all elements in result are non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.stream().map(p -> p.getKey()).distinct().count()",
+    "rationale" : "Each unique key in data produces at most one value in result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "At most, there can be as many reductions as input pairs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "A positive parallelism is required for parallel processing, may be checked defensively.",
+    "meta" : [ ]
+  } ]
+}

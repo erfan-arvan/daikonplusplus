@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a non-null List of WriteStatus; returning null would be an error in well-written code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method likely expects preppedRecords to be a valid non-null List to perform deleting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents a commit or write instant, and null instants would break write semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || !preppedRecords.isEmpty()",
+    "rationale" : "If no records are prepped, the output WriteStatus list should be empty; otherwise, possibly non-empty. If the result is empty, preppedRecords should be also empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= result.size()",
+    "rationale" : "There cannot be more WriteStatus entries than deleted records.",
+    "meta" : [ ]
+  } ]
+}

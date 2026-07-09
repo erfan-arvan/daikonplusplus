@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "conf is a required dependency for constructing the writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is essential for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "Cleaning policy is necessary for metadata maintenance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is needed for execution environment interaction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "Option<String> should not be null and is used as part of the writer initialization.",
+    "meta" : [ ]
+  } ]
+}

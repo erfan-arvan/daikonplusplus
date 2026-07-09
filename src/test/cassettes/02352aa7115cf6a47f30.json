@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The method dereferences writeClient to call methods, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed into writeClient.bulkInsertPreppedRecords and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a parameter in method calls and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.isCommitInFlight(instantTime)",
+    "rationale" : "After calling commit, it is likely that isCommitInFlight for instantTime is true, ensuring a commit is in progress or acknowledged.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.size() >= 0",
+    "rationale" : "Java List.size() cannot be negative, ensuring valid state for preppedRecordInputs.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since HoodieJavaTable.create() is called and its contract likely returns a new instance, result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieTable",
+    "rationale" : "result is the outcome of HoodieJavaTable.create(...), which should always return an instance of HoodieTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is directly passed to the create method and is likely required, so it should not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is directly passed to the create method and is likely required, so it should not be null at this point.",
+    "meta" : [ ]
+  } ]
+}

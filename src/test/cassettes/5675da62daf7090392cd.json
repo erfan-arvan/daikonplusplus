@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "partition != null",
+    "rationale" : "partition is a String parameter and may be required to be non-null for correct behavior.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "null_check"
+    } ]
+  }, {
+    "expression" : "partition.length() >= 0",
+    "rationale" : "String.length() is always non-negative.",
+    "meta" : [ {
+      "key" : "string_property",
+      "value" : "length_non_negative"
+    } ]
+  } ]
+}

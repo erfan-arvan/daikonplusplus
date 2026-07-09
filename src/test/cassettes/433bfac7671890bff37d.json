@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "operationType != null && !WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "The method throws if operationType is LOG_COMPACT, so on exit it must not be.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table parameter must be non-null for the method to execute without exception.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used without null checks, so must be non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is dereferenced, so must be non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "!pendingCompactionTimeline.containsInstant(table.getInstantGenerator().getCompactionInflightInstant(instantTime)) || (table.getMetaClient() != null)",
+    "rationale" : "If the pendingCompactionTimeline contains the inflight instant, the method reloads the active timeline which implies metaClient was non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

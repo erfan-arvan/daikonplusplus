@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects to operate on a non-null records object, as it immediately calls records.collectAsList() without a null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof HoodieData",
+    "rationale" : "Since the parameter type is HoodieData<HoodieRecord>, it must be an instance of HoodieData at this entry point.",
+    "meta" : [ ]
+  } ]
+}

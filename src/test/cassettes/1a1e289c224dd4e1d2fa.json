@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Typically, metadata objects are expected to be non-null on successful write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || result.getClass().getSuperclass() == HoodieWriteMetadata.class",
+    "rationale" : "The returned object should be a HoodieWriteMetadata or its subclass, per the return type.",
+    "meta" : [ ]
+  } ]
+}

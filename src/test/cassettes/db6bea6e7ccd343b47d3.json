@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collections.emptyList() never returns null, so result is always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Method always returns Collections.emptyList(), which is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cacheKey != null || result.isEmpty()",
+    "rationale" : "If cacheKey is null or non-null, method still returns an empty list, so this holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "An empty list's size is always 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result == null)",
+    "rationale" : "Double-negative style for non-null property for completeness.",
+    "meta" : [ ]
+  } ]
+}

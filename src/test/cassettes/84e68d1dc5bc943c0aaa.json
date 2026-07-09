@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method likely expects a non-null list of HoodieRecord for insertion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An instantTime String is usually expected to be non-null and non-empty for commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option parameters are typically required to be non-null even if Option is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A List in Java never has a negative size, and this is a safe property to check.",
+    "meta" : [ ]
+  } ]
+}

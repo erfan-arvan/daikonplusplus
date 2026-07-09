@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "commitTimeline != null",
+    "rationale" : "Method assumes commitTimeline can be called for methods; null would cause NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "Method uses hoodieWriteConfig to retrieve configuration and call methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() > 0",
+    "rationale" : "The fileSizeThreshold makes sense only if this value is positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() >= 0",
+    "rationale" : "Multiplying by negative value could result in negative thresholds; likely should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() > 0",
+    "rationale" : "Average size should represent a positive data size.",
+    "meta" : [ ]
+  } ]
+}

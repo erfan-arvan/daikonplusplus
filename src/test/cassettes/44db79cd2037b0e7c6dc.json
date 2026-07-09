@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method is about to operate on preppedRecords, so it is likely not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof java.util.List",
+    "rationale" : "preppedRecords is declared as List<HoodieRecord<T>>, ensuring it implements List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() > 0",
+    "rationale" : "If the list is empty, its size is 0; otherwise, it's greater than 0.",
+    "meta" : [ ]
+  } ]
+}

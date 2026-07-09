@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Method likely requires a valid config object to create a table.",
+    "meta" : [ {
+      "key" : "NullCheck",
+      "value" : "config must not be null to proceed"
+    } ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "Base path is usually required for table creation.",
+    "meta" : [ {
+      "key" : "Precondition",
+      "value" : "Base path must be set in config"
+    } ]
+  }, {
+    "expression" : "config.getTableName() != null",
+    "rationale" : "Table creation requires a table name from config.",
+    "meta" : [ {
+      "key" : "Precondition",
+      "value" : "Table name must be specified"
+    } ]
+  }, {
+    "expression" : "!config.getBasePath().isEmpty()",
+    "rationale" : "Empty base path is invalid for creating a table.",
+    "meta" : [ {
+      "key" : "Validity",
+      "value" : "Base path should not be empty"
+    } ]
+  }, {
+    "expression" : "java.util.Objects.equals(config.isAutoCommit(), Boolean.TRUE) || java.util.Objects.equals(config.isAutoCommit(), Boolean.FALSE)",
+    "rationale" : "Ensures that auto commit flag is boolean and defined.",
+    "meta" : [ {
+      "key" : "TypeCheck",
+      "value" : "AutoCommit should be boolean"
+    } ]
+  } ]
+}

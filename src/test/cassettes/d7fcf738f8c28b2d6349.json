@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == partitionPathToInsertBucketInfos.get(partitionPath)",
+    "rationale" : "The return value is directly the result of the map lookup.",
+    "meta" : [ {
+      "key" : "directAssignment",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result == null || result instanceof List",
+    "rationale" : "partitionPathToInsertBucketInfos.get returns either null or a List.",
+    "meta" : [ {
+      "key" : "collectionType",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is most likely non-null, as it is used as a map key.",
+    "meta" : [ {
+      "key" : "inputNonNullAssumption",
+      "value" : "optional"
+    } ]
+  }, {
+    "expression" : "result == null || !result.isEmpty() || result.size() == 0",
+    "rationale" : "If result is not null, then isEmpty and size() == 0 should be consistent.",
+    "meta" : [ {
+      "key" : "collectionBehavior",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result == null || result.stream().allMatch(e -> e instanceof InsertBucketCumulativeWeightPair)",
+    "rationale" : "All elements in result should be of the correct type, as enforced by generics.",
+    "meta" : [ {
+      "key" : "elementType",
+      "value" : "true"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HoodieIndex instance or throws an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "A non-null HoodieWriteConfig is required to create any HoodieIndex; otherwise, NullPointerException would occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!StringUtils.isNullOrEmpty(config.getIndexClass()) || config.getIndexType() != null",
+    "rationale" : "If no index class is specified, the switch on config.getIndexType() requires it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "Returned object is always a HoodieIndex (or subclass thereof) by design.",
+    "meta" : [ ]
+  } ]
+}

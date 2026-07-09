@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "!Float.isNaN(size)",
+    "rationale" : "'size' should not be NaN, as it is used to set preferred dimensions and NaN would not be meaningful in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(size)",
+    "rationale" : "Infinite values for 'size' would not make sense for preferred dimension settings and may cause errors when passed to Fixed.valueOf.",
+    "meta" : [ ]
+  }, {
+    "expression" : "size >= 0.0f",
+    "rationale" : "Preferred dimensions are typically non-negative; negative values would not be expected or safe for UI sizing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(size)",
+    "rationale" : "Ensures 'size' is a finite float, combining not NaN and not infinite, for safe use in UI size context.",
+    "meta" : [ ]
+  } ]
+}

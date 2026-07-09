@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns 'this', which should never be null for a valid instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.columnAlign == (result.columnAlign | com.badlogic.gdx.utils.Align.top) && (result.columnAlign & com.badlogic.gdx.utils.Align.bottom) == 0",
+    "rationale" : "The method sets the columnAlign field to include Align.top and clear Align.bottom.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns the current object.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != this",
+    "rationale" : "The method immediately throws an exception if actor == this; thus, prior to execution it's likely not the same object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor == null || actor != this.actor",
+    "rationale" : "If actor equals this.actor, the method returns immediately; this reflects this early exit logic.",
+    "meta" : [ ]
+  } ]
+}

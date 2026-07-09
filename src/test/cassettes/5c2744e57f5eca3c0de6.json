@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null",
+    "rationale" : "Method may expect writeStatus to be initialized to operate on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "EngineContext is likely required for executing actions in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration object is essential for determining I/O and storage parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime is required for timestamping the commit or compaction event.",
+    "meta" : [ ]
+  } ]
+}

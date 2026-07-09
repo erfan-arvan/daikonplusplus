@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Methods typically require a non-null configuration object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "A null storage configuration would likely be invalid when creating a table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipValidation || (config != null && storageConf != null)",
+    "rationale" : "If validation is not skipped, configs must be non-null for validation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method either returns 'fileId' (not null) or delegates to the superclass method, which likely returns a non-null String.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "method return"
+    } ]
+  }, {
+    "expression" : "result instanceof String",
+    "rationale" : "As a String-returning method, the 'result' should always be a String instance.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "type invariant"
+    } ]
+  }, {
+    "expression" : "partitionId >= Integer.MIN_VALUE && partitionId <= Integer.MAX_VALUE",
+    "rationale" : "partitionId is an 'int', so it is within integer bounds.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "int range"
+    } ]
+  }, {
+    "expression" : "result.length() >= 0",
+    "rationale" : "String.length() is always non-negative for any non-null String.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "string non-negative length"
+    } ]
+  } ]
+}

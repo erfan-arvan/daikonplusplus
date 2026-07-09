@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "root != null",
+    "rationale" : "The method immediately calls root.getChildByName, so root must not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "required for method calls"
+    } ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used to load tile sheets and passed to other methods.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "parameter contracts"
+    } ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is passed to loadTileSheet, which likely requires it.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "parameter contracts"
+    } ]
+  }, {
+    "expression" : "root.getChildByName(\"TileSheets\") != null",
+    "rationale" : "The code iterates over children of root.getChildByName(\"TileSheets\"), so it should not be null.",
+    "meta" : [ {
+      "key" : "structure",
+      "value" : "required for tile sheet iteration"
+    } ]
+  }, {
+    "expression" : "root.getChildByName(\"Layers\") != null",
+    "rationale" : "The code iterates over children of root.getChildByName(\"Layers\"), so it should not be null.",
+    "meta" : [ {
+      "key" : "structure",
+      "value" : "required for layer iteration"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null && b != null",
+    "rationale" : "Both a and b should be non-null for safe evaluation since method calls are made on them.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Parameters should not be null for safe division."
+    } ]
+  }, {
+    "expression" : "b.doubleValue() != 0.0",
+    "rationale" : "Since the method returns null if b.doubleValue() == 0.0, at method entry, b.doubleValue() != 0.0 to proceed.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Division by zero is avoided."
+    } ]
+  }, {
+    "expression" : "a instanceof Integer || a instanceof Double",
+    "rationale" : "The method supports only Integer or Double instances for a.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Supported numeric types."
+    } ]
+  }, {
+    "expression" : "a.intValue() == a.intValue()",
+    "rationale" : "If a is Integer, intValue is valid to call without exception.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "intValue method is safely callable if a is Integer."
+    } ]
+  }, {
+    "expression" : "b.intValue() == b.intValue()",
+    "rationale" : "If b is Integer, intValue is valid to call without exception.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "intValue method is safely callable if b is Integer."
+    } ]
+  } ]
+}

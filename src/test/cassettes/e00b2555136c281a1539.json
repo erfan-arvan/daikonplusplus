@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The method is likely not intended to be called with a null write client.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is likely required for processing and identifying the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "Passing a null record list would generally be unsafe and uncommon.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "The list of file group IDs to update must exist for a write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Typically, instantTime should not be an empty string.",
+    "meta" : [ ]
+  } ]
+}

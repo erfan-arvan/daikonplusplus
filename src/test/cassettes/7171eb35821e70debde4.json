@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "getPrefWidth() >= 0",
+    "rationale" : "Pref width is likely non-negative for layout purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getHeight() >= 0",
+    "rationale" : "Height is typically non-negative for a UI group.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getChildren() != null",
+    "rationale" : "The children collection should be initialized on UI component creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnSizes != null",
+    "rationale" : "Column sizes should be allocated before layout computations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padLeft >= 0 && padTop >= 0 && padBottom >= 0",
+    "rationale" : "Padding values are generally non-negative in layouts.",
+    "meta" : [ ]
+  } ]
+}

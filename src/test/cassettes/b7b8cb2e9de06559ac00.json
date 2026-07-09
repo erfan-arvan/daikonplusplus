@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "action == null || !action.equals(null)",
+    "rationale" : "Checks that if action is non-null, it is a valid reference (sanity/null guard).",
+    "meta" : [ {
+      "key" : "topic",
+      "value" : "parameter-check"
+    } ]
+  }, {
+    "expression" : "!(action != null && action == null)",
+    "rationale" : "Confirms nullness of action is consistent (not both null and non-null at once).",
+    "meta" : [ {
+      "key" : "logical-property",
+      "value" : "nullness-consistency"
+    } ]
+  } ]
+}

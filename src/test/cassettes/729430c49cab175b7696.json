@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method should not return null; it constructs and returns a new List<WriteStatus> from postWrite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed down to methods and is expected to be used as a valid instant identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is required for the bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "result is always a List<WriteStatus> by definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List.size() is always non-negative; ensures returned value is a well-formed List.",
+    "meta" : [ ]
+  } ]
+}

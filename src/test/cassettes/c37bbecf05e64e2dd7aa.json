@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs and returns a new ArrayList, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method signature guarantees result is a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method logic implies inputRecords cannot be null because they are dereferenced in deduceShuffleParallelism and passed to other methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "configuredParallelism >= 1",
+    "rationale" : "Parallelism values for distributed data processing are typically positive integers; negative or zero would not be meaningful in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is accessed multiple times in the body, implying it cannot be null at method exit.",
+    "meta" : [ ]
+  } ]
+}

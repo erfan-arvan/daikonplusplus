@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Pair (of partition statistics and global statistics).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The left element (the partitionPathStatMap) of the result pair is a non-null map as constructed in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The right element (the global WorkloadStat) of the result pair is newly constructed and always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft().size() <= inputRecords.size()",
+    "rationale" : "There can be at most as many unique partition paths as input records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "It is expected that the input list is not null (otherwise there would be a NullPointerException at the start).",
+    "meta" : [ ]
+  } ]
+}

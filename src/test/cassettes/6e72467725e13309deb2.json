@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects preppedRecords to be a valid List to perform deletePrepped; most write operations require a non-null list of records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The method performs operations based on instantTime, which must be non-null for consistency and coordination.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java, and a negative size is never possible.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(instantTime.isEmpty())",
+    "rationale" : "instantTime likely refers to a commit/instant identifier, which should not be empty for successful write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() || preppedRecords.size() == 0",
+    "rationale" : "If preppedRecords is empty, its size is 0; this is an invariant for Java Lists.",
+    "meta" : [ ]
+  } ]
+}

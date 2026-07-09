@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieTable object created by a factory method, so result must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The parameter config must be non-null for creating the HoodieTable successfully.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The parameter context is necessary to create the HoodieTable and cannot be null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The returned HoodieTable is created using the config parameter, so its config should reference the same object.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "object identity"
+    } ]
+  } ]
+}

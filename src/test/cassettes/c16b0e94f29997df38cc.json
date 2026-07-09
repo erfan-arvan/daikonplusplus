@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned map is always freshly constructed as a new LinkedHashMap, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is used for method calls and is never null inside the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "dedupedRecords is used for stream processing and is required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().containsAll(partitioner.getPartitions(dedupedRecords))",
+    "rationale" : "All partition keys computed from dedupedRecords and partitioner are present in the result map; getPartitions would hypothetically collect all used partitions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().flatMap(List::stream).allMatch(dedupedRecords::contains)",
+    "rationale" : "Every HoodieRecord<T> in the result map's values originated from dedupedRecords.",
+    "meta" : [ ]
+  } ]
+}

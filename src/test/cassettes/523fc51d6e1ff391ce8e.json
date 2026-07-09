@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "If 'instantTime' is null, the called method may throw an exception or misbehave since it likely expects a valid string.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Time identifiers are usually required and passed as non-null strings for commit operations."
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "To ensure a valid commit instant, the string should not be empty.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Empty string may not be a valid identifier for commit actions."
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Emphasizes that instantTime should have length greater than zero, i.e., be non-empty.",
+    "meta" : [ {
+      "key" : "redundant_with",
+      "value" : "!instantTime.isEmpty()"
+    } ]
+  }, {
+    "expression" : "instantTime.trim().equals(instantTime)",
+    "rationale" : "Spaces in a commit instant identifier may cause subtle bugs or mismatches.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Time identifiers typically should not have leading or trailing whitespace."
+    } ]
+  } ]
+}

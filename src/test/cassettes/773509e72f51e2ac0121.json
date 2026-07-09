@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionFilePathAndSizeTriplet != null",
+    "rationale" : "The method expects partitionFilePathAndSizeTriplet to be a valid list parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "A valid HoodieIndexDefinition is required for index record retrieval.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "HoodieTableMetaClient is typically required for accessing table metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive for parallel processing contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tableSchema != null && readerSchema != null",
+    "rationale" : "Both tableSchema and readerSchema are likely needed for schema operations.",
+    "meta" : [ ]
+  } ]
+}

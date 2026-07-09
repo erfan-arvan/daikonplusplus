@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tooltip != null",
+    "rationale" : "The method is called with a Tooltip, which is likely expected to be non-null as it is immediately used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip == showTooltip",
+    "rationale" : "The method sets showTooltip = tooltip at the start; this relationship should hold at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "enabled || tooltip.always == true",
+    "rationale" : "The inner logic is only executed if this condition is true, indicating it is significant for the method's effect.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!enabled && !tooltip.always ? showTooltip == tooltip : true",
+    "rationale" : "If both enabled and tooltip.always are false, no additional effect besides assigning showTooltip. Enforces logical relationship.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(time == 0 || tooltip.instant) ? showTask.isScheduled() == false : true",
+    "rationale" : "If time == 0 or tooltip.instant, showTask.run() is called, hence not scheduled. Else, it may be scheduled with Timer.schedule.",
+    "meta" : [ ]
+  } ]
+}

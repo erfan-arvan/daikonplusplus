@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(size)",
+    "rationale" : "Ensures that the size parameter is a finite float, which is important for setting max width and height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "size >= 0",
+    "rationale" : "Max size parameters are commonly expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(size)",
+    "rationale" : "NaN as a max size would usually be invalid for UI components.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is generally required for data ingestion and versioning in Hoodie, making it a likely precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The method expects to insert a list of records; a null record list would likely be an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid execution context (context) is required to coordinate the engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || hoodieRecords.size() > 0",
+    "rationale" : "A List in Java can be empty or have at least one element; this expresses that hoodieRecords is not null and is a legitimate collection.",
+    "meta" : [ ]
+  } ]
+}

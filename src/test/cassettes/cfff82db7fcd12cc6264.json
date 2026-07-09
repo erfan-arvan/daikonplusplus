@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new HoodieWriteMetadata is constructed and always returned, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "setWriteStatuses is always called with a HoodieListData.eager instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "clusteringPlan is dereferenced (e.g., clusteringPlan.getInputGroups()) with no preceding null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is provided as a parameter and likely required for correct clustering, though not directly dereferenced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed through to runClusteringForGroup and must not be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,33 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is a factory; it returns a new instance, so result should never be null.",
+    "meta" : [ {
+      "key" : "draftA",
+      "value" : "parameters/fields"
+    }, {
+      "key" : "draftB",
+      "value" : "relations with result"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is passed to static factory and used directly; must be non-null.",
+    "meta" : [ {
+      "key" : "draftA",
+      "value" : "parameters/fields"
+    }, {
+      "key" : "draftB",
+      "value" : "relations with result"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context must be non-null since its methods are called immediately.",
+    "meta" : [ {
+      "key" : "draftA",
+      "value" : "parameters/fields"
+    }, {
+      "key" : "draftB",
+      "value" : "relations with result"
+    } ]
+  } ]
+}

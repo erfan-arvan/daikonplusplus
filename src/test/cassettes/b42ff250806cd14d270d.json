@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "It is likely that idPfx, representing an identifier prefix, should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The Iterator for records being inserted should not be null for the method to proceed correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(recordItr instanceof java.util.List)",
+    "rationale" : "recordItr is an Iterator, not a List, so this invariant captures its semantics at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx.length() > 0",
+    "rationale" : "If idPfx is used as a partition or prefix, it likely should be non-empty for inserts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.next() != null",
+    "rationale" : "If the iterator has a next element, the next record should not be null to ensure data consistency.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is passed as a parameter and is likely required for the method's operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed in and is required for creating clustering plan, should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata must not be null as it is an Option type; Option conventionally should not be null in usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime represents a time or event string and should not be empty to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!extraMetadata.isPresent() || extraMetadata.get() instanceof Map",
+    "rationale" : "If extraMetadata is present, it should wrap a Map, according to its type parameter.",
+    "meta" : [ ]
+  } ]
+}

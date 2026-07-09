@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Calling methods or passing to constructors requires context not being null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in the constructor and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is passed to an executor and is expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime will typically represent a timestamp or instant and should be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() >= 0",
+    "rationale" : "List.size() always >= 0, for clarity in expressing that empty/non-empty is well-defined.",
+    "meta" : [ ]
+  } ]
+}

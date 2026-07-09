@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of execute(), which should be a non-null HoodieRollbackMetadata instance.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "Ensures result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is used in the construction of CopyOnWriteRollbackActionExecutor, likely required to be non-null.",
+    "meta" : [ {
+      "key" : "parameter_non_null",
+      "value" : "rollbackInstantTime parameter should be non-null"
+    } ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant is passed to the CopyOnWriteRollbackActionExecutor constructor, so it should be non-null.",
+    "meta" : [ {
+      "key" : "parameter_non_null",
+      "value" : "commitInstant parameter should be non-null"
+    } ]
+  }, {
+    "expression" : "result.getRollbackRequests() != null",
+    "rationale" : "HoodieRollbackMetadata should have non-null rollback requests after execution.",
+    "meta" : [ {
+      "key" : "field_non_null",
+      "value" : "Rollback requests in the result should be non-null"
+    } ]
+  }, {
+    "expression" : "result.getTotalFilesDeleted() >= 0",
+    "rationale" : "Total files deleted count must be zero or positive.",
+    "meta" : [ {
+      "key" : "non_negative",
+      "value" : "Number of deleted files cannot be negative"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(offsetY)",
+    "rationale" : "offsetY should be a finite float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "offsetY == offsetY",
+    "rationale" : "offsetY is not NaN because NaN != NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "offsetY >= -Float.MAX_VALUE && offsetY <= Float.MAX_VALUE",
+    "rationale" : "offsetY is within the valid float value range.",
+    "meta" : [ ]
+  } ]
+}

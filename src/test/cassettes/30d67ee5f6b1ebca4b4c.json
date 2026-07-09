@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The array 'ids' is always instantiated before being returned, so result cannot be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Resulting array is always allocated before being returned."
+    } ]
+  }, {
+    "expression" : "result.length == width * height",
+    "rationale" : "The returned int[] is always created with length equal to width * height.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "array size to parameters"
+    } ]
+  }, {
+    "expression" : "width > 0 && height > 0",
+    "rationale" : "The method creates an array of size width * height; negative or zero would not be meaningful, and array creation would fail for negatives.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "Input dimensions must be positive for valid map."
+    } ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "'element' is dereferenced at the start, so it must be non-null at each return.",
+    "meta" : [ {
+      "key" : "input",
+      "value" : "element is used"
+    } ]
+  }, {
+    "expression" : "result instanceof int[]",
+    "rationale" : "Result is always explicitly allocated as an int array.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "array type"
+    } ]
+  } ]
+}

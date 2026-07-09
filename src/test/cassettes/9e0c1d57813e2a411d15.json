@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "Method accesses nodes.size and nodes.get(i), which requires nodes to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indent >= 0",
+    "rationale" : "Indentation is typically non-negative in UI tree structures for spacing purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "plusMinusWidth >= 0",
+    "rationale" : "Additional width for plus/minus icons in a tree UI is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "size should always be non-negative for a data structure representing a collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size == 0 || nodes.get(0) != null",
+    "rationale" : "If the Array is not empty, the first element should not be null for proper processing within this method.",
+    "meta" : [ ]
+  } ]
+}

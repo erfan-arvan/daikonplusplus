@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == config.getProps().getProperty(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key())",
+    "rationale" : "The return value of the method is directly delegated from this property.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The input parameter is dereferenced without checks, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "config.getProps() is dereferenced, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key() != null",
+    "rationale" : "Used as a property key. Usually should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps().containsKey(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key()) == (result != null)",
+    "rationale" : "If the property exists, result is non-null. If missing, getProperty returns null, so nullness is related to whether the key exists.",
+    "meta" : [ ]
+  } ]
+}

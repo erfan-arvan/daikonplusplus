@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method uses records directly; a null records list would lead to NullPointerException.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Ensures records is not null before usage."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to various methods including Option.ofNullable and preWrite, which may expect non-null.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Method implementation relies on instantTime being non-null."
+    } ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "userDefinedBulkInsertPartitioner is passed directly and methods will likely expect the Option container to be non-null, even if empty.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Ensures that the Option object itself is not null."
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "All Java Lists have a non-negative size.",
+    "meta" : [ {
+      "key" : "collection property",
+      "value" : "Non-negative size property of List."
+    } ]
+  } ]
+}

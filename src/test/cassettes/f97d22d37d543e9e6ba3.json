@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null",
+    "rationale" : "Method calls are made on strategyParams.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "Method logic depends on schema being non-null for HoodieSchemaUtils.addMetadataFields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.isEmpty()",
+    "rationale" : "strategyParams likely contains required keys for partitioner selection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.containsKey(\"sort_columns\") == false || (strategyParams.get(\"sort_columns\") != null && !strategyParams.get(\"sort_columns\").isEmpty())",
+    "rationale" : "If 'sort_columns' is present, its value should be non-null and non-empty to be useful.",
+    "meta" : [ ]
+  } ]
+}

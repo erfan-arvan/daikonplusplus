@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is essential for execution and typically should not be null.",
+    "meta" : [ {
+      "key" : "nullCheckContext",
+      "value" : "Context parameter should not be null"
+    } ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "The indexInstantTime string is expected to be non-null before method execution.",
+    "meta" : [ {
+      "key" : "nullCheckIndexInstantTime",
+      "value" : "Timestamp string should not be null"
+    } ]
+  }, {
+    "expression" : "indexInstantTime.length() > 0",
+    "rationale" : "Index instant time is usually represented as a non-empty timestamp string.",
+    "meta" : [ {
+      "key" : "nonEmptyIndexInstantTime",
+      "value" : "indexInstantTime should be a non-empty string"
+    } ]
+  }, {
+    "expression" : "!indexInstantTime.trim().isEmpty()",
+    "rationale" : "Ensures the indexInstantTime string is meaningful and not just whitespace.",
+    "meta" : [ {
+      "key" : "trimmedNonEmptyIndexInstantTime",
+      "value" : "indexInstantTime should not be empty or whitespace"
+    } ]
+  } ]
+}

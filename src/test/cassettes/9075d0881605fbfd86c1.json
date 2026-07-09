@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this', as seen in the last line.",
+    "meta" : [ {
+      "key" : "method_contract",
+      "value" : "returns this"
+    } ]
+  }, {
+    "expression" : "x == (expandX == onei)",
+    "rationale" : "'expandX' is set to 'onei' iff 'x' is true within the method.",
+    "meta" : [ {
+      "key" : "effect",
+      "value" : "expandX is set based on x"
+    } ]
+  }, {
+    "expression" : "y == (expandY == onei)",
+    "rationale" : "'expandY' is set to 'onei' iff 'y' is true within the method.",
+    "meta" : [ {
+      "key" : "effect",
+      "value" : "expandY is set based on y"
+    } ]
+  }, {
+    "expression" : "expandX == (x ? onei : zeroi)",
+    "rationale" : "'expandX' is set to 'onei' if 'x' is true, else 'zeroi'.",
+    "meta" : [ {
+      "key" : "assignment",
+      "value" : "expandX assignment"
+    } ]
+  }, {
+    "expression" : "expandY == (y ? onei : zeroi)",
+    "rationale" : "'expandY' is set to 'onei' if 'y' is true, else 'zeroi'.",
+    "meta" : [ {
+      "key" : "assignment",
+      "value" : "expandY assignment"
+    } ]
+  } ]
+}

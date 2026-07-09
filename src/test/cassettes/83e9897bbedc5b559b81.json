@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime typically identifies the commit or operation and should not be null for an upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records must be provided for the upsert operation to process meaningful work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for the execution environment of upsert and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If there are records to process, there must be a valid instantTime string (not empty).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || true",
+    "rationale" : "No useful relationship can be established between records and other parameters beyond non-nullity and in some APIs empty upserts may be allowed, so this is a placeholder invariant.",
+    "meta" : [ ]
+  } ]
+}

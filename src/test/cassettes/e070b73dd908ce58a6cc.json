@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "The method expects writeResult to refer to metadata about the write operation; typically, entry parameters are not null unless explicitly documented as nullable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult instanceof HoodieWriteMetadata",
+    "rationale" : "writeResult must be of type HoodieWriteMetadata<List<WriteStatus>> as declared in the parameter.",
+    "meta" : [ ]
+  } ]
+}

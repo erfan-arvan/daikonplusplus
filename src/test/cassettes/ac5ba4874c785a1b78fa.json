@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns HoodieListData.eager(data), which constructs and returns a HoodieData instance, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(data)",
+    "rationale" : "HoodieListData.eager(data) wraps the provided list, so collecting from result should yield the original list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "A parallelism of less than 1 would be nonsensical for parallelizing data; typical usage and contracts require parallelism >= 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == data.size()",
+    "rationale" : "The returned HoodieData contains exactly the elements of the input list, so their sizes match.",
+    "meta" : [ ]
+  } ]
+}

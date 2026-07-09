@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is likely required to perform engine operations and should not be null before upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid instantTime string is usually required to uniquely identify the write instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "A non-null record list is needed to perform the upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "Attempting an upsert makes sense if there are records to process; this guards against unnecessary calls with empty or null lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || instantTime.trim().length() > 0",
+    "rationale" : "If instantTime is provided, it should not be blank or whitespace only.",
+    "meta" : [ ]
+  } ]
+}

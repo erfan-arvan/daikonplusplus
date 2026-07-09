@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this.drawable == drawable",
+    "rationale" : "At method exit, the field this.drawable is set to the method parameter drawable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable == null || (getPrefWidth() == drawable.getMinWidth() && getPrefHeight() == drawable.getMinHeight())",
+    "rationale" : "If drawable is not null, the pref width/height should match the drawable's min width/height after possible invalidation.",
+    "meta" : [ ]
+  } ]
+}

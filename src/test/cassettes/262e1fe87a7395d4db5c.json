@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Heights in UI layouts are usually non-negative and computed via Math.max for background and additions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(style.background != null) || result >= style.background.getMinHeight()",
+    "rationale" : "If a background exists, the result is at least its min height (enforced by Math.max).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(scrollX) || result > 0",
+    "rationale" : "If horizontal scrolling is enabled, then extra height is added, so result is positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (actor instanceof Layout ? ((Layout)actor).getPrefHeight() : (actor != null ? actor.getHeight() : 0)) + ((style.background != null) ? (Math.max((actor instanceof Layout ? ((Layout)actor).getPrefHeight() : (actor != null ? actor.getHeight() : 0)) + style.background.getTopHeight() + style.background.getBottomHeight(), style.background.getMinHeight()) - (actor instanceof Layout ? ((Layout)actor).getPrefHeight() : (actor != null ? actor.getHeight() : 0))) : 0) + (scrollX ? (Math.max(style.hScrollKnob != null ? style.hScrollKnob.getMinHeight() : 0, style.hScroll != null ? style.hScroll.getMinHeight() : 0)) : 0)",
+    "rationale" : "This expansive invariant expresses the compositional calculation (under the assumption all involved methods/fields are safe to call here).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= Float.MAX_VALUE",
+    "rationale" : "UI framework methods should not generate out-of-range float values.",
+    "meta" : [ ]
+  } ]
+}

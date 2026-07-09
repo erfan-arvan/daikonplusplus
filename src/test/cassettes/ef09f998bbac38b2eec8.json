@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed as an argument and likely required for commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "partitionRecordsMap is passed as a method argument and typically required for record processing/commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap instanceof java.util.Map",
+    "rationale" : "partitionRecordsMap's type is Map, so this holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime likely encodes a timestamp or similar and should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.entrySet().stream().allMatch(entry -> entry.getKey() != null && entry.getValue() != null)",
+    "rationale" : "Each partition name and corresponding HoodieData should not be null in a valid commit operation.",
+    "meta" : [ ]
+  } ]
+}

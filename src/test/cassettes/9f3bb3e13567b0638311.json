@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The Collectors.toList() method never returns null; it produces at least an empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == smallFiles.size()",
+    "rationale" : "The stream maps each smallFile to its fileId, so the returned list will have exactly as many elements as smallFiles.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> id != null)",
+    "rationale" : "The mapping extracts fileIds, which for valid smallFiles should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "Collectors.toList() returns a List implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == smallFiles.isEmpty()",
+    "rationale" : "If there are no smallFiles, the result will be an empty list; otherwise, non-empty.",
+    "meta" : [ ]
+  } ]
+}

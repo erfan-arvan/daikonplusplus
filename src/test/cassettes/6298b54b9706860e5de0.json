@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method throws an exception if profile is null, so it must be non-null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new JavaUpsertPartitioner instance, guaranteeing result is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaUpsertPartitioner",
+    "rationale" : "The method always returns a new JavaUpsertPartitioner, so result must be an instance of that class.",
+    "meta" : [ ]
+  } ]
+}

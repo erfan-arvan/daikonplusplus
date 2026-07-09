@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "padRight >= 0",
+    "rationale" : "UI padding values are commonly restricted to non-negative values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(padRight)",
+    "rationale" : "It is often desirable to ensure UI padding values are finite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padRight <= 10000",
+    "rationale" : "Very large values of UI padding may be unreasonable or indicative of a bug, so a practical upper bound can be assumed.",
+    "meta" : [ ]
+  } ]
+}

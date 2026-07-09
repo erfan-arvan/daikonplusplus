@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method is about to execute with inputRecords passed in; typically parameters are not null at method start.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Ensures inputRecords is not null before method execution"
+    } ]
+  }, {
+    "expression" : "inputRecords instanceof java.util.List",
+    "rationale" : "inputRecords is declared as List, so it should be an instance of List at method entry.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "Confirms inputRecords is a List"
+    } ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "collection-property",
+      "value" : "List size is non-negative"
+    } ]
+  }, {
+    "expression" : "!inputRecords.contains(null)",
+    "rationale" : "Assuming the List of HoodieRecord elements should not contain nulls.",
+    "meta" : [ {
+      "key" : "content-property",
+      "value" : "inputRecords does not contain null elements"
+    } ]
+  }, {
+    "expression" : "inputRecords.isEmpty() == false || inputRecords.isEmpty() == true",
+    "rationale" : "Any List is either empty or not empty; trivially true.",
+    "meta" : [ {
+      "key" : "tautology",
+      "value" : "Trivial true expression"
+    } ]
+  } ]
+}

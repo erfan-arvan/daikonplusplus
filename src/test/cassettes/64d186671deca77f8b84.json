@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned arrays should never be null if 'frameTiles' is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == frameTiles",
+    "rationale" : "Method returns the field 'frameTiles' directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length >= 0",
+    "rationale" : "Array length is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof StaticTiledMapTile[]",
+    "rationale" : "'result' is guaranteed to be an array of StaticTiledMapTile by signature.",
+    "meta" : [ ]
+  } ]
+}

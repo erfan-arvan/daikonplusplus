@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method typically returns a non-null metadata object if execution is successful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || result.getClass().getSuperclass() == HoodieWriteMetadata.class",
+    "rationale" : "Result is expected to be an instance of HoodieWriteMetadata or a direct subclass.",
+    "meta" : [ ]
+  } ]
+}

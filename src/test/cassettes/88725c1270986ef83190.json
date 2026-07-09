@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is used in the SavepointActionExecutor constructor and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null && !instantToSavepoint.isEmpty()",
+    "rationale" : "instantToSavepoint likely refers to a timeline instant and is expected to be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null && !user.isEmpty()",
+    "rationale" : "user parameter is passed to the savepoint; typically, user identifiers must be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "comment is passed to the constructor and may be required to be non-null.",
+    "meta" : [ ]
+  } ]
+}

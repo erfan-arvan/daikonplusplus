@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "mapProperties != null",
+    "rationale" : "The method always dereferences mapProperties, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "className == null || className.length() >= 0",
+    "rationale" : "If className is not null, its length is at least 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "className == null || !className.isEmpty() || className.length() == 0",
+    "rationale" : "If className is not null and isEmpty() fails, then it is an empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "className == null || className.trim().length() >= 0",
+    "rationale" : "Calling trim().length() is safe if className is not null and the result is at least 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapProperties.isEmpty() || mapProperties.size() >= 0",
+    "rationale" : "If mapProperties is not empty, its size is at least 0.",
+    "meta" : [ ]
+  } ]
+}

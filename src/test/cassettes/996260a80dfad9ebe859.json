@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method expects a non-null list of orders to validate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.get(0) != null",
+    "rationale" : "Meaningful properties over first element: a non-null first order is required for valid iteration, though the method also checks each order for null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.size() > 0",
+    "rationale" : "A non-empty list must have size greater than 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders.size() >= 0",
+    "rationale" : "The size of a list is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

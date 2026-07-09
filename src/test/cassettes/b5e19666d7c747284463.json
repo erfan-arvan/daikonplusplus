@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "(align & ~(com.badlogic.gdx.utils.Align.center | com.badlogic.gdx.utils.Align.top | com.badlogic.gdx.utils.Align.bottom | com.badlogic.gdx.utils.Align.left | com.badlogic.gdx.utils.Align.right)) == 0",
+    "rationale" : "Ensures align contains only supported Align flags, based on documented valid values.",
+    "meta" : [ {
+      "key" : "relatedTo",
+      "value" : "Align flags validity"
+    } ]
+  }, {
+    "expression" : "align >= 0",
+    "rationale" : "Bitmask constants for alignment in JDK and libGDX are non-negative; negative values are usually invalid.",
+    "meta" : [ {
+      "key" : "assumes",
+      "value" : "align represents bitmask, non-negative"
+    } ]
+  }, {
+    "expression" : "align != 0",
+    "rationale" : "An alignment value of zero may be semantically meaningless; some APIs require at least one flag.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "Common to require at least one alignment flag"
+    } ]
+  } ]
+}

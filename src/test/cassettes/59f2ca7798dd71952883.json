@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned String is a constant defined value and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(HoodieTimeline.REPLACE_COMMIT_ACTION)",
+    "rationale" : "The method always returns HoodieTimeline.REPLACE_COMMIT_ACTION.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "The constant HoodieTimeline.REPLACE_COMMIT_ACTION is expected to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof String",
+    "rationale" : "Result variable is always a String, as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "The string returned is the name of an action and is therefore non-empty.",
+    "meta" : [ ]
+  } ]
+}

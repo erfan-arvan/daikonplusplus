@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "It is likely required that 'instantTime' is a valid, non-null string for rollback semantics to be well-defined.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Precondition helps avoid null dereference if 'instantTime' used later."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext instance is likely necessary for performing the rollback operation.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Protects against null dereference if methods are called on 'context'."
+    } ]
+  } ]
+}

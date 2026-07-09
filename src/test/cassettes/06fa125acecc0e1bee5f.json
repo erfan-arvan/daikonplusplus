@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should not be null as it is used to transition timeline state.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime must be non-null to be used as an argument in transitionRequestedToInflight"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is likely non-empty since it is an identifier for the commit action.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is expected to be a non-empty String"
+    } ]
+  } ]
+}

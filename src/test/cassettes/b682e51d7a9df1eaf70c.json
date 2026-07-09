@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a constant string 'HoodieTimeline.REPLACE_COMMIT_ACTION', which is non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The method returns a constant string ensuring non-null."
+    } ]
+  }, {
+    "expression" : "result.equals(\"replace_commit\")",
+    "rationale" : "The returned constant string equals the known constant value 'replace_commit'.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Assuming constant value 'HoodieTimeline.REPLACE_COMMIT_ACTION' is \"replace_commit\"."
+    } ]
+  } ]
+}

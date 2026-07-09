@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "conf parameter should not be null at method entry to ensure proper storage configuration.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "conf is passed as a parameter and likely non-null to create the writer"
+    } ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig parameter should be non-null when constructing the metadata writer.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "writeConfig is required for Hoodie table configuration and must be non-null"
+    } ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "failedWritesCleaningPolicy is expected to be non-null to define cleaning behavior.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "failedWritesCleaningPolicy controls cleaning policy and must be valid"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context parameter is expected to be non-null for proper engine context usage.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "context manages execution environment and is essential for the writer"
+    } ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "inflightInstantTimestamp should be a non-null Option instance even if empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Option type should not be null itself"
+    } ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == true",
+    "rationale" : "The method always returns true, so at the exit, result is always true.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "return value is always true"
+    } ]
+  }, {
+    "expression" : "result != false",
+    "rationale" : "Since result is always true, it is never false.",
+    "meta" : [ {
+      "key" : "consequence",
+      "value" : "same as result==true"
+    } ]
+  }, {
+    "expression" : "result || !result",
+    "rationale" : "Either result or not result holds, as a tautology for booleans.",
+    "meta" : [ {
+      "key" : "tautology",
+      "value" : "true for any boolean value"
+    } ]
+  } ]
+}

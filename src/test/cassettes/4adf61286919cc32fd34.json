@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath must not be null to identify the partition being updated.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId must not be null to identify the file being merged.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "A non-null Iterator of HoodieRecord is required in order to provide records for merging.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath is very likely a non-empty path string to denote a non-root partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileId.isEmpty()",
+    "rationale" : "fileId should be non-empty in order to perform an update associated with a particular file.",
+    "meta" : [ ]
+  } ]
+}

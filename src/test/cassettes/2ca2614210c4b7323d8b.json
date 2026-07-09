@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Both return paths in the method return a non-null Iterator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used as an argument and for logging without null checks, so it is likely assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a parameter to other methods and constructors, so it is most likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed as a non-null parameter and dereferenced in called constructors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext()",
+    "rationale" : "Both return paths yield Iterators with at least one element, so hasNext() should be true.",
+    "meta" : [ ]
+  } ]
+}

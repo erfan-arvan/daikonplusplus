@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is required for performing actions in the table implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "The instant to savepoint should be a valid, non-null identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "User information is likely required for savepoint metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "A comment may be required or expected for logging/audit, even if empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantToSavepoint.isEmpty()",
+    "rationale" : "The instant identifier should not be empty for a valid savepoint operation.",
+    "meta" : [ ]
+  } ]
+}

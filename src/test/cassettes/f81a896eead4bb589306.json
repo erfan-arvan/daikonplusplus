@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "data is dereferenced via data.stream()",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "consumer is passed to throwingForeachWrapper(consumer)",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "parallelism typically should be positive when used for task distribution",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List.size() is always non-negative",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream() != null",
+    "rationale" : "data.stream() returns a valid Stream when data is non-null",
+    "meta" : [ ]
+  } ]
+}

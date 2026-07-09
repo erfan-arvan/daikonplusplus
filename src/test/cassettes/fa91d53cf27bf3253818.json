@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a String, and neither branch returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "Both return sites generate a non-empty String: either from getName() or by building a description including class and properties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.indexOf(':') != -1 || getName() != null",
+    "rationale" : "If getName() returns null, the method builds a string containing ':', otherwise result is the name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(getName()) || (result.contains(getClass().getSimpleName()) && result.contains(\":\"))",
+    "rationale" : "If getName() is non-null, result is exactly that; otherwise, it is a composite string containing the class name and a colon.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "Result is always a non-empty string, as both cases return non-empty values.",
+    "meta" : [ ]
+  } ]
+}

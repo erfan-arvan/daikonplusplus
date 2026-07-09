@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Most methods in Hoodie expect collections not to be null; often, empty list is used to represent no data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "The size of a List in Java is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(inputRecords.isEmpty()) || inputRecords.size() == 0",
+    "rationale" : "If the list is not empty, size is non-zero; if empty, size is zero; this bridges isEmpty and size methods.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method always throws an exception and does not return, 'result' is never assigned a non-null value.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "exceptional control flow"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Because the method always throws an exception, no postconditions can be enforced, so any invariant is vacuously true at this program point.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "control flow"
+    } ]
+  } ]
+}

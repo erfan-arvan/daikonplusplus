@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method accesses map without null checks, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getProperties() != null",
+    "rationale" : "The code calls map.getProperties() multiple times, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getLayers() != null",
+    "rationale" : "The method uses map.getLayers().size(), implying getLayers() returns a non-null collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getProperties().containsKey(\"staggeraxis\") || map.getProperties().containsKey(\"staggerindex\") || map.getProperties().containsKey(\"hexsidelength\")",
+    "rationale" : "The method queries several properties to determine rendering, so at least one is likely required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(map.getProperties().get(\"staggeraxis\", String.class) != null) || (map.getProperties().get(\"staggeraxis\", String.class).equals(\"x\") || map.getProperties().get(\"staggeraxis\", String.class).equals(\"y\"))",
+    "rationale" : "If the staggeraxis property is present, it is expected to be \"x\" or \"y\".",
+    "meta" : [ ]
+  } ]
+}

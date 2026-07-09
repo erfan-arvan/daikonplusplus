@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method expects a non-null list of records to repartition; a null argument would risk NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition count should be strictly positive to allow meaningful repartitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List.size() is always non-negative by Java List contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "records is expected to be a List; the method signature enforces this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "Usually, the number of partitions should not exceed the number of records; if records is empty, this constraint is vacuously satisfied.",
+    "meta" : [ ]
+  } ]
+}

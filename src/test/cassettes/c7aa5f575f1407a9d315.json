@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is required for table write operations and is likely to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime likely represents a required commit or operation instant and should be a valid, non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is required to describe which records to insert or overwrite, so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "There is likely no point in overwriting with an empty records list; if records is provided, it should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null && instantTime != null && records != null",
+    "rationale" : "All arguments are likely required for the correct execution of the method.",
+    "meta" : [ ]
+  } ]
+}

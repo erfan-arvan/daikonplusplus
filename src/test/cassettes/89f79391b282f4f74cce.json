@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The clusteringGroup parameter is essential for the operation and likely required to be non-null",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "clusteringGroup is expected to be non-null for the method to operate"
+    } ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is a configuration map, should be non-null to use its contents safely",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "strategyParams map should be non-null to avoid NullPointerException"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is an identifier or timestamp string needed for clustering and thus must be non-null",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "instantTime is used as a string key or timestamp, must not be null"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is expected to be a non-empty string representing a valid clustering instant",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "non_empty_string"
+    } ]
+  }, {
+    "expression" : "preserveHoodieMetadata == true || preserveHoodieMetadata == false",
+    "rationale" : "The preserveHoodieMetadata parameter is a boolean flag, so must be either true or false",
+    "meta" : [ {
+      "key" : "boolean",
+      "value" : "preserveHoodieMetadata is a boolean parameter"
+    } ]
+  } ]
+}

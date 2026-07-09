@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter must not be null since it is used to identify the commit or operation in the Hoodie table operations.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is required for operation tracking and commit"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The list of records to be bulk inserted should not be null, as the method operates directly on this list.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "hoodieRecords is the main data payload; method cannot work with null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context must be non-null since it is downcast and passed to the executor and underpins the operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "context is required for execution engine abstraction"
+    } ]
+  } ]
+}

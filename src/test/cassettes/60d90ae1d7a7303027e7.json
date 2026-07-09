@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "parseRegionName(name) != null",
+    "rationale" : "parseRegionName(name) is used as an argument to findRegion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == atlas.findRegion(parseRegionName(name))",
+    "rationale" : "The returned value is the result of atlas.findRegion(parseRegionName(name)).",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || parseRegionName(name).length() <= name.length()",
+    "rationale" : "parseRegionName likely strips or transforms name, but does not lengthen it.",
+    "meta" : [ ]
+  } ]
+}

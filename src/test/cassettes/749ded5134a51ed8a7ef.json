@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned HoodiePairData<K,V> is constructed via a static method and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The emptyHoodiePairData method constructs an empty HoodiePairData instance, so isEmpty() should return true.",
+    "meta" : [ ]
+  } ]
+}

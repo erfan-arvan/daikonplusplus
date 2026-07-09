@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is expected to be non-null for the engine operations to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid (non-null, non-empty) instant time is usually required to identify the commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The list of records to be bulk inserted should be initialized prior to use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option<BulkInsertPartitioner> should not be null—it should at least represent Option.none().",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A List's size() is always non-negative, so this is a safe and correct invariant.",
+    "meta" : [ ]
+  } ]
+}

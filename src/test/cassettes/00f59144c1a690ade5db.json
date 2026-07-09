@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Option, which should not be null itself.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result is Option and should not be null"
+    } ]
+  }, {
+    "expression" : "!result.isPresent() || result.get() != null",
+    "rationale" : "If the Option has a value, it should not be null.",
+    "meta" : [ {
+      "key" : "option-consistency",
+      "value" : "If present, contained value is not null"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "The savepoint timestamp is a required string parameter, expected non-null.",
+    "meta" : [ {
+      "key" : "parameter-nonnull",
+      "value" : "Parameter expected to be non-null"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "The restore instant timestamp is a required string parameter, expected non-null.",
+    "meta" : [ {
+      "key" : "parameter-nonnull",
+      "value" : "Parameter expected to be non-null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is necessary for the operation and should be non-null.",
+    "meta" : [ {
+      "key" : "parameter-nonnull",
+      "value" : "Context parameter should not be null"
+    } ]
+  } ]
+}

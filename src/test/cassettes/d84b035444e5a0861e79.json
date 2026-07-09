@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this.parallaxY == parallaxY",
+    "rationale" : "The method sets the object's parallaxY field to the parameter value; at exit they must be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(parallaxY)",
+    "rationale" : "As this method takes a float parameter and directly assigns it, it is reasonable to ensure that the value is finite at method exit.",
+    "meta" : [ ]
+  } ]
+}

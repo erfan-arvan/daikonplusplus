@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns HoodieTimeline.CLUSTERING_ACTION, which is a constant String and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(HoodieTimeline.CLUSTERING_ACTION)",
+    "rationale" : "The method body is a single return statement returning HoodieTimeline.CLUSTERING_ACTION, so any return path must yield this value.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "space >= 0",
+    "rationale" : "The method throws an IllegalArgumentException if space < 0, so at entry it is expected that space is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "space == (float) space",
+    "rationale" : "space is a float; this expression confirms that space is not NaN or infinite in a practical scenario, though float casting is trivial, it captures that space is finite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(space < 0)",
+    "rationale" : "Directly restates the method’s precondition: negative values for space are not allowed.",
+    "meta" : [ ]
+  } ]
+}

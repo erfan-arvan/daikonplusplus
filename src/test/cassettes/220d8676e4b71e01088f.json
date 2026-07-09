@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Map that is expected to be non-null as it is initialized before return.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "Ensures the returned map is not null"
+    } ]
+  }, {
+    "expression" : "!result.containsKey(null)",
+    "rationale" : "Since keys are generated based on partitioner results which are Integer, null keys are not expected.",
+    "meta" : [ {
+      "key" : "noNullKey",
+      "value" : "Map keys should not be null"
+    } ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "Each partition key maps to a non-null List of HoodieRecords, as constructed during grouping and mapping.",
+    "meta" : [ {
+      "key" : "nonNullValues",
+      "value" : "All map values are non-null lists"
+    } ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list.stream().allMatch(r -> r != null))",
+    "rationale" : "All HoodieRecord elements in the lists are from the dedupedRecords stream and should be non-null.",
+    "meta" : [ {
+      "key" : "nonNullRecords",
+      "value" : "No null records in the values"
+    } ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(key -> key instanceof Integer)",
+    "rationale" : "The map keys are derived from partitioner.getPartition which returns Integer keys.",
+    "meta" : [ {
+      "key" : "integerKeys",
+      "value" : "Keys are Integer type"
+    } ]
+  } ]
+}

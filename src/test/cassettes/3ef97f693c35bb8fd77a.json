@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method requires records argument to access its methods and contents.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "Ensures records list is not null on method entry"
+    } ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition counts are conventionally required to be positive in repartitioning operations.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "outputPartitions should be positive"
+    } ]
+  }, {
+    "expression" : "records instanceof java.util.List",
+    "rationale" : "The method's parameter requires records to be a List.",
+    "meta" : [ {
+      "key" : "type-invariant",
+      "value" : "Assures correct type"
+    } ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "It's often nonsensical to request more partitions than elements (unless empty).",
+    "meta" : [ {
+      "key" : "partitioning",
+      "value" : "Avoid more partitions than records unless records empty"
+    } ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "Null elements in records may cause failures during key extraction or sorting.",
+    "meta" : [ {
+      "key" : "element-nonnull",
+      "value" : "records entries should not be null"
+    } ]
+  } ]
+}

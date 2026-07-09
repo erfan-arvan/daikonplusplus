@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method reduces data provided in the list; null data would prevent any processing.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "data should be non-null to perform operations"
+    } ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "An absent reduce function prevents combining values.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "reduceFunc must be non-null to perform reduction"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism as number of threads or partitions should be positive.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "parallelism must be positive"
+    } ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List size is always zero or positive.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "List size is non-negative"
+    } ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "Batch is needed for rendering, and should not be null when draw is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "Alpha values for UI components are typically expected to be in [0, 1] range for drawing.",
+    "meta" : [ ]
+  } ]
+}

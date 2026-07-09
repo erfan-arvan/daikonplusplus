@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of calling metadata.clone(), so unless clone returns null, result should be non-null.",
+    "meta" : [ {
+      "key" : "derived_from",
+      "value" : "metadata.clone(...)"
+    } ]
+  }, {
+    "expression" : "metadata != null",
+    "rationale" : "metadata is a method input and must not be null for convertMetadata to be called successfully.",
+    "meta" : [ {
+      "key" : "input_precondition",
+      "value" : "by-method-signature"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The method returns HoodieWriteMetadata<List<WriteStatus>>, where the contained write statuses should be a List.",
+    "meta" : [ {
+      "key" : "return_type",
+      "value" : "List<WriteStatus>"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().equals(metadata.getWriteStatuses().collectAsList())",
+    "rationale" : "The core logic is to clone metadata with the collected list of WriteStatus, so this equality should hold.",
+    "meta" : [ {
+      "key" : "semantic_relation",
+      "value" : "cloned_with_new_list"
+    } ]
+  }, {
+    "expression" : "result.getClass().equals(metadata.getClass())",
+    "rationale" : "Assuming .clone keeps the same concrete type, class equality should hold between result and metadata.",
+    "meta" : [ {
+      "key" : "preserves_class",
+      "value" : "true"
+    } ]
+  } ]
+}

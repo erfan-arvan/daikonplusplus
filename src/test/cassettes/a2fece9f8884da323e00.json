@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method expects to operate on a list of deduplicated records; dedupedRecords is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Interaction with the HoodieEngineContext (context) is necessary for tagging records; context should be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is used for retrieving the index and as a parameter in tagLocation; it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.isEmpty() || dedupedRecords.size() > 0",
+    "rationale" : "If dedupedRecords is not empty, it must have a size greater than zero; this is a property of non-empty lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getIndex() != null",
+    "rationale" : "The method calls table.getIndex(), so a non-null index is a precondition for correct behavior.",
+    "meta" : [ ]
+  } ]
+}

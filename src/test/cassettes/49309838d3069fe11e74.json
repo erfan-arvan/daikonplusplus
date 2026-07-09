@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method calls like eager(data) require data not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism as a partition count should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size()",
+    "rationale" : "Requested parallelism typically should not exceed the data size in distributed computing contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "A valid List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof java.util.List",
+    "rationale" : "data must be a List according to method signature.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this', so result must be the same as the receiver object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((HorizontalGroup)result).align == align",
+    "rationale" : "After assigning this.align = align, the returned HorizontalGroup (which is 'this') must have its align field set to the method parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "align == ((HorizontalGroup)result).align",
+    "rationale" : "At method exit, the align field of the returned object (which is 'this') equals the argument 'align'.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method guarantees to always return a non-null Cell for any column index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "column >= 0",
+    "rationale" : "Columns are indexed starting at 0; negative indices are not meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.clear() == null",
+    "rationale" : "Immediately before returning, result.clear() has just been called in every path where a cell is allocated, and calling clear() again has no effect.",
+    "meta" : [ ]
+  } ]
+}

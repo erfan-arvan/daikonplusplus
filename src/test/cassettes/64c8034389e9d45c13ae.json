@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Bucket numbers, which are returned by this method, represent indices or identifiers and are expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "The method dereferences key by casting and calling methods on it, so it should never be null at the exit point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == ((Pair)key).getRight().isPresent() ? updateLocationToBucket.get(((Pair)key).getRight().get().getFileId()) : result",
+    "rationale" : "If the right option is present, the result comes from updateLocationToBucket; otherwise, the result depends on the insert bucket logic.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The config parameter should be non-null for proper table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter should be non-null as it's required for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient must be non-null to check the table type and create the table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableType() != null",
+    "rationale" : "Table type should be provided and not null to proceed with switch logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "The only supported table types are COPY_ON_WRITE and MERGE_ON_READ; any other type leads to an exception.",
+    "meta" : [ ]
+  } ]
+}

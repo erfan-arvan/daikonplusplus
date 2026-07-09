@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "button >= -1",
+    "rationale" : "Per the Javadoc, -1 and greater are meaningful values for button.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button != Integer.MIN_VALUE",
+    "rationale" : "button likely never takes Integer.MIN_VALUE as a user-provided button code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button <= Integer.MAX_VALUE",
+    "rationale" : "button is an int, so must be within int range; this states the upper bound explicitly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button == -1 || button >= 0",
+    "rationale" : "Per the Javadoc, -1 means 'every button' and 0,1,... are for specific buttons.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button <= 2",
+    "rationale" : "It is common in GUI libraries for mouse button codes to be 0 (left), 1 (right), 2 (middle), so this bound is plausible.",
+    "meta" : [ ]
+  } ]
+}

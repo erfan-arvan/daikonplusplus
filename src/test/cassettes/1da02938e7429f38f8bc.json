@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == isWordCharacter(text.charAt(index + offset))",
+    "rationale" : "The method returns the result of isWordCharacter applied to the character at the computed index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index + offset >= 0",
+    "rationale" : "The method accesses text.charAt(index + offset), so the index must be non-negative to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == isWordCharacter(text.charAt(index + offset)) && index + offset >= 0",
+    "rationale" : "Combines the logic of the method with the requirement for a valid index.",
+    "meta" : [ ]
+  } ]
+}

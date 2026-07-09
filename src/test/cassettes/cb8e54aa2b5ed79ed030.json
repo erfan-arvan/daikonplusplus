@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is required for engine operations, likely must not be null for any table method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime is necessary for any operation tied to a timeline instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Record list must be provided; null would invalidate the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should not be an empty string because timeline instants must be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() >= 0",
+    "rationale" : "The record list must have a non-negative size; emptiness is allowed but not negative sizes.",
+    "meta" : [ ]
+  } ]
+}

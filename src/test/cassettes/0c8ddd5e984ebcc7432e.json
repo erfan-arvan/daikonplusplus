@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method accesses layer.getCombinedTintColor() and layer.getOpacity(), so layer must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batchColor != null",
+    "rationale" : "The method dereferences batchColor.r/g/b/a, so batchColor must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Color.toFloatBits(batchColor.r * layer.getCombinedTintColor().r, batchColor.g * layer.getCombinedTintColor().g, batchColor.b * layer.getCombinedTintColor().b, batchColor.a * layer.getCombinedTintColor().a * layer.getOpacity())",
+    "rationale" : "The method returns exactly this computation as the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() >= 0.0f && layer.getOpacity() <= 1.0f",
+    "rationale" : "Opacity values are generally expected to be within [0, 1] for rendering, and this is likely used to compute alpha.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getCombinedTintColor() != null",
+    "rationale" : "The method accesses layer.getCombinedTintColor().r, .g, .b, .a, so the tint color must not be null.",
+    "meta" : [ ]
+  } ]
+}

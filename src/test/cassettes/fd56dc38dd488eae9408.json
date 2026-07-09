@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a LinkedHashMap, which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null || result.isEmpty()",
+    "rationale" : "If the input list is null, the result is an empty map due to streaming an empty collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().flatMap(List::stream).allMatch(dedupedRecords::contains)",
+    "rationale" : "All HoodieRecords in the result map originated from the input dedupedRecords list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().mapToLong(List::size).sum() <= dedupedRecords.size()",
+    "rationale" : "Every HoodieRecord in result comes from dedupedRecords, so the sum of all grouped records cannot exceed the original list size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(k -> partitioner != null && dedupedRecords.stream().anyMatch(record -> partitioner.getPartition(Pair.of(record.getKey(), Option.ofNullable(record.getCurrentLocation()))) == k))",
+    "rationale" : "Every key in the resulting map corresponds to at least one record in dedupedRecords mapped to that key by the given partitioner.",
+    "meta" : [ ]
+  } ]
+}

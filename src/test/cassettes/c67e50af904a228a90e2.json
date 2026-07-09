@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to methods that likely expect non-null String indicating an update instant.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Used as argument to getUpdateHandle and runMerge, so must not be null"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is needed to identify which partition is being updated.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Used as argument to getUpdateHandle, likely required to locate records"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is crucial for identifying the file affected by this update.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Used as argument to getUpdateHandle and runMerge"
+    } ]
+  }, {
+    "expression" : "keyToNewRecords != null && !keyToNewRecords.isEmpty()",
+    "rationale" : "Updates are performed, so there should be new records to update.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "keyToNewRecords is passed for update, likely non-null and contains new records."
+    } ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "oldDataFile is needed for merging updated records with existing data.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "oldDataFile is passed to getUpdateHandle, likely required for merge."
+    } ]
+  } ]
+}

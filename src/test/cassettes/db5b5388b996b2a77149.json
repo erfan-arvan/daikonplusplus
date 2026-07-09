@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context object is likely required for distributed operations, so it should not be null before the method executes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string, which denotes a timeline or commit instant, is expected to be non-null for correct reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of HoodieKey objects to delete should not be null at the start of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "List size is always greater than or equal to zero in Java, indicating the list is properly initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!keys.isEmpty() || keys.size() == 0",
+    "rationale" : "keys.isEmpty() and keys.size() == 0 are logically equivalent; this ensures safe semantics regarding emptiness checks.",
+    "meta" : [ ]
+  } ]
+}

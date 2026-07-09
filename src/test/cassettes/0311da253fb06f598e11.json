@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The config is used in subsequent object construction and should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is required for table operations and is expected to be non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is used immediately for switch-based logic and must not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() != null",
+    "rationale" : "A valid table type is required for proper switch operation.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() == HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == HoodieTableType.MERGE_ON_READ",
+    "rationale" : "Only these table types are supported; others result in an exception.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

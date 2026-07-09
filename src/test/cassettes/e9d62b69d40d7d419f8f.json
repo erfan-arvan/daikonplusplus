@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "region != null",
+    "rationale" : "Direct method usage assumes 'region' is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "region.getTexture() != null",
+    "rationale" : "Subsequent method logic requires the Texture from region to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "region.getTexture().getTextureData() != null",
+    "rationale" : "The method accesses TextureData from the result of getTexture(), implying it must not be null.",
+    "meta" : [ ]
+  } ]
+}

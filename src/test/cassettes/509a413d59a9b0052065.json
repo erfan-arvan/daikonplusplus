@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Return value from a getter utility handling sorting keys should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "record != null",
+    "rationale" : "Method requires a valid record for column extraction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == sortColumnNames.length",
+    "rationale" : "Each entry in sortColumnNames should correspond to an entry in result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof FlatLists.ComparableList",
+    "rationale" : "Return type must be a ComparableList as specified.",
+    "meta" : [ ]
+  }, {
+    "expression" : "java.util.Collections.frequency(result, null) == 0",
+    "rationale" : "Comparable sort column list should not contain null entries.",
+    "meta" : [ ]
+  } ]
+}

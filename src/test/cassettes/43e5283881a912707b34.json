@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always initializes 'ids' and returns it, throws otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length == width * height",
+    "rationale" : "Regardless of encoding, 'ids' is always sized to 'width * height'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0",
+    "rationale" : "Negative width would produce an invalid array size; exception would be thrown if so.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Negative height would produce an invalid array size; exception would be thrown if so.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The method accesses fields and methods of 'element' without any null check, so it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

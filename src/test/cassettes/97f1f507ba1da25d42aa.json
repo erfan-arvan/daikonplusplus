@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method invokes data.stream(), which would throw if data were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "throwingForeachWrapper(consumer) is called, which implies consumer must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism is typically positive and non-zero for parallel operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream() != null",
+    "rationale" : "Calling stream() on a non-null List should produce a non-null Stream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List.size() is always non-negative by contract.",
+    "meta" : [ ]
+  } ]
+}

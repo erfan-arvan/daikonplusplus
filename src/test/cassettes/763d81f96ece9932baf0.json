@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method requires a TiledMap parameter; likely it is not null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile != null",
+    "rationale" : "The 'tile' parameter is dereferenced within the method, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The 'element' parameter is passed along and also expected to be non-null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getTextureRegion() != null",
+    "rationale" : "The method calls tile.getTextureRegion().getRegionHeight(), so the TextureRegion must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getObjects() != null",
+    "rationale" : "tile.getObjects() is passed to another method, indicating it should be non-null at this point.",
+    "meta" : [ ]
+  } ]
+}

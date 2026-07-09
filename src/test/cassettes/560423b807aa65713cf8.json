@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "node != null",
+    "rationale" : "The method throws an exception if node is null, so node is always non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (this == node || isDescendantOfHelper(node))",
+    "rationale" : "The method returns true if this is node or a descendant, otherwise false. (Where isDescendantOfHelper would be the predicate representing walking up the parent chain, but can only refer to the exposed method contract.)",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (this == node || hasAncestor(node))",
+    "rationale" : "Rephrasing invariant using 'hasAncestor' as a conceptual alias for traversing parents.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (this == node || checkParentChain(node))",
+    "rationale" : "Again, stating that the result is true iff node is in the parent chain (or this).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || this != node && !hasAncestor(node)",
+    "rationale" : "If result is false, then this != node and node is not an ancestor (via parent links).",
+    "meta" : [ ]
+  } ]
+}

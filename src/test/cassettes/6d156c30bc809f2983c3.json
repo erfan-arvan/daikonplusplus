@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tooltip != null",
+    "rationale" : "The method can only safely access tooltip fields and methods if tooltip is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.container != null",
+    "rationale" : "A valid Tooltip typically has a non-null container for UI actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.container.getColor() != null",
+    "rationale" : "Invocations on getColor() are performed; implies getColor() should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.container.getActions().isEmpty() || tooltip.container.getActions() != null",
+    "rationale" : "getActions() is permissible to call, implying it is either non-null or, if empty, that is a valid state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.container.getScaleX() >= 0 && tooltip.container.getScaleY() >= 0",
+    "rationale" : "Setting positive scale values for a UI component is typical prior to animation.",
+    "meta" : [ ]
+  } ]
+}

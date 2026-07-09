@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method checks for null and handles it in its logic; this is a key precondition to meaningful processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || !orders.isEmpty()",
+    "rationale" : "Either the orders list is null (early return is triggered) or it is not empty (so there is processing to be done).",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders instanceof java.util.List",
+    "rationale" : "orders should be a List or null; ensures the type safety at entry.",
+    "meta" : [ ]
+  } ]
+}

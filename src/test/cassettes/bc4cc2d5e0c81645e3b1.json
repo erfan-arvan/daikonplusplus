@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is likely required for partition identification and may need to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "fileSlices, as input for clustering, should be non-null before proceeding.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitionPath.isEmpty() || !partitionPath.isEmpty()",
+    "rationale" : "partitionPath as a String can be either empty or not; this is not a tautology since nullness is not implied.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string properties"
+    } ]
+  }, {
+    "expression" : "fileSlices.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection properties"
+    } ]
+  } ]
+}

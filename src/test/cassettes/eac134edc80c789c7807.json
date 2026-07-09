@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The parameter records should not be null for processing.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "records may be null before method entry"
+    } ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "Ensure that records is a List type.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "records is declared as List<WriteStatus>"
+    } ]
+  }, {
+    "expression" : "!records.contains(null)",
+    "rationale" : "Assuming the list of WriteStatus items should not contain nulls.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "No null elements in records list"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of the list is always non-negative by definition.",
+    "meta" : [ {
+      "key" : "size-comparison",
+      "value" : "List size should never be negative"
+    } ]
+  }, {
+    "expression" : "records.stream().allMatch(rs -> rs instanceof WriteStatus)",
+    "rationale" : "The list is parameterized with WriteStatus type, so elements should be instances of WriteStatus.",
+    "meta" : [ {
+      "key" : "type-consistency",
+      "value" : "All elements are WriteStatus"
+    } ]
+  } ]
+}

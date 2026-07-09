@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a field assumed always initialized; returning null is likely not intended.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null return"
+    } ]
+  }, {
+    "expression" : "result instanceof TextureAtlas",
+    "rationale" : "The return type of the method guarantees that result is always a TextureAtlas instance.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type integrity"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (text.length() != 0 && (text.charAt(text.length() - 1) == NEWLINE || text.charAt(text.length() - 1) == CARRIAGE_RETURN))",
+    "rationale" : "This is the definition of the result, directly reflecting the code logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result implies (text.length() != 0)",
+    "rationale" : "If result is true, then text must not be empty (length not zero).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result implies (text.charAt(text.length() - 1) == NEWLINE || text.charAt(text.length() - 1) == CARRIAGE_RETURN)",
+    "rationale" : "If result is true, the last character is either NEWLINE or CARRIAGE_RETURN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result implies (text.length() == 0 || (text.charAt(text.length() - 1) != NEWLINE && text.charAt(text.length() - 1) != CARRIAGE_RETURN))",
+    "rationale" : "If result is false, either the text is empty, or the last character is not a newline or carriage return.",
+    "meta" : [ ]
+  } ]
+}

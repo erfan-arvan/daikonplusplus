@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a list of WriteStatus; it is unlikely to return null since it is used as a return value and generally should be non-null for operations like inserts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Non-null input lists are required for write operations like insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid, non-null 'instantTime' is needed for versioned operations in Hudi.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type is specified as List<WriteStatus>, so result should be an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(ws -> ws != null)",
+    "rationale" : "Each WriteStatus in the resulting list should be non-null as write operations should succeed or fail per-record but not return null elements.",
+    "meta" : [ ]
+  } ]
+}

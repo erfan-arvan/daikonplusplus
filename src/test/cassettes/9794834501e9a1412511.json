@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option types are often non-null objects that may be empty, never null, at method exit.",
+    "meta" : [ {
+      "key" : "nullity",
+      "value" : "ensures return value is not null"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is forwarded as an argument, likely expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullity",
+      "value" : "restoreInstantTimestamp presence"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is required to schedule a restore, so it should not be null.",
+    "meta" : [ {
+      "key" : "nullity",
+      "value" : "savepoint provided"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used in constructing the action executor and should not be null.",
+    "meta" : [ {
+      "key" : "nullity",
+      "value" : "engine context required"
+    } ]
+  }, {
+    "expression" : "result instanceof Option",
+    "rationale" : "Return type is Option<HoodieRestorePlan>, so result should be an Option.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "option type"
+    } ]
+  } ]
+}

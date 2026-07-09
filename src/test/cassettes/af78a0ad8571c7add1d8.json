@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely intended to represent a commit instant, which should not be null for an overwrite operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records must not be null, as the method is expected to operate on this list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used in downstream executor constructors, so must not be null for the operation to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "The size of a List is always non-negative, checking this after isEmpty guarantees type-correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime probably encodes an identifier or timestamp; a non-empty string is expected.",
+    "meta" : [ ]
+  } ]
+}

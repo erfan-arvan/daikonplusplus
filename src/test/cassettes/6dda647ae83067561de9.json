@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid commit instant is required for the bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The list of records to be inserted should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "An engine context is required to execute the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "A list's size is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "The Option object should be non-null, even if it may be empty.",
+    "meta" : [ ]
+  } ]
+}

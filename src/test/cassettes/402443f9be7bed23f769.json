@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "name == null || name instanceof String",
+    "rationale" : "The parameter 'name' is either null or a String object, which are the only possible types at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "If 'name' is not null, its length is non-negative, which is always true for Java strings.",
+    "meta" : [ ]
+  } ]
+}

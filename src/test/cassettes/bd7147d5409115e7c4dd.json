@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be a valid (non-null) identifier for the update operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should be non-null to identify where the update occurs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId should be specified to target a file for update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The map of new records should be provided for the update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dataFileToBeMerged != null",
+    "rationale" : "There must be a base file to merge updates into.",
+    "meta" : [ ]
+  } ]
+}

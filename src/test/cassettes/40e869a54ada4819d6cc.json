@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "operationType != null",
+    "rationale" : "Operation type must be checked for null as it is dereferenced in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Table is used throughout the method and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is used in method calls and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "Method throws if operationType is LOG_COMPACT, so at exit this must be false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to methods and assumed required for compaction operations.",
+    "meta" : [ ]
+  } ]
+}

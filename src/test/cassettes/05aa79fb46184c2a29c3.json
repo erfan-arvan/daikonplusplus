@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (button.isChecked != newState)",
+    "rationale" : "The method returns false if the button's checked state equals the new state, otherwise may return true (if all other checks pass).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (!button.isChecked == newState || (newState && (maxCheckCount == -1 || checkedButtons.size < maxCheckCount)) || (!newState && checkedButtons.size > minCheckCount))",
+    "rationale" : "Reflects the logical paths for the early returns and core check state constraints.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || button.isChecked != newState",
+    "rationale" : "If result is true, button.isChecked must not yet equal newState, matching the guard condition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || button.isChecked == newState || (!newState && checkedButtons.size <= minCheckCount) || (newState && maxCheckCount != -1 && checkedButtons.size >= maxCheckCount && !uncheckLast)",
+    "rationale" : "If the method returns false, it must be due to one of the guard/limit violations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || (newState || checkedButtons.size > minCheckCount)",
+    "rationale" : "If attempting to uncheck (newState==false) and result is true, the number of checked buttons exceeds minCheckCount.",
+    "meta" : [ ]
+  } ]
+}

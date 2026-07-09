@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is dereferenced by putTile, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureRegion != null",
+    "rationale" : "textureRegion is required to construct StaticTiledMapTile, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileId >= 0",
+    "rationale" : "tileId is used as a key in tileSet; negative ids are typically invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet.getCount() >= 0",
+    "rationale" : "TiledMapTileSet count should be non-negative before any addition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet.getTile(tileId) == null",
+    "rationale" : "The intention may be to add a new tile; the id should not already be present.",
+    "meta" : [ ]
+  } ]
+}

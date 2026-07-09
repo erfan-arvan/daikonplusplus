@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "It is likely the method expects a valid list and fails fast or propagates error if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An instant time is typically required for versioned write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If records are present, a non-empty instantTime is likely required for a valid write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() == instantTime.length()",
+    "rationale" : "instantTime is expected to have no leading or trailing whitespace, as it likely serves as an identifier.",
+    "meta" : [ ]
+  } ]
+}

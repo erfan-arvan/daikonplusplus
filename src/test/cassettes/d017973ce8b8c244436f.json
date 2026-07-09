@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A non-null and non-empty instantTime is likely required for a commit to be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null && !writeStatuses.isEmpty()",
+    "rationale" : "There should be at least one WriteStatus to commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null && !commitActionType.isEmpty()",
+    "rationale" : "A valid commit action type is necessary for commit logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "The partitionToReplacedFileIds map should be initialized to track file replacements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option types like extraMetadata are generally non-null by contract even if they may be Option.empty().",
+    "meta" : [ ]
+  } ]
+}

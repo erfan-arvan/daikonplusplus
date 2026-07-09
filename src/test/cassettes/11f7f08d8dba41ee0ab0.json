@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method relies on clusteringGroup for further method calls.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is a parameter map, expected to be non-null for downstream use.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to read records and is likely expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "clusteringGroup.getNumOutputFileGroups() > 0",
+    "rationale" : "A clustering group typically is expected to have at least one output file group to process.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "domain"
+    } ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "The implementation assumes clusteringGroup.getSlices() is not null for further processing.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-check"
+    } ]
+  } ]
+}

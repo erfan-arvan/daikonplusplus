@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since 'rollback' always instantiates and returns a new CopyOnWriteRollbackActionExecutor(...).execute(), it is expected that the result is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is passed directly into a constructor that likely requires a non-null value; this appears in both simple constraints and as an implicit requirement for result to be valid.",
+    "meta" : [ ]
+  } ]
+}

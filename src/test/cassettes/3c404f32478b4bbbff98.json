@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "!(flipHorizontally && flipVertically && flipDiagonally)",
+    "rationale" : "No code path in the method uses all three flips as true simultaneously for a unique branch; checks for an edge case.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(flipDiagonally && flipHorizontally) || (flipDiagonally && flipVertically) || (!flipDiagonally)",
+    "rationale" : "Every control path is defined by at least one of these combinations due to the nested if logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!flipDiagonally) || !(flipHorizontally && flipVertically)",
+    "rationale" : "If 'flipDiagonally' is not set, then both horizontal and vertical flips can be arbitrary, but if set, the code avoids redundancy.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flipHorizontally == (flipHorizontally && !flipVertically || flipHorizontally && flipVertically || !flipDiagonally && flipHorizontally)",
+    "rationale" : "Reflects role of flipHorizontally in affecting cell state across control paths.",
+    "meta" : [ ]
+  } ]
+}

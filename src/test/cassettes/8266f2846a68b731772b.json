@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context parameter is expected to be a valid non-null HoodieEngineContext at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter should be non-null to identify the rollback instant.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is expected to be a non-empty string representing a valid time.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "instantTime is non-empty string"
+    } ]
+  }, {
+    "expression" : "context != null && instantTime != null",
+    "rationale" : "Both parameters must be non-null before any operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "both parameters non-null"
+    } ]
+  } ]
+}

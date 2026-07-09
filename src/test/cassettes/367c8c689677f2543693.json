@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Commit operations typically require a valid, non-null instant time for versioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is used as a key and should not be null for committing records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Committing must operate on a valid HoodieData collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "An index parser is necessary for interpreting metadata during bulk commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Partition path should not be empty to identify the target partition.",
+    "meta" : [ ]
+  } ]
+}

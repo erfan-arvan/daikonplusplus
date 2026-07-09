@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of HoodieListData.lazy(records), which should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result.count() == records.size()",
+    "rationale" : "HoodieListData.lazy likely preserves the number of elements as the input list.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection-size"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is passed to HoodieListData.lazy; passing null likely causes an error.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "result.collectAsList().equals(records)",
+    "rationale" : "HoodieListData.lazy(records) is expected to return a HoodieData with same backing list.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "functional-correctness"
+    } ]
+  }, {
+    "expression" : "result.collectAsList().containsAll(records)",
+    "rationale" : "All elements from records are present in the returned HoodieData.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection-content"
+    } ]
+  } ]
+}

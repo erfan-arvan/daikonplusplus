@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "price >= 0",
+    "rationale" : "Prices are typically non-negative in business contexts; negative prices are likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Double.isFinite(price)",
+    "rationale" : "The price should be a finite double, not NaN or infinite, to represent a valid monetary amount.",
+    "meta" : [ ]
+  }, {
+    "expression" : "price != Double.NaN",
+    "rationale" : "Ensures price passed to the discount method is not NaN, as this would yield an invalid calculation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "true",
+    "rationale" : "Method entry point with no parameters or fields in scope, so the only universal truth is that execution has started.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "Instance method invocation guarantees that 'this' is not null.",
+    "meta" : [ {
+      "key" : "impliedByInstanceMethod",
+      "value" : "true"
+    } ]
+  } ]
+}

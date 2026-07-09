@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned map should not be null since it is always initialized as a new LinkedHashMap<> before being populated and returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= dedupedRecords.size()",
+    "rationale" : "Each record could be mapped to only one partition; the number of keys in the result cannot exceed the number of input records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method expects a valid deduplicated record list as input; null checks would occur earlier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The partitioner is used for grouping and must be non-null throughout the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null && !list.contains(null))",
+    "rationale" : "All partitioned record lists in the map should be non-null and should not contain nulls, as only non-null records from dedupedRecords are processed.",
+    "meta" : [ ]
+  } ]
+}

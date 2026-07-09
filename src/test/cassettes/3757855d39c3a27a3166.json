@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && instantTime.isPresent()",
+    "rationale" : "Checks if instantTime contains a timestamp before initialization.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Option<String>"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient should be non-null for table operations.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "HoodieTableMetaClient"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be non-null for metadata table initialization.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Option<String>"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "Table configuration should be available for metadata operations.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "HoodieTableMetaClient"
+    } ]
+  } ]
+}

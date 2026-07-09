@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "widget == null || widget.getParent() == this",
+    "rationale" : "If widget was non-null and added, its parent should now be 'this'.",
+    "meta" : [ {
+      "key" : "authoritative_source",
+      "value" : "method code logic"
+    } ]
+  }, {
+    "expression" : "widget == null || this.getChildren().contains(widget)",
+    "rationale" : "If widget is non-null, it has just been added as child.",
+    "meta" : [ {
+      "key" : "justification",
+      "value" : "widget is added as child if not null"
+    } ]
+  }, {
+    "expression" : "widget == null || widget.isDescendantOf(this)",
+    "rationale" : "Scene2D Actor will be a descendant if it is a child.",
+    "meta" : [ {
+      "key" : "derivation",
+      "value" : "Scene2D API"
+    } ]
+  } ]
+}

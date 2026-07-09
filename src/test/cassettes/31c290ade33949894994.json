@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator<List<WriteStatus>> as per the implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result instanceof JavaLazyInsertIterable",
+    "rationale" : "If recordItr hasNext, then result is a JavaLazyInsertIterable; otherwise, it is a singleton iterator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || idPfx != null",
+    "rationale" : "JavaLazyInsertIterable's constructor is called with idPfx and will likely require it to be non-null if records exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!recordItr.hasNext()) || result.hasNext()",
+    "rationale" : "The result iterator is expected to have results if records are provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is always passed through to JavaLazyInsertIterable or used in the log message, and likely not expected to be null.",
+    "meta" : [ ]
+  } ]
+}

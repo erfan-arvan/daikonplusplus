@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collections.emptyList() never returns null, so the result is always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Collections.emptyList() always returns an empty list, so result is always empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "The returned list is always empty, so the size is always zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Collections.emptyList() returns an object of type List.",
+    "meta" : [ ]
+  } ]
+}

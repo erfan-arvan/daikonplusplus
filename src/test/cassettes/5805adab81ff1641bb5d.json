@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "Method will need clusteringPlan to access input groups and strategy.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "Schema is likely required for data operations within clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used for clustering identification, so it should be a valid non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getInputGroups() != null",
+    "rationale" : "Input groups are immediately iterated over in the method; null would cause a failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getStrategy() != null",
+    "rationale" : "The clustering strategy is required for retrieving strategy parameters for clustering execution.",
+    "meta" : [ ]
+  } ]
+}

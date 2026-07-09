@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List<V> due to Collectors.toList().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().noneMatch(Objects::isNull)",
+    "rationale" : "The method filters out nulls before collecting, so no elements in result are null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.stream().map(Pair::getKey).distinct().count()",
+    "rationale" : "The result contains at most one value per unique key in the input data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Result size cannot exceed input size since each input element is part of at most one group.",
+    "meta" : [ ]
+  } ]
+}

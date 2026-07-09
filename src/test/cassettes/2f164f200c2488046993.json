@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of records.collectAsList(), which is expected to return a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(records.collectAsList())",
+    "rationale" : "The method returns records.collectAsList(), so result equals this value for all executions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "records.collectAsList() returns a List, so result must be an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.collectAsList().size()",
+    "rationale" : "The result is exactly the list produced by records.collectAsList(), so the sizes must match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == records.collectAsList().isEmpty()",
+    "rationale" : "If records.collectAsList() is empty, so is result, and vice versa.",
+    "meta" : [ ]
+  } ]
+}

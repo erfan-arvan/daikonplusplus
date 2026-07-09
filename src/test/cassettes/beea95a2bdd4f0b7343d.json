@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (super.continueCursor(index, offset) && (calculateCurrentLineIndex(index + offset) < 0 || calculateCurrentLineIndex(index + offset) >= linesBreak.size - 2 || (linesBreak.items[calculateCurrentLineIndex(index + offset) + 1] != index) || (linesBreak.items[calculateCurrentLineIndex(index + offset) + 1] == linesBreak.items[calculateCurrentLineIndex(index + offset) + 2])))",
+    "rationale" : "This follows the exact return logic, describing how 'result' is computed from the parameters and related expressions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || super.continueCursor(index, offset)",
+    "rationale" : "If 'result' is true, then super.continueCursor(index, offset) must also be true, since 'result' is a conjunction using &&.",
+    "meta" : [ ]
+  }, {
+    "expression" : "super.continueCursor(index, offset) && calculateCurrentLineIndex(index + offset) >= 0 && calculateCurrentLineIndex(index + offset) < linesBreak.size - 2 && linesBreak.items[calculateCurrentLineIndex(index + offset) + 1] == index && linesBreak.items[calculateCurrentLineIndex(index + offset) + 1] != linesBreak.items[calculateCurrentLineIndex(index + offset) + 2] ? result : true",
+    "rationale" : "When all conditions in the '&&' are true, then 'result' must be true. Otherwise, the expression is unconstrained.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !super.continueCursor(index, offset) || (calculateCurrentLineIndex(index + offset) < 0) || (calculateCurrentLineIndex(index + offset) >= linesBreak.size - 2) || (linesBreak.items[calculateCurrentLineIndex(index + offset) + 1] != index) || (linesBreak.items[calculateCurrentLineIndex(index + offset) + 1] == linesBreak.items[calculateCurrentLineIndex(index + offset) + 2])",
+    "rationale" : "If none of the condition terms are true, result must be false. This expands the decomposition of the method's logic.",
+    "meta" : [ ]
+  } ]
+}

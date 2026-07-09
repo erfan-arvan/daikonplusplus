@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method needs to iterate over the orders, so null input is likely not allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o != null)",
+    "rationale" : "All elements must be non-null due to the null check in the loop.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getQuantity() > 0)",
+    "rationale" : "Each order must have a strictly positive quantity based on the validation logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getUnitPrice() >= 0)",
+    "rationale" : "Each order must have non-negative unit price based on the thrown exception condition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o != null && o.getQuantity() > 0 && o.getUnitPrice() >= 0)",
+    "rationale" : "Aggregate invariant combining all method-enforced conditions.",
+    "meta" : [ ]
+  } ]
+}

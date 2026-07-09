@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned value is produced by a stream collect, which always produces a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null || result.isEmpty()",
+    "rationale" : "If partitionPath is null, calling getLatestFileSlices likely returns an empty stream, resulting in an empty List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(f -> f != null)",
+    "rationale" : "File IDs produced by fg.getFileId() should not be null in a consistent table state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The stream applies .distinct() before collecting, so all elements are unique.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(f -> !f.isEmpty())",
+    "rationale" : "File IDs are typically non-empty strings.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is required for almost all operations and executors",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "method-entry"
+    } ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "An instant time identifier is required for log compaction operations",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "method-entry"
+    } ]
+  }, {
+    "expression" : "logCompactionInstantTime.length() > 0",
+    "rationale" : "Non-empty string is expected for operation instant time",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "method-entry"
+    } ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "Method is an instance method, so `this` should not be null",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "object"
+    } ]
+  } ]
+}

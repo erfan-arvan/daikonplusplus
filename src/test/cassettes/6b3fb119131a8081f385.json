@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || name.equals(result.getName())",
+    "rationale" : "If a non-null object is returned, its name must equal the input name; otherwise, null is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getName() != null",
+    "rationale" : "If a non-null object is returned, its name must not be null since a comparison was performed with name.equals(object.getName()).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getName().equals(name)",
+    "rationale" : "The returned object should have a name equal to the provided name; using equals in both directions ensures symmetry and null safety based on previous checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || true",
+    "rationale" : "If result is null, that is allowed; this reflects that returning null is an expected outcome if no match is found.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "The method assumes that name is non-null to avoid NullPointerException when calling name.equals(...).",
+    "meta" : [ ]
+  } ]
+}

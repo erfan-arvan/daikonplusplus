@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "HoodieTimeline.CLUSTERING_ACTION != null",
+    "rationale" : "The method returns a constant static field which should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "HoodieTimeline.CLUSTERING_ACTION is a constant non-null value"
+    } ]
+  }, {
+    "expression" : "HoodieTimeline.CLUSTERING_ACTION.length() > 0",
+    "rationale" : "The constant represents an action type name and is expected to be a non-empty string.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "Non-empty string"
+    } ]
+  }, {
+    "expression" : "HoodieTimeline.CLUSTERING_ACTION.equals(\"CLUSTERING\") || HoodieTimeline.CLUSTERING_ACTION.equals(\"clustering\")",
+    "rationale" : "The constant represents the clustering action and should match known clustering action strings.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "Expected specific action type value"
+    } ]
+  } ]
+}

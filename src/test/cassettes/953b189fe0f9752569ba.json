@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "Method requires tile to operate on as first parameter; it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "Method expects tileElement to provide XML hierarchy and is dereferenced without null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"objectgroup\") == null || tileElement.getChildByName(\"objectgroup\").getName().equals(\"objectgroup\")",
+    "rationale" : "If an objectgroup child exists, its name must be 'objectgroup'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"objectgroup\") == null || tileElement.getChildByName(\"objectgroup\").getChildrenByName(\"object\").size() >= 0",
+    "rationale" : "If objectgroup child exists, getChildrenByName should not throw and size is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"objectgroup\") == null || tile != null",
+    "rationale" : "If the body of the loop runs, tile is needed and must be non-null.",
+    "meta" : [ ]
+  } ]
+}

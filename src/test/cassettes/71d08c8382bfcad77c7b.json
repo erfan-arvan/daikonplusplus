@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The aggregation returns a non-null value as reduce starts with a non-null zeroValue and applies pure functions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "seqOp must be non-null to be used as a function reference in reduce.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "combOp must be non-null for the reduce call in stream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data is dereferenced for collectAsList, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "zeroValue is used as the identity in reduce and must be non-null.",
+    "meta" : [ ]
+  } ]
+}

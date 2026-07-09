@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Throughout the method, 'result' is always derived from FileHandle instance methods, which are expected not to return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.path().endsWith(\"/\" + path) || path.isEmpty() || path.equals(\".\") || path.contains(\"..\")",
+    "rationale" : "If 'path' is a plain relative path (not empty, not '.', not containing '..'), then 'result.path()' will typically end with '/' + path; otherwise, for '..' or edge cases, this may not hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.type() == file.type()",
+    "rationale" : "Operations 'parent' and 'child' do not alter the FileType, so the result type matches the original file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != file",
+    "rationale" : "Unless 'path' is empty or '.', 'result' will be a different object from the initial 'file'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!path.isEmpty() || result.equals(file.parent())",
+    "rationale" : "If the path is empty, the first assignment of result is returned, which is file.parent().",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which is a non-null object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this' reference, so result and this are identical.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.space == space",
+    "rationale" : "The field 'space' is set to the parameter value and then 'this' is returned.",
+    "meta" : [ ]
+  } ]
+}

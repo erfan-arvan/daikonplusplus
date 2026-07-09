@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The data list should be non-null for the method logic to proceed without null pointer exceptions.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "data is a parameter and used in stream calls"
+    } ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc is used in the reduce operation and must be non-null to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "reduceFunc is required for reduction"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is an int argument that usually represents the level of parallelism and should be positive.",
+    "meta" : [ {
+      "key" : "parallelism-positive",
+      "value" : "parallelism used for parallelism level"
+    } ]
+  }, {
+    "expression" : "!data.contains(null)",
+    "rationale" : "Data elements should not be null to avoid NullPointerException when accessing getKey() or getValue() methods.",
+    "meta" : [ {
+      "key" : "no-null-elements",
+      "value" : "Stream operations assume non-null elements"
+    } ]
+  }, {
+    "expression" : "parallelism <= Runtime.getRuntime().availableProcessors()",
+    "rationale" : "Parallelism parameter typically does not exceed the number of available processors.",
+    "meta" : [ {
+      "key" : "parallelism-bound",
+      "value" : "parallelism should not exceed CPU cores for efficiency"
+    } ]
+  } ]
+}

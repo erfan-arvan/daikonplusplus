@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "pointer >= 0",
+    "rationale" : "Pointer indices for input events are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button >= 0",
+    "rationale" : "Button indices for input events are conventionally non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event != null",
+    "rationale" : "The InputEvent should be non-null for the touchDown logic to execute safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "UI coordinate x is likely non-negative in scene graph systems.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "UI coordinate y is typically non-negative at the point of event.",
+    "meta" : [ ]
+  } ]
+}

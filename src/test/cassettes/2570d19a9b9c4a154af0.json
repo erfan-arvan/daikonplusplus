@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method will fail if data is null; method requires data to be a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "Method will fail if reduceFunc is null; it is invoked inside the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter should be positive to indicate parallel execution groups.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size() || data.isEmpty()",
+    "rationale" : "Parallelism cannot meaningfully exceed data size unless data is empty.",
+    "meta" : [ ]
+  } ]
+}

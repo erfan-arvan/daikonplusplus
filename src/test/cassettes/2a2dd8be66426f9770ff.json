@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The first check in the method throws if 'name' is null, ensuring that by METHOD_EXIT, 'name' is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type != null",
+    "rationale" : "The method throws immediately if 'type' is null, guaranteeing that 'type' is non-null at any normal exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A GdxRuntimeException is thrown if no resource is found, and all code paths return a casted, non-null reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type.isInstance(result)",
+    "rationale" : "Result is always either a type-specific resource or a resource of the given type, thus it should be an instance of 'type'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == type || type.isAssignableFrom(result.getClass())",
+    "rationale" : "Result is either exactly an instance of 'type' or one of its subclasses/implementations, due to explicit casting and resource fetching logic.",
+    "meta" : [ ]
+  } ]
+}

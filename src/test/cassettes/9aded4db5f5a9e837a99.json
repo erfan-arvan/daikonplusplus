@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of HoodieJavaTable.create, which should not be null if creation succeeds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "The create method returns a HoodieJavaTable instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used in the method, so it cannot be null at exit without causing a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is dereferenced in the method, so it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieJavaTable.class || HoodieJavaTable.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The returned object is always a HoodieJavaTable or a subclass thereof.",
+    "meta" : [ ]
+  } ]
+}

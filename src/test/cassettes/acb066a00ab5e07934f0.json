@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "HoodieData is a required collection for aggregation and must not be null.",
+    "meta" : [ {
+      "key" : "frequency",
+      "value" : "appears in simple and safe method predicate drafts"
+    } ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "The sequential function to fold elements must be defined.",
+    "meta" : [ {
+      "key" : "frequency",
+      "value" : "appears in simple and safe method predicate drafts"
+    } ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "The combiner function must be provided for aggregating intermediate results.",
+    "meta" : [ {
+      "key" : "frequency",
+      "value" : "appears in simple and safe method predicate drafts"
+    } ]
+  } ]
+}

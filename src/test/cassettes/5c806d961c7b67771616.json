@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option return values should never be null by convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option parameters should also not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isPresent() || result.get() != null",
+    "rationale" : "If Option is present, its contained value is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!extraMetadata.isPresent() || extraMetadata.get() != null",
+    "rationale" : "If extraMetadata Option is present, its contained map is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context parameter should not be null for table methods.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to writeClient methods and should not be null for the calls to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is used as an argument in upsertPreppedRecords and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is used for method calls and must not be null for those to work.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The batch is needed to perform drawing; likely not null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable != null",
+    "rationale" : "A non-null Drawable is required to invoke its draw method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "w >= 0",
+    "rationale" : "Width 'w' for a shape to be drawn is likely to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "h >= 0",
+    "rationale" : "Height 'h' for a shape to be drawn is likely to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + w >= x",
+    "rationale" : "The right boundary (x + w) is greater than or equal to the left boundary (x) for non-negative widths.",
+    "meta" : [ ]
+  } ]
+}

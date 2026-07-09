@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns either a cached Fixed or a new Fixed object, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(new Fixed(value))",
+    "rationale" : "Regardless of cache usage, the returned Fixed object's value corresponds to the input value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(value == 0) == (result == zero)",
+    "rationale" : "When value==0, the method returns zero; otherwise, it does not.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != zero || value == 0 || value < -10 || value > 100 || value != (int)value",
+    "rationale" : "The only way result is zero is if value == 0; otherwise, result is never zero (even if using the cache).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Fixed",
+    "rationale" : "The result is always an instance of Fixed, as it's returned either from the cache or via new Fixed(value).",
+    "meta" : [ ]
+  } ]
+}

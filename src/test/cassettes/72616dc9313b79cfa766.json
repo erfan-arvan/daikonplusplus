@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned HoodieData should not be null, as it is constructed via HoodieListData.eager.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Method assumes input records are valid and non-null to perform the tagging operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is necessary for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "A non-null HoodieTable is required to tag records with location.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == records.count()",
+    "rationale" : "The tagging operation should preserve the number of records, just updating their location metadata.",
+    "meta" : [ ]
+  } ]
+}

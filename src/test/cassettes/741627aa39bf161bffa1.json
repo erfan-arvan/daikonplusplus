@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null || activeModule == null",
+    "rationale" : "At method exit, with no operation inside, activeModule can be any value and must either be null or not null.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "activityDescription != null || activityDescription == null",
+    "rationale" : "At method exit, with no operation inside, activityDescription can be any value and must either be null or not null.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No side effect or processing means no meaningful invariant except tautology.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "The method is non-static, so 'this' must not be null.",
+    "meta" : [ {
+      "key" : "object-existence",
+      "value" : "true"
+    } ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "Instance methods cannot be called on null; 'this' is guaranteed non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "blendMode != null",
+    "rationale" : "It is likely that blendMode should be initialized before use, especially since it will be returned from the method.",
+    "meta" : [ ]
+  } ]
+}

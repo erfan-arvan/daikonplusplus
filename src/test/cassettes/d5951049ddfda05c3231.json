@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method execution depends on a non-null context and instantiates an executor with it.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime, which is likely used as an identifier, should not be null before execution.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter nullness"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is passed to another action; if null, method semantics would likely break.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter nullness"
+    } ]
+  } ]
+}

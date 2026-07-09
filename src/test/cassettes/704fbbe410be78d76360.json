@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this' as its result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.resetOnStart == resetOnStart",
+    "rationale" : "The method sets 'this.resetOnStart' to the parameter value and then returns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.resetOnStart == resetOnStart",
+    "rationale" : "Since 'result == this', this is also true for result.",
+    "meta" : [ ]
+  } ]
+}

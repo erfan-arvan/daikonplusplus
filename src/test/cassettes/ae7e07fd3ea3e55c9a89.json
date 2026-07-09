@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "Ensures that the writeMetadata parameter is not null before method execution, which is necessary for safe method invocation inside.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "guard"
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "writeMetadata.getWriteStatuses() is streamed in the method body, so it should not be null for correct operation.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "safe_stream_call"
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().size() >= 0",
+    "rationale" : "List sizes in Java cannot be negative; this is a property guaranteed by List.",
+    "meta" : [ {
+      "key" : "collection_size",
+      "value" : "non_negative"
+    } ]
+  }, {
+    "expression" : "!writeMetadata.getWriteStatuses().isEmpty() || writeMetadata.getWriteStatuses().size() == 0",
+    "rationale" : "List.isEmpty() is logically equivalent to size() == 0 for Java Lists.",
+    "meta" : [ {
+      "key" : "collection_state",
+      "value" : "empty_equivalence"
+    } ]
+  } ]
+}

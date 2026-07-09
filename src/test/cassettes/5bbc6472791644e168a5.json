@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Defensive: Collection parameters are often checked for nullness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "List size is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hoodieRecords.isEmpty() || hoodieRecords.size() == 0",
+    "rationale" : "isEmpty() is equivalent to size() == 0 for lists.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "UI spacing values (like top space) are usually non-negative as they represent space/margin amounts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Spacing values should be finite and not infinite or NaN in UI layout context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == spaceTop.get(actor)",
+    "rationale" : "The method simply returns the result of spaceTop.get(actor), so result is always exactly equal to this.",
+    "meta" : [ ]
+  } ]
+}

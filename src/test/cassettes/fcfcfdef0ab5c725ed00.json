@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method expects profile to be a valid object and invokes methods on it unconditionally, which implies it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "The method iterates over entrySet from this map, so it should not be null at the exit point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The method retrieves and updates this map, suggesting it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "The hasOutputWorkLoadStats() likely correlates with the output partition path stat map being non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().size() >= 0",
+    "rationale" : "Map size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

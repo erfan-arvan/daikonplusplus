@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "Ensures the workload profile parameter is not null before method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Ensures the engine context parameter is not null before usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "Partition paths should be obtainable from the workload profile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths().size() >= 0",
+    "rationale" : "The number of partition paths is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "Output workload stats presence should match presence of its map.",
+    "meta" : [ ]
+  } ]
+}

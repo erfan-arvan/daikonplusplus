@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method returns a constant string, result cannot be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns HoodieTimeline.CLUSTERING_ACTION which is a constant string, so result is non-null."
+    } ]
+  }, {
+    "expression" : "result.equals(HoodieTimeline.CLUSTERING_ACTION)",
+    "rationale" : "Result must equal the constant string returned by the method.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns HoodieTimeline.CLUSTERING_ACTION directly."
+    } ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "Result string is known to be non-empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "HoodieTimeline.CLUSTERING_ACTION is a non-empty string constant."
+    } ]
+  } ]
+}

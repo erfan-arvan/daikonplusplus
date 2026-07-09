@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "It is common to check that parameters are non-null before accessing their methods; this ensures safe evaluation in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantity is typically non-negative, as negative quantities are uncommon in standard order processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() < Integer.MAX_VALUE",
+    "rationale" : "It is unlikely that order quantity will reach the maximum integer value, and most systems enforce practical upper bounds.",
+    "meta" : [ ]
+  } ]
+}

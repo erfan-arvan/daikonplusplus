@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Loop increments index from zero upward, never below 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= linesBreak.size",
+    "rationale" : "index can at most reach linesBreak.size, since loop bounds are index < linesBreak.size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor <= linesBreak.size ==>(result == 0)",
+    "rationale" : "If cursor is less than or equal to the smallest possible line break, index never increments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == linesBreak.size || cursor <= linesBreak.items[result]",
+    "rationale" : "At exit, either index reached the end, or cursor is not greater than the current line break.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || cursor > linesBreak.items[result - 1]",
+    "rationale" : "Index only increments when cursor is greater than the previous line break.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method operates on 'data', so it is expected to be non-null for method correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The 'func' parameter is used to create a mapper, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "'parallelism' is used to control data processing, so passing a null value might not be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically expected to be positive to have any effect.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "Parallelism should not typically exceed the number of data items unless data is empty.",
+    "meta" : [ ]
+  } ]
+}

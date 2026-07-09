@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method is expected to receive a non-null list of records to upsert, which may be assumed by internal logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is usually required for write operations to specify the commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.get(0) != null",
+    "rationale" : "If the preppedRecords list is not empty, the first element is expected to be non-null for meaningful upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "Usually instantTime should be a non-empty string to represent a meaningful commit time.",
+    "meta" : [ ]
+  } ]
+}

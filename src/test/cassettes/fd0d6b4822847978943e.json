@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is required to represent the engine context for write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime typically represents a required commit instant or timestamp, which should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records should be non-null since they encapsulate the data to be written.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner, an Option type, must at least be non-null; its internal value can be absent.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "If records is not empty, it has a positive size (property of List collections).",
+    "meta" : [ ]
+  } ]
+}

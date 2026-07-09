@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "HoodieTableMetaClient metaClient should be non-null to interact with table metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "List of columns to index should not be null for further processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.isEmpty() || columnsToIndex.get(0) != null",
+    "rationale" : "If the list is not null and not empty, first element is likely non-null for proper indexing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.stream().allMatch(col -> col != null && !col.isEmpty())",
+    "rationale" : "Each column to index should be a non-null and non-empty string if the list is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "Table config should be retrievable from HoodieTableMetaClient at method entry.",
+    "meta" : [ ]
+  } ]
+}

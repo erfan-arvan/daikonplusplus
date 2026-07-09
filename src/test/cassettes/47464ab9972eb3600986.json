@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursor >= 0",
+    "rationale" : "The cursor position typically cannot be negative in a text input context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "The selection starting position is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "The method likely expects to receive a valid String for editing operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || selectionStart != cursor",
+    "rationale" : "If a selection exists, its start should differ from the cursor (nonempty selection).",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor <= text.length()",
+    "rationale" : "The cursor should not exceed the end of the input text.",
+    "meta" : [ ]
+  } ]
+}

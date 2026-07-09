@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "Function will fail if metadata parameter is null; typically parameter should be non-null.",
+    "meta" : [ {
+      "key" : "trust",
+      "value" : "safe default"
+    } ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "Access to getWriteStatuses() without null check implies this should be non-null.",
+    "meta" : [ {
+      "key" : "output type",
+      "value" : "HoodieData<WriteStatus>"
+    } ]
+  }, {
+    "expression" : "metadata instanceof HoodieWriteMetadata",
+    "rationale" : "Function parameter static type is HoodieWriteMetadata, so invariant holds.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "HoodieWriteMetadata<HoodieData<WriteStatus>>"
+    } ]
+  }, {
+    "expression" : "metadata.getWriteStatuses().collectAsList() != null",
+    "rationale" : "collectAsList() is called directly and passed into clone; it should not return null.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "transformation output"
+    } ]
+  } ]
+}

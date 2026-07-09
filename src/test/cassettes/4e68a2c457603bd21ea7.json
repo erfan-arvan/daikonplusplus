@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b != 0 || b == 0",
+    "rationale" : "b can be zero or non-zero at method entry, no restriction yet.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "At method entry, b can be any int including zero, so this tautology breaks down to b is int."
+    } ]
+  }, {
+    "expression" : "a >= Integer.MIN_VALUE",
+    "rationale" : "a is an int, so always greater or equal to Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "int"
+    } ]
+  }, {
+    "expression" : "a <= Integer.MAX_VALUE",
+    "rationale" : "a is an int, so always less or equal to Integer.MAX_VALUE.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "int"
+    } ]
+  }, {
+    "expression" : "b >= Integer.MIN_VALUE",
+    "rationale" : "b is an int, so always greater or equal to Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "int"
+    } ]
+  }, {
+    "expression" : "b <= Integer.MAX_VALUE",
+    "rationale" : "b is an int, so always less or equal to Integer.MAX_VALUE.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "int"
+    } ]
+  } ]
+}

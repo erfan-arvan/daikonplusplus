@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this.maxWidth != null",
+    "rationale" : "Field 'maxWidth' is accessed in the method, so it must not be null to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.actor != null",
+    "rationale" : "'actor' is passed to 'maxWidth.get(actor)', thus for correct execution, 'actor' should not be null unless 'maxWidth.get' permits it.",
+    "meta" : [ ]
+  } ]
+}

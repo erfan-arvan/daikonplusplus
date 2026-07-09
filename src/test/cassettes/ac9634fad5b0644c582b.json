@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile.lastTiledMapRenderTime == com.badlogic.gdx.utils.TimeUtils.millis() - com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile.initialTimeOffset",
+    "rationale" : "This expresses the assignment performed in updateAnimationBaseTime right as the method is about to execute.",
+    "meta" : [ ]
+  }, {
+    "expression" : "com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile.initialTimeOffset >= 0",
+    "rationale" : "Offsets for timing are typically non-negative; a reasonable invariant unless class design allows negative offsets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile.lastTiledMapRenderTime >= 0",
+    "rationale" : "Render time, representing an epoch time in milliseconds, is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "com.badlogic.gdx.utils.TimeUtils.millis() >= 0",
+    "rationale" : "System time in milliseconds is non-negative since epoch.",
+    "meta" : [ ]
+  }, {
+    "expression" : "com.badlogic.gdx.utils.TimeUtils.millis() >= com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile.initialTimeOffset",
+    "rationale" : "The time since epoch should generally be greater than or equal to the offset used for animation timing.",
+    "meta" : [ ]
+  } ]
+}

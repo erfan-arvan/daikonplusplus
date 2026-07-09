@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method delegates to getCommitActionType(), which is expected to return a non-null String representing an action type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "The returned action type should not be the empty string, as it should encode a commit type.",
+    "meta" : [ ]
+  } ]
+}

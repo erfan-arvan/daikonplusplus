@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method must return a non-null List object or the method guarantees non-null postWrite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records parameter is used without null checks, implying it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to multiple methods without null checks and is required for the insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method returns a List object by contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(records.isEmpty()) || !result.isEmpty()",
+    "rationale" : "If records is non-empty, it is likely that result will also not be empty.",
+    "meta" : [ ]
+  } ]
+}

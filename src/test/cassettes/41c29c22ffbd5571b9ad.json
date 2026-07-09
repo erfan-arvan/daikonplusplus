@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns the write metadata, which should not be null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects a prepped list of records as input, so it should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An instantTime (commit timestamp) should be provided and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is required to execute operations and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(HoodieWriteMetadata.class) || result instanceof HoodieWriteMetadata",
+    "rationale" : "The method signature ensures result is of HoodieWriteMetadata type.",
+    "meta" : [ ]
+  } ]
+}

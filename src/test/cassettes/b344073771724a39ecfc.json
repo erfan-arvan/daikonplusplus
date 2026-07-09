@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "duration >= 0",
+    "rationale" : "Duration should not be negative, as negative animation times are usually nonsensical.",
+    "meta" : [ ]
+  }, {
+    "expression" : "duration != Float.NaN",
+    "rationale" : "Duration should be a valid float value for animation timing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(duration)",
+    "rationale" : "Duration should not be infinite for proper animation behavior.",
+    "meta" : [ ]
+  } ]
+}

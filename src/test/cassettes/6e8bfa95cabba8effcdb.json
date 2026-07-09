@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method uses stream and collect, producing a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> id != null)",
+    "rationale" : "Each small file must have a non-null file ID since location.getFileId() should not return null for valid SmallFile objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == smallFiles.size()",
+    "rationale" : "The output list has the same number of elements as the smallFiles list due to the 1:1 mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() <= result.size()",
+    "rationale" : "The list of file IDs may contain duplicates, but the number of unique IDs can never exceed the list size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> !id.isEmpty())",
+    "rationale" : "File IDs are typically non-empty strings; defensively, this ensures output integrity.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A successful 'bulkInsert' should return a non-null write metadata result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus in the result should be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input records list should be non-null for bulk insert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter acts as a commit marker and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "By method signature, result.getWriteStatuses() must be a List.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,17 +1,17 @@
 {
   "invariants" : [ {
     "expression" : "args != null",
-    "rationale" : "The String array args passed to main is always non-null by the JVM.",
+    "rationale" : "args is the parameter array, and it must be non-null upon method exit.",
     "meta" : [ {
-      "key" : "nullness",
-      "value" : "args is non-null"
+      "key" : "reason",
+      "value" : "args array is non-null at method exit."
     } ]
   }, {
     "expression" : "args.length >= 0",
-    "rationale" : "Array length is always non-negative.",
+    "rationale" : "Java arrays always have non-negative length.",
     "meta" : [ {
-      "key" : "size",
-      "value" : "args length is non-negative"
+      "key" : "reason",
+      "value" : "array length is non-negative."
     } ]
   } ]
 }

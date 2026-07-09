@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "getProperty always returns an Option, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isPresent()",
+    "rationale" : "getProperty always returns Option.empty(), which is never present.",
+    "meta" : [ ]
+  } ]
+}

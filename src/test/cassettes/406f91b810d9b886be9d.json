@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a newly created merged Element; even if one argument is null, it returns the other, which by precondition is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(parentProps == null && templateProps != null && result == templateProps) || (templateProps == null && parentProps != null && result == parentProps) || (parentProps != null && templateProps != null && result != parentProps && result != templateProps)",
+    "rationale" : "Covers all paths: if either input is null, the other (non-null) is returned; if both are non-null, a new merged Element is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getName().equals(\"properties\")",
+    "rationale" : "The merged Element is always created with name 'properties', which is also preserved if a non-null input is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "templateProps != null || parentProps != null",
+    "rationale" : "At least one of the arguments must be non-null for a non-null result (otherwise unreachable code).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getChildCount() >= 0",
+    "rationale" : "A valid Element (merged or input) always has a non-negative child count.",
+    "meta" : [ ]
+  } ]
+}

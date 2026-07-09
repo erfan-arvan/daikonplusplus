@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be a valid identifier for the commit instant.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition (of type Integer) should often be explicitly specified for partitioned operations.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr must be non-null to provide records to insert.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is required to partition records for the commit action.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "!(recordItr != null) || recordItr.hasNext()",
+    "rationale" : "If the recordItr is non-null, it may often be expected to contain records for insertion.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "iterator-safety"
+    } ]
+  } ]
+}

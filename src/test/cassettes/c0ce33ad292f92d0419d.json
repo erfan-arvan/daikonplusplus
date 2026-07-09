@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method is invoked on data and collectAsList cannot be called on null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "seqOp::apply is used, so seqOp must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "combOp::apply is used in reduce, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "reduce returns a value, which with a non-null identity (zeroValue) and non-null operators, is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().isInstance(zeroValue)",
+    "rationale" : "Result comes from reduction seeded by zeroValue and using ops of O, so should be an instance of O.",
+    "meta" : [ ]
+  } ]
+}

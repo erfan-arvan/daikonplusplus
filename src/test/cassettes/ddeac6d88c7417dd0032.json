@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is an Option<> type and should not be null; it's always at least Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(scheduleCompactionExecutor.execute())",
+    "rationale" : "result is the return value from scheduleCompactionExecutor.execute() in all cases.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method is called with a list to be parallelized, which cannot be null for meaningful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive integer to make sense for parallelization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HoodieData instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(data)",
+    "rationale" : "HoodieListData.eager(data) preserves data order and content, so the resulting HoodieData when collected equals the input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "The implementation specifically returns an eagerly evaluated HoodieListData.",
+    "meta" : [ ]
+  } ]
+}

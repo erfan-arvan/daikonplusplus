@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The args array should never be null for Java main methods, supporting typical main method contracts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args instanceof String[]",
+    "rationale" : "The args parameter should always be of type String[].",
+    "meta" : [ ]
+  } ]
+}

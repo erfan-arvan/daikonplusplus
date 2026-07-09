@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tiledColor != null",
+    "rationale" : "Method expects a non-null color string parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiledColor.startsWith(\"#\")",
+    "rationale" : "Tiled color strings are expected to start with '#'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiledColor.length() == 7 || tiledColor.length() == 9",
+    "rationale" : "Tiled color strings are either #RRGGBB (length 7) or #AARRGGBB (length 9).",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiledColor.length() >= 7",
+    "rationale" : "The shortest valid Tiled color string is #RRGGBB with length 7.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiledColor.matches(\"#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})\")",
+    "rationale" : "Valid Tiled color strings match this regex for hex color values.",
+    "meta" : [ ]
+  } ]
+}

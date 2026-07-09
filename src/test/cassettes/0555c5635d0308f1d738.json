@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Iterator, and should not return null in standard usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition is passed along likely as a partition key and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents a required commit instant and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Iterator for records to insert must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner guides upsert/insert logic and should not be null.",
+    "meta" : [ ]
+  } ]
+}

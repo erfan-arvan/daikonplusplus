@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List<V> using Collectors.toList(), which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The stream pipeline is executed on 'data', so it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "The reduction groups input pairs by key; number of unique keys is at most the number of input elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is expected to be positive for proper parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || data.isEmpty()",
+    "rationale" : "If result is empty, then the input data must also have been empty, otherwise grouping will yield at least one key.",
+    "meta" : [ ]
+  } ]
+}

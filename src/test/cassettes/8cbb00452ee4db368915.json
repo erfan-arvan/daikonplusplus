@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is typically required for engine operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter usually denotes a timestamp or commit instant, expected to be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The partitions list is required as input; should not be null to avoid NullPointerException in processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions == null || partitions.size() >= 0",
+    "rationale" : "List size is never negative; ensures proper list state if not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || instantTime.trim().length() > 0",
+    "rationale" : "If instantTime is not null, it is expected to have at least one non-whitespace character.",
+    "meta" : [ ]
+  } ]
+}

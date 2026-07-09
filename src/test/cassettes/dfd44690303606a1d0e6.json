@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method expects instantTime as a required argument for commit operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "partitionRecordsMap is a required parameter and the commit would not proceed with null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty()",
+    "rationale" : "Methods committing with no records are usually not invoked, and empty commits would often be no-op or prevented earlier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "Partition keys in the map should be non-null for valid metadata writing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.values().stream().allMatch(v -> v != null)",
+    "rationale" : "All values in the partitionRecordsMap should be non-null HoodieData objects.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method returns the same list instance after sorting in place.",
+    "meta" : [ {
+      "key" : "obvious",
+      "value" : "returns input reference"
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "No record is removed or added; only the order may have changed.",
+    "meta" : [ {
+      "key" : "size-equality",
+      "value" : "list not filtered"
+    } ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "By method signature, input type is List.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "records is List"
+    } ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Partition number typically required to be non-negative, by convention.",
+    "meta" : [ {
+      "key" : "param-order",
+      "value" : "partitions generally non-negative"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> r != null)",
+    "rationale" : "Usually, collection of records should not contain null elements after processing.",
+    "meta" : [ {
+      "key" : "nullity",
+      "value" : "records elements are not null"
+    } ]
+  } ]
+}

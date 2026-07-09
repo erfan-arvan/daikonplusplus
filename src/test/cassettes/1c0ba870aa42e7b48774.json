@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0",
+    "rationale" : "In GUI contexts, coordinates are often constrained to be non-negative, as negative values are generally outside the visible area.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "Y-coordinates for UI elements are also typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(x)",
+    "rationale" : "Coordinates should be finite numbers for meaningful cursor placement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(y)",
+    "rationale" : "Y-coordinates should be finite values as well.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x != Float.NaN && y != Float.NaN",
+    "rationale" : "Inputs to cursor positioning functions should not be NaN.",
+    "meta" : [ ]
+  } ]
+}

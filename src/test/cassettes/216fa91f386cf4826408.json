@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "Clustering typically requires at least one output group to perform meaningful work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null && !inputRecords.isEmpty()",
+    "rationale" : "Clustering only makes sense when there is data to process; an empty or null record list would have nothing to cluster.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupIdList != null && fileGroupIdList.size() >= numOutputGroups",
+    "rationale" : "Usually, the number of file groups is at least as many as the output groups for repartitioning records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "Clustering strategy typically depends on configuration parameters supplied in the strategyParams map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "A non-null HoodieSchema is required for writing records and schema evolution support.",
+    "meta" : [ ]
+  } ]
+}

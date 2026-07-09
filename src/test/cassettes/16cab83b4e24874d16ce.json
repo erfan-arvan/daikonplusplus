@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null",
+    "rationale" : "writeStatus is generally expected to be provided for compaction and cannot be used if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is necessary for distributed operations, so it's likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config contains the write configuration necessary for table operations, so should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should represent a valid timestamp, so it should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName() != null && !config.getTableName().isEmpty()",
+    "rationale" : "A valid table name is expected in the configuration, so this ensures it's present and non-empty.",
+    "meta" : [ ]
+  } ]
+}

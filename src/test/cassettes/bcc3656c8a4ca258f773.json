@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method immediately calls new JavaBulkInsertDeltaCommitActionExecutor((HoodieJavaEngineContext)context, ...), so context must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to a constructor expecting a non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords is passed into the executor and further processed; null probably not allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method returns the result of execute(), which should be a HoodieWriteMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() should produce a non-null List.",
+    "meta" : [ ]
+  } ]
+}

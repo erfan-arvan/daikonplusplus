@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new JavaUpsertDeltaCommitActionExecutor that produces a non-null result.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "NonNull"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The method parameter hoodieRecords is expected to be non-null for the upsert operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "NonNull"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is a String representing commit time and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "NonNull"
+    } ]
+  }, {
+    "expression" : "result.getCommitTime().equals(instantTime)",
+    "rationale" : "The result's commit time is expected to match the instantTime parameter used for upsert.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "equals"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() <= hoodieRecords.size()",
+    "rationale" : "The number of write statuses in the result should not exceed the number of hoodieRecords provided.",
+    "meta" : [ {
+      "key" : "sizeRelation",
+      "value" : "upperBound"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Return value should not be null as per standard collection-returning method contracts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input parameter should be non-null for valid processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely a critical parameter and must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Return type is declared as List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a List can never be negative.",
+    "meta" : [ ]
+  } ]
+}

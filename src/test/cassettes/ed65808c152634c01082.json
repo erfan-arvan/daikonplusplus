@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieWriteMetadata should not be null after a commit action executor returns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null && !preppedRecords.isEmpty() ? result.getWriteStatuses() != null : true",
+    "rationale" : "If preppedRecords were provided, the write metadata should contain non-null write statuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write metadata returned is expected to contain a non-null list of WriteStatus objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A non-null, non-empty instantTime is typically required for Hudi write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid engine context is required for the operation to proceed and for the executor to run.",
+    "meta" : [ ]
+  } ]
+}

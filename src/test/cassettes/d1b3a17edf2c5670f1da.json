@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method accesses the 'style' field directly; it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.checkboxOnDisabled != null || style.checkboxOffDisabled != null",
+    "rationale" : "If the box is disabled, at least one of these fields is returned; one must be set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.checkboxOn != null || style.checkboxOff != null",
+    "rationale" : "If not disabled, these are required for the non-disabled paths of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.checkboxOff != null",
+    "rationale" : "In the default return case, style.checkboxOff is returned; must not be null.",
+    "meta" : [ ]
+  } ]
+}

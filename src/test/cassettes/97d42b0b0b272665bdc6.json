@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The writeClient parameter must not be null before method execution to be usable.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "writeClient must be non-null to call methods on it"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be a non-null String to represent the commit time.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is used as a commit timestamp and should not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is a List of records expected to be non-null before the method executes.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "preppedRecordInputs is passed to bulkInsertPreppedRecords and should not be null"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is an Option and expected to be non-null before method entry.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "bulkInsertPartitioner is an Option type parameter and should not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs instanceof List",
+    "rationale" : "The parameter preppedRecordInputs should be a List instance before method execution.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "preppedRecordInputs must be a List type as declared"
+    } ]
+  } ]
+}

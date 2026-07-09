@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "Instant time identifiers are often required to be non-null for compaction operations to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null engine context is typically required for distributed or parallel actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime.isEmpty() == false",
+    "rationale" : "An empty compaction instant time string likely indicates an invalid or corner-case operation.",
+    "meta" : [ ]
+  } ]
+}

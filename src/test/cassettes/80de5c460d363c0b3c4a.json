@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "It is common to assume that the input list should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The mapping function must be non-null to perform map operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "The parallelism parameter is expected to be provided as it may control execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism == null || parallelism > 0",
+    "rationale" : "If parallelism is provided, it should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || data.size() > 0",
+    "rationale" : "The list's size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

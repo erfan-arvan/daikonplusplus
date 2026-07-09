@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a new HoodieWriteMetadata; should not be null if created via constructor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime typically encodes commit time; must be non-null for operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "List of HoodieKeys to delete should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext should not be null for any table operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus within HoodieWriteMetadata should not be null after a delete.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Parameter config is used in method calls; it must not be null for proper execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null Option<BaseKeyGenerator> value (Option.empty() or Option.of(...)).",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == result.isEmpty()",
+    "rationale" : "If config.populateMetaFields() is true, result is Option.empty(); otherwise, result is Option.of(...).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!config.populateMetaFields() == result.isPresent()",
+    "rationale" : "result is only present if config.populateMetaFields() is false.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "drawable != null",
+    "rationale" : "The method attempts to use drawable, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable instanceof TiledDrawable || drawable instanceof TextureRegionDrawable || drawable instanceof NinePatchDrawable || drawable instanceof SpriteDrawable",
+    "rationale" : "The method only handles these four types and throws otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable instanceof Drawable",
+    "rationale" : "By type signature, drawable must implement the Drawable interface.",
+    "meta" : [ ]
+  } ]
+}

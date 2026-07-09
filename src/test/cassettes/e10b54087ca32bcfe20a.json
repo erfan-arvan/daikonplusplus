@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Since data.stream() is invoked, data must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The result is produced by collecting a stream, which always produces a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == data.size()",
+    "rationale" : "Each input element in data is mapped to exactly one output element in result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The function is used for mapping, and must be non-null to safely invoke it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "A positive parallelism is expected for correct parallel processing semantics.",
+    "meta" : [ ]
+  } ]
+}

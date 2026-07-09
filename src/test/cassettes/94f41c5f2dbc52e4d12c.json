@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of HoodieJavaTable.create(), so 'result' should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used directly to access its methods, so it must be non-null on all paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is dereferenced to obtain storage configuration, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "The method return type and returned value guarantee this is true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != config",
+    "rationale" : "result is a new or factory-created table object, not the config instance.",
+    "meta" : [ ]
+  } ]
+}

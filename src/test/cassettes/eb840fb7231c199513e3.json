@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The commit method is expected to operate on a non-null result; null would likely cause a NullPointerException in method calls within commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses is called on result; this must be non-null for the commit logic to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "The operation processes write statuses; a non-empty list is expected for commit to make sense.",
+    "meta" : [ ]
+  } ]
+}

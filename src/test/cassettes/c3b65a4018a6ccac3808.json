@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method commits to a timeline instant and null instants would most likely be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "Committing updates depends on there being a partition-records mapping; null would not be valid within normal table commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If there is any data to commit, there must be an instant time string set.",
+    "meta" : [ ]
+  } ]
+}

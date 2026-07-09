@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a required argument for downstream method calls.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed directly to a method, so must be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is dereferenced for method calls, so must be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs.size() >= 0",
+    "rationale" : "Collection sizes in Java are never negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection size"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed to a method call, so likely to not be null for safe operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Validates that the input parameter is provided before method logic executes.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "param simple constraint"
+    } ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "Ensures property access is safe, implied by getPartitionColumns method logic.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "safe method call usage"
+    } ]
+  } ]
+}

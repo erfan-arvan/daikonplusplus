@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is used to construct CleanActionExecutor and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "cleanInstantTime is passed to CleanActionExecutor and likely must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!cleanInstantTime.isEmpty()",
+    "rationale" : "cleanInstantTime is expected to be a non-empty string representing an instant time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime.trim().length() > 0",
+    "rationale" : "cleanInstantTime should not be just whitespace.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context.isValid()",
+    "rationale" : "HoodieEngineContext may have an 'isValid' property indicating proper initialization.",
+    "meta" : [ ]
+  } ]
+}

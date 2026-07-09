@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method is expected to operate on a non-null HoodieData<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is required by the method implementation and contracts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "The HoodieTable is used within the method, so it should not be null.",
+    "meta" : [ ]
+  } ]
+}

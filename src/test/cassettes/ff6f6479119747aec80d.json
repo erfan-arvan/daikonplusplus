@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is necessary for meaningful scheduling of clustering, and this pattern is often strictly required in similar method signatures.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context object is expected to be non-null for cluster scheduling to proceed, implied by similar usages across methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata being non-null allows its Option methods to be used safely, as shown by similar method contracts.",
+    "meta" : [ ]
+  } ]
+}

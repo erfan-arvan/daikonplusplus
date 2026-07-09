@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "Null keys list would cause NullPointerException during deduplication.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced in the method, so it must not be null.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism typically should be positive; used to control concurrency.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "keys.stream().allMatch(java.util.Objects::nonNull)",
+    "rationale" : "All elements in the keys list must be non-null to avoid NullPointerException during getRecordKey calls.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "usage"
+    } ]
+  }, {
+    "expression" : "parallelism <= keys.size() || keys.isEmpty()",
+    "rationale" : "It's common for parallelism to be less than or equal to the workload size; parallelism may exceed size only if the list is empty.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "parallelization"
+    } ]
+  } ]
+}

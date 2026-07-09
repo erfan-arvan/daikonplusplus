@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "The method expects a HoodieWriteMetadata object as input; it is reasonable to check for non-nullness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "The convertMetadata method immediately calls getWriteStatuses() on metadata, which will throw an exception if it is null; so this must hold.",
+    "meta" : [ ]
+  } ]
+}

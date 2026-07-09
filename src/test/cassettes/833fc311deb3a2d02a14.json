@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Number of output partitions for repartitioning is expected to be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input record list should not be null to perform repartitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A list's size is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "Usually the number of output partitions does not exceed the number of elements, unless the input is empty.",
+    "meta" : [ ]
+  } ]
+}

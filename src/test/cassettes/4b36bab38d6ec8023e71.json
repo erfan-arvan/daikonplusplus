@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "text == null",
+    "rationale" : "This invariant reflects the possible case that the input parameter is null, which may be valid at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "This invariant expresses that the input parameter might be non-null when the method is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "The length of a CharSequence is always non-negative; the null case is guarded for safety.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.toString() != null",
+    "rationale" : "Calling toString() on a non-null CharSequence should never return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(text != null && text.length() < 0)",
+    "rationale" : "If text is not null, its length cannot be negative (defensive formulation).",
+    "meta" : [ ]
+  } ]
+}

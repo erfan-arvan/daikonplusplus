@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "cursorLine >= 0",
+    "rationale" : "Line indices are typically non-negative in text editing contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstLineShowing >= 0",
+    "rationale" : "firstLineShowing usually represents a visible line index and so should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesShowing > 0",
+    "rationale" : "linesShowing likely counts the number of visible lines, which should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(cursorLine != firstLineShowing) || (firstLineShowing + linesShowing - 1 >= cursorLine && firstLineShowing <= cursorLine)",
+    "rationale" : "If cursorLine is not the same as firstLineShowing, the update loop will run. Otherwise, cursorLine should be within the visible lines range.",
+    "meta" : [ ]
+  } ]
+}

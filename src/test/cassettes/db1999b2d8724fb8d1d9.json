@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "isTouchUp || !deadzoneBounds.contains(x, y)",
+    "rationale" : "If isTouchUp is true, calculation short-circuits; otherwise, for the main branch to execute, the touch must not be in the deadzone.",
+    "meta" : [ ]
+  }, {
+    "expression" : "knobPosition.x >= knobBounds.x - knobBounds.radius && knobPosition.x <= knobBounds.x + knobBounds.radius",
+    "rationale" : "The knobPosition.x cannot fall outside the circular knobBounds defined by its center and radius.",
+    "meta" : [ ]
+  }, {
+    "expression" : "knobPosition.y >= knobBounds.y - knobBounds.radius && knobPosition.y <= knobBounds.y + knobBounds.radius",
+    "rationale" : "The knobPosition.y is also restricted by the bounds of the circle at (x,y) with given radius.",
+    "meta" : [ ]
+  }, {
+    "expression" : "knobPercent.len() <= 1.0f",
+    "rationale" : "knobPercent is normalized if it would otherwise exceed length 1; thus, its length is always at most 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isTouchUp || !knobBounds.contains(x, y) || (knobPosition.x == x && knobPosition.y == y)",
+    "rationale" : "If not touch up and the point is inside knobBounds, knobPosition is set directly to (x, y).",
+    "meta" : [ ]
+  } ]
+}

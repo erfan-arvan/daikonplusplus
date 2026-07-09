@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "styleable != null",
+    "rationale" : "Method cannot work with a null styleable argument, as it calls methods on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "styleable.getStyle() != null",
+    "rationale" : "A valid style should have been set on styleable by the end of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "enabled || !enabled",
+    "rationale" : "The enabled parameter must be either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "find(styleable.getStyle()) != null",
+    "rationale" : "The method returns early if find(styleable.getStyle()) is null; otherwise, continues.",
+    "meta" : [ ]
+  }, {
+    "expression" : "styleable.getStyle().getClass() != null",
+    "rationale" : "The style class is accessed for casting, so styleable.getStyle() must have a class.",
+    "meta" : [ ]
+  } ]
+}

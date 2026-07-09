@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layout != null",
+    "rationale" : "The method operates on 'this.layout' without null checks, so it must be non-null before method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cache != null",
+    "rationale" : "Methods are called on 'cache' (e.g., cache.getFont()), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "Field accesses such as 'style.background' and 'style.font' are used without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "'text.size' and 'text.indexOf(\"\\n\")' are accessed, requiring 'text' to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font != null",
+    "rationale" : "'style.font.getDescent()' is called; 'style.font' must be non-null.",
+    "meta" : [ ]
+  } ]
+}

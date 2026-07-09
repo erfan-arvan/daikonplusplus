@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method checks for null and empty orders as the first action. Reasoning about nullness is critical for precondition safety.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || !orders.isEmpty() || processOrders(orders) == 0.0",
+    "rationale" : "If orders is null or empty, the method returns 0.0 immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders instanceof List",
+    "rationale" : "The parameter orders must be a List as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders.stream().allMatch(order -> order != null)",
+    "rationale" : "Reasonably, validation and processing code would require all Order instances to be non-null.",
+    "meta" : [ ]
+  } ]
+}

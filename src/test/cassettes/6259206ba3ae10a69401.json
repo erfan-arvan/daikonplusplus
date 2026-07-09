@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Since 'images.get(name)' is called, 'name' should not be null to prevent unintended lookups.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "String keys for map lookups should not be null"
+    } ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "An empty string as a name is unlikely to correspond to any stored image, and prevents accidental lookups.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Likely only non-empty names are valid for key lookups"
+    } ]
+  } ]
+}

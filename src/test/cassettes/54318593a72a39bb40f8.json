@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rowAlign >= 0",
+    "rationale" : "Alignment constants defined in Align class are non-negative integers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rowAlign == Align.center || rowAlign == Align.top || rowAlign == Align.bottom || rowAlign == Align.left || rowAlign == Align.right || (rowAlign & Align.center) != 0 || (rowAlign & Align.top) != 0 || (rowAlign & Align.bottom) != 0 || (rowAlign & Align.left) != 0 || (rowAlign & Align.right) != 0",
+    "rationale" : "rowAlign is used to set widget alignment and may be a combination of Align constants.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(rowAlign & ~(Align.center | Align.top | Align.bottom | Align.left | Align.right)) == 0",
+    "rationale" : "rowAlign should not include bits other than defined Align constants.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getClass() == HorizontalGroup.class",
+    "rationale" : "The method is not static or overridden; this ensures standard invariants for the receiver.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No additional state or relationships are defined at entry except the parameter and constants.",
+    "meta" : [ ]
+  } ]
+}

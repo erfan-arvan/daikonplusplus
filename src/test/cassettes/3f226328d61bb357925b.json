@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "Access to tmxFile is necessary for getDependencyFileHandles and must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "textureParameter == null || textureParameter instanceof TextureLoader.TextureParameter",
+    "rationale" : "textureParameter, if not null, should be of the expected parameter type for proper operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "tmxFile should exist as getDependencyFileHandles will attempt to read from it.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "file-existence"
+    } ]
+  }, {
+    "expression" : "!tmxFile.isDirectory()",
+    "rationale" : "tmxFile should be a file, not a directory, because it is typically a TMX file.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "file-type"
+    } ]
+  }, {
+    "expression" : "tmxFile.extension().equalsIgnoreCase(\"tmx\")",
+    "rationale" : "This loader expects a tmx file as the main input descriptor.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "file-extension"
+    } ]
+  } ]
+}

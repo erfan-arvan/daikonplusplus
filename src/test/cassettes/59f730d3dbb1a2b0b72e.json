@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Method presumes non-null layer for safe member access and calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileWidth() > 0",
+    "rationale" : "Tile width should be positive for rendering to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileHeight() > 0",
+    "rationale" : "Tile height should be positive for proper tile layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getWidth() > 0",
+    "rationale" : "A visible tile layer should have width greater than 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getHeight() > 0",
+    "rationale" : "A visible tile layer should have height greater than 0.",
+    "meta" : [ ]
+  } ]
+}

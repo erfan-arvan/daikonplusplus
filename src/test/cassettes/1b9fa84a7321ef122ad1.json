@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is likely required for versioning and update tracking.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should represent a valid location or logical partition, usually non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId identifies the file being updated, expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The map of keyToNewRecords should be non-null to proceed with updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dataFileToBeMerged != null",
+    "rationale" : "A base file is needed for merging; thus, it should be non-null at method entry.",
+    "meta" : [ ]
+  } ]
+}

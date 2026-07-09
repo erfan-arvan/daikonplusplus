@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed to getLatestFileSlices and must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath is likely expected to be a non-empty string to identify a target partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.trim().length() > 0",
+    "rationale" : "partitionPath should not consist of only whitespace to be a valid partition identifier.",
+    "meta" : [ ]
+  } ]
+}

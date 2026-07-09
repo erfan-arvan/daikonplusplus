@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result > 0",
+    "rationale" : "Average record size in bytes should always be positive.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method estimates average record size using either a configuration estimate or recent commit stats, both of which produce positive values."
+    } ]
+  }, {
+    "expression" : "result >= hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate()",
+    "rationale" : "If no commit stats surpass the threshold, the config's default is returned.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Unless recent commit stats provide a larger estimate, the default returned value is the config estimate, so the result should not be less."
+    } ]
+  }, {
+    "expression" : "commitTimeline != null",
+    "rationale" : "commitTimeline is dereferenced in the method.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method assumes commitTimeline is not null; otherwise, NullPointerException in code."
+    } ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "hoodieWriteConfig is dereferenced in the method.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method assumes hoodieWriteConfig is not null; otherwise, NullPointerException in code."
+    } ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getParquetSmallFileLimit()",
+    "rationale" : "A record can never be larger than a file, so the returned average size is at most the configured small file limit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The average record size is compared with file size thresholds based on parquetSmallFileLimit, which should logically bound reasonable record sizes."
+    } ]
+  } ]
+}

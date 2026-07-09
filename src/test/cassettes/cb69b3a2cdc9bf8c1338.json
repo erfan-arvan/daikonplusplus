@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of the execute method should not be null as it returns a HoodieWriteMetadata instance.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method returns a HoodieWriteMetadata object, likely non-null"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "The inputRecords list parameter should not be null by method contract.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "inputRecords is a parameter, expected non-null"
+    } ]
+  }, {
+    "expression" : "inputRecords instanceof List",
+    "rationale" : "inputRecords is declared as a List, thus must be instance of List.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "inputRecords must be a List as per the parameter type"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata result should contain a non-null list of WriteStatus objects.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "getWriteStatuses should return non-null list"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() <= inputRecords.size()",
+    "rationale" : "Each WriteStatus typically corresponds to an input record, so the counts match or are less.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Number of write statuses should not exceed input records count"
+    } ]
+  } ]
+}

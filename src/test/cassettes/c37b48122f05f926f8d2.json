@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method body always throws an exception, so no return value is produced, thus 'result' is always null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true == false",
+    "rationale" : "The method never returns normally, so any invariant that asserts an unreachable state holds. This represents unreachable program point, often used by static analyzers.",
+    "meta" : [ ]
+  } ]
+}

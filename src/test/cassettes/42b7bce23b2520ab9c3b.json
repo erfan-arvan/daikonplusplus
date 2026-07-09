@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "Batch is used in super.draw(batch, parentAlpha), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "parentAlpha is typically a blending/alpha transparency parameter, generally within [0, 1], so it is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha values are usually constrained to the [0, 1] range in graphics code.",
+    "meta" : [ ]
+  } ]
+}

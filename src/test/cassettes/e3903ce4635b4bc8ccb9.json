@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of the add() method, which returns a non-null Cell.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getActor() != null",
+    "rationale" : "The Cell<Label> added is constructed with a new Label, so getActor() should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getActor() instanceof Label",
+    "rationale" : "The actor added to the cell is always a Label.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((Label) result.getActor()).getStyle() != null",
+    "rationale" : "The Label is constructed with a (possibly new) LabelStyle, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((Label) result.getActor()).getStyle().font.equals(skin.getFont(fontName))",
+    "rationale" : "The LabelStyle used for the Label uses the font obtained from skin.getFont(fontName).",
+    "meta" : [ ]
+  } ]
+}

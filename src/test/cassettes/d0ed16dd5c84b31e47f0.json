@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is passed to commitInternal and likely identifies a commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "partitionRecordsMap is passed directly to commitInternal and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty() || partitionRecordsMap.size() == 0",
+    "rationale" : "partitionRecordsMap being empty implies its size is 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet().stream().allMatch(k -> k != null && !k.isEmpty())",
+    "rationale" : "Partition names (keys) should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.values().stream().allMatch(v -> v != null)",
+    "rationale" : "All HoodieData<HoodieRecord> in the map should be non-null for commitInternal to process them.",
+    "meta" : [ ]
+  } ]
+}

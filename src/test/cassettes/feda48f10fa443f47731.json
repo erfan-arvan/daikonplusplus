@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is passed to the executor and likely required for execution; passing null would probably fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The execute() method returns an Option, which should be non-null even if Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used by the executor and should not be null for a compaction to be scheduled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == false || result.get() != null",
+    "rationale" : "If the result Option is present, it must not wrap a null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata == null || extraMetadata.isPresent() == true || extraMetadata.isPresent() == false",
+    "rationale" : "extraMetadata is an Option, so it is either null or its present/empty state governs behavior; this expresses its total partition.",
+    "meta" : [ ]
+  } ]
+}

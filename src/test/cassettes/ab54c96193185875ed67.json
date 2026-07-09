@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "Configuration argument is likely required and must not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "Write configuration is an essential parameter and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is required for metadata operations and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "An Option parameter generally should not be null; it should be an instance possibly representing None.",
+    "meta" : [ ]
+  }, {
+    "expression" : "conf instanceof StorageConfiguration<?>",
+    "rationale" : "Conf argument should be of the correct type as expected by the method signature.",
+    "meta" : [ ]
+  } ]
+}

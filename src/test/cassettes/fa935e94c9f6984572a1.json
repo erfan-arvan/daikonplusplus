@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "restore returns the result of execute(), which should not be null for a successful restore.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "Instant timestamp parameter must be provided and not null for restoring.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext must not be null for operations on the table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRestoreMetadata",
+    "rationale" : "The returned object from restore must be of the declared return type.",
+    "meta" : [ ]
+  } ]
+}

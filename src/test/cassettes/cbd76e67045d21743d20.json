@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || propName.equals(result.getAttribute(\"name\"))",
+    "rationale" : "If the method returns a non-null Element, it's one whose 'name' attribute matches propName.",
+    "meta" : [ {
+      "key" : "null-safe equality",
+      "value" : "Ensures property attribute matches the property name if a result is returned."
+    } ]
+  }, {
+    "expression" : "result == null || classElement.getChildrenByNameRecursively(\"property\").contains(result)",
+    "rationale" : "If a property is found and returned, it must belong to the set of 'property' children.",
+    "meta" : [ {
+      "key" : "search result member",
+      "value" : "Ensures result is one of the properties in the recursion search."
+    } ]
+  }, {
+    "expression" : "result != null || !classElement.getChildrenByNameRecursively(\"property\").stream().anyMatch(property -> propName.equals(property.getAttribute(\"name\")))",
+    "rationale" : "If the method returns null, then none of the properties has the required name.",
+    "meta" : [ {
+      "key" : "not found implies null",
+      "value" : "If result is null, then no such property exists in the children."
+    } ]
+  }, {
+    "expression" : "result == null || result != classElement",
+    "rationale" : "The search is done among children, not the parent.",
+    "meta" : [ {
+      "key" : "property is not container",
+      "value" : "Ensures returned property is not the same as the input classElement."
+    } ]
+  }, {
+    "expression" : "result == null || result.getAttribute(\"name\") != null",
+    "rationale" : "Returned property element must have a 'name' attribute since it matched propName.",
+    "meta" : [ {
+      "key" : "property name present",
+      "value" : "Ensures the result (if non-null) has a 'name' attribute."
+    } ]
+  } ]
+}

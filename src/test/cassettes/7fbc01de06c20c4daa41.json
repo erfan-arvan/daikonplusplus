@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Sorting does not change the number of elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == records.isEmpty()",
+    "rationale" : "If the input list is empty, the result will be empty after sorting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.containsAll(records)",
+    "rationale" : "The sorted result contains all original elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.containsAll(result)",
+    "rationale" : "No new elements are created during sorting; only order changes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(records.stream().sorted((o1, o2) -> getComparableSortColumns(o1).compareTo(getComparableSortColumns(o2))).collect(java.util.stream.Collectors.toList()))",
+    "rationale" : "The result is exactly the input list sorted by the specified comparator.",
+    "meta" : [ ]
+  } ]
+}

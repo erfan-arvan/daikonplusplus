@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Methods typically expect non-null context arguments.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "method entry"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option objects are normally expected to be non-null.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "method entry"
+    } ]
+  }, {
+    "expression" : "extraMetadata instanceof Option",
+    "rationale" : "Type contract based on method signature.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "method entry"
+    } ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "Type contract based on method signature.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "method entry"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Trivially true invariant; holds on method entry.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "method entry"
+    } ]
+  } ]
+}

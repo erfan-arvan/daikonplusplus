@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "args array is typically never null in main method, but null-safe check is prudent.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Safe to check null for args"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always zero or more",
+    "meta" : [ {
+      "key" : "array-length",
+      "value" : "Array length is always non-negative"
+    } ]
+  }, {
+    "expression" : "Foo.bar(2, \"hi\") != null",
+    "rationale" : "Printed value is not null, so method returns non-null value",
+    "meta" : [ {
+      "key" : "method-call",
+      "value" : "Evaluating method call to check non-null result"
+    } ]
+  }, {
+    "expression" : "args.length == 0",
+    "rationale" : "In some contexts main may be invoked with zero arguments",
+    "meta" : [ {
+      "key" : "empty-args",
+      "value" : "Program invoked with no arguments"
+    } ]
+  }, {
+    "expression" : "args[0] != null || args.length == 0",
+    "rationale" : "First argument is non-null if present.",
+    "meta" : [ {
+      "key" : "safe-access",
+      "value" : "Avoids accessing first element when args is empty"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically required to be positive in distributed data processing to enable parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method expects a non-null list of records to deduplicate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index != null",
+    "rationale" : "A HoodieIndex is necessary to determine record key grouping (global or not); null would cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schemaStr != null && !schemaStr.isEmpty()",
+    "rationale" : "schemaStr must be a valid string to be parsed into a HoodieSchema for later processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "TypedProperties is required by downstream invocations (e.g., reduceRecords, DeleteContext) and must be non-null.",
+    "meta" : [ ]
+  } ]
+}

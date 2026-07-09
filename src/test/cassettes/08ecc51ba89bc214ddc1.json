@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive integer to enable partitioning and parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The input data stream should not be null, as it is used immediately in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "The flatMapToPair function must be non-null, as it is invoked to transform data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The reduce function must be non-null to correctly aggregate values by key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= Runtime.getRuntime().availableProcessors()",
+    "rationale" : "Parallelism should not exceed the number of available processors for optimal resource usage, though exceeding may be possible, this expresses a practical invariant.",
+    "meta" : [ ]
+  } ]
+}

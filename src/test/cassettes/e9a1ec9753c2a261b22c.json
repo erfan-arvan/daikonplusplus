@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Method creates a new instant using instantTime, which likely requires it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "Instant time usually cannot be an empty string for correct meta-management operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "Checks that instantTime contains non-whitespace characters as would be expected for an identifier.",
+    "meta" : [ ]
+  } ]
+}

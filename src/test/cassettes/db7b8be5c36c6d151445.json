@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Option<HoodieIndexPlan> as it directly wraps the result of .execute().",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "The parameter partitionsToIndex is passed directly to the executor and is expected to be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "partitionPaths is passed directly as a constructor argument and is expected to be non-null for correct scheduling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used in the ScheduleIndexActionExecutor constructor and must be non-null for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "indexInstantTime is a required argument for scheduling operations and is required for correct operation.",
+    "meta" : [ ]
+  } ]
+}

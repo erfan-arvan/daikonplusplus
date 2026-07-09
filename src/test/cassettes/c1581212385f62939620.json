@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "intervals != null",
+    "rationale" : "The method is immediately accessing intervals.length, which would throw a NullPointerException if intervals is null. So, intervals is expected to be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "intervals.length >= 0",
+    "rationale" : "In Java, an array's length is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

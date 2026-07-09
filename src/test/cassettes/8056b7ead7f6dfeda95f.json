@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Method uses writeStatuses as argument; likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method calls result.setIndexUpdateDuration and result.setWriteStatuses, indicating result must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof List",
+    "rationale" : "writeStatuses is expected to be a List, as per parameter type.",
+    "meta" : [ ]
+  } ]
+}

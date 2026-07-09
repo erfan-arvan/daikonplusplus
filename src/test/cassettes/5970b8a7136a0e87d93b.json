@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method expects a non-null list of input records; null input would likely cause a NullPointerException when processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer != null",
+    "rationale" : "The Option parameter is expected to be non-null so its methods can be called safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(inputRecords.isEmpty()) || inputRecords.size() == 0",
+    "rationale" : "If the list is empty, its size should be zero; this relates size to isEmpty for Lists.",
+    "meta" : [ ]
+  } ]
+}

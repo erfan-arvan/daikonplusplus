@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method interacts with the TiledMap instance, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "MapLayers is used to add loaded layers, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Element is dereferenced via getName(), so it must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "FileHandle is passed to other loader methods, so expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "ImageResolver may be used in some branches, so it is required to be non-null.",
+    "meta" : [ ]
+  } ]
+}

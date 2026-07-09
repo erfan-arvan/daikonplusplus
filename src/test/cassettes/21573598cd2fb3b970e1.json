@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "listener == null",
+    "rationale" : "Listener may be null as indicated by the @Null annotation and Javadoc.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "listener != null",
+    "rationale" : "Listener may be a valid non-null instance (contrapositive of first invariant).",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  } ]
+}

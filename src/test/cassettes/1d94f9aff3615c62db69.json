@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "Collection parameters are expected to be non-null before processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is dereferenced for method calls, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Records are dereferenced, so expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(r -> r.getKey() != null)",
+    "rationale" : "getKey() is called on each record for partitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.isEmpty() || dedupedRecords.size() > 0",
+    "rationale" : "List either contains elements or is empty.",
+    "meta" : [ ]
+  } ]
+}

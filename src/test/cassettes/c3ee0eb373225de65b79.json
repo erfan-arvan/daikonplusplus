@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A successful method execution should return a non-null result object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses in the write metadata should be non-null if the metadata itself is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "By signature, getWriteStatuses() returns a List of WriteStatus objects.",
+    "meta" : [ ]
+  } ]
+}

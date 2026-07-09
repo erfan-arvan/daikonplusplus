@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath must be non-null to query files for that partition.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionPath is not null"
+    } ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "partitionPath typically represents a path string that should not be empty.",
+    "meta" : [ {
+      "key" : "nonEmpty",
+      "value" : "partitionPath is non-empty string"
+    } ]
+  } ]
+}

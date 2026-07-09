@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is dereferenced within the method and thus must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == result.isEmpty()",
+    "rationale" : "If populateMetaFields returns true, result is Option.empty(); otherwise, it is non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!config.populateMetaFields() == result.isPresent()",
+    "rationale" : "Result is present iff populateMetaFields is false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method returns Option<BaseKeyGenerator>, which should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.get() instanceof BaseKeyGenerator",
+    "rationale" : "If result is present, it wraps an instance of BaseKeyGenerator.",
+    "meta" : [ ]
+  } ]
+}

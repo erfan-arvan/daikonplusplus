@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The Batch parameter must not be null to perform draw operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "The BitmapFont parameter must not be null to draw text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "It is common for coordinates in UI drawing to be non-negative, representing positions on screen.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width > 0.0f",
+    "rationale" : "The width parameter in drawing methods is expected to be positive to make sense for rendering a region.",
+    "meta" : [ ]
+  }, {
+    "expression" : "item != null",
+    "rationale" : "The item to be drawn should not be null, as it is used to create the string to render.",
+    "meta" : [ ]
+  } ]
+}

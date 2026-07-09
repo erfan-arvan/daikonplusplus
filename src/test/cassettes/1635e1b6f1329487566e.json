@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "It is standard defensive programming to check if the input string is not null before processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.isEmpty() || !name.isEmpty()",
+    "rationale" : "This expresses that 'name' is always either empty or not empty, a property of any string. (Note: If discouraged due to triviality, it can be omitted.)",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "String.length() is always non-negative per Java specification if 'name' is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || !name.contains(\"\\n\")",
+    "rationale" : "Layer/image names typically do not contain line breaks; unless otherwise specified, it's a reasonable invariant.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The result corresponds to a bucket number which should be non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "bucket numbers are non-negative integers"
+    } ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "The key object is used and cast to Pair, so it is not null at method exit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "key is cast to Pair and used without null check"
+    } ]
+  }, {
+    "expression" : "result ==  updateLocationToBucket.get(((Pair)key).getRight().get().getFileId()) || ((Pair)key).getRight().isPresent() == false",
+    "rationale" : "If the key's right option is present, result is from updateLocationToBucket; otherwise, it is from targetBuckets.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "When keyLocation has right present, result is from updateLocationToBucket; else, not"
+    } ]
+  }, {
+    "expression" : "result == targetBuckets.get(0).getKey().bucketNumber || result == targetBuckets.get((-1 * Collections.binarySearch(targetBuckets, new InsertBucketCumulativeWeightPair(new InsertBucket(), 1.0 * Math.floorMod(NumericUtils.getMessageDigestHash(\"MD5\", ((Pair)key).getLeft().getRecordKey()), Math.max(1, workloadProfile.getWorkloadStat(((Pair)key).getLeft().getPartitionPath()).getNumInserts())) / Math.max(1, workloadProfile.getWorkloadStat(((Pair)key).getLeft().getPartitionPath()).getNumInserts())).intValue() - 1)).getKey().bucketNumber || result == targetBuckets.get(Collections.binarySearch(targetBuckets, new InsertBucketCumulativeWeightPair(new InsertBucket(), 1.0 * Math.floorMod(NumericUtils.getMessageDigestHash(\"MD5\", ((Pair)key).getLeft().getRecordKey()), Math.max(1, workloadProfile.getWorkloadStat(((Pair)key).getLeft().getPartitionPath()).getNumInserts())) / Math.max(1, workloadProfile.getWorkloadStat(((Pair)key).getLeft().getPartitionPath()).getNumInserts()))).intValue()).getKey().bucketNumber",
+    "rationale" : "If the key's right option is not present, result corresponds to one of several bucket numbers derived from targetBuckets.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result equals one of the possible bucket numbers based on binary search conditions."
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "The method accesses file.parent(); a non-null file is required for safe execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "path != null",
+    "rationale" : "The method constructs a StringTokenizer from path, so path must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.exists()",
+    "rationale" : "The parent() operation makes sense only if the file exists, hinting this precondition may be intended.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.isDirectory() || file.isFile()",
+    "rationale" : "FileHandle should typically represent either a file or directory.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator<List<WriteStatus>> via calls to handleInsert or handleUpdate, which do not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition is used as a lookup key for getBucketInfo without null checks, so must be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is cast and used without null checks, so must be non-null for method execution to succeed.",
+    "meta" : [ ]
+  } ]
+}

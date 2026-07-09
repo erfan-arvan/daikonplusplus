@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Character.isDefined(passwordCharacter)",
+    "rationale" : "Password character should be a valid Unicode character, otherwise font rendering might fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "passwordCharacter != '\\0'",
+    "rationale" : "A password character of null ('\\0') is likely invalid for display as a masking character.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Character.isValidCodePoint((int)passwordCharacter)",
+    "rationale" : "Ensures passwordCharacter is a valid Unicode code point, which is necessary for it to be displayed.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "record != null",
+    "rationale" : "Records passed to getComparableSortColumns should be valid and not null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "sortColumnNames != null && sortColumnNames.length > 0",
+    "rationale" : "To perform a meaningful sort, sortColumnNames should be a non-empty array.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "field-check"
+    } ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "A schema must be specified for column sorting.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "record instanceof HoodieRecord",
+    "rationale" : "The input parameter is declared as HoodieRecord, so this type check should always succeed.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "type-check"
+    } ]
+  } ]
+}

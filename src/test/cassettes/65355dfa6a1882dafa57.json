@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in string concatenation and should not be null for meaningful commit identification.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft A and context"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "keys is used in deduplication and iteration, so cannot be null.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft A and context"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used for configuration queries and must be present.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft A and context"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is used for index lookups and must be non-null.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft A and context"
+    } ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "deleteExecutor is invoked for execute and metadata saving, so must be non-null.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft A and context"
+    } ]
+  } ]
+}

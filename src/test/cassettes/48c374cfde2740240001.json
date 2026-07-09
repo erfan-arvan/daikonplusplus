@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null map, either an empty new HashMap or a populated map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Map",
+    "rationale" : "The return type is Map, and an implementation of Map is always returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()) == null || FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()).size() == 0",
+    "rationale" : "The result is only non-empty if partitionPaths is non-null and not empty; otherwise it's empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.keySet().size() > 0",
+    "rationale" : "If the result is not empty, then it must have at least one key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "When returning a Map, all values assigned are expected to be non-null lists.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new ArrayList is always created for records, so null isn't returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "Method calls clusteringGroup.getSlices(), requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || clusteringGroup.getSlices().isEmpty()",
+    "rationale" : "If the result is empty, it follows from having no slices to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "An ArrayList, so size is never negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(rec -> rec != null)",
+    "rationale" : "Records are added from valid iterators, so none should be null.",
+    "meta" : [ ]
+  } ]
+}

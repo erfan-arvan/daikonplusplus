@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "prefWidth >= 0",
+    "rationale" : "Preferred width values are generally non-negative in UI components.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(prefWidth)",
+    "rationale" : "Preferred width should not be NaN for layout calculations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(prefWidth)",
+    "rationale" : "Infinite width is likely invalid for a UI list preferred width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "There are no parameters or fields listed in-scope, so a tautology is sometimes the only option.",
+    "meta" : [ ]
+  } ]
+}

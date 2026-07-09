@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Result is always an index in the glyphPositions array, so it's non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x == (x + textOffset + fontOffset - style.font.getData().cursorX - glyphPositions.get(visibleTextStart) - ((getBackgroundDrawable() != null) ? style.background.getLeftWidth() : 0))",
+    "rationale" : "The value of x at return is a deterministic function of the input x and style/background offsets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < this.glyphPositions.size",
+    "rationale" : "Result is always less than the number of glyph positions, representing a valid index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x <= glyphPositions[result] || result == this.glyphPositions.size - 1",
+    "rationale" : "Unless result is the last index, x is no greater than the position of the glyph at result.",
+    "meta" : [ ]
+  } ]
+}

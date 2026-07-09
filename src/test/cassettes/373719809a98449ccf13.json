@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method uses context as a critical component, so it must not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "context parameter is expected to be non-null for method execution"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The upsert operation requires a valid instant time, so instantTime is not expected to be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime parameter is crucial for upsert operation"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method expects a list of records to upsert; this list should not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "records parameter passed as list of records for upsert"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "By definition, list size is non-negative.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "records is a List, size() cannot be negative"
+    } ]
+  } ]
+}

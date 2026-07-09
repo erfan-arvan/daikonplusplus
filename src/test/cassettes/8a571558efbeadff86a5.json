@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive integer to ensure meaningful data processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Data list must not be null before streaming over its entries.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "Consumer must not be null since it will be wrapped and used in forEach.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size()",
+    "rationale" : "It is common to cap parallelism by the number of data elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List size is always non-negative for Java List implementations.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "commit likely requires a valid, non-null instant identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "partitionRecordsMap should not be null when committing, as it holds the data to commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty()",
+    "rationale" : "commit is meaningful only if there are records to commit, i.e., the map should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instantTime identifier should be a non-empty string to represent a valid instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet().stream().allMatch(k -> k != null && !k.isEmpty())",
+    "rationale" : "All partition keys in the map are expected to be valid, non-null, and non-empty strings.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || name.equals(result.getName())",
+    "rationale" : "If a tileset is returned, its name must match the query name; otherwise, the result is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "The for-loop would throw before reaching the exit if name were null, due to name.equals(...) call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getName() != null",
+    "rationale" : "A non-null result comes from the tilesets, which must have a non-null name for the match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result != null",
+    "rationale" : "If result is not null, it's retrieved from tilesets; if not found, it's null. (Note: This is tautological, can be omitted.)",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || !name.isEmpty()",
+    "rationale" : "If a tileset is matched, the name parameter must not be empty for equals to be true with an actual tileset name.",
+    "meta" : [ ]
+  } ]
+}

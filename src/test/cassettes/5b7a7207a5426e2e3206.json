@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of createTableAndValidate, which creates and returns a HoodieTable; returning null would likely be an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getMetaClient() == metaClient",
+    "rationale" : "The HoodieTable returned is constructed using the provided HoodieTableMetaClient, so the meta client of result should match the argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The HoodieTable returned is constructed using the provided HoodieWriteConfig, so the config of result should match the argument.",
+    "meta" : [ ]
+  } ]
+}

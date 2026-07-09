@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method expects a non-null data list for processing key-value pairs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "A non-null reduction function is required for reducing values by key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should likely be a positive integer to enable parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism > 0",
+    "rationale" : "If data is not empty, parallelism should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size() || data.isEmpty()",
+    "rationale" : "Parallelism should not exceed data size, unless data is empty.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Iterator, either from Collections.singletonList(...).iterator() or from new JavaLazyInsertIterable<>(...). Both are guaranteed non-null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "result non-null"
+    } ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is passed directly to JavaLazyInsertIterable and likely required to be non-null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "parameter non-null"
+    } ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result instanceof JavaLazyInsertIterable",
+    "rationale" : "If recordItr is not empty, the method returns an instance of JavaLazyInsertIterable. Otherwise, returns the singleton iterator.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "result implementation conditional"
+    } ]
+  }, {
+    "expression" : "(!recordItr.hasNext()) == (!result.hasNext())",
+    "rationale" : "If the input iterator is empty, then the result iterator yields an empty list as its only element. Otherwise, result is non-empty.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "iterator emptiness mirrors input"
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The returned object is always an Iterator.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "type"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method is about to pass config to a constructor; most constructors expect non-null parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method is about to use context in the HoodieJavaWriteClient constructor, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config instanceof HoodieWriteConfig",
+    "rationale" : "Ensures the config parameter is of the expected type before method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "Validates that the context parameter matches the expected type for usage.",
+    "meta" : [ ]
+  } ]
+}

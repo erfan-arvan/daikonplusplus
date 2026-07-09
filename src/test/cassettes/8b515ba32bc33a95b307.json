@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "text != null",
+    "rationale" : "The code frequently accesses 'text' methods and fields, indicating 'text' is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesBreak.size() % 2 == 0",
+    "rationale" : "Each line range corresponds to a start and end index, so 'linesBreak' contains start/end pairs, making its size even.",
+    "meta" : [ ]
+  }, {
+    "expression" : "lastText != null",
+    "rationale" : "'lastText' is compared with 'text' and possibly updated, so it is expected to be non-null after execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesBreak.size() >= 0",
+    "rationale" : "A valid collection's size cannot be negative; ensures well-formedness of 'linesBreak'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "'style' is dereferenced in the method; must be non-null for proper method execution.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The result is either the max of two non-negative numbers or the sum of three non-negative numbers, given getMinHeight() and handle.getMinHeight() are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(vertical) || result >= 0",
+    "rationale" : "When vertical is true, result is the sum of three getMinHeight() results, each likely non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "vertical || result == Math.max((firstWidget instanceof Layout ? ((Layout)firstWidget).getMinHeight() : 0), (secondWidget instanceof Layout ? ((Layout)secondWidget).getMinHeight() : 0))",
+    "rationale" : "If not vertical, result is the max of the two child min heights.",
+    "meta" : [ ]
+  }, {
+    "expression" : "vertical || result >= (firstWidget instanceof Layout ? ((Layout)firstWidget).getMinHeight() : 0)",
+    "rationale" : "If not vertical, result is at least as large as either child's minHeight.",
+    "meta" : [ ]
+  }, {
+    "expression" : "vertical || result >= (secondWidget instanceof Layout ? ((Layout)secondWidget).getMinHeight() : 0)",
+    "rationale" : "If not vertical, result is at least as large as the second child's minHeight.",
+    "meta" : [ ]
+  } ]
+}

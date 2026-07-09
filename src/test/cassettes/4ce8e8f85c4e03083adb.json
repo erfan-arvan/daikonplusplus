@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "(b == 0 && result == Integer.MIN_VALUE) || (b != 0 && result == a / b)",
+    "rationale" : "Method returns Integer.MIN_VALUE if b is zero, otherwise returns a divided by b.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If b is zero, result is Integer.MIN_VALUE; otherwise, result is the integer division a / b."
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Directly follows from the method's contract about b being zero.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If b is zero, result must be Integer.MIN_VALUE."
+    } ]
+  }, {
+    "expression" : "b == 0 || result * b == a",
+    "rationale" : "Ensures that result is consistent with the division when b != 0.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If b is not zero, result multiplied by b equals a due to integer division."
+    } ]
+  }, {
+    "expression" : "result != Integer.MIN_VALUE || b == 0",
+    "rationale" : "Converse of the first invariant, clarifying the relationship between result and b.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If result is Integer.MIN_VALUE, then b must be zero."
+    } ]
+  }, {
+    "expression" : "result != 0 || (a == 0 && b != 0)",
+    "rationale" : "Covers the case when division result is zero.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If result is zero, then a must be zero when b is not zero."
+    } ]
+  } ]
+}

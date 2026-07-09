@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "The method assumes nodes is a valid Array argument for iteration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "Array.size in LibGDX is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.items != null",
+    "rationale" : "LibGDX Array maintains a non-null backing array for the items field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size <= nodes.items.length",
+    "rationale" : "LibGDX Array always keeps size less than or equal to items.length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes instanceof Array",
+    "rationale" : "Ensures that nodes is truly an instance of Array, as assumed by the method signature.",
+    "meta" : [ ]
+  } ]
+}

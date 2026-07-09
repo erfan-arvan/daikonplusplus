@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of the execute() call, which is expected to provide valid write metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method delegates 'keys' to the action executor and presumably expects it to be non-null for correct behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' is used as an identifier for the operation and is generally required for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is necessary for engine operations and is always passed on to the action executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "A correct implementation of HoodieWriteMetadata is expected to provide a non-null write status list.",
+    "meta" : [ ]
+  } ]
+}

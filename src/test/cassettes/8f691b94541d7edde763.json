@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "The event parameter is likely expected to be non-null for meaningful click handling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "GUI widget coordinates are usually non-negative (origin at top-left), making negative x values uncommon.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "GUI widget coordinates are usually non-negative (origin at top-left), making negative y values uncommon.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event instanceof InputEvent",
+    "rationale" : "The event parameter is statically declared as InputEvent, so it will always be an instance of InputEvent.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(x)",
+    "rationale" : "Coordinates such as x are expected to be finite values (neither NaN nor infinity) for meaningful processing.",
+    "meta" : [ ]
+  } ]
+}

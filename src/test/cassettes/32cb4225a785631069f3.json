@@ -1,0 +1,25 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is a string identifier prefix, likely non-null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "idPfx is non-null"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is a method parameter and should be non-null when iteration starts.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "recordItr is non-null"
+    } ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.hasNext()",
+    "rationale" : "Boolean tautology indicating recordItr.hasNext() is a boolean.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx.length() >= 0",
+    "rationale" : "String length is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

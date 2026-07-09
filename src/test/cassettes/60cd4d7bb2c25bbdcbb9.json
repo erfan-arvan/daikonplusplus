@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The input parameter instantTime is a String and generally expected not to be null to identify the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The partitions parameter is a List and often should not be null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions instanceof List",
+    "rationale" : "The partitions parameter must be a List as per method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "throw new HoodieNotSupportedException(\"Dropping metadata index not supported for Java metadata table yet.\") != null",
+    "rationale" : "The method always throws an exception, so it does not return normally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Due to the unconditional exception, any invariant is trivially true at method exit.",
+    "meta" : [ ]
+  } ]
+}

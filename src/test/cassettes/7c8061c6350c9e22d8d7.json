@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "Method throws if style is null, so style is guaranteed to be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font != null",
+    "rationale" : "style is used to access font and its methods, so font must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font.getCapHeight() >= style.font.getDescent()",
+    "rationale" : "textHeight is computed as capHeight - descent, which is likely to be non-negative.",
+    "meta" : [ ]
+  } ]
+}

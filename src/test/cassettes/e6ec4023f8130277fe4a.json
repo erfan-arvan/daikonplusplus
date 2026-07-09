@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "records is passed to various methods and used to create Option.of(HoodieListData.eager(records)), so records should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is wrapped in Option.ofNullable(instantTime) and is passed to preWrite and table.upsert, likely requiring a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A List's size() is always non-negative by Java's contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty()",
+    "rationale" : "upsert on an empty record set is likely not meaningful, and Option.of(HoodieListData.eager(records)) suggests the code expects at least one record.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime represents a point-in-time identifier and is likely non-empty to be valid.",
+    "meta" : [ ]
+  } ]
+}

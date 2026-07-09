@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is crucial for distributed processing and usually required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime should typically be a non-empty string to identify the commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records list is expected to be supplied and non-null for insertion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "Insertion is a no-op if the records list is empty, so non-empty records is common.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "The context parameter must be an instance of HoodieEngineContext as defined by the signature.",
+    "meta" : [ ]
+  } ]
+}

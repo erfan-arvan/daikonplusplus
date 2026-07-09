@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method's contract likely does not permit returning null metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "Result should be an instance of HoodieWriteMetadata as per method signature.",
+    "meta" : [ ]
+  } ]
+}

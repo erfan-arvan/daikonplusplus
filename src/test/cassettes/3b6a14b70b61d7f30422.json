@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Partitioner instance assigned to this.partitioner, suggesting non-null return.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The input parameter profile is assumed non-null for the method to behave correctly.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result instanceof JavaUpsertPartitioner",
+    "rationale" : "The method assigns this.partitioner by casting the super call to JavaUpsertPartitioner, so result should be an instance of JavaUpsertPartitioner.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "getClass().isInstance(result)",
+    "rationale" : "Result should be assignable to Partitioner type returned by the method.",
+    "meta" : [ {
+      "key" : "clarification",
+      "value" : "result is an instance assignable to the returned type Partitioner."
+    } ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The args parameter is non-null as guaranteed by the JVM for main method.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method parameter arrays should be non-null unless otherwise documented."
+    } ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "args is an instance of String[] so its class is an array class.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is an array of Strings."
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Arrays always have zero or more elements.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Array length is always non-negative."
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No constraints on the contents of args array.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "No further information about args contents or state is known at method entry."
+    } ]
+  } ]
+}

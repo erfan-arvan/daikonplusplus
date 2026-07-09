@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getName().equals(\"imagelayer\") || true",
+    "rationale" : "Method body executes only if element is an 'imagelayer', otherwise does nothing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!element.getName().equals(\"imagelayer\")) || parentLayers.getCount() > 0",
+    "rationale" : "If an imagelayer was loaded, then a layer was added to parentLayers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!element.getName().equals(\"imagelayer\")) || (parentLayers.get(parentLayers.getCount() - 1) instanceof TiledMapImageLayer)",
+    "rationale" : "If imagelayer, last added layer is a TiledMapImageLayer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!element.getName().equals(\"imagelayer\")) || (element.getChildByName(\"image\") == null || imageResolver.getImage(getRelativeFileHandle(tmxFile, element.getChildByName(\"image\").getAttribute(\"source\")).path()) != null)",
+    "rationale" : "If loading an imagelayer and an image child exists, then the texture is resolved via the imageResolver.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!element.getName().equals(\"imagelayer\")) || (element.hasAttribute(\"repeatx\") ? (element.getIntAttribute(\"repeatx\", 0) == 1 || element.getIntAttribute(\"repeatx\", 0) == 0) : true)",
+    "rationale" : "RepeatX attribute, if present, is parsed as an int and checked for valid values.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a non-null HoodieWriteMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input record list should not be null for the upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter should be a valid non-null string timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext should be provided and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List.size() for records must always be non-negative, ensuring correct list construction.",
+    "meta" : [ ]
+  } ]
+}

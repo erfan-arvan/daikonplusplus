@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "delete method expects a non-null list of keys to delete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!keys.isEmpty()",
+    "rationale" : "Typically, delete operations are not performed on empty lists; empty case might be handled elsewhere.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime likely serves as a required operation timestamp for delete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime usually represents a unique timestamp or identifier, which should not be an empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.stream().allMatch(k -> k != null)",
+    "rationale" : "All HoodieKey entries in the keys list should be non-null for a delete operation.",
+    "meta" : [ ]
+  } ]
+}

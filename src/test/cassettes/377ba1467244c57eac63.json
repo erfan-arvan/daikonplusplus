@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0.0",
+    "rationale" : "Unit price should not be negative in typical business logic for orders.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Double.isFinite(result)",
+    "rationale" : "Returned unit price should be a finite double value, not NaN or infinite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == unitPrice",
+    "rationale" : "Method returns the field 'unitPrice', so result must be equal to it.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieData instance produced via HoodieListData.eager, which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method is not shown to handle a null records input; null records would cause NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == records.count()",
+    "rationale" : "The method maps each input record to a single element in the result, so the record count is preserved.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "The result is constructed by HoodieListData.eager.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null && hoodieTable != null",
+    "rationale" : "The method assumes non-null context and hoodieTable, as they are dereferenced in calls.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Passing null records would likely not be supported by this method and may cause exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "The number of output partitions should be positive for partitioning semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always non-negative by definition in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "The input records parameter must be a List as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "If the number of output partitions exceeds the number of records, then the list may be empty.",
+    "meta" : [ ]
+  } ]
+}

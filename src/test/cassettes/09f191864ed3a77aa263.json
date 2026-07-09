@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The key parameter is dereferenced, so it must not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key instanceof Pair",
+    "rationale" : "The key is cast to Pair<HoodieKey, Option<HoodieRecordLocation>>, so it must be of type Pair.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((Pair<?, ?>) key).getLeft() instanceof HoodieKey",
+    "rationale" : "The left of the pair is used as HoodieKey, so it must be an instance of HoodieKey.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((Pair<?, ?>) key).getRight() instanceof Option",
+    "rationale" : "The right of the pair is assumed to be Option<HoodieRecordLocation>.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "Methods typically expect non-null input collections.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is usually required and assumed to be non-null for distributed operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Table reference is required for tagging and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords instanceof List",
+    "rationale" : "The dedupedRecords parameter should be of type List as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

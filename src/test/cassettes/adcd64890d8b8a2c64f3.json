@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of HoodieJavaTable.create, which should not return null under normal usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "The factory method returns a HoodieJavaTable<T> instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is dereferenced in the method body (e.g., config.getBasePath()), so it cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is dereferenced via context.getStorageConf(), ensuring it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null && result.getClass() == HoodieJavaTable.class",
+    "rationale" : "The static create method constructs and returns an instance directly of HoodieJavaTable.",
+    "meta" : [ ]
+  } ]
+}

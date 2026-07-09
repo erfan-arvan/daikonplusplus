@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == supportsTransparency",
+    "rationale" : "The method directly returns the value of supportsTransparency; the result is always equal to that field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !supportsTransparency",
+    "rationale" : "If supportsTransparency is true, result is true; if supportsTransparency is false, result is false, so this logical implication holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || supportsTransparency",
+    "rationale" : "If result is true, supportsTransparency must be true, so this implication is always valid.",
+    "meta" : [ ]
+  } ]
+}

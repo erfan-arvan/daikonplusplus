@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The only successful return path is via newInstance().bulkInsert(...), which is expected to return a non-null HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The returned object is always of type HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "over != null",
+    "rationale" : "Drawable over is invoked immediately in the body, so it should be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "The method immediately calls over.draw(batch, ...), which requires batch to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "width >= 0.0f",
+    "rationale" : "Width is a size in UI drawing; negative sizes are likely disallowed.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "dimension"
+    } ]
+  }, {
+    "expression" : "height >= 0.0f",
+    "rationale" : "Height is a size in UI drawing; negative values are likely invalid.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "dimension"
+    } ]
+  }, {
+    "expression" : "over instanceof Drawable",
+    "rationale" : "The variable over should have type Drawable; this ensures type correctness.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  } ]
+}

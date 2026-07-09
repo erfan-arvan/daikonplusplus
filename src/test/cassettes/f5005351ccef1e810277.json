@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is always a non-null List due to the collect operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(Objects::nonNull)",
+    "rationale" : "The filter(Objects::nonNull) operation ensures no null elements are present in the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.stream().map(Pair::getKey).distinct().count()",
+    "rationale" : "The output list has at most as many elements as there are unique keys in the input data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Because each output value represents a grouping of one or more input elements, but never more than the total input size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is used for the parallel stream operation and is expected to be positive.",
+    "meta" : [ ]
+  } ]
+}

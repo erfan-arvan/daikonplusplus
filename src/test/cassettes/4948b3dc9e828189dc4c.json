@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method receives context as parameter, typically non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "context is a parameter and should not be null at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime string parameter likely required to be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is a String parameter, expected non-null for logical correctness"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords should be non-null list of records to delete.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "preppedRecords is a method parameter and should be non-null to avoid NPE."
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List size property invariant.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "size() is always >= 0 for a List."
+    } ]
+  }, {
+    "expression" : "!(preppedRecords.contains(null))",
+    "rationale" : "Generally preppedRecords list should have only valid HoodieRecord objects.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "List of records probably does not contain null entries."
+    } ]
+  } ]
+}

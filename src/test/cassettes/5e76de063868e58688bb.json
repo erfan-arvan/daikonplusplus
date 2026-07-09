@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Methods returning Option<T> from the codebase generally never return null but Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "A rollback cannot be scheduled without a valid instant to rollback; method implementation delegates but expect parameter to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to identify rollback instants, and should not be null throughout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for execution and delegated to the executor, so must hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "Option can be present or not, this invariant is always true and ensures Option contract is respected (tautological, but included for completeness).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of execute() and it is expected to provide non-null metadata.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "postcondition"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The implementation assumes the input list of preppedRecords is not null for the operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition-propagated"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid instantTime identifier is required for versioned writes.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition-propagated"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context must not be null for the operation to execute.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition-propagated"
+    } ]
+  } ]
+}

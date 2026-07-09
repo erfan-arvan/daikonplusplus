@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "node != null",
+    "rationale" : "The method requires a node parameter; it is likely intended to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "node.parent == null || node.parent != null",
+    "rationale" : "At entry, node.parent could be either null or not null; both are possible, so either state is admissible.",
+    "meta" : [ ]
+  }, {
+    "expression" : "node.actor != null",
+    "rationale" : "The method assumes node.actor is non-null because it calls node.actor.getZIndex() unconditionally if node reaches that point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "node != node.parent",
+    "rationale" : "A node likely cannot be its own parent in a tree structure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "node != this",
+    "rationale" : "It is unlikely in a scene tree that a node refers directly to the Tree instance itself.",
+    "meta" : [ ]
+  } ]
+}

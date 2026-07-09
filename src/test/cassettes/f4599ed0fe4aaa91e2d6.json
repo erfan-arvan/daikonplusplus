@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a list, and the 'records' List is instantiated before return; thus, result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method returns a List<HoodieRecord<T>>, so result should always implement List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is dereferenced in getSlices(), so it must never be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed as a parameter and used in getRecordIterator(), so it must not be null to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "result is a Java List, and size() must be at least zero (cannot be negative).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "overscrollX || overscrollY",
+    "rationale" : "At least one direction of overscroll might be enabled, reflecting common scroll pane configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!overscrollX || overscrollY",
+    "rationale" : "If horizontal overscroll is disabled, vertical overscroll is likely intended to remain enabled; this can reflect typical UI logic and safeguard against both directions being disabled unintentionally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "overscrollX == overscrollY",
+    "rationale" : "It is common to apply the same overscroll property to both axes for consistent behavior, particularly given the method sets both fields.",
+    "meta" : [ ]
+  } ]
+}

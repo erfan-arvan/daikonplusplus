@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method calls data.stream(), data must not be null.",
+    "meta" : [ {
+      "key" : "NullSafety",
+      "value" : "data is used immediately, ensure not null"
+    } ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The method calls throwingFlatMapWrapper(func), so func must not be null.",
+    "meta" : [ {
+      "key" : "NullSafety",
+      "value" : "func is used inside method, ensure not null"
+    } ]
+  }, {
+    "expression" : "parallelism >= 0",
+    "rationale" : "Parallelism parameter for stream parallelism is typically non-negative.",
+    "meta" : [ {
+      "key" : "ParameterConstraint",
+      "value" : "parallelism is non-negative"
+    } ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "CollectionProperty",
+      "value" : "List size is non-negative"
+    } ]
+  }, {
+    "expression" : "data instanceof java.util.List",
+    "rationale" : "data is declared as List<I>.",
+    "meta" : [ {
+      "key" : "TypeCheck",
+      "value" : "data is declared as List<I>"
+    } ]
+  } ]
+}

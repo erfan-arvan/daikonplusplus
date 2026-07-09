@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is expected to be provided for locating records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "A valid file identifier is required for update handling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "A valid iterator over HoodieRecord<T> is needed to perform updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Partition path should not be an empty string for valid operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileId.isEmpty()",
+    "rationale" : "File identifier should not be an empty string.",
+    "meta" : [ ]
+  } ]
+}

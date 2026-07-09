@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "The method likely expects tmjFile to be non-null to safely access its methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.exists()",
+    "rationale" : "It is common to check that a provided FileHandle actually exists before using it, and the downstream logic may depend on this assumption.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.isDirectory() || tmjFile.isFile()",
+    "rationale" : "The FileHandle typically represents a file or a directory; it's likely not a different type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.path() != null",
+    "rationale" : "The path to the file should be defined for further operations on tmjFile.",
+    "meta" : [ ]
+  } ]
+}

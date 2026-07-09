@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs a new HoodieWriteMetadata object before returning and never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "clusteringPlan is directly dereferenced in the method and must be non-null along all paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is passed as an argument and is used for clustering; likely to be required non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed into downstream methods and used for clustering; must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method always sets the write statuses using HoodieListData.eager, so it cannot be null.",
+    "meta" : [ ]
+  } ]
+}

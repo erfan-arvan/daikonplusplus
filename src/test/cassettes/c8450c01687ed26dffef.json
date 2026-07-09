@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Method is likely to expect a valid TiledMapTileLayer instance for rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getWidth() >= 0",
+    "rationale" : "Layer width being negative would not make sense for tile map geometry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getHeight() >= 0",
+    "rationale" : "Layer height should not be negative in map contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileWidth() > 0",
+    "rationale" : "Tile width is used as a multiplier; it makes sense to expect tiles to have positive width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileHeight() > 0",
+    "rationale" : "Tile height is used as a multiplier; it should be positive in practical scenarios.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parentProps != null || templateProps != null",
+    "rationale" : "At least one of the inputs should be non-null for merging to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentProps == null || parentProps.getName() != null",
+    "rationale" : "If parentProps is not null, it should have a tag name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "templateProps == null || templateProps.getName() != null",
+    "rationale" : "If templateProps is not null, it should have a tag name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentProps == null || parentProps.getChildrenByName(\"property\") != null",
+    "rationale" : "Should be able to query children named 'property' from parentProps when it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "templateProps == null || templateProps.getChildrenByName(\"property\") != null",
+    "rationale" : "Should be able to query children named 'property' from templateProps when it is not null.",
+    "meta" : [ ]
+  } ]
+}

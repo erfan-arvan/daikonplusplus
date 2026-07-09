@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this.animateDuration == duration",
+    "rationale" : "The method sets 'animateDuration' field to the value of 'duration', so at method exit they are equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "duration >= 0.0f || duration < 0.0f",
+    "rationale" : "Covers all floating-point cases, but is not highly informative. Imposed for logical completeness as no constraints are enforced.",
+    "meta" : [ ]
+  } ]
+}

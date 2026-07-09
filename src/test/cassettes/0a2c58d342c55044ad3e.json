@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "foreach is called on data, so data must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "consumer is dereferenced in the throwingForeachWrapper call, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 0",
+    "rationale" : "parallelism is likely used as a count or configuration, commonly non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().count() == data.size()",
+    "rationale" : "stream().count() returns the same as List.size(), barring concurrent modification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof List",
+    "rationale" : "data is declared as List<I>, so it must be a List at method exit.",
+    "meta" : [ ]
+  } ]
+}

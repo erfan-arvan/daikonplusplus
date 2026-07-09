@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns the result of executing CopyOnWriteRestoreActionExecutor#execute(), which is expected to produce a non-null HoodieRestoreMetadata in non-exceptional circumstances.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result always non-null at return"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is directly used to construct the CopyOnWriteRestoreActionExecutor and likely cannot be null.",
+    "meta" : [ {
+      "key" : "param-usage",
+      "value" : "restoreInstantTimestamp used in executor construction"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is directly used to construct the CopyOnWriteRestoreActionExecutor and likely cannot be null.",
+    "meta" : [ {
+      "key" : "param-usage",
+      "value" : "savepointToRestoreTimestamp used in executor construction"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required parameter used in construction and execution and likely cannot be null.",
+    "meta" : [ {
+      "key" : "param-usage",
+      "value" : "context used in executor construction"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieRestoreMetadata",
+    "rationale" : "Method return type is HoodieRestoreMetadata, and the returned object is of that type.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "result is always a HoodieRestoreMetadata"
+    } ]
+  } ]
+}

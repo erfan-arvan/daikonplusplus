@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this.name == name",
+    "rationale" : "The method sets this.name to the passed-in name parameter by direct assignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || this.name.equals(name)",
+    "rationale" : "If name is not null, after assignment this.name.equals(name) must be true.",
+    "meta" : [ ]
+  } ]
+}

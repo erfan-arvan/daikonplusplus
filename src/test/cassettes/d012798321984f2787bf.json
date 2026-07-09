@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a String parameter that is expected to be non-null for locating partition data.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPath is a String parameter and typically not null at method entry"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is a String parameter that identifies the file; likely expected to be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "fileId is a String parameter and likely non-null at method entry"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is an Iterator and must be non-null to iterate over records.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "recordItr is an Iterator parameter and expected to be non-null for processing records"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath is expected to be a non-empty String specifying the partition.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPath typically not empty to point to a valid partition"
+    } ]
+  }, {
+    "expression" : "!fileId.isEmpty()",
+    "rationale" : "fileId is expected to be a non-empty String identifying the file.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "fileId is expected to be non-empty to identify a file uniquely"
+    } ]
+  } ]
+}

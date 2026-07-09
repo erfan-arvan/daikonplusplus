@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result.size > 0",
+    "rationale" : "The method returns null if no matching regions are found, otherwise a non-empty array.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || regionName != null",
+    "rationale" : "If the result is non-null (i.e., regions were found), regionName should have been involved in finding them.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.get(0) != null",
+    "rationale" : "If the method returns a non-null array, at least the first element is expected to be a non-null TextureRegion.",
+    "meta" : [ ]
+  } ]
+}

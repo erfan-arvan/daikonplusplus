@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "actor == null || actor instanceof com.badlogic.gdx.scenes.scene2d.Actor",
+    "rationale" : "'actor' is assumed to be of type Actor or null based on its usage (instanceof, getWidth()).",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "'style' is used to access subfields ('style.background', etc.), so it must be non-null for this code to proceed safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background == null || (style.background.getLeftWidth() >= 0 && style.background.getRightWidth() >= 0 && style.background.getMinWidth() >= 0)",
+    "rationale" : "The left, right, and min widths for the background drawable are likely non-negative, as negative widths would not make sense for layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!scrollY || (style.vScrollKnob != null || style.vScroll != null)",
+    "rationale" : "If scrolling in Y is enabled, at least one of the scrollbar or knob should be present to permit proper rendering and computation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is likely a valid partition identifier and probably required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "fileIdHint is likely used as a key and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath probably represents a directory or partition and empty paths may be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileIdHint.isEmpty()",
+    "rationale" : "fileIdHint seems to identify a file, so empty values are probably not expected.",
+    "meta" : [ ]
+  } ]
+}

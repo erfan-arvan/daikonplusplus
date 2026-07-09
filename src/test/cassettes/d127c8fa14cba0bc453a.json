@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an iterator created from a singleton list; this should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap is used as a constructor argument and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is passed directly to a constructor which likely requires it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed into a constructor where it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed to a constructor which is likely not expecting null.",
+    "meta" : [ ]
+  } ]
+}

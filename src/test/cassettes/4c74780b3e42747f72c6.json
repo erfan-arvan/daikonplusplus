@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == properties.containsKey(key)",
+    "rationale" : "Result reflects the underlying properties.containsKey call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key == null || !result || properties.containsKey(key)",
+    "rationale" : "If key is null, properties.containsKey(key) is safe to call and result will be false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || properties.containsKey(key)",
+    "rationale" : "If the method returns true, properties.containsKey should also be true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !properties.containsKey(key)",
+    "rationale" : "If result is false, properties does not contain the key.",
+    "meta" : [ ]
+  } ]
+}

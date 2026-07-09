@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method expects a non-null List of HoodieRecord<T> as input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inputRecords.isEmpty() || inputRecords.size() == 0",
+    "rationale" : "A list is empty if and only if its size is 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "It is often expected that input lists of records are free of null elements in data processing.",
+    "meta" : [ ]
+  } ]
+}

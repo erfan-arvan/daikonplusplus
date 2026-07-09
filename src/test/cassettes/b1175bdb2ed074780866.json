@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= -1",
+    "rationale" : "The method only returns either -1 or a non-negative index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -1 || result >= 0",
+    "rationale" : "Return value is -1 when no button is checked, else it's a valid index (>= 0).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -1 || result < buttons.size",
+    "rationale" : "If a valid index is returned, it must be within the bounds of the buttons list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -1 || checkedButtons.size > 0",
+    "rationale" : "If an index is found, there must be at least one checked button.",
+    "meta" : [ ]
+  }, {
+    "expression" : "checkedButtons.size == 0 || result == buttons.indexOf(checkedButtons.get(0), true)",
+    "rationale" : "If there are checked buttons, result is the index of the first checked one.",
+    "meta" : [ ]
+  } ]
+}

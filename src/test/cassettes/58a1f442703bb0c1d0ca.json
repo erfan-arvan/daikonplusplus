@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "getStage() == null || getStage() instanceof Stage",
+    "rationale" : "The result of getStage() is used as a Stage in the method, so if not null it must be a Stage instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() == null || getStage().cancelTouchFocusExcept != null",
+    "rationale" : "If getStage() returns non-null, Stage must support the cancelTouchFocusExcept method.",
+    "meta" : [ ]
+  } ]
+}

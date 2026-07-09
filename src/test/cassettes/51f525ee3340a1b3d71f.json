@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is expected to identify a partition or a write target and should not be null for meaningful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is used immediately and should not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.hasNext()",
+    "rationale" : "recordItr.hasNext() is called at method start, so it is well-defined.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx.length() >= 0",
+    "rationale" : "All Java strings have a non-negative length; safe since idPfx must be non-null to execute as in the body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.equals(null)",
+    "rationale" : "recordItr is expected to be a valid Iterator reference.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "PostWrite returns a list of WriteStatus, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Input preppedRecords list should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime string is used multiple times; cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= preppedRecords.size()",
+    "rationale" : "Typically, each WriteStatus corresponds to one or more preppedRecords, rarely more WriteStatus objects than input records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(ws -> ws != null)",
+    "rationale" : "All returned WriteStatus objects should be non-null.",
+    "meta" : [ ]
+  } ]
+}

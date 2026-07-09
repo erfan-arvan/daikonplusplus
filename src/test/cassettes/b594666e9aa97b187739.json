@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "size >= 0",
+    "rationale" : "UI sizes are typically non-negative; negative values may not make sense for min size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(size)",
+    "rationale" : "The parameter size should be a finite float value for correct UI sizing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(size))",
+    "rationale" : "NaN values for UI size would likely be invalid or cause errors.",
+    "meta" : [ ]
+  } ]
+}

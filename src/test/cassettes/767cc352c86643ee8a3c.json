@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method operates on the data list; null data would likely result in a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc is called within a reduce operation, so it must be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter is typically expected to be a positive integer controlling parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "Parallelism should not exceed the size of the input list to avoid excessive splitting; input constraints may expect parallelism <= data.size().",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().allMatch(p -> p != null)",
+    "rationale" : "The stream operations expect non-null elements in data; this prevents possible NullPointerExceptions.",
+    "meta" : [ ]
+  } ]
+}

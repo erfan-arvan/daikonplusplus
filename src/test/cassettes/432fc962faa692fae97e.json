@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "list.getTouchable() == Touchable.disabled",
+    "rationale" : "The method sets list's touchable property to disabled before returning.",
+    "meta" : [ {
+      "key" : "object",
+      "value" : "list"
+    } ]
+  }, {
+    "expression" : "selectBox != null",
+    "rationale" : "selectBox is accessed at the end of the method and must be non-null to call onHide(this).",
+    "meta" : [ {
+      "key" : "object",
+      "value" : "selectBox"
+    } ]
+  }, {
+    "expression" : "hasParent() == true || !list.isTouchable()",
+    "rationale" : "If hasParent() was false or list was not touchable, the method would return early.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "precondition branch"
+    } ]
+  }, {
+    "expression" : "list.getKeyListener() != null",
+    "rationale" : "list.getKeyListener() is used within the method, so it is likely non-null.",
+    "meta" : [ {
+      "key" : "object",
+      "value" : "list"
+    } ]
+  }, {
+    "expression" : "hideListener != null",
+    "rationale" : "hideListener is passed into removeCaptureListener, so it must be non-null.",
+    "meta" : [ {
+      "key" : "object",
+      "value" : "hideListener"
+    } ]
+  } ]
+}

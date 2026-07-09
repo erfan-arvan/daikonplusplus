@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "(align & com.badlogic.gdx.utils.Align.center) == com.badlogic.gdx.utils.Align.center",
+    "rationale" : "Checks if Align#center flag is set in the parameter, valid as this is an allowed documented alignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & com.badlogic.gdx.utils.Align.top) == com.badlogic.gdx.utils.Align.top",
+    "rationale" : "Verifies whether the Align#top flag is set; reflects logical usage per Javadoc.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & com.badlogic.gdx.utils.Align.bottom) == com.badlogic.gdx.utils.Align.bottom",
+    "rationale" : "Checks if the Align#bottom flag is active in the passed value, per allowed values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & com.badlogic.gdx.utils.Align.left) == com.badlogic.gdx.utils.Align.left",
+    "rationale" : "Checks if Align#left flag is set; matches one of the accepted alignment constants.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & com.badlogic.gdx.utils.Align.right) == com.badlogic.gdx.utils.Align.right",
+    "rationale" : "Checks if Align#right flag is included in the parameter, as permitted by the documented set.",
+    "meta" : [ ]
+  } ]
+}

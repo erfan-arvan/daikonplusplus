@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new JavaHoodieBackedTableMetadataWriter instance, so result cannot be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result must be non-null because it is the return value of a constructor"
+    } ]
+  }, {
+    "expression" : "conf != null",
+    "rationale" : "conf is passed to the constructor and is necessary to create the result.",
+    "meta" : [ {
+      "key" : "parameter-null-safety",
+      "value" : "conf is required to create the result"
+    } ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is passed to the constructor and is necessary to create the result.",
+    "meta" : [ {
+      "key" : "parameter-null-safety",
+      "value" : "writeConfig is required to create the result"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to the constructor and is necessary to create the result.",
+    "meta" : [ {
+      "key" : "parameter-null-safety",
+      "value" : "context is required to create the result"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieTableMetadataWriter",
+    "rationale" : "The result object must be an instance of HoodieTableMetadataWriter as declared by the method return type.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "method signature's declared return type"
+    } ]
+  } ]
+}

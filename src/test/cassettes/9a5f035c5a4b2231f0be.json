@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is typically required for table operations and should not be null at entry.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "object non-null"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "A list parameter is generally expected to be non-null for list operations inside the method.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "list non-null"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "A list is either empty or contains zero or more elements, reflecting the general contract of List.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "list size"
+    } ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "getBasePath() is a fundamental property of HoodieTableMetaClient and usually expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "object method"
+    } ]
+  } ]
+}

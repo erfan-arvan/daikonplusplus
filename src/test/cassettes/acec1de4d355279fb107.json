@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null HoodieWriteMetadata object after successful insertion.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "ensures result is not null after method execution"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The parameter preppedRecords must be non-null before insertion.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecords list is non-null"
+    } ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() ==> result.getWriteStatuses() != null && !result.getWriteStatuses().isEmpty()",
+    "rationale" : "If preppedRecords is not empty, the result should contain corresponding non-empty write statuses.",
+    "meta" : [ {
+      "key" : "collection_relation",
+      "value" : "Mapping non-empty input records to non-empty write statuses"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is expected to be a non-null string representing the commit instant.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime timestamp is not null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null && result.getWriteStatuses().size() <= preppedRecords.size()",
+    "rationale" : "The result write statuses count should not be greater than the number of input records.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "The number of write statuses does not exceed input records"
+    } ]
+  } ]
+}

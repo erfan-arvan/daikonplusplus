@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null && sourceReadAndIndexTimer != null || sourceReadAndIndexTimer == null && inputRecords != null",
+    "rationale" : "inputRecords must be non-null for the method to process records, sourceReadAndIndexTimer is optional potentially null.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "inputRecords instanceof java.util.List",
+    "rationale" : "inputRecords must be a List as declared in the method signature.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!(inputRecords instanceof java.util.LinkedList) || inputRecords instanceof java.util.List",
+    "rationale" : "inputRecords is a List, potentially LinkedList, but this ensures is a List for safe usage.",
+    "meta" : [ {
+      "key" : "type_hierarchy",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "Size of the list must be non-negative.",
+    "meta" : [ {
+      "key" : "size_property",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer == null || sourceReadAndIndexTimer.isPresent() || !sourceReadAndIndexTimer.isPresent()",
+    "rationale" : "sourceReadAndIndexTimer is an Option that can be present or not, or null.",
+    "meta" : [ {
+      "key" : "option_state",
+      "value" : "valid"
+    } ]
+  } ]
+}

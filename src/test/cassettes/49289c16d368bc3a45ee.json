@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == Character.isLetterOrDigit(c)",
+    "rationale" : "The method returns the result of Character.isLetterOrDigit(c), so result is equal to this expression.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result implies Character.isLetterOrDigit(c)",
+    "rationale" : "If result is true, then Character.isLetterOrDigit(c) must also be true, since result is exactly this value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Character.isLetterOrDigit(c) implies result",
+    "rationale" : "If Character.isLetterOrDigit(c) is true, then result must be true, since result equals Character.isLetterOrDigit(c).",
+    "meta" : [ ]
+  } ]
+}

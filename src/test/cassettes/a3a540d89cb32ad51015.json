@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "prefHeight >= 0",
+    "rationale" : "UI heights are typically expected to be non-negative in layout code.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "range constraint"
+    } ]
+  }, {
+    "expression" : "Float.isFinite(prefHeight)",
+    "rationale" : "Heights should not be infinite or NaN in most UI contexts.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "finiteness"
+    } ]
+  }, {
+    "expression" : "prefHeight < Float.POSITIVE_INFINITY",
+    "rationale" : "prefHeight should be representable as a finite float.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "boundedness"
+    } ]
+  }, {
+    "expression" : "prefHeight > Float.NEGATIVE_INFINITY",
+    "rationale" : "prefHeight should not be negative infinity.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "boundedness"
+    } ]
+  } ]
+}

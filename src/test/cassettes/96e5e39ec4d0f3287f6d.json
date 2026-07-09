@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "It's likely that removeCachedDataIds expects a non-null cacheKey to perform its operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getCachedDataIds(cacheKey) != null",
+    "rationale" : "If cacheKey is valid, it's likely that any cache entry for it is retrievable (possibly empty, but not necessarily null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "cacheKey instanceof HoodieDataCacheKey",
+    "rationale" : "Ensures the method parameter is indeed of the expected type.",
+    "meta" : [ ]
+  } ]
+}

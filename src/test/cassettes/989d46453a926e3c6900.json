@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The savepoint method returns a HoodieSavepointMetadata, which is likely expected to be non-null as it represents the created savepoint's metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null && !instantToSavepoint.isEmpty()",
+    "rationale" : "A valid instantToSavepoint should be a non-null, non-empty string as it designates the commit time to be savepointed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null && !user.isEmpty()",
+    "rationale" : "The user creating the savepoint should be specified as a non-null, non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "A comment should be provided (can be empty but not null) as part of the savepoint metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required to perform any metadata operations for savepoint creation.",
+    "meta" : [ ]
+  } ]
+}

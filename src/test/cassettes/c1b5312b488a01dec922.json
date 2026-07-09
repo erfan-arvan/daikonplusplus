@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive for parallel processing; negative or zero is likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method operates on the provided keys list, which is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced immediately, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getIndex() != null",
+    "rationale" : "The method calls table.getIndex().isGlobal(), so table.getIndex() must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "A List's size() is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

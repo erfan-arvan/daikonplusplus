@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "The method immediately dereferences tmjFile in json.parse(tmjFile), so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of getDependencyAssetDescriptors, which should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == getDependencyAssetDescriptors(tmjFile, parameter != null ? new TextureLoader.TextureParameter() {{ genMipMaps = parameter.generateMipMaps; minFilter = parameter.textureMinFilter; magFilter = parameter.textureMagFilter; }} : new TextureLoader.TextureParameter())",
+    "rationale" : "The result is always created by getDependencyAssetDescriptors with tmjFile and a TextureLoader.TextureParameter based on parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is not dereferenced here, but it is unusual for input filenames to be null in resource loader contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || (parameter.generateMipMaps == ((TextureLoader.TextureParameter)(Object)getDependencyAssetDescriptors(tmjFile, new TextureLoader.TextureParameter() )).genMipMaps)",
+    "rationale" : "If parameter is not null, textureParameter fields are set based on parameter and passed to getDependencyAssetDescriptors.",
+    "meta" : [ ]
+  } ]
+}

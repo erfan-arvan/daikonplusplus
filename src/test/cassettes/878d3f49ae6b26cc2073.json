@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "staggerAxisX == true",
+    "rationale" : "If the field staggerAxisX is used as a boolean flag, it may often be true when this method is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "staggerAxisX == false",
+    "rationale" : "Alternatively, staggerAxisX could be false at this point, capturing the possible value domain.",
+    "meta" : [ ]
+  }, {
+    "expression" : "staggerAxisX || !staggerAxisX",
+    "rationale" : "staggerAxisX is a boolean field, so it must be either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "Instance method entry implies 'this' is non-null.",
+    "meta" : [ ]
+  } ]
+}

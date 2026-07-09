@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The code enforces that 'result' is not null via checkState before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "The code checks '!result.isEmpty()' and throws otherwise, so result is never empty at return.",
+    "meta" : [ ]
+  } ]
+}

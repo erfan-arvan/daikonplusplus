@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "character != '\\0'",
+    "rationale" : "Assumes character typically represents a valid input character, not the NUL character.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character >= 0",
+    "rationale" : "char is an unsigned 16-bit type in Java. This reflects its legal range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character <= 65535",
+    "rationale" : "char in Java is unsigned and ranges from 0 to 65535.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character != '\\n'",
+    "rationale" : "Focus traversal typically does not use newline as the traversal character.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character != '\\r'",
+    "rationale" : "Carriage return is unlikely to be the traversal trigger.",
+    "meta" : [ ]
+  } ]
+}

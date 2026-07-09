@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collections.emptyMap() never returns null, so result is always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The method returns Collections.emptyMap(), which is always empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "Empty maps always have size zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().isEmpty()",
+    "rationale" : "The returned map is empty, hence its keySet is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.values().iterator().hasNext()",
+    "rationale" : "For an empty map, the values collection has no elements for the iterator.",
+    "meta" : [ ]
+  } ]
+}

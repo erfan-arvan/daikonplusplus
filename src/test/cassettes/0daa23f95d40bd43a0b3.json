@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Commit actions in Hudi typically require a non-null instant time to uniquely identify the commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The insert operation logically acts upon a non-null collection of records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid engine context is required for the execution of core Hudi actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A list's size is always greater than or equal to zero in Java.",
+    "meta" : [ ]
+  } ]
+}

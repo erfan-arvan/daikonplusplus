@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "Methods are called on batch, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "parentAlpha typically represents an alpha value, which should be in [0,1].",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "x is often a screen coordinate or position and is likely non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "y is often a screen coordinate or position and is likely non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getPadTop() >= 0.0f && getPadLeft() >= 0.0f && getPadRight() >= 0.0f",
+    "rationale" : "Padding values are expected to be non-negative.",
+    "meta" : [ ]
+  } ]
+}

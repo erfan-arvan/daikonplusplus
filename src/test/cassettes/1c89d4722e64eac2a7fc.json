@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The parameter writeStatuses is required for index update and is immediately used in method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The parameter result is used to store index update information, so it must be non-null before any field/method modifications can be performed on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "size() of List is always non-negative; makes sense in context of passing as eager list to index update.",
+    "meta" : [ ]
+  } ]
+}

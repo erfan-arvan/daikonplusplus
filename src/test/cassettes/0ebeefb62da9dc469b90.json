@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "cell != null",
+    "rationale" : "The method accesses fields (e.g., cell.minWidth), so cell needs to be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cell instanceof Cell",
+    "rationale" : "Given the parameter type is Cell, at this program point cell is always an instance of Cell.",
+    "meta" : [ ]
+  } ]
+}

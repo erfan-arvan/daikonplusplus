@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to identify a commit instant and should not be null prior to processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects a list of prepped records to delete; passing null would be inappropriate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.get(0) != null",
+    "rationale" : "If preppedRecords is nonempty, it should not contain null elements at the start, as each is expected to be a valid HoodieRecord.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext is required to coordinate deletion actions and must be present.",
+    "meta" : [ ]
+  } ]
+}

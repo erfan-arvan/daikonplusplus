@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of .execute(), which should not be null if the executor executed successfully.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() method on the HoodieWriteMetadata result should return a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the returned WriteStatuses list is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToWriteStats() != null",
+    "rationale" : "Partition write stats are part of the result metadata and should not be null if result is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required argument for bulk insert and should not be null.",
+    "meta" : [ ]
+  } ]
+}

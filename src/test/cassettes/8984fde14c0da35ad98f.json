@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The method only returns 0 or a value from columnWidth[], which is likely to represent a width and should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(columnWidth == null && result == 0) || (columnWidth != null && result == columnWidth[columnIndex])",
+    "rationale" : "If columnWidth is null, result is 0, otherwise it returns the value at columnWidth[columnIndex].",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnIndex >= 0",
+    "rationale" : "Since columnIndex is used as an array index when columnWidth != null, it must be non-negative to avoid out-of-bounds exceptions when accessed.",
+    "meta" : [ ]
+  } ]
+}

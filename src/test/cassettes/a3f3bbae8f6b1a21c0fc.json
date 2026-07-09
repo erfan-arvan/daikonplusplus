@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to initializeMetadataTable and would typically be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is passed in and used as an argument, so it is expected to be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "metaClient likely represents a valid metadata client, so its base path should be set.",
+    "meta" : [ ]
+  } ]
+}

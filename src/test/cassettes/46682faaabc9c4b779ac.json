@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "this.metrics != null",
+    "rationale" : "Field 'metrics' is always assigned (either Option.of(...) or Option.empty()), so it cannot be null at method exit.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "end of initRegistry()"
+    } ]
+  }, {
+    "expression" : "this.metrics.isPresent() == metadataWriteConfig.isMetricsOn()",
+    "rationale" : "'metrics' is present iff 'isMetricsOn' was true.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "metrics presence"
+    } ]
+  }, {
+    "expression" : "!this.metrics.isPresent() || this.metrics.get() instanceof HoodieMetadataMetrics",
+    "rationale" : "If 'metrics' is present, it was created as a HoodieMetadataMetrics instance.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "metrics Option"
+    } ]
+  } ]
+}

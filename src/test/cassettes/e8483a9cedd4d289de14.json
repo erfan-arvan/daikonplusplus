@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is likely used as a prefix for IDs, so a non-null value is typically required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is an Iterator expected to be used for insert, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.next() != null",
+    "rationale" : "If the iterator has at least one element, that element should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx.length() > 0",
+    "rationale" : "A non-empty idPfx is likely required for constructing unique record IDs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr instanceof Iterator",
+    "rationale" : "recordItr must be a valid Iterator if it has contents.",
+    "meta" : [ ]
+  } ]
+}

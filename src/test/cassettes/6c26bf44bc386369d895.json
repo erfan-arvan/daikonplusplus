@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "The args parameter is never null and hence its length is non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args array is always non-null and its length is non-negative"
+    } ]
+  }, {
+    "expression" : "args.length == 0 || args[0] != null",
+    "rationale" : "If there are any arguments, the first one is likely not null.",
+    "meta" : [ {
+      "key" : "clarification",
+      "value" : "Some command line arguments might be null, but first argument is likely non-null if present"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No specific variable constraints, so nothing else meaningful to check.",
+    "meta" : [ {
+      "key" : "placeholder",
+      "value" : "Trivially true expression due to lack of accessible variables"
+    } ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "fileId == null ? result == BulkInsertPartitioner.super.getFileIdPfx(partitionId) : result == fileId",
+    "rationale" : "Method returns fileId if not null, otherwise delegates to super; invariant captures this behavior.",
+    "meta" : [ {
+      "key" : "case",
+      "value" : "conditional return based on fileId"
+    } ]
+  }, {
+    "expression" : "fileId != null ? result == fileId : result == BulkInsertPartitioner.super.getFileIdPfx(partitionId)",
+    "rationale" : "Alternative phrasing of method logic, expressing each branch explicitly.",
+    "meta" : [ {
+      "key" : "case",
+      "value" : "explicit alternative form"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Either fileId or super.getFileIdPfx(partitionId); both are Strings and should not be null according to code's intent.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "method never returns null"
+    } ]
+  }, {
+    "expression" : "fileId == result || result == BulkInsertPartitioner.super.getFileIdPfx(partitionId)",
+    "rationale" : "Captures that result equals either fileId or the result from super.",
+    "meta" : [ {
+      "key" : "disjunction",
+      "value" : "result equals one of two possibilities"
+    } ]
+  } ]
+}

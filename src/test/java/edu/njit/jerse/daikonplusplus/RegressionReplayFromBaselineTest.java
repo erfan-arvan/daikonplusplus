@@ -57,6 +57,9 @@ public class RegressionReplayFromBaselineTest {
     // 1) Prepare a clean working copy of the sample sources
     Path workSrc = tmp.resolve("src");
     copyTree(SAMPLE_SRC, workSrc);
+    // Keep a pristine copy for restoreOriginalFile fallback in compileWithAutoFilter
+    Path origSrc = tmp.resolve("src-orig");
+    copyTree(workSrc, origSrc);
 
     // 2) Scan program points from the working copy
     JavaProjectScanner scanner = new JavaProjectScanner();
@@ -105,7 +108,7 @@ public class RegressionReplayFromBaselineTest {
     Files.createDirectories(classesDir);
     String cp = System.getProperty("java.class.path");
 
-    JavaRunner.compileWithAutoFilter(workSrc, classesDir, cp, /*maxPasses*/ 10);
+    JavaRunner.compileWithAutoFilter(workSrc, origSrc, classesDir, cp, /*maxPasses*/ 10);
 
     Path runLog = workSrc.resolve("daikonpp-run.log");
     JavaRunner.run(MAIN_CLASS, JavaRunner.joinCp(cp, classesDir.toString()), List.of(), runLog);

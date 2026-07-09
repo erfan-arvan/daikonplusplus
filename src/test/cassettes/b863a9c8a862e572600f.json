@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "node.parent == null",
+    "rationale" : "If node.parent was non-null it would have returned earlier; at this point node.parent must be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!rootNodes.contains(node)",
+    "rationale" : "If rootNodes.removeValue(node, true) returned true, then node is no longer in rootNodes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(node.actor.getZIndex() == -1) || (!node.actor.isDescendantOf(this))",
+    "rationale" : "If actorIndex != -1, removeFromTree would have been called, which should remove node's actor from this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "node != null",
+    "rationale" : "The method is called with a non-null argument, or a null node would cause a NullPointerException earlier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rootNodes != null",
+    "rationale" : "Method assumes rootNodes is non-null (as shown by calling removeValue on it without null checks).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is required for loading the tiled map and is used without a prior null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "Parameter is passed to loadTiledMap and may be required for proper configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "manager is passed to ImageResolver.AssetManagerImageResolver and used unguarded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is likely required for asset tracking, although not directly used here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.map != null",
+    "rationale" : "On successful completion, this.map should reference a loaded map.",
+    "meta" : [ ]
+  } ]
+}

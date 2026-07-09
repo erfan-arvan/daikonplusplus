@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this' after setting the field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.align == align",
+    "rationale" : "After the assignment, the returned object's 'align' equals the parameter.",
+    "meta" : [ ]
+  } ]
+}

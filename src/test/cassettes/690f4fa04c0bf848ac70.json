@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "selection != null",
+    "rationale" : "selection.draw is called, so selection must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch is passed to selection.draw, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "font.getDescent is used, so font must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font.getDescent() <= 0",
+    "rationale" : "BitmapFont descent is typically non-positive in rendering frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y - textHeight - font.getDescent() < y",
+    "rationale" : "Subtracting positive textHeight and normally non-positive descent from y, the result will be less than y.",
+    "meta" : [ ]
+  } ]
+}

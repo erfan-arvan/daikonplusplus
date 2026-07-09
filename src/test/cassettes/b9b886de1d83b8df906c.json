@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "The method operates on keys and applies map/forEach/addAll, which require that keys is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table.getIndex() is called early in the method, requiring table to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "A positive parallelism is expected for parallel operations, as implied by usage pattern.",
+    "meta" : [ ]
+  } ]
+}

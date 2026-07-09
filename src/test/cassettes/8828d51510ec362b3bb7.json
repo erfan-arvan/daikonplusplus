@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A layer's name is expected to be a non-null String representing its identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() >= 0",
+    "rationale" : "String.length() is always non-negative, ensuring the returned name has a valid length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || result.length() == 0",
+    "rationale" : "If the result is not empty, its length must not be zero and vice versa. This captures the String API contract.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "result is constructed via collect(Collectors.toList()), which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The sorted and collected result should have the same number of elements as the input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == records.isEmpty()",
+    "rationale" : "An empty input list produces an empty sorted result, and vice versa.",
+    "meta" : [ ]
+  }, {
+    "expression" : "java.util.Collections.unmodifiableList(new java.util.ArrayList<>(result)).equals(result)",
+    "rationale" : "Since result is created as a new list, it should equal an unmodifiable copy of itself.",
+    "meta" : [ ]
+  }, {
+    "expression" : "java.util.stream.IntStream.range(1, result.size()).allMatch(i -> getComparableSortColumns(result.get(i - 1)).compareTo(getComparableSortColumns(result.get(i))) <= 0)",
+    "rationale" : "The resulting list is sorted according to getComparableSortColumns comparator.",
+    "meta" : [ ]
+  } ]
+}

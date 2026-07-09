@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs and returns a new HoodieWriteMetadata instance as 'result', so it should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method contracts in Hudi typically expect non-null input; this is also needed to process inputRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "WriteStatuses list is assigned and passed to result in all executing paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "Result.getWriteStatuses() is expected to return a List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of a List is always non-negative, and result.getWriteStatuses() is a List.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method returns the records list after sorting, result should not be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Checks that result list is not null at method exit"
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The method sorts the input list and returns it; the size remains unchanged.",
+    "meta" : [ {
+      "key" : "size-consistency",
+      "value" : "Result list size equals input list size"
+    } ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Number of output partitions should be zero or positive.",
+    "meta" : [ {
+      "key" : "parameter-validity",
+      "value" : "Output partitions count is non-negative"
+    } ]
+  }, {
+    "expression" : "result.equals(records)",
+    "rationale" : "The method returns the input list after sorting it in place.",
+    "meta" : [ {
+      "key" : "aliasing",
+      "value" : "Result and records refer to same list"
+    } ]
+  }, {
+    "expression" : "(result.isEmpty() || !result.get(0).getPartitionPath().isEmpty())",
+    "rationale" : "Partition paths are used in sorting; usually non-empty strings expected.",
+    "meta" : [ {
+      "key" : "partitionPath-nonEmpty",
+      "value" : "Partition path of first record is non-empty if list not empty"
+    } ]
+  } ]
+}

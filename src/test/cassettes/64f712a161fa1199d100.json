@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method directly manipulates the map and expects it to be available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "Method adds child layers to parentLayers, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is dereferenced and used in getString and get methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is passed along to recursive calls and used for file operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is passed into recursive calls and may be required for resource resolution.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs and returns a new HoodieWriteMetadata instance, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "A HoodieWriteMetadata returned from a bulkInsert should always contain a non-null list of WriteStatus objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime should represent a valid timestamp and should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The input list of hoodieRecords should not be null for a bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext parameter must be non-null for the execution of the method.",
+    "meta" : [ ]
+  } ]
+}

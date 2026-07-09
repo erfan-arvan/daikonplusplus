@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is required by most table operations and context is typically expected to be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option parameters are generally expected to be non-null; null would be an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() == false || extraMetadata.get() != null",
+    "rationale" : "If the Option is present, its contained Map should be non-null by Option contract.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata object and not null based on the use of 'new ...().execute()'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The 'records' parameter is always passed into the method and used in the execution flow.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter is propagated through to execution and is not expected to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The 'context' parameter is required for method execution and is cast to HoodieJavaEngineContext, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().equals(\"HoodieWriteMetadata\")",
+    "rationale" : "The result is explicitly of type HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

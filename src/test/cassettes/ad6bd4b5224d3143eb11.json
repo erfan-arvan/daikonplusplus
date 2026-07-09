@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of execute(), which should be non-null for a valid commit action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "It is expected that the method is not called with a null records list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit instant time should never be null for a write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null execution context is required for processing the write.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned HoodieWriteMetadata is expected to always produce a non-null List<WriteStatus>.",
+    "meta" : [ ]
+  } ]
+}

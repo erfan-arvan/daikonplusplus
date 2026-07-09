@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically positive to indicate a usable degree of parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is likely required for table metadata operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "An index definition is essential for index record retrieval, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tableSchema != null && readerSchema != null",
+    "rationale" : "Both schemas are required for record interpretation and must be non-null before entering the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionFilePathAndSizeTriplet != null && !partitionFilePathAndSizeTriplet.isEmpty()",
+    "rationale" : "A non-empty partitionFilePathAndSizeTriplet is expected for meaningful index record retrieval.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is likely required by ScheduleIndexActionExecutor and subsequent processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null && !indexInstantTime.isEmpty()",
+    "rationale" : "indexInstantTime should be a valid, non-empty string to define the indexing instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null && !partitionsToIndex.isEmpty()",
+    "rationale" : "partitionsToIndex likely must contain at least one partition for indexing to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "partitionPaths must not be null as it is passed to the executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex.stream().allMatch(java.util.Objects::nonNull)",
+    "rationale" : "Each element in partitionsToIndex should be non-null to avoid NullPointerExceptions during execution.",
+    "meta" : [ ]
+  } ]
+}

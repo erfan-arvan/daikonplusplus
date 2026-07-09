@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null",
+    "rationale" : "Parameter 'a' should be non-null to safely use its methods or fields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getQuantity() >= 0",
+    "rationale" : "Order quantity is commonly non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price should not be negative for an order.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getQuantity() == ((int)a.getQuantity())",
+    "rationale" : "getQuantity() likely returns an integer value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getUnitPrice() == ((double)a.getUnitPrice())",
+    "rationale" : "getUnitPrice() likely returns a double or numeric value.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "items.size == 0",
+    "rationale" : "Method either returns immediately if items.size == 0, or clears items so that items.size is 0 on exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "items.isEmpty()",
+    "rationale" : "items.clear() is called, which guarantees that items is empty at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selection.isEmpty()",
+    "rationale" : "selection.clear() is called, so selection must be empty before return.",
+    "meta" : [ ]
+  } ]
+}

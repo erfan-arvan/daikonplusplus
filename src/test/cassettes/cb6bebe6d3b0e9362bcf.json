@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The data list is expected to be provided as input and is likely required for the method.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "data must not be null"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter typically represents number of threads or tasks and must be positive.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "parallelism positive"
+    } ]
+  }, {
+    "expression" : "data.isEmpty() || data.size() > 0",
+    "rationale" : "List size is always non-negative, either empty or with elements.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "non-negative size"
+    } ]
+  }, {
+    "expression" : "parallelism <= Integer.MAX_VALUE",
+    "rationale" : "Parameter is an int, so implicitly within int bounds.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "parallelism within int bounds"
+    } ]
+  } ]
+}

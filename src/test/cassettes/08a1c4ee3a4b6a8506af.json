@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "The Option inFlightInstantTimestamp is assumed to be non-null at method exit, as it is used in method calls without null checks.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a parameter and expected to be non-null since it is used without null checks at this point.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "!metaClient.isTableConfigLoaded() || metaClient.getTableConfig() != null",
+    "rationale" : "If the metadata table config was reloaded (in writer.hasPartitionsStateChanged()), then metaClient's config should be loaded and non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "inFlightInstantTimestamp.isPresent() || !inFlightInstantTimestamp.isPresent()",
+    "rationale" : "inFlightInstantTimestamp is an Option and can be either empty or present; no further constraints known.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "low"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "The method's effect is to initialize metadata table writer, no altering of parameters; no return value to relate states.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "No non-trivial invariants relating input parameters found due to limited context."
+    } ]
+  } ]
+}

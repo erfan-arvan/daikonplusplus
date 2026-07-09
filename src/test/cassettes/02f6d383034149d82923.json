@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "Method cannot process a null key list; null will likely result in NPE later.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-safety"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in downstream methods and should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-safety"
+    } ]
+  }, {
+    "expression" : "keys.isEmpty() || keys.size() > 0",
+    "rationale" : "keys is a list, and if not empty, it must have size > 0.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "trivial"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime likely represents a timestamp or identifier string, which should not be empty.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string"
+    } ]
+  }, {
+    "expression" : "keys.stream().allMatch(k -> k != null)",
+    "rationale" : "HoodieKey elements in the delete operation should not be null for data consistency and error-free operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection"
+    } ]
+  } ]
+}

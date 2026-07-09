@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "Having successfully performed operations on writeClient, it should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required as an identifier for write operations, so it should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The method calls writeClient.bulkInsertPreppedRecords with preppedRecordInputs, so it cannot be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.size() > 0",
+    "rationale" : "If preppedRecordInputs is empty, size is 0, else size is positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed to the client operation, so should not be null at exit.",
+    "meta" : [ ]
+  } ]
+}

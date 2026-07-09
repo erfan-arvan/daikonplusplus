@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "fileHandles != null",
+    "rationale" : "fileHandles is used as a parameter and as the return value; the method assumes it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is passed into the getRelativeFileHandle method and is assumed to be non-null in the logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is used immediately to call methods such as getString and has; it must be non-null for method correctness.",
+    "meta" : [ ]
+  } ]
+}

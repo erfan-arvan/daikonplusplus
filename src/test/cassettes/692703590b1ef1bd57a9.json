@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is usually a non-null string timestamp in update operations.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The partition path should be known and non-null when handling an update.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionPath is non-null"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId identifies the file being updated and should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "fileId is non-null"
+    } ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The map of keys to new records must be provided for the update.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "keyToNewRecords is non-null"
+    } ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "The existing data file to update should be non-null at this point.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "oldDataFile is non-null"
+    } ]
+  } ]
+}

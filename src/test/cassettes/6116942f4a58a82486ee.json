@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodieData instance via HoodieListData.eager, which will not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "result is created from Collections.emptyList(), so it should be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().isEmpty()",
+    "rationale" : "Since the underlying data is an empty list, collecting it as a list should yield an empty list.",
+    "meta" : [ ]
+  } ]
+}

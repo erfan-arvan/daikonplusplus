@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a constructed TiledMap object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "A FileHandle and XML root are resolved from fileName, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "parameter is dereferenced to access its fields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getOwnedResources().contains(parameter.textureMinFilter) == false",
+    "rationale" : "The owned resources set in TiledMap are the atlas, not min texture filter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getOwnedResources().size > 0",
+    "rationale" : "At least one owned resource (atlas) is set into the TiledMap.",
+    "meta" : [ ]
+  } ]
+}

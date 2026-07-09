@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords should not be null before processing; NullPointerException may occur otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is expected to represent a valid point in time and should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is required for all core operations in the method; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is a necessary parameter for configuration-dependent logic; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "executor is cast and invoked inside the method, so must not be null.",
+    "meta" : [ ]
+  } ]
+}

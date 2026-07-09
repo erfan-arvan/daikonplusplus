@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tileId >= 0",
+    "rationale" : "Tile IDs are typically non-negative in mapping frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet != null",
+    "rationale" : "A TiledMapTileSet is needed to add a tile; null would likely cause an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureRegion != null",
+    "rationale" : "A valid TextureRegion is required to create a StaticTiledMapTile.",
+    "meta" : [ ]
+  } ]
+}

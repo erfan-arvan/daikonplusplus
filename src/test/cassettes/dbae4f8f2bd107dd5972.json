@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is expected to be provided for engine operations; null context would likely cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is typically a required parameter representing a commit or operation time and should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords is a main input and is expected to be non-null for upsert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(hoodieRecords != null && hoodieRecords.isEmpty())",
+    "rationale" : "upserting with an empty list is typically not meaningful; many pipelines skip no-op transactions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(instantTime != null && instantTime.trim().isEmpty())",
+    "rationale" : "instantTime should not be just whitespace; validity checks usually enforce this.",
+    "meta" : [ ]
+  } ]
+}

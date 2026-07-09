@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method creates and returns a new HoodieWriteMetadata instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list in the write metadata should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Input records is a method parameter and is expected to be non-null for typical execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty() || inputRecords.isEmpty()",
+    "rationale" : "If there are input records, some write statuses should be produced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getCommitMetadata() == null || result.getCommitMetadata().size() >= 0",
+    "rationale" : "Commit metadata, if present, should have a non-negative size.",
+    "meta" : [ ]
+  } ]
+}

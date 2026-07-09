@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "hexSideLength > 0F",
+    "rationale" : "Side length for a hexagon in a renderer context is typically positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(hexSideLength)",
+    "rationale" : "Hex side lengths should be valid floats, NaN would be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(hexSideLength)",
+    "rationale" : "The side length should not be infinite for a renderer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hexSideLength >= 1F",
+    "rationale" : "Rendering contexts often expect meaningful unit or pixel sizes, usually at least 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hexSideLength < 10000F",
+    "rationale" : "A very large hex side length would be unrealistic for rendering tiles.",
+    "meta" : [ ]
+  } ]
+}

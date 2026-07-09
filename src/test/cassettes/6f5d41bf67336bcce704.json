@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "args array is not null and its length is non-negative, typical for main method parameters.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The args array exists and has a non-negative length"
+    } ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "args is an instance of an array class.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is an array of Strings"
+    } ]
+  } ]
+}

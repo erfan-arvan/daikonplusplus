@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a valid HoodieIndex instance, never null, unless an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is a required parameter and not modified in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(StringUtils.isNullOrEmpty(config.getIndexClass())) || (config.getIndexType() == HoodieIndex.IndexType.SIMPLE || config.getIndexType() == HoodieIndex.IndexType.GLOBAL_SIMPLE || config.getIndexType() == HoodieIndex.IndexType.INMEMORY || config.getIndexType() == HoodieIndex.IndexType.BLOOM)",
+    "rationale" : "If getIndexClass is null or empty, IndexType must be one of the supported cases to avoid an exception.",
+    "meta" : [ ]
+  } ]
+}

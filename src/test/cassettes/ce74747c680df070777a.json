@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "The method creates a new writer using 'conf'; 'conf' should be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "The 'writeConfig' parameter is always passed to the JavaHoodieBackedTableMetadataWriter constructor and is essential for configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The 'context' parameter is used directly in the object creation and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "'inflightInstantTimestamp' is an Option<String> that should not be null to safely represent an optional value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inflightInstantTimestamp.isPresent() || inflightInstantTimestamp.get() != null",
+    "rationale" : "If 'inflightInstantTimestamp' is present, the contained value (String) should not be null as per Option's semantics.",
+    "meta" : [ ]
+  } ]
+}

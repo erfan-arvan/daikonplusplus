@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "It is generally expected that a filename parameter should not be null for a load operation involving files.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "The parameter argument likely controls loading behavior, so it makes sense to expect it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.isEmpty()",
+    "rationale" : "An empty filename is typically considered invalid for loading a file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.trim().length() > 0",
+    "rationale" : "After trimming whitespace, a valid filename should have positive length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter.textureMinFilter != null",
+    "rationale" : "The code sets a filter using parameter.textureMinFilter, so it is likely a valid invariant that it is not null here.",
+    "meta" : [ ]
+  } ]
+}

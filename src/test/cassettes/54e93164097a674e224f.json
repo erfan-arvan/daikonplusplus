@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "sizeInvalid == false",
+    "rationale" : "The first operation of the method is to set sizeInvalid to false.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "method exit"
+    } ]
+  }, {
+    "expression" : "prefWidth >= 0",
+    "rationale" : "prefWidth is initialized to 0 and only increased or set via Math.max and potentially Math.ceil, both of which preserve non-negativity.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "width non-negative"
+    } ]
+  }, {
+    "expression" : "prefHeight >= 0",
+    "rationale" : "Similar to prefWidth, prefHeight is initialized to 0 or to padding values and assigned by Math.max and Math.ceil.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "height non-negative"
+    } ]
+  }, {
+    "expression" : "columnSizes == null || columnSizes.size() % 2 == 0",
+    "rationale" : "Pairs of y,columnWidth are always added to columnSizes; so, if not null, it must have even length at method exit.",
+    "meta" : [ {
+      "key" : "structure",
+      "value" : "Column sizes hold pairs"
+    } ]
+  }, {
+    "expression" : "!wrap || columnSizes != null",
+    "rationale" : "If wrap is true, columnSizes is always created if null at the start of the branch.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "columnSizes always initialized when wrap is true"
+    } ]
+  } ]
+}

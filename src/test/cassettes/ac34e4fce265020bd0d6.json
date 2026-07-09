@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null && inputRecords.size() >= 0",
+    "rationale" : "inputRecords being a method parameter is likely non-null and non-negative in size.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The inputRecords list is expected to be non-null, as it is a method parameter representing input data."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime must be non-null since it represents a commit instant time.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is a timestamp string parameter necessary for operation."
+    } ]
+  }, {
+    "expression" : "configuredParallelism >= 0",
+    "rationale" : "Parallelism should be non-negative as a setting.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "configuredParallelism is a parallelism configuration parameter."
+    } ]
+  }, {
+    "expression" : "writeHandleFactory != null",
+    "rationale" : "writeHandleFactory must be non-null for write handle creation fallback.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "writeHandleFactory is required to produce write handles."
+    } ]
+  }, {
+    "expression" : "config != null && table != null",
+    "rationale" : "config and table parameters must be non-null to operate correctly.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Configuration and table are required context objects."
+    } ]
+  } ]
+}

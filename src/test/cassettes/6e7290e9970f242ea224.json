@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Map keys are typically non-null as per Map contract and to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!key.isEmpty()",
+    "rationale" : "It is common to expect property names (keys) to be non-empty strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value != null || value == null",
+    "rationale" : "No information is present to restrict value nullness; both are valid.",
+    "meta" : [ ]
+  } ]
+}

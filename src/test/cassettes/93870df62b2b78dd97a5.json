@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism for parallel execution should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method processes the input data; it is unlikely to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapToPairFunc != null",
+    "rationale" : "The function to convert elements to pairs must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The reduction function is required for reducing grouped values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || data.size() == 0",
+    "rationale" : "This expresses the canonical equivalence between isEmpty and size()==0 for List.",
+    "meta" : [ ]
+  } ]
+}

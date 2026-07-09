@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a result object, so it should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method's return type guarantees the result is a HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method receives 'keys' as a parameter, and it should not be null during the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter is required for the operation and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The 'context' variable is likely always non-null as a method parameter for context-dependent processing.",
+    "meta" : [ ]
+  } ]
+}

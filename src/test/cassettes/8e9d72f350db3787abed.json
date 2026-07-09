@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result <= y",
+    "rationale" : "The method decreases y in each loop iteration, and returns y, so the returned value should not increase compared to the input y.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= this.y",
+    "rationale" : "Within the method, y is repeatedly decremented from the initial value. Since this.y is not modified, result is likely to be less than or equal to the initial this.y.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes != null",
+    "rationale" : "The method operates on nodes and expects it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "plusMinusWidth >= 0",
+    "rationale" : "plusMinusWidth is used as an offset in x calculations, and such offsets in GUI code are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "Array.size is always non-negative in LibGDX arrays.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Since writeStatuses is used as an input to HoodieListData.eager, it is expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The result parameter has methods invoked on it (setIndexUpdateDuration, setWriteStatuses), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "A size method on a List cannot be negative by definition.",
+    "meta" : [ ]
+  } ]
+}

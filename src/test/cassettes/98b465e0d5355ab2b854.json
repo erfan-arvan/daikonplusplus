@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "updateLocationToBucket.get(fileIdHint) == result",
+    "rationale" : "The method puts (fileIdHint, bucket) in updateLocationToBucket and returns bucket.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result) != null",
+    "rationale" : "A BucketInfo is created and stored in bucketInfoMap at key bucket and bucket is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < totalBuckets",
+    "rationale" : "result is assigned totalBuckets and then totalBuckets is incremented.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "result is equal to the prior value of totalBuckets, which (by convention) is typically >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result).fileId.equals(fileIdHint)",
+    "rationale" : "BucketInfo is constructed with fileIdHint and stored at the bucket index.",
+    "meta" : [ ]
+  } ]
+}

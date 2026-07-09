@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursor positions are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "Selection start in text fields is usually non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || (cursor != selectionStart)",
+    "rationale" : "If there is a selection, the cursor and selectionStart should differ.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "The given text state should not be null for storing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor <= text.length()",
+    "rationale" : "The cursor should not be positioned beyond the end of the text.",
+    "meta" : [ ]
+  } ]
+}

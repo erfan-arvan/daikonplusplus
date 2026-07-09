@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (!scrollY || amountY >= maxY)",
+    "rationale" : "The return value of the method directly reflects the boolean expression evaluated in the code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || scrollY",
+    "rationale" : "If result is false, then scrollY must be true, based on De Morgan's law applied to the method's logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || amountY < maxY",
+    "rationale" : "If result is false, then amountY < maxY must hold, since the only way for result to be false is for both scrollY to be true and amountY < maxY.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || !scrollY",
+    "rationale" : "If result is false, then it must be because scrollY is true and amountY < maxY, but the only way for result to be true when scrollY is false is if !scrollY, hence this relationship.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result == (scrollY && amountY < maxY)",
+    "rationale" : "Negating the method's logic gives an equivalent relationship for the result being false.",
+    "meta" : [ ]
+  } ]
+}

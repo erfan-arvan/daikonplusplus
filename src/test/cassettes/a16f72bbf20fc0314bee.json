@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata object, as the result of execute().",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "According to common Java API contracts, the input list of keys should not be null for delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should not be null as it represents an instant for the delete operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is required for execution and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().equals(\"HoodieWriteMetadata\")",
+    "rationale" : "The result must be a HoodieWriteMetadata object, as that is the declared return type.",
+    "meta" : [ ]
+  } ]
+}

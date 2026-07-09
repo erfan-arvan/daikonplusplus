@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List; the result should not be null for correct contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Input should not be null to perform stream operations on hoodieRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= hoodieRecords.size()",
+    "rationale" : "The filter operation can only decrease the size or leave it unchanged.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> !r.isCurrentLocationKnown())",
+    "rationale" : "The method filters for records where isCurrentLocationKnown() is false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().noneMatch(r -> r == null)",
+    "rationale" : "The result list is constructed from a filtered stream over non-null HoodieRecord<T> entries.",
+    "meta" : [ ]
+  } ]
+}

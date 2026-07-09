@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The returned rotation is likely a finite float value representing an angle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == rotation",
+    "rationale" : "The method directly returns the field 'rotation', so the result must be equal to it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= -360.0f && result <= 360.0f",
+    "rationale" : "Rotation angles are commonly within this range; this expresses a plausible constraint on 'rotation'.",
+    "meta" : [ ]
+  } ]
+}

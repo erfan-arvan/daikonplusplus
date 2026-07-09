@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "operationType != null",
+    "rationale" : "The method immediately invokes equals on operationType, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as an argument in getCompactionInflightInstant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced multiple times in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is accessed for containsInstant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "If this invariant fails, the method will throw before doing any other processing.",
+    "meta" : [ ]
+  } ]
+}

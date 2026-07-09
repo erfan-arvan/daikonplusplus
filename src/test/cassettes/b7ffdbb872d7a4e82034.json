@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method unconditionally returns a constant string, which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(HoodieTimeline.REPLACE_COMMIT_ACTION)",
+    "rationale" : "The method always returns HoodieTimeline.REPLACE_COMMIT_ACTION.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == HoodieTimeline.REPLACE_COMMIT_ACTION",
+    "rationale" : "Returning the reference from HoodieTimeline.REPLACE_COMMIT_ACTION ensures referential equality.",
+    "meta" : [ ]
+  } ]
+}

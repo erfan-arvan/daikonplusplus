@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null && !preppedRecords.isEmpty()",
+    "rationale" : "The insertPrepped method should be called with a non-empty list of records to insert.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Insert operation implies there should be records to insert"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Since the method returns a List of WriteStatus, result should not be null at method exit.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method returns a list of WriteStatus"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter should be non-null during a valid insert operation to log the action properly.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime used for indexing and metadata"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(ws -> ws.getStat().getTotalRecords() >= 0)",
+    "rationale" : "Each WriteStatus in the result should have non-negative total record counts indicating valid write results.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "WriteStatus statistics should record non-negative record counts"
+    } ]
+  }, {
+    "expression" : "!preppedRecords.contains(null)",
+    "rationale" : "The preppedRecords list should contain valid HoodieRecord objects only, no nulls.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "List of hoodie records to insert should not contain null elements"
+    } ]
+  } ]
+}

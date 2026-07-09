@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method has completed successfully and 'result' represents the write metadata from the commit, so it should not be null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of write statuses in the result should be non-null after commit to represent the commit result details.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The list size cannot be negative; it can be empty or have elements representing write statuses.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "non-negative"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "Each write status element in the list is expected to be non-null since it represents write operations in the commit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null elements"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "Each write status should contain a non-null statistic object after the commit operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null elements"
+    } ]
+  } ]
+}

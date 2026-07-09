@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The input list of records is expected to be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "A valid Partitioner instance is required to assign partitions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "It is reasonable to require that all records in the input list are non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.size() >= 0",
+    "rationale" : "By definition, a List's size cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner instanceof Partitioner",
+    "rationale" : "The 'partitioner' parameter should be an instance of the expected class/interface Partitioner.",
+    "meta" : [ ]
+  } ]
+}

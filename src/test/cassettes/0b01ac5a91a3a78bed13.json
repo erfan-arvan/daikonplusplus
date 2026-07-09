@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a valid HoodieEngineContext to function and passes it to the action executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An operation on the table generally requires a non-null, non-empty instantTime to properly identify the commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "A non-null record list is required for insertion actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "preppedRecords is typed as List<HoodieRecord<T>>, so must be a List instance.",
+    "meta" : [ ]
+  } ]
+}

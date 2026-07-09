@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "UI frameworks commonly require non-negative width values; negative widths may not make sense for layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Similar to width, height is typically required to be non-negative in UI components.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + width >= x",
+    "rationale" : "If width is non-negative, adding it to x should not decrease the value, capturing layout logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y + height >= y",
+    "rationale" : "If height is non-negative, adding it to y represents a layout span without underflow.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(width < 0 || height < 0)",
+    "rationale" : "Ensures that neither width nor height are negative, which is often required in UI position/size semantics.",
+    "meta" : [ ]
+  } ]
+}

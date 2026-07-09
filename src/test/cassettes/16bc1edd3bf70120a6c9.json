@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "execute methods usually return non-null metadata on successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned HoodieWriteMetadata should always contain a non-null list of WriteStatus objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "getWriteStatuses is expected to return a List, as per the method's generic signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "Every WriteStatus object in the returned list should be non-null to ensure data integrity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The returned object should always be an instance of HoodieWriteMetadata per method's declared return type.",
+    "meta" : [ ]
+  } ]
+}

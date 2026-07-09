@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "index >= 0",
+    "rationale" : "Indexing into a collection typically requires a non-negative index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < tilesets.size()",
+    "rationale" : "Index must be less than the size of the collection for valid access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets != null",
+    "rationale" : "tilesets must not be null to call get(index) on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets.size() > 0",
+    "rationale" : "tilesets should be non-empty to contain an element at any index.",
+    "meta" : [ ]
+  } ]
+}

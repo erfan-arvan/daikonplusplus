@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() > 0",
+    "rationale" : "The Parquet small file limit is expected to be positive as it relates to file sizing thresholds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() > 0",
+    "rationale" : "A record size estimate should be a positive value in normal configurations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() > 0.0",
+    "rationale" : "Threshold ratios for estimations are expected to be greater than zero to have effect.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!commitTimeline.empty() || commitTimeline.empty()",
+    "rationale" : "The timeline is either empty or not, covering all state possibilities (sanity for reachability).",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() >= hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate()",
+    "rationale" : "The small file size limit is likely configured to be at least as large as the estimated record size.",
+    "meta" : [ ]
+  } ]
+}

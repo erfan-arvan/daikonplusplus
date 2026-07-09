@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is likely required to be non-null for any method in this API.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "It is generally expected that Option parameters are not null; rather, they are used to encapsulate absence/presence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!extraMetadata.isPresent() || extraMetadata.get() != null",
+    "rationale" : "If extraMetadata is present, the contained Map should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() == (extraMetadata.orElse(null) != null)",
+    "rationale" : "If the Option is present, calling orElse(null) should yield a non-null value, and vice versa.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null && extraMetadata != null",
+    "rationale" : "If both parameters are required, they should both be non-null before method execution.",
+    "meta" : [ ]
+  } ]
+}

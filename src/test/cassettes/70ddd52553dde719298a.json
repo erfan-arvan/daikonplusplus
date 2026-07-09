@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Method requires 'config' to access configuration values; likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Method uses 'context' to access engine/storage configuration; likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "The 'basePath' from config is used to create the meta client, so it likely must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context.getStorageConf() != null",
+    "rationale" : "'getStorageConf()' is used to obtain configuration for meta client; expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getConsistencyGuardConfig() != null",
+    "rationale" : "'getConsistencyGuardConfig()' is passed to meta client builder and likely required to be non-null.",
+    "meta" : [ ]
+  } ]
+}

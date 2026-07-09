@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "getTouchable() == Touchable.enabled",
+    "rationale" : "initialize() sets touchable to Touchable.enabled before exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clickListener != null",
+    "rationale" : "clickListener is assigned a new ClickListener before method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getListeners().contains(clickListener)",
+    "rationale" : "clickListener is added to listeners in initialize().",
+    "meta" : [ ]
+  }, {
+    "expression" : "getListeners().size() >= 1",
+    "rationale" : "At least one listener (clickListener) is added in initialize().",
+    "meta" : [ ]
+  }, {
+    "expression" : "getTouchable() != null",
+    "rationale" : "getTouchable() returns a non-null value as it was set in this method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is used in scheduling rollback and is unlikely to be null; appears in multiple drafts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "instantToRollback is required as an argument and will be operated on, so null is not expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed through and typically required for internal method operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(shouldRollbackUsingMarkers && isRestore)",
+    "rationale" : "Restores and marker-based rollback may be mutually exclusive operations based on context.",
+    "meta" : [ ]
+  } ]
+}

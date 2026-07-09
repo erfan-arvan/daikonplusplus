@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method transitions the instant represented by instantTime; this is likely required to be non-null.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "An empty string as instantTime would be invalid for commit operations.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "instantTime should not be just whitespace.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "medium"
+    } ]
+  } ]
+}

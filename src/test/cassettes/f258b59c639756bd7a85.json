@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The method converts a signed byte to an unsigned int in the 0..255 range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= 255",
+    "rationale" : "The maximum value for an unsigned byte mapped to int is 255.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (b & 0xFF)",
+    "rationale" : "The method directly returns b & 0xFF.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (b < 0 ? b + 256 : b)",
+    "rationale" : "For negative bytes, adding 256 gives the unsigned value; otherwise it's the value itself.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(b == 0) == (result == 0)",
+    "rationale" : "If the input byte is zero, the output int must also be zero and vice versa.",
+    "meta" : [ ]
+  } ]
+}

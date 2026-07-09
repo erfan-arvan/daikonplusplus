@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "The fileName String is likely required for file identification/loading; null may not be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is dereferenced in the json.parse(tmjFile) call; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter.generateMipMaps == parameter.generateMipMaps",
+    "rationale" : "If parameter is not null, accessing its fields should be valid; demonstrates a safe pattern for field access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "A non-empty fileName is necessary for meaningful asset loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.exists()",
+    "rationale" : "The method likely expects tmjFile to refer to an existing file to parse it.",
+    "meta" : [ ]
+  } ]
+}

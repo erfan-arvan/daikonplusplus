@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || value.equals(result.value)",
+    "rationale" : "If a non-null node is returned, its value equals the given value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || nodes.size > 0",
+    "rationale" : "If a node is found, there must have been nodes to search.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes != null",
+    "rationale" : "The method requires a non-null nodes array to operate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || findNode(nodes, value) == result",
+    "rationale" : "The returned node is the correct result of the findNode operation for the given parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || findNode(result.children, value) == null",
+    "rationale" : "If a node is returned, then none of its children recursively contain an additional match for the same value.",
+    "meta" : [ ]
+  } ]
+}

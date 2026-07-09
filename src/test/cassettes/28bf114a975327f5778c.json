@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method requires a WorkloadProfile to compute partitioning; a null profile likely indicates incorrect usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.partitioner == null",
+    "rationale" : "At method entry, 'this.partitioner' may not yet have been assigned in this method; assuming it is unmodified prior.",
+    "meta" : [ ]
+  } ]
+}

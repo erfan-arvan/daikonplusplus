@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is an Option<HoodieCleanerPlan> and returned directly from another method, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required parameter passed through to the action executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is an Option and always non-null as a parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "The result Option either contains a value or does not; this is always true for well-formed Option objects.",
+    "meta" : [ ]
+  } ]
+}

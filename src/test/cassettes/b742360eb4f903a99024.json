@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet.putTile(tileId, tile) would throw a NullPointerException if tileSet were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureRegion != null",
+    "rationale" : "A new StaticTiledMapTile is constructed with textureRegion, implying it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet.getTile(tileId) != null",
+    "rationale" : "tileSet.putTile(tileId, tile) stores a tile under tileId, so after, tileSet.getTile(tileId) should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet.getTile(tileId).getId() == tileId",
+    "rationale" : "The tile created is assigned tileId with setId(tileId), so after insertion, its id should match tileId.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet.getTile(tileId).getTextureRegion() == textureRegion",
+    "rationale" : "The stored tile was created using textureRegion, so its getTextureRegion() should yield the same instance.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "font != null",
+    "rationale" : "The method draw is called on 'font', so it must be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "'font.draw' is called with 'batch' as an argument, so 'batch' is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxWidth >= 0",
+    "rationale" : "It is common for drawing routines to expect a non-negative maxWidth for rendering text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font.isFlipped() == false || y >= 0",
+    "rationale" : "If the font is flipped, a negative y might display text offscreen, so in practice, y is usually >= 0 for drawing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0",
+    "rationale" : "Text drawing commonly expects a non-negative x coordinate as it represents a screen position.",
+    "meta" : [ ]
+  } ]
+}

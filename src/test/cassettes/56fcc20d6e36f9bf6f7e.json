@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "getTree() == null || getTree() instanceof Tree",
+    "rationale" : "If getTree() is not null, then it should return an instance of Tree.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null || parent instanceof Node",
+    "rationale" : "If parent is not null, it should be an instance of the appropriate node class.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getTree() != null || parent != null",
+    "rationale" : "A node should have either a tree or a parent before removal is attempted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this instanceof Node",
+    "rationale" : "The method is invoked on a node, so this should be an instance of Node or its subtype.",
+    "meta" : [ ]
+  } ]
+}

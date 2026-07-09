@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieMergeHandle instance created by the factory, so the result should not be null unless creation fails (which would throw an exception).",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument in the handle creation; it is likely assumed non-null as per expected API usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is required to create the HoodieMergeHandle and is not checked for null before being used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to the HoodieMergeHandleFactory; a null iterator would likely result in an immediate failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Partition paths are typically non-empty strings identifying the target partition.",
+    "meta" : [ ]
+  } ]
+}

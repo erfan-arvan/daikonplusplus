@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Methods in this class likely require a non-null execution context.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "HoodieEngineContext is expected to be a required context object for operations on the table"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Use of Option implies the reference itself should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Option types should not be null; an empty Option should be used instead"
+    } ]
+  }, {
+    "expression" : "extraMetadata instanceof Option",
+    "rationale" : "Type safety is expected at method entry.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Parameter type is Option<Map<String, String>> so it must be an Option instance"
+    } ]
+  } ]
+}

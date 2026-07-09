@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 1",
+    "rationale" : "The method always counts at least the current node, so result is at least 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 1 || result > 1",
+    "rationale" : "Return value is either 1 (when !expanded) or greater (when expanded and there are children).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result > 1 == expanded",
+    "rationale" : "If expanded is false, returns 1; if expanded is true and there are children with subnodes, result may be greater than 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 1 || expanded",
+    "rationale" : "If result is not 1, node must have been expanded.",
+    "meta" : [ ]
+  } ]
+}

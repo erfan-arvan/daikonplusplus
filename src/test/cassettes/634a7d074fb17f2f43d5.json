@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null && b != null",
+    "rationale" : "Both parameters must be non-null to safely invoke methods like doubleValue() and intValue(), which are used in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getClass().equals(b.getClass())",
+    "rationale" : "The method expects both arguments to be of the same numeric type to perform type-specific division.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(a instanceof Integer) || (a instanceof Double)",
+    "rationale" : "The method only supports Integer and Double types for division and throws an exception otherwise.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null Pair as its result, barring unexpected implementation issues.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should not be null for clustering plans.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "The list of file slices should be non-null at method exit, as it is passed as a parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices.stream().allMatch(fs -> fs != null)",
+    "rationale" : "All elements in fileSlices should be non-null for correct clustering logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null && result.getRight() != null",
+    "rationale" : "Pair returned should have both left (Stream<HoodieClusteringGroup>) and right (Boolean) non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "args.length >= 0",
+    "rationale" : "The length of the args array is always non-negative.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Java array length is always non-negative"
+    } ]
+  }, {
+    "expression" : "args != null",
+    "rationale" : "The main method's String[] args is never null on method entry.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "According to JVM specification, args to main method are never null"
+    } ]
+  }, {
+    "expression" : "java.util.Arrays.stream(args).allMatch(s -> s != null)",
+    "rationale" : "All elements in args array are non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "No explicit guarantee, but typical usage expects no null elements"
+    } ]
+  }, {
+    "expression" : "args instanceof String[]",
+    "rationale" : "args is an instance of String array.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "args is declared as String[]"
+    } ]
+  }, {
+    "expression" : "args.length <= 1000",
+    "rationale" : "Args array length is reasonably bounded.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Heuristic to limit size, since no explicit bound given"
+    } ]
+  } ]
+}

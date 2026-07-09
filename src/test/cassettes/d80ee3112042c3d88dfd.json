@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (focusTraversal && character == TAB)",
+    "rationale" : "The result returned is exactly the conjunction of focusTraversal and character == TAB, as per the method implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || focusTraversal",
+    "rationale" : "If the result is true, then focusTraversal must be true, since the method returns the conjunction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || character == TAB",
+    "rationale" : "If the result is true, it means character must be TAB, as per the conjunction in the return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !focusTraversal || character != TAB",
+    "rationale" : "If both focusTraversal is true and character == TAB, then result must be true, captured as logical implication.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (focusTraversal ? character == TAB : false)",
+    "rationale" : "If focusTraversal is true, result depends on character == TAB; otherwise result is false.",
+    "meta" : [ ]
+  } ]
+}

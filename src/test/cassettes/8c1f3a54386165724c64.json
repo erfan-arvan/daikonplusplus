@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "icon != null",
+    "rationale" : "icon must be non-null to safely call icon.draw and icon.getMinWidth/getMinHeight.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch must be non-null to pass as a parameter in icon.draw.",
+    "meta" : [ ]
+  }, {
+    "expression" : "icon.getMinWidth() >= 0",
+    "rationale" : "Minimum width of an icon is rarely negative; ensures sensible graphics rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "icon.getMinHeight() >= 0",
+    "rationale" : "Minimum height of an icon is rarely negative; ensures sensible graphics rendering.",
+    "meta" : [ ]
+  } ]
+}

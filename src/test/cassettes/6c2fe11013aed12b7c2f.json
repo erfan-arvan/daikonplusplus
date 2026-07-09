@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0.0f && x <= 1.0f",
+    "rationale" : "Cell fill factors are commonly in [0,1] range, and method likely expects normalized parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f && y <= 1.0f",
+    "rationale" : "y parameter probably represents vertical fill and is expected to be normalized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "Negative fill fractions are not meaningful for UI layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "Negative vertical fill values are not expected for layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x == y",
+    "rationale" : "Symmetric fill (identical x and y values) may be common in UI usage, as in 'fill(1,1)' for full fill.",
+    "meta" : [ ]
+  } ]
+}

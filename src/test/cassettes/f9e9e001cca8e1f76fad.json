@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is likely required for a commit operation to succeed as it typically identifies the commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "The partitionRecordsMap argument should not be null to ensure records are available for committing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If partitionRecordsMap is empty, it may be acceptable for instantTime to be any non-empty string, reflecting typical commit semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() == instantTime.length()",
+    "rationale" : "instantTime is likely a strictly formatted time/string, so it is plausible there are no leading/trailing spaces.",
+    "meta" : [ ]
+  } ]
+}

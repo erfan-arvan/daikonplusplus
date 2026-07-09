@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null && !preppedRecords.isEmpty()",
+    "rationale" : "preppedRecords must not be null and contain at least one record for insertion.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method bulkInsertPrepped typically requires non-empty records list."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should be a valid timestamp string for the bulk insert operation.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is used for operations and should be a valid non-empty string."
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner == null || bulkInsertPartitioner.isPresent()",
+    "rationale" : "bulkInsertPartitioner can be absent (empty Option) or present but should be safely accessed.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "bulkInsertPartitioner is an Optional type and can be either null or present."
+    } ]
+  }, {
+    "expression" : "preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "No HoodieRecord in preppedRecords list is null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "All elements in the preppedRecords list should be non-null HoodieRecord objects."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be non-null for the bulk insert operation.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime must not be null because it is used for write operations."
+    } ]
+  } ]
+}

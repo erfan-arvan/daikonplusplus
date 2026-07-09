@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "It is a common expectation that the context argument is non-null when calling table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Passing null for Option parameters is typically avoided in favor of Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "An Option is always either present or not; this validates the Option contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(extraMetadata == null)",
+    "rationale" : "Redundant with extraMetadata != null, but emphasizes safe dereferencing of Option.",
+    "meta" : [ ]
+  } ]
+}

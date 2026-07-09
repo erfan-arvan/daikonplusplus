@@ -1,0 +1,10 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null && table != null && parallelism >= 1 && table.getIndex() != null && keys.size() >= 0",
+    "rationale" : "At method entry, keys and table parameters are expected to be non-null, parallelism a positive int, and keys non-negative in size.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Parameters keys and table should be non-null, parallelism should be positive, and keys list size is non-negative."
+    } ]
+  } ]
+}

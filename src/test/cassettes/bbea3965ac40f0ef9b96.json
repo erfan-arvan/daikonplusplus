@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "messageText == null",
+    "rationale" : "Javadoc notes that the return value may be null, so messageText may be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "messageText != null",
+    "rationale" : "It is also valid that messageText could be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "messageText == this.messageText",
+    "rationale" : "Accessing 'messageText' via the field and via 'this' yields the same value.",
+    "meta" : [ ]
+  } ]
+}

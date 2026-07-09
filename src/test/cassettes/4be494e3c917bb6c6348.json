@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionId >= 0",
+    "rationale" : "Partition IDs are commonly non-negative, as partitions are typically indexed from zero or above.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionId == partitionId",
+    "rationale" : "Partition ID remains consistent on method entry. (Though simple, this helps reinforce variable identity and could help in some analysis).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "fileName must be non-null for resource resolution and loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "parameter is dereferenced for texture filter fields, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter.textureMinFilter != null",
+    "rationale" : "parameter.textureMinFilter is used in setTextureFilters, suggesting it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter.textureMagFilter != null",
+    "rationale" : "parameter.textureMagFilter is passed to setTextureFilters, so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "A non-empty fileName is a reasonable precondition for loading a resource.",
+    "meta" : [ ]
+  } ]
+}

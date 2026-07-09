@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "bottom == true || bottom == false",
+    "rationale" : "bottom is a boolean parameter, so it must be either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "right == true || right == false",
+    "rationale" : "right is a boolean parameter, so it must be either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bottom != right || bottom == right",
+    "rationale" : "Since both are boolean, they are either equal or not; this exhausts all cases.",
+    "meta" : [ ]
+  } ]
+}

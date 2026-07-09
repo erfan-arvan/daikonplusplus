@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "All switch cases either return a non-null object or throw, so result is non-null when the method exits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "The method returns only if sortMode is NONE or GLOBAL_SORT; otherwise, it throws an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof BulkInsertPartitioner",
+    "rationale" : "The method always returns an instance of BulkInsertPartitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(sortMode == BulkInsertSortMode.NONE) == (result instanceof JavaNonSortPartitioner)",
+    "rationale" : "If sortMode is NONE, a JavaNonSortPartitioner is returned; otherwise not.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(sortMode == BulkInsertSortMode.GLOBAL_SORT) == (result instanceof JavaGlobalSortPartitioner)",
+    "rationale" : "If sortMode is GLOBAL_SORT, a JavaGlobalSortPartitioner is returned; otherwise not.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of either getUpsertPartitioner(profile) or getInsertPartitioner(profile), both of which should provide a non-null Partitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "WriteOperationType.isChangingRecords(operationType) ? (result == getUpsertPartitioner(profile)) : (result == getInsertPartitioner(profile))",
+    "rationale" : "The return value matches the branch taken based on the operation type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The method is called with a non-null WorkloadProfile, as the profile parameter is dereferenced and used in both return paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Partitioner",
+    "rationale" : "The result returned from either branch must implement or be an instance of Partitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getUpsertPartitioner(profile) != null && getInsertPartitioner(profile) != null",
+    "rationale" : "Both factory methods for the result are expected to always return non-null Partitioners when given a valid profile.",
+    "meta" : [ ]
+  } ]
+}

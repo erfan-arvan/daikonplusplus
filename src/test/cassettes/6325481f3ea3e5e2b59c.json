@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null && result != null",
+    "rationale" : "Both input records and returned result list are expected to be non-null after method execution.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "parameters and result are not null"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The returned list size cannot be negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "size non-negative"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required and non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty() || result.isEmpty()",
+    "rationale" : "If no records were provided to insert, the returned write statuses list should be empty.",
+    "meta" : [ {
+      "key" : "size relation",
+      "value" : "if input records is empty, result is empty"
+    } ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "The number of write statuses should not exceed the number of records inserted.",
+    "meta" : [ {
+      "key" : "size relation",
+      "value" : "result size less or equal to records size"
+    } ]
+  } ]
+}

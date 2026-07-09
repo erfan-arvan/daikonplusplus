@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "textField != null",
+    "rationale" : "Method parameter is not null since it is dereferenced multiple times.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.maxLength <= 0 || textField.maxLength >= textField.getText().length()",
+    "rationale" : "Max length is set unless it's non-positive, in which case it is ignored (-1).",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.passwordMode == (textField.keyboardType == OnscreenKeyboardType.Default ? configuration.getType() == OnscreenKeyboardType.Password : configuration.getType() == textField.keyboardType)",
+    "rationale" : "Resolved keyboard type depends on passwordMode and keyboardType.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.messageText == null || configuration.getPlaceholder().equals(textField.messageText)",
+    "rationale" : "The placeholder is set to messageText or \"\" if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.preventAutoCorrection || configuration.isPreventCorrection() == (configuration.getType() == OnscreenKeyboardType.Password)",
+    "rationale" : "Prevention of autocorrection is based on password mode or preventAutoCorrection flag.",
+    "meta" : [ ]
+  } ]
+}

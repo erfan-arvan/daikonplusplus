@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a newly constructed HoodieJavaWriteClient, which should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The new HoodieJavaWriteClient is constructed with config, so getConfig() should return the same object reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getEngineContext() == context",
+    "rationale" : "The new HoodieJavaWriteClient is constructed with context, so getEngineContext() should return the same object reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof org.apache.hudi.client.HoodieJavaWriteClient",
+    "rationale" : "The object returned is explicitly an instance of HoodieJavaWriteClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() != null",
+    "rationale" : "config is required to construct the HoodieJavaWriteClient, so result.getConfig() should not be null.",
+    "meta" : [ ]
+  } ]
+}

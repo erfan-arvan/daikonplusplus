@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method must return a HoodieWriteMetadata object, expected to be non-null after execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method contracts usually require input record lists to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An instantTime string is required for versioned operations; it should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "EngineContext is fundamental for execution and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "A valid write metadata object should contain a non-null list of WriteStatus.",
+    "meta" : [ ]
+  } ]
+}

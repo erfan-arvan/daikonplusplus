@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method retrieves a Drawable using the name, so it is likely intended that name is not null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "tint != null",
+    "rationale" : "The method returns a tinted drawable, requiring that tint should not be null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "name.length() > 0",
+    "rationale" : "An empty string is unlikely to be a valid name for getDrawable; it is probable that name is non-empty.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "string property"
+    } ]
+  }, {
+    "expression" : "tint.a >= 0.0f && tint.a <= 1.0f",
+    "rationale" : "In libGDX, Color alpha values typically range from 0.0f to 1.0f.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "color component range"
+    } ]
+  }, {
+    "expression" : "name.trim().length() == name.length()",
+    "rationale" : "Drawable names are unlikely to have leading or trailing whitespace.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "string property"
+    } ]
+  } ]
+}

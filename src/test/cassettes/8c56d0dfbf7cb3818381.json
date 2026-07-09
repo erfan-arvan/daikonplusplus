@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Bucket numbers are typically non-negative identifiers.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "range"
+    } ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "The method uses 'key' assuming it's a non-null Object.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "result < totalBuckets",
+    "rationale" : "Bucket numbers assigned should be within the total number of buckets in the partitioner.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "range"
+    } ]
+  }, {
+    "expression" : "getPartition(key) == result",
+    "rationale" : "Calling getPartition with the same key should be deterministic and return the computed result.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "idempotent"
+    } ]
+  }, {
+    "expression" : "((Pair)key).getLeft() != null",
+    "rationale" : "The method assumes getLeft() on key always produces a non-null HoodieKey.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null-check"
+    } ]
+  } ]
+}

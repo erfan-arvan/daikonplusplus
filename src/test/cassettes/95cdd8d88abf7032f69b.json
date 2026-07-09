@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a required argument and should not be null in method contract.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is a required argument and should not be null in method contract.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "columnsToIndex must be a List<String> by parameter contract.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "metaClient must be a HoodieTableMetaClient by parameter contract.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.get(0) instanceof String",
+    "rationale" : "If columnsToIndex is non-empty, its elements must be Strings.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  } ]
+}

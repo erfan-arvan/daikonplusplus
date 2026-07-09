@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "map is used to retrieve dimensions and its methods are called within the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers.add() is called, requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is used to extract fields using getString/getFloat/getInt methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used to resolve file handles for images.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver.getImage() is used and must be non-null.",
+    "meta" : [ ]
+  } ]
+}

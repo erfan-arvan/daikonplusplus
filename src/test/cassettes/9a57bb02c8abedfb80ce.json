@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is required for action executor instantiation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null && !rollbackInstantTime.isEmpty()",
+    "rationale" : "A valid rollback instant time string is needed for rollback identification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A non-null commit instant is required for rollback processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!rollbackInstantTime.trim().isEmpty()",
+    "rationale" : "Rollback instant time must not be blank after trimming.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.matches(\"\\\\d+\")",
+    "rationale" : "Rollback instant times in Hudi are typically timestamps as numeric strings.",
+    "meta" : [ ]
+  } ]
+}

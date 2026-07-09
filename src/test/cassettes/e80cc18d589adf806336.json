@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Parameter config is required for index creation; code always uses it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexType() != null",
+    "rationale" : "Index type is accessed via config so it must not be null to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexClass() == null || !StringUtils.isNullOrEmpty(config.getIndexClass()) == false",
+    "rationale" : "The method first checks whether indexClass is set in config.",
+    "meta" : [ ]
+  } ]
+}

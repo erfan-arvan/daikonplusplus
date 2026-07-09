@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is likely required for compaction; null context would cause immediate failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is typically a required identifier for compaction operations and should never be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option types should not be null in idiomatic usage and code assumes non-null Option.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "extraMetadata is an Option and isPresent can always be called for safe evaluation.",
+    "meta" : [ ]
+  } ]
+}

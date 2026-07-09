@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List, guaranteeing non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "size() of a List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "Method would throw if clusteringGroup were null; it is used in initial lines.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a parameter, indicating it must not be null for correct logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || result.size() == 0",
+    "rationale" : "result.isEmpty() and result.size() == 0 are equivalent, checked for consistency.",
+    "meta" : [ ]
+  } ]
+}

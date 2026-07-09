@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method returns 'records' after sorting in place, so the returned value is the same object reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "'records' is returned, so 'result' is non-null if input is non-null; null records input is unlikely by method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() == result.size()",
+    "rationale" : "Sorting reorders elements in-place without changing the size, and the returned result is the same list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List.size() is always non-negative by Java specification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "'outputPartitions' parameter is expected to be non-negative, as negative partitions do not make sense logically.",
+    "meta" : [ ]
+  } ]
+}

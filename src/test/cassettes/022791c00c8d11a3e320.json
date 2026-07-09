@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Null check is prudent since partitionPath is used as an argument in subsequent method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath typically represents a filesystem or table partition; it is unlikely to be empty when used for file queries.",
+    "meta" : [ ]
+  } ]
+}

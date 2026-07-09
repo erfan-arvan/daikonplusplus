@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "rotation % 90 == 0",
+    "rationale" : "The Javadoc specifies rotation is reported in 90 degree increments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(rotation >= 0 && rotation < 360)",
+    "rationale" : "Rotation in degrees, in 90 degree increments, is typically in the range [0, 360).",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation == 0 || rotation == 90 || rotation == 180 || rotation == 270",
+    "rationale" : "These are the allowable values for rotation if restricted to 90 degree increments and typical limits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getRotation() == rotation",
+    "rationale" : "The method directly returns the rotation field.",
+    "meta" : [ ]
+  } ]
+}

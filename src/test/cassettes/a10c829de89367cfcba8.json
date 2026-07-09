@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns result which is the output of convertMetadata, expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null after method execution"
+    } ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "logCompactionInstantTime is used as an argument to the executor and must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "logCompactionInstantTime is non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The List<WriteStatus> inside result should not be null, representing written file statuses.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses list inside result is non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the write status list is always zero or more.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "Non-negative size"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context parameter is non-null as it is used to create the executor.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null"
+    } ]
+  } ]
+}

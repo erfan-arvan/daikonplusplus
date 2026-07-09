@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fontName != null && !fontName.isEmpty()",
+    "rationale" : "fontName is used to retrieve a font from skin, empty or null might cause failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "colorName != null && !colorName.isEmpty()",
+    "rationale" : "colorName is used to retrieve a color from skin, empty or null might cause failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "text may be null (as allowed by @Null), but otherwise must be a CharSequence with non-negative length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontName != null",
+    "rationale" : "fontName is used in skin.getFont, which likely requires non-null argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "colorName != null",
+    "rationale" : "colorName is used in skin.getColor, which likely requires non-null argument.",
+    "meta" : [ ]
+  } ]
+}

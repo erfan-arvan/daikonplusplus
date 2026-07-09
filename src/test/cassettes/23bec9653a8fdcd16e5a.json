@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "tooltip != null",
+    "rationale" : "The method operates on 'tooltip' directly; it is likely non-null when the method exits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!showTask.isScheduled()",
+    "rationale" : "showTask.cancel() is called unconditionally, so at method exit, showTask should no longer be scheduled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!tooltip.container.hasParent() || shown.contains(tooltip) == false",
+    "rationale" : "If the tooltip's container had a parent (and thus we entered the if), shown.removeValue(tooltip, true) was called, implying it is no longer in 'shown'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!tooltip.container.hasParent() || resetTask.isScheduled()",
+    "rationale" : "If tooltip.container has a parent, resetTask is scheduled before method exit.",
+    "meta" : [ ]
+  } ]
+}

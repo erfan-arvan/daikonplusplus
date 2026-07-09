@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == bucketInfoMap.get(bucketNumber)",
+    "rationale" : "The result is always the value obtained from bucketInfoMap for the given bucketNumber.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Typically, map keys like bucket numbers are non-negative; this may be a method precondition or customary domain constraint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber) == (result != null)",
+    "rationale" : "If the map contains the key, the result is not null, otherwise it is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || bucketInfoMap.containsValue(result)",
+    "rationale" : "If the result is not null, it must correspond to a value in the map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber < bucketInfoMap.size() || result == null",
+    "rationale" : "If the bucket number is beyond the highest index, the result is likely null.",
+    "meta" : [ ]
+  } ]
+}

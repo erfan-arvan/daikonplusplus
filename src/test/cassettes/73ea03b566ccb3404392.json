@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "The method relies on cleanInstantTime to identify an instant; it typically should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime.length() > 0",
+    "rationale" : "cleanInstantTime should usually be a non-empty instant identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is usually required to perform cleaning operations.",
+    "meta" : [ ]
+  } ]
+}

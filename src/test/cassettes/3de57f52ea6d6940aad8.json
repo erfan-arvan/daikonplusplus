@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "A savepoint must reference a specific instant; instantToSavepoint should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null && !user.isEmpty()",
+    "rationale" : "A savepoint should be created by a valid, non-empty user identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "A comment may be required for auditing or descriptive purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is essential for executing actions in distributed environments.",
+    "meta" : [ ]
+  } ]
+}

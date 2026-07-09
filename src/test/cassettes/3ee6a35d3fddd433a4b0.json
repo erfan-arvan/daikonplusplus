@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "The method is called on an instance, so 'this' must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "The method accesses 'style.background', so 'style' must be non-null to prevent NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefWidth >= 0",
+    "rationale" : "Preferred width of a UI element is generally non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefSizeInvalid == true || prefSizeInvalid == false",
+    "rationale" : "'prefSizeInvalid' is a boolean, so it is either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "wrap == true || wrap == false",
+    "rationale" : "'wrap' is also a boolean, so it is either true or false.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "It is likely that the records to upsert should be provided; null lists may not be supported.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An instantTime must be provided to track the timeline of the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If we have records to upsert, the instantTime should be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List size is always non-negative even if the list is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.contains(null)",
+    "rationale" : "It is improper to have null entries in the records to be upserted.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A correctly implemented execute method returning HoodieWriteMetadata is expected to return a non-null metadata instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus objects in HoodieWriteMetadata should not be null after execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of a List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty() || result.getWriteStatuses().size() == 0",
+    "rationale" : "A List is empty if and only if its size is zero; this expresses the canonical relationship.",
+    "meta" : [ ]
+  } ]
+}

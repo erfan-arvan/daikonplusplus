@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of IOUtils.runMerge(), which is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is typically required to be a non-empty String representing an operation timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "fileId must be specified to identify the file being updated.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The map of records to update (keyToNewRecords) is essential for the update operation and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "The old data file being updated must be specified and non-null for a valid update operation.",
+    "meta" : [ ]
+  } ]
+}

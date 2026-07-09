@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Engine context should be initialized before calling the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime likely represents a commit time and should be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Cannot process updates if the list of records is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A list's size is always non-negative; this serves as a basic property useful for analysis.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "If the method expects preppedRecords to contain valid (non-null) records, all elements should be non-null.",
+    "meta" : [ ]
+  } ]
+}

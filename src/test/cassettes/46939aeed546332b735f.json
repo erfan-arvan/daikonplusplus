@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata<List<WriteStatus>> object, so result cannot be null under normal execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The preppedRecords argument is passed into another method; it is likely required to be non-null for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is required to identify the action's timeframe and is passed directly into the executor, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is cast and used immediately and thus must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

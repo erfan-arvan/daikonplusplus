@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents a timestamp and should be non-null for a compaction to be scheduled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required to proceed with scheduling compaction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is an Option type and the variable itself should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instantTime string should not be empty for meaningful scheduling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.trim().isEmpty()",
+    "rationale" : "The instantTime should not consist entirely of whitespace.",
+    "meta" : [ ]
+  } ]
+}

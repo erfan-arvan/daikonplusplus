@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "!(name == null) || result == -1",
+    "rationale" : "If name is null, result is -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null || result == -1",
+    "rationale" : "If name is null, result must be -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || result == x + name.length()",
+    "rationale" : "If name is not null, result is x + name.length().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -1 || result == x + name.length()",
+    "rationale" : "Result is always either -1 or x + name.length().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= -1",
+    "rationale" : "Result cannot be less than -1.",
+    "meta" : [ ]
+  } ]
+}

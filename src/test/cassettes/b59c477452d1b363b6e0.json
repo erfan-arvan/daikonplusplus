@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid insert operation likely requires a defined instantTime.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "Each insert is directed at a specific file; fileId is likely required and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used to locate where data will be inserted, so it's expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null && !recordMap.isEmpty()",
+    "rationale" : "An insert only makes sense if there are records to insert, so recordMap is likely expected to be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null && recordMap.values().stream().allMatch(r -> r != null)",
+    "rationale" : "The map of records should not contain null values in its collection.",
+    "meta" : [ ]
+  } ]
+}

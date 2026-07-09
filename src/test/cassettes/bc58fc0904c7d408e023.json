@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "table != null",
+    "rationale" : "table must not be null to safely invoke table.getMetaClient().",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getMetaClient() != null",
+    "rationale" : "getMetaClient() is called immediately; it must not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table.getMetaClient().getCommitActionType() != null",
+    "rationale" : "getCommitActionType() is the method's return value and is expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

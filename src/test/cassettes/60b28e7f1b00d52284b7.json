@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string should be non-null to identify the rollback instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "A valid HoodieInstant to rollback must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isRestore || !shouldRollbackUsingMarkers",
+    "rationale" : "If performing a restore, rollback using markers should likely not be enabled simultaneously.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is required for any operation in the table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipTimelinePublish || (instantToRollback != null)",
+    "rationale" : "If timeline publishing is skipped, there must still be a valid instant to rollback.",
+    "meta" : [ ]
+  } ]
+}

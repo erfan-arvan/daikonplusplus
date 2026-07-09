@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The implementation always returns the result of postWrite, which returns a non-null value as per HoodieWriteClient semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method requires preppedRecords to be non-null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is passed to multiple method calls as a required argument.",
+    "meta" : [ ]
+  } ]
+}

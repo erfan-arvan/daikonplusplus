@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "oldText != null",
+    "rationale" : "The method calls newText.equals(oldText), which would throw NullPointerException if newText is null. Thus, oldText can be null, but typically both should be non-null unless explicitly allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "newText != null",
+    "rationale" : "newText.equals(oldText) requires newText to be non-null, or else a NullPointerException will occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!newText.equals(oldText) || !changeText(oldText, newText)",
+    "rationale" : "If newText equals oldText, the method immediately returns false without changing any state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!newText.equals(oldText) || newText == oldText",
+    "rationale" : "If the contents are considered equal, sometimes string references can be the same (trivial identity aspect), though not always guaranteed by equals.",
+    "meta" : [ ]
+  }, {
+    "expression" : "oldText != newText",
+    "rationale" : "Although two strings can have the same content but different references, the method could be called with either the same or different instances. This invariant checks their reference identity.",
+    "meta" : [ ]
+  } ]
+}

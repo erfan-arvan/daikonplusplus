@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null HoodieWriteMetadata object representing the write results.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The result should contain a non-null list of WriteStatus objects.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The list of write statuses should have zero or more elements.",
+    "meta" : [ {
+      "key" : "sizeCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.isSuccess())",
+    "rationale" : "All write statuses in the result should indicate successful writes.",
+    "meta" : [ {
+      "key" : "methodCall",
+      "value" : "isSuccess()"
+    } ]
+  }, {
+    "expression" : "result.getCommitMetadata().getInstantTime().equals(instantTime)",
+    "rationale" : "The commit instant time in the result should match the input instantTime.",
+    "meta" : [ {
+      "key" : "methodCall",
+      "value" : "getInstantTime()"
+    } ]
+  } ]
+}

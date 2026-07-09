@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Return value is always a non-null Map as initialized and populated in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "The method's first operation requires writeResult to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.keySet().stream().allMatch(key -> result.get(key) != null)",
+    "rationale" : "Any value in the result Map is always initialized to a new List and not left null when present.",
+    "meta" : [ ]
+  } ]
+}

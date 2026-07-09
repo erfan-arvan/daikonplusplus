@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "Method likely expects a valid TiledMap to operate on.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer != null",
+    "rationale" : "layer is dereferenced via layer.getObjects(); must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Method likely processes properties or members of element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "layer.getObjects() is passed as an argument; must be non-null for method to function.",
+    "meta" : [ ]
+  } ]
+}

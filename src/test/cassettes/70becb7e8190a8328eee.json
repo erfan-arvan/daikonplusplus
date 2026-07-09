@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "!(clip && touchable && getTouchable() == Touchable.disabled)",
+    "rationale" : "If result is non-null, we cannot be in the case where all of clip is true, touchable is true, and getTouchable() is disabled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(clip && (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()))",
+    "rationale" : "If result is non-null, then if clip is true, x and y must be within bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || (!clip || (x >= 0 && x < getWidth() && y >= 0 && y < getHeight()))",
+    "rationale" : "If result is non-null, and clip is true, x and y must be inside the container.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || !super.hit(x, y, touchable).equals(result)",
+    "rationale" : "If result is null, then either it did not reach the super.hit call or super.hit also returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clip || result == super.hit(x, y, touchable)",
+    "rationale" : "If clip is false, then the method always delegates to super.hit.",
+    "meta" : [ ]
+  } ]
+}

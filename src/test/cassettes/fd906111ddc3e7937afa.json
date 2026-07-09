@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "The method explicitly throws an exception if actor is null, so actor must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (actor == this.actor ? super.removeActor(actor, unfocus) : false)",
+    "rationale" : "The result reflects whether actor is this.actor (then delegates to the superclass), or false otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(actor != this.actor) || !result",
+    "rationale" : "If actor is not this.actor, the method always returns false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(actor == this.actor) == (result == super.removeActor(actor, unfocus))",
+    "rationale" : "When actor matches, result is determined by the outcome of the superclass's removeActor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || actor != this.actor",
+    "rationale" : "If result is false, actor must not be this.actor; if result is true, actor was this.actor and superclass succeeded.",
+    "meta" : [ ]
+  } ]
+}

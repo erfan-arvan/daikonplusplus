@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method requires a non-null HoodieData input for aggregation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "A valid sequence operation is needed for the aggregate logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "A valid combine operation is needed for the aggregation's parallel reduction step.",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "A zero value is necessary to provide an identity for the aggregation reduction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.collectAsList() != null",
+    "rationale" : "The collectAsList method must not return null as it is streamed and used for reduction.",
+    "meta" : [ ]
+  } ]
+}

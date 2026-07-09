@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method operates on inputRecords, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is likely required and cannot be empty for a commit action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced in the method and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used to access configuration values and so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "configuredParallelism > 0",
+    "rationale" : "configuredParallelism is used to control partitioning/shuffling and usually required to be positive.",
+    "meta" : [ ]
+  } ]
+}

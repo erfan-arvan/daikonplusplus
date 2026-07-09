@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a valid HoodieWriteMetadata instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list should be initialized in HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof java.util.List",
+    "rationale" : "getWriteStatuses() should return a List as per the generic parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof org.apache.hudi.common.model.HoodieWriteMetadata",
+    "rationale" : "The result should be an instance of HoodieWriteMetadata according to the method signature.",
+    "meta" : [ ]
+  } ]
+}

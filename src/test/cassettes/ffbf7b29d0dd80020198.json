@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "MapProperties is used for storing the loaded property and should always be non-null when calling this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null && !name.isEmpty()",
+    "rationale" : "Name is used as the key to store the object; it should be non-null and non-empty to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "The value is parsed with Integer.parseInt(value), so it cannot be null without throwing an exception (and thus, the method would not reach exit).",
+    "meta" : [ ]
+  }, {
+    "expression" : "value.matches(\"-?\\\\d+\")",
+    "rationale" : "If the method reaches exit, value must be syntactically a valid integer string (or else Integer.parseInt would throw).",
+    "meta" : [ ]
+  } ]
+}

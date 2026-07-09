@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a valid, non-null records list as input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition count should be positive for meaningful repartitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "The records parameter is declared as List<HoodieRecord<T>>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 1",
+    "rationale" : "It is common for partition methods to require at least one partition.",
+    "meta" : [ ]
+  } ]
+}

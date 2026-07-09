@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b.doubleValue() != 0.0",
+    "rationale" : "b.doubleValue() != 0.0 ensures no division by zero occurs before returning.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Division by zero is prevented, so divisor b cannot be zero."
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result != null because safeDivide returns null only when b is zero, which cannot happen here.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns null only if b is zero. Since b is non-zero, result must be non-null."
+    } ]
+  }, {
+    "expression" : "a instanceof Integer || a instanceof Double",
+    "rationale" : "a must be Integer or Double, or else an exception would be thrown instead of returning.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Only Integer and Double instances are supported for division."
+    } ]
+  }, {
+    "expression" : "(a instanceof Integer) == (result instanceof Integer)",
+    "rationale" : "If a is Integer, result is Integer; else result is not Integer.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Integral division if a is Integer results in Integer result; otherwise not."
+    } ]
+  }, {
+    "expression" : "(a instanceof Double) == (result instanceof Double)",
+    "rationale" : "If a is Double, result is Double; else result is not Double.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Floating-point division if a is Double results in Double result; otherwise not."
+    } ]
+  } ]
+}

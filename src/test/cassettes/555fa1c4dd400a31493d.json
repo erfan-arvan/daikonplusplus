@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List, either the input or after sorting, and never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The method does not add or remove elements from the input list, so the output list always has the same size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == records",
+    "rationale" : "The method returns the same List object (either through early return or after in-place sorting); it never creates a new list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || result == records",
+    "rationale" : "If the result is non-empty, it is the same as the input records list after sorting; otherwise, for empty input, it's also the same list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0 || outputPartitions < 0",
+    "rationale" : "Trivial: covers all integer cases, may be filtered out as not meaningful.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null && clusteringInstantTime != null && !clusteringInstantTime.isEmpty()},{",
+    "rationale" : "Parameters must be properly initialized at method entry to proceed.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Parameters should be non-null and clusteringInstantTime a non-empty string at method entry."
+    } ]
+  }, {
+    "expression" : "clusteringInstantTime instanceof String",
+    "rationale" : "Parameter type enforcement.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The clusteringInstantTime parameter must be a String as declared."
+    } ]
+  }, {
+    "expression" : "context.getClass().getName().contains(\"HoodieEngineContext\")",
+    "rationale" : "Object type consistency.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Context is expected to be an instance of HoodieEngineContext."
+    } ]
+  }, {
+    "expression" : "clusteringInstantTime.length() > 0",
+    "rationale" : "Ensures clusteringInstantTime holds a non-empty string at method entry.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "clusteringInstantTime is expected to be a non-empty string."
+    } ]
+  } ]
+}

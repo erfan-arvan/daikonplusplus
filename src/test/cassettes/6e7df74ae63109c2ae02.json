@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method requires a non-null Batch parameter for rendering; it is expected to be valid before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values (opacity multipliers) are conventionally non-negative to represent valid transparency.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha values are typically within the [0,1] range for rendering purposes.",
+    "meta" : [ ]
+  } ]
+}

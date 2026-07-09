@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Option, which should not be null but either contain a value or be empty.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The parameter 'extraMetadata' is of type Option and expected to be non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "extraMetadata is non-null"
+    } ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "The result is an Option and thus either present or not present.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Option correctness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The parameter instantTime is a String presumably non-null for meaningful operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null"
+    } ]
+  } ]
+}

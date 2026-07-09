@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "The jobId parameter should not be null when cancelJob is called.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "safe evaluation"
+    } ]
+  }, {
+    "expression" : "jobId instanceof String",
+    "rationale" : "jobId is a String parameter.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "parameter type"
+    } ]
+  }, {
+    "expression" : "jobId.length() > 0",
+    "rationale" : "Job IDs are usually expected to be non-empty strings.",
+    "meta" : [ {
+      "key" : "nonEmpty",
+      "value" : "likely job identifiers are non-empty"
+    } ]
+  }, {
+    "expression" : "jobId.matches(\"[a-zA-Z0-9_-]+\")",
+    "rationale" : "Job IDs often consist of alphanumeric characters, underscores, or hyphens.",
+    "meta" : [ {
+      "key" : "formatCheck",
+      "value" : "typical job ID characters"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Method is no-op, so all invariants hold trivially.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "method currently has no operation"
+    } ]
+  } ]
+}

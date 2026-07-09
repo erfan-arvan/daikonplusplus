@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Option wrapper, even if Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required to identify the rollback point, so it should not be null at this exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "A rollback requires a valid HoodieInstant to proceed, so should be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext is essential for operation and should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "This invariant (trivially true) expresses that result is always either present or not present, i.e., is a well-formed Option.",
+    "meta" : [ ]
+  } ]
+}

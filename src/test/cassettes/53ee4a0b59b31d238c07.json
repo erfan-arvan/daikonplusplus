@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since 'postWrite' is the last method invoked and its result is returned, and bulk write operations should have a valid status list, 'result' should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A non-null and non-empty 'instantTime' is necessary for correct write operation semantics and is required by underlying method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The API and called methods assume that 'preppedRecords' is non-null for write operations like bulk insert.",
+    "meta" : [ ]
+  } ]
+}

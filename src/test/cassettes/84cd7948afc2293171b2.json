@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The parameter 'layer' is dereferenced and used in the method, so it must be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getWidth() >= 0",
+    "rationale" : "'getWidth()' represents a tile map layer's width and should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getHeight() >= 0",
+    "rationale" : "'getHeight()' refers to the number of rows (tiles) in the layer and should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileWidth() > 0",
+    "rationale" : "Tile width should be strictly positive to make sense in rendering calculations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileHeight() > 0",
+    "rationale" : "Tile height should be strictly positive for correct rendering logic.",
+    "meta" : [ ]
+  } ]
+}

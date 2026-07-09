@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Instant time is typically a non-null, non-empty string representing a timestamp.",
+    "meta" : [ {
+      "key" : "likelyNonNull",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition is expected to be non-null at method return.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Input iterator should not be null when returning.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Result iterator must be non-null before method returns.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner is likely non-null to perform partitioning logic.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  } ]
+}

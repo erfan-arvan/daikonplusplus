@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns the current object after updating the padLeft value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padLeft == ((Fixed)this.padLeft).toFloat()",
+    "rationale" : "The method sets this.padLeft to Fixed.valueOf(padLeft), so converting it back to float should yield the input padLeft value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', which is not null.",
+    "meta" : [ ]
+  } ]
+}

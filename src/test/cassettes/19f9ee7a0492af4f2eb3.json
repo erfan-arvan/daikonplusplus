@@ -1,0 +1,32 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Option, which is never null.",
+    "meta" : [ {
+      "key" : "guarantee",
+      "value" : "method result is never null"
+    } ]
+  }, {
+    "expression" : "!result.isPresent() || triggeringInstantTimestamp != null",
+    "rationale" : "The Option contains a writer created with triggeringInstantTimestamp wrapped in Option.of(triggeringInstantTimestamp), which expects non-null.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "Option contains a writer only if triggeringInstantTimestamp is non-null"
+    } ]
+  }, {
+    "expression" : "!result.isPresent() || failedWritesCleaningPolicy != null",
+    "rationale" : "The metadata writer is created using failedWritesCleaningPolicy, so if result is present, failedWritesCleaningPolicy must be non-null.",
+    "meta" : [ {
+      "key" : "parameterUsage",
+      "value" : "writer creation depends on failedWritesCleaningPolicy"
+    } ]
+  }, {
+    "expression" : "!result.isPresent() || autoDetectAndDeleteMetadataPartitions == true || autoDetectAndDeleteMetadataPartitions == false",
+    "rationale" : "autoDetectAndDeleteMetadataPartitions is a boolean parameter and unaffected by the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isPresent() || streamingWrites == streamingWrites",
+    "rationale" : "streamingWrites is a boolean parameter, no relation in method but included for completeness.",
+    "meta" : [ ]
+  } ]
+}

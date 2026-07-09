@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Commit operations typically require a valid (non-null) instantTime identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "The partitionRecordsMap parameter should not be null on method exit, as the method passes it into a downstream call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If there are records to commit, instantTime should be non-empty.",
+    "meta" : [ ]
+  } ]
+}

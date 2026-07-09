@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "A non-null name is required to avoid NullPointerException when fetching from images.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.isEmpty() || !name.isEmpty()",
+    "rationale" : "name could be empty or non-empty; this expresses the possible state for further reasoning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "If name is non-null, its length is always >= 0 by String contract.",
+    "meta" : [ ]
+  } ]
+}

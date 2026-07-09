@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns Collections.emptyList(), which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Collections.emptyList() is always empty, so result.isEmpty() is always true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "Collections.emptyList() always has a size of 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Collections.emptyList() returns a List, so result is always a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result instanceof java.util.LinkedList)",
+    "rationale" : "Collections.emptyList() returns an immutable internal class, not a LinkedList.",
+    "meta" : [ ]
+  } ]
+}

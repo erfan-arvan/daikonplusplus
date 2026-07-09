@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method expects to perform operations on the Stream<I> data; a null value would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "flatMapToPairFunc is invoked within the method and must be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc is used by the method and must be non-null to avoid runtime errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically required to be positive for parallel computation, and negative or zero values may not be valid.",
+    "meta" : [ ]
+  } ]
+}

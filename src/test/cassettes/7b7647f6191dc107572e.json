@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is passed to super.execute(), so a null value may cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "preppedRecords is declared as a List, so it should always be an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "The size of a List is always non-negative, capturing a constraint on the collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this instanceof JavaDeletePreppedCommitActionExecutor",
+    "rationale" : "At method entry, 'this' refers to an instance of the enclosing class.",
+    "meta" : [ ]
+  } ]
+}

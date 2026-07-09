@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is expected to be non-null key to access insert bucket infos.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "partitionPathToInsertBucketInfos should be initialized before the method is called, as it is used to look up insert buckets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos.containsKey(partitionPath) == (partitionPathToInsertBucketInfos.get(partitionPath) != null)",
+    "rationale" : "Lookup using get will return non-null if and only if the map contains the key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos.isEmpty() || partitionPath != null",
+    "rationale" : "If the map is not empty, the partitionPath should be non-null for successful lookup.",
+    "meta" : [ ]
+  } ]
+}

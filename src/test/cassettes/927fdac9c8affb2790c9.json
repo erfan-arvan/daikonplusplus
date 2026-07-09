@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Map, never null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "partitionPaths == null || result.keySet().containsAll(partitionPaths)",
+    "rationale" : "If partitionPaths is non-null, the result map should contain entries for all partition paths.",
+    "meta" : [ {
+      "key" : "containment",
+      "value" : "result keys include all partition paths if partitionPaths is not null"
+    } ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.isEmpty() || result.size() > 0",
+    "rationale" : "The map contains small files lists for each partition path given.",
+    "meta" : [ {
+      "key" : "nonEmpty",
+      "value" : "result map has entries if partitionPaths is not empty"
+    } ]
+  }, {
+    "expression" : "!result.values().stream().anyMatch(v -> v == null)",
+    "rationale" : "Each partition maps to a non-null List of SmallFile; lists are initialized.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "no null values in result lists"
+    } ]
+  }, {
+    "expression" : "!result.values().stream().anyMatch(list -> list.isEmpty()) || result.isEmpty()",
+    "rationale" : "Small file lists should be non-empty for valid partitions; empty map means no small files.",
+    "meta" : [ {
+      "key" : "emptiness",
+      "value" : "lists in result are empty only if result map is empty"
+    } ]
+  } ]
+}

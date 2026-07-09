@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter typically identifies a commit/operation in Hudi, usually required and not nullable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "upsertPrepped expects a list of records to process; the list should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for performing write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() >= 0",
+    "rationale" : "List sizes are always non-negative in Java; if not empty, the size is still non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "instantTime should be a non-empty, non-blank string identifying the operation.",
+    "meta" : [ ]
+  } ]
+}

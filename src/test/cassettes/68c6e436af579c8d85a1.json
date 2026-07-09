@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result instanceof Actor",
+    "rationale" : "If the method does not return null, it returns an Actor, by the contract of its return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isVisible() ? result == null : true",
+    "rationale" : "If the Window is not visible, hit returns null immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null ? isVisible() : true",
+    "rationale" : "If the result is not null, then the window must be visible, as all non-visible cases return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!touchable && result == this) || touchable || result != this",
+    "rationale" : "The method only returns 'this' if hit == null, isModal is true, and (!touchable || getTouchable() == Touchable.enabled), so if touchable is false and those conditions match, result can be 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == null) || (result == this) || (result != null && result != this)",
+    "rationale" : "The method always returns either null, this, or another Actor.",
+    "meta" : [ ]
+  } ]
+}

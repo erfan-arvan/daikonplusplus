@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "Commonly, APIs expect non-null parameters; this might be enforced by the context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cacheKey instanceof HoodieDataCacheKey",
+    "rationale" : "The parameter is declared of this type and should always be an instance of it.",
+    "meta" : [ ]
+  } ]
+}

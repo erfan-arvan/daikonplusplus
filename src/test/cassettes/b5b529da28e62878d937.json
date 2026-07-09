@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || actors.contains(result, true)",
+    "rationale" : "If result is not null, it comes from the actors hierarchy: it is either directly in actors or nested recursively.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || !result.isDisabled()",
+    "rationale" : "The method is designed to pick non-disabled TextField instances only.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.focusTraversal",
+    "rationale" : "Only TextField instances with focusTraversal true are considered candidates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.ascendantsVisible()",
+    "rationale" : "TextField candidates must have all ascendants visible to be selected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result != this",
+    "rationale" : "TextField 'this' is explicitly skipped, so result is either null or not the original 'this'.",
+    "meta" : [ ]
+  } ]
+}

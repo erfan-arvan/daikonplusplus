@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext parameter is required for table operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter identifies the compaction instant and should be set by the caller.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instantTime parameter is typically a non-empty string marking a timeline instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The Option<Map<String,String>> extraMetadata parameter should be a valid Option object rather than null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() ? extraMetadata.get() != null : true",
+    "rationale" : "If extraMetadata is present, the underlying Map should not be null.",
+    "meta" : [ ]
+  } ]
+}

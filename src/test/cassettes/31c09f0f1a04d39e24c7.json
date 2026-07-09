@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is an object parameter, likely required for the method's internal logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents a timestamp; null is likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is expected to be a non-empty timestamp string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context should be of the expected type for method operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime, if non-null, should not be empty for valid operations.",
+    "meta" : [ ]
+  } ]
+}

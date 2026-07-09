@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Avoids potential NullPointerException if name is used as a key for a lookup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "An empty name is unlikely to refer to a valid drawable in the skin.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.trim().length() == name.length()",
+    "rationale" : "Ensures that name has no leading or trailing whitespace, which helps with consistent key lookup.",
+    "meta" : [ ]
+  } ]
+}

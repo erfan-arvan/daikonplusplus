@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method likely expects a non-null HoodieTableMetaClient to function correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getClass() == HoodieTableMetaClient.class",
+    "rationale" : "Ensures metaClient is of the expected type before use.",
+    "meta" : [ ]
+  } ]
+}

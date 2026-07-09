@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement.get(...) is called unconditionally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile != null",
+    "rationale" : "tile is passed to loadObject; method likely assumes it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.get(\"objectgroup\") == null || tileElement.get(\"objectgroup\").get(\"objects\") != null",
+    "rationale" : "If objectgroup exists, it must have objects for the loop to execute.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.get(\"objectgroup\") == null || tileElement.get(\"objectgroup\").get(\"objects\").isArray()",
+    "rationale" : "For the enhanced for loop to work, 'objects' must be an array.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.get(\"objectgroup\") == null || !tileElement.get(\"objectgroup\").get(\"objects\").isNull()",
+    "rationale" : "For the loop to execute without error, objects must not be null if objectgroup exists.",
+    "meta" : [ ]
+  } ]
+}

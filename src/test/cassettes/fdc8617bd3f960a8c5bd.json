@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (!scrollX || amountX >= maxX)",
+    "rationale" : "The returned result exactly matches the return expression in the method body.",
+    "meta" : [ {
+      "key" : "derivedFrom",
+      "value" : "method return statement"
+    } ]
+  }, {
+    "expression" : "result || scrollX",
+    "rationale" : "If result is false, then scrollX must be true since result = !scrollX || amountX >= maxX.",
+    "meta" : [ {
+      "key" : "logicalImplication",
+      "value" : "(!result) => scrollX"
+    } ]
+  }, {
+    "expression" : "result || amountX < maxX",
+    "rationale" : "If result is false, then !(amountX >= maxX), so amountX < maxX.",
+    "meta" : [ {
+      "key" : "logicalImplication",
+      "value" : "(!result) => amountX < maxX"
+    } ]
+  }, {
+    "expression" : "scrollX || result",
+    "rationale" : "If scrollX is false, the method would always return true.",
+    "meta" : [ {
+      "key" : "logicalImplication",
+      "value" : "(!scrollX) => result"
+    } ]
+  }, {
+    "expression" : "amountX >= maxX || result",
+    "rationale" : "If amountX >= maxX, then the returned result will always be true.",
+    "meta" : [ {
+      "key" : "logicalImplication",
+      "value" : "(amountX >= maxX) => result"
+    } ]
+  } ]
+}

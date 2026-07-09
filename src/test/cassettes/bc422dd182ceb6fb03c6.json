@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "Method argument; usage in method implies not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a method parameter; is used in the code, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inFlightInstantTimestamp instanceof Option",
+    "rationale" : "Ensures type-safety for downstream operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "Enforces that metaClient is correct type for method operations.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "The method requires the 'order' argument to be non-null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantities are generally expected to be non-negative in most business logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit prices are typically non-negative to reflect realistic pricing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() * order.getUnitPrice() >= 0.0",
+    "rationale" : "The computed price result should not be negative as both factors are expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(order instanceof java.util.Collection)",
+    "rationale" : "By type documentation, 'order' should be of type Order and not a collection.",
+    "meta" : [ ]
+  } ]
+}

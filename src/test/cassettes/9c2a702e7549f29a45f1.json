@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "true == true",
+    "rationale" : "At method entry, no state constraints are enforced; any int values are possible.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "Trivially true, any state is valid at method entry"
+    } ]
+  }, {
+    "expression" : "b != 0 || b == 0",
+    "rationale" : "b is an int primitive; this condition is always true.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "b must be an integer, so b == 0 or b != 0 always hold"
+    } ]
+  }, {
+    "expression" : "a >= Integer.MIN_VALUE",
+    "rationale" : "a is of type int, must be greater or equal to Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "a is int, must be within int range"
+    } ]
+  }, {
+    "expression" : "a <= Integer.MAX_VALUE",
+    "rationale" : "a is of type int, must be less or equal to Integer.MAX_VALUE.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "a is int, must be within int range"
+    } ]
+  }, {
+    "expression" : "b >= Integer.MIN_VALUE",
+    "rationale" : "b is of type int, must be greater or equal to Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "b is int, must be within int range"
+    } ]
+  } ]
+}

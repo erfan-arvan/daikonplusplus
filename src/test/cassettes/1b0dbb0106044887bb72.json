@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "overCache >= 0.0f",
+    "rationale" : "The percentage representing a portion of the view to cache is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "overCache <= 1.0f",
+    "rationale" : "It is common for caching percentages to be within [0,1], representing 0% to 100%.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(overCache)",
+    "rationale" : "A caching percentage should not be NaN for correct logic.",
+    "meta" : [ ]
+  } ]
+}

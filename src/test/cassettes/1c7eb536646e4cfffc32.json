@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The execute method used to populate result is expected to return metadata; result should not be null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The input list preppedRecords is supplied to the commit action executor and should be non-null for upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used as an identifier for the commit and should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for engine operations and is passed through to the action executor; it should be non-null.",
+    "meta" : [ ]
+  } ]
+}

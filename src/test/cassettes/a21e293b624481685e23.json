@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The input list of records should not be null for deduplication processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index != null",
+    "rationale" : "An index must be provided as a parameter for deduplication logic involving global partitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism typically must be positive to divide work among threads or processes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schemaStr != null && !schemaStr.isEmpty()",
+    "rationale" : "A non-null, non-empty schema string is needed to parse the HoodieSchema.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orderingFieldNames != null",
+    "rationale" : "Ordering fields determine deduplication order and should not be null.",
+    "meta" : [ ]
+  } ]
+}

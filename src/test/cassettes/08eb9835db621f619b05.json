@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method accesses element methods and attributes; element must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "The method calls map.getProperties() and map.getTileSets(); map must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "The method calls parentLayers.add(layer); parentLayers must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getName() != null",
+    "rationale" : "The method invokes element.getName().equals(...), so getName() is expected to not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getProperties() != null",
+    "rationale" : "The method accesses map.getProperties().get(...); so map.getProperties() must be non-null.",
+    "meta" : [ ]
+  } ]
+}

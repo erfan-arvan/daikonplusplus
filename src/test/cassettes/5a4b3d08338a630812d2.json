@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "getWidth() >= 0",
+    "rationale" : "The computed layout width originates from getWidth(), which is used as a dimension.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getHeight() >= 0",
+    "rationale" : "Layout height comes from getHeight(), which should also be non-negative as a screen dimension.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.columns >= 0",
+    "rationale" : "The number of columns is used as a loop bound and array length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.rows >= 0",
+    "rationale" : "The number of rows is likewise used as an array length and loop bound, so must be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getChildren() != null",
+    "rationale" : "getChildren() is called and its return value is used immediately; thus it cannot be null.",
+    "meta" : [ ]
+  } ]
+}

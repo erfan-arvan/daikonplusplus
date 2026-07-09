@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "After processing, the method always returns a FileHandle instance; it never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "path != null",
+    "rationale" : "The path parameter must be non-null to be processed with StringTokenizer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "The file parameter must be non-null to call parent() or child() methods on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.type() == file.type()",
+    "rationale" : "FileHandle child and parent navigation retains the file type (e.g., INTERNAL, EXTERNAL).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.path().length() >= 0",
+    "rationale" : "The result FileHandle always has a non-negative length in its path.",
+    "meta" : [ ]
+  } ]
+}

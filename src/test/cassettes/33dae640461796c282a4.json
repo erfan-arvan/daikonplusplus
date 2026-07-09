@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= -1",
+    "rationale" : "indexOf returns the index if found, or -1 if not; result is never less than -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer != null",
+    "rationale" : "Since indexOf is called with 'layer', passing null may not be meaningful and likely avoided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < layers.size() || result == -1",
+    "rationale" : "If the layer is present, indexOf returns a valid index in [0, size), otherwise -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -1 || layers.get(result) == layer",
+    "rationale" : "If result is not -1, it must be the index of 'layer' within 'layers'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == layers.indexOf(layer, true)",
+    "rationale" : "The returned result exactly matches layers.indexOf(layer, true) specification.",
+    "meta" : [ ]
+  } ]
+}

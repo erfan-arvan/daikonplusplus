@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Method uses writeStatuses.collectAsList() which requires writeStatuses to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is directly passed to another method, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is directly passed along; non-nullness required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof HoodieData",
+    "rationale" : "writeStatuses is declared as HoodieData<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable instanceof HoodieTable",
+    "rationale" : "hoodieTable is declared as HoodieTable.",
+    "meta" : [ ]
+  } ]
+}

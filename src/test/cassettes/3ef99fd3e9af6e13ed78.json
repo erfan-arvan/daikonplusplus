@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "items.contains(item, false) || (!selection.getRequired() || items.size <= 0 || selection.get() == null)",
+    "rationale" : "If the item is not contained in the list and selection is required only when items has size > 0, only then can selection be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selection.get() == item || (selection.getRequired() && items.size > 0 && selection.get() == items.first()) || (!selection.getRequired() || items.size <= 0) && selection.get() == null",
+    "rationale" : "After setSelected, either the selected item is the given item, or if item not found but selection is required and items not empty, select first; else selection is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "item == null || items.contains(item, false) || (!selection.getRequired() || items.size <= 0)",
+    "rationale" : "If item is not in items, selection can only proceed in certain cases, matching method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "items.size == 0 || selection.get() == null || items.contains(selection.get(), false)",
+    "rationale" : "Selection is always either null (if not required or no items) or an element in items.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!selection.getRequired() || items.size == 0 || selection.get() != null",
+    "rationale" : "If selection is required and items is not empty, there must be a non-null selection.",
+    "meta" : [ ]
+  } ]
+}

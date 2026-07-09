@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path must be non-null for table slice operations to work safely.",
+    "meta" : [ {
+      "key" : "risk",
+      "value" : "null parameter"
+    } ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "String lengths are always non-negative in Java.",
+    "meta" : [ {
+      "key" : "string property",
+      "value" : "non-negative length"
+    } ]
+  } ]
+}

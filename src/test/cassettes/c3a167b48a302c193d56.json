@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The method receives 'writeMetadata' as a parameter and operates on it; it is expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "The method immediately calls .getWriteStatuses() on 'writeMetadata', so its result is likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!writeMetadata.getWriteStatuses().isEmpty() || writeMetadata.getWriteStatuses().isEmpty()",
+    "rationale" : "The returned value from .getWriteStatuses() is either empty or not empty (tautological for the list, but useful for coverage).",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() instanceof java.util.List",
+    "rationale" : "By type, .getWriteStatuses() should return a List.",
+    "meta" : [ ]
+  } ]
+}

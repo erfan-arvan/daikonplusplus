@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "expandIcon != null",
+    "rationale" : "expandIcon must be non-null to call its methods and draw it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "A non-null batch is required for drawing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "expandIcon.getMinWidth() >= 0",
+    "rationale" : "Drawable minimum width is typically non-negative and used as drawing width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "expandIcon.getMinHeight() >= 0",
+    "rationale" : "Drawable minimum height is typically non-negative and used as drawing height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "expandIcon.getMinWidth() > 0 && expandIcon.getMinHeight() > 0",
+    "rationale" : "It is likely that non-zero dimensions are required for meaningful drawing.",
+    "meta" : [ ]
+  } ]
+}

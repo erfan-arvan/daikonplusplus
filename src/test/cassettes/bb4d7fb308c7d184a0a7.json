@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "Typically, keys passed to cache operations should not be null to avoid errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!cacheKey.isEmpty()",
+    "rationale" : "A data cache key should refer to some data, so it may be expected not to be empty at use.",
+    "meta" : [ ]
+  } ]
+}

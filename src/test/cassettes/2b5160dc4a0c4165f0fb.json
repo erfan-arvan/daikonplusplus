@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List because .collect(Collectors.toList()) never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(Objects::nonNull)",
+    "rationale" : "The code filters out any nulls before collecting to result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "At most one result per key; data can contain duplicate keys, but not more unique keys than data size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically a positive integer for parallel streams; negative or zero makes no sense for this context.",
+    "meta" : [ ]
+  } ]
+}

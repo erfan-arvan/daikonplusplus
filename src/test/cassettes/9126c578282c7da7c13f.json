@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Partitioner, as it delegates to getUpsertPartitioner which is expected to not return null in normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The contract and usage imply that a valid WorkloadProfile is necessary to generate a Partitioner.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "The StorageConfiguration conf should not be null to create a new metadata writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is required to configure the metadata writer; passing null would likely cause an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is necessary for engine operations; it can't be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "The cleaning policy is required to manage failed writes and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "The Option for inflightInstantTimestamp should be non-null even if it may be Option.empty().",
+    "meta" : [ ]
+  } ]
+}

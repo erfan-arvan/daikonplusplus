@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && (!result.isPresent() || (result.get() instanceof HoodieIndexCommitMetadata))",
+    "rationale" : "result is an Option that may be empty or contain HoodieIndexCommitMetadata.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result is not null before calling isPresent() and get()"
+    } ]
+  }, {
+    "expression" : "indexInstantTime != null && !indexInstantTime.isEmpty()",
+    "rationale" : "indexInstantTime is used as a valid string identifier passed to RunIndexActionExecutor.",
+    "meta" : [ {
+      "key" : "parameter_check",
+      "value" : "indexInstantTime is expected to be a non-empty string"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context must be non-null to create RunIndexActionExecutor.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "context is a parameter and used to construct RunIndexActionExecutor"
+    } ]
+  } ]
+}

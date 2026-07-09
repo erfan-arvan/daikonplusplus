@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Since records is a parameter, it may or may not be null but typically should not be null for bulkInsert method.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "records might be null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required for bulkInsert for time consistency.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "instantTime might be null"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty()",
+    "rationale" : "bulkInsert generally requires records to insert.",
+    "meta" : [ {
+      "key" : "emptiness_check",
+      "value" : "records list is expected to have at least one record"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty string representing a valid time instant.",
+    "meta" : [ {
+      "key" : "non_empty_string",
+      "value" : "instantTime string is expected to be non-empty"
+    } ]
+  }, {
+    "expression" : "records instanceof java.util.List",
+    "rationale" : "records must be a List of HoodieRecord objects as per method signature.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "records must be a List"
+    } ]
+  } ]
+}

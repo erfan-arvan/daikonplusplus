@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "new Label always returns a non-null Label object if construction succeeds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStyle() == style",
+    "rationale" : "The Label is constructed with the provided style, so its style should match the parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getText().equals(text)",
+    "rationale" : "The Label is constructed using text, so the label's text should equal the input text.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "FileHandle file is required to access file properties such as extension, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "file.extension() is called, so it should not return null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager manager is used as a parameter in downstream loader calls, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is used as an argument in downstream loader calls, requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof BaseTiledMapLoader.Parameters",
+    "rationale" : "If parameter is provided (not null), it should be an instance of BaseTiledMapLoader.Parameters as used by all loader invocations.",
+    "meta" : [ ]
+  } ]
+}

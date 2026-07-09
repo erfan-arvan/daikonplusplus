@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method returns an object created via HoodieListPairData.eager(Collections.emptyList()), result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The returned HoodiePairData is created from Collections.emptyList(), so it should be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == 0",
+    "rationale" : "Since the result is created by eager evaluation over an empty List, its count should be zero.",
+    "meta" : [ ]
+  } ]
+}

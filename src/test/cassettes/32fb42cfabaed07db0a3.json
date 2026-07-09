@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "The fileName parameter must not be null since it is used as an argument in resolve(fileName) and in string concatenation within the catch block.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.isEmpty()",
+    "rationale" : "fileName should not be the empty string, as loading a file from an empty path is likely erroneous.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.trim().length() > 0",
+    "rationale" : "fileName should have non-whitespace characters, which follows from its usage as a file path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.contains(\"\\0\")",
+    "rationale" : "Java file names should not contain the null character, or this would cause file handling errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.indexOf('/') >= 0 || fileName.indexOf('\\\\') >= 0 || fileName.indexOf('.') >= 0",
+    "rationale" : "fileName often contains at least one directory separator or an extension to denote a path or file type.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method likely expects a valid list of records as input to proceed with commit actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || !inputRecords.isEmpty()",
+    "rationale" : "inputRecords, as a List, is always either empty or not; included as an illustration of list structure but is trivially true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords == null || inputRecords.size() >= 0",
+    "rationale" : "A List's size is always non-negative if the List is not null.",
+    "meta" : [ ]
+  } ]
+}

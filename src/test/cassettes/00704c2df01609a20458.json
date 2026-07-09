@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is required to perform bulkInsert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should be a valid non-empty string representing a Hudi timeline instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null && !hoodieRecords.isEmpty()",
+    "rationale" : "bulkInsert should be called with at least one record to insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option objects should be non-null when supplied as arguments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner.isPresent() || !bulkInsertPartitioner.isPresent()",
+    "rationale" : "Option may or may not contain a BulkInsertPartitioner; both states must be valid.",
+    "meta" : [ ]
+  } ]
+}

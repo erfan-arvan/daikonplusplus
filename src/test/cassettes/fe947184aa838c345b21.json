@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "triggeringInstantTimestamp != null",
+    "rationale" : "Metadata operations typically require a non-null instant timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "A valid cleaning policy should be provided for metadata writer initialization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(streamingWrites && autoDetectAndDeleteMetadataPartitions)",
+    "rationale" : "Simultaneous streaming writes and auto-detect partition deletion may be disallowed or require caution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!triggeringInstantTimestamp.isEmpty()",
+    "rationale" : "Operation on metadata requires a non-empty instant timestamp.",
+    "meta" : [ ]
+  } ]
+}

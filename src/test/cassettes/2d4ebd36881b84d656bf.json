@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Supplier, specifically a lambda.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() == 0L",
+    "rationale" : "The lambda always returns 0L whenever get() is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() >= 0L",
+    "rationale" : "result.get() always returns 0L, which is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Supplier",
+    "rationale" : "result is a Supplier by construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().isSynthetic()",
+    "rationale" : "The returned lambda is implemented as a synthetic class.",
+    "meta" : [ ]
+  } ]
+}

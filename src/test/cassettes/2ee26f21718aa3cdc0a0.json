@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "The method accesses nodes.size and nodes.get(i), so nodes must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "Array.size should be non-negative by definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size == 0 || nodes.get(0) != null",
+    "rationale" : "If there is at least one element, nodes.get(0) should not be null since it is used as a Node.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size == 0 || !nodes.get(0).isExpanded()",
+    "rationale" : "collapseAll sets node.setExpanded(false) on every node, so after execution any node is not expanded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size == 0 || nodes.get(0).children != null",
+    "rationale" : "collapseAll is recursively called on node.children; for this to be safe, children should not be null (assuming project conventions).",
+    "meta" : [ ]
+  } ]
+}

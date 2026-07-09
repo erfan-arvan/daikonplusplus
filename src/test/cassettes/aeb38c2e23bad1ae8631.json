@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Iterator of WriteStatus lists, so result should not be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result is non-null as it is the return value"
+    } ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition parameter is used to obtain BucketInfo and must be non-null.",
+    "meta" : [ {
+      "key" : "parameter-non-null",
+      "value" : "partition is used as key to map bucket info"
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner must be non-null since it is cast to JavaUpsertPartitioner.",
+    "meta" : [ {
+      "key" : "parameter-non-null",
+      "value" : "partitioner is cast and used to get BucketInfo"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter should be non-null as it usually represents a timestamp string.",
+    "meta" : [ {
+      "key" : "parameter-non-null",
+      "value" : "instantTime is a String parameter"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr iterator must be non-null to iterate records.",
+    "meta" : [ {
+      "key" : "parameter-non-null",
+      "value" : "recordItr is passed to handleInsert or handleUpdate methods"
+    } ]
+  } ]
+}

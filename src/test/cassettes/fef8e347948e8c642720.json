@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Method likely assumes name is non-null for resource mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resource != null",
+    "rationale" : "Invocation of resource.getClass() requires resource to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.isEmpty() == false",
+    "rationale" : "Names for resources are typically expected to be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resource == null || resource.getClass() != null",
+    "rationale" : "If resource is non-null, getClass() always returns a non-null Class object.",
+    "meta" : [ ]
+  } ]
+}

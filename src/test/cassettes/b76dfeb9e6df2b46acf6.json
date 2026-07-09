@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "A non-null Batch is required for drawing operations to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values in rendering are typically constrained to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha values in rendering are commonly at most 1.0f to represent maximum opacity.",
+    "meta" : [ ]
+  } ]
+}

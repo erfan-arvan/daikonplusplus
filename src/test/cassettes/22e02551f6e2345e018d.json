@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "conf is used in object construction and assumed to be necessary for correct behavior.",
+    "meta" : [ {
+      "key" : "likelihood",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is forwarded to the constructed object and likely required.",
+    "meta" : [ {
+      "key" : "likelihood",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed into the new writer and is unlikely to be optional.",
+    "meta" : [ {
+      "key" : "likelihood",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "Option values are often never null, they are empty or present.",
+    "meta" : [ {
+      "key" : "likelihood",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "!inflightInstantTimestamp.isPresent() || inflightInstantTimestamp.get() != null",
+    "rationale" : "If Option is present, it should not contain a null value.",
+    "meta" : [ {
+      "key" : "likelihood",
+      "value" : "medium"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(offsetX)",
+    "rationale" : "offsetX should not be infinite or NaN as it is used for rendering calculations and layer positioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "offsetX >= -Float.MAX_VALUE && offsetX <= Float.MAX_VALUE",
+    "rationale" : "offsetX should be within valid float bounds to guarantee correct math and prevent overflows or rendering errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "offsetX == offsetX",
+    "rationale" : "Ensures offsetX is not NaN; a subtle but useful invariant in graphics and math-heavy contexts.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method returns the sorted input list itself, not a copy.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type and method return ensure result is a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Sorting does not add or remove elements; the result is the same size as the input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition counts are typically positive integers (from parameter semantic).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == records.isEmpty()",
+    "rationale" : "If no records are input, the result list is also empty; the sorting step does not add records.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Input list 'data' is expected to be non-null at the method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "data is not null"
+    } ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "Function 'func' must be non-null to apply the mapping.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "func is not null"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism level should be a positive integer.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "parallelism positive"
+    } ]
+  }, {
+    "expression" : "data instanceof java.util.List",
+    "rationale" : "Parameter 'data' is declared as a List.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "data is a List"
+    } ]
+  } ]
+}

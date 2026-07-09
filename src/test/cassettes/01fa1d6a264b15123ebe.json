@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null value as it returns the result of eager() which wraps a non-null empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "By construction, result is created from an empty list, so it must be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == 0",
+    "rationale" : "Since the underlying list is empty, the count of elements should be zero.",
+    "meta" : [ ]
+  } ]
+}

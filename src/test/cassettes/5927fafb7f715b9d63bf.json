@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "line >= 0",
+    "rationale" : "Since negative lines are handled explicitly in the method, it's meaningful to consider whether line is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "line < getLines()",
+    "rationale" : "The upper bound for line is checked against getLines(); line values equal to or greater than this value trigger specific control paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "line == 0",
+    "rationale" : "This is a boundary case that the method handles, and is meaningful to examine as an entry condition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "line != cursorLine",
+    "rationale" : "The method performs a specific subroutine only if line is different from the current cursorLine.",
+    "meta" : [ ]
+  }, {
+    "expression" : "line >= getLines()",
+    "rationale" : "The method checks for this condition, triggering a different code path, making it a relevant invariant at entry.",
+    "meta" : [ ]
+  } ]
+}

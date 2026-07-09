@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method accepts config as a parameter, and execution will likely fail later if it is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method depends on context for table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The switch statement dereferences metaClient, so it must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableType() != null",
+    "rationale" : "The switch statement will throw NullPointerException if getTableType() returns null.",
+    "meta" : [ ]
+  } ]
+}

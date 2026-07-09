@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The factory method returns a HoodieJavaTable<T> created from the inputs; null is not expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "The result object should always be an instance of HoodieJavaTable<T>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used in building the metaClient and passed to the next factory call; it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is dereferenced for storage config and further passed; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != config",
+    "rationale" : "result is a new HoodieJavaTable and should not be the same instance as the config input.",
+    "meta" : [ ]
+  } ]
+}

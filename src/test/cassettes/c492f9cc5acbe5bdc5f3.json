@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The rollback method constructs and returns a HoodieRollbackMetadata object through the executor's execute method, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is required for correct rollback operation and passed directly to the executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant is required for rollback logic and must be non-null for the executor to work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!deleteInstants || (deleteInstants && commitInstant != null)",
+    "rationale" : "If deleteInstants is true, commitInstant must be provided to indicate which instant to delete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getTotalFilesDeleted() >= 0",
+    "rationale" : "The number of files deleted during a rollback cannot be negative.",
+    "meta" : [ ]
+  } ]
+}

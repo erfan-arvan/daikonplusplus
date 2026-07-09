@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "Defensive programming often requires verifying that the input parameter is non-null before method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "An order's quantity should not be negative, reflecting a plausible domain constraint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "An order's unit price is expected to be non-negative.",
+    "meta" : [ ]
+  } ]
+}

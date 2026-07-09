@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method always throws an exception, so result is never assigned and always null at exit.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always throws"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "The method always throws an exception, so the only valid invariant at method exit is trivially true.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Unreachable method exit"
+    } ]
+  }, {
+    "expression" : "throw new HoodieNotSupportedException(\"Delete partitions is not supported yet\") != null",
+    "rationale" : "The only code in the method is a throw statement, so this condition always holds if the method exits.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method immediately throws"
+    } ]
+  } ]
+}

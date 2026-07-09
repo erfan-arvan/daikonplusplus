@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Pair should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is likely required for processing and thus should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "fileSlices must be non-null for correct partition group computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The left element (Stream of HoodieClusteringGroup) in the returned Pair should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The right element (Boolean) in the returned Pair should not be null.",
+    "meta" : [ ]
+  } ]
+}

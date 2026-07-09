@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the object from clone(), which should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() method is called on the result of clone(), which is expected to return a non-null write status list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The method returns result from clone() parameterized with List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().equals(result.getWriteStatuses())",
+    "rationale" : "Reflexivity of equals; this holds for any non-null write statuses.",
+    "meta" : [ ]
+  } ]
+}

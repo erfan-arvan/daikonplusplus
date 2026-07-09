@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object created by bulkInsert, so it is unlikely to return null unless an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() should return a non-null List of WriteStatus objects representing the bulk insertion outcome.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size is always non-negative; write statuses will either be empty or contain WriteStatus elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToWriteStats() != null",
+    "rationale" : "Partition-to-write-stats mapping is recorded and expected to be non-null if write metadata is produced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getCommitMetadata() != null == result.isCommitted()",
+    "rationale" : "Commit metadata is typically present if and only if the write is committed.",
+    "meta" : [ ]
+  } ]
+}

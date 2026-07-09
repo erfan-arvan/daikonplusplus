@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method allocates and returns a non-null HoodieWriteMetadata object.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "A new HoodieWriteMetadata instance is always instantiated and returned."
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses are always set before returning.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The setWriteStatuses method is invoked on the newly created HoodieWriteMetadata object."
+    } ]
+  }, {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "The method dereferences clusteringPlan, so it must not be null at this point.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "clusteringPlan parameter is used directly without null checks; method would throw if it were null."
+    } ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "Schema is expected to be non-null as a parameter.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "schema is used as a parameter; likely assumed non-null (though not directly dereferenced in this method)."
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() == clusteringPlan.getInputGroups().stream().mapToInt(inputGroup -> runClusteringForGroup(inputGroup, clusteringPlan.getStrategy().getStrategyParams(), Option.ofNullable(clusteringPlan.getPreserveHoodieMetadata()).orElse(true), instantTime).size()).sum()",
+    "rationale" : "The method accumulates WriteStatus objects for each input group.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The size of the write statuses is the sum of WriteStatus lists for all input groups."
+    } ]
+  } ]
+}

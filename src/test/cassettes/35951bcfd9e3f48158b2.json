@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Parameter hoodieRecords is expected to be a valid List.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "hoodieRecords is the method parameter and should not be null for usual invocation"
+    } ]
+  }, {
+    "expression" : "hoodieRecords instanceof List",
+    "rationale" : "Method signature declares hoodieRecords as List<HoodieRecord<T>>.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "Ensure hoodieRecords is a List"
+    } ]
+  }, {
+    "expression" : "!hoodieRecords.contains(null)",
+    "rationale" : "Operations on hoodieRecords expect valid HoodieRecord instances.",
+    "meta" : [ {
+      "key" : "element-null-check",
+      "value" : "Assumes no null elements in the list"
+    } ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "List size is non-negative integer.",
+    "meta" : [ {
+      "key" : "size-bound",
+      "value" : "List size can't be negative"
+    } ]
+  }, {
+    "expression" : "hoodieRecords.stream().allMatch(r -> r instanceof HoodieRecord)",
+    "rationale" : "Ensures elements conform to expected type.",
+    "meta" : [ {
+      "key" : "element-type-check",
+      "value" : "All elements are HoodieRecord objects"
+    } ]
+  } ]
+}

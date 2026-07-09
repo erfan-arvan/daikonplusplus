@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method relies on profile being passed to a superclass method which likely requires a non-null argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getClass() == WorkloadProfile.class",
+    "rationale" : "Ensures that profile is of the expected type before passing to superclass method.",
+    "meta" : [ ]
+  } ]
+}

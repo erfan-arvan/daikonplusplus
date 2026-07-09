@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata instance via the execute method, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The method depends on a non-null instantTime for creating commit metadata, so it likely cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The returned HoodieWriteMetadata must be generated from hoodieRecords, so hoodieRecords should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The JavaUpsertDeltaCommitActionExecutor returns a HoodieWriteMetadata whose list of WriteStatus should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the list of WriteStatus in the metadata is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null && !activeModule.isEmpty()",
+    "rationale" : "activeModule, as a module identifier, is typically expected to be non-null and non-empty in meaningful job status updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null && !activityDescription.isEmpty()",
+    "rationale" : "activityDescription is expected to describe the job activity, and so being non-null and non-empty is likely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule != null || activityDescription != null",
+    "rationale" : "If at least one parameter is non-null, some status context is provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(activeModule == null && activityDescription == null)",
+    "rationale" : "Both parameters being null is likely not a meaningful invocation for a status-setting method.",
+    "meta" : [ ]
+  } ]
+}

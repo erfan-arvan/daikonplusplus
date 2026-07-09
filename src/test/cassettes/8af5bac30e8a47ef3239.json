@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of execute(), which presumably returns a non-null HoodieWriteMetadata as per usual convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method likely assumes its input record list is non-null, as it passes it directly to another constructor/method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An instant time should be defined for delete operations in versioned transactional systems.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is required for any engine operation and passed down without null handling here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The returned object should always be an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

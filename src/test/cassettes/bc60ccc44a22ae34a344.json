@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context represents the execution context and should be provided.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "context must not be null for method operation"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a string representing the timestamp and should be non-null before method executes.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "instantTime must not be null"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is a list of HoodieRecord objects and should be initialized before usage.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "records list must not be null"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty()",
+    "rationale" : "Typically, insertOverwriteTable expects records list to have data to process.",
+    "meta" : [ {
+      "key" : "common_case",
+      "value" : "true"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Factory methods like newInstance should not return null unless explicitly documented; here it always returns a static instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == DeleteHelperHolder.JAVA_DELETE_HELPER",
+    "rationale" : "The method always returns DeleteHelperHolder.JAVA_DELETE_HELPER.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaDeleteHelper",
+    "rationale" : "The method's return type and return value guarantee this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == JavaDeleteHelper.class",
+    "rationale" : "Method directly returns a static field of type JavaDeleteHelper.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires config for all operations, so it is likely not null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "config.getProps() is used to create a key generator; it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == true || config.populateMetaFields() == false",
+    "rationale" : "populateMetaFields() returns a boolean, so its only possible values are true or false.",
+    "meta" : [ ]
+  } ]
+}

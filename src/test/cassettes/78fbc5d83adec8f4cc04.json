@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "smallFiles != null",
+    "rationale" : "The method directly streams over smallFiles; it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "smallFiles.stream().allMatch(smallFile -> smallFile != null)",
+    "rationale" : "Dereferencing each smallFile requires non-null elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "smallFiles.stream().allMatch(smallFile -> smallFile.location != null)",
+    "rationale" : "The code accesses smallFile.location; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "smallFiles.stream().allMatch(smallFile -> smallFile.location.getFileId() != null)",
+    "rationale" : "The code calls getFileId() and expects to collect strings; these should not be null.",
+    "meta" : [ ]
+  } ]
+}

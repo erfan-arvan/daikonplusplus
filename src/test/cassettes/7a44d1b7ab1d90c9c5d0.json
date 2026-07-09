@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "The method immediately checks for null and throws if actor is null, implying non-null actors are typical valid inputs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor instanceof Actor",
+    "rationale" : "The parameter actor should always be an instance of Actor at this entry point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true || unfocus",
+    "rationale" : "The unfocus parameter can be any boolean value, without restriction at the entry point.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,10 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null && index != null && props != null && recordMerger != null && readerContext != null && orderingFieldNames != null && schemaStr != null && parallelism > 0 && records instanceof List<?> && orderingFieldNames.length >= 0 && props.isEmpty() == false && index.isGlobal() == (index.isGlobal() == true || index.isGlobal() == false)",
+    "rationale" : "All parameters should not be null to safely execute the method, and basic assumptions about types and parameter states hold.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null_and_type_checks"
+    } ]
+  } ]
+}

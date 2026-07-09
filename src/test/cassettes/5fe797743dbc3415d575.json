@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Map created by Collectors.toMap, which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "A null 'data' would cause a NullPointerException before return; the method could not return normally if 'data' was null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "A null 'func' would throw a NullPointerException in throwingMapToPairWrapper(func); normal return implies non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Collectors.toMap uses Pair::getLeft as keys; duplicate keys overwrite, so result.size() is at most data.size().",
+    "meta" : [ ]
+  } ]
+}

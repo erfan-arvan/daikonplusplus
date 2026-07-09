@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "props != null",
+    "rationale" : "props is required to create a KeyGenerator and is likely to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!props.isEmpty()",
+    "rationale" : "A non-empty TypedProperties is likely expected to configure a KeyGenerator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props.size() >= 0",
+    "rationale" : "The size of properties should always be non-negative.",
+    "meta" : [ ]
+  } ]
+}

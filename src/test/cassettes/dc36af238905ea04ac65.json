@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "Method uses map as a parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile != null",
+    "rationale" : "tile is dereferenced in method call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is passed to another method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getObjects() != null",
+    "rationale" : "tile.getObjects() may be dereferenced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getTextureRegion() != null",
+    "rationale" : "tile.getTextureRegion() is called and then getRegionHeight() is invoked.",
+    "meta" : [ ]
+  } ]
+}

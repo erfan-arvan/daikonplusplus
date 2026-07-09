@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "padLeft != null",
+    "rationale" : "The method throws if padLeft is null, so this is always true at exit.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', which cannot be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "postcondition"
+    } ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this', so result is always identical to the receiver.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "aliasing"
+    } ]
+  }, {
+    "expression" : "result.padLeft == padLeft",
+    "rationale" : "The field is assigned the value of the parameter before returning.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "state update"
+    } ]
+  }, {
+    "expression" : "result.padLeft != null",
+    "rationale" : "Since padLeft is not null and is assigned to result.padLeft, result.padLeft cannot be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "derived"
+    } ]
+  } ]
+}

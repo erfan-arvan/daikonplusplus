@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is expected to be non-null at method entry as a parameter.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "parameters must be non-null"
+    } ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is expected to be non-null at method entry as a parameter.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "parameters must be non-null"
+    } ]
+  }, {
+    "expression" : "strategyParams.keySet() != null",
+    "rationale" : "Map.keySet() always returns non-null even if map is empty.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "keySet non-null from Map API"
+    } ]
+  }, {
+    "expression" : "!(strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())) || (strategyParams.get(PLAN_STRATEGY_SORT_COLUMNS.key()) != null)",
+    "rationale" : "If the key is present in the map, the value retrieved by get should be non-null for successful split.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "value non-null if key present"
+    } ]
+  } ]
+}

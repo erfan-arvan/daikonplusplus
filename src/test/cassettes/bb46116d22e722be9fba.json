@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be the compaction instant identifier, and should not be null for compaction scheduling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata as an Option object should be non-null before method execution to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context provides necessary execution context and should not be null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime should not be empty if provided, as it denotes a significant event.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() ? extraMetadata.get() != null : true",
+    "rationale" : "If extraMetadata is present, its contained map should be non-null.",
+    "meta" : [ ]
+  } ]
+}

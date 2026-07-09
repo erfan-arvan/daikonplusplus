@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method's Javadoc suggests that a vertical alignment string is always returned, so it is likely that null is not a valid return value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "A vertical alignment string is typically not empty if it describes an alignment; the method likely returns a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(result.trim())",
+    "rationale" : "Alignment descriptions are likely not padded with whitespace, so the returned string probably has no leading or trailing spaces.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equalsIgnoreCase(\"top\") || result.equalsIgnoreCase(\"center\") || result.equalsIgnoreCase(\"bottom\")",
+    "rationale" : "The vertical alignment is usually one of these conventional string values; the method likely returns one of them.",
+    "meta" : [ ]
+  } ]
+}

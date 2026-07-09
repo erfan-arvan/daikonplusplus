@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns HoodieListData.eager(data), which is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "The method always returns an instance created by HoodieListData.eager, so the type is HoodieListData.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 0",
+    "rationale" : "Parallelism is usually a non-negative value defining a degree of parallelization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(data)",
+    "rationale" : "HoodieListData.eager(data) should preserve all elements, so the collected result equals input data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data == null || result.collectAsList().size() == data.size()",
+    "rationale" : "If data is not null, the output HoodieData should preserve the size of the input list.",
+    "meta" : [ ]
+  } ]
+}

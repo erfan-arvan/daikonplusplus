@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Iterator and always returns Collections.singletonList(createHandle.close()).iterator(), which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap is used to construct HoodieCreateHandle and used in method calls, so it cannot be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext()",
+    "rationale" : "Since result is created as an iterator over a singleton list, it must have a next element.",
+    "meta" : [ ]
+  } ]
+}

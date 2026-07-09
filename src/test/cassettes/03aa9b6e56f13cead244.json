@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "The method uses order.getQuantity() and order.getUnitPrice(), requiring order to be non-null for safe execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantity is often non-negative; negative quantities usually do not make sense in the context of orders.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price of an order is typically non-negative in conventional business and e-commerce settings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() == (int)order.getQuantity()",
+    "rationale" : "Order quantity usually represents a whole number of items, implying it should be an integer value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!OrderProcessor.isEligibleForDiscount(order) || order.getQuantity() > 0",
+    "rationale" : "An order is only eligible for discount if it makes sense (such as quantity > 0); expressing this as a logical implication captures potential business logic.",
+    "meta" : [ ]
+  } ]
+}

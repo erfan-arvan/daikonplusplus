@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of collectAsList(), which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The method dereferences table, so table must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method uses context as argument, so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method wraps dedupedRecords in HoodieListData.eager(), which requires it to be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The method casts key and calls methods on it, so key must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "Partition or bucket indices (such as those returned from a bucket list) are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((Pair)key).getLeft() != null",
+    "rationale" : "getLeft() is used to access the partition path and record key, so it must not be null before use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((Pair)key).getRight() != null",
+    "rationale" : "getRight() is used and further has isPresent() invoked on it, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((Pair)key).getRight().isPresent() || result == ((List)((Map)partitionPathToInsertBucketInfos).get(((Pair)key).getLeft().getPartitionPath())).get(0).getKey().bucketNumber",
+    "rationale" : "If getRight().isPresent() is false, the last return value is targetBuckets.get(0).getKey().bucketNumber.",
+    "meta" : [ ]
+  } ]
+}

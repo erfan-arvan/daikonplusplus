@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator, either a singleton or a JavaLazyInsertIterable.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The method type signature and both code paths return objects implementing Iterator.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is used in JavaLazyInsertIterable and should not be null; null could cause errors.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is always dereferenced so should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

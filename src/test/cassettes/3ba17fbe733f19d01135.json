@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieData instance, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Method constructs an empty list and wraps it, so the returned HoodieData is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == 0",
+    "rationale" : "An empty HoodieData should contain zero elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().size() == 0",
+    "rationale" : "The underlying collection is empty, so the collected list's size is zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "The method calls HoodieListData.eager, so the returned object is a HoodieListData.",
+    "meta" : [ ]
+  } ]
+}

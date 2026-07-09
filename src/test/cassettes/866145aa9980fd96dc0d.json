@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The drawBackground method uses batch without null-checking, so batch is expected to be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0f && parentAlpha <= 1f",
+    "rationale" : "parentAlpha typically acts as an alpha blend factor, which is normally in the [0,1] range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0f",
+    "rationale" : "x is the horizontal coordinate for drawing; UIs often use non-negative coordinates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0f",
+    "rationale" : "y is the vertical coordinate for drawing; UIs often use non-negative coordinates.",
+    "meta" : [ ]
+  } ]
+}

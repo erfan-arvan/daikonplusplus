@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is typically required to identify the commit point for delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of HoodieKey objects to delete should be provided (non-null) for delete to perform its function.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is typically required for distributed processing in Hudi operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!keys.isEmpty()",
+    "rationale" : "Delete is usually only meaningful if there is at least one key in the list to operate on.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "A non-empty instantTime string is usually required to specify a valid commit or action instant.",
+    "meta" : [ ]
+  } ]
+}

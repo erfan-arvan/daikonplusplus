@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The args array reference at method entry for main should not be null as per Java specification.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "args must not be null to avoid NullPointerException"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always a non-negative integer.",
+    "meta" : [ {
+      "key" : "array-length",
+      "value" : "Length of array is always non-negative"
+    } ]
+  }, {
+    "expression" : "args instanceof String[]",
+    "rationale" : "The args parameter is declared as String[], so it must be instance of String[].",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "Ensures args is of correct type"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Universal truth, serves as baseline invariant.",
+    "meta" : [ {
+      "key" : "trivial-invariant",
+      "value" : "Always true at method entry"
+    } ]
+  } ]
+}

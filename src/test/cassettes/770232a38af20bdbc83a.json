@@ -1,0 +1,34 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result.isEmpty()",
+    "rationale" : "The method always throws an exception, so if it returns, the result should be empty or null.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "CopyOnWrite table does not support scheduleCompaction"
+    }, {
+      "key" : "meaning",
+      "value" : "Result should be empty or null"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Parameters are expected to be non-null by contract.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "method parameter"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is expected to be non-null.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "method parameter"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context parameter is expected to be non-null.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "method parameter"
+    } ]
+  } ]
+}

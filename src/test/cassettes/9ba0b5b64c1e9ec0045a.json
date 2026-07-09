@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents a commit timestamp, which is typically required and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "partitionRecordsMap is expected to be a usable mapping for commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty()",
+    "rationale" : "It is likely the method is called only when there are records to commit, making a non-empty map expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "A valid commit instant time is expected to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "Partition names as map keys should not be null for correct partition tracking.",
+    "meta" : [ ]
+  } ]
+}

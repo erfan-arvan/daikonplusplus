@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a List of HoodieRecord objects, typically non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context object is required to perform engine-related actions, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is required to uniquely identify the commit time and is critical for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "The commit instantTime should not be empty to identify the operation; this check assumes it is non-empty.",
+    "meta" : [ ]
+  } ]
+}

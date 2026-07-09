@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of postWrite, which should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method is not expected to accept or return results for null preppedRecords, as seen from eager conversion and usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to multiple called methods without a null check, so should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method always returns a List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result.isEmpty()) || !preppedRecords.isEmpty()",
+    "rationale" : "If there are returned WriteStatus results, there should have been input prepped records; a write cannot occur without records.",
+    "meta" : [ ]
+  } ]
+}

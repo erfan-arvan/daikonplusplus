@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layers != null",
+    "rationale" : "Method loops over layers, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length >= 0",
+    "rationale" : "An array's length is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length == 0 || (layers[0] >= 0 && layers[0] < map.getLayers().size())",
+    "rationale" : "For the main loop to succeed, each index should be valid for map.getLayers().get(i).",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length == 0 || map.getLayers().size() > 0",
+    "rationale" : "If there are indices to process, map.getLayers() should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length == 0 || (spriteCache != null && map != null && map.getLayers() != null)",
+    "rationale" : "If layers are referenced, spriteCache and map (and layers in map) must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

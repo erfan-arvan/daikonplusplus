@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The entry point of a Java program ('main' method) expects a non-null array of command-line arguments as per the Java specification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Arrays in Java always have a non-negative length. Even if no arguments were provided, 'args.length' will be 0.",
+    "meta" : [ ]
+  } ]
+}

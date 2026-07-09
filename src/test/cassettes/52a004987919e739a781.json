@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns either a non-null field or the result of a super method, which should also be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(fileId) || result.equals(BulkInsertPartitioner.super.getFileIdPfx(partitionId))",
+    "rationale" : "The result is either fileId or the value returned by the superclass method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!fileIdNullCheck() || result.equals(fileId)) && (fileIdNullCheck() || result.equals(BulkInsertPartitioner.super.getFileIdPfx(partitionId)))",
+    "rationale" : "Encodes the case distinction made in the method body based on fileId's nullness.",
+    "meta" : [ ]
+  } ]
+}

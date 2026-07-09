@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "(result == null) || (result == this)",
+    "rationale" : "The method only returns 'this' or null; if not null, result must be 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result != null) == (touchBounds.contains(x, y) && isVisible() && (!touchable || getTouchable() == Touchable.enabled))",
+    "rationale" : "Result is non-null if and only if the point is within bounds, the widget is visible, and the touchable settings permit hit detection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isVisible() || result == null",
+    "rationale" : "If the widget is not visible, the result is always null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(touchable && getTouchable() != Touchable.enabled) ? result == null : true",
+    "rationale" : "If touchable is true but getTouchable() is not enabled, the result must be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == this) ? isVisible() && touchBounds.contains(x, y) && (!touchable || getTouchable() == Touchable.enabled) : true",
+    "rationale" : "If result is 'this', all three conditions that govern returning 'this' must be satisfied.",
+    "meta" : [ ]
+  } ]
+}

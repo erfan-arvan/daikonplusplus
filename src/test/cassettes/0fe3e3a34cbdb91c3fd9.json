@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "partition != null",
+    "rationale" : "partition is directly invoked in the method and is required for a meaningful clustering plan.",
+    "meta" : [ {
+      "key" : "agreed_by",
+      "value" : "A,B,C"
+    } ]
+  }, {
+    "expression" : "!partition.isEmpty()",
+    "rationale" : "partition being non-empty is necessary for clustering files within a partition; empty string likely not a valid case.",
+    "meta" : [ {
+      "key" : "agreed_by",
+      "value" : "A,B"
+    } ]
+  } ]
+}

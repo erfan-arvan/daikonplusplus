@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer.getName() == element.getAttribute(\"name\", null)",
+    "rationale" : "The layer name is set to the value of the 'name' attribute of the element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() == Float.parseFloat(element.getAttribute(\"opacity\", \"1.0\"))",
+    "rationale" : "The layer opacity is parsed from the 'opacity' attribute of the element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isVisible() == (element.getIntAttribute(\"visible\", 1) == 1)",
+    "rationale" : "Layer's visibility reflects the integer attribute 'visible' from the element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOffsetX() == element.getFloatAttribute(\"offsetx\", 0)",
+    "rationale" : "Layer's offsetX field is set from the 'offsetx' attribute.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxX() == element.getFloatAttribute(\"parallaxx\", 1f)",
+    "rationale" : "Layer parallaxX reflects the 'parallaxx' float attribute from the element.",
+    "meta" : [ ]
+  } ]
+}

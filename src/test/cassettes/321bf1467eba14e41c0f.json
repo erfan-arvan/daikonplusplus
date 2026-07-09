@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "newInstance() returns the static field BulkInsertHelperHolder.JAVA_BULK_INSERT_HELPER, which is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaBulkInsertHelper",
+    "rationale" : "All return values from newInstance() are instances of JavaBulkInsertHelper.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == JavaBulkInsertHelper.class",
+    "rationale" : "Since the static field is the concrete implementation, the returned instance is exactly of JavaBulkInsertHelper type.",
+    "meta" : [ ]
+  } ]
+}

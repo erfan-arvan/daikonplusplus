@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of HoodieMergeHandleFactory.create, which is expected to be non-null unless an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getFileId().equals(fileId)",
+    "rationale" : "The fileId parameter is directly passed to the factory method, so the returned handle should have the same fileId.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionPath().equals(partitionPath)",
+    "rationale" : "The partitionPath parameter is passed to the factory, so the handle result should reflect this value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getInstantTime().equals(instantTime)",
+    "rationale" : "The instantTime parameter is passed to the factory for the result handle.",
+    "meta" : [ ]
+  } ]
+}

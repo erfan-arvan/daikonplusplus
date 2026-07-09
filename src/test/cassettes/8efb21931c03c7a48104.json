@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == writeMetadata",
+    "rationale" : "The method directly returns the argument writeMetadata, so at exit, the returned result is exactly the object passed in.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the input writeMetadata, which is assumed to be non-null when passed to the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "Since the method returns writeMetadata and does not check for nullity, it's assumed that writeMetadata is not null at method exit.",
+    "meta" : [ ]
+  } ]
+}

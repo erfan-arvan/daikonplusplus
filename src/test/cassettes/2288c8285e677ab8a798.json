@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "The method likely requires a valid compaction instant time string; method implementations with similar signatures in the enclosing class accept non-null strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is needed for execution, implied by its use in constructing compactionExecutor.",
+    "meta" : [ ]
+  } ]
+}

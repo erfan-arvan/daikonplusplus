@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is accessed in the method and would need to be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed to a method and likely expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

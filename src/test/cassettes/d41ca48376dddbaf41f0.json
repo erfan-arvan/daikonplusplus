@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method's return value is a non-null List as per typical Java conventions and likely never null in this control flow.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "Method would not succeed and return only if the parameter is non-null (enforced or assumed by calling context).",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "Method calls using this parameter would throw if it were null, thus assumed to be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "This parameter is passed directly in multiple method calls, indicating it must be non-null for those calls to work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method's return type is List<WriteStatus>, so at exit, 'result' is always a List instance.",
+    "meta" : [ ]
+  } ]
+}

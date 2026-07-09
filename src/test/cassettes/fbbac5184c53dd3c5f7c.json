@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns HoodieTimeline.CLUSTERING_ACTION, which is presumably a non-null static final String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(HoodieTimeline.CLUSTERING_ACTION)",
+    "rationale" : "The return value is always exactly HoodieTimeline.CLUSTERING_ACTION.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == HoodieTimeline.CLUSTERING_ACTION",
+    "rationale" : "For String constants, '==' may be true if the constant is interned, as it is likely here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() == HoodieTimeline.CLUSTERING_ACTION.length()",
+    "rationale" : "Since result always equals the constant, their lengths must match.",
+    "meta" : [ ]
+  } ]
+}

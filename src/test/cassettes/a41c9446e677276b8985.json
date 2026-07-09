@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "pad >= 0",
+    "rationale" : "Padding values are typically non-negative to avoid negative space around UI elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(pad)",
+    "rationale" : "It is common for padding parameters to require numeric values, and NaN would not be meaningful for padding.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(pad)",
+    "rationale" : "A finite padding value is expected to ensure meaningful UI layout.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime likely represents a required commit time; it should not be null for meaningful writes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is expected to contain data for the bulk insert, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option values must not be null as per Option API contract; it should be an Option (possibly empty).",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for execution; most engine operations expect a valid engine context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "records must have a non-negative size, and isEmpty is consistent with size()==0.",
+    "meta" : [ ]
+  } ]
+}

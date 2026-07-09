@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null && columnsToIndex.isEmpty() || columnsToIndex != null && !columnsToIndex.isEmpty()",
+    "rationale" : "The method is no-op, so the state of 'columnsToIndex' remains unchanged as passed in.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "columnsToIndex is either empty or not, but not null if accessed safely."
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a parameter and should not be null at method exit.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "Method receives metaClient parameter which should be non-null."
+    } ]
+  }, {
+    "expression" : "metaClient.getClass() != null",
+    "rationale" : "Given metaClient is not null, its class object is also not null.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "metaClient is not null, so its class must not be null."
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is a parameter and should not be null upon method exit.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "columnsToIndex parameter is expected non-null for method operation."
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No side effects or changes occur inside the method, so any valid boolean is trivially true here.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "Method is no-op, no changes made."
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs a new HoodieWriteMetadata and returns it, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The setWriteStatuses method is called before returning, so the write statuses field should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "clusteringPlan is dereferenced via getInputGroups(), so it must not be null for any normal execution completing the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is passed as a parameter and not modified in the method, and dereferencing it outside would be unsafe if it were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in downstream method calls and must be non-null for method execution to succeed.",
+    "meta" : [ ]
+  } ]
+}

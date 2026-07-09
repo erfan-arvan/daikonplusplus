@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A write operation like upsert should always produce metadata, so returning null would be unexpected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input records list is passed down to the action executor, which likely requires non-null input; null input would usually indicate an API misuse.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter represents a commit instant and should not be null for correct operation.",
+    "meta" : [ ]
+  } ]
+}

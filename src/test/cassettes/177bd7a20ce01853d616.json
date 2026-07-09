@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Pair value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The stream of HoodieClusteringGroup (left field) in the result Pair should not be null as per contract of buildClusteringGroupsForPartition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The right field of the result Pair (Boolean) should not be null per typical usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath parameter should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "The input list of file slices should always be non-null.",
+    "meta" : [ ]
+  } ]
+}

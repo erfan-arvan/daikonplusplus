@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns an Option<HoodieClusteringPlan>; by contract, should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a String parameter intended to mark the clustering 'instant', which should be present and not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is commonly required in execution; should not be null as per typical usage contracts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option types in Java are commonly expected to not be null, so extraMetadata should be a non-null Option instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Option",
+    "rationale" : "Method return type is Option<HoodieClusteringPlan>, so result should be an Option.",
+    "meta" : [ ]
+  } ]
+}

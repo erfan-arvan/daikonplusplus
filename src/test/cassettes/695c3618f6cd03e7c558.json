@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is likely required for upsert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter usually identifies a commit instant, which should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "A null list of HoodieRecord would likely be invalid input for an upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(hoodieRecords != null && hoodieRecords.isEmpty())",
+    "rationale" : "An upsert with an empty record list is likely a no-op or invalid, so it's reasonable to expect hoodieRecords to be non-empty if provided.",
+    "meta" : [ ]
+  } ]
+}

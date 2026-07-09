@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime likely represents a commit or operation time and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is required for partitioning logic during the method's execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition, as an Integer, should not be null for insert partition logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "An iterator over records must be provided to perform the insert partition operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner instanceof Partitioner",
+    "rationale" : "partitioner should be an instance of Partitioner for proper method operation.",
+    "meta" : [ ]
+  } ]
+}

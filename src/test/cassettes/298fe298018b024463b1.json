@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method immediately checks if 'name' is null and returns early, suggesting that subsequent code assumes 'name' is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + (name == null ? 0 : name.length()) >= x",
+    "rationale" : "'name.length()' is non-negative if 'name' is non-null, so the sum does not decrease 'x'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "'String.length()' is always non-negative when 'name' is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || !name.isEmpty() || name.length() == 0",
+    "rationale" : "'isEmpty()' and 'length() == 0' are equivalent for Strings; one must be true if the other is.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= Integer.MIN_VALUE",
+    "rationale" : "'x' is an int parameter and always satisfies the lower bound of Integer.MIN_VALUE.",
+    "meta" : [ ]
+  } ]
+}

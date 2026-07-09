@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The input stream 'data' must be non-null for the method to operate.",
+    "meta" : [ {
+      "key" : "nonnull",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "The flatMapToPairFunction must be non-null to perform mapping.",
+    "meta" : [ {
+      "key" : "nonnull",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The reduce function must be non-null to perform reduction.",
+    "meta" : [ {
+      "key" : "nonnull",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "The parallelism parameter should be positive to specify degree of parallelism.",
+    "meta" : [ {
+      "key" : "positive",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "!data.parallel().isEmpty() || data.parallel().isEmpty()",
+    "rationale" : "The stream 'data' may or may not be empty, but this expression is a tautology used to confirm data is a Stream.",
+    "meta" : [ {
+      "key" : "alwaysTrue",
+      "value" : "trivial"
+    } ]
+  } ]
+}

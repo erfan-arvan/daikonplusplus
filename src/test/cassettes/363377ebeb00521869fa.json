@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Method calls like name.contains and name.lastIndexOf require non-null name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() >= 0",
+    "rationale" : "String length is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "An empty name may not be meaningful; defensive for typical use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.startsWith(\"/\")",
+    "rationale" : "Region names likely do not begin with path separators given image resource conventions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.indexOf(\"atlas_imagelayer\") >= -1",
+    "rationale" : "indexOf returns -1 or higher; ensures method's logic is safe from exceptions.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime must be a valid non-empty string representing the commit instant time.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is a non-null non-empty string representing the commit time."
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath must be non-null to represent the partition location.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "partitionPath represents the partition directory path and should not be null."
+    } ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "fileId must be a non-null and non-empty string.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "fileId is the file identifier and must be non-null and non-empty."
+    } ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "keyToNewRecords must be non-null to support record updates.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "keyToNewRecords maps keys to records and must be initialized before processing."
+    } ]
+  }, {
+    "expression" : "dataFileToBeMerged != null",
+    "rationale" : "dataFileToBeMerged must be non-null to perform the merge.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "dataFileToBeMerged represents the existing file to merge and should not be null."
+    } ]
+  } ]
+}

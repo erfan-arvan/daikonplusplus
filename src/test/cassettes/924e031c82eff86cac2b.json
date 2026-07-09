@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Engine context is expected to be provided and used for scheduling a rollback.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An instant time (as a String) is required for the rollback process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "The method must know which instant to roll back, so this parameter is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(isRestore && shouldRollbackUsingMarkers)",
+    "rationale" : "Rollback as part of a restore may not use marker-based rollback.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!shouldRollbackUsingMarkers || skipTimelinePublish",
+    "rationale" : "If marker-based rollback is requested, timeline publishing might be skipped for consistency.",
+    "meta" : [ ]
+  } ]
+}

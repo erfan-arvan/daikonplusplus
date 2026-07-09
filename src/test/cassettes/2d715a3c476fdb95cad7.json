@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "Common invariant to ensure the parameter is not null before usage, especially since method does not check for null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "Array.size is always non-negative; this ensures a valid collection length for iteration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.items != null",
+    "rationale" : "Array.items backing array should not be null for a valid Array instance.",
+    "meta" : [ ]
+  } ]
+}

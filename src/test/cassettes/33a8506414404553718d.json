@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a non-null HoodieData<HoodieRecord<R>> collection as input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is necessary for distributed execution in Hoodie and method is unlikely to permit null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "The hoodieTable must be non-null for index tagging operations.",
+    "meta" : [ ]
+  } ]
+}

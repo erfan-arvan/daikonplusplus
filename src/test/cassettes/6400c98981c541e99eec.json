@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == -1 || result >= 0",
+    "rationale" : "The method returns either a non-negative row index or -1 if not over a row.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= this.cells.size",
+    "rationale" : "If a row index is returned, it will not exceed the number of rows in the table (using this.cells.size as the upper bound).",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0 || y < 0",
+    "rationale" : "y is a float parameter with no constraints, covering all float values by Java semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -1 || y + getPadTop() <= ((Cell)this.cells.items[0]).actorY + ((Cell)this.cells.items[0]).computedPadTop",
+    "rationale" : "If the first row is returned, then the y + getPadTop() is at or above the first cell's upper bound.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -1 || result < this.cells.size",
+    "rationale" : "A valid row index must be less than the number of rows (cells.size).",
+    "meta" : [ ]
+  } ]
+}

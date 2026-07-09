@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method assumes 'metaClient' is non-null to perform actions like metaClient.reloadTableConfig();",
+    "meta" : [ ]
+  }, {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "'inFlightInstantTimestamp' being an Option indicates the container itself should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "The metadata table actions may expect the table config to be present after initialization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "Meta client should reference a valid table base path for metadata operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.reloadActiveTimeline() != null",
+    "rationale" : "The timeline should be available for table metadata operations.",
+    "meta" : [ ]
+  } ]
+}

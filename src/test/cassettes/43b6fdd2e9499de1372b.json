@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Option<HoodieIndexPlan> by construction (Option type is usually non-null, even if empty).",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "Since the method passes partitionsToIndex directly to an action executor and does not check for null, it is likely assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "partitionPaths is provided directly to action executor and is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed directly into the action executor, and null would cause unexpected failure; likely required non-null.",
+    "meta" : [ ]
+  } ]
+}

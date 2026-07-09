@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "The InputEvent object is used in this method and is likely required to be non-null when the method is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pointer >= 0",
+    "rationale" : "Pointer indices are usually non-negative when passed to input-event handlers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "X coordinates in GUI frameworks are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "Y coordinates in GUI frameworks are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event.getPointer() == pointer",
+    "rationale" : "The event and pointer argument likely relate and may be expected to match in input-event methods that track pointer indices.",
+    "meta" : [ ]
+  } ]
+}

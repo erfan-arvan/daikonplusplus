@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "clickListener != null",
+    "rationale" : "The method body immediately calls a method on clickListener; likely invariant is that clickListener should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clickListener.isVisualPressed() == true || clickListener.isVisualPressed() == false",
+    "rationale" : "The result of isVisualPressed() is always a boolean value.",
+    "meta" : [ ]
+  } ]
+}

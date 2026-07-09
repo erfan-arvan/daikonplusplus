@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method assumes orders are iterable; a null input would fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!orders.isEmpty() || orders.isEmpty()",
+    "rationale" : "Trivially true, but included as it must be either empty or not.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o != null)",
+    "rationale" : "Method throws if any order is null, so all must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getQuantity() > 0)",
+    "rationale" : "Method throws if any order has non-positive quantity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getUnitPrice() >= 0)",
+    "rationale" : "Method throws if any order has negative unit price.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new HoodieJavaWriteClient instance, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaWriteClient",
+    "rationale" : "The returned object is instantiated as HoodieJavaWriteClient, so result is always an instance of that class.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is passed as an argument to the HoodieJavaWriteClient constructor and would typically not be null for correct functioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed as an argument to the HoodieJavaWriteClient constructor and must not be null for instantiation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != config",
+    "rationale" : "result is a new HoodieJavaWriteClient, while config is a HoodieWriteConfig; they are not the same object.",
+    "meta" : [ ]
+  } ]
+}

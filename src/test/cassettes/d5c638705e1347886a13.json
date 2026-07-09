@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "Maximum width is often expected to be non-negative for sizes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Maximum height is often non-negative for size constraints.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width <= Float.MAX_VALUE",
+    "rationale" : "Width parameter should not exceed the largest representable float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height <= Float.MAX_VALUE",
+    "rationale" : "Height parameter should not exceed the largest representable float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(width) || Float.isNaN(height))",
+    "rationale" : "Maximum width and height should not be NaN to properly constrain size.",
+    "meta" : [ ]
+  } ]
+}

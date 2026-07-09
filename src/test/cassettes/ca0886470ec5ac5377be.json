@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodieJavaWriteClient, so the result is never null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "result is new instance"
+    } ]
+  }, {
+    "expression" : "result instanceof BaseHoodieWriteClient",
+    "rationale" : "The result is declared as BaseHoodieWriteClient, so it must be an instance of this class or subclass.",
+    "meta" : [ {
+      "key" : "instance-of",
+      "value" : "return type"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The method's config parameter is used to create the client and must be non-null for the constructor.",
+    "meta" : [ {
+      "key" : "parameter-non-null",
+      "value" : "method parameter"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method's context parameter is used to create the client and must be non-null for the constructor.",
+    "meta" : [ {
+      "key" : "parameter-non-null",
+      "value" : "method parameter"
+    } ]
+  } ]
+}

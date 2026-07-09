@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "batch is passed to super.draw and is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values for rendering are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha values for UI drawing are conventionally within [0,1] range.",
+    "meta" : [ ]
+  } ]
+}

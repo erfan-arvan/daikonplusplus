@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always creates a new ArrayList and adds elements before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method will throw a NullPointerException early if inputRecords is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced unconditionally in getTaskContextSupplier().",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is used for method calls without any null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Return type is List<WriteStatus> and the actual object returned is a concrete List.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A non-null Map is always returned (either empty or populated).",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "Method argument is required for processing; null would indicate a programming error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Map",
+    "rationale" : "The returned object has type Map<String, List<String>>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "Lists in the map are either absent (empty map) or guaranteed non-null by the code constructing the map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "Partition paths (keys) are non-null as they derive from getAllPartitionPaths output which doesn't return null elements.",
+    "meta" : [ ]
+  } ]
+}

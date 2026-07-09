@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "isChecked() != wasChecked()",
+    "rationale" : "The toggle changes the checked state to its opposite, thus the checked state after toggling should differ from its prior value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isChecked() == !getCheckedBeforeToggle()",
+    "rationale" : "The checked value after toggle should always be the logical negation of what it was before.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isChecked() == getButtonState().isChecked()",
+    "rationale" : "If getButtonState() returns the button itself, its isChecked method matches the button's own checked status after toggle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isChecked() == ((getCheckedBeforeToggle()) ? false : true)",
+    "rationale" : "The checked field flips after toggle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isChecked() == !(isCheckedBeforeMethod())",
+    "rationale" : "The core effect of the method is that the checked state is flipped from before method entry.",
+    "meta" : [ ]
+  } ]
+}

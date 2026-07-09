@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "convertEngineSpecificDataToHoodieData always returns HoodieListData.lazy(records), which should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is directly passed to HoodieListData.lazy(records), so a null input may cause an exception or is preconditioned to not occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(records)",
+    "rationale" : "HoodieListData.lazy(records) produces a HoodieData whose collectAsList returns the original records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == records.size()",
+    "rationale" : "The number of elements in result matches the size of the input records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.filter(ws -> ws == null).count() == records.stream().filter(ws -> ws == null).count()",
+    "rationale" : "Nullness of WriteStatus elements is preserved between records and result.",
+    "meta" : [ ]
+  } ]
+}

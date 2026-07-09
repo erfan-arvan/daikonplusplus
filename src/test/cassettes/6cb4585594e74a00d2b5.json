@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is expected to be specified for update operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "File identifier should be provided for identifying the file to update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Iterator of records should not be null as updates require input data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId.length() > 0",
+    "rationale" : "File identifier is typically a non-empty string for file operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Partition path is generally non-empty when used for update logic.",
+    "meta" : [ ]
+  } ]
+}

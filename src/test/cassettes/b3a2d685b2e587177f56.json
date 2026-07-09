@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The parameter 'config' should not be null for the method to perform its intended operation safely, as it is immediately used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "It is necessary for config.getProps() to be non-null in order to safely call getProperty on the result.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursorLine >= 0",
+    "rationale" : "Line indices in UI widgets are typically non-negative; updateCurrentLine likely maintains this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursors are generally not negative in a text UI.",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesBreak != null",
+    "rationale" : "Array/collection for line breaks must exist for the method operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "Text must be present for 'text.length()' and 'text.charAt()' calls to be executed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesBreak.size % 2 == 0",
+    "rationale" : "The code appears to treat linesBreak as an array with even number of elements representing line breaks.",
+    "meta" : [ ]
+  } ]
+}

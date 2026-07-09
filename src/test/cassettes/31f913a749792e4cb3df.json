@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of an execute call, which is expected to be non-null in normal operation.",
+    "meta" : [ {
+      "key" : "ExpectedContract",
+      "value" : "WriteMetadata should be returned for a delete call"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The keys list is a fundamental argument; typical implementations expect it to be non-null.",
+    "meta" : [ {
+      "key" : "RequiredParameter",
+      "value" : "keys is an input to delete."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit instant must be specified for consistent delete operations.",
+    "meta" : [ {
+      "key" : "RequiredParameter",
+      "value" : "instantTime should not be null for delete operations."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid engine context is necessary to trigger parallel/external operations.",
+    "meta" : [ {
+      "key" : "EngineContext",
+      "value" : "Delete operations require a valid execution context"
+    } ]
+  }, {
+    "expression" : "result.getWriteStats() != null",
+    "rationale" : "A proper HoodieWriteMetadata object should provide non-null write stats after execution.",
+    "meta" : [ {
+      "key" : "Postcondition",
+      "value" : "getWriteStats() should return write status list."
+    } ]
+  } ]
+}

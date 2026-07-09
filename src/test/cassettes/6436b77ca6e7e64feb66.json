@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is cast to JavaUpsertPartitioner and used, so it must be non-null",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition is used to retrieve bucket info, so it must not be null",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null iterator from handleInsert or handleUpdate",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "While not directly used, instantTime is presumed required in related logic",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to downstream handleInsert/handleUpdate, which expects non-null iterators",
+    "meta" : [ ]
+  } ]
+}

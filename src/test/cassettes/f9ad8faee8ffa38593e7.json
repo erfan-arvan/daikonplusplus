@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a non-null list of HoodieRecord as an argument, as per standard usage of collections in method parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is passed to downstream operations and should be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "Option (from the codebase) should not be null itself; it may contain a value or be empty, but the Option object is expected non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a Java List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "An empty instantTime string is unlikely to be valid for Hudi operations.",
+    "meta" : [ ]
+  } ]
+}

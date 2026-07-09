@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "writeResult must not be null for the method logic to work safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() != null",
+    "rationale" : "The downstream use of writeResult.getWriteStatuses() implies it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(status -> status != null)",
+    "rationale" : "Downstream stream operations expect non-null WriteStatus objects.",
+    "meta" : [ ]
+  } ]
+}

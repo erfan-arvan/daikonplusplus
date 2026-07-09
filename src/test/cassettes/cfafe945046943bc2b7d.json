@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a FlatLists.ComparableList object, which should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The size of the returned ComparableList cannot be negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "result size is non-negative"
+    } ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "The ComparableList should contain comparable objects; null elements are unlikely.",
+    "meta" : [ {
+      "key" : "contents",
+      "value" : "result does not contain null elements"
+    } ]
+  }, {
+    "expression" : "record != null",
+    "rationale" : "The parameter record is typically non-null when passed to this method.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "record is not null"
+    } ]
+  }, {
+    "expression" : "result.size() <= record.getData().size()",
+    "rationale" : "The number of comparable sort columns cannot exceed the number of fields in the record data.",
+    "meta" : [ {
+      "key" : "sizeRelation",
+      "value" : "result size is bounded by record data size"
+    } ]
+  } ]
+}

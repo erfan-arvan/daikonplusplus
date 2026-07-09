@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result == flipHorizontally",
+    "rationale" : "The method returns the value of the flipHorizontally field, so result equals that field.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "direct field return"
+    } ]
+  }, {
+    "expression" : "result || !result",
+    "rationale" : "Result is a boolean and must be either true or false.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "boolean range"
+    } ]
+  } ]
+}

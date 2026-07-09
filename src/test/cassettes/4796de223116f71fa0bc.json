@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is a String parameter used to identify partitions; null checks are useful for preconditions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Iterator used for the data insert should be non-null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.next() != null",
+    "rationale" : "If the iterator has more elements, the next HoodieRecord should not be null.",
+    "meta" : [ ]
+  } ]
+}

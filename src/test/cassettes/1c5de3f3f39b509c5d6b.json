@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an ObjectMap, which is likely always non-null since it is a field returned directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof ObjectMap",
+    "rationale" : "Since the method return type is ObjectMap<String, Class>, result should always be an instance of ObjectMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "ObjectMap.size should always be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keys() != null",
+    "rationale" : "The keys() method of ObjectMap should never return null, assuming a valid, initialized ObjectMap.",
+    "meta" : [ ]
+  } ]
+}

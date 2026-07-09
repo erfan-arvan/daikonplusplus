@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "values != null",
+    "rationale" : "The method iterates over values, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values.size >= 0",
+    "rationale" : "Array.size should always be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values.size == 0 || values.get(0) != null",
+    "rationale" : "If the array is non-empty, its first element is accessed in the loop.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values.size == 0 || !values.contains(null, false)",
+    "rationale" : "The loop assumes non-null elements since findNode(null) might be meaningless.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values.size == 0 || findNode(values.get(0)) == null || findNode(values.get(0)).isExpanded()",
+    "rationale" : "If the first value's node exists, it should be expanded by the method's logic.",
+    "meta" : [ ]
+  } ]
+}

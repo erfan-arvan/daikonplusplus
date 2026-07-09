@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "commitInternal is called with instantTime, assuming instantTime is a non-null, non-empty string identifying the commit time.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method commit likely only accepts valid non-empty instantTime strings"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "The partitionRecordsMap is passed to commitInternal, so it must not be null at method exit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "partitionRecordsMap passed to commitInternal and used internally"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet().stream().allMatch(key -> key != null)",
+    "rationale" : "Assuming valid map keys, no null partition keys exist in the map.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Keys in partitionRecordsMap should not be null"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap.values().stream().allMatch(records -> records != null)",
+    "rationale" : "No null HoodieData values in partitionRecordsMap as they are used for commit processing.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "No null value collections in partitionRecordsMap"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap.isEmpty() || partitionRecordsMap.values().stream().anyMatch(records -> !records.isEmpty())",
+    "rationale" : "At least some data should be committed if partitionRecordsMap is non-empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If the map is not empty, at least one partition should have records"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an instance created by a commit action executor's execute() method, which should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of HoodieKeys to delete should not be null at method exit since it is required for deletion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The commit instant time should be non-null and non-empty for delete operations to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context should not be null as it is required by the JavaDeleteCommitActionExecutor.",
+    "meta" : [ ]
+  } ]
+}

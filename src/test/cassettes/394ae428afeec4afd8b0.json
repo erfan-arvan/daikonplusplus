@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should not be null for an update operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId must not be null as it is used for log messages and as an argument to internal operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr must be non-null since it will be passed into a HoodieAppendHandle and possibly superclass methods.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "rectangle != null",
+    "rationale" : "rectangle is dereferenced in this method, so it must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rectangle.getHeight() >= 0",
+    "rationale" : "rectangle likely represents bounds, and height is typically non-negative.",
+    "meta" : [ ]
+  } ]
+}

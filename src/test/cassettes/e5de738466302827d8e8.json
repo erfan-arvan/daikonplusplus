@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is used in the constructor call and is cast to HoodieJavaEngineContext, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to an action executor; it represents a commit time and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is passed to an executor and must be non-null for successful operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "Size of any Java List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() || preppedRecords.size() == 0",
+    "rationale" : "If the list is empty, its size is zero.",
+    "meta" : [ ]
+  } ]
+}

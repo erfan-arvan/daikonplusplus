@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "String methods and parseRegionName require non-null arguments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "Image names should not be empty to successfully look up a region.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parseRegionName(name) != null",
+    "rationale" : "Parsing region name from input should yield a valid, non-null result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "atlas.findRegion(parseRegionName(name)) != null",
+    "rationale" : "The image region must exist in the atlas for the name provided.",
+    "meta" : [ ]
+  } ]
+}

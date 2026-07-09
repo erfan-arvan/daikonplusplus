@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "className != null",
+    "rationale" : "className is used as a lookup key at the start and throws if absent.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProperties != null",
+    "rationale" : "classProperties is used for property insertion and requires non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classElement != null",
+    "rationale" : "classElement is dereferenced by getPropertyByName and in the method, so non-null may be expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!className.isEmpty()",
+    "rationale" : "className used as map key; non-empty likely required.",
+    "meta" : [ ]
+  } ]
+}

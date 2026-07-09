@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is expected to be a valid String identifier and likely should not be null for insert handling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr must be non-null for the method to operate over the records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.next() instanceof HoodieRecord",
+    "rationale" : "If there are elements in recordItr, they are expected to be HoodieRecord instances.",
+    "meta" : [ ]
+  } ]
+}

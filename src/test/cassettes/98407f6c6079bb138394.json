@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "index >= 0",
+    "rationale" : "The index is commonly non-negative when used as a string charAt parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "offset >= 0",
+    "rationale" : "The offset may be non-negative if the method is moving a cursor forward.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index + offset >= 0",
+    "rationale" : "The sum is likely intended to be a valid array/string index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index + offset <= text.length()",
+    "rationale" : "To ensure index + offset is within the bounds of the text field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < text.length()",
+    "rationale" : "It is typical to require index to be within the string's bounds.",
+    "meta" : [ ]
+  } ]
+}

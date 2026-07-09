@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Average size estimate should be non-negative since it is based on file and record sizes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() || (!commitTimeline.empty() && commitTimeline.getReverseOrderedInstants().iterator().hasNext())",
+    "rationale" : "If the timeline is empty or an error occurs, the default estimate is returned; else, possibly updated from commit metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getParquetSmallFileLimit()",
+    "rationale" : "Average record size should not exceed the configured small file limit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "hoodieWriteConfig is dereferenced, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitTimeline != null",
+    "rationale" : "commitTimeline is dereferenced, so it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

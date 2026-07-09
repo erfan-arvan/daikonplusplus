@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(offsetX)",
+    "rationale" : "Offsets should generally be finite (not NaN or infinity) in tile maps.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(offsetX))",
+    "rationale" : "NaN offset values are likely not meaningful in tiled map tiles.",
+    "meta" : [ ]
+  }, {
+    "expression" : "offsetX >= -Float.MAX_VALUE",
+    "rationale" : "offsetX is a float, and storing values less than -Float.MAX_VALUE may not be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "offsetX <= Float.MAX_VALUE",
+    "rationale" : "offsetX should not exceed maximum float value.",
+    "meta" : [ ]
+  } ]
+}

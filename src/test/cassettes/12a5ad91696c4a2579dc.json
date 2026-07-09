@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method always throws and never returns normally, so 'result' is never assigned; the only valid scenario for this program point is unreachable code, so result must be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true == false",
+    "rationale" : "The method implementation always throws an exception; thus, this method's exit is not reachable by any normal means.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is required and is expected to be non-null at method entry and exit if reached.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is provided as a parameter and is assumed to be non-null at method entry and exit.",
+    "meta" : [ ]
+  } ]
+}

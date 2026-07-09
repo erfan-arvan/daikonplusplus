@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns result from IOUtils.runMerge, which should not be null in normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null && !keyToNewRecords.isEmpty()",
+    "rationale" : "An update handle requires records to update; likely, keyToNewRecords is non-null and not empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime identifies the commit instant; should always be set for update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "fileId must reference a concrete file to be updated.",
+    "meta" : [ ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "Update operations should reference an existing data file.",
+    "meta" : [ ]
+  } ]
+}

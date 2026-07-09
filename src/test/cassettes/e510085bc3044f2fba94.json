@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is dereferenced immediately in the method and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to methods expecting a non-null commit instant string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is provided as an argument and used for upserts, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecordInputs.isEmpty() || preppedRecordInputs.size() == 0",
+    "rationale" : "Either the list contains records or its size is zero; this characterizes possible states for the input list.",
+    "meta" : [ ]
+  } ]
+}

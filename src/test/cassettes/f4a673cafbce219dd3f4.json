@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieMergeHandle, so the result should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should be set when creating a merge handle.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "File ID should be set when creating a merge handle.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The iterator of records passed to create the handle should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.getPartitionPath().equals(partitionPath)",
+    "rationale" : "The returned HoodieMergeHandle should correspond to the given partition path.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is used to construct the CleanActionExecutor and must be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "cleanInstantTime is passed into the CleanActionExecutor and likely required for identifying the cleaning operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!cleanInstantTime.isEmpty()",
+    "rationale" : "cleanInstantTime should represent a valid instant time string, which is likely non-empty.",
+    "meta" : [ ]
+  } ]
+}

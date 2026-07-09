@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option.of and Option.empty both return non-null Option objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The method cannot be called with a null HoodieWriteConfig argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == true ? result.isEmpty() : result.isPresent()",
+    "rationale" : "If config.populateMetaFields() is true, result should be Option.empty(), otherwise it should be Option.of(...), hence present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() ==> !config.populateMetaFields()",
+    "rationale" : "If result contains a value, it means populateMetaFields was false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() ==> config.populateMetaFields()",
+    "rationale" : "If result is empty, it was due to populateMetaFields returning true.",
+    "meta" : [ ]
+  } ]
+}

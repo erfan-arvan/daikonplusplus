@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "tree != null",
+    "rationale" : "tree is used as a receiver for removeActorAt, so it must be non-null to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorIndex >= 0",
+    "rationale" : "actorIndex is likely used as an index into an array or list; negative indices are typically invalid.",
+    "meta" : [ ]
+  } ]
+}

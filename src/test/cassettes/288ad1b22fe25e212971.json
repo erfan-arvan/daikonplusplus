@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result > 0",
+    "rationale" : "The average number of bytes per record should always be positive, since record size estimates and thresholds are based on file/record sizes which should not be negative or zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate()",
+    "rationale" : "If no valid recent commits are found, avgSize (and thus result) defaults to getCopyOnWriteRecordSizeEstimate(). Otherwise, it might be greater but not less.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getParquetSmallFileLimit()",
+    "rationale" : "The method will not set avgSize above Parquet small file limit, since record size estimation is designed to prevent exceeding file size limits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitTimeline != null",
+    "rationale" : "The timeline is always used, so it cannot be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "Configuration must be non-null to access its properties; used throughout the method.",
+    "meta" : [ ]
+  } ]
+}

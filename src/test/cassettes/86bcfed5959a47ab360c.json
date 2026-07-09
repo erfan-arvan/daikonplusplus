@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "font.draw returns a GlyphLayout object, which should not be null on success.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "font is dereferenced to call draw, so must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch is passed to font.draw and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.width >= 0",
+    "rationale" : "GlyphLayout.width represents the width of rendered text and should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0",
+    "rationale" : "Drawing methods typically interpret width as a non-negative constraint for layout.",
+    "meta" : [ ]
+  } ]
+}

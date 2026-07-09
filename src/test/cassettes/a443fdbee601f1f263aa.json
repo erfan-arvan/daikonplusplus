@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns an Option, which should never be null itself.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "The schedule index operation requires a non-null instant time string.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "Partitions list to index should not be null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Partition paths list should not be null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "!result.isPresent() || (result.get() != null)",
+    "rationale" : "If the Option contains a value, that value should not be null.",
+    "meta" : [ {
+      "key" : "guarded",
+      "value" : "valid Option contents"
+    } ]
+  } ]
+}

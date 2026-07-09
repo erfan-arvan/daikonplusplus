@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new Drawable instance and throws an exception otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable != null",
+    "rationale" : "The method attempts to access fields/methods on drawable, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != drawable",
+    "rationale" : "The returned Drawable is a tinted copy, not the original input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Drawable",
+    "rationale" : "A Drawable instance is always returned according to the method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tint != null",
+    "rationale" : "The tint parameter is used in multiple places and the method would fail if it were null.",
+    "meta" : [ ]
+  } ]
+}

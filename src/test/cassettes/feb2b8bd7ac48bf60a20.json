@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object and typically should not return null unless there is an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "A valid HoodieWriteMetadata should have a non-null WriteStatus list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The returned object should be an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The write statuses inside HoodieWriteMetadata should be a List, as expected by the generic parameter.",
+    "meta" : [ ]
+  } ]
+}

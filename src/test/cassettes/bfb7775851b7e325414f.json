@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata; null is unexpected and may indicate errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The parameter should be a non-null list; nulls typically would cause a failure earlier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid instantTime should be non-null and non-empty to perform write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() should provide a valid List as part of the metadata contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The number of WriteStatus objects must be zero or more; negative size is impossible.",
+    "meta" : [ ]
+  } ]
+}

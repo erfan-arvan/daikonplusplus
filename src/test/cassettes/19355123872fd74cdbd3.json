@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "deletePrepped always returns a non-null HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "List of records to delete is expected to be provided and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instant time is a required operation identifier, so should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "An engine context object is necessary for execution and thus should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The metadata must include write statuses, hence getWriteStatuses() should not be null.",
+    "meta" : [ ]
+  } ]
+}

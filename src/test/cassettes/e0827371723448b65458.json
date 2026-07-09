@@ -1,31 +1,31 @@
 {
   "invariants" : [ {
-    "expression" : "(name == null && result == -1) || (name != null && result >= x)",
-    "rationale" : "If name is null, the method returns -1; otherwise, result is x + name.length(), with length >= 0.",
-    "meta" : [ {
-      "key" : "hint",
-      "value" : "result is either -1 if name is null or at least x + 0 (name length non-negative)"
-    } ]
-  }, {
-    "expression" : "name != null || result == -1",
-    "rationale" : "If name is null, result is -1; else name is non-null.",
+    "expression" : "(name == null && result == -1)",
+    "rationale" : "If name is null, method returns -1, so result must be -1.",
     "meta" : [ {
       "key" : "nullCheck",
-      "value" : "result signalizes null name with -1"
+      "value" : "guards result when name is null"
     } ]
   }, {
-    "expression" : "name != null && result == x + name.length()",
-    "rationale" : "Method returns x + name.length() when name is not null.",
+    "expression" : "(name != null && result == x + name.length())",
+    "rationale" : "If name is not null, result is sum of x and length of name.",
     "meta" : [ {
-      "key" : "definition",
-      "value" : "Result equals x plus length of name when name is not null."
+      "key" : "resultDefinition",
+      "value" : "exact calculation of result when name is not null"
     } ]
   }, {
-    "expression" : "result >= -1",
-    "rationale" : "Method either returns -1 or a sum of non-negative length and x.",
+    "expression" : "(result >= -1)",
+    "rationale" : "Result is either -1 or sum of x and name length; sum cannot be less than -1 since name.length() >= 0.",
     "meta" : [ {
       "key" : "range",
-      "value" : "result can't be less than -1."
+      "value" : "result lower bound due to method logic"
+    } ]
+  }, {
+    "expression" : "(name == null || result >= x)",
+    "rationale" : "Because name.length() >= 0, result must be at least x if name is not null.",
+    "meta" : [ {
+      "key" : "rangeRelation",
+      "value" : "result compared to x when name not null"
     } ]
   } ]
 }

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns result of .execute(); expected to be non-null in typical Hoodie semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is provided as parameter for rollback operation and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant is passed to rollback logic and typically expected to be non-null for rollback to occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required engine context parameter and must be non-null for operation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a list of records to be bulk inserted, so it is likely this parameter is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime identifies the commit instant for the operation; it would not make sense for it to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid execution context is required and is not expected to be null when this API is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A Java List's size() is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "An Option object representing the BulkInsertPartitioner parameter should be non-null, even if it represents an empty value.",
+    "meta" : [ ]
+  } ]
+}

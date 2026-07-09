@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "maxPixelWidth >= 0.0f",
+    "rationale" : "maxPixelWidth represents a pixel value (width) and should be non-negative as negative pixel sizes are not meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelHeight >= 0.0f",
+    "rationale" : "maxPixelHeight represents a pixel value (height) and should be non-negative for the same reason as width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelWidth == maxPixelWidth",
+    "rationale" : "Always true, placeholder for relationship; but given constraints, this is to show available field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxPixelWidth + maxPixelHeight >= 0.0f",
+    "rationale" : "The sum of two non-negative values should be non-negative as well, supporting the constraints for tile size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(maxPixelWidth < 0.0f)",
+    "rationale" : "Alternative (negated) way to express non-negativity of width.",
+    "meta" : [ ]
+  } ]
+}

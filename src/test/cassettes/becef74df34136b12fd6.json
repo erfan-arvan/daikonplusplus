@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "writeResult is supplied by the caller and required for method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() method is called on writeResult without prior null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(status -> status != null)",
+    "rationale" : "The subsequent code assumes each WriteStatus in getWriteStatuses() is non-null.",
+    "meta" : [ ]
+  } ]
+}

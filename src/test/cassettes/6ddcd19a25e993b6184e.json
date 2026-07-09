@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method immediately calls element.getName() and element.getAttribute(), which require element to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tideFile != null",
+    "rationale" : "The method uses tideFile in getRelativeFileHandle and to resolve paths, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "The method calls imageResolver.getImage(), so imageResolver must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "The method accesses map.getTileSets(), so map must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getName() != null",
+    "rationale" : "The method uses element.getName().equals(\"TileSheet\"), so getName() must not return null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "region != null",
+    "rationale" : "Ensures the region being set is not null, which may be required for safe method execution.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "region.isFlipX() == false",
+    "rationale" : "The region should not be flipped in the X-direction in some usage scenarios.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "flip"
+    } ]
+  }, {
+    "expression" : "region.isFlipY() == false",
+    "rationale" : "The region should not be flipped in the Y-direction in some usage scenarios.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "flip"
+    } ]
+  }, {
+    "expression" : "region.getRegionWidth() > 0",
+    "rationale" : "A valid region should have a positive width.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "geometry"
+    } ]
+  }, {
+    "expression" : "region.getRegionHeight() > 0",
+    "rationale" : "A valid region should have a positive height.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "geometry"
+    } ]
+  } ]
+}

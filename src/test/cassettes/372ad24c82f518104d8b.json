@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "props != null",
+    "rationale" : "Key generator creation likely requires non-null properties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props.getClass() == TypedProperties.class || TypedProperties.class.isAssignableFrom(props.getClass())",
+    "rationale" : "Props should be of type TypedProperties or a subtype, as required by the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!props.isEmpty()",
+    "rationale" : "Creating a key generator may require that the property set is not empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props.size() >= 0",
+    "rationale" : "The size of properties should never be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props.containsKey(\"hoodie.datasource.write.recordkey.field\")",
+    "rationale" : "A standard config option for key generation is usually required.",
+    "meta" : [ ]
+  } ]
+}

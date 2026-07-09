@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is dereferenced in method calls, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to external methods, which typically expect a valid String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The method dereferences preppedRecordInputs, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.isCommitted(instantTime)",
+    "rationale" : "After committing, it is expected that the instantTime is marked as committed in writeClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.get(0) instanceof HoodieRecord",
+    "rationale" : "If preppedRecordInputs is not empty, its elements should be of type HoodieRecord, consistent with the method contract.",
+    "meta" : [ ]
+  } ]
+}

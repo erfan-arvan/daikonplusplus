@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "expanded == false || (getTree() == null || (this.children != null && this.children.items != null))",
+    "rationale" : "If expanded, getTree() must be non-null or children/items must be non-null since they are accessed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!expanded || getTree() != null",
+    "rationale" : "If expanded is true, getTree() must be non-null since it's used in the body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!expanded || this.children != null",
+    "rationale" : "If expanded is true, children is used, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != null",
+    "rationale" : "actor is dereferenced, so it must be non-null before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.children.size >= 0",
+    "rationale" : "Array/collection size is typically non-negative.",
+    "meta" : [ ]
+  } ]
+}

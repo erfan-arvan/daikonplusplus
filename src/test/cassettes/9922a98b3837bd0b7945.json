@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "element is accessed by getString and passed to downstream methods, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.has(\"type\") || element.getString(\"type\", \"\").equals(\"\")",
+    "rationale" : "The code fetches element.getString(\"type\", \"\") which returns the empty string if the property is absent.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type.equals(\"group\") || type.equals(\"tilelayer\") || type.equals(\"objectgroup\") || type.equals(\"imagelayer\") || type.equals(\"\")",
+    "rationale" : "type is fetched from element and determines which branch is taken; possible values are the handled cases or empty string (default).",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is passed to all downstream methods and likely must be non-null for them to work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "map is consistently passed to downstream methods, indicating it cannot be null.",
+    "meta" : [ ]
+  } ]
+}

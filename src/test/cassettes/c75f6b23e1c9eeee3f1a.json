@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method operates on a TiledMap instance and accesses methods on map, so map should be non-null on entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects != null",
+    "rationale" : "The method adds to objects, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The method accesses methods and fields of element, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "heightInPixels >= 0",
+    "rationale" : "heightInPixels represents a size in pixels, which is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects.size() >= 0",
+    "rationale" : "The size of a collection in Java is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

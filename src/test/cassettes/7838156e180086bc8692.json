@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a HoodieEngineContext to perform delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter is typically a non-null, non-empty string representing a commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method operates on a list of HoodieKeys to delete; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys == null || !keys.isEmpty()",
+    "rationale" : "A delete operation likely expects at least one key; otherwise, the operation is a no-op.",
+    "meta" : [ ]
+  } ]
+}

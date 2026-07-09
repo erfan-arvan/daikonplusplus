@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Dereferencing layer via layer.getObjects() requires non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "The for-each loop on layer.getObjects() implies it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects().size() >= 0",
+    "rationale" : "Collection size should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isVisible()",
+    "rationale" : "Rendering is typically performed only for visible layers.",
+    "meta" : [ ]
+  } ]
+}

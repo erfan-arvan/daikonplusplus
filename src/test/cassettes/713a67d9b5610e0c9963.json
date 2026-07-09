@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The key parameter should not be null for Map lookups to avoid potential NullPointerException, unless 'properties' allows null keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key.length() >= 0",
+    "rationale" : "String.length() is always non-negative for any String value, including the empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key.isEmpty() || !key.isEmpty()",
+    "rationale" : "A String is either empty or not; included for completeness, though not informative.",
+    "meta" : [ ]
+  } ]
+}

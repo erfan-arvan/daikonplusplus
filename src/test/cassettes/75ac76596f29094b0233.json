@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is generally positive and probably used for parallel data processing.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "partitionFilePathAndSizeTriplet != null && !partitionFilePathAndSizeTriplet.isEmpty()",
+    "rationale" : "The list of partition-file information should be non-empty for meaningful index record generation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection-content"
+    } ]
+  }, {
+    "expression" : "tableSchema != null",
+    "rationale" : "A schema is likely required for record processing or validation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "schema-validation"
+    } ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "An index definition is typically necessary to generate index records.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "configuration"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime usually encodes a commit or transactional instant and should not be null or empty.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "temporal"
+    } ]
+  } ]
+}

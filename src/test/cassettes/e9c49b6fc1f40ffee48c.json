@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method is expected to always return a HoodieTable instance, and the implementation calls another method that constructs the table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration parameter is required to create a HoodieTable and should not be null at exit.",
+    "meta" : [ ]
+  } ]
+}

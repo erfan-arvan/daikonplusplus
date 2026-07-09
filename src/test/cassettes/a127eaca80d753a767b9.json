@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "this.blendMode == blendMode",
+    "rationale" : "After the method, the object's blendMode field should be equal to the blendMode parameter value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.blendMode != null || blendMode == null",
+    "rationale" : "If the object's blendMode field is non-null, then the parameter blendMode cannot have been null (since assignment just occurred).",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.blendMode == null == (blendMode == null)",
+    "rationale" : "The nullness state of the object's blendMode field matches that of the parameter.",
+    "meta" : [ ]
+  } ]
+}

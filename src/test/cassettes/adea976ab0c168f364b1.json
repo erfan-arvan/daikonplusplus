@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns HoodieListData.eager(data), which should not return null, so result is not null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieData<?>",
+    "rationale" : "Result is of type HoodieData as per method signature and wrapping.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter is expected to be positive for parallelize method.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "parallelism_positive"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Input parameter data should not be null to generate HoodieData.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.getClass() == HoodieListData.class",
+    "rationale" : "Method returns HoodieListData.eager(data), so result is exactly of HoodieListData type.",
+    "meta" : [ {
+      "key" : "type_identity",
+      "value" : "true"
+    } ]
+  } ]
+}

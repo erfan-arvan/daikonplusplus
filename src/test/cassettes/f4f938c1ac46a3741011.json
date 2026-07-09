@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "cell == null || cell instanceof Cell",
+    "rationale" : "The parameter cell is either null or a valid instance of Cell; the null check precedes use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cell == null || cell != this",
+    "rationale" : "It is generally expected that a merge operation does not merge a Cell into itself; otherwise, field overwrites may be redundant or error-prone.",
+    "meta" : [ ]
+  } ]
+}

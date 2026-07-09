@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "getName() == null || getName() instanceof String",
+    "rationale" : "Since the method assigns getName() to a String and checks for null, it must be null or a String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getClass() != null",
+    "rationale" : "It is guaranteed that getClass() will return the runtime class of the object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getClass().getName() != null",
+    "rationale" : "getClass().getName() should always return a non-null string representing the class name.",
+    "meta" : [ ]
+  } ]
+}

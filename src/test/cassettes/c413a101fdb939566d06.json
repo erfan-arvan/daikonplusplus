@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a non-null List of WriteStatus objects as the result of the delete operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method contract likely expects that the input list of HoodieKey is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is expected to be non-null, as it is passed into preWrite and table.delete without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result should be a List, as defined by the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(ws -> ws != null)",
+    "rationale" : "The result list should not contain null WriteStatus objects, ensuring data integrity.",
+    "meta" : [ ]
+  } ]
+}

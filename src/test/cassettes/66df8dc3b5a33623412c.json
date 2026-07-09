@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of 'scheduleLogCompactionExecutor.execute()', which by convention for Option<T> is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Compaction and scheduling require a valid non-empty instant time identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option parameters are typically never null, per idiomatic usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is required for compaction operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "For Option<T>, isPresent() status partitions all possible states. This serves as a completeness check.",
+    "meta" : [ ]
+  } ]
+}

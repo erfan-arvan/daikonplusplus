@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned Option<HoodieClusteringPlan> should not be null, as per Option contract.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "return-value"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Clustering actions typically require a non-null, non-empty instantTime identifier.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-validity"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option should not be null (by contract), making this a safe assumption.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-validity"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context must not be null to perform clustering actions.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-validity"
+    } ]
+  }, {
+    "expression" : "result.isPresent() == (result.get() != null)",
+    "rationale" : "Option.isPresent() should be true if and only if Option.get() returns a non-null value.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "option-contract"
+    } ]
+  } ]
+}

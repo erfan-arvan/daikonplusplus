@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method calls stream() on dedupedRecords, which assumes it is non-null.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Ensures list is not null for stream operations"
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner must be non-null because its getPartition method is called inside the method.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Method calls partitioner.getPartition(...)"
+    } ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Each element of dedupedRecords is mapped, so all elements must be non-null.",
+    "meta" : [ {
+      "key" : "structure",
+      "value" : "No record is null inside dedupedRecords"
+    } ]
+  }, {
+    "expression" : "dedupedRecords.isEmpty() || dedupedRecords.size() > 0",
+    "rationale" : "The size of a List is always non-negative, but this guards against impossible negative sizes.",
+    "meta" : [ {
+      "key" : "sanity",
+      "value" : "List is either empty or has positive size"
+    } ]
+  } ]
+}

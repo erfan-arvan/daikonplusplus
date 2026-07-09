@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "offsetY >= Float.NEGATIVE_INFINITY",
+    "rationale" : "All float values are greater than or equal to Float.NEGATIVE_INFINITY.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "numeric-lower-bound"
+    } ]
+  }, {
+    "expression" : "offsetY <= Float.POSITIVE_INFINITY",
+    "rationale" : "All float values are less than or equal to Float.POSITIVE_INFINITY.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "numeric-upper-bound"
+    } ]
+  }, {
+    "expression" : "!(Float.isNaN(offsetY) && Float.isInfinite(offsetY))",
+    "rationale" : "A float value cannot be both NaN and infinite at the same time.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "sanity-check"
+    } ]
+  }, {
+    "expression" : "Float.isFinite(offsetY) || Float.isNaN(offsetY)",
+    "rationale" : "A float is either finite, infinite, or NaN; if it is not infinite, it must be finite or NaN.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "float-property"
+    } ]
+  }, {
+    "expression" : "offsetY == offsetY",
+    "rationale" : "This checks that offsetY is not NaN, as NaN is not equal to itself.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "float-sanity"
+    } ]
+  } ]
+}

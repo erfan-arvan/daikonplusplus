@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= getMinHeight()",
+    "rationale" : "The method returns at least getMinHeight(), as result is computed using Math.max(getMinHeight(), ...) at the final return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "Since getMinHeight(), v, and paddings are all likely non-negative, and result is a max over getMinHeight() and a sum of non-negative terms, result is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= v + padTop.get(this) + padBottom.get(this)",
+    "rationale" : "Since result is Math.max(getMinHeight(), v + padTop.get(this) + padBottom.get(this)), it is always at least as large as v plus the paddings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Math.max(getMinHeight(), v + padTop.get(this) + padBottom.get(this))",
+    "rationale" : "This exactly describes the returned value as implemented in the return statement.",
+    "meta" : [ ]
+  } ]
+}

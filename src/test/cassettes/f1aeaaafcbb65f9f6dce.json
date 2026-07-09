@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "element == null || element.getName().equals(\"properties\")",
+    "rationale" : "Either the method returned early because element is null, or we processed only when the name is 'properties'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || properties != null",
+    "rationale" : "If element is null, the method returns early; otherwise, properties is used and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || element.getChildrenByName(\"property\") != null",
+    "rationale" : "If element is not null and processed, getChildrenByName('property') must not be null for iteration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || element.getName() == null || element.getName().equals(\"properties\")",
+    "rationale" : "If element is not null, and has a name, it must be 'properties', else the body does nothing.",
+    "meta" : [ ]
+  } ]
+}

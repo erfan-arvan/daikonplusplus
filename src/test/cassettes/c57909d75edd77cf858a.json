@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "Command line arguments array is typically non-null and can be empty.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "args array is never null and can have zero or more elements"
+    } ]
+  }, {
+    "expression" : "args.length == 0 || args.length > 0",
+    "rationale" : "Ensures args length property is defined and non-negative.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "args.length is a non-negative integer"
+    } ]
+  }, {
+    "expression" : "java.util.Objects.nonNull(args)",
+    "rationale" : "args should not be null at method exit.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Standard null check on the args array"
+    } ]
+  } ]
+}

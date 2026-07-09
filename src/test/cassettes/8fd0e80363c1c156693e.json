@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == price * 0.9",
+    "rationale" : "The returned value is always 90% of the input price per implementation and documentation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= price",
+    "rationale" : "A 10% discount ensures the result is always less than or equal to the original price.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "Given that price is likely non-negative for an order, and the implementation applies a positive multiplier, the result cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "price == 0.0 || result < price",
+    "rationale" : "If the price is nonzero, the result must be strictly less than the price; if zero, both are zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result / price == 0.9",
+    "rationale" : "The ratio of result to price should always be exactly 0.9 due to the 10% discount.",
+    "meta" : [ ]
+  } ]
+}

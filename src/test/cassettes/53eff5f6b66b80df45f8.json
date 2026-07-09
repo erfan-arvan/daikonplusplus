@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method accesses profile through its methods (getPartitionPaths, getWorkloadStat, etc.), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is used as a required argument in getSmallFilesForPartitions, implying it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "The method iterates over profile.getPartitionPaths(), which implies it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths().size() >= 0",
+    "rationale" : "The size of a Set in Java is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "hasOutputWorkLoadStats should be consistent with whether getOutputPartitionPathStatMap returns a non-null map.",
+    "meta" : [ ]
+  } ]
+}

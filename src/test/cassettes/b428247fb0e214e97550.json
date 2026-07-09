@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Bucket numbers are typically non-negative indices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber < totalBuckets",
+    "rationale" : "There should not be more buckets than totalBuckets; bucketNumber must be a valid index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "bucketInfoMap must be initialized for lookups.",
+    "meta" : [ ]
+  }, {
+    "expression" : "totalBuckets > 0",
+    "rationale" : "The partitioner should have at least one bucket.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "HoodieWriteConfig config should be initialized for a functional partitioner.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "Minimum size values are typically not negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Minimum height for UI elements is generally non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(width)",
+    "rationale" : "Width parameter should be a finite float, not Infinity or NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(height)",
+    "rationale" : "Height parameter should be a finite float, not Infinity or NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width <= Float.MAX_VALUE && width >= -Float.MAX_VALUE",
+    "rationale" : "Width is within valid float range.",
+    "meta" : [ ]
+  } ]
+}

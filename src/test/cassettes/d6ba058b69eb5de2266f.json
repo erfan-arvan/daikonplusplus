@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null map via Collectors.toMap, which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method invokes data.stream(), so if data were null a NullPointerException would occur; thus, data is non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The function is passed into a wrapper and then used for mapping, requiring it to be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "At most one entry per pair generated from each element in data; duplicate keys would overwrite prior values, but never increase result size over input.",
+    "meta" : [ ]
+  } ]
+}

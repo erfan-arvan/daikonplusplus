@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "false",
+    "rationale" : "Method always throws UnsupportedOperationException and cannot complete normally.",
+    "meta" : [ {
+      "key" : "exception",
+      "value" : "UnsupportedOperationException"
+    } ]
+  }, {
+    "expression" : "writeClient != null",
+    "rationale" : "Method does not dereference writeClient, but it's usually required to be non-null in most contexts.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "writeClient"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is typically a required parameter in commit operations and should not be null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "List parameters are usually non-null unless specified, especially when passed to write operations.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "preppedRecordInputs"
+    } ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "List parameters should be non-null unless documentation permits null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "fileGroupsIdsToUpdate"
+    } ]
+  } ]
+}

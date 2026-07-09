@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is generated via collectAsList(), which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The method dereferences table multiple times.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method passes context to other methods which will likely require it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "dedupedRecords is passed to HoodieListData.eager and likely can't be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == table.getIndex().tagLocation(HoodieListData.eager(dedupedRecords), context, table).collectAsList().size()",
+    "rationale" : "result is always the returned value from this collectAsList() call.",
+    "meta" : [ ]
+  } ]
+}

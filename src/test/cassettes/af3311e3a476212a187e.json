@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The execute method returns the result of super.execute, which should be non-null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The return type is declared as HoodieWriteMetadata<List<WriteStatus>>, so the result is an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

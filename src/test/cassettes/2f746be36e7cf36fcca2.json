@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method expects a non-null list of HoodieRecords as input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The commit instant time should be a valid, non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "A valid HoodieTable instance is required to perform the bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "A non-null HoodieWriteConfig is necessary for configuration during the insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "A valid executor is necessary to execute commit actions.",
+    "meta" : [ ]
+  } ]
+}

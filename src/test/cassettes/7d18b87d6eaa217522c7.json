@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs and returns a new HoodieWriteMetadata instance, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Before returning, setWriteStatuses is called with a HoodieListData object, so getWriteStatuses() cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "The method directly dereferences clusteringPlan, so at method exit it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is a parameter, and would likely result in NullPointerException if null was passed; the code expects it non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to methods without null checking, so at this point it cannot be null without error.",
+    "meta" : [ ]
+  } ]
+}

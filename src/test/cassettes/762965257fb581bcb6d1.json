@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is dereferenced for method calls, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to writeClient methods and likely represents a commit/time instant, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed as an argument to writeClient.upsertPreppedRecords and must not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.get(0) instanceof HoodieRecord",
+    "rationale" : "If preppedRecordInputs is not empty, its elements should conform to the expected type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty string for commit semantics.",
+    "meta" : [ ]
+  } ]
+}

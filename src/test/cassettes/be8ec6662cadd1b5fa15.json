@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of SortUtils.getComparableSortColumns, which is expected to not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "record != null",
+    "rationale" : "The record parameter is passed to SortUtils.getComparableSortColumns without any null check or defensive handling, suggesting it is required and not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A list's size() is always non-negative by the contract of List interface.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == SortUtils.getComparableSortColumns(record, sortColumnNames, schema, suffixRecordKey, consistentLogicalTimestampEnabled).size()",
+    "rationale" : "The returned result is exactly the value that would be computed by SortUtils.getComparableSortColumns, so sizes are identical.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(SortUtils.getComparableSortColumns(record, sortColumnNames, schema, suffixRecordKey, consistentLogicalTimestampEnabled))",
+    "rationale" : "Since the method always returns the direct result of SortUtils.getComparableSortColumns with fixed arguments, this equality must hold.",
+    "meta" : [ ]
+  } ]
+}

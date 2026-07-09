@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Because the method always returns a new instance via HoodieListData.eager, result will never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "emptyHoodieData returns HoodieListData.eager(Collections.emptyList()), which must be empty.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method uses map unconditionally, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is used in parentLayers.add(layer), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is dereferenced in element.getName(), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is passed to getRelativeFileHandle and used to resolve image files; it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is used in imageResolver.getImage, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

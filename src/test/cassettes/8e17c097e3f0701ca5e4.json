@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Option object, which should never be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Ensures the result option is never null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is expected to be non-null for rollback timing.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "There is likely no rollback without a valid instant to rollback to.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "!(skipTimelinePublish && isRestore)",
+    "rationale" : "It is unlikely the flags skipTimelinePublish and isRestore would both be true at method exit for a valid rollback plan.",
+    "meta" : [ {
+      "key" : "logical",
+      "value" : "avoid conflicting flags"
+    } ]
+  }, {
+    "expression" : "!result.isEmpty() || (skipTimelinePublish || shouldRollbackUsingMarkers || isRestore)",
+    "rationale" : "If result is empty, some flags might determine no rollback plan is generated.",
+    "meta" : [ {
+      "key" : "logical",
+      "value" : "logical disjunction"
+    } ]
+  } ]
+}

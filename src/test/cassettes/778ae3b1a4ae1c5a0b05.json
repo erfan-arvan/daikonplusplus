@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "w >= 0",
+    "rationale" : "Widths for rectangles are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "h >= 0",
+    "rationale" : "Heights for rectangles are expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "color != null",
+    "rationale" : "Color is assigned to rect.color, which likely requires non-null to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "w != 0",
+    "rationale" : "Width of a rectangle being zero would make it degenerate, so may not be typical in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "h != 0",
+    "rationale" : "Height being zero would similarly make the debug rect degenerate.",
+    "meta" : [ ]
+  } ]
+}

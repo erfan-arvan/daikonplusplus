@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "String concatenation uses 'name', so null may cause undesired output or NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type != null",
+    "rationale" : "String concatenation uses 'type', so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "propertyType != null",
+    "rationale" : "String concatenation uses 'propertyType', so null may be problematic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "defaultValue != null || defaultValue == null",
+    "rationale" : "defaultValue may be null but its string representation is used, so code should handle both cases.",
+    "meta" : [ ]
+  } ]
+}

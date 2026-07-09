@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method expects a non-null config to operate correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for creating the table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "Base path is typically required to initialize the HoodieTableMetaClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getConsistencyGuardConfig() != null",
+    "rationale" : "A consistency guard config is needed to configure table meta client safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTimeGeneratorConfig() != null",
+    "rationale" : "Time generator config is needed for client initialization.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Ensures the input list of WriteStatus is not null before method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Ensures the HoodieWriteMetadata result object is not null and is safe to interact with.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.isEmpty() || writeStatuses.get(0) != null",
+    "rationale" : "If the list is non-empty, the first element should not be null, which is a typical property of lists of concrete status objects.",
+    "meta" : [ ]
+  } ]
+}

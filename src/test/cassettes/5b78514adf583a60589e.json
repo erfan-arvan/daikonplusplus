@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method never returns null; it unconditionally returns a lambda instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() == 0L",
+    "rationale" : "The lambda returned always returns 0L, so calling get() yields 0L.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an iterator, so the result should never be null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "result is not null at return"
+    } ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is a String parameter passed to the method and likely required for correct operation.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "idPfx is a method parameter"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is an input iterator that must be non-null to produce the result.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "recordItr is a method parameter"
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The returned result should be an Iterator of List of WriteStatus.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "result is an Iterator<List<WriteStatus>>"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "'style' is accessed via 'style.handle', so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.handle != null",
+    "rationale" : "The method accesses 'style.handle', so this field must also be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getHeight() >= 0",
+    "rationale" : "Height is commonly non-negative in UI components.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getWidth() >= 0",
+    "rationale" : "Width is typically non-negative, especially in layout calculations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.handle.getMinWidth() >= 0",
+    "rationale" : "'getMinWidth()' for a UI Drawable is expected to be non-negative to avoid layout errors.",
+    "meta" : [ ]
+  } ]
+}

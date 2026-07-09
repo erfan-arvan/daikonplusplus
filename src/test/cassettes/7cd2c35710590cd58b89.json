@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of postWrite, which should not return null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is required as input and must be non-null for the operation to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is crucial for versioning and write operations, and should not be null at the exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method returns a List<WriteStatus> as specified in the signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "records is expected to be a List<HoodieRecord<T>> throughout.",
+    "meta" : [ ]
+  } ]
+}

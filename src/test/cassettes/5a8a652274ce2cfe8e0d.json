@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null JsonValue, as both early returns and the main path return valid objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isObject()",
+    "rationale" : "The returned JsonValue is created as a new object type or is an existing object (parentObject or templateObject).",
+    "meta" : [ ]
+  }, {
+    "expression" : "templateObject == null || parentObject == null || result != templateObject",
+    "rationale" : "If both inputs are non-null, result is a new merged object, not templateObject.",
+    "meta" : [ ]
+  }, {
+    "expression" : "templateObject == null || parentObject == null || result != parentObject",
+    "rationale" : "If both inputs are non-null, result is a new object, not parentObject.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(templateObject == null && result == parentObject) || (parentObject == null && result == templateObject) || (templateObject != null && parentObject != null && result != templateObject && result != parentObject)",
+    "rationale" : "Result equals one input if the other is null, otherwise it's a distinct merged object.",
+    "meta" : [ ]
+  } ]
+}

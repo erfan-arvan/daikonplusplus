@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null && !idPfx.isEmpty()",
+    "rationale" : "The method likely depends on a valid prefix string for record handling.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "idPfx is expected to be a non-empty string identifier prefix."
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "To safely call recordItr.hasNext(), recordItr must not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method parameter recordItr must not be null to invoke hasNext() safely."
+    } ]
+  }, {
+    "expression" : "recordItr instanceof Iterator",
+    "rationale" : "Declared type implies recordItr is an iterator instance.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "recordItr should implement Iterator interface as per its declared type."
+    } ]
+  } ]
+}

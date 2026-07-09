@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a constant enum HoodieRecord.HoodieRecordType.AVRO, so result is always non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always returns a non-null enum constant"
+    } ]
+  }, {
+    "expression" : "result == HoodieRecord.HoodieRecordType.AVRO",
+    "rationale" : "The method body directly returns HoodieRecord.HoodieRecordType.AVRO.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always returns this specific enum value"
+    } ]
+  } ]
+}

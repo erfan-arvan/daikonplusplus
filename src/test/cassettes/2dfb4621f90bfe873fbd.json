@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null && table != null && config != null && executor != null && instantTime != null && userDefinedBulkInsertPartitioner != null && !instantTime.isEmpty()",
+    "rationale" : "At method entry, parameters are usually non-null to proceed with bulk insert.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "Checking that all objects are non-null at method entry"
+    } ]
+  }, {
+    "expression" : "performDedupe == true || performDedupe == false",
+    "rationale" : "Boolean parameter is either true or false.",
+    "meta" : [ {
+      "key" : "boolean-validity",
+      "value" : "performDedupe is a boolean, must hold true or false"
+    } ]
+  }, {
+    "expression" : "table.getActiveTimeline() != null",
+    "rationale" : "The method uses getActiveTimeline() later, so it should be non-null.",
+    "meta" : [ {
+      "key" : "object-state",
+      "value" : "table.getActiveTimeline() should not be null"
+    } ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner.isPresent() || !userDefinedBulkInsertPartitioner.isPresent()",
+    "rationale" : "Option must be either present or empty.",
+    "meta" : [ {
+      "key" : "option-validity",
+      "value" : "Option is either present or not"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should have a valid string, non-empty.",
+    "meta" : [ {
+      "key" : "string-validity",
+      "value" : "instantTime has positive length"
+    } ]
+  } ]
+}

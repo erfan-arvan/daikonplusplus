@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result instanceof Color",
+    "rationale" : "Since the method is annotated with @Null, the result may be null or a Color, but never an object of different type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == style.disabledFontColor || result == style.checkedDownFontColor || result == style.downFontColor || result == style.checkedOverFontColor || result == style.overFontColor || result == style.checkedFocusedFontColor || result == style.checkedFontColor || result == style.focusedFontColor || result == style.fontColor",
+    "rationale" : "The result is always one of the Color fields from the style object as selected by the control flow.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new instance, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof com.badlogic.gdx.scenes.scene2d.ui.TextAreaListener",
+    "rationale" : "The method unconditionally returns a new TextAreaListener, so the result must be of that type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof com.badlogic.gdx.scenes.scene2d.InputListener",
+    "rationale" : "TextAreaListener presumably implements/extends InputListener, so this check should always hold.",
+    "meta" : [ ]
+  } ]
+}

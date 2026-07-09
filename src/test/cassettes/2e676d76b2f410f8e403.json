@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata object constructed via execute(); by design, this should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects non-null input records as a precondition, and forwards them.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The operation refers to an instant time for the commit; it is expected to be provided and non-null.",
+    "meta" : [ ]
+  } ]
+}

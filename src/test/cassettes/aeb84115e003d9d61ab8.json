@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "It is highly likely that the method returns a non-null HoodieWriteMetadata, as this is standard behavior for write/commit action methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || result.getClass().getSuperclass() == HoodieWriteMetadata.class",
+    "rationale" : "The object returned is expected to be of type HoodieWriteMetadata or its subclass.",
+    "meta" : [ ]
+  } ]
+}

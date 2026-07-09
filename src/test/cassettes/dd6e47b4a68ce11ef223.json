@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is a required parameter for table actions, expected not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "compactionInstantTime should be a valid instant identifier string, not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!compactionInstantTime.isEmpty()",
+    "rationale" : "compaction action expects a non-empty instant time string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context should be an instance of HoodieEngineContext for proper operation.",
+    "meta" : [ ]
+  } ]
+}

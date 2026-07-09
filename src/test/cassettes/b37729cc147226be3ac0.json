@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an object produced by 'execute()', so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method passes preppedRecords to another executor without null-safety checks, implying it is non-null at this program point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is directly passed to a constructor that likely requires a valid timestamp, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is downcast and used immediately, so it must not be null at this point.",
+    "meta" : [ ]
+  } ]
+}

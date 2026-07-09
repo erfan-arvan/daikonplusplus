@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a new instance, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof BaseHoodieWriteClient",
+    "rationale" : "Return value is created as a subclass of BaseHoodieWriteClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Parameter 'context' is required to create the write client and is used directly in object construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Parameter 'config' is required to create the write client and is used directly in object construction.",
+    "meta" : [ ]
+  } ]
+}

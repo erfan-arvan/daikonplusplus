@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The method always returns Option.empty(), which is always empty.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Option.empty() never returns null; it returns a non-null Option instance.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "prop != null",
+    "rationale" : "Method would typically require a non-null property argument.",
+    "meta" : [ {
+      "key" : "contextual",
+      "value" : "param_usage"
+    } ]
+  } ]
+}

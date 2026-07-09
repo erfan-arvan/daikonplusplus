@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rotation >= 0",
+    "rationale" : "Rotation typically should not be negative since it represents increments of 90 degrees.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation <= 3",
+    "rationale" : "There are usually four rotation states: 0, 1, 2, 3 for 0, 90, 180, 270 degrees respectively.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation % 1 == 0",
+    "rationale" : "Rotation should be an integer increment (it's an int, so this is always true, but it emphasizes the intended discrete states).",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation < 4",
+    "rationale" : "There are four 90-degree increments in a full circle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation != Integer.MIN_VALUE",
+    "rationale" : "Rotation as an invalid value such as Integer.MIN_VALUE is unlikely to be meaningful in this context.",
+    "meta" : [ ]
+  } ]
+}

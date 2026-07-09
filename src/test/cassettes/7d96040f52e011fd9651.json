@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "It is common for method parameters representing execution context to be non-null to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter identifies the compaction instant and should not be null.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option types are not expected to be null. They should be empty or contain a value, but not null itself.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "medium"
+    } ]
+  } ]
+}

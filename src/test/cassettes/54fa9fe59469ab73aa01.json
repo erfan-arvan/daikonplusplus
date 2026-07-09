@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns an instance of HoodieWriteMetadata for write operations, should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Input records list is required for a bulk insert and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit instant time is a required operation context, typically non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is required for any table operation, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Partitioner is passed in as an Option which should not itself be null (though it can be Option.empty()).",
+    "meta" : [ ]
+  } ]
+}

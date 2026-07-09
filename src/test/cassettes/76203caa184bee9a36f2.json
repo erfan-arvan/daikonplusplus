@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == flipHorizontally",
+    "rationale" : "The method returns the value of 'flipHorizontally' field directly, so the result is always equal to it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !result",
+    "rationale" : "Since 'result' is a boolean, it must be either true or false (covers all possible cases, but is not redundant in this minimal context).",
+    "meta" : [ ]
+  } ]
+}

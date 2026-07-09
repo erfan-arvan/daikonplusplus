@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieMergeHandleFactory.create(...) always creates and returns a non-null object, barring exception.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Result is created by a factory and returned immediately without alteration."
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed to the factory method that likely requires a valid partition identifier.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPath is a required method parameter for handle creation."
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId parameter is forwarded to the factory, and presumably must be non-null for proper operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "fileId is a required argument for handle creation."
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The method forwards recordItr to the MergeHandleFactory, implying it should not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "recordItr is a required iterator used for merge handle processing."
+    } ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().contains(\"MergeHandle\")",
+    "rationale" : "The factory creates subclasses of HoodieMergeHandle and the method promises a result of that type.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The returned object must be a subclass of 'MergeHandle'."
+    } ]
+  } ]
+}

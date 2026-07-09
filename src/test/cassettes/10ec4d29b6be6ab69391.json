@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "The method requires a StorageConfiguration; null is likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "A valid HoodieWriteConfig is required for writer creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "A cleaning policy is almost certainly required by the constructor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext is necessary for resource management and parallelism.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig.getBasePath() != null",
+    "rationale" : "The base path is often required for table operations and likely not allowed to be null.",
+    "meta" : [ ]
+  } ]
+}

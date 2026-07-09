@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The input list 'data' must be non-null as it is used for streaming.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "data is expected to be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The function 'func' is used to map each element; it must not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "func is expected to be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "parallelism == null || parallelism > 0",
+    "rationale" : "Parallelism is either unspecified (null) or a positive integer for concurrency.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "parallelism is either null or positive"
+    } ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List size must be non-negative by definition.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "list size non-negative"
+    } ]
+  }, {
+    "expression" : "parallelism == null || parallelism <= data.size()",
+    "rationale" : "Parallelism, if specified, should not exceed data size to avoid overhead.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "parallelism not exceeding data size"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely expected to be a valid String timestamp.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "instantTime is used as a key parameter, so it should not be null."
+    } ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Must be non-null to avoid NullPointerException on stream() call.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "writeStatuses is used immediately in a stream operation."
+    } ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "A valid action type string should be provided for the commit.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "commitActionType is a String parameter important for commit logic."
+    } ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "The map should be initialized to record replaced file IDs.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "partitionToReplacedFileIds is accessed during commit processing."
+    } ]
+  }, {
+    "expression" : "extraPreCommitFunc != null",
+    "rationale" : "Optional parameters should not be null but may be empty (Option.empty).",
+    "meta" : [ {
+      "key" : "option-consistency",
+      "value" : "extraPreCommitFunc is an Option type and should never be null."
+    } ]
+  } ]
+}

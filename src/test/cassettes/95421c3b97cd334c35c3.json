@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= -1",
+    "rationale" : "Since the method returns -1 if name is null or x + name.length() otherwise, result is always at least -1.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns -1 if name is null, otherwise a non-negative sum."
+    } ]
+  }, {
+    "expression" : "name == null || result == x + name.length()",
+    "rationale" : "If name is null, we return -1; if not, result is x + name.length().",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If name is not null, result equals x plus the length of name."
+    } ]
+  }, {
+    "expression" : "name != null || result == -1",
+    "rationale" : "To ensure that when name is null, result must be -1.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If name is null, result is exactly -1."
+    } ]
+  }, {
+    "expression" : "name != null || result <= 0",
+    "rationale" : "If name is null, result is -1 which is less or equal to zero.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "When name is null, result is -1, which is less or equal to 0."
+    } ]
+  }, {
+    "expression" : "result != 0 || name == null || x + name.length() == 0",
+    "rationale" : "If result is zero, it's either because name is null (causing result -1, contradicting zero) or the sum must be zero.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If result is zero, then either name is null or the sum x + name.length() is zero."
+    } ]
+  } ]
+}

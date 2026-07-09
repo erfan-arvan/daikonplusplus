@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "Since 'result' is simply 'records', they must reference the same object.",
+    "meta" : [ {
+      "key" : "observation",
+      "value" : "The method returns the input records list directly."
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The output is identical to the input, so the list's size is unchanged.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Both are the same list, so sizes must match."
+    } ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Partition counts are typically non-negative, although this is not enforced by the method.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "Partitions usually non-negative."
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Return type is List<HoodieRecord<T>>, so 'result' must be a List.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Java type check."
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Since the method returns 'records' directly, a null input would propagate as a null output unless otherwise checked.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "Null records input may not be handled."
+    } ]
+  } ]
+}

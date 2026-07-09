@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method returns the 'records' list reference as 'result'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A List's size is always non-negative; ensures no corruption.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Since 'result' is 'records', their sizes must match.",
+    "meta" : [ ]
+  } ]
+}

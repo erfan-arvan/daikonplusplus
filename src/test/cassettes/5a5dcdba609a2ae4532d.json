@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a BulkInsertPartitioner instance depending on the parameters, so result should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "The method accesses strategyParams, so it must be non-null here.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result instanceof BulkInsertPartitioner",
+    "rationale" : "result is declared as BulkInsertPartitioner, so it must be an instance of that.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "!strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()) || result.getClass().getSimpleName().contains(\"SortPartitioner\")",
+    "rationale" : "If the sort columns key is present, a JavaCustomColumnsSortPartitioner is returned, which includes 'SortPartitioner' in its class name.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

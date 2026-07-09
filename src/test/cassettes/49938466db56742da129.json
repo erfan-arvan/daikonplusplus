@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "list.isTouchable() == false",
+    "rationale" : "The method sets list touchable to disabled before exiting unless it returned early.",
+    "meta" : [ {
+      "key" : "touchable-state",
+      "value" : "list is set to Touchabled.disabled at exit"
+    } ]
+  }, {
+    "expression" : "(getStage() == null) || (getStage().getScrollFocus() == previousScrollFocus)",
+    "rationale" : "If getStage() is non-null, scroll focus may be restored to previousScrollFocus under certain conditions.",
+    "meta" : [ {
+      "key" : "scroll-focus-reset",
+      "value" : "scroll focus is potentially restored to previousScrollFocus at exit"
+    } ]
+  }, {
+    "expression" : "hasParent() == false || list.isTouchable() == false",
+    "rationale" : "The method only proceeds if hasParent() is true and changes the list touchable; else may exit early.",
+    "meta" : [ {
+      "key" : "parent-or-touchable",
+      "value" : "if no parent, list touchable may not matter; otherwise, is set false"
+    } ]
+  }, {
+    "expression" : "selectBox != null",
+    "rationale" : "selectBox is expected to be non-null since onHide is called on it unconditionally.",
+    "meta" : [ {
+      "key" : "selectBox-presence",
+      "value" : "selectBox.onHide(this) is called without null check"
+    } ]
+  }, {
+    "expression" : "hideListener != null",
+    "rationale" : "stage.removeCaptureListener(hideListener) is called when stage is non-null, suggesting hideListener is non-null.",
+    "meta" : [ {
+      "key" : "hideListener-presence",
+      "value" : "hideListener is used as an argument, so expected non-null"
+    } ]
+  } ]
+}

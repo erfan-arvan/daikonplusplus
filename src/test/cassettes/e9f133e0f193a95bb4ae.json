@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "animationIntervals != null",
+    "rationale" : "Cannot iterate over animationIntervals if it is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "animationIntervals.length > 0",
+    "rationale" : "The for loop assumes at least one interval exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "loopDuration > 0",
+    "rationale" : "Modulo operation with loopDuration and timing semantics suggest it should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "lastTiledMapRenderTime >= 0",
+    "rationale" : "Render time should not be negative in normal animation logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "animationIntervals[0] > 0",
+    "rationale" : "Animation intervals must be positive for frame calculation to make sense.",
+    "meta" : [ ]
+  } ]
+}

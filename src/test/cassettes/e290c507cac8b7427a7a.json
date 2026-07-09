@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The called performClusteringWithRecordList always returns a List; methods returning collections in this codebase typically do not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is passed to multiple method calls and its fields are accessed without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is passed down and used as a method argument in downstream calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a method parameter in multiple calls and likely must not be null.",
+    "meta" : [ ]
+  } ]
+}

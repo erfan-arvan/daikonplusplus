@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "b == null || b.doubleValue() != 0.0 || result == null",
+    "rationale" : "If b is zero (as a double), safeDivide returns null as the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof Integer || result instanceof Double",
+    "rationale" : "The result is either null, an Integer, or a Double based on logic in safeDivide.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a == null || b == null || a instanceof Integer || a instanceof Double",
+    "rationale" : "Method only handles Integer or Double parameters (if both are non-null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || !(b == null) && b.doubleValue() != 0.0",
+    "rationale" : "If result is not null, that means we did not divide by zero and b is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || a != null && b != null",
+    "rationale" : "If a non-null result is produced, it must be because a and b are both non-null.",
+    "meta" : [ ]
+  } ]
+}

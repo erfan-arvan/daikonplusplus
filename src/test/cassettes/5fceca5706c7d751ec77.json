@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new Pair object wrapping two non-null stat objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The returned Pair's left element (partitionPathStatMap) is always instantiated and never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The returned Pair's right element (globalStat) is always instantiated and never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method assumes inputRecords is provided and uses it directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft().size() >= 0",
+    "rationale" : "partitionPathStatMap is a HashMap and thus its size is always at least zero.",
+    "meta" : [ ]
+  } ]
+}

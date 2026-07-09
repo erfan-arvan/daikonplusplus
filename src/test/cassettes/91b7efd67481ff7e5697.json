@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= -1",
+    "rationale" : "The result returned by the method is either a valid index or -1 if not over an item; thus result cannot be less than -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < 0 || result < items.size",
+    "rationale" : "If result is negative, it must be -1; otherwise, when not -1, result represents a valid index which is less than items.size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == -1 || (result >= 0 && result < items.size)",
+    "rationale" : "Return value is -1 if not over an item, otherwise it is a valid index in the list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y <= getHeight()",
+    "rationale" : "The y coordinate is used to determine the item index in the visual region, and is unlikely to validly exceed getHeight().",
+    "meta" : [ ]
+  }, {
+    "expression" : "itemHeight > 0",
+    "rationale" : "A valid list must have a positive itemHeight, otherwise division by zero or negative values are likely to break logic.",
+    "meta" : [ ]
+  } ]
+}

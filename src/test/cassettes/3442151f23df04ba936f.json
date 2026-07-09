@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Many commit/instant time arguments must be non-null for downstream operations.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is expected to represent a version or commit time and should not be null."
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should be defined for correct behavior.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPath identifies the partition and is likely required."
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The commit requires a set of records to process.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The hoodie records collection must exist to perform a bulk commit."
+    } ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "Index parser is required for this method's intended logic.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "An index parser is needed for index interpretation during commit."
+    } ]
+  } ]
+}

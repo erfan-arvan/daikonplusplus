@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieData<WriteStatus> constructed from a list, which should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-nullness"
+    } ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The source data must be non-null to be collected and processed.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input-non-nullness"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required to call downstream methods.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input-non-nullness"
+    } ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "The table reference is passed to child processing and must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input-non-nullness"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "The returned HoodieData is constructed via HoodieListData.eager, so must be an instance of HoodieListData.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-invariant"
+    } ]
+  } ]
+}

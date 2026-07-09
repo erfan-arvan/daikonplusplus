@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "Clustering typically requires a non-null instant time identifying the clustering operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input validation"
+    } ]
+  }, {
+    "expression" : "!clusteringInstantTime.isEmpty()",
+    "rationale" : "The clustering instant time should not be empty to be valid.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input validation"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is required to execute clustering logic.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input validation"
+    } ]
+  } ]
+}

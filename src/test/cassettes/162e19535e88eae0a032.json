@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "Ensures file is non-null for method calls like file.parent() and file.child(token) to be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "path != null",
+    "rationale" : "path is used to construct a StringTokenizer and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!path.isEmpty()",
+    "rationale" : "An empty path leads the tokenizer to have zero tokens, which may not be intended.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.parent() != null",
+    "rationale" : "file.parent() is called immediately and thus intended to return a non-null handle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.exists()",
+    "rationale" : "It is likely the input file should exist for its parent or children to have meaning.",
+    "meta" : [ ]
+  } ]
+}

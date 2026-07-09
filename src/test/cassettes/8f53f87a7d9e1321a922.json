@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'defaults', which is assigned to a new Cell() if it was null, so it cannot be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == defaults",
+    "rationale" : "At every return, the method returns 'defaults', which is the static field set in this class.",
+    "meta" : [ ]
+  } ]
+}

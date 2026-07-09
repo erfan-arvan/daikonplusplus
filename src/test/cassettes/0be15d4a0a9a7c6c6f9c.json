@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Drawable unless an exception is thrown; an exception is thrown (not a return) when all lookups fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Drawable",
+    "rationale" : "By construction, the method returns an object of type Drawable, and assigns to 'drawable' only compatible objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "The parameter 'name' is used as a key for lookups and is always required to be non-null; otherwise, exception would be thrown at lookups.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null && name != null",
+    "rationale" : "Both 'name' and the returned 'Drawable' are expected to be non-null for correct behavior of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null && result instanceof Drawable",
+    "rationale" : "At successful exit, the returned result must always be a non-null Drawable instance.",
+    "meta" : [ ]
+  } ]
+}

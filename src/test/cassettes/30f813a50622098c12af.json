@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "A null records list would cause NPE in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner is dereferenced (method call) in the body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.isEmpty() || dedupedRecords.get(0) != null",
+    "rationale" : "Partitioning logic assumes non-null elements if present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner instanceof Partitioner",
+    "rationale" : "Confirms correct type usage before method call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "All records should be non-null for mapping and field access.",
+    "meta" : [ ]
+  } ]
+}

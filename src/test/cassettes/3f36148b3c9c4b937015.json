@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "format != null",
+    "rationale" : "Null check ensures that switch on format does not throw NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "format == Pixmap.Format.Alpha || format == Pixmap.Format.LuminanceAlpha || format == Pixmap.Format.RGBA4444 || format == Pixmap.Format.RGBA8888 || format != Pixmap.Format.Alpha && format != Pixmap.Format.LuminanceAlpha && format != Pixmap.Format.RGBA4444 && format != Pixmap.Format.RGBA8888",
+    "rationale" : "Format is either one of the cases with alpha or not, as explicitly checked in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "format instanceof Pixmap.Format",
+    "rationale" : "Type check on enum parameter ensuring it is a valid enum constant of Pixmap.Format.",
+    "meta" : [ ]
+  } ]
+}

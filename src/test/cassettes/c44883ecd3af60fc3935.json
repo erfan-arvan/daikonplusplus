@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodieWriteMetadata instance, so the result should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "prepRecords is an input to the method and is required by the downstream JavaBulkInsertPreppedCommitActionExecutor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is likely used as a commit time identifier and should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used in the executor and must be non-null for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() should return a non-null list according to the HoodieWriteMetadata contract.",
+    "meta" : [ ]
+  } ]
+}

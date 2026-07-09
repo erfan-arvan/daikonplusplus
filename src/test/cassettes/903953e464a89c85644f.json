@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata instance, produced by execute().",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The 'records' parameter should be non-null at this program point for write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime is required for transactional table writes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context must be non-null for operation execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method contract always returns an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

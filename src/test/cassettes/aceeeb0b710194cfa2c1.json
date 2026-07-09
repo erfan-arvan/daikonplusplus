@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "records is expected as an input list and should not be null for typical usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition counts are typically positive integers in partitioning logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A List's size() method always returns a value >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "If the records list is empty, there are zero partitions possible; otherwise, the number of partitions is not likely to exceed the number of records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.size() == 0",
+    "rationale" : "If records is not empty, then its size cannot be zero; if empty, size is zero.",
+    "meta" : [ ]
+  } ]
+}

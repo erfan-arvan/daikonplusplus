@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method is about to use 'context' as a parameter to construct a compaction executor, so it likely must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "The method uses 'compactionInstantTime' directly as a constructor argument, so it likely should not be null to ensure valid compaction semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!compactionInstantTime.isEmpty()",
+    "rationale" : "'compactionInstantTime' represents an instant identifier and is likely required to be a non-empty string.",
+    "meta" : [ ]
+  } ]
+}

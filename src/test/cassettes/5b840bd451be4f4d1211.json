@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == Character.isDigit(c)",
+    "rationale" : "The method directly returns the result of Character.isDigit(c), so result is always equal to this predicate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !Character.isDigit(c)",
+    "rationale" : "If result is false, then c is not a digit; if true, c is a digit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || Character.isDigit(c)",
+    "rationale" : "If result is true, then c must be a digit.",
+    "meta" : [ ]
+  } ]
+}

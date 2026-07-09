@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an object constructed by a helper, so it should never be null if the helper behaves correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStats() != null",
+    "rationale" : "HoodieWriteMetadata#getWriteStats should return a non-null value, as it is tied to the output of the write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToWriteStats() != null",
+    "rationale" : "Partition write stats are expected to be initialized for commit metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The resulting write metadata should contain a non-null collection of write statuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteErrors() != null",
+    "rationale" : "Write metadata is expected to track write errors, thus this collection should be non-null",
+    "meta" : [ ]
+  } ]
+}

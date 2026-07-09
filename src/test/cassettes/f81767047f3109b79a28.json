@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Padding and spacing quantities are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Computed layout values should be finite floats (not infinite or NaN).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == computedPadRight",
+    "rationale" : "The method directly returns the value of computedPadRight.",
+    "meta" : [ ]
+  } ]
+}

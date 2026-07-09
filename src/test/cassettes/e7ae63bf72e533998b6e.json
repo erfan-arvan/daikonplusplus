@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "!element.getString(\"type\", \"\").equals(\"objectgroup\") || parentLayers.getCount() > 0",
+    "rationale" : "If the input element is an object group, then a new layer is added to parentLayers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!element.getString(\"type\", \"\").equals(\"objectgroup\") || parentLayers.get(parentLayers.getCount() - 1) != null",
+    "rationale" : "Upon adding a new layer when the element's type is 'objectgroup', the most recently added layer should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Element is used throughout the method, so it should be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is used to add layers and should be non-null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "The map parameter is used in several method calls and should be non-null.",
+    "meta" : [ ]
+  } ]
+}

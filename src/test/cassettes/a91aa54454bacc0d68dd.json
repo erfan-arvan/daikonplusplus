@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is essential for execution and is expected to be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The context should be provided to perform deletion tasks."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter should be defined for the delete operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "An instant time string is required to identify the timeline instant."
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "PreppedRecords is the main input for the delete operation and should not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The list of records prepared for deletion must be provided."
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "The size of preppedRecords cannot be negative as it is a List.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "List size is non-negative."
+    } ]
+  } ]
+}

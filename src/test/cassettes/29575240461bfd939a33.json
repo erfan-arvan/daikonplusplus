@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "pixelSize >= 0",
+    "rationale" : "Pixel size is commonly expected to be non-negative, as negative font sizes are nonsensical.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "non-negative"
+    } ]
+  }, {
+    "expression" : "pixelSize < 10000",
+    "rationale" : "There is usually a practical upper limit to font sizes in graphics applications; 10000 is arbitrarily high to reflect this.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "reasonable font size upper bound"
+    } ]
+  } ]
+}

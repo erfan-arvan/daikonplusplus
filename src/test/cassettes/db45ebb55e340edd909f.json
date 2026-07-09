@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs and returns a HoodieData object, which is expected to be non-null if no error occurred.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method operates on the provided records, so it is unlikely for tagLocation to be called with null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "The hoodieTable argument is required for tagging locations and should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is used for operations within the method and is required for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieData",
+    "rationale" : "The method explicitly returns an object of type HoodieData.",
+    "meta" : [ ]
+  } ]
+}

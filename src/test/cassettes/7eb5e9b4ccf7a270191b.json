@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The input list 'records' is likely required and non-null at method entry.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Partition counts should be non-negative as a sensible parameter.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "always"
+    } ]
+  }, {
+    "expression" : "outputPartitions <= records.size() + 1",
+    "rationale" : "The number of output partitions rarely exceeds the number of records plus one.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "low"
+    } ]
+  } ]
+}

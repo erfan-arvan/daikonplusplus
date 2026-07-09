@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Config object must be present for table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "Storage configuration is required for table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipValidation || (config != null && storageConf != null)",
+    "rationale" : "If validation is not skipped, both config and storageConf must be non-null.",
+    "meta" : [ ]
+  } ]
+}

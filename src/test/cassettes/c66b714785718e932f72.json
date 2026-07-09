@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "A null check on the input list is frequently required for robustness and can be meaningful at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o == null || o.getQuantity() > 0)",
+    "rationale" : "Every non-null order, if present, should have a quantity greater than zero, matching the intended validation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o == null || o.getUnitPrice() >= 0)",
+    "rationale" : "Every non-null order should have a non-negative unit price, reflecting the validation logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o != null)",
+    "rationale" : "No element in the list should be null, as checked during validation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.stream().anyMatch(o -> o != null)",
+    "rationale" : "If the list is not empty, it should contain at least one non-null order, ensuring there is something to validate.",
+    "meta" : [ ]
+  } ]
+}

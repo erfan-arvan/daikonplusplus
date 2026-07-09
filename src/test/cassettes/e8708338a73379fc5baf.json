@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "The compactionInstantTime, being a required String argument for compaction, is likely expected to be non-null on method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is expected to be provided for method execution; null context would be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!compactionInstantTime.isEmpty()",
+    "rationale" : "The compactionInstantTime parameter represents an instant time and is expected to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime.trim().length() > 0",
+    "rationale" : "Instant time strings with only whitespace are likely invalid in this context.",
+    "meta" : [ ]
+  } ]
+}

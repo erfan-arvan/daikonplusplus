@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == fileHandles",
+    "rationale" : "The method always returns the mutated fileHandles argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array<FileHandle> size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileHandles.size == result.size",
+    "rationale" : "result and fileHandles refer to the same object, so their sizes are always equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used to construct or assign FileHandle variables, so must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is assigned from input or from parsing a FileHandle, which never assigns null, so tileSet must be non-null at exit.",
+    "meta" : [ ]
+  } ]
+}

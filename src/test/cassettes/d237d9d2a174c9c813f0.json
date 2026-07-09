@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "actorArea != null",
+    "rationale" : "The method accesses actorArea fields, so actorArea must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorArea.width >= 0",
+    "rationale" : "UI area widths are non-negative in typical UI frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxX >= 0",
+    "rationale" : "maxX likely represents a scrollable or visible area, which is not negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorArea.width * 0.9f <= actorArea.width",
+    "rationale" : "Multiplying by 0.9 makes the result less than or equal to the original value if width is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Math.max(actorArea.width * 0.9f, maxX * 0.1f) >= 0",
+    "rationale" : "Both multiplicands are non-negative, so the max will also be non-negative.",
+    "meta" : [ ]
+  } ]
+}

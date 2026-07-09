@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "Clustering typically requires a positive number of output groups to partition data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null && !inputRecords.isEmpty()",
+    "rationale" : "Clustering is meaningful only when there are input records to cluster.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid clustering instant time (commit time) should be specified.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "A valid HoodieSchema is required for clustering operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupIdList != null && fileGroupIdList.size() >= numOutputGroups",
+    "rationale" : "There should be enough file groups to represent the desired number of output groups for clustering.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Typical contract for write metadata to be present after insert.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "return-non-null"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records are expected to be non-null for insert.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "param-non-null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required to execute an insert.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "param-non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An instant time is required for insertion and commit tracking.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "param-non-null"
+    } ]
+  }, {
+    "expression" : "result.getPartitionToWriteStats() != null",
+    "rationale" : "The result is expected to have non-null partition->write stats after a write.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "metadata-integrity"
+    } ]
+  } ]
+}

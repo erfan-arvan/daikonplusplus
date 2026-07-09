@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter identifies the operation's commit/instant, and typical usage expects a non-null commit time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records parameter is a primary input; insert should not operate on a null record list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid engine context is necessary for distributed processing in Hudi table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "If the list is empty, its size is zero; otherwise, it must have positive size (trivial, but enforces List invariants).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.size() == 0",
+    "rationale" : "If records are empty, size must be zero (enforces List contract).",
+    "meta" : [ ]
+  } ]
+}

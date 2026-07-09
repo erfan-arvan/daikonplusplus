@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == true || result == false",
+    "rationale" : "The method returns a primitive boolean, so result can only be true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(x))",
+    "rationale" : "x is used in arithmetic operations, so it should not be NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(y))",
+    "rationale" : "y is used in arithmetic operations, so it should not be NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == setValue(snap(getMinValue() + (getMaxValue() - getMinValue()) * visualInterpolationInverse.apply((vertical ? (y - getBackgroundDrawable().getBottomHeight() - (getStyle().knob == null ? 0 : getStyle().knob.getMinHeight()) * 0.5f) / (getHeight() - getBackgroundDrawable().getTopHeight() - getBackgroundDrawable().getBottomHeight() - (getStyle().knob == null ? 0 : getStyle().knob.getMinHeight())) : (x - getBackgroundDrawable().getLeftWidth() - (getStyle().knob == null ? 0 : getStyle().knob.getMinWidth()) * 0.5f) / (getWidth() - getBackgroundDrawable().getLeftWidth() - getBackgroundDrawable().getRightWidth() - (getStyle().knob == null ? 0 : getStyle().knob.getMinWidth())))))",
+    "rationale" : "The result value returned is setValue applied to the snapped value, which in turn depends on the position calculated from x or y, depending on slide orientation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= -Float.MAX_VALUE && x <= Float.MAX_VALUE",
+    "rationale" : "x is a float used in position calculations and should lie within float range.",
+    "meta" : [ ]
+  } ]
+}

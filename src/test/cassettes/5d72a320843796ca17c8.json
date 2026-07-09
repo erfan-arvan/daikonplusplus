@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is likely required for a restore operation and should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is likely required for a restore operation and should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "restoreInstantTimestamp probably references a specific instant and should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "savepointToRestoreTimestamp likely references a specific savepoint and should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.equals(savepointToRestoreTimestamp)",
+    "rationale" : "Restoring to the same instant as the savepoint may be disallowed, so these should typically be different.",
+    "meta" : [ ]
+  } ]
+}

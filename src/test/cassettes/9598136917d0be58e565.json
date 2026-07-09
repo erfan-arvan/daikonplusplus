@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result != null",
+    "rationale" : "Every return of this method is either null or not null, reflecting reference value possibility; included for completeness but is trivial.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || overIndex >= 0",
+    "rationale" : "When the method returns a non-null result, overIndex must not be -1, so it is at least zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "overIndex == -1 || result != null",
+    "rationale" : "If overIndex is not -1, result must not be null (non-null result only possible when overIndex != -1).",
+    "meta" : [ ]
+  }, {
+    "expression" : "overIndex == -1 || items.get(overIndex) == result",
+    "rationale" : "When overIndex is not -1, the result is precisely items.get(overIndex).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || items.contains(result)",
+    "rationale" : "If the result is non-null, it must be an item from the items list.",
+    "meta" : [ ]
+  } ]
+}

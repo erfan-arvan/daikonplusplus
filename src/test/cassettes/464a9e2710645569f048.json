@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Method requires HoodieWriteConfig parameter to be non-null to proceed safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "config.getProps() is used inside the method, so it must be non-null for key generator creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == true || config.populateMetaFields() == false",
+    "rationale" : "config.populateMetaFields() returns a boolean, so it must be either true or false.",
+    "meta" : [ ]
+  } ]
+}

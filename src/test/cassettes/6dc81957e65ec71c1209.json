@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method expects a non-null HoodieEngineContext to function; passing null would likely indicate misuse.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime is typically required to specify the commit or action instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "A non-null partitions list is necessary as the method would operate on this list; null would likely cause NPE or logic errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions instanceof List",
+    "rationale" : "partitions should always be a List<String> as per method signature.",
+    "meta" : [ ]
+  } ]
+}

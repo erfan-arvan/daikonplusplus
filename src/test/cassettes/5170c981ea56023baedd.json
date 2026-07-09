@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "It's common for timestamp-like identifiers to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The method probably expects a valid partition list.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitions instanceof List",
+    "rationale" : "partitions should be of the declared List type.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Non-empty strings are often required for operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string property"
+    } ]
+  }, {
+    "expression" : "partitions.isEmpty() || partitions.size() > 0",
+    "rationale" : "A List is always empty or has a positive size.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "list property"
+    } ]
+  } ]
+}

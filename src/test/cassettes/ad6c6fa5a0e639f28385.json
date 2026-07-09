@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method must return a non-null List of WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Method is declared to return List<WriteStatus> and constructs the result as a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!performDedupe || config.shouldCombineBeforeInsert() == false || inputRecords != null",
+    "rationale" : "If deduplication is performed, the configuration for combining and the availability of inputRecords must be correct.",
+    "meta" : [ ]
+  }, {
+    "expression" : "configuredParallelism > 0 || deduceShuffleParallelism(inputRecords, configuredParallelism) >= 1",
+    "rationale" : "Parallelism should be positive or defaulted to at least one via deduceShuffleParallelism.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner is used for repartitioning and write handle selection, thus must never be null before return.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is required for engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is frequently used as a unique identifier and should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records list must exist to perform the overwrite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "Performing overwrite with an empty record set is uncommon.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || records.stream().allMatch(r -> r != null)",
+    "rationale" : "All records should be non-null.",
+    "meta" : [ ]
+  } ]
+}

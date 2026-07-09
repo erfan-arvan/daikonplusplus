@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A public method returning a list should not return null (collectors.toList always provides a non-null list).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "The final collected list filters out nulls before collecting, so no element is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "The deduplication merges records with the same key, so the output can only be smaller or equal in size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method assumes a non-null records list for streaming and mapping operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism is expected to be a positive integer indicating degree of concurrency; otherwise parallel processing would not work as intended.",
+    "meta" : [ ]
+  } ]
+}

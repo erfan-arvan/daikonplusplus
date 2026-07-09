@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Map, so result should not be null.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "!result.containsKey(null)",
+    "rationale" : "Partition paths represent strings and should not be null.",
+    "meta" : [ {
+      "key" : "MapKeys",
+      "value" : "No null keys in result"
+    } ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "Each map value is a List<String> representing file IDs, and should not be null.",
+    "meta" : [ {
+      "key" : "MapValues",
+      "value" : "No null lists in result values"
+    } ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list.stream().allMatch(id -> id != null))",
+    "rationale" : "The file ID strings should not be null.",
+    "meta" : [ {
+      "key" : "ListElements",
+      "value" : "No null strings in map value lists"
+    } ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(key -> !key.isEmpty())",
+    "rationale" : "Partition paths should be non-empty strings as they represent valid partitions.",
+    "meta" : [ {
+      "key" : "PartitionPath",
+      "value" : "Keys are non-empty strings"
+    } ]
+  } ]
+}

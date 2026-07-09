@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "profile is dereferenced throughout the method, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed and used in method calls, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "profile.getPartitionPaths() is iterated over, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos.keySet().containsAll(profile.getPartitionPaths())",
+    "rationale" : "If pStat.getNumInserts() > 0, entries are added for each partitionPath; thus after the loop, all partitionPaths are keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "There is a direct check linking hasOutputWorkLoadStats to access of the output stat map.",
+    "meta" : [ ]
+  } ]
+}

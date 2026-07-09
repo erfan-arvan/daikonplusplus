@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method always returns the result of execute(), which, as an Option, should be non-null even if empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used for rollback identification and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "instantToRollback is required for rollback and should not be null.",
+    "meta" : [ ]
+  } ]
+}

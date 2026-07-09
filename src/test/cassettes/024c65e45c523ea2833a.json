@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Table#get(Actor):float likely returns a non-negative value, possibly representing a position or size, which are usually non-negative in UI layouts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(result)",
+    "rationale" : "Method results exposed as UI layout/query values should not be NaN for safe downstream usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(result)",
+    "rationale" : "Infinite return values may lead to layout or rendering issues; method likely avoids them.",
+    "meta" : [ ]
+  } ]
+}

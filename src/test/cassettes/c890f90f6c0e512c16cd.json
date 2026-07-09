@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "opacity >= 0.0f && opacity <= 1.0f",
+    "rationale" : "Opacity values are typically constrained to [0,1] range representing transparency.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent == null || (parent != null)",
+    "rationale" : "At method entry, the parent field is either null or non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "As there are no restrictions from in-scope names, the method can always be entered.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "To prevent NullPointerException in images.get(name), name must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new TextureRegion, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getTexture() == images.get(name)",
+    "rationale" : "The TextureRegion is constructed from images.get(name), so its underlying texture is that.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() >= 0",
+    "rationale" : "name is a String and all String objects have non-negative length.",
+    "meta" : [ ]
+  } ]
+}

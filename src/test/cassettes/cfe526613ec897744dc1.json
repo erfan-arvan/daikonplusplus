@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is passed in as a parameter and is expected to be used immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed as a parameter and is used in method calls immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context.getStorageConf() != null",
+    "rationale" : "context.getStorageConf() is called, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "config.getBasePath() is passed to setBasePath, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getConsistencyGuardConfig() != null",
+    "rationale" : "config.getConsistencyGuardConfig() is passed to setConsistencyGuardConfig, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

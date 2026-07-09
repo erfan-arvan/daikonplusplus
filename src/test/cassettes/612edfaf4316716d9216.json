@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method expects a valid WorkloadProfile; processing a null profile would lead to NullPointerException in subsequent calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "Profile's input partition path stat map must be non-null for further processing in assignUpdates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.getInputPartitionPathStatMap().isEmpty()",
+    "rationale" : "assignUpdates expects there to be at least one partition to process for meaningful operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The output partition path stat map is accessed and updated inside the method, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().keySet().containsAll(profile.getOutputPartitionPathStatMap().keySet())",
+    "rationale" : "Usually, output statistics are a subset or equal to the partitions present in input profile.",
+    "meta" : [ ]
+  } ]
+}

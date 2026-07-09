@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "Null tmxFile would likely be invalid for file loading and processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "The FileHandle should reference an existing file for dependency resolution to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureParameter == null || textureParameter.minFilter != null",
+    "rationale" : "If a textureParameter is provided, typical usage expects its minFilter field to be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.isDirectory() == false",
+    "rationale" : "tmxFile is expected to be a file representing a TMX map, not a directory.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.extension().equalsIgnoreCase(\"tmx\")",
+    "rationale" : "The method is designed for TMX files, so the extension should match.",
+    "meta" : [ ]
+  } ]
+}

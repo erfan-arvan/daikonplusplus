@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism typically represents a number of threads or partitions and should be positive.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "parallelism"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The input list 'data' should not be null for processing.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "nonnull"
+    } ]
+  }, {
+    "expression" : "parallelism <= (data == null ? 0 : data.size())",
+    "rationale" : "It is generally reasonable to limit parallelism to no more than the amount of available data.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "parallelism<=data.size"
+    } ]
+  }, {
+    "expression" : "(data == null) || (!data.isEmpty())",
+    "rationale" : "If data is present, it should not be empty to justify parallel processing.",
+    "meta" : [ {
+      "key" : "content",
+      "value" : "data not empty if not null"
+    } ]
+  }, {
+    "expression" : "parallelism <= Integer.MAX_VALUE",
+    "rationale" : "The value of parallelism is bounded above by Integer.MAX_VALUE, its type limit.",
+    "meta" : [ {
+      "key" : "constraint",
+      "value" : "max integer value"
+    } ]
+  } ]
+}

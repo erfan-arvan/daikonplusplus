@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new instance of HoodieJavaTable (either HoodieJavaCopyOnWriteTable or HoodieJavaMergeOnReadTable) and never returns null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null result"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "The method only handles these two table types; other types result in exception and no return.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input constraint"
+    } ]
+  }, {
+    "expression" : "result != null && (result instanceof org.apache.hudi.table.HoodieJavaCopyOnWriteTable || result instanceof org.apache.hudi.table.HoodieJavaMergeOnReadTable)",
+    "rationale" : "The only return types possible are exactly these two subclasses.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "result type"
+    } ]
+  }, {
+    "expression" : "result != null && result != config && result != context && result != metaClient",
+    "rationale" : "The returned object is a new object, not a reference to any of the parameters.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "result identity"
+    } ]
+  }, {
+    "expression" : "config != null && context != null && metaClient != null",
+    "rationale" : "All three arguments must be non-null for the method to execute successfully and return.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  } ]
+}

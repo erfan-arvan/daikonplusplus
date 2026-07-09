@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new JavaHoodieBackedTableMetadataWriter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaHoodieBackedTableMetadataWriter",
+    "rationale" : "By construction, result is a new JavaHoodieBackedTableMetadataWriter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "conf != null",
+    "rationale" : "The StorageConfiguration conf must be non-null to construct the writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "A HoodieWriteConfig is needed to construct the writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext is needed for constructing the writer.",
+    "meta" : [ ]
+  } ]
+}

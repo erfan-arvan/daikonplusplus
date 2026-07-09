@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == !container.hasParent()",
+    "rationale" : "The method immediately returns false if container.hasParent() is true, otherwise it calls setContainerPosition and returns true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!container.hasParent() == (result == true)",
+    "rationale" : "Whenever result is true, container cannot have a parent; otherwise, it would have returned earlier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || container.hasParent()",
+    "rationale" : "If result is false, that can only occur if container.hasParent() is true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "container.hasParent() || result",
+    "rationale" : "If container does not have a parent, result must be true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (container.hasParent() ? false : true)",
+    "rationale" : "Direct encoding of return logic: returns false if container has a parent, true otherwise.",
+    "meta" : [ ]
+  } ]
+}

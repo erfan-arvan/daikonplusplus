@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "operationType != null",
+    "rationale" : "Method behavior checks operationType; non-nullness is important for logic and safety.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "Method throws and exits if LOG_COMPACT; therefore, LOG_COMPACT is not allowed at method exit.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "domain logic"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Table is dereferenced multiple times, making non-nullness essential for safe execution.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is used in a method call; it must be non-null at method exit.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in a method call; it must be non-null to ensure correctness.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "defensive"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "method parameter result must not be null to invoke methods on it",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "required to safely evaluate methods on result"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "write statuses must be non-null list to operate the stream",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "to safely call stream on the list"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "each WriteStatus must be non-null to call getStat on them safely",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "to ensure WriteStatus elements are not null"
+    } ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "partition to replace file IDs must be non-null to pass as argument",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "to safely use this map"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().map(WriteStatus::getStat).allMatch(stat -> stat != null)",
+    "rationale" : "each WriteStatus.getStat() must return non-null before building metadata",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "to ensure stats are non-null"
+    } ]
+  } ]
+}

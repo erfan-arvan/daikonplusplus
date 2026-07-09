@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "A restore operation requires a non-null timestamp to identify the instant to restore to.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "If restoring to a savepoint, the savepoint's timestamp should be provided and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is necessary for engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "A meaningful restore should not be performed with an empty restore instant timestamp string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "If savepointToRestoreTimestamp is provided, it should not be an empty string.",
+    "meta" : [ ]
+  } ]
+}

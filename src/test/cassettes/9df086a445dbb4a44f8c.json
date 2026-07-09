@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method requires a valid engine context for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instant time should be provided for the merge-on-read operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The list of records to insert should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Instant time is expected to be a non-empty string identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || hoodieRecords.get(0) instanceof HoodieRecord",
+    "rationale" : "If hoodieRecords is not empty, its elements must be of type HoodieRecord.",
+    "meta" : [ ]
+  } ]
+}

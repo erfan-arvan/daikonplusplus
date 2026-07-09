@@ -1,0 +1,43 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Bulk commit requires instantTime to be passed to commitInternal, so it is non-null on exit.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "draft-A"
+    }, {
+      "key" : "rationale",
+      "value" : "commitInternal called with instantTime"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is supplied as a key to Collections.singletonMap and must be non-null.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "draft-A"
+    }, {
+      "key" : "rationale",
+      "value" : "partitionPath is a key in singletonMap"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records cannot be null as it's included in the map passed to commitInternal.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "draft-A"
+    }, {
+      "key" : "rationale",
+      "value" : "records is mapped value in singletonMap passed to commitInternal"
+    } ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser is part of the method signature and must be non-null for normal execution.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "draft-A"
+    }, {
+      "key" : "rationale",
+      "value" : "indexParser is a required argument"
+    } ]
+  } ]
+}

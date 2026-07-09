@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method likely expects a non-null list, as no internal null handling is present.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "If the list is empty, its size must be zero; otherwise, it is greater than zero.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "size property"
+    } ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "The declared type of records is List<WriteStatus>, ensuring this is always true.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "type check"
+    } ]
+  }, {
+    "expression" : "records.stream().allMatch(ws -> ws != null)",
+    "rationale" : "It is common for collections of results to not contain null elements.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "element nullness"
+    } ]
+  } ]
+}

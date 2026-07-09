@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new HashMap is always assigned to result, so it is never null when returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()) == null || FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()).size() == 0",
+    "rationale" : "If the output is empty, that must be because there were no partition paths found.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HashMap",
+    "rationale" : "The variable assigned and returned is always a HashMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "Method signature ensures writeResult is required; even if not directly used, it is always non-null.",
+    "meta" : [ ]
+  } ]
+}

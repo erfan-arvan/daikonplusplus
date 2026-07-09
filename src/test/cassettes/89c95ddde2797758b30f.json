@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method accesses layer methods and fields; null would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batchColor != null",
+    "rationale" : "batchColor fields are accessed to compute the result, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Color.toFloatBits(batchColor.r * (layer.getCombinedTintColor().r * (layer.supportsTransparency() ? 1f : layer.getCombinedTintColor().a)), batchColor.g * (layer.getCombinedTintColor().g * (layer.supportsTransparency() ? 1f : layer.getCombinedTintColor().a)), batchColor.b * (layer.getCombinedTintColor().b * (layer.supportsTransparency() ? 1f : layer.getCombinedTintColor().a)), batchColor.a * (layer.getOpacity() * (layer.supportsTransparency() ? layer.getCombinedTintColor().a : 1f)))",
+    "rationale" : "Specifies exactly how result is produced from in-scope values per the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() >= 0f && layer.getOpacity() <= 1f",
+    "rationale" : "Opacity values are typically in [0,1] for color alpha compositing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getCombinedTintColor() != null",
+    "rationale" : "CombinedTintColor is accessed and its fields are used; must be non-null.",
+    "meta" : [ ]
+  } ]
+}

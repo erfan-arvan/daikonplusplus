@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List<V>, so result is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "After grouping and reducing by key, result may contain fewer elements than the input data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "parallelism typically specifies the level of parallelism and should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data is an input list and is assumed to be non-null for the method to execute.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(Objects::nonNull)",
+    "rationale" : "Each element of result should be non-null, as they are produced by a non-null reduction.",
+    "meta" : [ ]
+  } ]
+}

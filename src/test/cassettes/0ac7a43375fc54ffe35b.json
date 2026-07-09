@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns either fileId (not specified as nullable) or the super's getFileIdPfx, which presumably returns non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(fileId == null && result.equals(BulkInsertPartitioner.super.getFileIdPfx(partitionId))) || (fileId != null && result.equals(fileId))",
+    "rationale" : "The method returns fileId if non-null, else delegates to super implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(fileId == null) == !result.equals(fileId)",
+    "rationale" : "If fileId is null, result cannot be equal to fileId.",
+    "meta" : [ ]
+  } ]
+}

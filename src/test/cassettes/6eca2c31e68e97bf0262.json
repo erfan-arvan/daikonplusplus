@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HoodieData as per return statement and eager construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The first step of the method uses records.map(...), which would throw if records were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "Method uses hoodieTable as a parameter to another method, which would throw if it were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Method uses context as a parameter to another method, which would throw if it were null.",
+    "meta" : [ ]
+  } ]
+}

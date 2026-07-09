@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method guarantees returning a non-null HoodieWriteMetadata with the results of the deletion operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects a valid input list of records to delete, which should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is an operational parameter that must be valid for deletion operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext must be provided for the operation to proceed and for results to be produced.",
+    "meta" : [ ]
+  } ]
+}

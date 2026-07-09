@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The returned scroll amount, based on vertical measurements, should never be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= actorArea.height",
+    "rationale" : "The method returns at most actorArea.height as determined by Math.min.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= (Math.max(actorArea.height * 0.9f, maxY * 0.1f) / 4)",
+    "rationale" : "The result is the minimum of actorArea.height and a value that is at least (Math.max(actorArea.height * 0.9f, maxY * 0.1f) / 4).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Math.min(actorArea.height, Math.max(actorArea.height * 0.9f, maxY * 0.1f) / 4)",
+    "rationale" : "Result is always set by this exact computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= Math.max(actorArea.height * 0.9f, maxY * 0.1f) / 4",
+    "rationale" : "Since result is the minimum of actorArea.height and the other value, it must also be less than or equal to the latter.",
+    "meta" : [ ]
+  } ]
+}

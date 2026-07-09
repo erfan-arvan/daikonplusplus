@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HashMap regardless of inputs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.isEmpty() || result.size() <= partitionPaths.size()",
+    "rationale" : "The number of result entries cannot exceed the number of input partition paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || (partitionPaths != null && !partitionPaths.isEmpty() && config.getParquetSmallFileLimit() > 0)",
+    "rationale" : "A non-empty result requires non-empty 'partitionPaths' and a positive small file limit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.isEmpty() || config.getParquetSmallFileLimit() > 0 || result.isEmpty()",
+    "rationale" : "If partitionPaths is non-empty but the small file limit is not positive, result is always empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().containsAll(partitionPaths == null ? new java.util.ArrayList<>() : partitionPaths) || result.isEmpty()",
+    "rationale" : "If the result is non-empty, its keys are drawn from the given partitionPaths.",
+    "meta" : [ ]
+  } ]
+}

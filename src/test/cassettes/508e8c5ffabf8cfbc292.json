@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == quantity",
+    "rationale" : "The method simply returns the value of the field 'quantity', so the returned result must always equal 'quantity'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "Quantities for an order are typically non-negative; this invariant reflects usual business logic, though not strictly enforced by the code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "quantity == result",
+    "rationale" : "Equivalent to the first, stated in the other order; ensures result and quantity always have the same value just before the method returns.",
+    "meta" : [ ]
+  } ]
+}

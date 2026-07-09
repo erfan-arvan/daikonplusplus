@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null list, as a new list is collected at the end.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(Objects::nonNull)",
+    "rationale" : "All elements in the result list are non-null because nulls are filtered out before collecting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input records list is required for stream operations, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is meant to control parallel execution and is likely expected to be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schemaStr != null && !schemaStr.isEmpty()",
+    "rationale" : "Schema string is parsed and used, so it should not be null or empty.",
+    "meta" : [ ]
+  } ]
+}

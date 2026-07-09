@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter should be non-null as it is used in a timeline transition method",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "instantTime must not be null before method execution"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "Instant time strings generally represent timestamps or version identifiers and are expected to be non-empty",
+    "meta" : [ {
+      "key" : "nonEmpty",
+      "value" : "instantTime should not be empty"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instantTime string must have a positive length to be valid for timeline operations",
+    "meta" : [ {
+      "key" : "lengthCheck",
+      "value" : "Instant time string length is positive"
+    } ]
+  }, {
+    "expression" : "instantTime instanceof String",
+    "rationale" : "Parameter instantTime is declared as a String and therefore must be of that type",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "instantTime is a String"
+    } ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "After trimming, the instantTime string should still contain characters to be valid",
+    "meta" : [ {
+      "key" : "trimmedNonEmpty",
+      "value" : "Instant time trimmed is non-empty"
+    } ]
+  } ]
+}

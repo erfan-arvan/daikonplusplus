@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Height values returned from getPrefHeight are always non-negative, as they are computed from widget heights which are non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "vertical || result == Math.max(firstWidget == null ? 0 : (firstWidget instanceof Layout ? ((Layout)firstWidget).getPrefHeight() : firstWidget.getHeight()), secondWidget == null ? 0 : (secondWidget instanceof Layout ? ((Layout)secondWidget).getPrefHeight() : secondWidget.getHeight()))",
+    "rationale" : "If the SplitPane is not vertical, result is the max of the two widget heights.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!vertical || result == ( (firstWidget == null ? 0 : (firstWidget instanceof Layout ? ((Layout)firstWidget).getPrefHeight() : firstWidget.getHeight()) ) + style.handle.getMinHeight() + (secondWidget == null ? 0 : (secondWidget instanceof Layout ? ((Layout)secondWidget).getPrefHeight() : secondWidget.getHeight())))",
+    "rationale" : "If vertical is true, result is the sum of the two widget heights plus handle min height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= style.handle.getMinHeight()",
+    "rationale" : "In the vertical case, result must be at least as large as the handle min height, otherwise it is at least 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (vertical ? ( (firstWidget == null ? 0 : (firstWidget instanceof Layout ? ((Layout)firstWidget).getPrefHeight() : firstWidget.getHeight()) ) + style.handle.getMinHeight() + (secondWidget == null ? 0 : (secondWidget instanceof Layout ? ((Layout)secondWidget).getPrefHeight() : secondWidget.getHeight())) ) : Math.max(firstWidget == null ? 0 : (firstWidget instanceof Layout ? ((Layout)firstWidget).getPrefHeight() : firstWidget.getHeight()), secondWidget == null ? 0 : (secondWidget instanceof Layout ? ((Layout)secondWidget).getPrefHeight() : secondWidget.getHeight())) )",
+    "rationale" : "General formula for result based on the vertical flag and components.",
+    "meta" : [ ]
+  } ]
+}

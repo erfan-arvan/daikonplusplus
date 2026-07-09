@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "maxCheckCount == -1 || maxCheckCount > 0",
+    "rationale" : "After normalization, maxCheckCount is -1 (for unlimited) or a positive integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxCheckCount != 0",
+    "rationale" : "Zero is mapped to -1; maxCheckCount never remains 0 at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxCheckCount >= -1",
+    "rationale" : "maxCheckCount can be -1 (unlimited) or a positive count due to the method implementation.",
+    "meta" : [ ]
+  } ]
+}

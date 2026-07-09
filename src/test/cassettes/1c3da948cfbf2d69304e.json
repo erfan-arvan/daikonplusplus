@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "sortMode != null",
+    "rationale" : "The method accesses sortMode.name(), which implies sortMode must not be null prior to method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "Only these two enum cases result in the method returning normally; other values throw an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new instance for each handled mode, so result must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(sortMode == BulkInsertSortMode.NONE) == (result instanceof JavaNonSortPartitioner)",
+    "rationale" : "If 'NONE' mode, returns JavaNonSortPartitioner; otherwise, does not.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(sortMode == BulkInsertSortMode.GLOBAL_SORT) == (result instanceof JavaGlobalSortPartitioner)",
+    "rationale" : "If 'GLOBAL_SORT' mode, returns JavaGlobalSortPartitioner; otherwise, does not.",
+    "meta" : [ ]
+  } ]
+}

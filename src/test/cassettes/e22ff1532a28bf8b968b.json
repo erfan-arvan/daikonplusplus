@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedInputRecords != null",
+    "rationale" : "The method's logic assumes preppedInputRecords is non-null to iterate over it.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedInputRecords is not null at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in string formatting and as a parameter and likely cannot be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used to create HoodieAppendHandle and must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config is not null"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is used as an argument to HoodieAppendHandle and bulkInsert, so likely non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "table is not null"
+    } ]
+  }, {
+    "expression" : "taskContextSupplier != null",
+    "rationale" : "taskContextSupplier is used to instantiate HoodieAppendHandle and must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "taskContextSupplier is not null"
+    } ]
+  } ]
+}

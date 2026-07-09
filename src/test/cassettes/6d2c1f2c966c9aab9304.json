@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "The method uses tmjFile as an argument; typically, a FileHandle parameter is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet != null",
+    "rationale" : "The method operates on tileSet, and downstream use (such as parsing or extracting fields) typically assumes non-null JsonValue.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.exists()",
+    "rationale" : "If tmjFile is provided for asset loading, it is often expected that it refers to an existing file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet.isObject() || tileSet.isArray() || tileSet.isValue()",
+    "rationale" : "A JsonValue instance is typically either an object, array, or value—this covers standard JSON node types.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "align >= 0",
+    "rationale" : "Alignment constants (e.g., Align.center, Align.left) are typically non-negative integers in most layout enumerations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & ~(com.badlogic.gdx.utils.Align.center | com.badlogic.gdx.utils.Align.top | com.badlogic.gdx.utils.Align.bottom | com.badlogic.gdx.utils.Align.left | com.badlogic.gdx.utils.Align.right)) == 0",
+    "rationale" : "Allows only valid bits for alignment as described in the method Javadoc.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & com.badlogic.gdx.utils.Align.left) != 0 || (align & com.badlogic.gdx.utils.Align.right) != 0 || (align & com.badlogic.gdx.utils.Align.center) != 0",
+    "rationale" : "At least one horizontal alignment bit must be set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & com.badlogic.gdx.utils.Align.top) != 0 || (align & com.badlogic.gdx.utils.Align.bottom) != 0 || (align & com.badlogic.gdx.utils.Align.center) != 0",
+    "rationale" : "At least one vertical alignment bit must be set.",
+    "meta" : [ ]
+  } ]
+}

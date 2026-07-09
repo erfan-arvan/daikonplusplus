@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method accesses 'style', so it is likely assumed non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background == null || style.background.getBottomHeight() >= 0",
+    "rationale" : "Background heights are generally non-negative in UI layouts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background == null || style.background.getTopHeight() >= 0",
+    "rationale" : "Top background height is expected non-negative when present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background == null || style.background.getMinHeight() >= 0",
+    "rationale" : "Min height for a background is likely non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(style.focusedBackground == null) || style.focusedBackground.getMinHeight() >= 0",
+    "rationale" : "Min height for focused background is expected to be non-negative.",
+    "meta" : [ ]
+  } ]
+}

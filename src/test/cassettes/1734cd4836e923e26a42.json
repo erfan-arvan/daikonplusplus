@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context parameter is generally required for engine operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime should be a non-empty string to represent a valid commit time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null && !hoodieRecords.isEmpty()",
+    "rationale" : "bulkInsert typically expects a non-empty list of HoodieRecords to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option objects should be non-null, representing presence or absence of a BulkInsertPartitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.matches(\"\\\\d+\")",
+    "rationale" : "instantTime is often used as a timestamp represented in numeric string form in Hudi codebase.",
+    "meta" : [ ]
+  } ]
+}

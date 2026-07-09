@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a (possibly empty) List, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == records",
+    "rationale" : "The method either returns the input list (possibly sorted) or the same reference when empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "By method contract, records should not be null as it is passed in from the caller.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() == result.size()",
+    "rationale" : "The returned list is either the very same list or a sorted version thereof, never removing or adding elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "The number of output partitions should never be negative (likely contract from calling code).",
+    "meta" : [ ]
+  } ]
+}

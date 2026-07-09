@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null HoodieWriteMetadata after executing clustering and cloning with write statuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses in the write metadata are expected to be non-null after a clustering operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The method returns HoodieWriteMetadata<List<WriteStatus>>, so the write statuses field should be a List.",
+    "meta" : [ ]
+  } ]
+}

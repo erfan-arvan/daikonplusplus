@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a (possibly empty) Map, likely never null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The implementation always returns Collections.emptyMap(), so the result is always empty.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "emptiness"
+    } ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "Method does not dereference writeMetadata but if method contracts require non-null, this invariant applies.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  } ]
+}

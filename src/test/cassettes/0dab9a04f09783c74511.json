@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "labelStyleName != null",
+    "rationale" : "labelStyleName is used to retrieve a LabelStyle from the Skin and must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "labelStyleName.isEmpty() == false",
+    "rationale" : "labelStyleName should not be an empty string because it's used to look up a style in the Skin.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string-property"
+    } ]
+  }, {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "If text is not null, its length is at least 0 due to CharSequence contract.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "CharSequence-property"
+    } ]
+  }, {
+    "expression" : "labelStyleName.trim().equals(labelStyleName)",
+    "rationale" : "Style names are often expected to not have leading or trailing spaces.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string-format"
+    } ]
+  } ]
+}

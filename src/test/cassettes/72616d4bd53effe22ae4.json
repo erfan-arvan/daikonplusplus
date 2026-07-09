@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "The clusteringPlan parameter must not be null for the method to proceed.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "The schema parameter must not be null to perform clustering.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime string parameter must not be null as it represents a valid timestamp.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "clusteringPlan.getInputGroups() != null",
+    "rationale" : "The input groups for clustering should be non-null to iterate over.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "clusteringPlan.getInputGroups().size() >= 0",
+    "rationale" : "The list of input groups should have zero or more groups.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "medium"
+    } ]
+  } ]
+}

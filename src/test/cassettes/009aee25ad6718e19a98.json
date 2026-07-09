@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used for commit identification and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is expected to be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table represents the data storage and must be non-null to perform bulk insert.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "table is expected to be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The config object is required for bulk insert configuration and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config must be non-null to configure bulk insert parameters"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "InputRecords contains the records to insert and must not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "inputRecords should be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Partitioner is required to organize the bulk insert operation and must not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "bulkInsertPartitioner is non-null to partition input data"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "element is dereferenced (element.getName()) so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties != null",
+    "rationale" : "properties is operated on (properties.put), so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!element.getName().equals(\"Properties\")) || element.getChildrenByName(\"Property\") != null",
+    "rationale" : "If processing occurs, element.getChildrenByName(\"Property\") is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!element.getName().equals(\"Properties\")) || element.getChildrenByName(\"Property\").size() >= 0",
+    "rationale" : "Iteration occurs over element.getChildrenByName(\"Property\").",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!element.getName().equals(\"Properties\")) || element.getChildrenByName(\"Property\").stream().allMatch(p -> p.getAttribute(\"Key\", null) != null)",
+    "rationale" : "Each inserted property uses key = property.getAttribute(\"Key\", null); must not be null for meaningful map entries.",
+    "meta" : [ ]
+  } ]
+}

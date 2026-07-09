@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null",
+    "rationale" : "It is common for an engine job status to require a non-null module identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null",
+    "rationale" : "It is likely that descriptive activity information should not be null for job status.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.isEmpty()",
+    "rationale" : "The active module parameter may be expected to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activityDescription.isEmpty()",
+    "rationale" : "The activity description should not be an empty string to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.equals(activityDescription)",
+    "rationale" : "It may be expected that module names and activity descriptions serve different purposes and thus are not identical.",
+    "meta" : [ ]
+  } ]
+}

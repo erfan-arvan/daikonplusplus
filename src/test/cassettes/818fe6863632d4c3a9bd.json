@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns Collections.singletonList(...).iterator(), which is never null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null as the method returns a valid iterator"
+    } ]
+  }, {
+    "expression" : "result.hasNext()",
+    "rationale" : "The iterator wraps a singleton list, which always contains exactly one element, so hasNext() is true immediately after method return.",
+    "meta" : [ {
+      "key" : "nonempty",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used to construct createHandle; presumed non-null for valid operation.",
+    "meta" : [ {
+      "key" : "parameter_nullness",
+      "value" : "partitionPath is assumed non-null for this operation"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used to construct createHandle; presumed non-null for valid operation.",
+    "meta" : [ {
+      "key" : "parameter_nullness",
+      "value" : "fileId is assumed non-null for this operation"
+    } ]
+  }, {
+    "expression" : "recordMap != null && !recordMap.isEmpty()",
+    "rationale" : "The handle is constructed from recordMap and used to write data, implying recordMap is non-null and non-empty.",
+    "meta" : [ {
+      "key" : "parameter_nonempty",
+      "value" : "recordMap has entries for insertion"
+    } ]
+  } ]
+}

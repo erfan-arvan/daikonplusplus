@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "percent >= 0.0f",
+    "rationale" : "Visual percent parameters are often normalized to [0,1] or [0,100], so non-negativity might be required by convention or UI logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percent <= 1.0f",
+    "rationale" : "Many visual percent conventions use the [0,1] range, especially for normalized sliders and interpolations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(percent)",
+    "rationale" : "NaN for percent would break continuous slider progressions and likely cause visual or logic errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(percent)",
+    "rationale" : "Infinite percent would cause incorrect interpolation or visual behavior.",
+    "meta" : [ ]
+  } ]
+}

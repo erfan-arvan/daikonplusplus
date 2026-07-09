@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 || b != 0",
+    "rationale" : "b is either zero or not zero at method entry.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "disjunction of b zero and nonzero"
+    } ]
+  }, {
+    "expression" : "a == a",
+    "rationale" : "a equals itself.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "reflexive"
+    } ]
+  }, {
+    "expression" : "b == 0 || a / b * b == a",
+    "rationale" : "If b is nonzero, dividing a by b and multiplying back results in a.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "division property"
+    } ]
+  }, {
+    "expression" : "b >= Integer.MIN_VALUE",
+    "rationale" : "b is an int, so it must be greater than or equal to Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "bounds check"
+    } ]
+  }, {
+    "expression" : "b <= Integer.MAX_VALUE",
+    "rationale" : "b is an int, so it must be less than or equal to Integer.MAX_VALUE.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "bounds check"
+    } ]
+  } ]
+}

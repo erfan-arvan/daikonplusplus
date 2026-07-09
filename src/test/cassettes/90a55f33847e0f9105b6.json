@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires 'config' to access its fields and methods, so it is typically expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method calls 'context.getStorageConf()' early, so 'context' must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "The base path is used in constructing the meta client, and likely must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context.getStorageConf() != null",
+    "rationale" : "'context.getStorageConf()' is invoked and then '.newInstance()' is called, so the storage config should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getConsistencyGuardConfig() != null",
+    "rationale" : "'config.getConsistencyGuardConfig()' is used as a parameter to build the meta client, so it should be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time is likely required to be set for commits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs must be initialized for the upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "fileGroupsIdsToUpdate should be provided for targeted updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient != null",
+    "rationale" : "The write client is essential to perform upsert and commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || fileGroupsIdsToUpdate != null",
+    "rationale" : "If there are no records to modify, fileGroupsIdsToUpdate may safely be anything, but if there are, the fileGroupsIdsToUpdate should be non-null.",
+    "meta" : [ ]
+  } ]
+}

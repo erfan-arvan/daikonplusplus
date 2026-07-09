@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns BulkInsertHelperHolder.JAVA_BULK_INSERT_HELPER, which is expected to be a valid singleton, thus result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaBulkInsertHelper",
+    "rationale" : "The method returns BulkInsertHelperHolder.JAVA_BULK_INSERT_HELPER, which is of type JavaBulkInsertHelper.",
+    "meta" : [ ]
+  } ]
+}

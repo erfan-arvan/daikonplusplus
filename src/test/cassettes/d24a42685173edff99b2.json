@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "configuredParallelism >= 0",
+    "rationale" : "Parallelism should not be negative; negative values are likely invalid for execution and used to indicate automatic inference or zero parallelism.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "The input record list is required for the insert operation and is expected to be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "HoodieWriteConfig is critical for configuring write operations; typically expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "A valid HoodieTable is needed to execute the operation; null would prevent the insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The BulkInsertPartitioner instance is essential for repartitioning the records; likely required to be non-null at method entry.",
+    "meta" : [ ]
+  } ]
+}

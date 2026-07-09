@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs and returns a Dialog, so the result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button != null",
+    "rationale" : "The passed Button is used as an argument and is expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Dialog",
+    "rationale" : "The return type of the method is Dialog, so result should be a Dialog.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "Since the method is likely fluent and returns this Dialog (as is common in builder patterns and UI toolkit chaining).",
+    "meta" : [ ]
+  } ]
+}

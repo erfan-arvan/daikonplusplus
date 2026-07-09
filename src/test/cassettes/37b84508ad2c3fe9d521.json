@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method likely requires a non-null instantTime, as it is used in other commit-related methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition is used for partitioning logic and is passed into downstream methods, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is downcasted and method called on it immediately, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to handleInsert/handleUpdate, implying it must not be null.",
+    "meta" : [ ]
+  } ]
+}

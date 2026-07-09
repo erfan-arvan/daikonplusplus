@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "Bulk insert parallelism and output groups must be positive for clustering to function correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Input records must not be null for clustering to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A non-empty commit instant time string is required to identify the clustering operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupIdList != null",
+    "rationale" : "The file group ID list must be provided for grouping output files in clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "A valid schema is necessary for interpreting input records during clustering.",
+    "meta" : [ ]
+  } ]
+}

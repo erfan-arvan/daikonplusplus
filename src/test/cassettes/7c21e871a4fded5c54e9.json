@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The maxWidth and padding are likely non-negative, so the returned value should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || result > 0",
+    "rationale" : "The result is either zero (if maxWidth.get(actor) returns 0 or negative) or positive (if v was positive and padding added).",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The operations performed will likely always result in a finite float.",
+    "meta" : [ ]
+  } ]
+}

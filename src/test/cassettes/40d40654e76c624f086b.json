@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a valid HoodieEngineContext to operate.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "context is expected to be non-null on method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is a timestamp string and is required for committing actions.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "instantTime is a String representing time and should be non-null and non-empty"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The list of HoodieRecord<T> to insert must be provided.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "hoodieRecords list must be non-null"
+    } ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "List sizes are always non-negative.",
+    "meta" : [ {
+      "key" : "Range",
+      "value" : "hoodieRecords size is zero or more"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner == null || bulkInsertPartitioner.isPresent() || !bulkInsertPartitioner.isPresent()",
+    "rationale" : "bulkInsertPartitioner is an Option type and can be present or empty",
+    "meta" : [ {
+      "key" : "Nullness and Option",
+      "value" : "bulkInsertPartitioner could be null or a valid Option instance"
+    } ]
+  } ]
+}

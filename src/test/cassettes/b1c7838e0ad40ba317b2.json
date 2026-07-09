@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is dereferenced",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is dereferenced",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "getBasePath() is passed to setBasePath",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A valid HoodieJavaTable object is always returned",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "The returned object should be a HoodieJavaTable",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedInputRecord != null",
+    "rationale" : "The method uses preppedInputRecord without null checks, so it's likely assumed to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null || !userDefinedBulkInsertPartitioner.isPresent()",
+    "rationale" : "Option fields are generally checked for presence before access; at entry, it's possible the Option is null or not present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No method parameters or external objects are in scope at method entry; basic non-tautological invariants related to in-scope fields are already proposed.",
+    "meta" : [ ]
+  } ]
+}

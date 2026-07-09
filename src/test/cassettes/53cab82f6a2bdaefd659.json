@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an UndoState from a list; it is likely that result is never null upon a valid undo.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursor positions in text editors are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || (selectionStart >= 0)",
+    "rationale" : "If there is a selection, the selection start should be a valid position (non-negative).",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "Text should not be null at the point when storing or undoing an operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index >= 0",
+    "rationale" : "The index into the states list should not be negative.",
+    "meta" : [ ]
+  } ]
+}

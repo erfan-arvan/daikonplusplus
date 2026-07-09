@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "The method operates on metadata, so it is likely required to not be null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is called unconditionally, which suggests it must not be null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "null-check"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Methods in this context likely require a non-null configuration object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "A HoodieTableMetaClient must be provided to create a HoodieTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.equals(config)",
+    "rationale" : "Equality should be symmetric and this is non-tautological if config's equals may throw NPE if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!config.equals(metaClient)",
+    "rationale" : "Configuration object and meta client are of distinct types and should not be considered equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!metaClient.equals(config)",
+    "rationale" : "MetaClient and config are instances of different classes and should not be equal.",
+    "meta" : [ ]
+  } ]
+}

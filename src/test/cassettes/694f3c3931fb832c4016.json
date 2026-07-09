@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "Null check is necessary for safe method operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.properties != null",
+    "rationale" : "Current object's properties map should be initialized before putAll.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.properties.size() >= properties.properties.size()",
+    "rationale" : "After putting all entries, the target map will have at least as many entries as the one being added.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.properties != null",
+    "rationale" : "Source map's properties should be initialized for putAll to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.properties.entrySet().containsAll(properties.properties.entrySet())",
+    "rationale" : "All entries from the source properties are present in the target after putAll.",
+    "meta" : [ ]
+  } ]
+}

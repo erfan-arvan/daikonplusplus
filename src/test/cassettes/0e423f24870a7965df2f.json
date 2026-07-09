@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The commit method expects a non-null metadata object as input and calls methods on it; thus, result should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method accesses result.getWriteStatuses() and processes its contents, so the returned object should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "Commit actions typically only process non-empty result write statuses, as an empty result would indicate no work done.",
+    "meta" : [ ]
+  } ]
+}

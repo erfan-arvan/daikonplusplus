@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b.doubleValue() != 0.0",
+    "rationale" : "Since the method returns null for b.doubleValue() == 0.0, at method exit b.doubleValue() != 0.0 holds when result is non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method returns null if b.doubleValue() == 0.0"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "At method exit, when returning a value (not null), result must be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method returns null only when b.doubleValue() == 0.0"
+    } ]
+  }, {
+    "expression" : "a instanceof Integer || a instanceof Double",
+    "rationale" : "Since the method throws if a is neither Integer nor Double, at method exit a is Integer or Double if result is non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Otherwise method throws IllegalArgumentException"
+    } ]
+  }, {
+    "expression" : "(a instanceof Integer) == (result instanceof Integer)",
+    "rationale" : "When a is Integer, result is Integer value; so types match.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Result type matches input type when a is Integer"
+    } ]
+  }, {
+    "expression" : "(a instanceof Double) == (result instanceof Double)",
+    "rationale" : "When a is Double, result is Double value; so types match.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Result type matches input type when a is Double"
+    } ]
+  } ]
+}

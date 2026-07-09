@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of HoodieJavaTable.create should be a non-null HoodieTable instance.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The factory method HoodieJavaTable.create returns a non-null HoodieTable."
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The method requires config to not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The input parameter config must be non-null for the create call to succeed."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method requires context to not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The input parameter context must be non-null for the create call to succeed."
+    } ]
+  }, {
+    "expression" : "result.getClass().getName().contains(\"HoodieJavaTable\")",
+    "rationale" : "The returned HoodieTable should be of a type created by HoodieJavaTable.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result is created by HoodieJavaTable.create so the class name should include HoodieJavaTable."
+    } ]
+  } ]
+}

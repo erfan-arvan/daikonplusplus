@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns an Iterator, so result should be non-null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result should not be null before method return"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used in the method and expected to be non-null.",
+    "meta" : [ {
+      "key" : "parameter-non-null",
+      "value" : "partitionPath is expected to be a valid partition path"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used in conditions and passed along, should not be null.",
+    "meta" : [ {
+      "key" : "parameter-non-null",
+      "value" : "fileId is used as key and expected non-null"
+    } ]
+  }, {
+    "expression" : "!result.hasNext() || result.next() instanceof List",
+    "rationale" : "The method returns an Iterator<List<WriteStatus>> so the next element should be a List.",
+    "meta" : [ {
+      "key" : "result-iterator-content",
+      "value" : "result iterator yields List elements"
+    } ]
+  } ]
+}

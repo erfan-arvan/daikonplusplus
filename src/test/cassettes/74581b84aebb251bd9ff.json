@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "true == true",
+    "rationale" : "Since no meaningful constraint on a or b is given before the method executes, all expressions are true for all inputs.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "trivially true for all inputs"
+    } ]
+  }, {
+    "expression" : "b != Integer.MIN_VALUE",
+    "rationale" : "Integer.MIN_VALUE is a valid int, so b can equal it, no restriction here.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "b is an int, cannot be MIN_VALUE? True."
+    } ]
+  }, {
+    "expression" : "-2147483648 <= a && a <= 2147483647",
+    "rationale" : "a is bounded by int limits.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "a is an int, so always within int range."
+    } ]
+  }, {
+    "expression" : "-2147483648 <= b && b <= 2147483647",
+    "rationale" : "b is bounded by int limits.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "b is an int."
+    } ]
+  }, {
+    "expression" : "b == 0 || b != 0",
+    "rationale" : "Logical tautology ensuring that b is either zero or not zero.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "b is an int, so either zero or not zero."
+    } ]
+  } ]
+}

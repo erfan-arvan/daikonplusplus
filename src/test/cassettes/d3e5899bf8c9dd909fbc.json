@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient must be non-null to invoke methods on it in the body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used as an identifier and is likely expected to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The code passes preppedRecordInputs to a client method, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is used as an argument and must be non-null; its Option value may be empty, but the reference must exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.get(0) != null",
+    "rationale" : "If the input list is non-empty, it is likely that its elements are non-null HoodieRecords.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method assumes that 'layer' is not null when accessing its methods and fields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() == null || layer.getTextureRegion().getTexture() != null",
+    "rationale" : "If there is a texture region, the texture can be safely used for rendering steps.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxX() >= 0.0f",
+    "rationale" : "Parallax factors are typically non-negative in tiled map rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxY() >= 0.0f",
+    "rationale" : "Parallax factors are typically non-negative in tiled map rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getX() == layer.getX()",
+    "rationale" : "Access to 'getX()' must be valid; this can fail if 'layer' is null, but we've already asserted non-null.",
+    "meta" : [ ]
+  } ]
+}

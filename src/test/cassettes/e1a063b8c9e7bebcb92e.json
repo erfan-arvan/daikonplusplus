@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "HoodieDataCacheKey is likely used as an identifier and should not be null for cache operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids != null",
+    "rationale" : "The varargs parameter 'ids' should be non-null before being processed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids.length >= 0",
+    "rationale" : "In Java, the length of an array is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids.length == 0 || ids[0] == ids[0]",
+    "rationale" : "Accessing ids[0] is only safe if the array is non-empty, and this can be used as a safe access invariant.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects to operate on preppedRecords and directly passes it to downstream operations, suggesting it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a key control parameter and is expected to represent a commit instant; null would not be meaningful for downstream operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(preppedRecords.isEmpty() && preppedRecords.size() > 0)",
+    "rationale" : "A List cannot be simultaneously empty and have a size greater than zero; this serves as a consistency check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "instantTime is likely a required string identifier for a commit action; leading/trailing whitespace could be present but a length greater than 0 suggests it is not blank.",
+    "meta" : [ ]
+  } ]
+}

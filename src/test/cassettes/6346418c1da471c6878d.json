@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "The method will likely need to dereference tmjFile, e.g., for path operations or file access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.exists()",
+    "rationale" : "The function is going to look for a related file using tmjFile; the file should exist for a map file load.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.isDirectory() == false",
+    "rationale" : "A TMJ file is expected to be a file, not a directory; loading map data assumes a file handle.",
+    "meta" : [ ]
+  } ]
+}

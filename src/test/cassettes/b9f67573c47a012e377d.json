@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should not be null to perform update operations",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "argument-sanity"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "FileId must be non-null to identify which file is being updated",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "argument-sanity"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The iterator of records must be non-null for processing updates",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "argument-sanity"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Partition path is expected to be non-empty for meaningful partitioning",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "argument-sanity"
+    } ]
+  }, {
+    "expression" : "!fileId.isEmpty()",
+    "rationale" : "File identifier is expected to be non-empty",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "argument-sanity"
+    } ]
+  } ]
+}

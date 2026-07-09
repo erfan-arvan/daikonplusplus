@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "background != null",
+    "rationale" : "Drawable#draw requires background to be non-null, otherwise a NullPointerException would occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "Drawable#draw requires batch to be non-null for rendering operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0",
+    "rationale" : "Negative width for a drawing region is unlikely to be valid; graphics APIs generally require non-negative sizes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Negative height would not make sense for drawing a rectangular background.",
+    "meta" : [ ]
+  }, {
+    "expression" : "background.draw(batch, x, y, width, height) == null",
+    "rationale" : "Drawable#draw typically returns void in standard API, so its result ('null' or 'void') is expected.",
+    "meta" : [ ]
+  } ]
+}

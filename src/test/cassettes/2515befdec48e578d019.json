@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "operationType != WriteOperationType.LOG_COMPACT",
+    "rationale" : "Method throws an exception if operationType equals LOG_COMPACT, so it's always not LOG_COMPACT at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is used for method calls and field accesses, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is used for method calls, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "operationType is compared using .equals(), so it must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to methods and thus must not be null.",
+    "meta" : [ ]
+  } ]
+}

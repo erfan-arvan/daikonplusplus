@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method uses config in constructors, so it must not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "config must be non-null to create a HoodieJavaTable"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method uses context in constructors, so it must not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "context must be non-null to create a HoodieJavaTable"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient must be provided for the method logic to work.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "metaClient is used to get the table type and passed to constructors"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() != null",
+    "rationale" : "The method switches based on metaClient.getTableType(), so it must not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "TableType must be specified to select the table kind"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "The method throws exception for unsupported table types, restricting the tableType to these values.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Only these two table types are supported"
+    } ]
+  } ]
+}

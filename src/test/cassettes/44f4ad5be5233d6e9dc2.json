@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "An instant time identifier should almost always be non-null for commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method is designed to operate on a prepared list of records; null would likely be invalid input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is essential for distributed/engine operations—null context would typically not be supported.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() >= 0",
+    "rationale" : "A List's size is never negative; this checks list usage and allows safe calls to isEmpty() and size().",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Hudi commit instant times are almost always required to be non-empty strings.",
+    "meta" : [ ]
+  } ]
+}

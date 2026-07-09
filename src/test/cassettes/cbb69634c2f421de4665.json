@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == columnPrefWidth[columnIndex]",
+    "rationale" : "The returned value is directly the value at columnIndex in columnPrefWidth.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnIndex >= 0",
+    "rationale" : "Indexing into the array requires a non-negative index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnIndex < columnPrefWidth.length",
+    "rationale" : "Array indexing requires columnIndex to be within bounds.",
+    "meta" : [ ]
+  } ]
+}

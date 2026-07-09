@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a method parameter expected to be a valid partition identifier.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The partitionPath should typically be a valid string for clustering."
+    } ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "fileSlices is a method parameter representing files to cluster; null would imply no data input.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "fileSlices list should be non-null as it is used to build clustering groups."
+    } ]
+  }, {
+    "expression" : "fileSlices.size() >= 0",
+    "rationale" : "List size is never negative, ensuring valid list state.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The size of fileSlices list is always non-negative."
+    } ]
+  }, {
+    "expression" : "!(fileSlices instanceof Set)",
+    "rationale" : "Parameter declared as List<FileSlice>, not Set, so should not be an instance of Set.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Typically the fileSlices parameter is a List, not a Set."
+    } ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Cluster operations require a valid, non-empty partition path string.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Partition path is expected to be a non-empty string."
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A typical contract is that the execute() method returns non-null write metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "A HoodieWriteMetadata instance should contain a non-null write statuses list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of a List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The returned result must be a HoodieWriteMetadata of appropriate type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof java.util.List",
+    "rationale" : "The write statuses contained should be a List as per the type signature.",
+    "meta" : [ ]
+  } ]
+}

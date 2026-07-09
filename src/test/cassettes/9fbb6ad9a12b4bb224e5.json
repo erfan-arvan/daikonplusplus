@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Pair.of(...), so result is guaranteed non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The first value of the returned Pair is the partitionPathStatMap (always non-null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The second value of the returned Pair is the globalStat (always non-null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method expects a valid inputRecords list (null would throw NPE on stream()).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft().values().contains(result.getRight()) == false",
+    "rationale" : "globalStat is not an entry in partitionPathStatMap; they are distinct objects by construction.",
+    "meta" : [ ]
+  } ]
+}

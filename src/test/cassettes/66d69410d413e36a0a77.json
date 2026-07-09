@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "root != null",
+    "rationale" : "root is dereferenced in the method via getChildByName, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tideFile != null",
+    "rationale" : "tideFile is passed to getRelativeFileHandle, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "root.getChildByName(\"TileSheets\") != null",
+    "rationale" : "tilesheets is dereferenced in the for loop, so TileSheets child must exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "root.getChildByName(\"TileSheets\").getChildrenByName(\"TileSheet\").size >= 0",
+    "rationale" : "The collection of TileSheet children is a list and cannot be negative size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tideFile.exists()",
+    "rationale" : "tideFile is used to resolve image files, so it should exist.",
+    "meta" : [ ]
+  } ]
+}

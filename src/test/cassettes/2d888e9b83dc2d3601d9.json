@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the 'images' array, which is newly created and never set to null, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array<FileHandle>.size is always non-negative, as no elements are removed from the array and elements are only added.",
+    "meta" : [ ]
+  }, {
+    "expression" : "root != null",
+    "rationale" : "The method requires 'root' to call getChildByName and assumes it is non-null to function without exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tideFile != null",
+    "rationale" : "tideFile is used to construct FileHandle objects for images, so it must not be null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size == root.getChildByName(\"TileSheets\").getChildrenByName(\"TileSheet\").size",
+    "rationale" : "Each 'TileSheet' child in the XML yields one FileHandle in the output array, establishing this size relationship.",
+    "meta" : [ ]
+  } ]
+}

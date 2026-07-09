@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method iterates over orders, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.stream().allMatch(o -> o != null)",
+    "rationale" : "If there are any orders, none should be null to pass validation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.stream().allMatch(o -> o.getQuantity() > 0)",
+    "rationale" : "Every order must have a positive quantity for validation to pass.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.stream().allMatch(o -> o.getUnitPrice() >= 0)",
+    "rationale" : "Every order must have a non-negative unit price for validation to pass.",
+    "meta" : [ ]
+  } ]
+}

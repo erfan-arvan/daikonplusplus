@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "type == null || type.equals(\"string\") || type.equals(\"file\") || type.equals(\"int\") || type.equals(\"float\") || type.equals(\"bool\") || type.equals(\"color\")",
+    "rationale" : "The method only expects those type values; any other causes an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type == null || value != null",
+    "rationale" : "If a non-string, non-file type is used, value must be non-null for proper conversion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type == null || type.equals(\"string\") || type.equals(\"file\") || (!type.equals(\"int\") || value != null)",
+    "rationale" : "If type equals \"int\", value must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type == null || type.equals(\"string\") || type.equals(\"file\") || (!type.equals(\"float\") || value != null)",
+    "rationale" : "If type equals \"float\", value must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type == null || type.equals(\"string\") || type.equals(\"file\") || (!type.equals(\"bool\") || value != null)",
+    "rationale" : "If type equals \"bool\", value must not be null.",
+    "meta" : [ ]
+  } ]
+}

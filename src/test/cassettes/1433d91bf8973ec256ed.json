@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The profile parameter is used throughout the method and must be non-null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is utilized to fetch small files for partitions, requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "Partition paths are accessed from profile at the start of the method and are critical for partition logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The output partition path stats map is read and potentially updated for each partition, so it needs to exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() || true",
+    "rationale" : "The method checks profile.hasOutputWorkLoadStats() before updating output stats; this ensures the method is callable and safe, and that the field is valid for logic.",
+    "meta" : [ ]
+  } ]
+}

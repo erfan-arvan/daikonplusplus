@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == order.getQuantity() * order.getUnitPrice()",
+    "rationale" : "This directly reflects the implemented computation in the method, relating the return value to the product of quantity and unit price.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "If getQuantity() and getUnitPrice() both return non-negative values, the price should never be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order != null",
+    "rationale" : "The method would throw a NullPointerException before returning if order were null, so this holds at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!order.getUnitPriceIsNegative() && !order.getQuantityIsNegative()) || result >= 0.0",
+    "rationale" : "If the order's quantity and unit price cannot be negative, result is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

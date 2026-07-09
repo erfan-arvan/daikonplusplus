@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is typically required for engine operations and should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null && !indexInstantTime.isEmpty()",
+    "rationale" : "The index instant time should be a non-null, non-empty string for scheduling indexing operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "The list of partitions to index should be defined for proper indexing scheduling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Partition paths are required for index partitioning decisions and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex == null || partitionsToIndex.size() >= 0",
+    "rationale" : "A List's size is always non-negative; this is a non-tautological check confirming list well-formedness or nullness.",
+    "meta" : [ ]
+  } ]
+}

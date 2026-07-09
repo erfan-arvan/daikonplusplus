@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Null record lists are likely not supported for a bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime string should be non-null and non-empty to specify the commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "Options should generally not be null; if absent, Option.absent() is used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A list's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.size() == 0",
+    "rationale" : "If the records list is not empty, its size must be greater than zero; otherwise, it is zero.",
+    "meta" : [ ]
+  } ]
+}

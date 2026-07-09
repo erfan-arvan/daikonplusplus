@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of JavaBulkInsertHelper.bulkInsert, which is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result is directly returned as List<WriteStatus>; ensures type conformance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method would fail early if inputRecords were null, as it is passed to bulkInsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "Parallelism (numOutputGroups) for clustering should logically be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is passed to getPartitioner; a null map would likely cause failure.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism >= 0",
+    "rationale" : "Parallelism is typically non-negative, especially as a method parameter involving thread or job partitioning.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter assumption"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is likely a string representing an instant/time, which in Hudi must be non-null and non-empty to indicate a valid commit or instant.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "temporal identifier"
+    } ]
+  }, {
+    "expression" : "partitionFilePathAndSizeTriplet != null && !partitionFilePathAndSizeTriplet.isEmpty()",
+    "rationale" : "The method appears to act upon this list, so non-nullness and non-emptiness are likely required for meaningful operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input data"
+    } ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "indexDefinition must be non-null since it describes index-related operations requested by the user.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "required parameter"
+    } ]
+  }, {
+    "expression" : "metaClient != null && metaClient.getTableConfig() != null",
+    "rationale" : "metaClient and its configuration are likely required for any metadata table operation and their absence would cause failure.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "configuration dependency"
+    } ]
+  } ]
+}

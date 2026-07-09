@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method dereferences 'map' multiple times, so it cannot be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getProperties() != null",
+    "rationale" : "The method accesses 'map.getProperties()' many times, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getLayers() != null",
+    "rationale" : "The method checks 'map.getLayers().size()' and gets element 0, so layers must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getProperties().containsKey(\"staggeraxis\") || map.getProperties().containsKey(\"staggerindex\") || map.getProperties().containsKey(\"hexsidelength\") || map.getProperties().containsKey(\"tilewidth\") || map.getProperties().containsKey(\"tileheight\") || (map.getLayers().size() > 0)",
+    "rationale" : "At least one of these values must be present or layers must not be empty for hexSideLength assignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getProperties().containsKey(\"height\")",
+    "rationale" : "The method reads 'height' property to determine stagger index, so it must be present for that logic to execute.",
+    "meta" : [ ]
+  } ]
+}

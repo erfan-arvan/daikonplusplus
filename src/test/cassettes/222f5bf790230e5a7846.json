@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The method dereferences writeClient for method calls, so it must be non-null before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is used as a parameter, so it cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed as an argument and used in multiple method calls, so it must be not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.isCommitted(instantTime)",
+    "rationale" : "After calling writeClient.commit(instantTime, ...), the instantTime should be committed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

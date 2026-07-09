@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "speedMin <= speedMax",
+    "rationale" : "It would be expected that the minimum speed does not exceed the maximum speed when setting bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "distance >= 0",
+    "rationale" : "Overscroll distance in pixels typically cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "speedMin >= 0",
+    "rationale" : "A minimum overscroll return speed in seconds is likely non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "speedMax >= 0",
+    "rationale" : "A maximum overscroll return speed in seconds is likely non-negative.",
+    "meta" : [ ]
+  } ]
+}

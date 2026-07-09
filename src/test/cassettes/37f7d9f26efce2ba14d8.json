@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is passed directly into the constructor, so must not be null to avoid NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is passed directly into the constructor, so must not be null to avoid NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A new client object is always instantiated and returned, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaWriteClient",
+    "rationale" : "The method always returns a new HoodieJavaWriteClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((HoodieJavaWriteClient) result).getConfig() == config",
+    "rationale" : "The config object is passed into the HoodieJavaWriteClient constructor.",
+    "meta" : [ ]
+  } ]
+}

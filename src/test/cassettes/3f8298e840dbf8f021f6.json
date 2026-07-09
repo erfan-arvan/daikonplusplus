@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The factory method createKeyGenerator returns a non-null KeyGenerator instance.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "safe return value"
+    } ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "The props parameter is typically required and should not be null.",
+    "meta" : [ {
+      "key" : "parameterNotNull",
+      "value" : "method contract"
+    } ]
+  }, {
+    "expression" : "result instanceof KeyGenerator",
+    "rationale" : "result must be an instance of KeyGenerator as returned by the factory.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "method return type"
+    } ]
+  } ]
+}

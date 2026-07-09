@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A non-null context is required for downstream operations and casting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed directly to the commit executor; should not be null for proper operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "deletePrepped uses the list directly; null would likely cause an exception or incorrect processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A write metadata result is always returned from the executor's execute method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "A non-null list of WriteStatus is necessary to represent the outcome of the delete operation.",
+    "meta" : [ ]
+  } ]
+}

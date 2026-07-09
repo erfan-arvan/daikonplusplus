@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result instanceof IntMap",
+    "rationale" : "Ensures returned value is either null or a valid IntMap, in line with @Null annotation and method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.size >= 0",
+    "rationale" : "If result is non-null, its size is at least zero; IntMap should never have negative size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || !result.isEmpty() == (result.size > 0)",
+    "rationale" : "For non-null result, isEmpty() and size reflect consistent state for IntMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result != null",
+    "rationale" : "This is redundant but ensures reading result is safe in all paths.",
+    "meta" : [ ]
+  } ]
+}

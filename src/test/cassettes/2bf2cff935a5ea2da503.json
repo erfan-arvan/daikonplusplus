@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "It is expected that a non-null HoodieEngineContext is required to perform log compaction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "The instant time for the log compaction should be provided and valid (non-null) before method execution.",
+    "meta" : [ ]
+  } ]
+}

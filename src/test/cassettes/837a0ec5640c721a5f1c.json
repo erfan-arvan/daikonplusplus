@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Pair as per Java conventions for such factory methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a required input for clustering and rarely expected to be null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "fileSlices is likely validated or assumed non-null before method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The Pair's left side (Stream<HoodieClusteringGroup>) should be non-null when returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The Pair's right side (Boolean status flag) should be non-null when returned.",
+    "meta" : [ ]
+  } ]
+}

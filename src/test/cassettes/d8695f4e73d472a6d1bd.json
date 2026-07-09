@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The method returns an empty HoodieData, so the result should be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == 0",
+    "rationale" : "Result is constructed from Collections.emptyList(), so its count should be zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.iterator().hasNext()",
+    "rationale" : "Result iterates over an empty collection, so its iterator should have no next element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().isEmpty()",
+    "rationale" : "Collecting the HoodieData to a list must yield an empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HoodieData instance.",
+    "meta" : [ ]
+  } ]
+}

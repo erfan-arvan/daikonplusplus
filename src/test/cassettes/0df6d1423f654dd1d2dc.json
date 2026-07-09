@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "Typically, clustering requires at least one output group; zero would not be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null && !inputRecords.isEmpty()",
+    "rationale" : "Clustering is generally only performed when there are records to cluster.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupIdList != null && fileGroupIdList.size() == numOutputGroups",
+    "rationale" : "Usually, the number of file group IDs corresponds to the number of output groups for clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "Clustering strategies often require parameters indicating configuration; should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "A valid schema is necessary to interpret and cluster the records correctly.",
+    "meta" : [ ]
+  } ]
+}

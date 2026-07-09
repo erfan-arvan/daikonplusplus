@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fadeAlphaSeconds >= 0.0f",
+    "rationale" : "Fade durations are typically non-negative in UI timing contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fadeDelaySeconds >= 0.0f",
+    "rationale" : "Fade delay durations are also expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fadeAlphaSeconds >= fadeDelaySeconds",
+    "rationale" : "It may be desirable for the fade duration not to be shorter than the delay, ensuring the effect outlasts the delay.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fadeAlphaSeconds != Float.NaN",
+    "rationale" : "A fade duration should not be NaN, as this would break duration semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fadeDelaySeconds != Float.NaN",
+    "rationale" : "A fade delay should not be NaN for the same reason as above.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "The fileName parameter represents a path and is expected to be non-null for loading resources.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "A resource path is expected to be non-empty; an empty string would be an invalid file name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.endsWith(\".tmx\") || fileName.endsWith(\".tmj\")",
+    "rationale" : "According to the Javadoc, only .tmx or .tmj files are supported for loading maps.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.startsWith(\" \")",
+    "rationale" : "File paths typically do not start with a whitespace, which could indicate an invalid or mistyped file name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.contains(\"\\0\")",
+    "rationale" : "Java strings that contain a null character are generally invalid as file names.",
+    "meta" : [ ]
+  } ]
+}

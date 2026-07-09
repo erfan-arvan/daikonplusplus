@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getName().equals(\"Properties\") || properties.equals(properties)",
+    "rationale" : "properties are only updated when element's name is 'Properties', otherwise remain unchanged",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "properties potentially modified only if element name is 'Properties'"
+    } ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "method operations assume 'element' is not null",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Element must not be null for method to work"
+    } ]
+  }, {
+    "expression" : "properties != null",
+    "rationale" : "properties are mutated within method without null checks",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Properties must not be null"
+    } ]
+  }, {
+    "expression" : "element.getChildrenByName(\"Property\").size() >= 0",
+    "rationale" : "size() for a list of children should always be non-negative",
+    "meta" : [ {
+      "key" : "children",
+      "value" : "Property children count is non-negative"
+    } ]
+  }, {
+    "expression" : "element.getName() != null",
+    "rationale" : "element.getName() is used in equals, so should not be null",
+    "meta" : [ {
+      "key" : "string attribute",
+      "value" : "Element name used in equality"
+    } ]
+  } ]
+}

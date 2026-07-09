@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result should not be null at method exit.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "Ensures the method returns a non-null result"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata stores a list of WriteStatus, which should be non-null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "Ensures the write statuses list is non-null"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().contains(null)",
+    "rationale" : "The list of write statuses should not contain null elements.",
+    "meta" : [ {
+      "key" : "non_null_list_elements",
+      "value" : "No null elements in the list"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the list is always non-negative.",
+    "meta" : [ {
+      "key" : "size_non_negative",
+      "value" : "The list size is non-negative"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "Each WriteStatus should have non-null write statistics.",
+    "meta" : [ {
+      "key" : "all_stats_non_null",
+      "value" : "Each WriteStatus has a non-null stat"
+    } ]
+  } ]
+}

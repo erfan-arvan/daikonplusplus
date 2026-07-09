@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely a required identifier for an update operation and should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input-sanity"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath defines the partition being updated, and a null value may not be valid for partitioned tables.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input-sanity"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId identifies the file to be updated and should be non-null to target a specific file.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input-sanity"
+    } ]
+  }, {
+    "expression" : "keyToNewRecords != null && !keyToNewRecords.isEmpty()",
+    "rationale" : "Updating a file should involve at least one new record, so the map should not be null or empty.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input-content"
+    } ]
+  }, {
+    "expression" : "dataFileToBeMerged != null",
+    "rationale" : "A merge/update operation requires a reference to the data file being merged.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input-sanity"
+    } ]
+  } ]
+}

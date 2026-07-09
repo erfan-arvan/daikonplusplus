@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "text != null",
+    "rationale" : "Common precondition is that the new text should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "String.length() is always non-negative for non-null strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || !text.isEmpty() || text.length() == 0",
+    "rationale" : "If text is not null, isEmpty and length relate as such.",
+    "meta" : [ ]
+  } ]
+}

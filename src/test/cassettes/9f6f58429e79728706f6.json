@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a non-null context to execute a commit action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime typically represents a commit instant and should be specified and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "A valid list of records to delete is required to perform deletePrepped.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || !preppedRecords.isEmpty()",
+    "rationale" : "If preppedRecords is provided, it usually should not be empty to perform delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieJavaEngineContext",
+    "rationale" : "The method immediately casts the context to HoodieJavaEngineContext, so this should hold to avoid a ClassCastException.",
+    "meta" : [ ]
+  } ]
+}

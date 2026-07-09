@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "text != null",
+    "rationale" : "Method throws IllegalArgumentException if text is null, indicating this is a precondition.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "text.length() >= 0",
+    "rationale" : "String.length() is always non-negative and valid if text is non-null.",
+    "meta" : [ {
+      "key" : "string property",
+      "value" : "safe method call"
+    } ]
+  }, {
+    "expression" : "!text.isEmpty() || text.isEmpty()",
+    "rationale" : "This covers all possibilities for the input String, though it is tautological.",
+    "meta" : [ {
+      "key" : "string property",
+      "value" : "exhaustive"
+    } ]
+  }, {
+    "expression" : "text instanceof String",
+    "rationale" : "text is declared as a String, so this will always be true unless manipulated reflectively.",
+    "meta" : [ {
+      "key" : "type check",
+      "value" : "static type assumption"
+    } ]
+  } ]
+}

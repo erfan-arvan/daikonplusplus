@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method’s contract is to return a HoodieWriteMetadata object, so a non-null result is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list should always be initialized and returned as part of the metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "By type signature, getWriteStatuses() returns a List; this confirms the runtime type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "Due to inheritance, the returned object should be an instance of HoodieWriteMetadata or its subclass.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "Each WriteStatus in the result list should be non-null, as they represent operation outcomes.",
+    "meta" : [ ]
+  } ]
+}

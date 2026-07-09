@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method dereferences result and invokes multiple methods, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "result.getWriteStatuses() is used for streaming and mapping, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "result.getPartitionToReplaceFileIds() is passed into the metadata builder, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getCommitMetadata().isPresent()",
+    "rationale" : "setCommitMetadata is called with an Option.of(...) value, so commit metadata is guaranteed to be present after this call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getCommitMetadata().get() != null",
+    "rationale" : "Option.of always wraps a non-null value, so getCommitMetadata().get() should be non-null after setCommitMetadata.",
+    "meta" : [ ]
+  } ]
+}

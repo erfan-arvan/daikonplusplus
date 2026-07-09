@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns either a new array or the argument array, both of which are non-null at the return point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length >= size",
+    "rationale" : "The method allocates a new array of \"size\" if the incoming array is null or too small, and only returns the input array if it has sufficient length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "array == null || array.length < size ? result != array : result == array",
+    "rationale" : "If the input array is null or too small, a new array is returned; otherwise, the input array itself is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length >= size",
+    "rationale" : "Whether a new or existing array is returned, it is guaranteed to have length at least 'size'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null && result.length >= size",
+    "rationale" : "Combines non-nullness and size guarantees for the returned array.",
+    "meta" : [ ]
+  } ]
+}

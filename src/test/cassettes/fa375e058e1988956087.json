@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "!Float.isNaN(fontScaleX)",
+    "rationale" : "Font scaling values should not generally be NaN; setting the font scale to NaN would be an error.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "float validity"
+    } ]
+  }, {
+    "expression" : "!Float.isInfinite(fontScaleX)",
+    "rationale" : "Font scaling values should not be infinite as this would break font rendering.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "float validity"
+    } ]
+  }, {
+    "expression" : "fontScaleX >= 0f",
+    "rationale" : "Font scaling factors are typically expected to be non-negative to ensure visible rendering.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "font scaling non-negativity"
+    } ]
+  } ]
+}

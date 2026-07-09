@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a FileHandle object that cannot be null, as returning null is not an execution path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.exists()",
+    "rationale" : "The method checks that fileHandle.exists() before returning the FileHandle, ensuring result.exists() is always true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "The method requires tmxFile to call getRelativeFileHandle(tmxFile, atlasFilePath), so it cannot be null at this point.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(height)",
+    "rationale" : "A height parameter should typically be a finite float value for valid layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0.0f",
+    "rationale" : "It is common for height parameters in UI frameworks to be expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height != Float.NaN",
+    "rationale" : "NaN heights may cause undefined behavior in UI layout processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height <= Float.MAX_VALUE",
+    "rationale" : "Heights should not exceed the maximum representable float value.",
+    "meta" : [ ]
+  } ]
+}

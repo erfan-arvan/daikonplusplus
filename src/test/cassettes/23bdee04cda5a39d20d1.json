@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method immediately accesses the 'style' field, so it must be non-null at the entry point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.knobBefore != null || (disabled && style.disabledKnobBefore != null)",
+    "rationale" : "The return value is either 'style.disabledKnobBefore' if 'disabled' is true and it is not null, or 'style.knobBefore'. At least one will be returned, so this must hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!disabled || style.disabledKnobBefore != null",
+    "rationale" : "If 'disabled' is true, 'style.disabledKnobBefore' must be non-null for control-flow to return that value.",
+    "meta" : [ ]
+  } ]
+}

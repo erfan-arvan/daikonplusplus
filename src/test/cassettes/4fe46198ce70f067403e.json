@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since result is the return value of the method, it is expected to be non-null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result might be null on method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list inside the result should be non-null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result.getWriteStatuses may be null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of a list cannot be negative.",
+    "meta" : [ {
+      "key" : "collection_size",
+      "value" : "writeStatuses size is non-negative"
+    } ]
+  }, {
+    "expression" : "result.getPartitionPath() == null || !result.getPartitionPath().isEmpty()",
+    "rationale" : "Partition path string if present is not empty.",
+    "meta" : [ {
+      "key" : "null_or_not_empty",
+      "value" : "partition path string is null or non-empty"
+    } ]
+  }, {
+    "expression" : "result.isSuccessful() == true",
+    "rationale" : "At method exit, the write operation represented by result should be successful.",
+    "meta" : [ {
+      "key" : "success_flag",
+      "value" : "the operation should succeed at method exit"
+    } ]
+  } ]
+}

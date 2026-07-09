@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Timestamp strings representing instants are typically required and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "List of keys to delete must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Processing context is needed for engine operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys == null || !keys.isEmpty()",
+    "rationale" : "It is likely that delete is called with a non-empty set of keys; deleting nothing is usually not meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.isEmpty()",
+    "rationale" : "If an instantTime is provided, it should not be an empty string.",
+    "meta" : [ ]
+  } ]
+}

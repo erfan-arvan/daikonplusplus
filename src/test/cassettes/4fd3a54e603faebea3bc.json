@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "The method is an instance method and thus 'this' must not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cache != null",
+    "rationale" : "cache is accessed immediately for cache.getFont(), thus must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cache.getFont() != null",
+    "rationale" : "The method accesses cache.getFont() and calls methods on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "The field 'style' is accessed as style.background and style.font, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layout != null",
+    "rationale" : "The field 'layout' is assigned to GlyphLayout layout = this.layout and used, so must be non-null.",
+    "meta" : [ ]
+  } ]
+}

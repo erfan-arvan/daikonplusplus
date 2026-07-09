@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method passes 'partitionPath' to getLatestFileSlices, which may require a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "new java.util.HashSet<>(result).size() == result.size()",
+    "rationale" : "The result list is constructed using .distinct(), so all elements are unique.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(x -> x != null)",
+    "rationale" : "getFileId likely never returns null ids, and Java streams would not add null if not present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "The returned value is explicitly a List, per method contract.",
+    "meta" : [ ]
+  } ]
+}

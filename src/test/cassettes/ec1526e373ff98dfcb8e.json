@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns result of postWrite; postWrite should return a non-null List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method expects a non-null preppedRecords input; operations depend on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in several method calls and passed to Option.ofNullable; precondition for correct write.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() || !result.isEmpty()",
+    "rationale" : "If no records are prepped, likely no WriteStatus are produced, though postWrite might still produce results, but at least one should be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "Result is returned as List<WriteStatus>.",
+    "meta" : [ ]
+  } ]
+}

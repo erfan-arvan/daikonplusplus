@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Engine context is typically required and should not be null when restoring.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "Restore timestamp should be provided as a non-null string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp.length() > 0",
+    "rationale" : "Restore timestamp should likely be non-empty to identify a valid instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp == null || savepointToRestoreTimestamp.length() > 0",
+    "rationale" : "Savepoint timestamp can be null, but if not, it should be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.equals(savepointToRestoreTimestamp)",
+    "rationale" : "The timestamps for restore and savepoint are likely intended to be different.",
+    "meta" : [ ]
+  } ]
+}

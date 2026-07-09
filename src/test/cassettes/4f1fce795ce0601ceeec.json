@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "id >= 0",
+    "rationale" : "Tile IDs are typically non-negative integers, representing valid indices or keys in a tile set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "id != Integer.MIN_VALUE",
+    "rationale" : "Avoids boundary/underflow issues and is a common guard for possible problematic integer values.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null && context != null && profile.getPartitionPaths() != null && !profile.getPartitionPaths().isEmpty() && totalBuckets >= 0",
+    "rationale" : "At method exit, profile and context should still be non-null, partition paths set non-empty, and totalBuckets is incremented non-negatively.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "partitionPathToInsertBucketInfos is populated in the method and should remain non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "for (String partitionPath : profile.getPartitionPaths()) { partitionPathToInsertBucketInfos.containsKey(partitionPath) || profile.getWorkloadStat(partitionPath).getNumInserts() == 0 }",
+    "rationale" : "Partitions with inserts will have insert bucket infos recorded; partitions without inserts may not.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "totalBuckets >= bucketInfoMap.size()",
+    "rationale" : "totalBuckets tracks the number of buckets created and bucketInfoMap size is expected to be less or equal.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "!profile.getPartitionPaths().stream().anyMatch(p -> profile.getWorkloadStat(p) == null)",
+    "rationale" : "Every partition path should have an associated WorkloadStat.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

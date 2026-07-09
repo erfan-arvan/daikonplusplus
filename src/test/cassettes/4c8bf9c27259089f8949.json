@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "deadzoneRadius >= 0",
+    "rationale" : "The method throws if deadzoneRadius < 0, indicating the expected invariant is deadzoneRadius >= 0 at method entry.",
+    "meta" : [ {
+      "key" : "likely contract",
+      "value" : "as per method precondition"
+    } ]
+  }, {
+    "expression" : "Float.isFinite(deadzoneRadius)",
+    "rationale" : "Since deadzoneRadius represents a pixel distance, it is expected to be finite.",
+    "meta" : [ {
+      "key" : "robustness",
+      "value" : "guards against NaN and infinity"
+    } ]
+  }, {
+    "expression" : "deadzoneRadius == deadzoneRadius",
+    "rationale" : "For Java floats, x != x only if x is NaN; since the parameter is expected to be a meaningful length, it should not be NaN.",
+    "meta" : [ {
+      "key" : "not NaN",
+      "value" : "deadzoneRadius cannot be NaN"
+    } ]
+  } ]
+}

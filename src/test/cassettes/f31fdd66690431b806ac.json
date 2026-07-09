@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this' Dialog instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage != null",
+    "rationale" : "The method requires a non-null 'stage' to add the dialog to; NPE would be thrown otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getKeyboardFocus() == this",
+    "rationale" : "The method sets this Dialog as the stage's keyboard focus before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getScrollFocus() == this",
+    "rationale" : "The Dialog sets itself as the scroll focus before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(! (action != null) || this.getActions().contains(action))",
+    "rationale" : "If 'action' is non-null, it has been added to this Dialog's actions.",
+    "meta" : [ ]
+  } ]
+}

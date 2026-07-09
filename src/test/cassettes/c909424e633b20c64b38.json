@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is produced by the execute() method and Option is expected to be non-null (though possibly empty).",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is directly passed to the executor and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "indexInstantTime is used to create the ScheduleIndexActionExecutor and is required for scheduling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "partitionsToIndex is required by the action executor and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "partitionPaths is required by the action executor and must not be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The String[] args parameter provided to the main method is supplied by the JVM and is typically non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "The length of any array in Java is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "System.out != null",
+    "rationale" : "System.out is a standard stream and expected to be initialized by the JVM.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Foo.bar(2, \"hi\") != null",
+    "rationale" : "Assuming Foo.bar returns a non-null value for constant inputs, otherwise println would throw NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "\"hi\".equals(\"hi\")",
+    "rationale" : "Literal comparison; might indicate that string literals are internally deduplicated.",
+    "meta" : [ ]
+  } ]
+}

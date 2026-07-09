@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "cacheKey is intended for use so it's plausible that it should not be null at the method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids != null",
+    "rationale" : "The ids varargs array should be non-null for correct call semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids.length >= 0",
+    "rationale" : "The length of any array in Java is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

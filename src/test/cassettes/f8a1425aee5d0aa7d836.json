@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cell != null",
+    "rationale" : "The method sets a cell to a new value, which often requires non-null argument for typical use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0",
+    "rationale" : "Coordinates should be non-negative to be inside the grid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "Coordinates should be non-negative to be inside the grid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x < width",
+    "rationale" : "X must be less than the grid width to be a valid index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y < height",
+    "rationale" : "Y must be less than the grid height to be a valid index.",
+    "meta" : [ ]
+  } ]
+}

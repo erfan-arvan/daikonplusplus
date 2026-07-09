@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieJavaTable.create(config, context) should always return a non-null instance as a factory method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "A valid config is required to create a HoodieTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid context is required to create a HoodieTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieTable",
+    "rationale" : "HoodieJavaTable.create returns a HoodieTable or subclass.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == HoodieJavaTable.create(config, context)",
+    "rationale" : "By construction, the method always returns the result of HoodieJavaTable.create(config, context).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == blendMode",
+    "rationale" : "The method simply returns the field 'blendMode', so the result is always equal to 'blendMode'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(blendMode == null) == (result == null)",
+    "rationale" : "If the field 'blendMode' is null, then the returned value is null and vice versa.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || blendMode == null",
+    "rationale" : "If result is not null, then blendMode cannot be null since result == blendMode.",
+    "meta" : [ ]
+  } ]
+}

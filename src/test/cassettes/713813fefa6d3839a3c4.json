@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "If name is not null, its length will be zero or positive.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "String length is always non-negative if name is not null"
+    } ]
+  }, {
+    "expression" : "x >= Integer.MIN_VALUE",
+    "rationale" : "x is of type int, so it cannot be less than Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "bound",
+      "value" : "int min value"
+    } ]
+  }, {
+    "expression" : "x <= Integer.MAX_VALUE",
+    "rationale" : "x is of type int, so it cannot be more than Integer.MAX_VALUE.",
+    "meta" : [ {
+      "key" : "bound",
+      "value" : "int max value"
+    } ]
+  }, {
+    "expression" : "(name == null) || !name.isEmpty() || name.length() == 0",
+    "rationale" : "Either name is null or the length could be zero (empty string) or non-empty.",
+    "meta" : [ {
+      "key" : "length_property",
+      "value" : "name length is zero or positive"
+    } ]
+  } ]
+}

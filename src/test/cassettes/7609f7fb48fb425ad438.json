@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "commitTimeline != null",
+    "rationale" : "It's common for non-nullness to be expected for input parameters representing stateful timelines.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "Configuration is likely required to estimate average record size, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() > 0",
+    "rationale" : "The Parquet small file limit likely represents a file size threshold and should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() > 0",
+    "rationale" : "A threshold for estimation is only meaningful when positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() >= 0",
+    "rationale" : "An estimated average record size cannot be negative.",
+    "meta" : [ ]
+  } ]
+}

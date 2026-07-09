@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "bulkInsert is expected to return a List, not null, under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is passed directly into bulkInsert and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "numOutputGroups sets parallelism for the clustering operation and must be positive for meaningful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.get(0) instanceof WriteStatus",
+    "rationale" : "If result is non-empty, its elements should be of type WriteStatus, since the returned list is a List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupIdList != null",
+    "rationale" : "fileGroupIdList may be necessary for partitioning logic, and a valid input should not be null.",
+    "meta" : [ ]
+  } ]
+}

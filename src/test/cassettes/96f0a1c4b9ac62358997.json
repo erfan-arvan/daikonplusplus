@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords will be passed to functions such as buildProfile and partition, both of which expect non-null lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer != null",
+    "rationale" : "Method argument, likely always expected to be non-null since Option is a wrapper for possible absence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords instanceof List",
+    "rationale" : "inputRecords is declared as List<HoodieRecord<T>>, so it should be an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer instanceof Option",
+    "rationale" : "sourceReadAndIndexTimer is declared as Option<HoodieTimer>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Lists of records typically should not contain nulls; downstream usage likely expects valid HoodieRecord objects.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "stage != null",
+    "rationale" : "The method assumes 'stage' is not null as it is used throughout without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getActors().contains(this, true)",
+    "rationale" : "This invariant suggests that the pane is now part of the stage's actors, added early in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getScrollFocus() == this",
+    "rationale" : "At method exit, scroll focus is explicitly set to this pane.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getHeight() >= 0",
+    "rationale" : "Stage height should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getRoot() != null",
+    "rationale" : "A valid Stage object always has a root actor.",
+    "meta" : [ ]
+  } ]
+}

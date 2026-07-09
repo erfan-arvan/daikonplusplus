@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "size >= 0",
+    "rationale" : "Minimum sizes should not be negative for layout dimensions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(size)",
+    "rationale" : "NaN is generally not a valid value for a minimum dimension.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(size)",
+    "rationale" : "Infinite sizes are not meaningful for layout sizing.",
+    "meta" : [ ]
+  } ]
+}

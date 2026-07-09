@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a HoodieMergeHandle, constructed via a static factory method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is propagation of input param and typically must not be null or empty for update/merge actions in Hudi.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used downstream and should not be null for correct handle creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "A file identifier for merging must be defined and non-empty for valid update handle creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "Map of records to update is passed to the merge handle factory, so must be non-null at this return point.",
+    "meta" : [ ]
+  } ]
+}

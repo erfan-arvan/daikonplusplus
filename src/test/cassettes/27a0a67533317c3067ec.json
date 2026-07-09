@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieIndex instance created via a factory method; unlikely to return null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is a method parameter and is required for creating a HoodieIndex, so must be non-null.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "input precondition"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "The return type is HoodieIndex, so the result must be an instance of HoodieIndex.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "true"
+    } ]
+  } ]
+}

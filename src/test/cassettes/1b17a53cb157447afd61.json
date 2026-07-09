@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Hoodie's upsert expects a list of records; null likely leads to failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An upsert operation requires a non-null instantTime.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context must not be null for writing operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A Java List always has non-negative size, and upsert can operate on empty or non-empty lists.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(parallaxY)",
+    "rationale" : "It is common for float parameters used to set state not to be NaN or infinity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallaxY >= -Float.MAX_VALUE && parallaxY <= Float.MAX_VALUE",
+    "rationale" : "The float parameter is within the representable finite float range.",
+    "meta" : [ ]
+  } ]
+}

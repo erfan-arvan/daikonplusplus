@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "EngineContext is typically required for distributed actions and should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is a string representing a timeline instant and should generally be well-defined and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is the primary data input to insert, so should not be null when the method is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "It is meaningful to prevent no-op inserts, so if records is not null, it should not be empty.",
+    "meta" : [ ]
+  } ]
+}

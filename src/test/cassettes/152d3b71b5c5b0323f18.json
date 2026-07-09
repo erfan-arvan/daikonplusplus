@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "padLeft >= 0",
+    "rationale" : "Padding values are commonly expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padLeft == padLeft",
+    "rationale" : "Sanity check for padding value; always true for any value, but avoids NaN issues. (Removed if too trivial.)",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(padLeft)",
+    "rationale" : "Padding should be a finite float to avoid rendering/layout issues.",
+    "meta" : [ ]
+  } ]
+}

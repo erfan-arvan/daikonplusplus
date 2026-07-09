@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Option objects in Java should never be null—an absent value should be represented by Option.empty().",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient should always be a valid reference as the method operates on table metadata.",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "instantTime instanceof Option",
+    "rationale" : "Ensures the instantTime is the expected wrapper type.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Option"
+    } ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "metaClient should conform to its declared type.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "HoodieTableMetaClient"
+    } ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "In a non-static method, 'this' should always be non-null.",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "receiver"
+    } ]
+  } ]
+}

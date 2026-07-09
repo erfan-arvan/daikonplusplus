@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new Value instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percent >= 0.0f",
+    "rationale" : "Percent as a multiplier for width is typically non-negative in UI sizing contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Value",
+    "rationale" : "The method returns an instance created as Value (anonymous subclass).",
+    "meta" : [ ]
+  }, {
+    "expression" : "percent == percent",
+    "rationale" : "Float input 'percent' must be well-defined at method exit (not NaN).",
+    "meta" : [ ]
+  } ]
+}

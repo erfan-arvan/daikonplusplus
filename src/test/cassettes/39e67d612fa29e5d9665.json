@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodieJavaWriteClient instance, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof BaseHoodieWriteClient",
+    "rationale" : "The method's return type aligns with BaseHoodieWriteClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaWriteClient",
+    "rationale" : "The only object returned is of type HoodieJavaWriteClient, a subclass of BaseHoodieWriteClient.",
+    "meta" : [ ]
+  } ]
+}

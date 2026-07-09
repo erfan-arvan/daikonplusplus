@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Methods typically require a valid (non-null) execution context for processing.",
+    "meta" : [ {
+      "key" : "appliesTo",
+      "value" : "method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null 'instantTime' string is expected to denote a valid operation time.",
+    "meta" : [ {
+      "key" : "appliesTo",
+      "value" : "method entry"
+    } ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "An empty string for 'instantTime' would likely be invalid for time-based operations.",
+    "meta" : [ {
+      "key" : "appliesTo",
+      "value" : "method entry"
+    } ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "'this' must always be non-null in instance method context.",
+    "meta" : [ {
+      "key" : "appliesTo",
+      "value" : "instance method"
+    } ]
+  }, {
+    "expression" : "getClass().equals(HoodieJavaCopyOnWriteTable.class) || getClass().isSubclassOf(HoodieJavaCopyOnWriteTable.class)",
+    "rationale" : "The method is called on an object of HoodieJavaCopyOnWriteTable or its subclass.",
+    "meta" : [ {
+      "key" : "appliesTo",
+      "value" : "instance method"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null && !jobId.isEmpty()",
+    "rationale" : "A job ID is often expected to be non-null and non-empty for job control operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId == null || jobId instanceof String",
+    "rationale" : "The parameter jobId should always be a String or null as per the signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId == null || jobId.length() >= 0",
+    "rationale" : "All non-null Strings have a non-negative length.",
+    "meta" : [ ]
+  } ]
+}

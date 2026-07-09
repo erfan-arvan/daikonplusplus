@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "speedMin <= speedMax",
+    "rationale" : "It is typical for a minimum speed value to be less than or equal to the maximum speed value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "speedMin >= 0",
+    "rationale" : "Speeds are conventionally non-negative in overscroll dynamics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "speedMax >= 0",
+    "rationale" : "Max speed should logically be non-negative for scrolling behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "distance >= 0",
+    "rationale" : "Overscroll distance in pixels is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "speedMax >= speedMin",
+    "rationale" : "Redundant with the first, but emphasizing the directionality of min/max speeds.",
+    "meta" : [ ]
+  } ]
+}

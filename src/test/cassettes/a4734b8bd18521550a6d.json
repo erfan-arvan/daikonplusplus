@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new AvroReaderContextFactory instance, so result is never null.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "method always returns a new object"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is passed to the constructor of AvroReaderContextFactory, which likely requires it to be non-null.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "parameter must be non-null for method call"
+    } ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "spriteCache != null",
+    "rationale" : "Method returns spriteCache; typically expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "spriteCache.getCacheCount() >= 0",
+    "rationale" : "Number of cached items in SpriteCache is non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "cache-property"
+    } ]
+  }, {
+    "expression" : "spriteCache.isDrawing() == false",
+    "rationale" : "SpriteCache is typically not in a drawing state when accessed via getter.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "spritecache-state"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is required to perform operations in logCompact; it's reasonable to assume it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "The logCompactionInstantTime identifier is needed to select the compaction instant; it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!logCompactionInstantTime.isEmpty()",
+    "rationale" : "An empty log compaction instant time is likely meaningless; typically, such identifiers are non-empty strings.",
+    "meta" : [ ]
+  } ]
+}

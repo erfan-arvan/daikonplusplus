@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The return value of the method is a Map created via context.mapToPair, which should never return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "The only parameter of the method is used without a prior null check, so it is expected to be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().containsAll(writeResult.getWriteStatuses().stream().map(status -> status.getStat().getPartitionPath()).distinct().collect(java.util.stream.Collectors.toList()))",
+    "rationale" : "The keys of the returned map are constructed from the partition paths extracted from writeResult's WriteStatus list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= writeResult.getWriteStatuses().size()",
+    "rationale" : "The result map has one entry per distinct partition path among the WriteStatus list, so size can't exceed the list size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "All values in the result map are constructed via getAllExistingFileIds, so none should be null.",
+    "meta" : [ ]
+  } ]
+}

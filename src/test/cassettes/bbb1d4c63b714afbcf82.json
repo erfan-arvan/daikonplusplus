@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of HoodieAvroKeyGeneratorFactory.createKeyGenerator(props), which likely does not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "props is required as an argument to HoodieAvroKeyGeneratorFactory.createKeyGenerator and must not be null.",
+    "meta" : [ ]
+  } ]
+}

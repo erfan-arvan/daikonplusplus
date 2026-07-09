@@ -1,0 +1,43 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A valid Stream should always be returned by this method.",
+    "meta" : [ {
+      "key" : "draftA",
+      "value" : "Ensures returned Stream is non-null."
+    }, {
+      "key" : "draftB",
+      "value" : "Basic postcondition for Stream result."
+    } ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Method likely assumes partition String is not null for clustering operations.",
+    "meta" : [ {
+      "key" : "draftA",
+      "value" : "String parameter is non-null."
+    }, {
+      "key" : "draftB",
+      "value" : "Parameter sent to super method, must be non-null."
+    } ]
+  }, {
+    "expression" : "result.allMatch(slice -> slice.getBaseFile().map(HoodieBaseFile::getFileSize).orElse(0L) < getWriteConfig().getClusteringSmallFileLimit())",
+    "rationale" : "By method implementation, all slices in result have base file size less than the small file limit.",
+    "meta" : [ {
+      "key" : "draftB",
+      "value" : "All returned slices meet size constraint."
+    }, {
+      "key" : "draftC",
+      "value" : "Method logic ensures this size constraint on all slices in result Stream."
+    } ]
+  }, {
+    "expression" : "result.count() >= 0",
+    "rationale" : "Counting a Stream yields non-negative results even if there are no eligible file slices.",
+    "meta" : [ {
+      "key" : "draftA",
+      "value" : "A Stream's count is always non-negative."
+    }, {
+      "key" : "draftB",
+      "value" : "Result represents 0 or more eligible slices."
+    } ]
+  } ]
+}

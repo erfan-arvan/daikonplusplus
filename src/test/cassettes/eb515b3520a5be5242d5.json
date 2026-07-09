@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "A valid StorageConfiguration is required to create the writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "A valid HoodieWriteConfig is required to configure the writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is necessary for metadata operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "The Option for the instant timestamp must be non-null (even if it may be Option.empty()).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(inflightInstantTimestamp == null) || inflightInstantTimestamp.isPresent() == false || inflightInstantTimestamp.get() != null",
+    "rationale" : "If inflightInstantTimestamp is non-null and present, its value should not be null (Option contract).",
+    "meta" : [ ]
+  } ]
+}

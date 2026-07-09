@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method expects a non-null List parameter to process records; null is likely not allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inputRecords.isEmpty() || inputRecords.isEmpty()",
+    "rationale" : "inputRecords may be empty or non-empty, so this covers both logical states without introducing redundancy.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords instanceof List",
+    "rationale" : "inputRecords is declared as List<HoodieRecord<T>>, so it must be an instance of List.",
+    "meta" : [ ]
+  } ]
+}

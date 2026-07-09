@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a newly created HoodieJavaWriteClient instance which is never null.",
+    "meta" : [ {
+      "key" : "guarantee",
+      "value" : "method returns a new instance"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The config parameter must be non-null to construct the HoodieJavaWriteClient.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "parameter expected non-null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter must be non-null to construct the HoodieJavaWriteClient.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "parameter expected non-null"
+    } ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "Assuming the write client keeps a reference to the configuration passed.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "Write client retains config reference"
+    } ]
+  } ]
+}

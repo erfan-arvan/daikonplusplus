@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "visibleTextStart <= visibleTextEnd",
+    "rationale" : "The end of visible text cannot be before its start after the clamping logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "visibleTextStart >= 0",
+    "rationale" : "visibleTextStart is minimized to not be less than zero after clamping with Math.min.",
+    "meta" : [ ]
+  }, {
+    "expression" : "visibleTextEnd <= glyphPositions.size - 1",
+    "rationale" : "visibleTextEnd is clamped to not exceed the last glyph position.",
+    "meta" : [ ]
+  }, {
+    "expression" : "glyphPositions.size > 0",
+    "rationale" : "At least one glyph position is always added before exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart <= text.length()",
+    "rationale" : "selectionStart is set to not exceed text length if needed.",
+    "meta" : [ ]
+  } ]
+}

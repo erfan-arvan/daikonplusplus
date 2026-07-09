@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "clusteringPlan will be used immediately and must not be null for forEach loop and method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is required for clustering operation, such as parsing records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used as an identifier for clustering; should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getInputGroups() != null",
+    "rationale" : "getInputGroups() will be iterated; must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getStrategy() != null",
+    "rationale" : "getStrategy() is used for retrieving strategy params in the method body, so it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "space >= 0",
+    "rationale" : "Spacing between UI elements is commonly non-negative in UI layouts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "space <= Float.MAX_VALUE",
+    "rationale" : "The value of space must not exceed the maximum value representable by float.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(space)",
+    "rationale" : "Spacing should not be NaN to avoid layout computation issues.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(space)",
+    "rationale" : "Infinite spacing is likely not meaningful in this UI layout context.",
+    "meta" : [ ]
+  } ]
+}

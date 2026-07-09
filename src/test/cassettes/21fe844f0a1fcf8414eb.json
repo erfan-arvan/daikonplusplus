@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Null records list is unlikely, as the method relies on calling stream() on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index != null",
+    "rationale" : "The method immediately calls index.isGlobal(), so index should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is likely a positive integer indicating concurrency level.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schemaStr != null",
+    "rationale" : "schemaStr is parsed at function entry, so a null value would result in error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "props is used to build DeleteContext, so must not be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null && !activeModule.isEmpty()",
+    "rationale" : "Ensures that activeModule is likely a valid, non-empty string referring to a module.",
+    "meta" : [ {
+      "key" : "class-level-intent",
+      "value" : "activeModule should represent a valid module name"
+    } ]
+  }, {
+    "expression" : "activityDescription != null && !activityDescription.isEmpty()",
+    "rationale" : "Ensures that activityDescription is likely a non-empty string describing an activity.",
+    "meta" : [ {
+      "key" : "class-level-intent",
+      "value" : "activityDescription should describe an activity"
+    } ]
+  }, {
+    "expression" : "activeModule == null || activeModule.trim().length() > 0",
+    "rationale" : "Guards against activeModule being only whitespace if not null.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "either null or contains at least one non-whitespace character"
+    } ]
+  }, {
+    "expression" : "activityDescription == null || activityDescription.trim().length() > 0",
+    "rationale" : "Guards against activityDescription being only whitespace if not null.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "either null or contains at least one non-whitespace character"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "minWidth != null",
+    "rationale" : "minWidth is checked for null at method entry, so it cannot be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which cannot be null in instance method context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.minWidth == minWidth",
+    "rationale" : "The method sets 'this.minWidth' to the method parameter and then returns 'this'.",
+    "meta" : [ ]
+  } ]
+}

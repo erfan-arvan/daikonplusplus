@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a newly created HashMap, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "Key is only put into the map if a certain condition holds; otherwise, returned map remains empty.",
+    "meta" : [ ]
+  } ]
+}

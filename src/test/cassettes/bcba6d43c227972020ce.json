@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Bucket numbers are typically non-negative indices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber)",
+    "rationale" : "Method will look up bucketNumber in the map, so its presence may be an expected precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "To safely perform get and containsKey, bucketInfoMap should not be null.",
+    "meta" : [ ]
+  } ]
+}

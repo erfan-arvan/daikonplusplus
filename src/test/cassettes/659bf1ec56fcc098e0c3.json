@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of postWrite, which presumably never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is passed to several internal calls assuming non-nullness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in several internal method calls; null is likely not allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() || !result.isEmpty()",
+    "rationale" : "If preppedRecords is empty, likely no deletions occur, so result is also likely empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The returned result is always a List<WriteStatus>.",
+    "meta" : [ ]
+  } ]
+}

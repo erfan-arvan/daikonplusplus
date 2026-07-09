@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Preferred widths are typically non-negative in UI layout frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(result)",
+    "rationale" : "A preferred width should not be NaN for meaningful UI layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(result)",
+    "rationale" : "Infinite width is generally not meaningful in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == prefWidth.get(actor)",
+    "rationale" : "The method directly returns prefWidth.get(actor), so this always holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0 || Float.isNaN(result)",
+    "rationale" : "Either result is non-negative, or it is NaN (handling domain errors gracefully).",
+    "meta" : [ ]
+  } ]
+}

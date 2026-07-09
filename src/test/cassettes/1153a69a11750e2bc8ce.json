@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method is called on records, which are immediately accessed; null would cause a NullPointerException.",
+    "meta" : [ {
+      "key" : "strength",
+      "value" : "sanity"
+    } ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "A non-positive outputPartitions likely wouldn't make sense for repartitioning records.",
+    "meta" : [ {
+      "key" : "strength",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "The parameter is explicitly typed as List<HoodieRecord<T>>.",
+    "meta" : [ {
+      "key" : "strength",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java.",
+    "meta" : [ {
+      "key" : "strength",
+      "value" : "sanity"
+    } ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "It's possible that assigning more partitions than records has no effect; otherwise, this is a plausible constraint.",
+    "meta" : [ {
+      "key" : "strength",
+      "value" : "likely constraint"
+    } ]
+  } ]
+}

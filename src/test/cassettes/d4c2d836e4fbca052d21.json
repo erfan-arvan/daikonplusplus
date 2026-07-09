@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method operates over 'data', so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The 'func' parameter is used to transform elements, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism usually represents the number of parallel tasks, which should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size()",
+    "rationale" : "It is common for parallelism to not exceed the number of data items.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "A List's size cannot be negative.",
+    "meta" : [ ]
+  } ]
+}

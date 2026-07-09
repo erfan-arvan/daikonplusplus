@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HoodieWriteMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() method is called on the result, so it must not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The method returns a HoodieWriteMetadata parameterized with List<WriteStatus> so getWriteStatuses() should be a List.",
+    "meta" : [ ]
+  } ]
+}

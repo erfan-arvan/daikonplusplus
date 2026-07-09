@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "manager != null",
+    "rationale" : "Manager is passed to constructors and likely required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is passed to getAtlasFileHandle and loadTiledMap and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "fileName represents a file path/name and is likely non-null and non-empty when used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "parameter is used by loadTiledMap and is likely required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "tmxFile should refer to an existing file to load a tiled map.",
+    "meta" : [ ]
+  } ]
+}

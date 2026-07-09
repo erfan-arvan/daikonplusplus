@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "scrollPane != null",
+    "rationale" : "scrollPane is dereferenced in the method, so it cannot be null here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "scrollPane.getColor().a == 0f",
+    "rationale" : "The method sets scrollPane.getColor().a = 0 at the start, which should hold at exit barring side effects from addAction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "below == true || below == false",
+    "rationale" : "below is a boolean primitive, so it can only take these values.",
+    "meta" : [ ]
+  } ]
+}

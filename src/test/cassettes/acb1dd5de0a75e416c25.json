@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "node != null",
+    "rationale" : "Method throws IllegalArgumentException if node is null, so node must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (this == node || (node != null && isAscendantOfImpl(node)))",
+    "rationale" : "The returned result should match the logical specification described: true if node is this or is an ascendant via parent chain.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || this != node",
+    "rationale" : "If result is false, then 'this' cannot be the same instance as node.",
+    "meta" : [ ]
+  } ]
+}

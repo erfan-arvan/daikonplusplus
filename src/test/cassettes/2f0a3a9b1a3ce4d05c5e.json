@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should be a valid string identifying the partition to update.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId should be a valid string identifying the file to update.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "A non-null iterator is required for processing record updates.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Partition path is expected to be a non-empty string representing a location in the dataset.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "well-formedness"
+    } ]
+  }, {
+    "expression" : "fileId.length() > 0",
+    "rationale" : "fileId is expected to be a non-empty unique identifier for the file being updated.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "well-formedness"
+    } ]
+  } ]
+}

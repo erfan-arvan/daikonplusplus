@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is expected to be a non-null string for proper operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "File slices list should not be null to avoid NullPointerException in logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Result should be a valid Pair instance returned from the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The left value in the Pair (Stream<HoodieClusteringGroup>) should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The right value in the Pair (Boolean) should not be null.",
+    "meta" : [ ]
+  } ]
+}

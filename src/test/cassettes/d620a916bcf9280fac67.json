@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method iterates over 'data', so 'data' must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "data should not be null"
+    } ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism is expected to be a positive integer.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "parallelism must be positive"
+    } ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "Consumer function is invoked on each element, so it must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "consumer should not be null"
+    } ]
+  } ]
+}

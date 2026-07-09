@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns records.collectAsList(), which should not be null as collectAsList returns an empty list rather than null when no elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method directly calls a method on records; records must therefore be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(records.collectAsList())",
+    "rationale" : "The method's return value is exactly records.collectAsList().",
+    "meta" : [ ]
+  } ]
+}

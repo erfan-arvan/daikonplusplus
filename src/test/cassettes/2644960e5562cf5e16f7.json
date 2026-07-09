@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The 'args' parameter is typically non-null when a Java main method exits.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "args array should not be null at method exit as it is provided by JVM"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Arrays in Java always have a non-negative length.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Array length should be non-negative"
+    } ]
+  } ]
+}

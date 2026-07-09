@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is required to execute rollback, so it should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime should refer to a valid instant and thus should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A rollback must reference a specific commit instant, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteInstants == true || deleteInstants == false",
+    "rationale" : "deleteInstants is of type boolean, so it must be either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipLocking == true || skipLocking == false",
+    "rationale" : "skipLocking is a boolean, so its value is always true or false.",
+    "meta" : [ ]
+  } ]
+}

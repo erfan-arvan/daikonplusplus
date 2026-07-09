@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Character.isDigit(c)",
+    "rationale" : "The method's main purpose is to check if 'c' is a digit, so being a digit is central to method behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField != null",
+    "rationale" : "The 'textField' parameter is passed in and likely expected to be non-null for valid use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "c >= Character.MIN_VALUE && c <= Character.MAX_VALUE",
+    "rationale" : "The 'c' parameter, as a 'char', is always within the valid char range.",
+    "meta" : [ ]
+  } ]
+}

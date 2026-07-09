@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "!Float.isNaN(actorHeight)",
+    "rationale" : "Actor height should not be NaN before being set, as heights are expected to be real numbers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorHeight >= 0",
+    "rationale" : "Heights are often non-negative in UI layouts, making this a natural precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorHeight != Float.POSITIVE_INFINITY",
+    "rationale" : "An infinite actor height is unlikely to be meaningful for UI layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorHeight != Float.NEGATIVE_INFINITY",
+    "rationale" : "Negative infinity would not be a reasonable value for an actor's height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(actorHeight)",
+    "rationale" : "Actor height should be a finite value to be meaningfully set.",
+    "meta" : [ ]
+  } ]
+}

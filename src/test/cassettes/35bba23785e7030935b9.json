@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Defensive invariant ensuring context parameter is provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "Ensures the compactionInstantTime parameter is not null, which may be generally required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime.length() > 0",
+    "rationale" : "Checks that the compactionInstantTime parameter is non-empty, possibly expected for an instant time identifier.",
+    "meta" : [ ]
+  } ]
+}

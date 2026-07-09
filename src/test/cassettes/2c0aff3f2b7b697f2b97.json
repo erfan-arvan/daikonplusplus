@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The method immediately invokes methods on writeClient, so it must not be null.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed directly to business logic and likely represents a timestamp or operation ID, so it must not be null.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is used as a parameter in a method call and should not be null.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed into method logic and must be a valid Option, even if it is Option.empty().",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime likely represents a non-empty operation timestamp.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "precondition"
+    } ]
+  } ]
+}

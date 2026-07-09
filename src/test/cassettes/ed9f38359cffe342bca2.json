@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && result.getClass().getName().contains(\"Index\")",
+    "rationale" : "The returned object 'result' should be a non-null HoodieIndex instance as produced by the factory.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result is expected to be a HoodieIndex object created by JavaHoodieIndexFactory."
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Should never be called with a null config parameter.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The config parameter must be non-null since it is used to create the index."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Ensures the execution context is valid at method exit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Context must be non-null as it is a parameter passed in and typically used in the environment."
+    } ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().endsWith(\"Index\")",
+    "rationale" : "The type of the result is related to some subclass of HoodieIndex or named as such.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result class name should indicate index type."
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method contract implies that the returned index is always non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method should never return null index."
+    } ]
+  } ]
+}

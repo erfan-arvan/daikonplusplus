@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Ensures the input data to tagLocation is valid and avoids NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext is necessary for engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "tagLocation requires a HoodieTable reference to process records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof HoodieData",
+    "rationale" : "records should always be of HoodieData type at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context is declared as HoodieEngineContext and must conform to this type.",
+    "meta" : [ ]
+  } ]
+}

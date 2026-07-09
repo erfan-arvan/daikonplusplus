@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "states.get(++index) returns an UndoState; assuming states is a valid List and index stays in bounds, result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursor typically refers to a position within text, which is usually non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "Selection start denotes a position in text, which should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "The text argument is saved as the current state for undo, suggesting it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!hasSelection) || (selectionStart <= text.length())",
+    "rationale" : "If there is a selection, the start of the selection should be within the bounds of the text.",
+    "meta" : [ ]
+  } ]
+}

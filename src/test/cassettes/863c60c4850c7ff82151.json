@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Commit time identifiers should not be null for method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition integer should not be null to indicate a specific partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Input iterator for records must be non-null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner should be present to determine data partitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition >= 0",
+    "rationale" : "Partition numbers are typically expected to be non-negative.",
+    "meta" : [ ]
+  } ]
+}

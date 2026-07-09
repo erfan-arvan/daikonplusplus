@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The profile argument is used unconditionally, indicating it should not be null.",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "input argument"
+    } ]
+  }, {
+    "expression" : "getUpsertPartitioner(profile) instanceof Partitioner",
+    "rationale" : "getUpsertPartitioner is expected to return an object of type Partitioner.",
+    "meta" : [ {
+      "key" : "dependence",
+      "value" : "method call"
+    } ]
+  }, {
+    "expression" : "getInsertPartitioner(profile) instanceof Partitioner",
+    "rationale" : "getInsertPartitioner is expected to return an object of type Partitioner.",
+    "meta" : [ {
+      "key" : "dependence",
+      "value" : "method call"
+    } ]
+  }, {
+    "expression" : "profile instanceof WorkloadProfile",
+    "rationale" : "profile is declared as WorkloadProfile and expected to be so.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "argument type"
+    } ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "operationType is used in WriteOperationType.isChangingRecords, implying it should not be null.",
+    "meta" : [ {
+      "key" : "scope",
+      "value" : "field usage"
+    } ]
+  } ]
+}

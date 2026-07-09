@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "The method always returns HoodieListData.lazy(records), so result is an instance of HoodieListData.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((HoodieListData) result).isLazy()",
+    "rationale" : "HoodieListData.lazy(records) produces a lazy data structure, so result is lazy.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((HoodieListData) result).getWrappedList() == records",
+    "rationale" : "Assuming HoodieListData.lazy stores the reference to records directly as the wrapped list; result will wrap the input records.",
+    "meta" : [ ]
+  } ]
+}

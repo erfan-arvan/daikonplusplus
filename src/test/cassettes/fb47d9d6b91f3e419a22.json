@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A null 'instantTime' is unlikely to be valid for a commit operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "'writeStatuses' should not be null in usage and is streamed over unconditionally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "The commit action type should have a value to define the kind of commit operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == commitStats(instantTime, writeStatuses.stream().map(WriteStatus::getStat).collect(java.util.stream.Collectors.toList()), extraMetadata, commitActionType, partitionToReplacedFileIds, extraPreCommitFunc)",
+    "rationale" : "The return value is exactly the return value of the 'commitStats' call with these parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.stream().allMatch(ws -> ws != null)",
+    "rationale" : "Elements of 'writeStatuses' are accessed for mapping, so they should not be null.",
+    "meta" : [ ]
+  } ]
+}

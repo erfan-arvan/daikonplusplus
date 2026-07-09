@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A common precondition for methods accepting a context parameter is that the context should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Methods that take an instant time as a String typically expect it to be non-null, as it may represent a required timeline instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "If instantTime is provided, it is usually expected to be a non-empty string representing a commit or action time.",
+    "meta" : [ ]
+  } ]
+}

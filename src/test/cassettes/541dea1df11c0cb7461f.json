@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the 'actor' obtained by super.removeActorAt, which is likely non-null if the given index is valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result == firstWidget || result == secondWidget",
+    "rationale" : "The result can only be firstWidget, secondWidget, or null if index does not correspond to any widget.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index >= 0",
+    "rationale" : "Index parameters for element removal methods are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != firstWidget || firstWidget == null",
+    "rationale" : "If the removed actor is firstWidget, then firstWidget is set to null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != secondWidget || secondWidget == null",
+    "rationale" : "If the removed actor is secondWidget, then secondWidget is set to null.",
+    "meta" : [ ]
+  } ]
+}

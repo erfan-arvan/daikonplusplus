@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result should not be null on method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is expected to be non-null after successful execution"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Since HoodieWriteMetadata<T> is returned with a list of WriteStatus, the list should be non-null to represent the operation's statuses.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses list should be initialized"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The list size must be zero or more, as lists cannot have negative sizes.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "writeStatuses list size non-negative"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a logical time identifier and is required, so it should not be null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime parameter should be non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null) == true",
+    "rationale" : "Each WriteStatus in the list should be non-null to represent valid status objects.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "no null write statuses"
+    } ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "true == true",
+    "rationale" : "No variables in scope, so only trivial invariant holds.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "No variables in scope, only a method entry, so trivial true"
+    } ]
+  }, {
+    "expression" : "HoodieRecord.HoodieRecordType.AVRO != null",
+    "rationale" : "The method returns a non-null enum constant.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The returned enum constant is non-null and final."
+    } ]
+  }, {
+    "expression" : "HoodieRecord.HoodieRecordType.values().length > 0",
+    "rationale" : "Enum must have at least one constant.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Enum must have at least one constant."
+    } ]
+  }, {
+    "expression" : "HoodieRecord.HoodieRecordType.AVRO instanceof HoodieRecord.HoodieRecordType",
+    "rationale" : "AVRO is a valid enum constant of HoodieRecordType.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "AVRO is an enum constant of the HoodieRecordType enum."
+    } ]
+  } ]
+}

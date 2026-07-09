@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator, either from super.handleUpdate or from Collections.singletonList(...).iterator().",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a method parameter and is used to access project code without null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used in log messages and partitioner.getSmallFileIds().contains(fileId) without null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed into downstream API objects and methods that do not perform null checking.",
+    "meta" : [ ]
+  } ]
+}

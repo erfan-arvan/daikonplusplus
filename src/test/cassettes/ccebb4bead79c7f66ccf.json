@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieData, which is created with HoodieListData.eager(...), so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is a required argument and is immediately used, indicating that it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed directly to methods and should always be non-null for proper operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is passed to a method call and used, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "Result is explicitly constructed with HoodieListData.eager, so its type should always be HoodieListData.",
+    "meta" : [ ]
+  } ]
+}

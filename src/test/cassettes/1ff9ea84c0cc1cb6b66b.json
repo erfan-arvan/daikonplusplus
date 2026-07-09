@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is likely expected to be non-null since it is passed to metadata operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is likely a non-empty string representing a commit or transaction time, so it should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "Ensures the instantTime string actually contains non-whitespace content, which would be expected for a valid time instant identifier.",
+    "meta" : [ ]
+  } ]
+}

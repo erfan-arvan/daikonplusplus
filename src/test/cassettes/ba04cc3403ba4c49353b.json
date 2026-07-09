@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodieWriteMetadata created by the execute() method, so result should never be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses list inside the result is expected to be initialized and not null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "write statuses list is not null"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The method is called with hoodieRecords as a parameter which is expected not to be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "input records list is not null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() <= hoodieRecords.size()",
+    "rationale" : "The number of write statuses should be less than or equal to the number of hoodieRecords passed in.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "writeStatuses at most equal to input records count"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter should be a valid non-null string timestamp.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime string is not null"
+    } ]
+  } ]
+}

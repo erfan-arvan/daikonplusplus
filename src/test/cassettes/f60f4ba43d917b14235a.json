@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "horizontalAlign != null",
+    "rationale" : "Method returns the horizontalAlign field as a String; likely never null in correct usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "horizontalAlign.equals(\"left\") || horizontalAlign.equals(\"center\") || horizontalAlign.equals(\"right\")",
+    "rationale" : "Common alignment values in layout contexts; likely the only permitted values for this field.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieCleanMetadata instance created by execute(), so result should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "The method passes cleanInstantTime directly to CleanActionExecutor and execute; for correct semantics, cleanInstantTime should not be null.",
+    "meta" : [ ]
+  } ]
+}

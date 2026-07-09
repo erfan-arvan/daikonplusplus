@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an instance of HoodieJavaTable or its subclasses for supported cases.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method always returns a new HoodieJavaTable instance on supported table types, never null."
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is required for creating the result and is used in table type checks.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "metaClient is used to determine the table type and is passed to the result constructor."
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "An exception is thrown for any unsupported table type, thus the result only exists for COPY_ON_WRITE or MERGE_ON_READ.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Only these two table types are supported, otherwise an exception is thrown."
+    } ]
+  }, {
+    "expression" : "result.getMetaClient() == metaClient",
+    "rationale" : "Implementations of HoodieJavaTable set metaClient as their meta client.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result is constructed with the passed metaClient, so the internal reference should match."
+    } ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The configuration reference is passed unchanged to the constructed instance.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result is created using the provided config, so it should retain this association."
+    } ]
+  } ]
+}

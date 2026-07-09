@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method expects a valid partitionPath as input; likely invariant for correct calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.isEmpty() || !partitionPath.isEmpty()",
+    "rationale" : "Covers all possible String input states (trivial, but distinguishes valid domain).",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "String length is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

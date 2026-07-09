@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a newly created HoodieWriteMetadata object, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null && result.getWriteStats() != null && result.getWriteStats().size() <= preppedRecords.size()",
+    "rationale" : "Each preppedRecord can produce at most one WriteStatus, so the output size should not exceed the input size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null && (!bulkInsertPartitioner.isPresent() || bulkInsertPartitioner.get() != null)",
+    "rationale" : "The Option object itself should not be null, and if it is present, the contained BulkInsertPartitioner should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStats() != null && result.getWriteStats().stream().allMatch(s -> s != null)",
+    "rationale" : "All WriteStatus objects in the result list should be non-null for a successful bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToWriteStats() != null",
+    "rationale" : "Successful execution of the action executor should always construct the partition-to-write status map.",
+    "meta" : [ ]
+  } ]
+}

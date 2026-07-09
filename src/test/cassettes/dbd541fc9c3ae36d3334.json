@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "width != null",
+    "rationale" : "The method requires width to be non-null and throws an exception otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height != null",
+    "rationale" : "The method requires height to be non-null and throws an exception otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width != height || width == null || height == null",
+    "rationale" : "width and height are allowed to be the same or different objects; no constraint other than nullness.",
+    "meta" : [ ]
+  } ]
+}

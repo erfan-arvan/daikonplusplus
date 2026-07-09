@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null",
+    "rationale" : "Input parameter writeStatus is intended to represent data to persist and is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The compaction/action engine context is typically required and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Write config is essential for controlling how data is written or persisted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter likely represents a non-empty timestamp or commit marker.",
+    "meta" : [ ]
+  } ]
+}

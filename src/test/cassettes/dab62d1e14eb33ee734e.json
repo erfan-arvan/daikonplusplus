@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method directly returns the input records, so output is the same object.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "method body returns input list"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns the input list, which by API contract is assumed non-null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "output is never null"
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The method returns the input list without modification, so size remains equal.",
+    "meta" : [ {
+      "key" : "length-preserving",
+      "value" : "no change to list size"
+    } ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Partition count should not be negative per typical assumptions.",
+    "meta" : [ {
+      "key" : "partition constraint",
+      "value" : "partitions count should be non-negative"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Method contract is to return a List.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result is always a List"
+    } ]
+  } ]
+}

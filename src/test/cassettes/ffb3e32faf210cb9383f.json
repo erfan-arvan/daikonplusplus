@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "actors != null",
+    "rationale" : "actors is the main collection being traversed and is not expected to be null entering the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bestCoords != null",
+    "rationale" : "bestCoords is used for coordinate comparison and updated in the method, so it should be non-null on entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "currentCoords != null",
+    "rationale" : "currentCoords is used for coordinate comparison, so it must be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actors.size >= 0",
+    "rationale" : "Array.size is always non-negative in libGDX Array implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "best == null || bestCoords != null",
+    "rationale" : "If best is set, bestCoords must be non-null to hold its position; otherwise, it may be null.",
+    "meta" : [ ]
+  } ]
+}

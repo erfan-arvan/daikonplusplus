@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "className != null",
+    "rationale" : "The method uses className as a key without null-checks, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProperties != null",
+    "rationale" : "classProperties is used as a map to store properties, thus is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classElement != null",
+    "rationale" : "classElement is used for property lookups and assignments, so it is required to be non-null.",
+    "meta" : [ ]
+  } ]
+}

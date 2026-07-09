@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == spaceTop",
+    "rationale" : "The method returns the value of the 'spaceTop' field directly, so the result must be equal to spaceTop.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof Value",
+    "rationale" : "The return type is Value and may be null, so if not null, result must be a Value (which is trivial given the type system, but explicit here).",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Given the simple field return and allowed expressions, there are limited, non-trivial invariants specific to this program point.",
+    "meta" : [ ]
+  } ]
+}

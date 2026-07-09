@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "Method calls like file.extension() and usesAtlas(file) require file not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "file.extension() is called and the result is used, so it cannot be null without causing a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension().toLowerCase().equals(\"tmx\") || file.extension().toLowerCase().equals(\"tmj\")",
+    "rationale" : "If the extension is not tmx or tmj, an exception is thrown, so only these extensions reach method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "If parameter is null, it is replaced with a new BaseTiledMapLoader.Parameters, guaranteeing non-nullness after the first statement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "manager is passed to library loaders and assumed required for asset management, so null is unlikely to be allowed.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null iterator as it is the result of IOUtils.runMerge.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used as an argument and must be non-null for downstream methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be non-null, as it is passed to both getUpdateHandle and runMerge.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used in getUpdateHandle and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "keyToNewRecords is used as input to merge handle and must be non-null.",
+    "meta" : [ ]
+  } ]
+}

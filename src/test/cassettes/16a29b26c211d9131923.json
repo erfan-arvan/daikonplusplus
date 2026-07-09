@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Because the method always throws an exception, it never returns, so result must be null at the method exit.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always throws and does not return a value."
+    } ]
+  }, {
+    "expression" : "false",
+    "rationale" : "The method never completes normally; the method exit is only reachable in exceptional control flow.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always throws."
+    } ]
+  }, {
+    "expression" : "throw new HoodieNotSupportedException(\"ScheduleCompaction is not supported on a CopyOnWrite table\") != null",
+    "rationale" : "The line always throws an exception, so there is no path to a normal exit.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "To document that method always throws."
+    } ]
+  } ]
+}

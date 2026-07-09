@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method assumes a non-null MapLayer to be removed; this ensures safety during removal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!this.layers.contains(layer)",
+    "rationale" : "After removal, the provided layer should no longer be present in the layers collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.layers.size() >= 0",
+    "rationale" : "Layer collections should have a non-negative size at all times.",
+    "meta" : [ ]
+  } ]
+}

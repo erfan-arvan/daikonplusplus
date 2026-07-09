@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method's implementation explicitly returns 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.flipHorizontally == flipHorizontally",
+    "rationale" : "The method sets 'this.flipHorizontally' to match the passed-in parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.flipHorizontally == flipHorizontally",
+    "rationale" : "'result' references 'this', so their fields must agree, and 'flipHorizontally' was just set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.flipHorizontally == this.flipHorizontally",
+    "rationale" : "Since 'result == this', their 'flipHorizontally' fields are always equal.",
+    "meta" : [ ]
+  } ]
+}

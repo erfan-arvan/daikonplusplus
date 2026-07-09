@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "properties is dereferenced by properties.put call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "name is used as the key in properties.put and passed to castProperty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "value is passed to castProperty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.containsKey(name)",
+    "rationale" : "At method exit, 'name' has just been put as a key in properties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!properties.containsKey(name) || properties.get(name) != null)",
+    "rationale" : "A put just occurred (with 'castValue'), so if 'name' is present, its value is not null unless castValue was null.",
+    "meta" : [ ]
+  } ]
+}

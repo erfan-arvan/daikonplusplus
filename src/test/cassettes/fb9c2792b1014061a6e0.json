@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null && !name.isEmpty()",
+    "rationale" : "It is likely that a property name to be stored in a map should be non-null and non-empty.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "Since value is processed by castProperty, it is likely expected to be non-null.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "properties != null",
+    "rationale" : "The method calls properties.put, which would require properties to be non-null.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "type != null && !type.isEmpty()",
+    "rationale" : "The type parameter is used in casting and may be expected to be non-null and non-empty.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "!properties.containsKey(name) || properties.get(name) == null",
+    "rationale" : "Before putting a new property, it might be expected that the property is either missing or its value is null.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "map-properties"
+    } ]
+  } ]
+}

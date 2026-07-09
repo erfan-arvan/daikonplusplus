@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Checking if partitionPaths is non-null, as later code branches on this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used in method calls, so it must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() >= 0",
+    "rationale" : "List.size() is always non-negative when the list is non-null.",
+    "meta" : [ ]
+  } ]
+}

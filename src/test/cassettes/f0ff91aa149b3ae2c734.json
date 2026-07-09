@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method requires a non-null Batch to perform rendering operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values for rendering are typically in [0,1] and not negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha values for blending should not exceed 1.0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() != null || true",
+    "rationale" : "The method might often assume the Table is part of a Stage, affecting how it is drawn.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getColor() != null",
+    "rationale" : "The Table must have a non-null Color for rendering/blending.",
+    "meta" : [ ]
+  } ]
+}

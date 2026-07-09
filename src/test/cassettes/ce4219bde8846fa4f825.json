@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Inserting a property with a null key is typically not allowed in Java Map implementations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.containsKey(key)",
+    "rationale" : "After inserting, the properties map must contain the key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.get(key) == value",
+    "rationale" : "After insertion or update, the value for the specified key should be the inserted value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.size() >= 1",
+    "rationale" : "After a put, the properties map should have at least one entry, assuming it was not empty before.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.entrySet().stream().anyMatch(e -> e.getKey().equals(key) && e.getValue() == value)",
+    "rationale" : "After put, there is at least one map entry with the given key and value.",
+    "meta" : [ ]
+  } ]
+}

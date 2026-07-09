@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The args array is never null when main is called by the JVM.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "args instanceof String[]",
+    "rationale" : "args is always an array of Strings as the main method parameter.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always non-negative.",
+    "meta" : [ {
+      "key" : "array_length",
+      "value" : "non-negative"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism must be positive to partition the work correctly; negative or zero threads are nonsensical.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "The flatMapToPairFunc must be non-null to process elements in the stream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The reduction function must be provided to combine pairs by key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The data stream must be present for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isParallel() || parallelism > 1",
+    "rationale" : "If the stream is already parallel, it is expected that parallelism is greater than 1.",
+    "meta" : [ ]
+  } ]
+}

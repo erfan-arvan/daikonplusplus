@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns Collections.emptyMap(), which is non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The returned map is empty, as it is Collections.emptyMap().",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "0"
+    } ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The parameter writeMetadata must be non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  } ]
+}

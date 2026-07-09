@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Checks that inputRecords parameter is not null, which is likely required for correct method execution.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "avoids NPE on inputRecords"
+    } ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || inputRecords.size() > 0",
+    "rationale" : "If the list isn't empty, its size must be greater than 0; sanity check for Java List interface.",
+    "meta" : [ {
+      "key" : "list-size",
+      "value" : "nonnegative"
+    } ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "If downstream code expects no null records, this invariant expresses that constraint.",
+    "meta" : [ {
+      "key" : "element-null-check",
+      "value" : "ensures all HoodieRecord elements are non-null"
+    } ]
+  }, {
+    "expression" : "inputRecords.stream().map(r -> r.getPartitionPath()).allMatch(p -> p != null)",
+    "rationale" : "getPartitionPath() is used without null checks in the method, so elements' partition paths are expected to be non-null.",
+    "meta" : [ {
+      "key" : "partition-path-null-check",
+      "value" : "ensures all records have non-null partition paths"
+    } ]
+  }, {
+    "expression" : "inputRecords.stream().map(r -> r.getCurrentLocation()).allMatch(l -> l == null || l != null)",
+    "rationale" : "getCurrentLocation() can be null or non-null, but must be accessed safely as in Option.ofNullable.",
+    "meta" : [ {
+      "key" : "location-access",
+      "value" : "getCurrentLocation() may be null; no assumption forced"
+    } ]
+  } ]
+}

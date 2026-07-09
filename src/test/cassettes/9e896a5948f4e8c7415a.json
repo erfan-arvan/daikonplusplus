@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of getUpsertPartitioner(profile), which is expected to be non-null to perform partitioning operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == getUpsertPartitioner(profile)",
+    "rationale" : "The method directly returns getUpsertPartitioner(profile), so the result precisely matches its return value for the given profile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "If getUpsertPartitioner is called with profile, then profile must not be null to avoid a NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

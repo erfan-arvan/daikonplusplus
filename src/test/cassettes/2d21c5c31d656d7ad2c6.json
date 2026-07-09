@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Stream should not be null after method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "flatMapToPairFunc is directly passed in and used, so it must be non-null for successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc is also directly used in the result transformation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism greater than zero is a reasonable precondition for parallel processing and is likely necessary for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The stream to be processed must not be null for the method logic to complete properly.",
+    "meta" : [ ]
+  } ]
+}

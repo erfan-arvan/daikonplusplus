@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method expects a valid execution context provided by the caller.",
+    "meta" : [ {
+      "key" : "object",
+      "value" : "context"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option parameters in this project are conventionally non-null.",
+    "meta" : [ {
+      "key" : "object",
+      "value" : "extraMetadata"
+    } ]
+  }, {
+    "expression" : "!extraMetadata.isPresent() || extraMetadata.get() != null",
+    "rationale" : "If Option is present, its contained value should be non-null.",
+    "meta" : [ {
+      "key" : "object",
+      "value" : "extraMetadata"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "A non-null data List is very likely required for parallel processing and for methods like HoodieListData.eager to work without error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive integer for parallel execution; a non-positive value usually does not make sense for parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "It is often useful (but not strictly required) for the parallelism to not exceed the number of data elements, unless empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= Integer.MAX_VALUE",
+    "rationale" : "This is always true since int cannot exceed Integer.MAX_VALUE, but it's a documentation of domain constraint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism == (int)parallelism",
+    "rationale" : "This expresses that `parallelism` is an integral value, which is always true for an int type.",
+    "meta" : [ ]
+  } ]
+}

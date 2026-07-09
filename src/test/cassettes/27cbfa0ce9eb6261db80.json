@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "parseRegionName(name) is called, so name must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() > 0",
+    "rationale" : "It is likely that name should be non-empty since it is used to identify a region.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parseRegionName(name) != null",
+    "rationale" : "parseRegionName(name) is passed to atlas.findRegion, so region name should not be null.",
+    "meta" : [ ]
+  } ]
+}

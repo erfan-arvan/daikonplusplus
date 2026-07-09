@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method implementation immediately invokes methods on records, requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used as an argument in method invocations, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is passed to downstream method calls; null may result in NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.first() != null",
+    "rationale" : "If records is non-empty, its first element should not be null; ensures meaningful processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.count() >= 0",
+    "rationale" : "Count of records collection cannot be negative.",
+    "meta" : [ ]
+  } ]
+}

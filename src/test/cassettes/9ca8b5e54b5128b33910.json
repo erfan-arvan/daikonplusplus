@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Ensuring input list is not null is a common method precondition, and the method will fail otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapToPairFunc != null",
+    "rationale" : "The mapping function must be non-null to correctly execute the map phase.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "Reduce function is required for reduction and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive for parallel operations to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "For typical parallel processing, the parallelism does not exceed the number of data items, unless the data is empty.",
+    "meta" : [ ]
+  } ]
+}

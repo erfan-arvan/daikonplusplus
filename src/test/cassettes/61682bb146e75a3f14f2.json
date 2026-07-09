@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a key and likely cannot be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime must be non-null as it represents a time identifier"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath typically represents a non-null string path.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPath is a directory path and should not be null"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId must be non-null to identify the target file.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "fileId identifies a file and thus should not be null"
+    } ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "keyToNewRecords is needed for update and must exist.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "keyToNewRecords map is an input collection and must be non-null"
+    } ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "oldDataFile is used to fetch existing data file info and cannot be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "oldDataFile represents existing file metadata and is required"
+    } ]
+  } ]
+}

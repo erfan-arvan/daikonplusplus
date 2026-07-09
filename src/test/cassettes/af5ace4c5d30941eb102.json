@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is likely expected to be a non-null String identifier for downstream operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is assumed non-null since it will be queried for hasNext and passed to constructors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(recordItr == null)",
+    "rationale" : "Defensive: usage of recordItr.hasNext() implies recordItr must not be null here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx.isEmpty() || !idPfx.isEmpty()",
+    "rationale" : "idPfx is always a String, which means isEmpty() can be safely invoked at this point.",
+    "meta" : [ ]
+  } ]
+}

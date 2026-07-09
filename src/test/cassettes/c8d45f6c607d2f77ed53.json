@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (format == Pixmap.Format.Alpha || format == Pixmap.Format.LuminanceAlpha || format == Pixmap.Format.RGBA4444 || format == Pixmap.Format.RGBA8888)",
+    "rationale" : "The method returns true if and only if the format is one of four specific values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || (format != Pixmap.Format.Alpha && format != Pixmap.Format.LuminanceAlpha && format != Pixmap.Format.RGBA4444 && format != Pixmap.Format.RGBA8888)",
+    "rationale" : "If result is false, then the format is not any of the four alpha-supporting formats.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || (format == Pixmap.Format.Alpha || format == Pixmap.Format.LuminanceAlpha || format == Pixmap.Format.RGBA4444 || format == Pixmap.Format.RGBA8888)",
+    "rationale" : "If result is true, the format must be one of those supporting alpha.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (format != null && (format == Pixmap.Format.Alpha || format == Pixmap.Format.LuminanceAlpha || format == Pixmap.Format.RGBA4444 || format == Pixmap.Format.RGBA8888))",
+    "rationale" : "Including null-protection, which is not necessary here unless 'format' can be null, but safe to state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(format == Pixmap.Format.Alpha || format == Pixmap.Format.LuminanceAlpha || format == Pixmap.Format.RGBA4444 || format == Pixmap.Format.RGBA8888) == result",
+    "rationale" : "Directly expressing the bi-implication between format values and the result.",
+    "meta" : [ ]
+  } ]
+}

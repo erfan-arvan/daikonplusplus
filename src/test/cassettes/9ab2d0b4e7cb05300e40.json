@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Hudi methods require valid commit instants; 'instantTime' must not be null to identify the operation moment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "'preppedRecords' must be non-null to represent the records intended for deletion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "'context' is needed for distributed execution and is required by most engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.get(0) != null",
+    "rationale" : "If the list is non-empty, its first element should be a valid HoodieRecord instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "'instantTime' is usually a non-empty string representing the commit time.",
+    "meta" : [ ]
+  } ]
+}

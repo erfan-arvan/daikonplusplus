@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileHandles != null",
+    "rationale" : "fileHandles is used for additions; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used as a base file; must not be null for getRelativeFileHandle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is dereferenced immediately for getString and has.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileHandles.size >= 0",
+    "rationale" : "Array<FileHandle> size should always be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.exists()",
+    "rationale" : "tmjFile must point to an existing file for getRelativeFileHandle to work as intended.",
+    "meta" : [ ]
+  } ]
+}

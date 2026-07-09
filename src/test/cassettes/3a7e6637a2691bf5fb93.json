@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs and always returns a HoodieWriteMetadata object; it never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is dereferenced and used in the method; method cannot execute if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inputRecords.isEmpty() || result.getWriteStatuses().isEmpty()",
+    "rationale" : "If there are no input records, then the returned WriteStatuses list should be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "WriteStatuses are accumulated into a LinkedList and set in the result; this reference should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() <= inputRecords.size()",
+    "rationale" : "The number of WriteStatuses cannot exceed the number of input records processed.",
+    "meta" : [ ]
+  } ]
+}

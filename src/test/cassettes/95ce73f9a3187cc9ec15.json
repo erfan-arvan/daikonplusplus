@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a new partitioner instance from two distinct paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()) == (result instanceof JavaCustomColumnsSortPartitioner)",
+    "rationale" : "If the strategyParams contains the sort columns key, the specialized partitioner is used; otherwise, default factory is used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()) == (result == JavaBulkInsertInternalPartitionerFactory.get(getWriteConfig().getBulkInsertSortMode()))",
+    "rationale" : "If sort columns not present, then result is from the default factory method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null",
+    "rationale" : "The method accepts a String parameter activeModule, which might be expected to be non-null for job status operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null",
+    "rationale" : "The activityDescription parameter is likely used to describe the job status and typically is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.isEmpty()",
+    "rationale" : "The activeModule parameter is expected to contain the name of the active module and should not be an empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activityDescription.isEmpty()",
+    "rationale" : "The activityDescription parameter should describe some activity, so it should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule.equals(activeModule.trim())",
+    "rationale" : "activeModule should not have leading or trailing whitespace for consistent status reporting.",
+    "meta" : [ ]
+  } ]
+}

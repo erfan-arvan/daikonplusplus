@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is dereferenced via method call, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "initializeMetadataTable(instantTime, metaClient) == initializeMetadataTable(instantTime, metaClient)",
+    "rationale" : "Calling initializeMetadataTable should be idempotent and side-effect free on output, assuming invariants on method behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to initialization, may be required to be non-null.",
+    "meta" : [ ]
+  } ]
+}

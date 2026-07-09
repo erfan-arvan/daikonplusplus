@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is always the output of a collect(Collectors.toList()) operation, which returns a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> id != null)",
+    "rationale" : "The mapping function is smallFile -> smallFile.location.getFileId(), and it is typical for file IDs to be non-null for valid SmallFile objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == smallFiles.size()",
+    "rationale" : "Each smallFile in smallFiles is mapped to a fileId and collected to the result list, so their sizes should match.",
+    "meta" : [ ]
+  } ]
+}

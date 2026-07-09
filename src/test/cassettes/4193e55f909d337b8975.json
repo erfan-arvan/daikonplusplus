@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of records.collectAsList(), which is expected to be non-null unless the source is corrupted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The parameter records is used directly without a null check, implying non-nullness is assumed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == (records.collectAsList().isEmpty())",
+    "rationale" : "Since result is records.collectAsList(), their isEmpty() states must match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.collectAsList().size()",
+    "rationale" : "The result and records.collectAsList() are the same object, so their sizes always match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(records.collectAsList())",
+    "rationale" : "The returned list is exactly records.collectAsList(), so equality holds at the return point.",
+    "meta" : [ ]
+  } ]
+}

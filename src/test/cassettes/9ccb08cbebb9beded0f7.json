@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method expects a non-null data stream for processing; passing null would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "The flat map function is essential for processing; it must not be null for function application.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "Reduce function is required for aggregation; if null, reduce operation would fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive; otherwise the intended parallel processing cannot occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof java.util.stream.Stream",
+    "rationale" : "data should be a valid Stream instance to allow parallel() and iterator() calls.",
+    "meta" : [ ]
+  } ]
+}

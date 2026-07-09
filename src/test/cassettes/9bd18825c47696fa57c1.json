@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a method parameter and should be non-null to identify the partition correctly.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is a method parameter identifying the file and should be non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is a method parameter and should be non-null to iterate over records.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "recordItr instanceof Iterator",
+    "rationale" : "recordItr must be an instance of Iterator<HoodieRecord<T>> for iteration.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "partitionPath likely should be non-empty string to represent a valid partition.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

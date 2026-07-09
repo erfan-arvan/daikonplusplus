@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "padTop >= 0",
+    "rationale" : "UI padding values are often expected to be non-negative.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "non-negative"
+    } ]
+  }, {
+    "expression" : "padTop <= Float.MAX_VALUE",
+    "rationale" : "The parameter is a float and should not exceed the maximum value for a float.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "float upper bound"
+    } ]
+  }, {
+    "expression" : "padTop != Float.NaN",
+    "rationale" : "Padding should not be NaN for meaningful layout calculations.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "NaN check"
+    } ]
+  }, {
+    "expression" : "padTop != Float.NEGATIVE_INFINITY",
+    "rationale" : "Setting padding to negative infinity is nonsensical in layout contexts.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "disallow negative infinity"
+    } ]
+  }, {
+    "expression" : "padTop != Float.POSITIVE_INFINITY",
+    "rationale" : "Infinite padding is not meaningful in UI layout.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "disallow positive infinity"
+    } ]
+  } ]
+}
