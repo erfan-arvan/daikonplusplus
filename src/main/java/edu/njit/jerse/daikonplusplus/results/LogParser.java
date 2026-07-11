@@ -295,7 +295,7 @@ public final class LogParser {
 
   /**
    * Scans instrumented source files for lines commented out due to javac errors. Returns the set of
-   * IDs marked with //Failed Invariant in Compilation: ...
+   * IDs in blocks marked with {@code // [DP] disabled invariant ::}.
    */
   public static Set<UUID> readNonCompiledIds(Path srcRoot) {
     Set<UUID> out = new HashSet<>();
@@ -310,7 +310,7 @@ public final class LogParser {
                 try (BufferedReader br = Files.newBufferedReader(pth, StandardCharsets.UTF_8)) {
                   String ln;
                   while ((ln = br.readLine()) != null) {
-                    if (!ln.contains("//Failed Invariant in Compilation:")) continue;
+                    if (!ln.contains("// [DP] disabled invariant ::")) continue;
                     Matcher m = p.matcher(ln);
                     while (m.find()) {
                       final String g = m.group(1); // may be null per annotations

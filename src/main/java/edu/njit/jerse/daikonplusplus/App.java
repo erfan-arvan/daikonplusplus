@@ -815,6 +815,7 @@ public final class App {
       executed = LogParser.readExecutedIds(runLog);
     }
     final Set<UUID> nonCompiled = LogParser.readNonCompiledIds(mainSrcRoot);
+    final Set<UUID> disabledByStale = readDisabledIds(disabledFile);
 
     final Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> all =
         parseRegistryLite(cfg.registryPath());
@@ -857,6 +858,8 @@ public final class App {
     Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> failedCompileByMethod =
         new TreeMap<>();
 
+    int disabledStaleNeverExecCount = 0;
+
     for (var r : all.values()) {
       boolean isCompiled = compiledIds.contains(r.id);
       boolean wasExecuted = executed.contains(r.id);
@@ -878,6 +881,9 @@ public final class App {
         falsByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
       } else if (isCompiled && !wasExecuted) {
         neverExecByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
+        if (disabledByStale.contains(r.id)) {
+          disabledStaleNeverExecCount++;
+        }
       }
     }
 
@@ -886,6 +892,7 @@ public final class App {
     int neverExecCount = neverExecByMethod.values().stream().mapToInt(List::size).sum();
     int compiledCount = compiledByMethod.values().stream().mapToInt(List::size).sum();
     int executedCount = execByMethod.values().stream().mapToInt(List::size).sum();
+    int unreachedCount = neverExecCount - disabledStaleNeverExecCount;
 
     System.out.println(
         ">>> Totals: "
@@ -902,7 +909,12 @@ public final class App {
             + " observed-held="
             + heldCount
             + " never-executed="
-            + neverExecCount);
+            + neverExecCount
+            + " (disabled-stale="
+            + disabledStaleNeverExecCount
+            + " unreached="
+            + unreachedCount
+            + ")");
 
     System.out.println(">>> OBSERVED-HELD invariants by method (ENTRY & EXIT):");
     for (var e : heldByMethod.entrySet()) {
@@ -1147,6 +1159,23 @@ public final class App {
    * @param registryJsonl path to the registry file (JSONL format)
    * @return map from invariant UUID to lightweight record
    */
+  private static Set<UUID> readDisabledIds(Path disabledFile) {
+    Set<UUID> out = new HashSet<>();
+    if (!Files.exists(disabledFile)) return out;
+    try {
+      for (String line : Files.readAllLines(disabledFile)) {
+        if (line.isBlank()) continue;
+        try {
+          out.add(UUID.fromString(line.trim()));
+        } catch (IllegalArgumentException ignore) {
+        }
+      }
+    } catch (IOException e) {
+      System.err.println("[DP] Warning: could not read disabled file: " + e.getMessage());
+    }
+    return out;
+  }
+
   private static Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> parseRegistryLite(
       Path registryJsonl) {
     Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> out = new HashMap<>();
