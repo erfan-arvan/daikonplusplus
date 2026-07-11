@@ -610,14 +610,21 @@ public final class JavaRunner {
     readerThread.start();
 
     // ---- STALE INVARIANT DETECTOR ----
-    // Polls every 60 seconds. Kills the process when the same UUID has been the
-    // last-executed invariant continuously for staleCheckMinutes. Fires after exactly
-    // staleCheckMinutes of no progress (not 2x like the old two-observation design).
+    // Two independent kill conditions, checked every 60 seconds:
+    //
+    // Mode 1 — open invariant: an EXD appeared with no matching DON for staleCheckMinutes.
+    //   Catches an invariant expression that is itself stuck in an infinite loop.
+    //
+    // Mode 2 — no test progress: no new test-result XML files have appeared under
+    //   build/test-results/test/ for staleCheckMinutes, once test execution has started.
+    //   Catches tests that loop infinitely (completing each EXD+DON pair rapidly so Mode 1
+    //   never sees an "open" invariant, but never finishing the test and writing its XML).
     AtomicBoolean staleKilled = new AtomicBoolean(false);
     Thread staleThread = null;
     if (staleCheckMinutes > 0) {
       final long pollMs = 60_000L; // poll every 60 seconds
       final long thresholdMs = staleCheckMinutes * 60_000L;
+      final Path testResultsDir = workDir.resolve("build/test-results/test");
       System.out.println(
           "[DP] Stale detector started — threshold: "
               + staleCheckMinutes
@@ -626,8 +633,14 @@ public final class JavaRunner {
       staleThread =
           new Thread(
               () -> {
+                // Mode 1 state
                 UUID trackedId = null;
                 long trackedSince = 0;
+
+                // Mode 2 state
+                long lastXmlCount = 0;
+                long lastXmlProgressMs = -1; // -1 = waiting for first XML to appear
+
                 while (!Thread.currentThread().isInterrupted() && p.isAlive()) {
                   try {
                     Thread.sleep(pollMs);
@@ -636,71 +649,89 @@ public final class JavaRunner {
                   }
                   if (!p.isAlive()) break;
 
-                  // Only consider an invariant stuck if it has an open EXD with no DON —
-                  // i.e., evaluation started but never returned. If every EXD has a DON
-                  // the process is idle between test batches (normal Gradle overhead) and
-                  // must never be killed.
+                  long now = System.currentTimeMillis();
+
+                  // ---- Mode 1: open invariant (EXD without DON) ----
                   UUID currentId;
                   try {
                     currentId =
                         LogParser.readOpenInvariantIdFrom(runLog, logStartOffset).orElse(null);
                   } catch (Exception e) {
                     System.err.println("[DP] Stale detector: error reading log: " + e.getMessage());
-                    continue;
+                    currentId = null;
                   }
 
-                  long now = System.currentTimeMillis();
-
                   if (currentId == null) {
-                    // No open invariant — process is between tests, not stuck. Reset.
                     if (trackedId != null) {
                       System.out.println("[DP] Stale detector: open invariant closed — resetting");
                       trackedId = null;
                     }
-                    continue;
-                  }
-
-                  if (!currentId.equals(trackedId)) {
-                    // Different open invariant — reset the clock
+                  } else if (!currentId.equals(trackedId)) {
                     trackedId = currentId;
                     trackedSince = now;
                     System.out.println("[DP] Stale detector: tracking open invariant " + currentId);
-                    continue;
+                  } else {
+                    long stuckForMs = now - trackedSince;
+                    System.out.println(
+                        "[DP] Stale detector: "
+                            + currentId
+                            + " mid-evaluation for "
+                            + (stuckForMs / 60_000)
+                            + " min"
+                            + " (threshold "
+                            + staleCheckMinutes
+                            + " min)");
+                    if (stuckForMs >= thresholdMs) {
+                      killStale(
+                          runLog,
+                          p,
+                          staleKilled,
+                          "Stale invariant (mid-evaluation for "
+                              + staleCheckMinutes
+                              + " min, id="
+                              + currentId
+                              + ")");
+                      break;
+                    }
                   }
 
-                  long stuckForMs = now - trackedSince;
-                  System.out.println(
-                      "[DP] Stale detector: "
-                          + currentId
-                          + " mid-evaluation for "
-                          + (stuckForMs / 60_000)
-                          + " min"
-                          + " (threshold "
-                          + staleCheckMinutes
-                          + " min)");
-
-                  if (stuckForMs >= thresholdMs) {
-                    try {
-                      Files.writeString(
-                          runLog,
-                          "\n[DP] Stale invariant detected ("
-                              + currentId
-                              + ") - mid-evaluation for "
-                              + staleCheckMinutes
-                              + " min, killing run\n",
-                          StandardOpenOption.CREATE,
-                          StandardOpenOption.APPEND);
-                    } catch (IOException ignored) {
+                  // ---- Mode 2: no test-result XML progress ----
+                  long xmlCount = countXmlFiles(testResultsDir);
+                  if (lastXmlProgressMs < 0) {
+                    // Waiting for test execution to start (first XML to appear)
+                    if (xmlCount > 0) {
+                      lastXmlCount = xmlCount;
+                      lastXmlProgressMs = now;
+                      System.out.println(
+                          "[DP] Stale detector: test execution started (" + xmlCount + " XMLs)");
                     }
-                    System.err.println(
-                        "[DP] Stale invariant detected ("
-                            + currentId
-                            + ") mid-evaluation for "
+                  } else if (xmlCount > lastXmlCount) {
+                    lastXmlCount = xmlCount;
+                    lastXmlProgressMs = now;
+                    System.out.println(
+                        "[DP] Stale detector: test progress — " + xmlCount + " XMLs total");
+                  } else {
+                    long noProgressMs = now - lastXmlProgressMs;
+                    System.out.println(
+                        "[DP] Stale detector: no new test XMLs for "
+                            + (noProgressMs / 60_000)
+                            + " min (still "
+                            + xmlCount
+                            + " XMLs, threshold "
                             + staleCheckMinutes
-                            + " min. Killing runner.");
-                    staleKilled.set(true);
-                    p.destroyForcibly();
-                    break;
+                            + " min)");
+                    if (noProgressMs >= thresholdMs) {
+                      killStale(
+                          runLog,
+                          p,
+                          staleKilled,
+                          "No test progress for "
+                              + staleCheckMinutes
+                              + " min ("
+                              + xmlCount
+                              + " XMLs, test stuck in loop or invariant hung)");
+                      break;
+                    }
                   }
                 }
                 System.out.println(
@@ -784,6 +815,35 @@ public final class JavaRunner {
         StandardOpenOption.CREATE,
         StandardOpenOption.APPEND);
     System.out.println("[DP] Disabled stuck invariant " + stuckId + " → " + disabledFile);
+  }
+
+  private static void killStale(
+      Path runLog, Process p, AtomicBoolean staleKilled, String reason) {
+    try {
+      Files.writeString(
+          runLog,
+          "\n[DP] Stale kill: " + reason + "\n",
+          StandardOpenOption.CREATE,
+          StandardOpenOption.APPEND);
+    } catch (IOException ignored) {
+    }
+    System.err.println("[DP] Stale kill: " + reason + ". Killing runner.");
+    staleKilled.set(true);
+    p.destroyForcibly();
+  }
+
+  private static long countXmlFiles(Path dir) {
+    if (!Files.isDirectory(dir)) return 0;
+    try (var s = Files.list(dir)) {
+      return s.filter(
+              p -> {
+                Path name = p.getFileName();
+                return name != null && name.toString().endsWith(".xml");
+              })
+          .count();
+    } catch (IOException e) {
+      return 0;
+    }
   }
 
   public static boolean removeRegionById(Path srcRoot, UUID stuckId) {
