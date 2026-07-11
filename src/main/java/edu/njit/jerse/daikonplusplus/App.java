@@ -547,6 +547,8 @@ public final class App {
     // --- Phase 3: compile and run ---
 
     final Path runLog;
+    // Set in external-project mode; null in native mode and when /dev/shm is unavailable.
+    Path shmDir = null;
 
     if (execMode == ExecMode.EXTERNAL_PROJECT) {
       // Run from PROJECT ROOT so ./gradlew works
@@ -580,22 +582,45 @@ public final class App {
       // Recovery loop: run the external test script, removing stuck invariants until
       // the suite completes normally.
       //
-      // On both STALE_KILLED and HARD_TIMEOUT the last executed invariant is identified
-      // from the run log and its region is removed from source before restarting.
-      // Stale detection (fixed interval, default 15 min) catches invariants whose UUID
-      // has not changed between two consecutive checks — they are in an infinite loop.
-      // Hard timeout is a coarser fallback for when a stuck invariant is reached too
-      // close to the deadline for stale to observe it twice; on each hard timeout the
-      // limit doubles (capped at maxTimeoutMinutes) so the suite gets progressively
-      // more room.  There is no cap on the number of removals.
+      // Shm-based invariant tracking: each child JVM receives DP_SHM_DIR pointing to a
+      // shared-memory directory. Execution events are written as files (shm/ex/<uuid>)
+      // and survive SIGKILL. On JVM restart, DpRuntime pre-populates SEEN from shm/ex/
+      // so already-checked invariants are skipped without re-evaluation.
       //
-      // All removed-stale UUIDs are recorded in .daikonpp-stale-removed.txt for stats.
+      // On STALE_KILLED: the stuck UUID is read from shm/current/ (written before eval,
+      // deleted after) and added to the disabled list. Since it's also in shm/ex/ the
+      // SEEN guard would skip it anyway, but DISABLED ensures it's skipped even if shm
+      // is unavailable on a future run.
+      //
+      // On HARD_TIMEOUT: only disable if readCurrentInvariantFromShm finds a stuck UUID
+      // in shm/current/; if nothing is found (process was between invariant checks) just
+      // rerun — SEEN pre-population ensures the suite makes forward progress.
+      //
+      // All disabled UUIDs are recorded in .daikonpp-stale-removed.txt for stats.
       final String fullRunCp = "";
       long currentTimeoutMinutes = JavaRunner.EXTERNAL_RUN_TIMEOUT_MINUTES;
       final long maxTimeoutMinutes = BASE_CFG.maxTimeoutMinutes();
       final long staleCheckMinutes = BASE_CFG.staleCheckMinutes();
       long currentStaleCheckMinutes = staleCheckMinutes;
       final long maxStaleCheckMinutes = 10L;
+
+      // Auto-detect shm directory: DP_SHM_BASE env, or /dev/shm if writable
+      {
+        String shmBase = System.getenv("DP_SHM_BASE");
+        if (shmBase != null && !shmBase.isBlank()) {
+          shmDir = Path.of(shmBase).resolve("daikonpp-" + ProcessHandle.current().pid());
+        } else {
+          Path devShm = Path.of("/dev/shm");
+          if (Files.isDirectory(devShm) && Files.isWritable(devShm)) {
+            shmDir = devShm.resolve("daikonpp-" + ProcessHandle.current().pid());
+          }
+        }
+        if (shmDir != null) {
+          System.out.println("[DP] SHM directory: " + shmDir);
+        } else {
+          System.out.println("[DP] SHM not available; using log-only fallback");
+        }
+      }
 
       final Set<UUID> staleRemovedIds = new java.util.LinkedHashSet<>();
       final Path staleRecordFile = workProjectRoot.resolve(".daikonpp-stale-removed.txt");
@@ -621,46 +646,81 @@ public final class App {
                 runLog,
                 currentTimeoutMinutes,
                 currentStaleCheckMinutes,
-                disabledFile);
+                disabledFile,
+                shmDir);
 
         if (result == JavaRunner.RunResult.NORMAL) break;
 
-        // Both STALE_KILLED and HARD_TIMEOUT: identify and remove the stuck invariant
-        String cause =
-            result == JavaRunner.RunResult.HARD_TIMEOUT
-                ? "Hard timeout (" + currentTimeoutMinutes + " min)"
-                : "Stale kill (" + currentStaleCheckMinutes + " min no progress)";
-        System.err.println("[DP] " + cause + " — removing last executed invariant");
+        // Identify stuck invariant via shm/current/ (written before eval, deleted after).
+        // Fall back to log-based detection if shm not available.
+        Optional<UUID> stuckId =
+            (shmDir != null)
+                ? LogParser.readCurrentInvariantFromShm(shmDir)
+                : LogParser.readLastExecutedId(runLog);
 
-        Optional<UUID> stuckId = LogParser.readLastExecutedId(runLog);
-        if (stuckId.isEmpty()) {
-          System.err.println(
-              "[DP] No INV_EXD in log; cannot identify stuck invariant. Proceeding with partial log.");
-          break;
-        }
-        System.out.println("[DP] Disabling stuck invariant: " + stuckId.get());
-        JavaRunner.disableInvariant(disabledFile, stuckId.get());
+        if (result == JavaRunner.RunResult.STALE_KILLED) {
+          System.err.println("[DP] Stale kill (" + currentStaleCheckMinutes + " min no progress)");
+          if (stuckId.isPresent()) {
+            System.out.println("[DP] Disabling stuck invariant: " + stuckId.get());
+            JavaRunner.disableInvariant(disabledFile, stuckId.get());
+            // Clean up the current/ marker so next iteration doesn't re-detect it
+            if (shmDir != null) {
+              try {
+                Files.deleteIfExists(shmDir.resolve("current").resolve(stuckId.get().toString()));
+              } catch (IOException ignored) {
+              }
+            }
+            staleRemovedIds.add(stuckId.get());
+            try {
+              Files.writeString(
+                  staleRecordFile,
+                  stuckId.get().toString() + "\n",
+                  java.nio.file.StandardOpenOption.CREATE,
+                  java.nio.file.StandardOpenOption.APPEND);
+            } catch (IOException ignore) {
+            }
+            System.out.println(
+                "[DP] Stale record updated: " + staleRemovedIds.size() + " invariant(s) recorded");
+          } else {
+            System.err.println(
+                "[DP] No stuck invariant identified — SEEN pre-population will skip "
+                    + "already-checked invariants on rerun");
+          }
+          currentStaleCheckMinutes = Math.min(currentStaleCheckMinutes * 2, maxStaleCheckMinutes);
+          System.out.println("[DP] Next stale threshold: " + currentStaleCheckMinutes + " min");
 
-        staleRemovedIds.add(stuckId.get());
-        try {
-          java.nio.file.Files.writeString(
-              staleRecordFile,
-              stuckId.get().toString() + "\n",
-              java.nio.file.StandardOpenOption.CREATE,
-              java.nio.file.StandardOpenOption.APPEND);
-        } catch (IOException ignore) {
-        }
-        System.out.println(
-            "[DP] Stale record updated: " + staleRemovedIds.size() + " invariant(s) recorded");
-
-        if (result == JavaRunner.RunResult.HARD_TIMEOUT) {
+        } else { // HARD_TIMEOUT
+          System.err.println("[DP] Hard timeout (" + currentTimeoutMinutes + " min)");
+          if (stuckId.isPresent()) {
+            // A specific invariant was mid-evaluation when the timeout fired — disable it
+            System.out.println("[DP] Disabling stuck invariant: " + stuckId.get());
+            JavaRunner.disableInvariant(disabledFile, stuckId.get());
+            if (shmDir != null) {
+              try {
+                Files.deleteIfExists(shmDir.resolve("current").resolve(stuckId.get().toString()));
+              } catch (IOException ignored) {
+              }
+            }
+            staleRemovedIds.add(stuckId.get());
+            try {
+              Files.writeString(
+                  staleRecordFile,
+                  stuckId.get().toString() + "\n",
+                  java.nio.file.StandardOpenOption.CREATE,
+                  java.nio.file.StandardOpenOption.APPEND);
+            } catch (IOException ignore) {
+            }
+          } else {
+            // Timeout between invariant checks: SEEN pre-population ensures the suite
+            // makes forward progress without disabling any invariant
+            System.out.println(
+                "[DP] No invariant mid-evaluation at timeout — rerunning with SEEN recovery");
+          }
           currentTimeoutMinutes = Math.min(currentTimeoutMinutes * 2, maxTimeoutMinutes);
           System.out.println("[DP] Next timeout: " + currentTimeoutMinutes + " min");
+          currentStaleCheckMinutes = Math.min(currentStaleCheckMinutes * 2, maxStaleCheckMinutes);
+          System.out.println("[DP] Next stale threshold: " + currentStaleCheckMinutes + " min");
         }
-        // Both events double the stale threshold so a legitimately slow test suite
-        // isn't killed prematurely after the first removal.
-        currentStaleCheckMinutes = Math.min(currentStaleCheckMinutes * 2, maxStaleCheckMinutes);
-        System.out.println("[DP] Next stale threshold: " + currentStaleCheckMinutes + " min");
       }
 
       System.out.println(">>> Stale-removed invariants this run: " + staleRemovedIds.size());
@@ -730,10 +790,30 @@ public final class App {
       System.out.println(">>> Run log — EXIT events: " + exitLines);
     }
 
-    // --- Phase 4: parse run log and generate the results (same as before) ---
+    // --- Phase 4: parse run log and generate the results ---
+    // Prefer shm-based reading in external mode (survives SIGKILL; more complete than log).
+    // Fall back to log-based reading for native mode or when shm is unavailable.
 
-    final Set<UUID> falsified = LogParser.readFalsifiedIds(runLog);
-    final Set<UUID> executed = LogParser.readExecutedIds(runLog);
+    final Set<UUID> falsified;
+    final Set<UUID> executed;
+    if (execMode == ExecMode.EXTERNAL_PROJECT
+        && shmDir != null
+        && Files.isDirectory(shmDir.resolve("ex"))) {
+      executed = LogParser.readExecutedIdsFromShm(shmDir);
+      falsified = LogParser.readFalsifiedIdsFromShm(shmDir);
+      // Also merge any sidecar events from normally-exiting JVMs (belt-and-suspenders)
+      executed.addAll(LogParser.readExecutedIds(runLog));
+      falsified.addAll(LogParser.readFalsifiedIds(runLog));
+      System.out.println(
+          "[DP] Results read from shm ("
+              + executed.size()
+              + " executed, "
+              + falsified.size()
+              + " falsified) + log fallback");
+    } else {
+      falsified = LogParser.readFalsifiedIds(runLog);
+      executed = LogParser.readExecutedIds(runLog);
+    }
     final Set<UUID> nonCompiled = LogParser.readNonCompiledIds(mainSrcRoot);
 
     final Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> all =
@@ -923,6 +1003,10 @@ public final class App {
             deleteTree(testSrcRoot);
           }
           System.out.println(">>> Cleaned working copy(ies)");
+        }
+        if (shmDir != null && Files.exists(shmDir)) {
+          deleteTree(shmDir);
+          System.out.println(">>> Cleaned shm directory: " + shmDir);
         }
       } catch (IOException ioe) {
         System.err.println("Warning: failed to delete working copy: " + ioe.getMessage());

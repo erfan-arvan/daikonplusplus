@@ -487,7 +487,7 @@ public final class JavaRunner {
       long staleCheckMinutes)
       throws IOException, InterruptedException {
     return runExternalScript(
-        script, workDir, fullRunCp, runLog, timeoutMinutes, staleCheckMinutes, null);
+        script, workDir, fullRunCp, runLog, timeoutMinutes, staleCheckMinutes, null, null);
   }
 
   public static RunResult runExternalScript(
@@ -498,6 +498,20 @@ public final class JavaRunner {
       long timeoutMinutes,
       long staleCheckMinutes,
       @Nullable Path disabledFile)
+      throws IOException, InterruptedException {
+    return runExternalScript(
+        script, workDir, fullRunCp, runLog, timeoutMinutes, staleCheckMinutes, disabledFile, null);
+  }
+
+  public static RunResult runExternalScript(
+      Path script,
+      Path workDir,
+      String fullRunCp,
+      Path runLog,
+      long timeoutMinutes,
+      long staleCheckMinutes,
+      @Nullable Path disabledFile,
+      @Nullable Path shmDir)
       throws IOException, InterruptedException {
 
     if (!Files.isRegularFile(script)) {
@@ -552,6 +566,15 @@ public final class JavaRunner {
       env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + disabledArg).trim());
       env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + disabledArg).trim());
       env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + disabledArg).trim());
+    }
+
+    if (shmDir != null) {
+      String shmPath = shmDir.toAbsolutePath().toString();
+      String shmArg = "-DDP_SHM_DIR=" + shmPath;
+      env.put("DP_SHM_DIR", shmPath);
+      env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + shmArg).trim());
+      env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + shmArg).trim());
+      env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + shmArg).trim());
     }
 
     pb.redirectErrorStream(true);
@@ -612,19 +635,18 @@ public final class JavaRunner {
     // ---- STALE INVARIANT DETECTOR ----
     // Two independent kill conditions, checked every 60 seconds:
     //
-    // Mode 1 — open invariant: an EXD appeared with no matching DON for staleCheckMinutes.
-    //   Catches an invariant expression that is itself stuck in an infinite loop.
+    // Mode 1 — open invariant (safety net): an EXD appeared with no matching DON for
+    //   staleCheckMinutes. With the new shm-based design this rarely fires (EXD/DON are no longer
+    //   printed to stdout), but is kept as a no-op safety net.
     //
-    // Mode 2 — no test progress: no new test-result XML files have appeared under
-    //   build/test-results/test/ for staleCheckMinutes, once test execution has started.
-    //   Catches tests that loop infinitely (completing each EXD+DON pair rapidly so Mode 1
-    //   never sees an "open" invariant, but never finishing the test and writing its XML).
+    // Mode 2 — log-growth silence: the run log file stops growing for staleCheckMinutes.
+    //   Catches stuck invariant expressions, deadlocks, or tests that loop without producing
+    // output.
     AtomicBoolean staleKilled = new AtomicBoolean(false);
     Thread staleThread = null;
     if (staleCheckMinutes > 0) {
       final long pollMs = 60_000L; // poll every 60 seconds
       final long thresholdMs = staleCheckMinutes * 60_000L;
-      final Path testResultsDir = workDir.resolve("build/test-results/test");
       System.out.println(
           "[DP] Stale detector started — threshold: "
               + staleCheckMinutes
@@ -633,13 +655,13 @@ public final class JavaRunner {
       staleThread =
           new Thread(
               () -> {
-                // Mode 1 state
+                // Mode 1 state (open-invariant safety net)
                 UUID trackedId = null;
                 long trackedSince = 0;
 
-                // Mode 2 state
-                long lastXmlCount = 0;
-                long lastXmlProgressMs = -1; // -1 = waiting for first XML to appear
+                // Mode 2 state (log-growth silence)
+                long lastLogSize = -1;
+                long lastLogGrowthMs = System.currentTimeMillis();
 
                 while (!Thread.currentThread().isInterrupted() && p.isAlive()) {
                   try {
@@ -651,7 +673,7 @@ public final class JavaRunner {
 
                   long now = System.currentTimeMillis();
 
-                  // ---- Mode 1: open invariant (EXD without DON) ----
+                  // ---- Mode 1: open invariant safety net (EXD without DON) ----
                   UUID currentId;
                   try {
                     currentId =
@@ -695,41 +717,35 @@ public final class JavaRunner {
                     }
                   }
 
-                  // ---- Mode 2: no test-result XML progress ----
-                  long xmlCount = countXmlFiles(testResultsDir);
-                  if (lastXmlProgressMs < 0) {
-                    // Waiting for test execution to start (first XML to appear)
-                    if (xmlCount > 0) {
-                      lastXmlCount = xmlCount;
-                      lastXmlProgressMs = now;
-                      System.out.println(
-                          "[DP] Stale detector: test execution started (" + xmlCount + " XMLs)");
-                    }
-                  } else if (xmlCount > lastXmlCount) {
-                    lastXmlCount = xmlCount;
-                    lastXmlProgressMs = now;
-                    System.out.println(
-                        "[DP] Stale detector: test progress — " + xmlCount + " XMLs total");
+                  // ---- Mode 2: log-growth silence ----
+                  long currentLogSize = 0;
+                  try {
+                    currentLogSize = Files.exists(runLog) ? Files.size(runLog) : 0;
+                  } catch (IOException ignored) {
+                  }
+                  if (currentLogSize > lastLogSize) {
+                    lastLogSize = currentLogSize;
+                    lastLogGrowthMs = now;
                   } else {
-                    long noProgressMs = now - lastXmlProgressMs;
+                    long silentMs = now - lastLogGrowthMs;
                     System.out.println(
-                        "[DP] Stale detector: no new test XMLs for "
-                            + (noProgressMs / 60_000)
-                            + " min (still "
-                            + xmlCount
-                            + " XMLs, threshold "
+                        "[DP] Stale detector: log silent for "
+                            + (silentMs / 60_000)
+                            + " min (size="
+                            + currentLogSize
+                            + ", threshold "
                             + staleCheckMinutes
                             + " min)");
-                    if (noProgressMs >= thresholdMs) {
+                    if (silentMs >= thresholdMs) {
                       killStale(
                           runLog,
                           p,
                           staleKilled,
-                          "No test progress for "
+                          "No log output for "
                               + staleCheckMinutes
-                              + " min ("
-                              + xmlCount
-                              + " XMLs, test stuck in loop or invariant hung)");
+                              + " min (log size="
+                              + currentLogSize
+                              + " bytes, process stuck)");
                       break;
                     }
                   }
@@ -817,8 +833,7 @@ public final class JavaRunner {
     System.out.println("[DP] Disabled stuck invariant " + stuckId + " → " + disabledFile);
   }
 
-  private static void killStale(
-      Path runLog, Process p, AtomicBoolean staleKilled, String reason) {
+  private static void killStale(Path runLog, Process p, AtomicBoolean staleKilled, String reason) {
     try {
       Files.writeString(
           runLog,
@@ -830,20 +845,6 @@ public final class JavaRunner {
     System.err.println("[DP] Stale kill: " + reason + ". Killing runner.");
     staleKilled.set(true);
     p.destroyForcibly();
-  }
-
-  private static long countXmlFiles(Path dir) {
-    if (!Files.isDirectory(dir)) return 0;
-    try (var s = Files.list(dir)) {
-      return s.filter(
-              p -> {
-                Path name = p.getFileName();
-                return name != null && name.toString().endsWith(".xml");
-              })
-          .count();
-    } catch (IOException e) {
-      return 0;
-    }
   }
 
   public static boolean removeRegionById(Path srcRoot, UUID stuckId) {
