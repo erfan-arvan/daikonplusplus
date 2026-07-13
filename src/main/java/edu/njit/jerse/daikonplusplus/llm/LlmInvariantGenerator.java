@@ -12,6 +12,7 @@ import edu.njit.jerse.daikonplusplus.llm.prompt.PromptStrategyFactory;
 import edu.njit.jerse.daikonplusplus.model.InvariantSpec;
 import edu.njit.jerse.daikonplusplus.model.ProgramPoint;
 import edu.njit.jerse.daikonplusplus.model.ProgramPointKind;
+import edu.njit.jerse.daikonplusplus.App.FilterStats;
 import java.nio.file.Path;
 import java.util.*;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -109,7 +110,8 @@ public final class LlmInvariantGenerator {
       String typeDoc,
       String callSiteContext,
       String inputOutputExamples,
-      String calleeDoc) {
+      String calleeDoc,
+      FilterStats stats) {
 
     final boolean isExit = point.kind() == ProgramPointKind.METHOD_EXIT;
 
@@ -157,16 +159,22 @@ public final class LlmInvariantGenerator {
       // ----- Parse + filter + dedup + limit -----
       List<InvariantSpec> kept = new ArrayList<>(Math.min(items.size(), maxInvariants));
       Set<String> seenExprs = new LinkedHashSet<>();
+      stats.rawFromLlm.addAndGet(items.size());
 
-      for (InvariantsOut.Item it : items) {
+      for (int __i = 0; __i < items.size(); __i++) {
+        InvariantsOut.Item it = items.get(__i);
         String expr = (it.expression == null) ? "" : it.expression.trim();
-        if (expr.isEmpty()) continue;
+        if (expr.isEmpty()) {
+          stats.dropEmpty.incrementAndGet();
+          continue;
+        }
 
         // Skip unparseable expressions
         Optional<String> parsed = parseableExpression(expr);
 
         if (parsed.isEmpty()) {
           if (config.debug()) System.out.println("[DP-LLM] drop(parse): " + expr);
+          stats.dropParse.incrementAndGet();
           continue;
         }
 
@@ -179,11 +187,15 @@ public final class LlmInvariantGenerator {
         // Skip low-quality ones unless filter disabled
         if (!config.noQualityFilter() && !InvariantQualityFilter.keep(expr, inScope, isExit)) {
           if (config.debug()) System.out.println("[DP-LLM] drop(filter): " + expr);
+          stats.dropQuality.incrementAndGet();
           continue;
         }
 
         // Deduplicate
-        if (!seenExprs.add(expr)) continue;
+        if (!seenExprs.add(expr)) {
+          stats.dropPerPointDedup.incrementAndGet();
+          continue;
+        }
 
         // Normalize metadata
         final Map<String, String> meta =
@@ -197,7 +209,11 @@ public final class LlmInvariantGenerator {
 
         kept.add(new InvariantSpec(expr, (it.rationale == null ? "" : it.rationale), meta));
 
-        if (kept.size() >= maxInvariants) break;
+        if (kept.size() >= maxInvariants) {
+          // remaining items after cap are not processed
+          stats.dropMaxK.addAndGet(items.size() - __i - 1);
+          break;
+        }
       }
 
       if (config.debug()) {

@@ -24,6 +24,7 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Entry point for the Daikon++ pipeline.
@@ -91,6 +92,17 @@ public final class App {
 
   private static final java.util.Set<String> RUN_DEDUP =
       java.util.concurrent.ConcurrentHashMap.newKeySet();
+
+  public static final class FilterStats {
+    public final AtomicLong rawFromLlm = new AtomicLong();
+    public final AtomicLong dropEmpty = new AtomicLong();
+    public final AtomicLong dropParse = new AtomicLong();
+    public final AtomicLong dropQuality = new AtomicLong();
+    public final AtomicLong dropPerPointDedup = new AtomicLong();
+    public final AtomicLong dropMaxK = new AtomicLong();
+    public final AtomicLong dropRunDedup = new AtomicLong();
+    public final AtomicLong dropRegistryDedup = new AtomicLong();
+  }
 
   private static String keyFor(ProgramPoint pt, String expr) {
     String norm = expr.trim().replaceAll("\\s+", " "); // normalize whitespace
@@ -432,8 +444,10 @@ public final class App {
     final CompletionService<List<InvariantRecord>> ecs = new ExecutorCompletionService<>(pool);
     final List<Future<List<InvariantRecord>>> allFutures = new ArrayList<>();
 
+    final FilterStats filterStats = new FilterStats();
     for (ProgramPoint pt : points) {
-      allFutures.add(ecs.submit(() -> processPoint(pt, mainSrcRoot, llm, registry, BASE_CFG)));
+      allFutures.add(
+          ecs.submit(() -> processPoint(pt, mainSrcRoot, llm, registry, BASE_CFG, filterStats)));
     }
 
     final Map<Path, List<InvariantRecord>> byFile = new ConcurrentHashMap<>();
@@ -493,7 +507,33 @@ public final class App {
     }
     pool.shutdownNow();
 
-    System.out.println(">>> Proposed invariant expressions (post-parse filter): " + totalSpecs);
+    long passedLlm =
+        filterStats.rawFromLlm.get()
+            - filterStats.dropEmpty.get()
+            - filterStats.dropParse.get()
+            - filterStats.dropQuality.get()
+            - filterStats.dropPerPointDedup.get()
+            - filterStats.dropMaxK.get();
+    long totalDropped =
+        filterStats.dropEmpty.get()
+            + filterStats.dropParse.get()
+            + filterStats.dropQuality.get()
+            + filterStats.dropPerPointDedup.get()
+            + filterStats.dropMaxK.get()
+            + filterStats.dropRunDedup.get()
+            + filterStats.dropRegistryDedup.get();
+    System.out.println(">>> LLM filter breakdown:");
+    System.out.println("    raw from LLM:              " + filterStats.rawFromLlm.get());
+    System.out.println("    dropped (empty expr):      " + filterStats.dropEmpty.get());
+    System.out.println("    dropped (parse fail):      " + filterStats.dropParse.get());
+    System.out.println("    dropped (quality filter):  " + filterStats.dropQuality.get());
+    System.out.println("    dropped (per-point dedup): " + filterStats.dropPerPointDedup.get());
+    System.out.println("    dropped (maxK cap):        " + filterStats.dropMaxK.get());
+    System.out.println("    → passed LLM filters:      " + passedLlm);
+    System.out.println("    dropped (run dedup):       " + filterStats.dropRunDedup.get());
+    System.out.println("    dropped (registry dedup):  " + filterStats.dropRegistryDedup.get());
+    System.out.println("    → total dropped:           " + totalDropped);
+    System.out.println("    → proposed (into injection): " + totalSpecs);
     System.out.println(">>> Files to inject (MAIN only): " + byFile.size());
 
     long injectEntry =
@@ -1069,7 +1109,8 @@ public final class App {
       Path srcRoot,
       LlmInvariantGenerator llm,
       InvariantRegistry registry,
-      DpConfig BASE_CFG) {
+      DpConfig BASE_CFG,
+      FilterStats stats) {
 
     try {
       Map<String, String> inScope = ContextUtils.extractScope(point, srcRoot);
@@ -1121,7 +1162,8 @@ public final class App {
               typeDoc,
               callSite,
               ioExamples,
-              calleeDoc);
+              calleeDoc,
+              stats);
 
       if (specs.isEmpty()) return List.of();
 
@@ -1132,13 +1174,18 @@ public final class App {
       for (InvariantSpec spec : specs) {
         // run-level dedup
         String key = keyFor(point, spec.expression());
-        if (!RUN_DEDUP.add(key)) continue;
+        if (!RUN_DEDUP.add(key)) {
+          stats.dropRunDedup.incrementAndGet();
+          continue;
+        }
 
         InvariantRecord rec =
             new InvariantRecord(java.util.UUID.randomUUID(), spec, point, fileRel, now);
 
         // registry-level dedup
-        registry.appendIfNew(rec);
+        if (!registry.appendIfNew(rec)) {
+          stats.dropRegistryDedup.incrementAndGet();
+        }
         out.add(rec);
       }
 
