@@ -550,6 +550,27 @@ public final class JavaRunner {
 
     Path invDir = workDir.resolve(".daikonpp-events");
     Files.createDirectories(invDir);
+    // Clear sidecar files from any previous tool run so stale UUIDs from a prior
+    // invocation don't bleed into this run's executed set via appendDpEvents.
+    // Within-run recovery iterations are unaffected: iteration N+1's child JVM
+    // pre-populates SEEN from shm/ex/ and its shutdown-hook sidecar captures the
+    // full accumulated set, so no data from earlier iterations is lost.
+    try (var __dpSidecarStream = Files.list(invDir)) {
+      __dpSidecarStream
+          .filter(
+              __p -> {
+                Path __fn = __p.getFileName();
+                return __fn != null && __fn.toString().startsWith("dp-events-");
+              })
+          .forEach(
+              __p -> {
+                try {
+                  Files.deleteIfExists(__p);
+                } catch (IOException ignored) {
+                }
+              });
+    } catch (IOException ignored) {
+    }
 
     env.put("DP_INV_DIR", invDir.toAbsolutePath().toString());
 
