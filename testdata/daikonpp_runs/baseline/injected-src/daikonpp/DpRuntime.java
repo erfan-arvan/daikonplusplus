@@ -133,10 +133,9 @@ public final class DpRuntime {
     public static void recordFailed(String uuid, String json) {
         if (SEEN_FAIL.add(uuid) && SHM_FAIL_DIR != null) {
             try {
-                java.nio.file.Files.writeString(
+                java.nio.file.Files.write(
                     SHM_FAIL_DIR.resolve(uuid + ".json"),
-                    json,
-                    java.nio.charset.StandardCharsets.UTF_8,
+                    json.getBytes(java.nio.charset.StandardCharsets.UTF_8),
                     java.nio.file.StandardOpenOption.CREATE,
                     java.nio.file.StandardOpenOption.TRUNCATE_EXISTING);
             } catch (Exception __ignore) {}
