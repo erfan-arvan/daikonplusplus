@@ -19,7 +19,7 @@ public final class DpRuntime {
         java.nio.file.Path exDir = null;
         java.nio.file.Path failDir = null;
         java.nio.file.Path currentDir = null;
-        if (shmBase != null && !shmBase.isBlank()) {
+        if (shmBase != null && !shmBase.trim().isEmpty()) {
             try {
                 java.nio.file.Path base = java.nio.file.Paths.get(shmBase);
                 exDir = base.resolve("ex");
@@ -96,13 +96,13 @@ public final class DpRuntime {
         java.util.Set<String> s =
             java.util.Collections.newSetFromMap(new ConcurrentHashMap<>());
         String f = System.getProperty("DP_DISABLED_FILE");
-        if (f == null || f.isBlank()) f = System.getenv("DP_DISABLED_FILE");
-        if (f != null && !f.isBlank()) {
+        if (f == null || f.trim().isEmpty()) f = System.getenv("DP_DISABLED_FILE");
+        if (f != null && !f.trim().isEmpty()) {
             try {
                 java.nio.file.Path p = java.nio.file.Paths.get(f);
                 if (java.nio.file.Files.exists(p)) {
                     for (String line : java.nio.file.Files.readAllLines(p)) {
-                        if (line != null && !line.isBlank()) s.add(line.trim());
+                        if (line != null && !line.trim().isEmpty()) s.add(line.trim());
                     }
                 }
             } catch (Exception ignored) {}
