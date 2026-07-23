@@ -114,9 +114,7 @@ public final class App {
     final DpConfig BASE_CFG = DpConfig.fromEnv();
     // reset per pipeline invocation
     RUN_DEDUP.clear();
-    if (BASE_CFG.debug()) {
-      BASE_CFG.printSummary();
-    }
+    BASE_CFG.printSummary();
 
     final Path externalMainCompileScript =
         Optional.ofNullable(BASE_CFG.compileMainScript()).map(Path::of).orElse(null);
