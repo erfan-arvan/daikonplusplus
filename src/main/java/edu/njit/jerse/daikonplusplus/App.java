@@ -1137,7 +1137,8 @@ public final class App {
 
       String callSite =
           enabled.contains(ContextKind.CALL_SITE)
-              ? ContextUtils.extractCallSiteContext(point, srcRoot).orElse("")
+              ? ContextUtils.extractCallSiteContext(point, srcRoot, BASE_CFG.callSitesIndexPath())
+                  .orElse("")
               : "";
 
       String ioExamples =
