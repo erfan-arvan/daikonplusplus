@@ -1143,7 +1143,8 @@ public final class App {
 
       String ioExamples =
           enabled.contains(ContextKind.IO_EXAMPLES)
-              ? ContextUtils.extractIOExamples(point, srcRoot).orElse("")
+              ? ContextUtils.extractIOExamples(point, srcRoot, BASE_CFG.ioExamplesIndexPath())
+                  .orElse("")
               : "";
 
       String calleeDoc =

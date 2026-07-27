@@ -39,6 +39,7 @@ public final class DpConfig {
   private final @Nullable String llmCassettesDir;
   private final boolean disableRealLlm;
   private final @Nullable String callSitesIndexPath;
+  private final @Nullable String ioExamplesIndexPath;
 
   // ---- execution / scripts ----
   private final @Nullable String compileMainScript;
@@ -90,6 +91,7 @@ public final class DpConfig {
       @Nullable String llmCassettesDir,
       boolean disableRealLlm,
       @Nullable String callSitesIndexPath,
+      @Nullable String ioExamplesIndexPath,
       @Nullable String compileMainScript,
       @Nullable String compileTestScript,
       int llmPollStepMs,
@@ -122,6 +124,7 @@ public final class DpConfig {
     this.llmCassettesDir = llmCassettesDir;
     this.disableRealLlm = disableRealLlm;
     this.callSitesIndexPath = callSitesIndexPath;
+    this.ioExamplesIndexPath = ioExamplesIndexPath;
     this.compileMainScript = compileMainScript;
     this.compileTestScript = compileTestScript;
     this.llmPollStepMs = llmPollStepMs;
@@ -205,6 +208,10 @@ public final class DpConfig {
 
   public @Nullable String callSitesIndexPath() {
     return callSitesIndexPath;
+  }
+
+  public @Nullable String ioExamplesIndexPath() {
+    return ioExamplesIndexPath;
   }
 
   public @Nullable String compileMainScript() {
@@ -348,6 +355,12 @@ public final class DpConfig {
             System.getProperty("dp.callSitesIndex"),
             env.get("DP_CALL_SITES_INDEX"));
 
+    String ioExamplesIndexPath =
+        firstNonBlankNullable(
+            file.get("dp.ioExamplesIndex"),
+            System.getProperty("dp.ioExamplesIndex"),
+            env.get("DP_IO_EXAMPLES_INDEX"));
+
     String compileMainScript =
         firstNonBlankNullable(
             file.get("dp.compileMainScript"),
@@ -470,6 +483,7 @@ public final class DpConfig {
         llmCassettesDir,
         disableRealLlm,
         callSitesIndexPath,
+        ioExamplesIndexPath,
         compileMainScript,
         compileTestScript,
         llmPollStepMs,
@@ -649,6 +663,7 @@ public final class DpConfig {
     System.out.println("llmCassettesDir = " + llmCassettesDir);
     System.out.println("disableRealLlm = " + disableRealLlm);
     System.out.println("callSitesIndexPath = " + callSitesIndexPath);
+    System.out.println("ioExamplesIndexPath = " + ioExamplesIndexPath);
 
     System.out.println("compileMainScript = " + compileMainScript);
     System.out.println("compileTestScript = " + compileTestScript);

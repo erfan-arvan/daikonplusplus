@@ -410,14 +410,93 @@ public final class ContextUtils {
   }
 
   /**
-   * Extracts input-output examples for a program point.
+   * Cache of parsed I/O-examples index files, keyed by file path, so each is read only once per
+   * run.
+   */
+  private static final Map<String, Map<String, List<Map<String, Object>>>> IO_EXAMPLES_INDEX_CACHE =
+      new ConcurrentHashMap<>();
+
+  /** Maximum number of input-output examples to include as context for a single program point. */
+  private static final int MAX_IO_EXAMPLES = 5;
+
+  /**
+   * Loads (and caches) a pre-built input-output examples index from disk.
+   *
+   * <p>The index is a JSON object mapping a method's key (in the same {@code
+   * pkg.Class#name(paramTypes):returnType} format produced by {@link
+   * edu.njit.jerse.daikonplusplus.model.ProgramElementId#toString()}) to a list of example records,
+   * each with an {@code args} object (parameter name to observed value) and a {@code return} value,
+   * as captured by Daikon's Chicory front end from a real test run.
+   *
+   * @param path path to the I/O-examples index JSON file
+   * @return parsed index, or an empty map if the file is missing or unparsable
+   */
+  private static Map<String, List<Map<String, Object>>> loadIOExamplesIndex(String path) {
+    return IO_EXAMPLES_INDEX_CACHE.computeIfAbsent(
+        path,
+        p -> {
+          try {
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(
+                new File(p), new TypeReference<Map<String, List<Map<String, Object>>>>() {});
+          } catch (Exception e) {
+            return Map.of();
+          }
+        });
+  }
+
+  /**
+   * Extracts input-output examples for a program point, using a pre-built I/O-examples index.
+   *
+   * <p>The index is expected to have been produced offline (e.g. via Daikon's Chicory
+   * instrumentation of a real test run) and configured via {@code DP_IO_EXAMPLES_INDEX} / {@code
+   * dp.ioExamplesIndex}. Up to {@link #MAX_IO_EXAMPLES} recorded examples are rendered as
+   * argument/return value pairs.
    *
    * @param point program point
-   * @param srcRoot root directory of the source code
-   * @return examples if available
+   * @param srcRoot root directory of the source code (unused; kept for signature symmetry with
+   *     other {@code extract*} methods)
+   * @param ioExamplesIndexPath path to the I/O-examples index JSON file, or {@code null} if unset
+   * @return input-output example context if available
    */
-  public static Optional<String> extractIOExamples(ProgramPoint point, Path srcRoot) {
-    return Optional.empty(); // TODO later
+  public static Optional<String> extractIOExamples(
+      ProgramPoint point, Path srcRoot, @Nullable String ioExamplesIndexPath) {
+
+    if (ioExamplesIndexPath == null || ioExamplesIndexPath.isBlank()) {
+      return Optional.empty();
+    }
+
+    Map<String, List<Map<String, Object>>> index = loadIOExamplesIndex(ioExamplesIndexPath);
+    if (index.isEmpty()) return Optional.empty();
+
+    String key = point.elementId().toString();
+    List<Map<String, Object>> examples = index.get(key);
+    if (examples == null || examples.isEmpty()) return Optional.empty();
+
+    StringBuilder sb = new StringBuilder();
+    int included = 0;
+
+    for (Map<String, Object> example : examples) {
+      if (included >= MAX_IO_EXAMPLES) break;
+
+      Object argsObj = example.get("args");
+      if (!(argsObj instanceof Map)) continue;
+      @SuppressWarnings("unchecked")
+      Map<String, Object> args = (Map<String, Object>) argsObj;
+
+      if (included > 0) sb.append("\n");
+      sb.append("Example ").append(included + 1).append(": ");
+      sb.append(
+          args.entrySet().stream()
+              .map(e -> e.getKey() + "=" + e.getValue())
+              .collect(Collectors.joining(", ")));
+      sb.append(" -> return=").append(example.get("return"));
+
+      included++;
+    }
+
+    if (included == 0) return Optional.empty();
+    return Optional.of(sb.toString());
   }
 
   /**
