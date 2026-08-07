@@ -75,20 +75,25 @@ public final class TestInvariantFilter {
 
     Map<UUID, String> idToMethod = readRegistryMethods(registryPath);
 
+    System.out.println("[DP-TEST-FILTER] Reading initial run log: " + initialRunLog);
     String initialLogText = readIfExists(initialRunLog);
     Optional<TestFailureLogParser.FailureMatch> initialFailure =
         TestFailureLogParser.firstFailure(initialLogText);
 
-    Path snapshot = makeSnapshot(injectedProjectRoot);
-    Path snapshotMainSrc =
-        snapshot.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
-
     if (initialFailure.isEmpty()) {
       System.out.println(
-          "[DP-TEST-FILTER] No recognized test-failure signature in initial run log — nothing to filter");
+          "[DP-TEST-FILTER] No recognized test-failure signature in initial run log — nothing to "
+              + "filter (skipping project copy)");
       System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
 
-      return new Result(snapshot, snapshot, snapshotMainSrc, initialRunLog, Set.of(), List.of(), 0);
+      return new Result(
+          injectedProjectRoot,
+          injectedProjectRoot,
+          mainSrcRoot,
+          initialRunLog,
+          Set.of(),
+          List.of(),
+          0);
     }
 
     System.out.println(
@@ -97,8 +102,18 @@ public final class TestInvariantFilter {
             + "] :: "
             + initialFailure.get().line());
 
-    Path working = freshCopy(snapshot, "test-filter-work");
+    System.out.println(
+        "[DP-TEST-FILTER] Creating working copy from " + injectedProjectRoot + " ...");
+    long copyStart = System.nanoTime();
+    Path snapshot = injectedProjectRoot;
+    Path working = freshCopy(injectedProjectRoot, "test-filter-work");
     Path workingMainSrc = working.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
+    System.out.println(
+        "[DP-TEST-FILTER] Working copy ready at "
+            + working
+            + " ("
+            + (System.nanoTime() - copyStart) / 1_000_000
+            + " ms)");
 
     Path shmDir = working.resolve(".daikonpp-test-filter-shm");
     Files.createDirectories(shmDir);
@@ -541,25 +556,6 @@ public final class TestInvariantFilter {
       }
     } catch (Exception ignored) {
     }
-  }
-
-  /**
-   * Creates a full copy of the project for isolated modification.
-   *
-   * @param projectRoot original project root
-   * @return path to snapshot copy
-   * @throws IOException if copying fails
-   */
-  private static Path makeSnapshot(Path projectRoot) throws IOException {
-    Path parent = projectRoot.getParent();
-    if (parent == null) {
-      parent = Path.of(System.getProperty("java.io.tmpdir"));
-    }
-
-    Path snapshot =
-        parent.resolve(projectRoot.getFileName() + "-injected-snapshot-" + System.nanoTime());
-    copyTree(projectRoot, snapshot);
-    return snapshot;
   }
 
   /**
