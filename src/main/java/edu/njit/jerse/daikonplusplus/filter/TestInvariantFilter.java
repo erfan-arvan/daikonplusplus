@@ -5,14 +5,26 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.util.*;
 import java.util.regex.*;
 
 /**
  * Test-based invariant filtering that removes invariants causing test failures.
  *
- * <p>This class performs a search over groups of invariants (batched by method) and disables them
- * in the injected source until the external test suite passes.
+ * <p>Strategy: run the external test suite normally first (the {@code initialRunLog} passed in has
+ * already been produced by the caller). If that log contains no recognized test-failure signature
+ * ({@link TestFailureLogParser}), there is nothing to filter and the project is left untouched.
+ *
+ * <p>If a test failure is found, the suite is rerun on a working copy with shm-based invariant
+ * tracking enabled so each run's execution order can be recovered. Each time a rerun's log still
+ * shows a test-failure signature, the invariant that was executed <em>last</em> in that run (the
+ * one most likely responsible, mirroring how the stale/timeout detector blames the invariant that
+ * was mid-evaluation when a hang is killed) is disabled by commenting out its source block, and the
+ * suite is rerun again. This repeats until either a run passes cleanly, or the search is exhausted
+ * (no further invariant can be identified/disabled — e.g. every executed invariant has already been
+ * tried, or a run fails without a recognized failure signature at all, in which case the failure
+ * can't be safely attributed to an invariant).
  *
  * <p>The process operates on copies of the project to avoid mutating the original injected code and
  * uses marker-based regions to selectively disable invariants.
@@ -33,16 +45,19 @@ public final class TestInvariantFilter {
   /**
    * Executes test-based filtering to identify and remove invariants that break tests.
    *
-   * <p>The algorithm: - Takes a snapshot of the injected project - Identifies executed invariants
-   * from the initial run log - Groups invariants by method and batches them - Iteratively disables
-   * batches and reruns tests - Stops when a combination yields a passing test run
+   * <p>The algorithm: - Checks the initial run's log for a recognized test-failure signature; if
+   * none is found, returns immediately with nothing removed - Otherwise, reruns the suite on a
+   * working copy with shm tracking enabled - On each rerun that still shows a failure signature,
+   * disables the last-executed invariant and reruns - Stops on a clean pass, or when the search is
+   * exhausted
    *
    * @param injectedProjectRoot root of the project with injected invariants
    * @param mainSrcRoot source root containing instrumented Java files
    * @param registryPath registry mapping invariant IDs to program elements
-   * @param initialRunLog log from the initial execution containing executed invariant IDs
+   * @param initialRunLog log from the initial execution, already produced by the caller
    * @param runnerScript external test runner script
-   * @param methodBatchSize number of methods per batch during search
+   * @param methodBatchSize unused by the current (last-executed) strategy; kept for source
+   *     compatibility with existing callers/config
    * @return result object describing the final filtered project and removed invariants
    * @throws Exception if execution fails
    */
@@ -56,153 +71,202 @@ public final class TestInvariantFilter {
       throws Exception {
 
     System.out.println("\n[DP-TEST-FILTER] ===== START TEST-BASED FILTERING =====");
+    System.out.println("[DP-TEST-FILTER] strategy = disable-last-executed-on-test-failure");
+
+    Map<UUID, String> idToMethod = readRegistryMethods(registryPath);
+
+    String initialLogText = readIfExists(initialRunLog);
+    Optional<TestFailureLogParser.FailureMatch> initialFailure =
+        TestFailureLogParser.firstFailure(initialLogText);
 
     Path snapshot = makeSnapshot(injectedProjectRoot);
-
     Path snapshotMainSrc =
         snapshot.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
 
-    Map<UUID, String> idToMethod = readRegistryMethods(registryPath);
-    Set<UUID> executed = LogParser.readExecutedIds(initialRunLog);
+    if (initialFailure.isEmpty()) {
+      System.out.println(
+          "[DP-TEST-FILTER] No recognized test-failure signature in initial run log — nothing to filter");
+      System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
 
-    BlockIndex index = scanInvariantBlocks(snapshotMainSrc);
-
-    Map<String, List<UUID>> methodGroups = new TreeMap<>();
-
-    for (UUID id : executed) {
-      String method = idToMethod.get(id);
-      if (method == null) continue;
-      if (!index.blocks.containsKey(id)) continue;
-
-      methodGroups.computeIfAbsent(method, __ -> new ArrayList<>()).add(id);
+      return new Result(snapshot, snapshot, snapshotMainSrc, initialRunLog, Set.of(), List.of(), 0);
     }
 
-    List<List<UUID>> batches = makeMethodBatches(methodGroups, methodBatchSize);
+    System.out.println(
+        "[DP-TEST-FILTER] Initial run failed ["
+            + initialFailure.get().format()
+            + "] :: "
+            + initialFailure.get().line());
 
-    System.out.println("[DP-TEST-FILTER] snapshot=" + snapshot);
-    System.out.println("[DP-TEST-FILTER] executed ids=" + executed.size());
-    System.out.println("[DP-TEST-FILTER] ids with source blocks=" + index.blocks.size());
-    System.out.println("[DP-TEST-FILTER] method groups=" + methodGroups.size());
-    System.out.println("[DP-TEST-FILTER] batches=" + batches.size());
+    Path working = freshCopy(snapshot, "test-filter-work");
+    Path workingMainSrc = working.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
+
+    Path shmDir = working.resolve(".daikonpp-test-filter-shm");
+    Files.createDirectories(shmDir);
 
     Set<UUID> removed = new LinkedHashSet<>();
-    List<String> removedMethods = new ArrayList<>();
+    List<String> removalLog = new ArrayList<>();
 
-    boolean solved = false;
+    Path finalLog = initialRunLog;
+    int finalExit = -1;
+    int iteration = 0;
 
-    for (int k = 1; k <= batches.size() && !solved; k++) {
+    while (true) {
+      iteration++;
+      resetShmDir(shmDir);
 
-      System.out.println("[DP-TEST-FILTER] Trying k=" + k + " batches");
+      Path iterLog = working.resolve("daikonpp-test-filter-iter" + iteration + ".log");
+      int exit = runExternalTestRunner(runnerScript, working, iterLog, shmDir);
+      String iterLogText = readIfExists(iterLog);
 
-      for (int start = 0; start + k <= batches.size(); start++) {
+      finalLog = iterLog;
+      finalExit = exit;
 
-        List<UUID> combined = new ArrayList<>();
+      Optional<TestFailureLogParser.FailureMatch> failure =
+          TestFailureLogParser.firstFailure(iterLogText);
 
-        for (int j = start; j < start + k; j++) {
-          combined.addAll(batches.get(j));
-        }
-
-        Path attempt = freshCopy(snapshot, "test-filter-k" + k + "-start" + start);
-
-        Path attemptMainSrc =
-            attempt.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
-
-        BlockIndex attemptIndex = scanInvariantBlocks(attemptMainSrc);
-
-        disableIds(attemptIndex, combined);
-
-        Path attemptLog = attempt.resolve("daikonpp-test-filter-k" + k + "-start" + start + ".log");
-
-        int exit = runExternalTestRunner(runnerScript, attempt, attemptLog);
-
-        String label = describeBatch(combined, idToMethod);
-
+      if (failure.isEmpty()) {
         if (exit == 0) {
-          System.out.println("[DP-TEST-FILTER] SUCCESS with k=" + k + " → " + label);
-
-          removed.addAll(combined);
-          removedMethods.add(label);
-
-          solved = true;
-          break;
+          System.out.println("[DP-TEST-FILTER] Run " + iteration + ": PASSED — filtering complete");
         } else {
-          System.out.println("[DP-TEST-FILTER] FAIL k=" + k + " start=" + start);
+          System.out.println(
+              "[DP-TEST-FILTER] Run "
+                  + iteration
+                  + ": exit="
+                  + exit
+                  + " but no recognized test-failure signature — cannot safely attribute to an "
+                  + "invariant, stopping");
         }
+        break;
       }
+
+      System.out.println(
+          "[DP-TEST-FILTER] Run "
+              + iteration
+              + ": test failure detected ["
+              + failure.get().format()
+              + "] :: "
+              + failure.get().line());
+
+      Optional<UUID> lastExecuted = findLastExecuted(shmDir, iterLog, removed);
+
+      if (lastExecuted.isEmpty()) {
+        System.out.println(
+            "[DP-TEST-FILTER] Run "
+                + iteration
+                + ": no not-yet-disabled executed invariant could be identified — exhausted, "
+                + "stopping");
+        break;
+      }
+
+      UUID uuid = lastExecuted.get();
+      removed.add(uuid);
+
+      BlockIndex idx = scanInvariantBlocks(workingMainSrc);
+      disableIds(idx, List.of(uuid));
+
+      String method = idToMethod.getOrDefault(uuid, "(unknown method)");
+      String entry =
+          "Run "
+              + iteration
+              + ": disabled "
+              + uuid
+              + " ["
+              + method
+              + "] after test failure ("
+              + failure.get().format()
+              + "): "
+              + failure.get().line();
+      removalLog.add(entry);
+      System.out.println("[DP-TEST-FILTER]   -> " + entry);
     }
-
-    if (!solved) {
-      System.out.println("[DP-TEST-FILTER] ❌ No combination made tests pass");
-    }
-
-    Path finalProject = freshCopy(snapshot, "test-filter-final");
-    Path finalMainSrc =
-        finalProject.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
-
-    BlockIndex finalIndex = scanInvariantBlocks(finalMainSrc);
-    disableIds(finalIndex, removed);
-
-    Path finalLog = finalProject.resolve("daikonpp-test-filter-final.log");
-    int finalExit = runExternalTestRunner(runnerScript, finalProject, finalLog);
 
     System.out.println("[DP-TEST-FILTER] removed ids=" + removed.size());
-    System.out.println("[DP-TEST-FILTER] final test exit=" + finalExit);
-    System.out.println("[DP-TEST-FILTER] final project=" + finalProject);
+    System.out.println("[DP-TEST-FILTER] final exit=" + finalExit);
+    System.out.println("[DP-TEST-FILTER] final project=" + working);
     System.out.println("[DP-TEST-FILTER] final log=" + finalLog);
     System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
 
-    return new Result(
-        snapshot, finalProject, finalMainSrc, finalLog, removed, removedMethods, finalExit);
+    return new Result(snapshot, working, workingMainSrc, finalLog, removed, removalLog, finalExit);
   }
 
   /**
-   * Groups invariants into batches based on their associated methods.
+   * Identifies the invariant executed last (most recently) in the most recent run, excluding any
+   * UUID already in {@code alreadyRemoved}.
    *
-   * <p>Methods are sorted by decreasing number of invariants, and batches are formed by grouping a
-   * fixed number of methods together.
+   * <p>Primary source: {@code shmDir/ex/} filenames, ranked by file-modification time — each
+   * invariant check writes its marker to this directory the moment it starts executing (see {@code
+   * daikonpp.DpRuntime.recordExecuted}), so the most recently written file identifies the invariant
+   * that ran last before the test failure surfaced.
    *
-   * @param methodGroups mapping from method identifier to invariant IDs
-   * @param methodBatchSize number of methods per batch
-   * @return list of invariant batches
+   * <p>Fallback: if the shm directory is empty (e.g. shm tracking unavailable), falls back to the
+   * last {@code INV_EXD:<uuid>} entry in the run log.
+   *
+   * @param shmDir shm directory used for this run (already reset before the run started)
+   * @param runLog this run's log file
+   * @param alreadyRemoved invariants already disabled in earlier iterations
+   * @return the last-executed, not-yet-disabled invariant, if any
    */
-  private static List<List<UUID>> makeMethodBatches(
-      Map<String, List<UUID>> methodGroups, int methodBatchSize) {
+  private static Optional<UUID> findLastExecuted(Path shmDir, Path runLog, Set<UUID> alreadyRemoved)
+      throws IOException {
+    Path exDir = shmDir.resolve("ex");
 
-    int size = Math.max(1, methodBatchSize);
+    UUID best = null;
+    FileTime bestTime = null;
 
-    List<Map.Entry<String, List<UUID>>> methods = new ArrayList<>(methodGroups.entrySet());
+    if (Files.isDirectory(exDir)) {
+      try (var s = Files.list(exDir)) {
+        for (Path p : (Iterable<Path>) s::iterator) {
+          Path fn = p.getFileName();
+          if (fn == null) continue;
 
-    methods.sort((a, b) -> Integer.compare(b.getValue().size(), a.getValue().size()));
+          UUID id;
+          try {
+            id = UUID.fromString(fn.toString());
+          } catch (IllegalArgumentException ignore) {
+            continue;
+          }
 
-    List<List<UUID>> batches = new ArrayList<>();
+          if (alreadyRemoved.contains(id)) continue;
 
-    for (int i = 0; i < methods.size(); i += size) {
-      List<UUID> batch = new ArrayList<>();
-
-      for (int j = i; j < Math.min(i + size, methods.size()); j++) {
-        batch.addAll(methods.get(j).getValue());
+          FileTime t = Files.getLastModifiedTime(p);
+          if (bestTime == null || t.compareTo(bestTime) > 0) {
+            bestTime = t;
+            best = id;
+          }
+        }
       }
-
-      batches.add(batch);
     }
 
-    return batches;
+    if (best != null) return Optional.of(best);
+
+    // Fallback: last INV_EXD entry in the log, skipping already-removed UUIDs.
+    Optional<UUID> logBased = LogParser.readLastExecutedId(runLog);
+    if (logBased.isPresent() && !alreadyRemoved.contains(logBased.get())) {
+      return logBased;
+    }
+
+    return Optional.empty();
   }
 
   /**
-   * Produces a human-readable description of a batch of invariants.
-   *
-   * @param ids invariant IDs in the batch
-   * @param idToMethod mapping from invariant IDs to method identifiers
-   * @return string representation of affected methods
+   * Deletes and recreates {@code ex/}, {@code fail/}, and {@code current/} under {@code shmDir}.
    */
-  private static String describeBatch(List<UUID> ids, Map<UUID, String> idToMethod) {
-    Set<String> methods = new TreeSet<>();
-    for (UUID id : ids) {
-      String m = idToMethod.get(id);
-      if (m != null) methods.add(m);
+  private static void resetShmDir(Path shmDir) throws IOException {
+    for (String sub : new String[] {"ex", "fail", "current"}) {
+      Path dir = shmDir.resolve(sub);
+      if (Files.isDirectory(dir)) {
+        try (var s = Files.list(dir)) {
+          for (Path p : (Iterable<Path>) s::iterator) {
+            Files.deleteIfExists(p);
+          }
+        }
+      }
+      Files.createDirectories(dir);
     }
-    return methods.toString();
+  }
+
+  private static String readIfExists(Path file) throws IOException {
+    return Files.isRegularFile(file) ? Files.readString(file, StandardCharsets.UTF_8) : "";
   }
 
   /**
@@ -367,17 +431,19 @@ public final class TestInvariantFilter {
   /**
    * Executes an external test runner script and captures its output.
    *
-   * <p>The method sets required environment variables and appends invariant execution events to the
-   * log.
+   * <p>The method sets required environment variables — including {@code DP_SHM_DIR}, so each
+   * invariant's execution marker is timestamped and the last-executed one can be recovered after
+   * the run — and appends invariant execution events to the log.
    *
    * @param script executable test runner script
    * @param workDir working directory for execution
    * @param runLog output log file
+   * @param shmDir shm directory for this run (already created/reset by the caller)
    * @return exit code of the test run
    * @throws IOException if execution fails
    * @throws InterruptedException if execution is interrupted
    */
-  private static int runExternalTestRunner(Path script, Path workDir, Path runLog)
+  private static int runExternalTestRunner(Path script, Path workDir, Path runLog, Path shmDir)
       throws IOException, InterruptedException {
 
     if (!Files.isRegularFile(script)) {
@@ -401,7 +467,10 @@ public final class TestInvariantFilter {
     env.put("DP_RUN_LOG", runLog.toAbsolutePath().toString());
     env.put("DP_INV_DIR", invDir.toAbsolutePath().toString());
 
-    String jvmArgs = "-DDP_INV_DIR=" + invDir.toAbsolutePath();
+    String shmPath = shmDir.toAbsolutePath().toString();
+    env.put("DP_SHM_DIR", shmPath);
+
+    String jvmArgs = "-DDP_INV_DIR=" + invDir.toAbsolutePath() + " -DDP_SHM_DIR=" + shmPath;
 
     env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + jvmArgs).trim());
     env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + jvmArgs).trim());
@@ -597,7 +666,7 @@ public final class TestInvariantFilter {
      * @param finalMainSrcRoot final main source directory
      * @param finalRunLog log from final test execution
      * @param removedIds set of invariant IDs that were disabled
-     * @param removedMethodBatches descriptions of removed method groups
+     * @param removedMethodBatches human-readable descriptions of each disabled invariant and why
      * @param finalExitCode exit code of final test run
      */
     Result(
