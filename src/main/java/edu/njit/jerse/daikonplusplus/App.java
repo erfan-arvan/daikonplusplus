@@ -1051,6 +1051,59 @@ public final class App {
               + " (exit="
               + filterResult.finalExitCode
               + ")");
+
+      // Full post-filter breakdown, in the same shape as the pre-filter ">>> Totals:" line
+      // above, but recomputed against the final (filtered) run so it reflects invariants
+      // disabled due to test failures the same way the pre-filter line reflects
+      // stale/timeout-disabled invariants.
+      Set<UUID> filteredCompiledIds = new HashSet<>(all.keySet());
+      filteredCompiledIds.removeAll(filteredNonCompiled);
+
+      int filteredHeldCount = 0;
+      int filteredFalsCount = 0;
+      int filteredNeverExecCount = 0;
+      int disabledTestFilterNeverExecCount = 0;
+
+      for (UUID id : all.keySet()) {
+        boolean isCompiled = filteredCompiledIds.contains(id);
+        boolean wasExecuted = filteredExecuted.contains(id);
+        boolean wasFalsified = filteredFalsified.contains(id);
+
+        if (wasExecuted && !wasFalsified) {
+          filteredHeldCount++;
+        } else if (wasFalsified) {
+          filteredFalsCount++;
+        } else if (isCompiled && !wasExecuted) {
+          filteredNeverExecCount++;
+          if (filterResult.removedIds.contains(id)) {
+            disabledTestFilterNeverExecCount++;
+          }
+        }
+      }
+
+      int filteredUnreachedCount = filteredNeverExecCount - disabledTestFilterNeverExecCount;
+
+      System.out.println(
+          ">>> TEST-FILTER Totals: "
+              + "all="
+              + all.size()
+              + " compiled="
+              + filteredCompiledIds.size()
+              + " non-compiled="
+              + filteredNonCompiled.size()
+              + " executed="
+              + filteredExecuted.size()
+              + " falsified="
+              + filteredFalsCount
+              + " observed-held="
+              + filteredHeldCount
+              + " never-executed="
+              + filteredNeverExecCount
+              + " (disabled-test-filter="
+              + disabledTestFilterNeverExecCount
+              + " unreached="
+              + filteredUnreachedCount
+              + ")");
     }
 
     if (!BASE_CFG.keepWork()) {
