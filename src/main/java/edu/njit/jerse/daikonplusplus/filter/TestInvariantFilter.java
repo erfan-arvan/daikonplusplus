@@ -130,6 +130,8 @@ public final class TestInvariantFilter {
       resetShmDir(shmDir);
 
       Path iterLog = working.resolve("daikonpp-test-filter-iter" + iteration + ".log");
+      System.out.println(
+          "[DP-TEST-FILTER] Run " + iteration + ": executing test runner, log -> " + iterLog);
       int exit = runExternalTestRunner(runnerScript, working, iterLog, shmDir);
       String iterLogText = readIfExists(iterLog);
 
@@ -506,6 +508,7 @@ public final class TestInvariantFilter {
       while ((line = r.readLine()) != null) {
         w.write(line);
         w.newLine();
+        w.flush();
       }
     }
 

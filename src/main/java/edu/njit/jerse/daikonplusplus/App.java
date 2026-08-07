@@ -1018,12 +1018,17 @@ public final class App {
               resolvedScript,
               BASE_CFG.testFilterMethodBatchSize());
 
+      System.out.println(
+          ">>> TEST-FILTER: "
+              + filterResult.removedIds.size()
+              + " invariant(s) disabled due to test failures");
+
       System.out.println(">>> TEST-FILTER REMOVED IDS:");
       for (UUID id : filterResult.removedIds.stream().sorted().toList()) {
         System.out.println("  " + id);
       }
 
-      System.out.println(">>> TEST-FILTER REMOVED METHOD BATCHES:");
+      System.out.println(">>> TEST-FILTER REMOVAL REASONS (one per disabled invariant):");
       for (String m : filterResult.removedMethodBatches) {
         System.out.println("  " + m);
       }
@@ -1040,6 +1045,12 @@ public final class App {
       System.out.println("  falsified=" + filteredFalsified.size());
       System.out.println("  non-compiled=" + filteredNonCompiled.size());
       System.out.println("  removed-by-test-filter=" + filterResult.removedIds.size());
+      System.out.println(
+          "  final test run: "
+              + (filterResult.finalExitCode == 0 ? "PASSED" : "FAILED")
+              + " (exit="
+              + filterResult.finalExitCode
+              + ")");
     }
 
     if (!BASE_CFG.keepWork()) {
