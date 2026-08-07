@@ -75,15 +75,12 @@ public final class TestInvariantFilter {
 
     Map<UUID, String> idToMethod = readRegistryMethods(registryPath);
 
-    System.out.println("[DP-TEST-FILTER] Reading initial run log: " + initialRunLog);
-    String initialLogText = readIfExists(initialRunLog);
-    Optional<TestFailureLogParser.FailureMatch> initialFailure =
-        TestFailureLogParser.firstFailure(initialLogText);
+    System.out.println("[DP-TEST-FILTER] Checking initial run exit status: " + initialRunLog);
 
-    if (initialFailure.isEmpty()) {
+    if (!exitedNonZero(initialRunLog)) {
       System.out.println(
-          "[DP-TEST-FILTER] No recognized test-failure signature in initial run log — nothing to "
-              + "filter (skipping project copy)");
+          "[DP-TEST-FILTER] Initial run exited cleanly (exit=0) — nothing to filter "
+              + "(skipping log scan and project copy)");
       System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
 
       return new Result(
@@ -94,6 +91,31 @@ public final class TestInvariantFilter {
           Set.of(),
           List.of(),
           0);
+    }
+
+    System.out.println(
+        "[DP-TEST-FILTER] Initial run exited non-zero — scanning log for a recognized "
+            + "test-failure signature: "
+            + initialRunLog);
+    String initialLogText = readIfExists(initialRunLog);
+    Optional<TestFailureLogParser.FailureMatch> initialFailure =
+        TestFailureLogParser.firstFailure(initialLogText);
+
+    if (initialFailure.isEmpty()) {
+      System.out.println(
+          "[DP-TEST-FILTER] Initial run failed (exit!=0) but no recognized test-failure "
+              + "signature was found — cannot safely attribute to an invariant, nothing to "
+              + "filter (skipping project copy)");
+      System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
+
+      return new Result(
+          injectedProjectRoot,
+          injectedProjectRoot,
+          mainSrcRoot,
+          initialRunLog,
+          Set.of(),
+          List.of(),
+          1);
     }
 
     System.out.println(
@@ -133,26 +155,29 @@ public final class TestInvariantFilter {
       System.out.println(
           "[DP-TEST-FILTER] Run " + iteration + ": executing test runner, log -> " + iterLog);
       int exit = runExternalTestRunner(runnerScript, working, iterLog, shmDir);
-      String iterLogText = readIfExists(iterLog);
 
       finalLog = iterLog;
       finalExit = exit;
 
+      if (exit == 0) {
+        System.out.println("[DP-TEST-FILTER] Run " + iteration + ": PASSED — filtering complete");
+        break;
+      }
+
+      // Only scan the log now that we know the run actually exited non-zero — no point
+      // reading/matching against the whole file on every passing run.
+      String iterLogText = readIfExists(iterLog);
       Optional<TestFailureLogParser.FailureMatch> failure =
           TestFailureLogParser.firstFailure(iterLogText);
 
       if (failure.isEmpty()) {
-        if (exit == 0) {
-          System.out.println("[DP-TEST-FILTER] Run " + iteration + ": PASSED — filtering complete");
-        } else {
-          System.out.println(
-              "[DP-TEST-FILTER] Run "
-                  + iteration
-                  + ": exit="
-                  + exit
-                  + " but no recognized test-failure signature — cannot safely attribute to an "
-                  + "invariant, stopping");
-        }
+        System.out.println(
+            "[DP-TEST-FILTER] Run "
+                + iteration
+                + ": exit="
+                + exit
+                + " but no recognized test-failure signature — cannot safely attribute to an "
+                + "invariant, stopping");
         break;
       }
 
@@ -284,6 +309,40 @@ public final class TestInvariantFilter {
 
   private static String readIfExists(Path file) throws IOException {
     return Files.isRegularFile(file) ? Files.readString(file, StandardCharsets.UTF_8) : "";
+  }
+
+  /**
+   * Marker {@link edu.njit.jerse.daikonplusplus.JavaRunner} appends to a run log, once, only when
+   * the external runner exits with a non-zero code (see {@code JavaRunner.runExternalScript}).
+   */
+  private static final String NON_ZERO_EXIT_MARKER = "[DP] External runner exited with code";
+
+  private static final int TAIL_CHECK_BYTES = 8192;
+
+  /**
+   * Cheaply determines whether a run's process exited non-zero, without reading the whole log file
+   * — only the last {@link #TAIL_CHECK_BYTES} bytes are inspected for {@link
+   * #NON_ZERO_EXIT_MARKER}, which the runner always appends at the very end of the log when its
+   * exit code is non-zero.
+   *
+   * @param runLog the run's log file
+   * @return true if the marker was found in the file's tail (exit was non-zero)
+   * @throws IOException if the file cannot be read
+   */
+  private static boolean exitedNonZero(Path runLog) throws IOException {
+    if (!Files.isRegularFile(runLog)) return false;
+
+    long size = Files.size(runLog);
+    int tailSize = (int) Math.min(size, TAIL_CHECK_BYTES);
+    if (tailSize == 0) return false;
+
+    byte[] buf = new byte[tailSize];
+    try (RandomAccessFile raf = new RandomAccessFile(runLog.toFile(), "r")) {
+      raf.seek(size - tailSize);
+      raf.readFully(buf);
+    }
+
+    return new String(buf, StandardCharsets.UTF_8).contains(NON_ZERO_EXIT_MARKER);
   }
 
   /**
