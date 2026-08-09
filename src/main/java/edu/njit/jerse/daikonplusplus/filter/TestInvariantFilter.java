@@ -5,26 +5,28 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileTime;
 import java.util.*;
 import java.util.regex.*;
 
 /**
  * Test-based invariant filtering that removes invariants causing test failures.
  *
- * <p>Strategy: run the external test suite normally first (the {@code initialRunLog} passed in has
- * already been produced by the caller). If that log contains no recognized test-failure signature
- * ({@link TestFailureLogParser}), there is nothing to filter and the project is left untouched.
+ * <p>Strategy: the initial run (whose log the caller already produced) is checked cheaply — exit
+ * code first, and only if non-zero, scanned once for a recognized {@link TestFailureLogParser}
+ * signature. If neither confirms a real test failure, nothing is filtered.
  *
- * <p>If a test failure is found, the suite is rerun on a working copy with shm-based invariant
- * tracking enabled so each run's execution order can be recovered. Each time a rerun's log still
- * shows a test-failure signature, the invariant that was executed <em>last</em> in that run (the
- * one most likely responsible, mirroring how the stale/timeout detector blames the invariant that
- * was mid-evaluation when a hang is killed) is disabled by commenting out its source block, and the
- * suite is rerun again. This repeats until either a run passes cleanly, or the search is exhausted
- * (no further invariant can be identified/disabled — e.g. every executed invariant has already been
- * tried, or a run fails without a recognized failure signature at all, in which case the failure
- * can't be safely attributed to an invariant).
+ * <p>If a failure is confirmed, the suite is rerun on a working copy with real-time monitoring: as
+ * the runner's output streams in, each line is checked against the same failure signature, and the
+ * instant the <em>same</em> failure (see {@link TestFailureLogParser#isSameFailure}) reappears, the
+ * process is killed immediately — rather than waiting for the rest of the suite to finish, which
+ * would otherwise bury the invariants actually responsible under everything that ran afterward.
+ *
+ * <p>The set of invariants that executed during that first reproducing run (ordered by execution
+ * time, via {@link LogParser#readExecutedOrderedFromShm}) becomes the candidate pool for <a
+ * href="https://www.debuggingbook.org/html/DeltaDebugger.html">delta debugging</a> ({@code ddmin}):
+ * candidates are disabled/enabled in shrinking, targeted subsets — each checked with the same
+ * real-time monitored rerun — until a 1-minimal culprit set is isolated. That set is disabled in
+ * the final project copy.
  *
  * <p>The process operates on copies of the project to avoid mutating the original injected code and
  * uses marker-based regions to selectively disable invariants.
@@ -45,18 +47,12 @@ public final class TestInvariantFilter {
   /**
    * Executes test-based filtering to identify and remove invariants that break tests.
    *
-   * <p>The algorithm: - Checks the initial run's log for a recognized test-failure signature; if
-   * none is found, returns immediately with nothing removed - Otherwise, reruns the suite on a
-   * working copy with shm tracking enabled - On each rerun that still shows a failure signature,
-   * disables the last-executed invariant and reruns - Stops on a clean pass, or when the search is
-   * exhausted
-   *
    * @param injectedProjectRoot root of the project with injected invariants
    * @param mainSrcRoot source root containing instrumented Java files
    * @param registryPath registry mapping invariant IDs to program elements
    * @param initialRunLog log from the initial execution, already produced by the caller
    * @param runnerScript external test runner script
-   * @param methodBatchSize unused by the current (last-executed) strategy; kept for source
+   * @param methodBatchSize unused by the current (delta-debugging) strategy; kept for source
    *     compatibility with existing callers/config
    * @return result object describing the final filtered project and removed invariants
    * @throws Exception if execution fails
@@ -71,7 +67,7 @@ public final class TestInvariantFilter {
       throws Exception {
 
     System.out.println("\n[DP-TEST-FILTER] ===== START TEST-BASED FILTERING =====");
-    System.out.println("[DP-TEST-FILTER] strategy = disable-last-executed-on-test-failure");
+    System.out.println("[DP-TEST-FILTER] strategy = real-time-detection + delta-debugging");
 
     Map<UUID, String> idToMethod = readRegistryMethods(registryPath);
 
@@ -82,15 +78,7 @@ public final class TestInvariantFilter {
           "[DP-TEST-FILTER] Initial run exited cleanly (exit=0) — nothing to filter "
               + "(skipping log scan and project copy)");
       System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
-
-      return new Result(
-          injectedProjectRoot,
-          injectedProjectRoot,
-          mainSrcRoot,
-          initialRunLog,
-          Set.of(),
-          List.of(),
-          0);
+      return noopResult(injectedProjectRoot, mainSrcRoot, initialRunLog, 0);
     }
 
     System.out.println(
@@ -107,27 +95,16 @@ public final class TestInvariantFilter {
               + "signature was found — cannot safely attribute to an invariant, nothing to "
               + "filter (skipping project copy)");
       System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
-
-      return new Result(
-          injectedProjectRoot,
-          injectedProjectRoot,
-          mainSrcRoot,
-          initialRunLog,
-          Set.of(),
-          List.of(),
-          1);
+      return noopResult(injectedProjectRoot, mainSrcRoot, initialRunLog, 1);
     }
 
+    TestFailureLogParser.FailureMatch target = initialFailure.get();
     System.out.println(
-        "[DP-TEST-FILTER] Initial run failed ["
-            + initialFailure.get().format()
-            + "] :: "
-            + initialFailure.get().line());
+        "[DP-TEST-FILTER] Initial run failed [" + target.format() + "] :: " + target.line());
 
     System.out.println(
         "[DP-TEST-FILTER] Creating working copy from " + injectedProjectRoot + " ...");
     long copyStart = System.nanoTime();
-    Path snapshot = injectedProjectRoot;
     Path working = freshCopy(injectedProjectRoot, "test-filter-work");
     Path workingMainSrc = working.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
     System.out.println(
@@ -140,155 +117,551 @@ public final class TestInvariantFilter {
     Path shmDir = working.resolve(".daikonpp-test-filter-shm");
     Files.createDirectories(shmDir);
 
-    Set<UUID> removed = new LinkedHashSet<>();
-    List<String> removalLog = new ArrayList<>();
+    // ---- Run 1: monitored rerun to (a) confirm the target failure reproduces and (b) build a
+    // tightly time-bounded candidate pool from whatever executed before the kill. ----
+    resetShmDir(shmDir);
+    Path run1Log = working.resolve("daikonpp-test-filter-run1.log");
+    System.out.println(
+        "[DP-TEST-FILTER] Run 1 (monitored): executing test runner, log -> " + run1Log);
+    MonitorResult run1 = runMonitored(runnerScript, working, run1Log, shmDir, target);
 
-    Path finalLog = initialRunLog;
-    int finalExit = -1;
-    int iteration = 0;
-
-    while (true) {
-      iteration++;
-      resetShmDir(shmDir);
-
-      Path iterLog = working.resolve("daikonpp-test-filter-iter" + iteration + ".log");
-      System.out.println(
-          "[DP-TEST-FILTER] Run " + iteration + ": executing test runner, log -> " + iterLog);
-      int exit = runExternalTestRunner(runnerScript, working, iterLog, shmDir);
-
-      finalLog = iterLog;
-      finalExit = exit;
-
-      if (exit == 0) {
-        System.out.println("[DP-TEST-FILTER] Run " + iteration + ": PASSED — filtering complete");
-        break;
-      }
-
-      // Only scan the log now that we know the run actually exited non-zero — no point
-      // reading/matching against the whole file on every passing run.
-      String iterLogText = readIfExists(iterLog);
-      Optional<TestFailureLogParser.FailureMatch> failure =
-          TestFailureLogParser.firstFailure(iterLogText);
-
-      if (failure.isEmpty()) {
+    if (!run1.reproduced) {
+      if (run1.exitCode == 0) {
         System.out.println(
-            "[DP-TEST-FILTER] Run "
-                + iteration
-                + ": exit="
-                + exit
-                + " but no recognized test-failure signature — cannot safely attribute to an "
-                + "invariant, stopping");
-        break;
-      }
-
-      System.out.println(
-          "[DP-TEST-FILTER] Run "
-              + iteration
-              + ": test failure detected ["
-              + failure.get().format()
-              + "] :: "
-              + failure.get().line());
-
-      Optional<UUID> lastExecuted = findLastExecuted(shmDir, iterLog, removed);
-
-      if (lastExecuted.isEmpty()) {
+            "[DP-TEST-FILTER] Run 1: PASSED — target failure did not reproduce, nothing to "
+                + "filter");
+      } else {
         System.out.println(
-            "[DP-TEST-FILTER] Run "
-                + iteration
-                + ": no not-yet-disabled executed invariant could be identified — exhausted, "
-                + "stopping");
-        break;
+            "[DP-TEST-FILTER] Run 1: exit="
+                + run1.exitCode
+                + " but the original failure did not reproduce (different or no signature) — "
+                + "cannot safely attribute, stopping");
       }
-
-      UUID uuid = lastExecuted.get();
-      removed.add(uuid);
-
-      BlockIndex idx = scanInvariantBlocks(workingMainSrc);
-      disableIds(idx, List.of(uuid));
-
-      String method = idToMethod.getOrDefault(uuid, "(unknown method)");
-      String entry =
-          "Run "
-              + iteration
-              + ": disabled "
-              + uuid
-              + " ["
-              + method
-              + "] after test failure ("
-              + failure.get().format()
-              + "): "
-              + failure.get().line();
-      removalLog.add(entry);
-      System.out.println("[DP-TEST-FILTER]   -> " + entry);
+      System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
+      return new Result(
+          injectedProjectRoot,
+          working,
+          workingMainSrc,
+          run1Log,
+          Set.of(),
+          List.of(),
+          run1.exitCode);
     }
 
-    System.out.println("[DP-TEST-FILTER] removed ids=" + removed.size());
-    System.out.println("[DP-TEST-FILTER] final exit=" + finalExit);
+    System.out.println(
+        "[DP-TEST-FILTER] Run 1: reproduced target failure ["
+            + run1.matched.map(TestFailureLogParser.FailureMatch::format).orElse(target.format())
+            + "] — building candidate set from execution order");
+
+    List<UUID> candidates = orderedDistinctIds(LogParser.readExecutedOrderedFromShm(shmDir));
+    System.out.println("[DP-TEST-FILTER] candidate pool size = " + candidates.size());
+
+    if (candidates.isEmpty()) {
+      System.out.println(
+          "[DP-TEST-FILTER] No invariants executed during the reproducing run — cannot "
+              + "attribute, stopping");
+      System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
+      return new Result(
+          injectedProjectRoot,
+          working,
+          workingMainSrc,
+          run1Log,
+          Set.of(),
+          List.of(),
+          run1.exitCode);
+    }
+
+    BlockIndex idx = scanInvariantBlocks(workingMainSrc);
+    Map<UUID, List<String>> originalLines = captureOriginalLines(idx, candidates);
+
+    List<String> trialLog = new ArrayList<>();
+    TrialCounter trialCounter = new TrialCounter();
+
+    List<UUID> culprits =
+        ddmin(
+            runnerScript,
+            working,
+            shmDir,
+            idx,
+            originalLines,
+            candidates,
+            target,
+            idToMethod,
+            trialLog,
+            trialCounter);
+
+    // Final state: disable exactly the isolated culprits, restore everything else in the
+    // candidate pool to its original (enabled) form, and do one confirming run.
+    Set<UUID> culpritSet = new LinkedHashSet<>(culprits);
+    Set<UUID> keepEnabled = new LinkedHashSet<>(candidates);
+    keepEnabled.removeAll(culpritSet);
+    applyConfig(idx, originalLines, candidates, keepEnabled);
+
+    resetShmDir(shmDir);
+    Path finalLog = working.resolve("daikonpp-test-filter-final.log");
+    System.out.println("[DP-TEST-FILTER] Final run (culprits disabled): log -> " + finalLog);
+    int finalExit = runExternalTestRunner(runnerScript, working, finalLog, shmDir);
+
+    String finalLogText = readIfExists(finalLog);
+    boolean stillFails =
+        finalExit != 0
+            && TestFailureLogParser.firstFailure(finalLogText)
+                .map(m -> TestFailureLogParser.isSameFailure(target, m))
+                .orElse(false);
+
+    for (UUID id : culprits) {
+      String method = idToMethod.getOrDefault(id, "(unknown method)");
+      trialLog.add(
+          "Disabled "
+              + id
+              + " ["
+              + method
+              + "] — isolated via delta debugging ("
+              + trialCounter.count
+              + " trial(s)) against target ["
+              + target.format()
+              + "] :: "
+              + target.line());
+    }
+
+    System.out.println(
+        "[DP-TEST-FILTER] Isolated culprit set: "
+            + culprits.size()
+            + " invariant(s) after "
+            + trialCounter.count
+            + " ddmin trial(s)");
+    System.out.println(
+        "[DP-TEST-FILTER] Final run: "
+            + (stillFails
+                ? "STILL FAILS (unexpected)"
+                : finalExit == 0 ? "PASSED" : "FAILED (unrelated)")
+            + " exit="
+            + finalExit);
     System.out.println("[DP-TEST-FILTER] final project=" + working);
     System.out.println("[DP-TEST-FILTER] final log=" + finalLog);
     System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
 
-    return new Result(snapshot, working, workingMainSrc, finalLog, removed, removalLog, finalExit);
+    return new Result(
+        injectedProjectRoot, working, workingMainSrc, finalLog, culpritSet, trialLog, finalExit);
+  }
+
+  private static Result noopResult(
+      Path injectedProjectRoot, Path mainSrcRoot, Path initialRunLog, int exitCode) {
+    return new Result(
+        injectedProjectRoot,
+        injectedProjectRoot,
+        mainSrcRoot,
+        initialRunLog,
+        Set.of(),
+        List.of(),
+        exitCode);
+  }
+
+  private static List<UUID> orderedDistinctIds(List<LogParser.TimedInvariant> timed) {
+    LinkedHashSet<UUID> ids = new LinkedHashSet<>();
+    for (LogParser.TimedInvariant t : timed) {
+      ids.add(t.id());
+    }
+    return new ArrayList<>(ids);
+  }
+
+  // =====================================================================================
+  // Delta debugging (ddmin)
+  // =====================================================================================
+
+  private static final class TrialCounter {
+    int count = 0;
   }
 
   /**
-   * Identifies the invariant executed last (most recently) in the most recent run, excluding any
-   * UUID already in {@code alreadyRemoved}.
+   * Isolates a 1-minimal subset of {@code delta} whose presence (enabled, with everything else in
+   * {@code delta} disabled) reproduces {@code target}. {@code delta} is assumed to reproduce the
+   * failure when fully enabled — that's how it was built (from a run that just reproduced it).
    *
-   * <p>Primary source: {@code shmDir/ex/} filenames, ranked by file-modification time — each
-   * invariant check writes its marker to this directory the moment it starts executing (see {@code
-   * daikonpp.DpRuntime.recordExecuted}), so the most recently written file identifies the invariant
-   * that ran last before the test failure surfaced.
+   * <p>Classic {@code ddmin}: split into {@code n} chunks; try each chunk alone; if none
+   * reproduces, try each chunk's complement (i.e. removing just that chunk); if that doesn't narrow
+   * things either, increase granularity (double {@code n}) and retry, until {@code n} reaches
+   * {@code delta.size()} with no further progress — at which point {@code delta} is 1-minimal.
    *
-   * <p>Fallback: if the shm directory is empty (e.g. shm tracking unavailable), falls back to the
-   * last {@code INV_EXD:<uuid>} entry in the run log.
-   *
-   * @param shmDir shm directory used for this run (already reset before the run started)
-   * @param runLog this run's log file
-   * @param alreadyRemoved invariants already disabled in earlier iterations
-   * @return the last-executed, not-yet-disabled invariant, if any
+   * @return the isolated minimal culprit set (in original execution order)
    */
-  private static Optional<UUID> findLastExecuted(Path shmDir, Path runLog, Set<UUID> alreadyRemoved)
+  private static List<UUID> ddmin(
+      Path runnerScript,
+      Path working,
+      Path shmDir,
+      BlockIndex idx,
+      Map<UUID, List<String>> originalLines,
+      List<UUID> deltaInit,
+      TestFailureLogParser.FailureMatch target,
+      Map<UUID, String> idToMethod,
+      List<String> trialLog,
+      TrialCounter trialCounter)
+      throws IOException, InterruptedException {
+
+    List<UUID> delta = new ArrayList<>(deltaInit);
+    int n = 2;
+
+    while (delta.size() > 1) {
+      n = Math.min(n, delta.size());
+      List<List<UUID>> chunks = splitInto(delta, n);
+      // Prioritize the chunk(s) closest to the failure (end of the execution-ordered list)
+      // first — not required for correctness, just a domain-informed ordering likely to
+      // converge faster.
+      Collections.reverse(chunks);
+
+      boolean reduced = false;
+
+      for (List<UUID> chunk : chunks) {
+        if (chunk.isEmpty()) continue;
+        int trialNum = ++trialCounter.count;
+        boolean fail =
+            testConfig(
+                trialNum,
+                "alone",
+                chunk,
+                new LinkedHashSet<>(chunk),
+                delta,
+                runnerScript,
+                working,
+                shmDir,
+                idx,
+                originalLines,
+                target,
+                trialLog);
+        if (fail) {
+          delta = new ArrayList<>(chunk);
+          n = 2;
+          reduced = true;
+          break;
+        }
+      }
+
+      if (!reduced) {
+        for (List<UUID> chunk : chunks) {
+          if (chunk.isEmpty() || chunk.size() == delta.size()) continue;
+          int trialNum = ++trialCounter.count;
+          List<UUID> complement = new ArrayList<>(delta);
+          complement.removeAll(chunk);
+          boolean fail =
+              testConfig(
+                  trialNum,
+                  "without",
+                  chunk,
+                  new LinkedHashSet<>(complement),
+                  delta,
+                  runnerScript,
+                  working,
+                  shmDir,
+                  idx,
+                  originalLines,
+                  target,
+                  trialLog);
+          if (fail) {
+            delta = complement;
+            n = Math.max(n - 1, 2);
+            reduced = true;
+            break;
+          }
+        }
+      }
+
+      if (!reduced) {
+        if (n >= delta.size()) break; // 1-minimal — no chunk alone or complement helps
+        n = Math.min(n * 2, delta.size());
+      }
+    }
+
+    return delta;
+  }
+
+  /**
+   * Applies one ddmin trial configuration (exactly {@code enabled} from {@code deltaAll} is
+   * enabled, the rest disabled), reruns with real-time monitoring, and records the outcome.
+   *
+   * @return true if the target failure reproduced with this configuration
+   */
+  private static boolean testConfig(
+      int trialNum,
+      String kind,
+      List<UUID> chunk,
+      Set<UUID> enabled,
+      List<UUID> deltaAll,
+      Path runnerScript,
+      Path working,
+      Path shmDir,
+      BlockIndex idx,
+      Map<UUID, List<String>> originalLines,
+      TestFailureLogParser.FailureMatch target,
+      List<String> trialLog)
+      throws IOException, InterruptedException {
+
+    applyConfig(idx, originalLines, deltaAll, enabled);
+    resetShmDir(shmDir);
+
+    Path trialLogFile = working.resolve("daikonpp-test-filter-ddmin" + trialNum + ".log");
+    System.out.println(
+        "[DP-TEST-FILTER] Trial "
+            + trialNum
+            + " ("
+            + kind
+            + " "
+            + chunk.size()
+            + " of "
+            + deltaAll.size()
+            + "): executing, log -> "
+            + trialLogFile);
+
+    MonitorResult mr = runMonitored(runnerScript, working, trialLogFile, shmDir, target);
+
+    String desc =
+        "Trial "
+            + trialNum
+            + " ("
+            + kind
+            + " "
+            + chunk.size()
+            + " of "
+            + deltaAll.size()
+            + "): "
+            + (mr.reproduced ? "FAIL (reproduced)" : "no reproduction")
+            + " exit="
+            + mr.exitCode;
+    trialLog.add(desc);
+    System.out.println("[DP-TEST-FILTER]   -> " + desc);
+
+    return mr.reproduced;
+  }
+
+  /** Splits {@code list} into {@code n} contiguous, roughly-equal, non-empty chunks. */
+  private static List<List<UUID>> splitInto(List<UUID> list, int n) {
+    List<List<UUID>> chunks = new ArrayList<>();
+    int size = list.size();
+    int base = size / n;
+    int rem = size % n;
+    int idx = 0;
+    for (int i = 0; i < n && idx < size; i++) {
+      int chunkSize = base + (i < rem ? 1 : 0);
+      if (chunkSize == 0) continue;
+      chunks.add(new ArrayList<>(list.subList(idx, idx + chunkSize)));
+      idx += chunkSize;
+    }
+    return chunks;
+  }
+
+  /**
+   * Reads and stores the pristine (still-enabled) source lines of every block in {@code ids},
+   * before any ddmin trial disables anything — so later trials can restore a block to its original
+   * state instead of only ever being able to comment it out.
+   */
+  private static Map<UUID, List<String>> captureOriginalLines(BlockIndex idx, List<UUID> ids)
       throws IOException {
-    Path exDir = shmDir.resolve("ex");
+    Map<UUID, List<String>> out = new HashMap<>();
+    Map<Path, List<UUID>> byFile = new HashMap<>();
 
-    UUID best = null;
-    FileTime bestTime = null;
+    for (UUID id : ids) {
+      Block b = idx.blocks.get(id);
+      if (b == null) continue;
+      byFile.computeIfAbsent(b.file, __ -> new ArrayList<>()).add(id);
+    }
 
-    if (Files.isDirectory(exDir)) {
-      try (var s = Files.list(exDir)) {
-        for (Path p : (Iterable<Path>) s::iterator) {
-          Path fn = p.getFileName();
-          if (fn == null) continue;
+    for (Map.Entry<Path, List<UUID>> e : byFile.entrySet()) {
+      List<String> lines = Files.readAllLines(e.getKey(), StandardCharsets.UTF_8);
+      for (UUID id : e.getValue()) {
+        Block b = idx.blocks.get(id);
+        if (b == null) continue;
+        List<String> block = new ArrayList<>();
+        for (int i = b.beginLine; i <= b.endLine && i < lines.size(); i++) {
+          block.add(lines.get(i));
+        }
+        out.put(id, block);
+      }
+    }
 
-          UUID id;
-          try {
-            id = UUID.fromString(fn.toString());
-          } catch (IllegalArgumentException ignore) {
-            continue;
+    return out;
+  }
+
+  /**
+   * Sets the working copy's source so that exactly {@code enabled} (a subset of {@code deltaAll})
+   * is active — every block is restored to its pristine text if enabled, or commented out if not.
+   * Unlike {@link #disableIds}, this is idempotent and reversible: it can be called repeatedly with
+   * different {@code enabled} sets across ddmin trials without needing a fresh project copy each
+   * time.
+   */
+  private static void applyConfig(
+      BlockIndex idx, Map<UUID, List<String>> originalLines, List<UUID> deltaAll, Set<UUID> enabled)
+      throws IOException {
+
+    Map<Path, List<UUID>> byFile = new HashMap<>();
+    for (UUID id : deltaAll) {
+      Block b = idx.blocks.get(id);
+      if (b == null) continue;
+      byFile.computeIfAbsent(b.file, __ -> new ArrayList<>()).add(id);
+    }
+
+    for (Map.Entry<Path, List<UUID>> e : byFile.entrySet()) {
+      Path file = e.getKey();
+      List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
+
+      for (UUID id : e.getValue()) {
+        Block b = idx.blocks.get(id);
+        List<String> orig = originalLines.get(id);
+        if (b == null || orig == null) continue;
+
+        boolean shouldEnable = enabled.contains(id);
+        for (int i = 0; i < orig.size(); i++) {
+          int lineIdx = b.beginLine + i;
+          if (lineIdx >= lines.size()) break;
+
+          if (shouldEnable) {
+            lines.set(lineIdx, orig.get(i));
+          } else {
+            lines.set(lineIdx, "// [DP] test-filter disabled :: " + orig.get(i));
           }
+        }
+      }
 
-          if (alreadyRemoved.contains(id)) continue;
+      Files.write(file, lines, StandardCharsets.UTF_8);
+    }
+  }
 
-          FileTime t = Files.getLastModifiedTime(p);
-          if (bestTime == null || t.compareTo(bestTime) > 0) {
-            bestTime = t;
-            best = id;
-          }
+  // =====================================================================================
+  // Real-time monitored execution (kill-on-detect)
+  // =====================================================================================
+
+  /** Outcome of a real-time monitored run: whether the target failure reproduced, and how. */
+  private static final class MonitorResult {
+    final boolean reproduced;
+    final int exitCode;
+    final Optional<TestFailureLogParser.FailureMatch> matched;
+
+    MonitorResult(
+        boolean reproduced, int exitCode, Optional<TestFailureLogParser.FailureMatch> matched) {
+      this.reproduced = reproduced;
+      this.exitCode = exitCode;
+      this.matched = matched;
+    }
+  }
+
+  /**
+   * Runs the external test runner while checking each line of its output, as it streams in, against
+   * {@code target}. The instant a line matches the <em>same</em> failure (see {@link
+   * TestFailureLogParser#isSameFailure}), the process is killed immediately — no need to wait for
+   * the rest of the suite, and no polling delay: detection latency is bounded only by how quickly
+   * the OS delivers the child process's output to this reader.
+   *
+   * <p>Falls back to a full-log scan after the process exits on its own, in case a matching line
+   * was written but not recognized in time (e.g. buffering) — so a genuine reproduction is never
+   * missed, just possibly detected a little later than the real-time path would.
+   *
+   * @param script external test runner script
+   * @param workDir working directory for execution
+   * @param runLog output log file
+   * @param shmDir shm directory for this run (already reset by the caller)
+   * @param target the failure being chased; a run "reproduces" only if the same failure recurs
+   * @return whether the target failure reproduced, and the run's exit code
+   */
+  private static MonitorResult runMonitored(
+      Path script, Path workDir, Path runLog, Path shmDir, TestFailureLogParser.FailureMatch target)
+      throws IOException, InterruptedException {
+
+    if (!Files.isRegularFile(script)) {
+      throw new IllegalArgumentException("[DP-TEST-FILTER] runner not found: " + script);
+    }
+    if (!Files.isExecutable(script)) {
+      throw new IllegalArgumentException("[DP-TEST-FILTER] runner not executable: " + script);
+    }
+
+    Files.createDirectories(Optional.ofNullable(runLog.getParent()).orElse(Path.of(".")));
+
+    Path invDir = workDir.resolve(".daikonpp-events");
+    Files.createDirectories(invDir);
+
+    ProcessBuilder pb = new ProcessBuilder(script.toAbsolutePath().toString());
+    pb.directory(workDir.toFile());
+    pb.redirectErrorStream(true);
+
+    Map<String, String> env = pb.environment();
+    env.put("DP_RUN_LOG", runLog.toAbsolutePath().toString());
+    env.put("DP_INV_DIR", invDir.toAbsolutePath().toString());
+
+    String shmPath = shmDir.toAbsolutePath().toString();
+    env.put("DP_SHM_DIR", shmPath);
+
+    String jvmArgs = "-DDP_INV_DIR=" + invDir.toAbsolutePath() + " -DDP_SHM_DIR=" + shmPath;
+    env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + jvmArgs).trim());
+    env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + jvmArgs).trim());
+    env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + jvmArgs).trim());
+
+    Process p = pb.start();
+
+    boolean reproduced = false;
+    Optional<TestFailureLogParser.FailureMatch> matched = Optional.empty();
+
+    try (BufferedReader r =
+            new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
+        BufferedWriter w =
+            Files.newBufferedWriter(
+                runLog,
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING)) {
+
+      String line;
+      int lineNo = 0;
+      while ((line = r.readLine()) != null) {
+        lineNo++;
+        w.write(line);
+        w.newLine();
+        w.flush();
+
+        Optional<TestFailureLogParser.FailureMatch> m =
+            TestFailureLogParser.matchLine(line, lineNo);
+        if (m.isPresent() && TestFailureLogParser.isSameFailure(target, m.get())) {
+          matched = m;
+          reproduced = true;
+          p.destroyForcibly();
+          break;
         }
       }
     }
 
-    if (best != null) return Optional.of(best);
-
-    // Fallback: last INV_EXD entry in the log, skipping already-removed UUIDs.
-    Optional<UUID> logBased = LogParser.readLastExecutedId(runLog);
-    if (logBased.isPresent() && !alreadyRemoved.contains(logBased.get())) {
-      return logBased;
+    int exit;
+    if (reproduced) {
+      p.waitFor(); // ensure the forcibly-killed process is fully reaped
+      exit = -1;
+    } else {
+      exit = p.waitFor();
     }
 
-    return Optional.empty();
+    appendDpEvents(invDir, runLog);
+
+    if (!reproduced && exit != 0) {
+      // Safety net: exited non-zero without us catching a matching line in real time (e.g. the
+      // child buffered its output). Do one full-log scan before concluding it didn't reproduce.
+      String fullText = readIfExists(runLog);
+      Optional<TestFailureLogParser.FailureMatch> fallback =
+          TestFailureLogParser.firstFailure(fullText);
+      if (fallback.isPresent() && TestFailureLogParser.isSameFailure(target, fallback.get())) {
+        reproduced = true;
+        matched = fallback;
+      }
+    }
+
+    if (exit != 0) {
+      Files.writeString(
+          runLog,
+          "\n[DP-TEST-FILTER] External runner exited with code " + exit + "\n",
+          StandardCharsets.UTF_8,
+          StandardOpenOption.CREATE,
+          StandardOpenOption.APPEND);
+    }
+
+    return new MonitorResult(reproduced, exit, matched);
   }
+
+  // =====================================================================================
+  // Shared helpers
+  // =====================================================================================
 
   /**
    * Deletes and recreates {@code ex/}, {@code fail/}, and {@code current/} under {@code shmDir}.
@@ -343,45 +716,6 @@ public final class TestInvariantFilter {
     }
 
     return new String(buf, StandardCharsets.UTF_8).contains(NON_ZERO_EXIT_MARKER);
-  }
-
-  /**
-   * Disables invariant blocks corresponding to the given IDs by commenting them out.
-   *
-   * <p>Blocks are grouped per file and processed in reverse order to preserve line offsets during
-   * modification.
-   *
-   * @param index index of invariant blocks
-   * @param ids invariant IDs to disable
-   * @throws IOException if file modification fails
-   */
-  private static void disableIds(BlockIndex index, Collection<UUID> ids) throws IOException {
-    Map<Path, List<Block>> byFile = new HashMap<>();
-
-    for (UUID id : ids) {
-      Block b = index.blocks.get(id);
-      if (b == null) continue;
-      byFile.computeIfAbsent(b.file, __ -> new ArrayList<>()).add(b);
-    }
-
-    for (Map.Entry<Path, List<Block>> e : byFile.entrySet()) {
-      Path file = e.getKey();
-      List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
-
-      List<Block> blocks = e.getValue();
-      blocks.sort((a, b) -> Integer.compare(b.beginLine, a.beginLine));
-
-      for (Block b : blocks) {
-        for (int i = b.beginLine; i <= b.endLine && i < lines.size(); i++) {
-          String line = lines.get(i);
-          if (!line.trim().startsWith("// [DP] test-filter disabled")) {
-            lines.set(i, "// [DP] test-filter disabled :: " + line);
-          }
-        }
-      }
-
-      Files.write(file, lines, StandardCharsets.UTF_8);
-    }
   }
 
   /**
@@ -505,11 +839,9 @@ public final class TestInvariantFilter {
   }
 
   /**
-   * Executes an external test runner script and captures its output.
-   *
-   * <p>The method sets required environment variables — including {@code DP_SHM_DIR}, so each
-   * invariant's execution marker is timestamped and the last-executed one can be recovered after
-   * the run — and appends invariant execution events to the log.
+   * Executes an external test runner script and captures its output, waiting for it to run to
+   * completion (no real-time detection) — used for the final confirming run once the culprit set is
+   * already known.
    *
    * @param script executable test runner script
    * @param workDir working directory for execution

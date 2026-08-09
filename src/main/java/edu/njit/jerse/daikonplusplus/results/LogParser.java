@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -237,6 +239,68 @@ public final class LogParser {
     } catch (IOException e) {
       throw new RuntimeException("Failed to list shm/ex: " + e.getMessage(), e);
     }
+    return out;
+  }
+
+  /**
+   * One invariant's execution marker read from {@code shmDir/ex/<uuid>}: the wall-clock millisecond
+   * it started executing, plus a per-JVM sequence number that breaks ties within the same
+   * millisecond/JVM (see {@code daikonpp.DpRuntime.recordExecuted}).
+   */
+  public record TimedInvariant(UUID id, long millis, long seq) {}
+
+  /**
+   * Returns every invariant executed in a prior run, ordered by execution time (earliest first):
+   * primarily by wall-clock millisecond — comparable across separate JVMs (e.g. Surefire forks)
+   * sharing the same {@code shmDir} — and secondarily by the per-JVM sequence number, which breaks
+   * ties within a single JVM/millisecond regardless of the underlying filesystem's mtime
+   * resolution.
+   *
+   * <p>Falls back to treating a file as {@code millis=0, seq=0} if its content is missing or
+   * malformed (e.g. written by an older, pre-marker version of {@code DpRuntime}), so it still
+   * appears in the result — just unordered relative to other such entries.
+   *
+   * @param shmDir shm directory used for the run
+   * @return invariants in execution order, earliest first
+   */
+  public static List<TimedInvariant> readExecutedOrderedFromShm(Path shmDir) {
+    List<TimedInvariant> out = new ArrayList<>();
+    Path exDir = shmDir.resolve("ex");
+    if (!Files.exists(exDir)) return out;
+
+    try (var s = Files.list(exDir)) {
+      for (Path p : (Iterable<Path>) s::iterator) {
+        Path fn = p.getFileName();
+        if (fn == null) continue;
+
+        UUID id;
+        try {
+          id = UUID.fromString(fn.toString());
+        } catch (IllegalArgumentException ignore) {
+          continue;
+        }
+
+        long millis = 0L;
+        long seq = 0L;
+        try {
+          String content = Files.readString(p, StandardCharsets.UTF_8).trim();
+          int dash = content.indexOf('-');
+          if (dash > 0) {
+            millis = Long.parseLong(content.substring(0, dash));
+            seq = Long.parseLong(content.substring(dash + 1));
+          }
+        } catch (Exception ignore) {
+          // malformed/missing content — keep millis=0, seq=0 fallback
+        }
+
+        out.add(new TimedInvariant(id, millis, seq));
+      }
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to list shm/ex: " + e.getMessage(), e);
+    }
+
+    out.sort(
+        Comparator.comparingLong(TimedInvariant::millis).thenComparingLong(TimedInvariant::seq));
     return out;
   }
 

@@ -49,6 +49,9 @@ public final class DpRuntimeWriter {
             // --- re-entrancy guard (per-thread) ---
             + "    public static final ThreadLocal<AtomicBoolean> GUARD =\n"
             + "        ThreadLocal.withInitial(() -> new AtomicBoolean(false));\n"
+            // --- monotonic per-JVM execution counter, for ordering shm/ex/<uuid> entries ---
+            + "    public static final java.util.concurrent.atomic.AtomicLong SEQ =\n"
+            + "        new java.util.concurrent.atomic.AtomicLong(0);\n"
             // --- disabled invariants ---
             + "    public static final java.util.Set<String> DISABLED = loadDisabled();\n"
             // --- DP_INV_DIR for shutdown-hook sidecar fallback ---
@@ -155,10 +158,16 @@ public final class DpRuntimeWriter {
             + "        return s;\n"
             + "    }\n"
             // --- recordExecuted: write shm/ex/<uuid>, no stdout ---
+            // Content is "<wallClockMillis>-<perJvmSeq>": wall-clock millis are comparable
+            // across separate (e.g. forked) JVMs sharing the same DP_SHM_DIR, while the
+            // per-JVM sequence number breaks ties within the same millisecond/JVM — together
+            // they give a reliable execution order regardless of filesystem mtime resolution.
             + "    public static void recordExecuted(String uuid) {\n"
             + "        if (SEEN.add(uuid) && SHM_EX_DIR != null) {\n"
             + "            try {\n"
-            + "                java.nio.file.Files.createFile(SHM_EX_DIR.resolve(uuid));\n"
+            + "                String __marker = System.currentTimeMillis() + \"-\" + SEQ.incrementAndGet();\n"
+            + "                java.nio.file.Files.write(SHM_EX_DIR.resolve(uuid),\n"
+            + "                    __marker.getBytes(\"UTF-8\"));\n"
             + "            } catch (Exception __ignore) {}\n"
             + "        }\n"
             + "    }\n"

@@ -221,4 +221,126 @@ public class TestFailureLogParserTest {
 
     assertFalse(TestFailureLogParser.hasFailure(log));
   }
+
+  // ---- matchLine (single-line, real-time detection) ----
+
+  @Test
+  public void matchLineDetectsFailureOnASingleLine() {
+    Optional<FailureMatch> match =
+        TestFailureLogParser.matchLine("SomeTestClass > someMethod FAILED", 7);
+
+    assertTrue(match.isPresent());
+    assertEquals("gradle-test-event", match.get().format());
+    assertEquals(7, match.get().lineNumber());
+  }
+
+  @Test
+  public void matchLineReturnsEmptyForNonFailureLine() {
+    assertTrue(TestFailureLogParser.matchLine("SomeTestClass > someMethod PASSED", 1).isEmpty());
+  }
+
+  @Test
+  public void matchLineAgreesWithFindFailuresPerLine() {
+    String log =
+        "[INFO] noise\n"
+            + "SomeTestClass > firstMethod FAILED\n"
+            + "[ERROR] com.example.FooTest.bar:42 » NullPointer boom\n";
+
+    List<FailureMatch> viaFindFailures = TestFailureLogParser.findFailures(log);
+    String[] lines = log.split("\n", -1);
+
+    for (FailureMatch expected : viaFindFailures) {
+      Optional<FailureMatch> viaMatchLine =
+          TestFailureLogParser.matchLine(lines[expected.lineNumber() - 1], expected.lineNumber());
+      assertTrue(viaMatchLine.isPresent());
+      assertEquals(expected.format(), viaMatchLine.get().format());
+      assertEquals(expected.testId(), viaMatchLine.get().testId());
+    }
+  }
+
+  // ---- testId extraction ----
+
+  @Test
+  public void extractsTestIdFromMavenSurefireInline() {
+    FailureMatch m =
+        TestFailureLogParser.firstFailure(
+                "[ERROR]   Run 1: TestClass.testMethod:157 expected: <1> but was: <2>\n")
+            .orElseThrow();
+
+    assertTrue(m.testId().isPresent());
+    assertEquals("TestClass.testMethod", m.testId().get());
+  }
+
+  @Test
+  public void extractsTestIdFromGradleTestEvent() {
+    FailureMatch m =
+        TestFailureLogParser.firstFailure("SomeTestClass > someMethod FAILED\n").orElseThrow();
+
+    assertTrue(m.testId().isPresent());
+    assertEquals("SomeTestClass > someMethod", m.testId().get());
+  }
+
+  @Test
+  public void extractsTestIdFromTestNgFailed() {
+    FailureMatch m = TestFailureLogParser.firstFailure("FAILED: testSomething\n").orElseThrow();
+
+    assertTrue(m.testId().isPresent());
+    assertEquals("testSomething", m.testId().get());
+  }
+
+  @Test
+  public void noTestIdForSummaryOnlyFormats() {
+    FailureMatch m =
+        TestFailureLogParser.firstFailure("Tests run: 5, Failures: 1, Errors: 0, Skipped: 0\n")
+            .orElseThrow();
+
+    assertTrue(m.testId().isEmpty());
+  }
+
+  // ---- isSameFailure ----
+
+  @Test
+  public void isSameFailureTrueForIdenticalTestIdAndFormat() {
+    FailureMatch a =
+        TestFailureLogParser.firstFailure("SomeTestClass > someMethod FAILED\n").orElseThrow();
+    FailureMatch b =
+        TestFailureLogParser.firstFailure(
+                "> Task :test\nSomeTestClass > someMethod FAILED\nmore noise\n")
+            .orElseThrow();
+
+    assertTrue(TestFailureLogParser.isSameFailure(a, b));
+  }
+
+  @Test
+  public void isSameFailureFalseForDifferentTestId() {
+    FailureMatch a =
+        TestFailureLogParser.firstFailure("SomeTestClass > someMethod FAILED\n").orElseThrow();
+    FailureMatch b =
+        TestFailureLogParser.firstFailure("OtherTestClass > otherMethod FAILED\n").orElseThrow();
+
+    assertFalse(TestFailureLogParser.isSameFailure(a, b));
+  }
+
+  @Test
+  public void isSameFailureFalseForDifferentFormat() {
+    FailureMatch a =
+        TestFailureLogParser.firstFailure("SomeTestClass > someMethod FAILED\n").orElseThrow();
+    FailureMatch b =
+        TestFailureLogParser.firstFailure("Tests run: 5, Failures: 1, Errors: 0, Skipped: 0\n")
+            .orElseThrow();
+
+    assertFalse(TestFailureLogParser.isSameFailure(a, b));
+  }
+
+  @Test
+  public void isSameFailureFallsBackToFormatWhenNeitherHasATestId() {
+    FailureMatch a =
+        TestFailureLogParser.firstFailure("Tests run: 5, Failures: 1, Errors: 0, Skipped: 0\n")
+            .orElseThrow();
+    FailureMatch b =
+        TestFailureLogParser.firstFailure("Tests run: 9, Failures: 3, Errors: 0, Skipped: 0\n")
+            .orElseThrow();
+
+    assertTrue(TestFailureLogParser.isSameFailure(a, b));
+  }
 }

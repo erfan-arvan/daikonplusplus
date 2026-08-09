@@ -11,6 +11,8 @@ public final class DpRuntime {
         java.util.Collections.newSetFromMap(new ConcurrentHashMap<>());
     public static final ThreadLocal<AtomicBoolean> GUARD =
         ThreadLocal.withInitial(() -> new AtomicBoolean(false));
+    public static final java.util.concurrent.atomic.AtomicLong SEQ =
+        new java.util.concurrent.atomic.AtomicLong(0);
     public static final java.util.Set<String> DISABLED = loadDisabled();
     public static final String INV_DIR = System.getProperty("DP_INV_DIR");
     static {
@@ -112,7 +114,9 @@ public final class DpRuntime {
     public static void recordExecuted(String uuid) {
         if (SEEN.add(uuid) && SHM_EX_DIR != null) {
             try {
-                java.nio.file.Files.createFile(SHM_EX_DIR.resolve(uuid));
+                String __marker = System.currentTimeMillis() + "-" + SEQ.incrementAndGet();
+                java.nio.file.Files.write(SHM_EX_DIR.resolve(uuid),
+                    __marker.getBytes("UTF-8"));
             } catch (Exception __ignore) {}
         }
     }
