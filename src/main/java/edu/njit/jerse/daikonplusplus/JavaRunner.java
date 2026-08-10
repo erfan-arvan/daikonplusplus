@@ -755,7 +755,7 @@ public final class JavaRunner {
                                 w.flush();
                               } catch (IOException ignored) {
                               }
-                              p.destroyForcibly();
+                              killProcessTree(p);
                             });
                     if (testFailureKilled.get()) break;
                   }
@@ -910,7 +910,7 @@ public final class JavaRunner {
           StandardOpenOption.CREATE,
           StandardOpenOption.APPEND);
 
-      p.destroyForcibly();
+      killProcessTree(p);
       p.waitFor();
       readerThread.interrupt();
     } else if (staleKilled.get() || testFailureKilled.get()) {
@@ -983,6 +983,19 @@ public final class JavaRunner {
     }
     System.err.println("[DP] Stale kill: " + reason + ". Killing runner.");
     staleKilled.set(true);
+    killProcessTree(p);
+  }
+
+  /**
+   * Kills {@code p} and every descendant process it has spawned (e.g. {@code bash script.sh} →
+   * {@code ./gradlew} → forked test-worker JVMs). {@link Process#destroyForcibly()} alone only
+   * SIGKILLs the immediate child — for a runner script that shells out to a build tool, that leaves
+   * the actual work (and any locks it holds on the working directory / build output) orphaned and
+   * still running, which then blocks or starves the *next* trial's fresh invocation. Descendants
+   * are killed before the process itself so none of them can be reparented away and missed.
+   */
+  private static void killProcessTree(Process p) {
+    p.descendants().forEach(ProcessHandle::destroyForcibly);
     p.destroyForcibly();
   }
 
