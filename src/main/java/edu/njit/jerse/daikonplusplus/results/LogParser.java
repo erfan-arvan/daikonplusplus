@@ -243,22 +243,15 @@ public final class LogParser {
   }
 
   /**
-   * One invariant's execution marker read from {@code shmDir/ex/<uuid>}: the wall-clock millisecond
-   * it started executing, plus a per-JVM sequence number that breaks ties within the same
-   * millisecond/JVM (see {@code daikonpp.DpRuntime.recordExecuted}).
+   * One invariant's execution marker read from {@code shmDir/ex/<uuid>}: the file's OS-assigned
+   * last-modified time (millis since epoch), which is also its creation time since {@code
+   * daikonpp.DpRuntime.recordExecuted} writes it exactly once, on first execution.
    */
-  public record TimedInvariant(UUID id, long millis, long seq) {}
+  public record TimedInvariant(UUID id, long millis) {}
 
   /**
-   * Returns every invariant executed in a prior run, ordered by execution time (earliest first):
-   * primarily by wall-clock millisecond — comparable across separate JVMs (e.g. Surefire forks)
-   * sharing the same {@code shmDir} — and secondarily by the per-JVM sequence number, which breaks
-   * ties within a single JVM/millisecond regardless of the underlying filesystem's mtime
-   * resolution.
-   *
-   * <p>Falls back to treating a file as {@code millis=0, seq=0} if its content is missing or
-   * malformed (e.g. written by an older, pre-marker version of {@code DpRuntime}), so it still
-   * appears in the result — just unordered relative to other such entries.
+   * Returns every invariant executed in a prior run, ordered by execution time (earliest first),
+   * using each {@code shmDir/ex/<uuid>} marker file's OS-assigned last-modified timestamp.
    *
    * @param shmDir shm directory used for the run
    * @return invariants in execution order, earliest first
@@ -281,26 +274,19 @@ public final class LogParser {
         }
 
         long millis = 0L;
-        long seq = 0L;
         try {
-          String content = Files.readString(p, StandardCharsets.UTF_8).trim();
-          int dash = content.indexOf('-');
-          if (dash > 0) {
-            millis = Long.parseLong(content.substring(0, dash));
-            seq = Long.parseLong(content.substring(dash + 1));
-          }
-        } catch (Exception ignore) {
-          // malformed/missing content — keep millis=0, seq=0 fallback
+          millis = Files.getLastModifiedTime(p).toMillis();
+        } catch (IOException ignore) {
+          // file vanished between listing and stat — keep millis=0 fallback
         }
 
-        out.add(new TimedInvariant(id, millis, seq));
+        out.add(new TimedInvariant(id, millis));
       }
     } catch (IOException e) {
       throw new RuntimeException("Failed to list shm/ex: " + e.getMessage(), e);
     }
 
-    out.sort(
-        Comparator.comparingLong(TimedInvariant::millis).thenComparingLong(TimedInvariant::seq));
+    out.sort(Comparator.comparingLong(TimedInvariant::millis));
     return out;
   }
 
