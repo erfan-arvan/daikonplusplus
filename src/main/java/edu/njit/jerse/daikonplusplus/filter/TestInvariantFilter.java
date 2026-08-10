@@ -31,10 +31,12 @@ import java.util.regex.*;
  *
  * <p>From there, <a href="https://www.debuggingbook.org/html/DeltaDebugger.html">delta
  * debugging</a> ({@code ddmin}) isolates a 1-minimal culprit set: candidates are disabled/enabled
- * in shrinking, targeted subsets, each checked with a real-time monitored rerun on a working copy —
- * as the runner's output streams in, each line is checked against the same failure signature, and
- * the instant the <em>same</em> failure (see {@link TestFailureLogParser#isSameFailure}) reappears,
- * the process is killed immediately rather than waiting for the rest of the trial's suite run to
+ * in shrinking, targeted subsets, each checked with a real-time monitored rerun on its own fresh,
+ * disposable clone of the project — never a shared, progressively-mutated working copy, so a
+ * rerun's environment can never be polluted by whatever an earlier rerun left behind — as the
+ * runner's output streams in, each line is checked against the same failure signature, and the
+ * instant the <em>same</em> failure (see {@link TestFailureLogParser#isSameFailure}) reappears, the
+ * process is killed immediately rather than waiting for the rest of the trial's suite run to
  * finish.
  *
  * <p>Before trusting that search, each failure is sanity-checked: disabling <em>every</em>
@@ -156,20 +158,24 @@ public final class TestInvariantFilter {
       }
     }
 
-    System.out.println(
-        "[DP-TEST-FILTER] Creating working copy from " + injectedProjectRoot + " ...");
-    long copyStart = System.nanoTime();
-    Path working = freshCopy(injectedProjectRoot, "test-filter-work");
-    Path workingMainSrc = working.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
-    System.out.println(
-        "[DP-TEST-FILTER] Working copy ready at "
-            + working
-            + " ("
-            + (System.nanoTime() - copyStart) / 1_000_000
-            + " ms)");
+    // No single "working copy" is created here anymore. Every individual rerun below (sanity
+    // trial, ddmin trial, confirming rerun, and every stale-retry of one) instead clones its own
+    // fresh, pristine copy straight from injectedProjectRoot right before it runs, and deletes
+    // that copy right after — so a rerun's environment (build caches, incremental-compile state,
+    // leftover daemons/ports/temp files from the previous run in that same directory) is always
+    // identical to the very first run's, never polluted by whatever the prior rerun left behind.
+    // See disableBlocks()/testConfig() below. BlockIndex positions are copy-invariant (same file
+    // content, same line numbers in every clone), so it's built once here, up front, straight from
+    // the pristine mainSrcRoot — no working copy needed just to scan it.
+    BlockIndex idx = scanInvariantBlocks(mainSrcRoot);
 
-    Path shmDir = working.resolve(".daikonpp-test-filter-shm");
+    // Lightweight session directory: holds only trial logs and the shared shm scratch dir, never
+    // a project copy, so it stays cheap to keep around for the whole call.
+    Path sessionDir =
+        Files.createTempDirectory(sessionParentDir(injectedProjectRoot), "test-filter-session-");
+    Path shmDir = sessionDir.resolve(".daikonpp-test-filter-shm");
     Files.createDirectories(shmDir);
+    System.out.println("[DP-TEST-FILTER] Session dir (logs + shm only): " + sessionDir);
 
     Set<UUID> disabledSoFar = new LinkedHashSet<>();
     List<String> allTrialLog = new ArrayList<>();
@@ -186,7 +192,7 @@ public final class TestInvariantFilter {
     StaleBudget staleBudget = new StaleBudget(staleCheckMinutes);
     // Candidate pool for the *next* round, seeded from a reliable shm source rather than a
     // (possibly online-killed, and so incomplete) log — round 1 from the initial run's shm (see
-    // round1CandidatesOverride above), later rounds from this working copy's own shm, which is
+    // round1CandidatesOverride above), later rounds from this call's shared shm dir, which is
     // reset immediately before each confirming rerun so its content matches that run exactly.
     List<UUID> nextCandidatesOverride = round1CandidatesOverride;
 
@@ -207,8 +213,10 @@ public final class TestInvariantFilter {
       FailureRoundResult roundResult =
           handleOneFailure(
               runnerScript,
-              working,
-              workingMainSrc,
+              injectedProjectRoot,
+              mainSrcRoot,
+              idx,
+              sessionDir,
               shmDir,
               target,
               currentLog,
@@ -251,7 +259,17 @@ public final class TestInvariantFilter {
       // an unrelated stale/hung test rather than by actually finishing — so that never gets
       // silently mistaken for "no failures remain".
       ConfirmResult confirm =
-          confirmRoundClean(runnerScript, working, shmDir, round, timeoutMinutes, staleBudget);
+          confirmRoundClean(
+              runnerScript,
+              injectedProjectRoot,
+              mainSrcRoot,
+              idx,
+              disabledSoFar,
+              sessionDir,
+              shmDir,
+              round,
+              timeoutMinutes,
+              staleBudget);
       finalExit = confirm.exit;
       currentLog = confirm.logPath;
 
@@ -314,14 +332,22 @@ public final class TestInvariantFilter {
               + "conclusive pass/fail outcome (repeated unrelated stale-kills) — the suite's "
               + "current clean/failing status is UNVERIFIED, not confirmed clean");
     }
-    System.out.println("[DP-TEST-FILTER] final project=" + working);
+    // One last pristine clone, with exactly the final disabled set applied — this is the only
+    // project copy that survives the call; every clone made for an individual trial/confirm rerun
+    // above was already deleted right after that rerun finished.
+    Path finalProject = freshCopy(injectedProjectRoot, "test-filter-final");
+    Path finalMainSrc =
+        finalProject.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
+    disableBlocks(idx, disabledSoFar, finalMainSrc);
+
+    System.out.println("[DP-TEST-FILTER] final project=" + finalProject);
     System.out.println("[DP-TEST-FILTER] final log=" + currentLog);
     System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
 
     return new Result(
         injectedProjectRoot,
-        working,
-        workingMainSrc,
+        finalProject,
+        finalMainSrc,
         currentLog,
         disabledSoFar,
         allTrialLog,
@@ -359,8 +385,10 @@ public final class TestInvariantFilter {
    */
   private static FailureRoundResult handleOneFailure(
       Path runnerScript,
-      Path working,
-      Path workingMainSrc,
+      Path injectedProjectRoot,
+      Path mainSrcRoot,
+      BlockIndex idx,
+      Path sessionDir,
       Path shmDir,
       TestFailureLogParser.FailureMatch target,
       Path candidateSourceLog,
@@ -388,9 +416,6 @@ public final class TestInvariantFilter {
       return new FailureRoundResult(false, List.of(), 0);
     }
 
-    BlockIndex idx = scanInvariantBlocks(workingMainSrc);
-    Map<UUID, List<String>> originalLines = captureOriginalLines(idx, candidates);
-
     int sanityTrial = ++trialCounter.count;
     boolean stillFailsWithAllDisabled =
         testConfig(
@@ -400,10 +425,12 @@ public final class TestInvariantFilter {
             Set.of(),
             candidates,
             runnerScript,
-            working,
-            shmDir,
+            injectedProjectRoot,
+            mainSrcRoot,
             idx,
-            originalLines,
+            alreadyDisabled,
+            sessionDir,
+            shmDir,
             target,
             trialLog,
             timeoutMinutes,
@@ -416,18 +443,20 @@ public final class TestInvariantFilter {
               + ": failure still reproduces with every candidate invariant disabled — not "
               + "caused by any injected invariant (e.g. a build/lint failure, or unrelated code) "
               + "— not attributable");
-      // Leave every candidate exactly as it was (enabled) since disabling them wouldn't help.
-      applyConfig(idx, originalLines, candidates, new LinkedHashSet<>(candidates));
+      // Nothing to undo: every trial above ran on its own disposable pristine clone, so
+      // injectedProjectRoot/mainSrcRoot were never touched.
       return new FailureRoundResult(false, List.of(), trialCounter.count);
     }
 
     List<UUID> culprits =
         ddmin(
             runnerScript,
-            working,
-            shmDir,
+            injectedProjectRoot,
+            mainSrcRoot,
             idx,
-            originalLines,
+            alreadyDisabled,
+            sessionDir,
+            shmDir,
             candidates,
             target,
             idToMethod,
@@ -435,11 +464,6 @@ public final class TestInvariantFilter {
             trialCounter,
             timeoutMinutes,
             staleBudget);
-
-    Set<UUID> culpritSet = new LinkedHashSet<>(culprits);
-    Set<UUID> keepEnabled = new LinkedHashSet<>(candidates);
-    keepEnabled.removeAll(culpritSet);
-    applyConfig(idx, originalLines, candidates, keepEnabled);
 
     for (UUID id : culprits) {
       String method = idToMethod.getOrDefault(id, "(unknown method)");
@@ -519,10 +543,12 @@ public final class TestInvariantFilter {
    */
   private static List<UUID> ddmin(
       Path runnerScript,
-      Path working,
-      Path shmDir,
+      Path injectedProjectRoot,
+      Path mainSrcRoot,
       BlockIndex idx,
-      Map<UUID, List<String>> originalLines,
+      Set<UUID> alreadyDisabled,
+      Path sessionDir,
+      Path shmDir,
       List<UUID> deltaInit,
       TestFailureLogParser.FailureMatch target,
       Map<UUID, String> idToMethod,
@@ -555,10 +581,12 @@ public final class TestInvariantFilter {
                 new LinkedHashSet<>(chunk),
                 delta,
                 runnerScript,
-                working,
-                shmDir,
+                injectedProjectRoot,
+                mainSrcRoot,
                 idx,
-                originalLines,
+                alreadyDisabled,
+                sessionDir,
+                shmDir,
                 target,
                 trialLog,
                 timeoutMinutes,
@@ -585,10 +613,12 @@ public final class TestInvariantFilter {
                   new LinkedHashSet<>(complement),
                   delta,
                   runnerScript,
-                  working,
-                  shmDir,
+                  injectedProjectRoot,
+                  mainSrcRoot,
                   idx,
-                  originalLines,
+                  alreadyDisabled,
+                  sessionDir,
+                  shmDir,
                   target,
                   trialLog,
                   timeoutMinutes,
@@ -612,8 +642,16 @@ public final class TestInvariantFilter {
   }
 
   /**
-   * Applies one ddmin trial configuration (exactly {@code enabled} from {@code deltaAll} is
-   * enabled, the rest disabled), reruns with real-time monitoring, and records the outcome.
+   * Runs one ddmin trial configuration (exactly {@code enabled} from {@code deltaAll} is enabled,
+   * the rest — plus everything already disabled in an earlier round — is disabled) on a brand-new
+   * pristine clone of {@code injectedProjectRoot}, with real-time monitoring, and records the
+   * outcome.
+   *
+   * <p>Cloning fresh for every single trial (rather than reusing one working copy across all of
+   * them, mutating it in place each time) means every rerun's starting environment — build/test
+   * caches, incremental-compile state, anything a previous killed run's process tree left behind —
+   * is exactly as clean as the very first run's, never accumulating pollution from trials that ran
+   * before it in the same directory.
    *
    * @return true if the target failure reproduced with this configuration
    */
@@ -624,55 +662,73 @@ public final class TestInvariantFilter {
       Set<UUID> enabled,
       List<UUID> deltaAll,
       Path runnerScript,
-      Path working,
-      Path shmDir,
+      Path injectedProjectRoot,
+      Path mainSrcRoot,
       BlockIndex idx,
-      Map<UUID, List<String>> originalLines,
+      Set<UUID> alreadyDisabled,
+      Path sessionDir,
+      Path shmDir,
       TestFailureLogParser.FailureMatch target,
       List<String> trialLog,
       long timeoutMinutes,
       StaleBudget staleBudget)
       throws IOException, InterruptedException {
 
-    applyConfig(idx, originalLines, deltaAll, enabled);
-    resetShmDir(shmDir);
+    Set<UUID> toDisable = new LinkedHashSet<>(alreadyDisabled);
+    for (UUID id : deltaAll) {
+      if (!enabled.contains(id)) {
+        toDisable.add(id);
+      }
+    }
 
-    Path trialLogFile = working.resolve("daikonpp-test-filter-ddmin" + trialNum + ".log");
-    System.out.println(
-        "[DP-TEST-FILTER] Trial "
-            + trialNum
-            + " ("
-            + kind
-            + " "
-            + chunk.size()
-            + " of "
-            + deltaAll.size()
-            + "): executing (stale threshold "
-            + staleBudget.minutes
-            + " min), log -> "
-            + trialLogFile);
+    Path trialCopy = freshCopy(injectedProjectRoot, "test-filter-trial");
+    try {
+      Path trialMainSrc =
+          trialCopy.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
+      disableBlocks(idx, toDisable, trialMainSrc);
+      resetShmDir(shmDir);
 
-    MonitorResult mr =
-        runMonitored(
-            runnerScript, working, trialLogFile, shmDir, target, timeoutMinutes, staleBudget);
+      Path trialLogFile = sessionDir.resolve("daikonpp-test-filter-ddmin" + trialNum + ".log");
+      System.out.println(
+          "[DP-TEST-FILTER] Trial "
+              + trialNum
+              + " ("
+              + kind
+              + " "
+              + chunk.size()
+              + " of "
+              + deltaAll.size()
+              + "): executing on pristine clone "
+              + trialCopy
+              + " (stale threshold "
+              + staleBudget.minutes
+              + " min), log -> "
+              + trialLogFile);
 
-    String desc =
-        "Trial "
-            + trialNum
-            + " ("
-            + kind
-            + " "
-            + chunk.size()
-            + " of "
-            + deltaAll.size()
-            + "): "
-            + (mr.reproduced ? "FAIL (reproduced)" : "no reproduction")
-            + " exit="
-            + mr.exitCode;
-    trialLog.add(desc);
-    System.out.println("[DP-TEST-FILTER]   -> " + desc);
+      MonitorResult mr =
+          runMonitored(
+              runnerScript, trialCopy, trialLogFile, shmDir, target, timeoutMinutes, staleBudget);
 
-    return mr.reproduced;
+      String desc =
+          "Trial "
+              + trialNum
+              + " ("
+              + kind
+              + " "
+              + chunk.size()
+              + " of "
+              + deltaAll.size()
+              + "): "
+              + (mr.reproduced ? "FAIL (reproduced)" : "no reproduction")
+              + " exit="
+              + mr.exitCode;
+      trialLog.add(desc);
+      System.out.println("[DP-TEST-FILTER]   -> " + desc);
+
+      return mr.reproduced;
+    } finally {
+      deleteTreeQuietly(trialCopy);
+    }
   }
 
   /** Splits {@code list} into {@code n} contiguous, roughly-equal, non-empty chunks. */
@@ -691,75 +747,40 @@ public final class TestInvariantFilter {
     return chunks;
   }
 
-  /**
-   * Reads and stores the pristine (still-enabled) source lines of every block in {@code ids},
-   * before any ddmin trial disables anything — so later trials can restore a block to its original
-   * state instead of only ever being able to comment it out.
-   */
-  private static Map<UUID, List<String>> captureOriginalLines(BlockIndex idx, List<UUID> ids)
-      throws IOException {
-    Map<UUID, List<String>> out = new HashMap<>();
-    Map<Path, List<UUID>> byFile = new HashMap<>();
+  /** Prefix marking a block line commented out by {@link #disableBlocks}. */
+  private static final String DISABLED_LINE_PREFIX = "// [DP] test-filter disabled :: ";
 
-    for (UUID id : ids) {
+  /**
+   * Comments out every block in {@code toDisable} within {@code targetMainSrcRoot} — a fresh,
+   * pristine clone's source tree, so every line is guaranteed to still hold its original, enabled
+   * text before this runs. Unlike the old approach of toggling blocks back and forth in one
+   * long-lived working copy, this is one-way (disable only) and never needs to "restore" a block to
+   * enabled, since every trial starts from its own untouched clone.
+   *
+   * @param idx block positions, scanned once from the pristine mainSrcRoot with paths stored
+   *     relative to it (see {@link #scanInvariantBlocks}) — resolved here against whichever clone's
+   *     {@code targetMainSrcRoot} is passed in
+   */
+  private static void disableBlocks(BlockIndex idx, Set<UUID> toDisable, Path targetMainSrcRoot)
+      throws IOException {
+
+    Map<Path, List<UUID>> byFile = new HashMap<>();
+    for (UUID id : toDisable) {
       Block b = idx.blocks.get(id);
       if (b == null) continue;
       byFile.computeIfAbsent(b.file, __ -> new ArrayList<>()).add(id);
     }
 
     for (Map.Entry<Path, List<UUID>> e : byFile.entrySet()) {
-      List<String> lines = Files.readAllLines(e.getKey(), StandardCharsets.UTF_8);
-      for (UUID id : e.getValue()) {
-        Block b = idx.blocks.get(id);
-        if (b == null) continue;
-        List<String> block = new ArrayList<>();
-        for (int i = b.beginLine; i <= b.endLine && i < lines.size(); i++) {
-          block.add(lines.get(i));
-        }
-        out.put(id, block);
-      }
-    }
-
-    return out;
-  }
-
-  /**
-   * Sets the working copy's source so that exactly {@code enabled} (a subset of {@code deltaAll})
-   * is active — every block is restored to its pristine text if enabled, or commented out if not.
-   * Unlike {@link #disableIds}, this is idempotent and reversible: it can be called repeatedly with
-   * different {@code enabled} sets across ddmin trials without needing a fresh project copy each
-   * time.
-   */
-  private static void applyConfig(
-      BlockIndex idx, Map<UUID, List<String>> originalLines, List<UUID> deltaAll, Set<UUID> enabled)
-      throws IOException {
-
-    Map<Path, List<UUID>> byFile = new HashMap<>();
-    for (UUID id : deltaAll) {
-      Block b = idx.blocks.get(id);
-      if (b == null) continue;
-      byFile.computeIfAbsent(b.file, __ -> new ArrayList<>()).add(id);
-    }
-
-    for (Map.Entry<Path, List<UUID>> e : byFile.entrySet()) {
-      Path file = e.getKey();
+      Path file = targetMainSrcRoot.resolve(e.getKey()).normalize();
       List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
 
       for (UUID id : e.getValue()) {
         Block b = idx.blocks.get(id);
-        List<String> orig = originalLines.get(id);
-        if (b == null || orig == null) continue;
+        if (b == null) continue;
 
-        boolean shouldEnable = enabled.contains(id);
-        for (int i = 0; i < orig.size(); i++) {
-          int lineIdx = b.beginLine + i;
-          if (lineIdx >= lines.size()) break;
-
-          if (shouldEnable) {
-            lines.set(lineIdx, orig.get(i));
-          } else {
-            lines.set(lineIdx, "// [DP] test-filter disabled :: " + orig.get(i));
-          }
+        for (int lineIdx = b.beginLine; lineIdx <= b.endLine && lineIdx < lines.size(); lineIdx++) {
+          lines.set(lineIdx, DISABLED_LINE_PREFIX + lines.get(lineIdx));
         }
       }
 
@@ -927,7 +948,9 @@ public final class TestInvariantFilter {
   /**
    * Scans source files to locate invariant blocks and associate them with UUIDs.
    *
-   * <p>Blocks are identified using begin/end markers and mapped to their source file locations.
+   * <p>Blocks are identified using begin/end markers and mapped to their source file locations,
+   * stored relative to {@code mainSrcRoot} (see {@link Block}) so the resulting index is reusable
+   * against any later clone of this same source tree, not just the one scanned here.
    *
    * @param mainSrcRoot root of the source tree
    * @return index mapping invariant IDs to source blocks
@@ -975,7 +998,7 @@ public final class TestInvariantFilter {
           Matcher m = UUID_PATTERN.matcher(blockText.toString());
           while (m.find()) {
             UUID id = UUID.fromString(m.group());
-            index.blocks.put(id, new Block(id, file, beginLine, endLine));
+            index.blocks.put(id, new Block(id, mainSrcRoot.relativize(file), beginLine, endLine));
           }
 
           i = endLine + 1;
@@ -1153,7 +1176,11 @@ public final class TestInvariantFilter {
    */
   private static ConfirmResult confirmRoundClean(
       Path runnerScript,
-      Path working,
+      Path injectedProjectRoot,
+      Path mainSrcRoot,
+      BlockIndex idx,
+      Set<UUID> disabledSoFar,
+      Path sessionDir,
       Path shmDir,
       int round,
       long timeoutMinutes,
@@ -1163,7 +1190,7 @@ public final class TestInvariantFilter {
     for (int attempt = 1; ; attempt++) {
       resetShmDir(shmDir);
       Path roundLog =
-          working.resolve(
+          sessionDir.resolve(
               "daikonpp-test-filter-round"
                   + round
                   + "-confirm"
@@ -1181,9 +1208,20 @@ public final class TestInvariantFilter {
               + " min), log -> "
               + roundLog);
 
-      ConfirmResult result =
-          runExternalTestRunner(
-              runnerScript, working, roundLog, shmDir, timeoutMinutes, staleBudget.minutes);
+      // Fresh pristine clone for this attempt too — an inconclusive stale/hung retry must not
+      // reuse the same (possibly now-polluted) directory the previous attempt just got killed in.
+      Path trialCopy = freshCopy(injectedProjectRoot, "test-filter-confirm");
+      ConfirmResult result;
+      try {
+        Path trialMainSrc =
+            trialCopy.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
+        disableBlocks(idx, disabledSoFar, trialMainSrc);
+        result =
+            runExternalTestRunner(
+                runnerScript, trialCopy, roundLog, shmDir, timeoutMinutes, staleBudget.minutes);
+      } finally {
+        deleteTreeQuietly(trialCopy);
+      }
 
       boolean inconclusive =
           result.runResult == JavaRunner.RunResult.STALE_KILLED
@@ -1278,6 +1316,43 @@ public final class TestInvariantFilter {
         });
   }
 
+  /**
+   * Directory a project copy's parent should live under — the same parent {@link #freshCopy} uses
+   * for project clones, so the lightweight session directory (logs + shm only) sits alongside them
+   * rather than under a filesystem with different space/permissions characteristics.
+   */
+  private static Path sessionParentDir(Path snapshot) {
+    Path parent = snapshot.getParent();
+    return parent != null ? parent : Path.of(System.getProperty("java.io.tmpdir"));
+  }
+
+  /** Recursively deletes a directory tree, logging (not throwing) on failure. */
+  private static void deleteTreeQuietly(Path root) {
+    try {
+      if (!Files.exists(root)) return;
+      Files.walkFileTree(
+          root,
+          new SimpleFileVisitor<>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+                throws IOException {
+              Files.deleteIfExists(file);
+              return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc)
+                throws IOException {
+              Files.deleteIfExists(dir);
+              return FileVisitResult.CONTINUE;
+            }
+          });
+    } catch (IOException e) {
+      System.err.println(
+          "[DP-TEST-FILTER] Warning: failed to delete trial copy " + root + ": " + e.getMessage());
+    }
+  }
+
   /** Index of invariant blocks keyed by their UUID. */
   private static final class BlockIndex {
     final Map<UUID, Block> blocks = new HashMap<>();
@@ -1286,7 +1361,9 @@ public final class TestInvariantFilter {
   /**
    * Represents a contiguous invariant block in a source file.
    *
-   * <p>Includes file location and line range.
+   * <p>{@code file} is stored <em>relative</em> to the mainSrcRoot the index was scanned from — not
+   * absolute — so the same {@link BlockIndex}, built once from the pristine source, can be resolved
+   * against any fresh clone's own mainSrcRoot (see {@link #disableBlocks}).
    */
   private static final class Block {
     final UUID id;
