@@ -181,6 +181,9 @@ public final class TestInvariantFilter {
     int finalExit = 1;
     int round = 0;
     boolean confirmationInconclusive = false;
+    // Shared across every rerun in this call — sanity trial, ddmin trials, confirming reruns — so
+    // the escalating-threshold strategy matches the main pipeline's exactly (see StaleBudget).
+    StaleBudget staleBudget = new StaleBudget(staleCheckMinutes);
     // Candidate pool for the *next* round, seeded from a reliable shm source rather than a
     // (possibly online-killed, and so incomplete) log — round 1 from the initial run's shm (see
     // round1CandidatesOverride above), later rounds from this working copy's own shm, which is
@@ -216,7 +219,7 @@ public final class TestInvariantFilter {
               trialCounter,
               round,
               timeoutMinutes,
-              staleCheckMinutes);
+              staleBudget);
 
       if (!roundResult.attributable) {
         System.out.println(
@@ -248,8 +251,7 @@ public final class TestInvariantFilter {
       // an unrelated stale/hung test rather than by actually finishing — so that never gets
       // silently mistaken for "no failures remain".
       ConfirmResult confirm =
-          confirmRoundClean(
-              runnerScript, working, shmDir, round, timeoutMinutes, staleCheckMinutes);
+          confirmRoundClean(runnerScript, working, shmDir, round, timeoutMinutes, staleBudget);
       finalExit = confirm.exit;
       currentLog = confirm.logPath;
 
@@ -369,7 +371,7 @@ public final class TestInvariantFilter {
       TrialCounter trialCounter,
       int round,
       long timeoutMinutes,
-      long staleCheckMinutes)
+      StaleBudget staleBudget)
       throws IOException, InterruptedException {
 
     List<UUID> candidates =
@@ -405,7 +407,7 @@ public final class TestInvariantFilter {
             target,
             trialLog,
             timeoutMinutes,
-            staleCheckMinutes);
+            staleBudget);
 
     if (stillFailsWithAllDisabled) {
       System.out.println(
@@ -432,7 +434,7 @@ public final class TestInvariantFilter {
             trialLog,
             trialCounter,
             timeoutMinutes,
-            staleCheckMinutes);
+            staleBudget);
 
     Set<UUID> culpritSet = new LinkedHashSet<>(culprits);
     Set<UUID> keepEnabled = new LinkedHashSet<>(candidates);
@@ -479,6 +481,30 @@ public final class TestInvariantFilter {
     int count = 0;
   }
 
+  /** Upper bound on the escalating stale-check threshold — same cap the main pipeline uses. */
+  private static final long MAX_STALE_CHECK_MINUTES = 10L;
+
+  /**
+   * Shared, ever-escalating stale-check threshold used by every rerun within one {@link #run} call
+   * — the sanity trial, every ddmin trial, and every confirming rerun all read and update the same
+   * instance. Mirrors the main pipeline's own stale-recovery backoff exactly: doubles (capped at
+   * {@link #MAX_STALE_CHECK_MINUTES}) whenever a run is stale-killed or hard-timed-out, and never
+   * resets for the rest of the call — so once the environment's real behavior (e.g. how long a
+   * clean compile/startup actually takes) is learned from one kill, every later rerun benefits from
+   * it instead of repeating the same premature kill at the original threshold.
+   */
+  private static final class StaleBudget {
+    long minutes;
+
+    StaleBudget(long initial) {
+      this.minutes = initial;
+    }
+
+    void escalate() {
+      minutes = Math.min(minutes * 2, MAX_STALE_CHECK_MINUTES);
+    }
+  }
+
   /**
    * Isolates a 1-minimal subset of {@code delta} whose presence (enabled, with everything else in
    * {@code delta} disabled) reproduces {@code target}. {@code delta} is assumed to reproduce the
@@ -503,7 +529,7 @@ public final class TestInvariantFilter {
       List<String> trialLog,
       TrialCounter trialCounter,
       long timeoutMinutes,
-      long staleCheckMinutes)
+      StaleBudget staleBudget)
       throws IOException, InterruptedException {
 
     List<UUID> delta = new ArrayList<>(deltaInit);
@@ -536,7 +562,7 @@ public final class TestInvariantFilter {
                 target,
                 trialLog,
                 timeoutMinutes,
-                staleCheckMinutes);
+                staleBudget);
         if (fail) {
           delta = new ArrayList<>(chunk);
           n = 2;
@@ -566,7 +592,7 @@ public final class TestInvariantFilter {
                   target,
                   trialLog,
                   timeoutMinutes,
-                  staleCheckMinutes);
+                  staleBudget);
           if (fail) {
             delta = complement;
             n = Math.max(n - 1, 2);
@@ -605,7 +631,7 @@ public final class TestInvariantFilter {
       TestFailureLogParser.FailureMatch target,
       List<String> trialLog,
       long timeoutMinutes,
-      long staleCheckMinutes)
+      StaleBudget staleBudget)
       throws IOException, InterruptedException {
 
     applyConfig(idx, originalLines, deltaAll, enabled);
@@ -621,12 +647,14 @@ public final class TestInvariantFilter {
             + chunk.size()
             + " of "
             + deltaAll.size()
-            + "): executing, log -> "
+            + "): executing (stale threshold "
+            + staleBudget.minutes
+            + " min), log -> "
             + trialLogFile);
 
     MonitorResult mr =
         runMonitored(
-            runnerScript, working, trialLogFile, shmDir, target, timeoutMinutes, staleCheckMinutes);
+            runnerScript, working, trialLogFile, shmDir, target, timeoutMinutes, staleBudget);
 
     String desc =
         "Trial "
@@ -748,12 +776,17 @@ public final class TestInvariantFilter {
     final boolean reproduced;
     final int exitCode;
     final Optional<TestFailureLogParser.FailureMatch> matched;
+    final JavaRunner.RunResult runResult;
 
     MonitorResult(
-        boolean reproduced, int exitCode, Optional<TestFailureLogParser.FailureMatch> matched) {
+        boolean reproduced,
+        int exitCode,
+        Optional<TestFailureLogParser.FailureMatch> matched,
+        JavaRunner.RunResult runResult) {
       this.reproduced = reproduced;
       this.exitCode = exitCode;
       this.matched = matched;
+      this.runResult = runResult;
     }
   }
 
@@ -765,13 +798,20 @@ public final class TestInvariantFilter {
    * {@link TestFailureLogParser#isSameFailure}), the process is killed immediately — no need to
    * wait for the rest of the suite.
    *
+   * <p>Uses (and, on a stale-kill or hard-timeout, escalates) the shared {@link StaleBudget} — the
+   * same ever-increasing threshold strategy the main pipeline uses for its own first run, applied
+   * here across every trial rerun too, so a threshold that turns out to be too tight for this
+   * project's normal (non-hung) behavior only ever gets hit once before every later rerun benefits
+   * from the higher value.
+   *
    * @param script external test runner script
    * @param workDir working directory for execution
    * @param runLog output log file
    * @param shmDir shm directory for this run (already reset by the caller)
    * @param target the failure being chased; a run "reproduces" only if the same failure recurs
    * @param timeoutMinutes wall-clock timeout, identical to the original run's
-   * @param staleCheckMinutes stale/hang-detection threshold, identical to the original run's
+   * @param staleBudget shared, escalating stale-check threshold (read for this call, and escalated
+   *     in place if this call is stale-killed or hard-timed-out)
    * @return whether the target failure reproduced, and the run's exit code
    */
   private static MonitorResult runMonitored(
@@ -781,12 +821,19 @@ public final class TestInvariantFilter {
       Path shmDir,
       TestFailureLogParser.FailureMatch target,
       long timeoutMinutes,
-      long staleCheckMinutes)
+      StaleBudget staleBudget)
       throws IOException, InterruptedException {
 
     JavaRunner.RunResult result =
         JavaRunner.runExternalScript(
-            script, workDir, "", runLog, timeoutMinutes, staleCheckMinutes, null, shmDir, target);
+            script, workDir, "", runLog, timeoutMinutes, staleBudget.minutes, null, shmDir, target);
+
+    if (result == JavaRunner.RunResult.STALE_KILLED
+        || result == JavaRunner.RunResult.HARD_TIMEOUT) {
+      staleBudget.escalate();
+      System.out.println(
+          "[DP-TEST-FILTER] Stale threshold escalated to " + staleBudget.minutes + " min");
+    }
 
     boolean reproduced = result == JavaRunner.RunResult.TEST_FAILURE_KILLED;
     Optional<TestFailureLogParser.FailureMatch> matched = Optional.empty();
@@ -815,7 +862,7 @@ public final class TestInvariantFilter {
             ? -1
             : (result == JavaRunner.RunResult.NORMAL && !exitedNonZero(runLog) ? 0 : -1);
 
-    return new MonitorResult(reproduced, exit, matched);
+    return new MonitorResult(reproduced, exit, matched, result);
   }
 
   // =====================================================================================
@@ -1035,7 +1082,7 @@ public final class TestInvariantFilter {
    * @param runLog output log file
    * @param shmDir shm directory for this run (already created/reset by the caller)
    * @param timeoutMinutes wall-clock timeout, identical to the original run's
-   * @param staleCheckMinutes stale/hang-detection threshold, identical to the original run's
+   * @param staleCheckMinutes stale/hang-detection threshold to use for this one call
    * @return exit status (0 clean pass, -1 any non-normal outcome) and the failure caught online, if
    *     any
    * @throws IOException if execution fails
@@ -1084,16 +1131,20 @@ public final class TestInvariantFilter {
   /** How many times a confirming rerun that's inconclusive (stale/timeout) is retried. */
   private static final int MAX_CONFIRM_STALE_RETRIES = 5;
 
-  private static final long MAX_CONFIRM_STALE_CHECK_MINUTES = 10L;
-
   /**
-   * Runs the round-{@code round} confirming rerun, retrying (with an escalating stale-check
-   * threshold, mirroring the main pipeline's own stale-recovery backoff) whenever the run is
-   * inconclusive — killed by the stale detector or hard timeout rather than by finishing (cleanly
-   * or with a recognized failure). An inconclusive kill proves nothing about whether the target
-   * failure is actually gone; some unrelated slow/looping test elsewhere in the suite can trip the
-   * stale detector at roughly the same point on every attempt. Silently treating that as "no
-   * failure found" would falsely declare the round done without ever having confirmed a clean run.
+   * Runs the round-{@code round} confirming rerun, retrying whenever the run is inconclusive —
+   * killed by the stale detector or hard timeout rather than by finishing (cleanly or with a
+   * recognized failure). An inconclusive kill proves nothing about whether the target failure is
+   * actually gone; some unrelated slow/looping test elsewhere in the suite can trip the stale
+   * detector at roughly the same point on every attempt. Silently treating that as "no failure
+   * found" would falsely declare the round done without ever having confirmed a clean run.
+   *
+   * <p>Uses (and, on every inconclusive attempt, escalates) the same shared {@link StaleBudget}
+   * passed down from {@link #run} — the identical ever-increasing-threshold strategy the main
+   * pipeline's own first run uses, so a threshold this environment turns out to need (e.g. because
+   * a clean compile/startup alone takes longer than the base threshold) is learned once — whether
+   * that happens during a ddmin trial or here — and every later rerun in this call, of either kind,
+   * benefits from it instead of repeating the same premature kill.
    *
    * @return the first conclusive result (a real pass, a real failure, or a failure caught online),
    *     or — if every retry was also inconclusive — the last inconclusive result, with {@link
@@ -1106,10 +1157,8 @@ public final class TestInvariantFilter {
       Path shmDir,
       int round,
       long timeoutMinutes,
-      long staleCheckMinutes)
+      StaleBudget staleBudget)
       throws IOException, InterruptedException {
-
-    long currentStaleCheckMinutes = staleCheckMinutes;
 
     for (int attempt = 1; ; attempt++) {
       resetShmDir(shmDir);
@@ -1128,17 +1177,21 @@ public final class TestInvariantFilter {
               + "/"
               + MAX_CONFIRM_STALE_RETRIES
               + ", stale threshold "
-              + currentStaleCheckMinutes
+              + staleBudget.minutes
               + " min), log -> "
               + roundLog);
 
       ConfirmResult result =
           runExternalTestRunner(
-              runnerScript, working, roundLog, shmDir, timeoutMinutes, currentStaleCheckMinutes);
+              runnerScript, working, roundLog, shmDir, timeoutMinutes, staleBudget.minutes);
 
       boolean inconclusive =
           result.runResult == JavaRunner.RunResult.STALE_KILLED
               || result.runResult == JavaRunner.RunResult.HARD_TIMEOUT;
+
+      if (inconclusive) {
+        staleBudget.escalate();
+      }
 
       if (!inconclusive || attempt >= MAX_CONFIRM_STALE_RETRIES) {
         if (inconclusive) {
@@ -1158,9 +1211,10 @@ public final class TestInvariantFilter {
               + round
               + ": confirming run inconclusive ("
               + result.runResult
-              + ") — an unrelated stale/hung test, not the target failure; retrying");
-      currentStaleCheckMinutes =
-          Math.min(currentStaleCheckMinutes * 2, MAX_CONFIRM_STALE_CHECK_MINUTES);
+              + ") — an unrelated stale/hung test, not the target failure; retrying with stale "
+              + "threshold "
+              + staleBudget.minutes
+              + " min");
     }
   }
 
