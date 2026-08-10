@@ -27,7 +27,19 @@ import java.util.regex.*;
  * as the runner's output streams in, each line is checked against the same failure signature, and
  * the instant the <em>same</em> failure (see {@link TestFailureLogParser#isSameFailure}) reappears,
  * the process is killed immediately rather than waiting for the rest of the trial's suite run to
- * finish. That isolated set is disabled in the final project copy.
+ * finish.
+ *
+ * <p>Before trusting that search, each failure is sanity-checked: disabling <em>every</em>
+ * candidate invariant must actually make it stop reproducing. If it doesn't — e.g. a build/lint
+ * failure (a Checkstyle rule, say) that no invariant's enabled/disabled state could ever affect —
+ * the failure isn't attributable to any invariant, and the search for it stops rather than
+ * pretending {@code ddmin} found a meaningful minimal set.
+ *
+ * <p>A project can have more than one distinct failing test. After isolating and disabling one
+ * failure's culprit set, the suite is rerun once more; if a <em>different</em> recognized failure
+ * shows up, the whole process repeats for it — seeding a fresh candidate pool, sanity-checking, and
+ * running {@code ddmin} again — continuing until a rerun shows no more recognized failures, a
+ * failure turns out not to be attributable, or a safety cap on rounds is hit.
  *
  * <p>The process operates on copies of the project to avoid mutating the original injected code and
  * uses marker-based regions to selectively disable invariants.
@@ -44,6 +56,9 @@ public final class TestInvariantFilter {
           "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
 
   private TestInvariantFilter() {}
+
+  /** Safety cap on how many distinct failures one call to {@link #run} will chase. */
+  private static final int MAX_FAILURE_ROUNDS = 20;
 
   /**
    * Executes test-based filtering to identify and remove invariants that break tests.
@@ -87,10 +102,10 @@ public final class TestInvariantFilter {
             + "test-failure signature: "
             + initialRunLog);
     String initialLogText = readIfExists(initialRunLog);
-    Optional<TestFailureLogParser.FailureMatch> initialFailure =
+    Optional<TestFailureLogParser.FailureMatch> firstFailure =
         TestFailureLogParser.firstFailure(initialLogText);
 
-    if (initialFailure.isEmpty()) {
+    if (firstFailure.isEmpty()) {
       System.out.println(
           "[DP-TEST-FILTER] Initial run failed (exit!=0) but no recognized test-failure "
               + "signature was found — cannot safely attribute to an invariant, nothing to "
@@ -98,10 +113,6 @@ public final class TestInvariantFilter {
       System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
       return noopResult(injectedProjectRoot, mainSrcRoot, initialRunLog, 1);
     }
-
-    TestFailureLogParser.FailureMatch target = initialFailure.get();
-    System.out.println(
-        "[DP-TEST-FILTER] Initial run failed [" + target.format() + "] :: " + target.line());
 
     System.out.println(
         "[DP-TEST-FILTER] Creating working copy from " + injectedProjectRoot + " ...");
@@ -118,32 +129,204 @@ public final class TestInvariantFilter {
     Path shmDir = working.resolve(".daikonpp-test-filter-shm");
     Files.createDirectories(shmDir);
 
-    // ---- Candidate set: seeded directly from the already-completed initial run — no rerun
-    // needed. That run already executed the whole suite and its log already records every
-    // invariant that ran (INV_EXD entries, flushed by DpRuntime's shutdown-hook sidecar), so
-    // rerunning the suite again here just to rebuild that same information would pay for the
-    // entire (potentially many-minute) run a second time for nothing. ddmin's own trials below
-    // are the only reruns actually needed. ----
-    List<UUID> candidates = new ArrayList<>(LogParser.readExecutedIds(initialRunLog));
+    Set<UUID> disabledSoFar = new LinkedHashSet<>();
+    List<String> allTrialLog = new ArrayList<>();
+    TrialCounter trialCounter = new TrialCounter();
+    List<String> failuresHandled = new ArrayList<>();
+
+    Path currentLog = initialRunLog;
+    Optional<TestFailureLogParser.FailureMatch> currentFailure = firstFailure;
+    int finalExit = 1;
+    int round = 0;
+
+    while (currentFailure.isPresent() && round < MAX_FAILURE_ROUNDS) {
+      round++;
+      TestFailureLogParser.FailureMatch target = currentFailure.get();
+      System.out.println(
+          "\n[DP-TEST-FILTER] ----- Round "
+              + round
+              + ": targeting failure ["
+              + target.format()
+              + "] :: "
+              + target.line()
+              + " -----");
+
+      FailureRoundResult roundResult =
+          handleOneFailure(
+              runnerScript,
+              working,
+              workingMainSrc,
+              shmDir,
+              target,
+              currentLog,
+              disabledSoFar,
+              idToMethod,
+              allTrialLog,
+              trialCounter,
+              round);
+
+      if (!roundResult.attributable) {
+        System.out.println(
+            "[DP-TEST-FILTER] Round "
+                + round
+                + ": failure not attributable to any candidate invariant — stopping (this "
+                + "failure, and any behind it in the suite, will remain unaddressed)");
+        break;
+      }
+
+      disabledSoFar.addAll(roundResult.culprits);
+      failuresHandled.add(
+          "Round "
+              + round
+              + ": ["
+              + target.format()
+              + "] :: "
+              + target.line()
+              + " -> disabled "
+              + roundResult.culprits.size()
+              + " invariant(s) in "
+              + roundResult.trialsUsed
+              + " trial(s)");
+
+      // Confirming rerun with every culprit found so far disabled, to check whether a
+      // *different* recognized failure is still present.
+      resetShmDir(shmDir);
+      Path roundLog = working.resolve("daikonpp-test-filter-round" + round + "-confirm.log");
+      System.out.println(
+          "[DP-TEST-FILTER] Round " + round + ": confirming run, log -> " + roundLog);
+      int exit = runExternalTestRunner(runnerScript, working, roundLog, shmDir);
+      finalExit = exit;
+      currentLog = roundLog;
+
+      if (exit == 0) {
+        System.out.println("[DP-TEST-FILTER] Round " + round + ": PASSED — no failures remain");
+        currentFailure = Optional.empty();
+        continue;
+      }
+
+      String roundLogText = readIfExists(roundLog);
+      Optional<TestFailureLogParser.FailureMatch> next =
+          TestFailureLogParser.firstFailure(roundLogText);
+
+      if (next.isPresent() && TestFailureLogParser.isSameFailure(target, next.get())) {
+        System.out.println(
+            "[DP-TEST-FILTER] Round "
+                + round
+                + ": the same failure is still present after disabling its isolated culprit "
+                + "set — stopping to avoid looping");
+        break;
+      }
+
+      currentFailure = next;
+    }
+
+    if (round >= MAX_FAILURE_ROUNDS && currentFailure.isPresent()) {
+      System.out.println(
+          "[DP-TEST-FILTER] Reached the "
+              + MAX_FAILURE_ROUNDS
+              + "-round safety cap with a failure still present — stopping");
+    }
+
+    System.out.println("\n[DP-TEST-FILTER] ===== SUMMARY =====");
+    System.out.println("[DP-TEST-FILTER] failures handled: " + failuresHandled.size());
+    for (String f : failuresHandled) {
+      System.out.println("[DP-TEST-FILTER]   " + f);
+    }
+    System.out.println("[DP-TEST-FILTER] total invariants disabled: " + disabledSoFar.size());
+    System.out.println("[DP-TEST-FILTER] total ddmin trials: " + trialCounter.count);
+    System.out.println("[DP-TEST-FILTER] final project=" + working);
+    System.out.println("[DP-TEST-FILTER] final log=" + currentLog);
+    System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
+
+    return new Result(
+        injectedProjectRoot,
+        working,
+        workingMainSrc,
+        currentLog,
+        disabledSoFar,
+        allTrialLog,
+        finalExit);
+  }
+
+  /** Outcome of chasing a single failure down to a minimal culprit set (or ruling it out). */
+  private static final class FailureRoundResult {
+    final boolean attributable;
+    final List<UUID> culprits;
+    final int trialsUsed;
+
+    FailureRoundResult(boolean attributable, List<UUID> culprits, int trialsUsed) {
+      this.attributable = attributable;
+      this.culprits = culprits;
+      this.trialsUsed = trialsUsed;
+    }
+  }
+
+  /**
+   * Isolates the minimal set of invariants responsible for one specific failure.
+   *
+   * <p>Seeds a candidate pool from {@code candidateSourceLog}'s executed-invariants (minus anything
+   * already disabled in an earlier round), sanity-checks that disabling every candidate actually
+   * makes the failure stop reproducing, and — only if that holds — runs {@code ddmin} to narrow it
+   * down.
+   *
+   * @param candidateSourceLog the most recent completed run's log to seed candidates from
+   * @param alreadyDisabled invariants disabled in earlier rounds (excluded from this round's pool)
+   */
+  private static FailureRoundResult handleOneFailure(
+      Path runnerScript,
+      Path working,
+      Path workingMainSrc,
+      Path shmDir,
+      TestFailureLogParser.FailureMatch target,
+      Path candidateSourceLog,
+      Set<UUID> alreadyDisabled,
+      Map<UUID, String> idToMethod,
+      List<String> trialLog,
+      TrialCounter trialCounter,
+      int round)
+      throws IOException, InterruptedException {
+
+    List<UUID> candidates = new ArrayList<>(LogParser.readExecutedIds(candidateSourceLog));
+    candidates.removeAll(alreadyDisabled);
     System.out.println(
-        "[DP-TEST-FILTER] candidate pool size = "
-            + candidates.size()
-            + " (from initial run's executed-invariants log, no rerun)");
+        "[DP-TEST-FILTER] Round " + round + ": candidate pool size = " + candidates.size());
 
     if (candidates.isEmpty()) {
       System.out.println(
-          "[DP-TEST-FILTER] No invariants executed during the initial run — cannot attribute, "
-              + "stopping");
-      System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
-      return new Result(
-          injectedProjectRoot, working, workingMainSrc, initialRunLog, Set.of(), List.of(), 1);
+          "[DP-TEST-FILTER] Round " + round + ": no candidate invariants — cannot attribute");
+      return new FailureRoundResult(false, List.of(), 0);
     }
 
     BlockIndex idx = scanInvariantBlocks(workingMainSrc);
     Map<UUID, List<String>> originalLines = captureOriginalLines(idx, candidates);
 
-    List<String> trialLog = new ArrayList<>();
-    TrialCounter trialCounter = new TrialCounter();
+    int sanityTrial = ++trialCounter.count;
+    boolean stillFailsWithAllDisabled =
+        testConfig(
+            sanityTrial,
+            "sanity-all-disabled",
+            candidates,
+            Set.of(),
+            candidates,
+            runnerScript,
+            working,
+            shmDir,
+            idx,
+            originalLines,
+            target,
+            trialLog);
+
+    if (stillFailsWithAllDisabled) {
+      System.out.println(
+          "[DP-TEST-FILTER] Round "
+              + round
+              + ": failure still reproduces with every candidate invariant disabled — not "
+              + "caused by any injected invariant (e.g. a build/lint failure, or unrelated code) "
+              + "— not attributable");
+      // Leave every candidate exactly as it was (enabled) since disabling them wouldn't help.
+      applyConfig(idx, originalLines, candidates, new LinkedHashSet<>(candidates));
+      return new FailureRoundResult(false, List.of(), trialCounter.count);
+    }
 
     List<UUID> culprits =
         ddmin(
@@ -158,59 +341,29 @@ public final class TestInvariantFilter {
             trialLog,
             trialCounter);
 
-    // Final state: disable exactly the isolated culprits, restore everything else in the
-    // candidate pool to its original (enabled) form, and do one confirming run.
     Set<UUID> culpritSet = new LinkedHashSet<>(culprits);
     Set<UUID> keepEnabled = new LinkedHashSet<>(candidates);
     keepEnabled.removeAll(culpritSet);
     applyConfig(idx, originalLines, candidates, keepEnabled);
 
-    resetShmDir(shmDir);
-    Path finalLog = working.resolve("daikonpp-test-filter-final.log");
-    System.out.println("[DP-TEST-FILTER] Final run (culprits disabled): log -> " + finalLog);
-    int finalExit = runExternalTestRunner(runnerScript, working, finalLog, shmDir);
-
-    String finalLogText = readIfExists(finalLog);
-    boolean stillFails =
-        finalExit != 0
-            && TestFailureLogParser.firstFailure(finalLogText)
-                .map(m -> TestFailureLogParser.isSameFailure(target, m))
-                .orElse(false);
-
     for (UUID id : culprits) {
       String method = idToMethod.getOrDefault(id, "(unknown method)");
       trialLog.add(
-          "Disabled "
+          "Round "
+              + round
+              + ": disabled "
               + id
               + " ["
               + method
-              + "] — isolated via delta debugging ("
-              + trialCounter.count
-              + " trial(s)) against target ["
+              + "] — isolated via delta debugging against target ["
               + target.format()
               + "] :: "
               + target.line());
+      System.out.println(
+          "[DP-TEST-FILTER]   -> Round " + round + " disabled " + id + " [" + method + "]");
     }
 
-    System.out.println(
-        "[DP-TEST-FILTER] Isolated culprit set: "
-            + culprits.size()
-            + " invariant(s) after "
-            + trialCounter.count
-            + " ddmin trial(s)");
-    System.out.println(
-        "[DP-TEST-FILTER] Final run: "
-            + (stillFails
-                ? "STILL FAILS (unexpected)"
-                : finalExit == 0 ? "PASSED" : "FAILED (unrelated)")
-            + " exit="
-            + finalExit);
-    System.out.println("[DP-TEST-FILTER] final project=" + working);
-    System.out.println("[DP-TEST-FILTER] final log=" + finalLog);
-    System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
-
-    return new Result(
-        injectedProjectRoot, working, workingMainSrc, finalLog, culpritSet, trialLog, finalExit);
+    return new FailureRoundResult(true, culprits, trialCounter.count);
   }
 
   private static Result noopResult(
