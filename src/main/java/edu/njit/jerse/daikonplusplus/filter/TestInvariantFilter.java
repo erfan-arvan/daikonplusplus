@@ -180,6 +180,7 @@ public final class TestInvariantFilter {
     Optional<TestFailureLogParser.FailureMatch> currentFailure = firstFailure;
     int finalExit = 1;
     int round = 0;
+    boolean confirmationInconclusive = false;
     // Candidate pool for the *next* round, seeded from a reliable shm source rather than a
     // (possibly online-killed, and so incomplete) log — round 1 from the initial run's shm (see
     // round1CandidatesOverride above), later rounds from this working copy's own shm, which is
@@ -243,15 +244,26 @@ public final class TestInvariantFilter {
       // Confirming rerun with every culprit found so far disabled, watched online for *any*
       // recognized failure (no specific target — which failure, if any, shows up next isn't known
       // in advance) so it's caught and killed the instant it appears, just like the very first run.
-      resetShmDir(shmDir);
-      Path roundLog = working.resolve("daikonpp-test-filter-round" + round + "-confirm.log");
-      System.out.println(
-          "[DP-TEST-FILTER] Round " + round + ": confirming run, log -> " + roundLog);
+      // Retries (with an escalating stale threshold) whenever the run is inconclusive — killed by
+      // an unrelated stale/hung test rather than by actually finishing — so that never gets
+      // silently mistaken for "no failures remain".
       ConfirmResult confirm =
-          runExternalTestRunner(
-              runnerScript, working, roundLog, shmDir, timeoutMinutes, staleCheckMinutes);
+          confirmRoundClean(
+              runnerScript, working, shmDir, round, timeoutMinutes, staleCheckMinutes);
       finalExit = confirm.exit;
-      currentLog = roundLog;
+      currentLog = confirm.logPath;
+
+      if (confirm.runResult == JavaRunner.RunResult.STALE_KILLED
+          || confirm.runResult == JavaRunner.RunResult.HARD_TIMEOUT) {
+        System.out.println(
+            "[DP-TEST-FILTER] Round "
+                + round
+                + ": could not confirm the suite's status — stopping without claiming success "
+                + "(invariants disabled so far in this round are kept, since they were isolated "
+                + "against real evidence; whether anything remains unverified)");
+        confirmationInconclusive = true;
+        break;
+      }
 
       if (confirm.exit == 0) {
         System.out.println("[DP-TEST-FILTER] Round " + round + ": PASSED — no failures remain");
@@ -294,6 +306,12 @@ public final class TestInvariantFilter {
     }
     System.out.println("[DP-TEST-FILTER] total invariants disabled: " + disabledSoFar.size());
     System.out.println("[DP-TEST-FILTER] total ddmin trials: " + trialCounter.count);
+    if (confirmationInconclusive) {
+      System.out.println(
+          "[DP-TEST-FILTER] WARNING: the last round's confirming rerun never reached a "
+              + "conclusive pass/fail outcome (repeated unrelated stale-kills) — the suite's "
+              + "current clean/failing status is UNVERIFIED, not confirmed clean");
+    }
     System.out.println("[DP-TEST-FILTER] final project=" + working);
     System.out.println("[DP-TEST-FILTER] final log=" + currentLog);
     System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
@@ -979,14 +997,27 @@ public final class TestInvariantFilter {
     return s.replace("\\\"", "\"").replace("\\\\", "\\");
   }
 
-  /** Outcome of a confirming rerun: exit status plus any failure caught online, if one appeared. */
+  /**
+   * Outcome of a confirming rerun: exit status, any failure caught online, and the raw {@link
+   * JavaRunner.RunResult} — callers need the latter to tell a genuine pass/fail signal apart from
+   * an inconclusive stale-kill/timeout (which proves nothing about whether the target failure is
+   * gone).
+   */
   private static final class ConfirmResult {
     final int exit;
     final Optional<TestFailureLogParser.FailureMatch> matched;
+    final JavaRunner.RunResult runResult;
+    final Path logPath;
 
-    ConfirmResult(int exit, Optional<TestFailureLogParser.FailureMatch> matched) {
+    ConfirmResult(
+        int exit,
+        Optional<TestFailureLogParser.FailureMatch> matched,
+        JavaRunner.RunResult runResult,
+        Path logPath) {
       this.exit = exit;
       this.matched = matched;
+      this.runResult = runResult;
+      this.logPath = logPath;
     }
   }
 
@@ -1037,15 +1068,100 @@ public final class TestInvariantFilter {
             matchedOut);
 
     if (result == JavaRunner.RunResult.TEST_FAILURE_KILLED) {
-      return new ConfirmResult(-1, Optional.ofNullable(matchedOut.get()));
+      return new ConfirmResult(-1, Optional.ofNullable(matchedOut.get()), result, runLog);
     }
     if (result != JavaRunner.RunResult.NORMAL) {
-      return new ConfirmResult(-1, Optional.empty());
+      return new ConfirmResult(-1, Optional.empty(), result, runLog);
     }
     boolean failed = exitedNonZero(runLog);
     return new ConfirmResult(
         failed ? -1 : 0,
-        failed ? TestFailureLogParser.firstFailure(readIfExists(runLog)) : Optional.empty());
+        failed ? TestFailureLogParser.firstFailure(readIfExists(runLog)) : Optional.empty(),
+        result,
+        runLog);
+  }
+
+  /** How many times a confirming rerun that's inconclusive (stale/timeout) is retried. */
+  private static final int MAX_CONFIRM_STALE_RETRIES = 5;
+
+  private static final long MAX_CONFIRM_STALE_CHECK_MINUTES = 10L;
+
+  /**
+   * Runs the round-{@code round} confirming rerun, retrying (with an escalating stale-check
+   * threshold, mirroring the main pipeline's own stale-recovery backoff) whenever the run is
+   * inconclusive — killed by the stale detector or hard timeout rather than by finishing (cleanly
+   * or with a recognized failure). An inconclusive kill proves nothing about whether the target
+   * failure is actually gone; some unrelated slow/looping test elsewhere in the suite can trip the
+   * stale detector at roughly the same point on every attempt. Silently treating that as "no
+   * failure found" would falsely declare the round done without ever having confirmed a clean run.
+   *
+   * @return the first conclusive result (a real pass, a real failure, or a failure caught online),
+   *     or — if every retry was also inconclusive — the last inconclusive result, with {@link
+   *     ConfirmResult#runResult} still {@code STALE_KILLED}/{@code HARD_TIMEOUT} so the caller can
+   *     tell the difference and must not treat it as a clean pass
+   */
+  private static ConfirmResult confirmRoundClean(
+      Path runnerScript,
+      Path working,
+      Path shmDir,
+      int round,
+      long timeoutMinutes,
+      long staleCheckMinutes)
+      throws IOException, InterruptedException {
+
+    long currentStaleCheckMinutes = staleCheckMinutes;
+
+    for (int attempt = 1; ; attempt++) {
+      resetShmDir(shmDir);
+      Path roundLog =
+          working.resolve(
+              "daikonpp-test-filter-round"
+                  + round
+                  + "-confirm"
+                  + (attempt > 1 ? "-retry" + attempt : "")
+                  + ".log");
+      System.out.println(
+          "[DP-TEST-FILTER] Round "
+              + round
+              + ": confirming run (attempt "
+              + attempt
+              + "/"
+              + MAX_CONFIRM_STALE_RETRIES
+              + ", stale threshold "
+              + currentStaleCheckMinutes
+              + " min), log -> "
+              + roundLog);
+
+      ConfirmResult result =
+          runExternalTestRunner(
+              runnerScript, working, roundLog, shmDir, timeoutMinutes, currentStaleCheckMinutes);
+
+      boolean inconclusive =
+          result.runResult == JavaRunner.RunResult.STALE_KILLED
+              || result.runResult == JavaRunner.RunResult.HARD_TIMEOUT;
+
+      if (!inconclusive || attempt >= MAX_CONFIRM_STALE_RETRIES) {
+        if (inconclusive) {
+          System.out.println(
+              "[DP-TEST-FILTER] Round "
+                  + round
+                  + ": confirming run still inconclusive after "
+                  + MAX_CONFIRM_STALE_RETRIES
+                  + " attempts — giving up; the suite's clean/failing status could not be "
+                  + "verified");
+        }
+        return result;
+      }
+
+      System.out.println(
+          "[DP-TEST-FILTER] Round "
+              + round
+              + ": confirming run inconclusive ("
+              + result.runResult
+              + ") — an unrelated stale/hung test, not the target failure; retrying");
+      currentStaleCheckMinutes =
+          Math.min(currentStaleCheckMinutes * 2, MAX_CONFIRM_STALE_CHECK_MINUTES);
+    }
   }
 
   /**
