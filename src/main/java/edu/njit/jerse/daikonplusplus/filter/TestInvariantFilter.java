@@ -13,20 +13,21 @@ import java.util.regex.*;
  *
  * <p>Strategy: the initial run (whose log the caller already produced) is checked cheaply — exit
  * code first, and only if non-zero, scanned once for a recognized {@link TestFailureLogParser}
- * signature. If neither confirms a real test failure, nothing is filtered.
+ * signature. If neither confirms a real test failure, nothing is filtered — and no project copy or
+ * rerun happens at all.
  *
- * <p>If a failure is confirmed, the suite is rerun on a working copy with real-time monitoring: as
- * the runner's output streams in, each line is checked against the same failure signature, and the
- * instant the <em>same</em> failure (see {@link TestFailureLogParser#isSameFailure}) reappears, the
- * process is killed immediately — rather than waiting for the rest of the suite to finish, which
- * would otherwise bury the invariants actually responsible under everything that ran afterward.
+ * <p>If a failure is confirmed, the candidate pool of invariants to search over is seeded directly
+ * from that same already-completed initial run's log (every {@code INV_EXD} entry — invariants that
+ * executed at least once) — <em>not</em> by rerunning the whole suite again, since that run already
+ * paid the cost of executing everything once and already recorded the result.
  *
- * <p>The set of invariants that executed during that first reproducing run (ordered by execution
- * time, via {@link LogParser#readExecutedOrderedFromShm}) becomes the candidate pool for <a
- * href="https://www.debuggingbook.org/html/DeltaDebugger.html">delta debugging</a> ({@code ddmin}):
- * candidates are disabled/enabled in shrinking, targeted subsets — each checked with the same
- * real-time monitored rerun — until a 1-minimal culprit set is isolated. That set is disabled in
- * the final project copy.
+ * <p>From there, <a href="https://www.debuggingbook.org/html/DeltaDebugger.html">delta
+ * debugging</a> ({@code ddmin}) isolates a 1-minimal culprit set: candidates are disabled/enabled
+ * in shrinking, targeted subsets, each checked with a real-time monitored rerun on a working copy —
+ * as the runner's output streams in, each line is checked against the same failure signature, and
+ * the instant the <em>same</em> failure (see {@link TestFailureLogParser#isSameFailure}) reappears,
+ * the process is killed immediately rather than waiting for the rest of the trial's suite run to
+ * finish. That isolated set is disabled in the final project copy.
  *
  * <p>The process operates on copies of the project to avoid mutating the original injected code and
  * uses marker-based regions to selectively disable invariants.
@@ -117,58 +118,25 @@ public final class TestInvariantFilter {
     Path shmDir = working.resolve(".daikonpp-test-filter-shm");
     Files.createDirectories(shmDir);
 
-    // ---- Run 1: monitored rerun to (a) confirm the target failure reproduces and (b) build a
-    // tightly time-bounded candidate pool from whatever executed before the kill. ----
-    resetShmDir(shmDir);
-    Path run1Log = working.resolve("daikonpp-test-filter-run1.log");
+    // ---- Candidate set: seeded directly from the already-completed initial run — no rerun
+    // needed. That run already executed the whole suite and its log already records every
+    // invariant that ran (INV_EXD entries, flushed by DpRuntime's shutdown-hook sidecar), so
+    // rerunning the suite again here just to rebuild that same information would pay for the
+    // entire (potentially many-minute) run a second time for nothing. ddmin's own trials below
+    // are the only reruns actually needed. ----
+    List<UUID> candidates = new ArrayList<>(LogParser.readExecutedIds(initialRunLog));
     System.out.println(
-        "[DP-TEST-FILTER] Run 1 (monitored): executing test runner, log -> " + run1Log);
-    MonitorResult run1 = runMonitored(runnerScript, working, run1Log, shmDir, target);
-
-    if (!run1.reproduced) {
-      if (run1.exitCode == 0) {
-        System.out.println(
-            "[DP-TEST-FILTER] Run 1: PASSED — target failure did not reproduce, nothing to "
-                + "filter");
-      } else {
-        System.out.println(
-            "[DP-TEST-FILTER] Run 1: exit="
-                + run1.exitCode
-                + " but the original failure did not reproduce (different or no signature) — "
-                + "cannot safely attribute, stopping");
-      }
-      System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
-      return new Result(
-          injectedProjectRoot,
-          working,
-          workingMainSrc,
-          run1Log,
-          Set.of(),
-          List.of(),
-          run1.exitCode);
-    }
-
-    System.out.println(
-        "[DP-TEST-FILTER] Run 1: reproduced target failure ["
-            + run1.matched.map(TestFailureLogParser.FailureMatch::format).orElse(target.format())
-            + "] — building candidate set from execution order");
-
-    List<UUID> candidates = orderedDistinctIds(LogParser.readExecutedOrderedFromShm(shmDir));
-    System.out.println("[DP-TEST-FILTER] candidate pool size = " + candidates.size());
+        "[DP-TEST-FILTER] candidate pool size = "
+            + candidates.size()
+            + " (from initial run's executed-invariants log, no rerun)");
 
     if (candidates.isEmpty()) {
       System.out.println(
-          "[DP-TEST-FILTER] No invariants executed during the reproducing run — cannot "
-              + "attribute, stopping");
+          "[DP-TEST-FILTER] No invariants executed during the initial run — cannot attribute, "
+              + "stopping");
       System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
       return new Result(
-          injectedProjectRoot,
-          working,
-          workingMainSrc,
-          run1Log,
-          Set.of(),
-          List.of(),
-          run1.exitCode);
+          injectedProjectRoot, working, workingMainSrc, initialRunLog, Set.of(), List.of(), 1);
     }
 
     BlockIndex idx = scanInvariantBlocks(workingMainSrc);
@@ -257,14 +225,6 @@ public final class TestInvariantFilter {
         exitCode);
   }
 
-  private static List<UUID> orderedDistinctIds(List<LogParser.TimedInvariant> timed) {
-    LinkedHashSet<UUID> ids = new LinkedHashSet<>();
-    for (LogParser.TimedInvariant t : timed) {
-      ids.add(t.id());
-    }
-    return new ArrayList<>(ids);
-  }
-
   // =====================================================================================
   // Delta debugging (ddmin)
   // =====================================================================================
@@ -303,11 +263,10 @@ public final class TestInvariantFilter {
 
     while (delta.size() > 1) {
       n = Math.min(n, delta.size());
+      // Candidates come from the initial run's executed-invariants log (a set, not an ordered
+      // sequence — see the comment where `candidates` is built), so chunk order here carries no
+      // proximity-to-failure meaning; it's just a deterministic split, not a search heuristic.
       List<List<UUID>> chunks = splitInto(delta, n);
-      // Prioritize the chunk(s) closest to the failure (end of the execution-ordered list)
-      // first — not required for correctness, just a domain-informed ordering likely to
-      // converge faster.
-      Collections.reverse(chunks);
 
       boolean reduced = false;
 
