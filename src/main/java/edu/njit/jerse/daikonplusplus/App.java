@@ -4,6 +4,7 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.*;
 import edu.njit.jerse.daikonplusplus.config.*;
+import edu.njit.jerse.daikonplusplus.filter.TestFailureLogParser;
 import edu.njit.jerse.daikonplusplus.filter.TestInvariantFilter;
 import edu.njit.jerse.daikonplusplus.inject.DpRuntimeWriter;
 import edu.njit.jerse.daikonplusplus.inject.FileWriteCoordinator;
@@ -25,6 +26,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Entry point for the Daikon++ pipeline.
@@ -587,6 +589,10 @@ public final class App {
     final Path runLog;
     // Set in external-project mode; null in native mode and when /dev/shm is unavailable.
     Path shmDir = null;
+    // Set when BASE_CFG.enableTestFilter() catches a recognized test failure live, as it streams
+    // from *any* run (including the very first one) — rather than discovering it only after that
+    // run finishes by scanning its completed log.
+    Optional<TestFailureLogParser.FailureMatch> onlineDetectedFailure = Optional.empty();
 
     if (execMode == ExecMode.EXTERNAL_PROJECT) {
       // Run from PROJECT ROOT so ./gradlew works
@@ -676,16 +682,50 @@ public final class App {
               "[DP] Archived run " + (runIteration - 1) + " log → " + archivedLog.getFileName());
         }
 
+        // With test filtering enabled, every run — including this very first one — is watched
+        // online for a recognized test-failure signature as its output streams, so a failure is
+        // caught (and the run killed) the instant it appears rather than only discovered after
+        // the run finishes and its completed log is scanned.
+        boolean watchForAnyFailure = BASE_CFG.enableTestFilter();
+        AtomicReference<TestFailureLogParser.FailureMatch> matchedFailureOut =
+            watchForAnyFailure ? new AtomicReference<>() : null;
+
         JavaRunner.RunResult result =
-            JavaRunner.runExternalScript(
-                resolvedScript,
-                workProjectRoot,
-                fullRunCp,
-                runLog,
-                currentTimeoutMinutes,
-                currentStaleCheckMinutes,
-                disabledFile,
-                shmDir);
+            watchForAnyFailure
+                ? JavaRunner.runExternalScript(
+                    resolvedScript,
+                    workProjectRoot,
+                    fullRunCp,
+                    runLog,
+                    currentTimeoutMinutes,
+                    currentStaleCheckMinutes,
+                    disabledFile,
+                    shmDir,
+                    null,
+                    true,
+                    matchedFailureOut)
+                : JavaRunner.runExternalScript(
+                    resolvedScript,
+                    workProjectRoot,
+                    fullRunCp,
+                    runLog,
+                    currentTimeoutMinutes,
+                    currentStaleCheckMinutes,
+                    disabledFile,
+                    shmDir);
+
+        if (result == JavaRunner.RunResult.TEST_FAILURE_KILLED) {
+          onlineDetectedFailure =
+              matchedFailureOut == null
+                  ? Optional.empty()
+                  : Optional.ofNullable(matchedFailureOut.get());
+          System.out.println(
+              "[DP] Test failure detected online during run "
+                  + runIteration
+                  + " — stopping this run immediately: "
+                  + onlineDetectedFailure.map(TestFailureLogParser.FailureMatch::line).orElse("?"));
+          break;
+        }
 
         if (result == JavaRunner.RunResult.NORMAL) break;
 
@@ -1018,7 +1058,9 @@ public final class App {
               resolvedScript,
               BASE_CFG.testFilterMethodBatchSize(),
               JavaRunner.EXTERNAL_RUN_TIMEOUT_MINUTES,
-              BASE_CFG.staleCheckMinutes());
+              BASE_CFG.staleCheckMinutes(),
+              onlineDetectedFailure,
+              shmDir);
 
       System.out.println(
           ">>> TEST-FILTER: "

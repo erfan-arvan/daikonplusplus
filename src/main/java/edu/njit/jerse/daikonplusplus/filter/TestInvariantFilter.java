@@ -12,15 +12,22 @@ import java.util.regex.*;
 /**
  * Test-based invariant filtering that removes invariants causing test failures.
  *
- * <p>Strategy: the initial run (whose log the caller already produced) is checked cheaply — exit
- * code first, and only if non-zero, scanned once for a recognized {@link TestFailureLogParser}
- * signature. If neither confirms a real test failure, nothing is filtered — and no project copy or
- * rerun happens at all.
+ * <p>Strategy: failures are caught <em>online</em>, as a run's output streams, starting from the
+ * very first run of the suite — not discovered after the fact by scanning a completed log. The
+ * caller (see {@code App}'s main recovery loop) watches every run in real time for any recognized
+ * {@link TestFailureLogParser} signature and kills the process the instant one appears; if that
+ * happened, the already-known failure is passed in directly via {@code preKnownFailure} and this
+ * method skips straight to isolating its cause. Only when no failure was ever caught live (e.g. the
+ * caller doesn't watch, or a failure format slips through undetected until the run's natural exit)
+ * does this method fall back to the old post-hoc path: exit code first, and only if non-zero,
+ * scanning the completed log once for a recognized signature.
  *
  * <p>If a failure is confirmed, the candidate pool of invariants to search over is seeded directly
- * from that same already-completed initial run's log (every {@code INV_EXD} entry — invariants that
- * executed at least once) — <em>not</em> by rerunning the whole suite again, since that run already
- * paid the cost of executing everything once and already recorded the result.
+ * from what already executed — from the initial run's shm directory when the failure was caught
+ * online mid-run (the most reliable source, since a killed process never gets to run its normal
+ * shutdown-hook log sidecar), or otherwise from the completed initial run's log (every {@code
+ * INV_EXD} entry) — <em>not</em> by rerunning the whole suite again, since that run already paid
+ * the cost of executing everything up to that point and already recorded the result.
  *
  * <p>From there, <a href="https://www.debuggingbook.org/html/DeltaDebugger.html">delta
  * debugging</a> ({@code ddmin}) isolates a 1-minimal culprit set: candidates are disabled/enabled
@@ -75,6 +82,13 @@ public final class TestInvariantFilter {
    *     for the original run — see {@link JavaRunner#runExternalScript}
    * @param staleCheckMinutes stale/hang-detection threshold applied to every rerun, identical to
    *     the threshold used for the original run — see {@link JavaRunner#runExternalScript}
+   * @param preKnownFailure a failure already caught online (mid-run) by the caller, if any — when
+   *     present, the post-hoc exit-code/log-scan check below is skipped entirely, since the caller
+   *     already killed that run the instant this failure was seen
+   * @param initialShmDir shm directory used by the initial run, if the caller has one — used to
+   *     seed round-1 candidates reliably when {@code preKnownFailure} is present (a process killed
+   *     mid-run never gets to write its normal log sidecar, so shm is the only complete source);
+   *     ignored when {@code preKnownFailure} is empty
    * @return result object describing the final filtered project and removed invariants
    * @throws Exception if execution fails
    */
@@ -86,7 +100,9 @@ public final class TestInvariantFilter {
       Path runnerScript,
       int methodBatchSize,
       long timeoutMinutes,
-      long staleCheckMinutes)
+      long staleCheckMinutes,
+      Optional<TestFailureLogParser.FailureMatch> preKnownFailure,
+      @org.checkerframework.checker.nullness.qual.Nullable Path initialShmDir)
       throws Exception {
 
     System.out.println("\n[DP-TEST-FILTER] ===== START TEST-BASED FILTERING =====");
@@ -94,31 +110,50 @@ public final class TestInvariantFilter {
 
     Map<UUID, String> idToMethod = readRegistryMethods(registryPath);
 
-    System.out.println("[DP-TEST-FILTER] Checking initial run exit status: " + initialRunLog);
+    Optional<TestFailureLogParser.FailureMatch> firstFailure;
+    List<UUID> round1CandidatesOverride = null;
 
-    if (!exitedNonZero(initialRunLog)) {
+    if (preKnownFailure.isPresent()) {
+      firstFailure = preKnownFailure;
       System.out.println(
-          "[DP-TEST-FILTER] Initial run exited cleanly (exit=0) — nothing to filter "
-              + "(skipping log scan and project copy)");
-      System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
-      return noopResult(injectedProjectRoot, mainSrcRoot, initialRunLog, 0);
-    }
+          "[DP-TEST-FILTER] Failure already caught online during the initial run — skipping "
+              + "post-hoc exit-code/log-scan check: "
+              + firstFailure.get().format()
+              + " :: "
+              + firstFailure.get().line());
+      if (initialShmDir != null && Files.isDirectory(initialShmDir.resolve("ex"))) {
+        round1CandidatesOverride = new ArrayList<>(LogParser.readExecutedIdsFromShm(initialShmDir));
+        System.out.println(
+            "[DP-TEST-FILTER] Round 1 candidates seeded from initial run's shm ("
+                + round1CandidatesOverride.size()
+                + " executed invariant(s) up to the kill point)");
+      }
+    } else {
+      System.out.println("[DP-TEST-FILTER] Checking initial run exit status: " + initialRunLog);
 
-    System.out.println(
-        "[DP-TEST-FILTER] Initial run exited non-zero — scanning log for a recognized "
-            + "test-failure signature: "
-            + initialRunLog);
-    String initialLogText = readIfExists(initialRunLog);
-    Optional<TestFailureLogParser.FailureMatch> firstFailure =
-        TestFailureLogParser.firstFailure(initialLogText);
+      if (!exitedNonZero(initialRunLog)) {
+        System.out.println(
+            "[DP-TEST-FILTER] Initial run exited cleanly (exit=0) — nothing to filter "
+                + "(skipping log scan and project copy)");
+        System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
+        return noopResult(injectedProjectRoot, mainSrcRoot, initialRunLog, 0);
+      }
 
-    if (firstFailure.isEmpty()) {
       System.out.println(
-          "[DP-TEST-FILTER] Initial run failed (exit!=0) but no recognized test-failure "
-              + "signature was found — cannot safely attribute to an invariant, nothing to "
-              + "filter (skipping project copy)");
-      System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
-      return noopResult(injectedProjectRoot, mainSrcRoot, initialRunLog, 1);
+          "[DP-TEST-FILTER] Initial run exited non-zero — scanning log for a recognized "
+              + "test-failure signature: "
+              + initialRunLog);
+      String initialLogText = readIfExists(initialRunLog);
+      firstFailure = TestFailureLogParser.firstFailure(initialLogText);
+
+      if (firstFailure.isEmpty()) {
+        System.out.println(
+            "[DP-TEST-FILTER] Initial run failed (exit!=0) but no recognized test-failure "
+                + "signature was found — cannot safely attribute to an invariant, nothing to "
+                + "filter (skipping project copy)");
+        System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
+        return noopResult(injectedProjectRoot, mainSrcRoot, initialRunLog, 1);
+      }
     }
 
     System.out.println(
@@ -145,10 +180,17 @@ public final class TestInvariantFilter {
     Optional<TestFailureLogParser.FailureMatch> currentFailure = firstFailure;
     int finalExit = 1;
     int round = 0;
+    // Candidate pool for the *next* round, seeded from a reliable shm source rather than a
+    // (possibly online-killed, and so incomplete) log — round 1 from the initial run's shm (see
+    // round1CandidatesOverride above), later rounds from this working copy's own shm, which is
+    // reset immediately before each confirming rerun so its content matches that run exactly.
+    List<UUID> nextCandidatesOverride = round1CandidatesOverride;
 
     while (currentFailure.isPresent() && round < MAX_FAILURE_ROUNDS) {
       round++;
       TestFailureLogParser.FailureMatch target = currentFailure.get();
+      List<UUID> candidatesForThisRound = nextCandidatesOverride;
+      nextCandidatesOverride = null;
       System.out.println(
           "\n[DP-TEST-FILTER] ----- Round "
               + round
@@ -166,6 +208,7 @@ public final class TestInvariantFilter {
               shmDir,
               target,
               currentLog,
+              candidatesForThisRound,
               disabledSoFar,
               idToMethod,
               allTrialLog,
@@ -197,27 +240,33 @@ public final class TestInvariantFilter {
               + roundResult.trialsUsed
               + " trial(s)");
 
-      // Confirming rerun with every culprit found so far disabled, to check whether a
-      // *different* recognized failure is still present.
+      // Confirming rerun with every culprit found so far disabled, watched online for *any*
+      // recognized failure (no specific target — which failure, if any, shows up next isn't known
+      // in advance) so it's caught and killed the instant it appears, just like the very first run.
       resetShmDir(shmDir);
       Path roundLog = working.resolve("daikonpp-test-filter-round" + round + "-confirm.log");
       System.out.println(
           "[DP-TEST-FILTER] Round " + round + ": confirming run, log -> " + roundLog);
-      int exit =
+      ConfirmResult confirm =
           runExternalTestRunner(
               runnerScript, working, roundLog, shmDir, timeoutMinutes, staleCheckMinutes);
-      finalExit = exit;
+      finalExit = confirm.exit;
       currentLog = roundLog;
 
-      if (exit == 0) {
+      if (confirm.exit == 0) {
         System.out.println("[DP-TEST-FILTER] Round " + round + ": PASSED — no failures remain");
         currentFailure = Optional.empty();
         continue;
       }
 
-      String roundLogText = readIfExists(roundLog);
-      Optional<TestFailureLogParser.FailureMatch> next =
-          TestFailureLogParser.firstFailure(roundLogText);
+      // Reset immediately before this confirming run, so shm/ex now holds exactly what executed
+      // during it — reliable even if the run was killed online (a killed process never gets to
+      // write its normal log sidecar, so shm is the source of truth here, same as round 1).
+      if (Files.isDirectory(shmDir.resolve("ex"))) {
+        nextCandidatesOverride = new ArrayList<>(LogParser.readExecutedIdsFromShm(shmDir));
+      }
+
+      Optional<TestFailureLogParser.FailureMatch> next = confirm.matched;
 
       if (next.isPresent() && TestFailureLogParser.isSameFailure(target, next.get())) {
         System.out.println(
@@ -280,7 +329,12 @@ public final class TestInvariantFilter {
    * makes the failure stop reproducing, and — only if that holds — runs {@code ddmin} to narrow it
    * down.
    *
-   * @param candidateSourceLog the most recent completed run's log to seed candidates from
+   * @param candidateSourceLog the most recent completed run's log to seed candidates from, used
+   *     unless {@code explicitCandidates} is given
+   * @param explicitCandidates when non-null, used as the candidate pool directly instead of reading
+   *     {@code candidateSourceLog} — used for round 1 when the failure was caught online mid-run,
+   *     so candidates come from the initial run's shm state instead of a (possibly incomplete,
+   *     since the process was killed) log
    * @param alreadyDisabled invariants disabled in earlier rounds (excluded from this round's pool)
    */
   private static FailureRoundResult handleOneFailure(
@@ -290,6 +344,7 @@ public final class TestInvariantFilter {
       Path shmDir,
       TestFailureLogParser.FailureMatch target,
       Path candidateSourceLog,
+      @org.checkerframework.checker.nullness.qual.Nullable List<UUID> explicitCandidates,
       Set<UUID> alreadyDisabled,
       Map<UUID, String> idToMethod,
       List<String> trialLog,
@@ -299,7 +354,10 @@ public final class TestInvariantFilter {
       long staleCheckMinutes)
       throws IOException, InterruptedException {
 
-    List<UUID> candidates = new ArrayList<>(LogParser.readExecutedIds(candidateSourceLog));
+    List<UUID> candidates =
+        explicitCandidates != null
+            ? new ArrayList<>(explicitCandidates)
+            : new ArrayList<>(LogParser.readExecutedIds(candidateSourceLog));
     candidates.removeAll(alreadyDisabled);
     System.out.println(
         "[DP-TEST-FILTER] Round " + round + ": candidate pool size = " + candidates.size());
@@ -921,11 +979,25 @@ public final class TestInvariantFilter {
     return s.replace("\\\"", "\"").replace("\\\\", "\\");
   }
 
+  /** Outcome of a confirming rerun: exit status plus any failure caught online, if one appeared. */
+  private static final class ConfirmResult {
+    final int exit;
+    final Optional<TestFailureLogParser.FailureMatch> matched;
+
+    ConfirmResult(int exit, Optional<TestFailureLogParser.FailureMatch> matched) {
+      this.exit = exit;
+      this.matched = matched;
+    }
+  }
+
   /**
    * Executes an external test runner script via {@link JavaRunner#runExternalScript} — the same
-   * shared run path (with its stale/hang-detector + hard-timeout protection) used for the original
-   * run — waiting for it to run to completion with no real-time failure detection (no target to
-   * watch for). Used for the confirming reruns once a round's culprit set is already known.
+   * shared run path (with its stale/hang-detector + hard-timeout protection) used for every other
+   * run — watching online for <em>any</em> recognized test-failure signature (no specific target,
+   * since which failure — if any — will show up next isn't known in advance) so a subsequent
+   * failure is caught and the run killed the instant it appears, exactly like the very first run,
+   * rather than only discovered after this rerun finishes and its log is scanned. Used for the
+   * confirming reruns once a round's culprit set is already known.
    *
    * @param script executable test runner script
    * @param workDir working directory for execution
@@ -933,11 +1005,12 @@ public final class TestInvariantFilter {
    * @param shmDir shm directory for this run (already created/reset by the caller)
    * @param timeoutMinutes wall-clock timeout, identical to the original run's
    * @param staleCheckMinutes stale/hang-detection threshold, identical to the original run's
-   * @return exit code of the test run (0 for a clean pass, -1 for any non-normal outcome)
+   * @return exit status (0 clean pass, -1 any non-normal outcome) and the failure caught online, if
+   *     any
    * @throws IOException if execution fails
    * @throws InterruptedException if execution is interrupted
    */
-  private static int runExternalTestRunner(
+  private static ConfirmResult runExternalTestRunner(
       Path script,
       Path workDir,
       Path runLog,
@@ -946,12 +1019,33 @@ public final class TestInvariantFilter {
       long staleCheckMinutes)
       throws IOException, InterruptedException {
 
+    java.util.concurrent.atomic.AtomicReference<TestFailureLogParser.FailureMatch> matchedOut =
+        new java.util.concurrent.atomic.AtomicReference<>();
+
     JavaRunner.RunResult result =
         JavaRunner.runExternalScript(
-            script, workDir, "", runLog, timeoutMinutes, staleCheckMinutes, null, shmDir);
+            script,
+            workDir,
+            "",
+            runLog,
+            timeoutMinutes,
+            staleCheckMinutes,
+            null,
+            shmDir,
+            null,
+            true,
+            matchedOut);
 
-    if (result != JavaRunner.RunResult.NORMAL) return -1;
-    return exitedNonZero(runLog) ? -1 : 0;
+    if (result == JavaRunner.RunResult.TEST_FAILURE_KILLED) {
+      return new ConfirmResult(-1, Optional.ofNullable(matchedOut.get()));
+    }
+    if (result != JavaRunner.RunResult.NORMAL) {
+      return new ConfirmResult(-1, Optional.empty());
+    }
+    boolean failed = exitedNonZero(runLog);
+    return new ConfirmResult(
+        failed ? -1 : 0,
+        failed ? TestFailureLogParser.firstFailure(readIfExists(runLog)) : Optional.empty());
   }
 
   /**

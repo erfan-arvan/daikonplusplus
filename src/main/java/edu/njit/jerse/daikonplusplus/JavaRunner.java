@@ -532,16 +532,11 @@ public final class JavaRunner {
   }
 
   /**
-   * Full form of {@link #runExternalScript}, additionally supporting real-time test-failure
-   * detection: if {@code targetFailure} is non-null, every line streamed from the child process is
-   * checked (via {@link TestFailureLogParser#matchLine} + {@link
+   * Form of {@link #runExternalScript} supporting real-time test-failure detection against a
+   * specific, already-known failure: if {@code targetFailure} is non-null, every line streamed from
+   * the child process is checked (via {@link TestFailureLogParser#matchLine} + {@link
    * TestFailureLogParser#isSameFailure}) as it arrives, and the process is killed the instant a
-   * recurrence of that same failure is seen — without waiting for the run to finish naturally. This
-   * reuses the exact same stale-detector and hard-timeout machinery as every other run, so trial
-   * reruns (e.g. delta-debugging) get identical stuck-invariant recovery to the original run.
-   *
-   * @param targetFailure the failure to watch for, or null to disable real-time failure detection
-   *     (identical behavior to the other overloads)
+   * recurrence of that same failure is seen — without waiting for the run to finish naturally.
    */
   public static RunResult runExternalScript(
       Path script,
@@ -553,6 +548,58 @@ public final class JavaRunner {
       @Nullable Path disabledFile,
       @Nullable Path shmDir,
       TestFailureLogParser.@Nullable FailureMatch targetFailure)
+      throws IOException, InterruptedException {
+    return runExternalScript(
+        script,
+        workDir,
+        fullRunCp,
+        runLog,
+        timeoutMinutes,
+        staleCheckMinutes,
+        disabledFile,
+        shmDir,
+        targetFailure,
+        false,
+        null);
+  }
+
+  /**
+   * Full form of {@link #runExternalScript}, supporting real-time test-failure detection — as an
+   * addition to the existing async output reader and stale-detector, not a separate implementation
+   * — in two modes:
+   *
+   * <ul>
+   *   <li>{@code targetFailure} non-null: kill the instant a line reproduces that <em>same</em>
+   *       failure (see {@link TestFailureLogParser#isSameFailure}) — used once a specific failure
+   *       is already known (e.g. delta-debugging trials).
+   *   <li>{@code detectAnyFailure} true (with {@code targetFailure} null): kill the instant any
+   *       recognized failure format is seen — used when no specific failure is known yet (e.g. the
+   *       very first run of the suite), so a failure is caught online rather than only after the
+   *       run finishes and its log is scanned after the fact.
+   * </ul>
+   *
+   * Either mode reuses the exact same stale-detector and hard-timeout machinery as every other run
+   * — every rerun (trial or original) gets identical stuck-invariant recovery.
+   *
+   * @param targetFailure the specific failure to watch for, or null
+   * @param detectAnyFailure if true (and {@code targetFailure} is null), kill on the first
+   *     recognized failure of any format
+   * @param matchedFailureOut if non-null, populated with the failure that triggered the kill (only
+   *     meaningful when the result is {@link RunResult#TEST_FAILURE_KILLED})
+   */
+  public static RunResult runExternalScript(
+      Path script,
+      Path workDir,
+      String fullRunCp,
+      Path runLog,
+      long timeoutMinutes,
+      long staleCheckMinutes,
+      @Nullable Path disabledFile,
+      @Nullable Path shmDir,
+      TestFailureLogParser.@Nullable FailureMatch targetFailure,
+      boolean detectAnyFailure,
+      java.util.concurrent.atomic.@Nullable AtomicReference<TestFailureLogParser.FailureMatch>
+          matchedFailureOut)
       throws IOException, InterruptedException {
 
     if (!Files.isRegularFile(script)) {
@@ -689,15 +736,22 @@ public final class JavaRunner {
                   w.flush();
                   lineNumber++;
 
-                  if (targetFailure != null) {
+                  if (targetFailure != null || detectAnyFailure) {
                     int ln = lineNumber;
                     TestFailureLogParser.matchLine(line, ln)
-                        .filter(m -> TestFailureLogParser.isSameFailure(targetFailure, m))
+                        .filter(
+                            m ->
+                                targetFailure != null
+                                    ? TestFailureLogParser.isSameFailure(targetFailure, m)
+                                    : true)
                         .ifPresent(
                             m -> {
                               testFailureKilled.set(true);
+                              if (matchedFailureOut != null) {
+                                matchedFailureOut.set(m);
+                              }
                               try {
-                                w.write("\n[DP] Target test failure recurred — killing runner\n");
+                                w.write("\n[DP] Test failure detected online — killing runner\n");
                                 w.flush();
                               } catch (IOException ignored) {
                               }
