@@ -1,5 +1,6 @@
 package edu.njit.jerse.daikonplusplus;
 
+import edu.njit.jerse.daikonplusplus.filter.TestFailureLogParser;
 import edu.njit.jerse.daikonplusplus.results.LogParser;
 import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil;
 import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil.JError;
@@ -45,7 +46,12 @@ public final class JavaRunner {
      */
     STALE_KILLED,
     /** Hard wall-clock timeout elapsed before the process finished, process killed. */
-    HARD_TIMEOUT
+    HARD_TIMEOUT,
+    /**
+     * The target test failure (passed via {@code targetFailure}) reappeared in the streamed output;
+     * process was killed immediately rather than waiting for natural completion.
+     */
+    TEST_FAILURE_KILLED
   }
 
   private JavaRunner() {}
@@ -513,6 +519,41 @@ public final class JavaRunner {
       @Nullable Path disabledFile,
       @Nullable Path shmDir)
       throws IOException, InterruptedException {
+    return runExternalScript(
+        script,
+        workDir,
+        fullRunCp,
+        runLog,
+        timeoutMinutes,
+        staleCheckMinutes,
+        disabledFile,
+        shmDir,
+        null);
+  }
+
+  /**
+   * Full form of {@link #runExternalScript}, additionally supporting real-time test-failure
+   * detection: if {@code targetFailure} is non-null, every line streamed from the child process is
+   * checked (via {@link TestFailureLogParser#matchLine} + {@link
+   * TestFailureLogParser#isSameFailure}) as it arrives, and the process is killed the instant a
+   * recurrence of that same failure is seen — without waiting for the run to finish naturally. This
+   * reuses the exact same stale-detector and hard-timeout machinery as every other run, so trial
+   * reruns (e.g. delta-debugging) get identical stuck-invariant recovery to the original run.
+   *
+   * @param targetFailure the failure to watch for, or null to disable real-time failure detection
+   *     (identical behavior to the other overloads)
+   */
+  public static RunResult runExternalScript(
+      Path script,
+      Path workDir,
+      String fullRunCp,
+      Path runLog,
+      long timeoutMinutes,
+      long staleCheckMinutes,
+      @Nullable Path disabledFile,
+      @Nullable Path shmDir,
+      TestFailureLogParser.@Nullable FailureMatch targetFailure)
+      throws IOException, InterruptedException {
 
     if (!Files.isRegularFile(script)) {
       throw new IllegalArgumentException("[DP] External runner script not found: " + script);
@@ -612,6 +653,7 @@ public final class JavaRunner {
     Process p = pb.start();
 
     // ---- ASYNC OUTPUT READER ----
+    AtomicBoolean testFailureKilled = new AtomicBoolean(false);
     Thread readerThread =
         new Thread(
             () -> {
@@ -626,6 +668,7 @@ public final class JavaRunner {
                           StandardOpenOption.APPEND)) {
 
                 String line;
+                int lineNumber = 0;
                 while (true) {
                   if (Thread.currentThread().isInterrupted()) break;
 
@@ -644,6 +687,24 @@ public final class JavaRunner {
                   w.write(line);
                   w.newLine();
                   w.flush();
+                  lineNumber++;
+
+                  if (targetFailure != null) {
+                    int ln = lineNumber;
+                    TestFailureLogParser.matchLine(line, ln)
+                        .filter(m -> TestFailureLogParser.isSameFailure(targetFailure, m))
+                        .ifPresent(
+                            m -> {
+                              testFailureKilled.set(true);
+                              try {
+                                w.write("\n[DP] Target test failure recurred — killing runner\n");
+                                w.flush();
+                              } catch (IOException ignored) {
+                              }
+                              p.destroyForcibly();
+                            });
+                    if (testFailureKilled.get()) break;
+                  }
                 }
 
               } catch (IOException ignored) {
@@ -798,15 +859,18 @@ public final class JavaRunner {
       p.destroyForcibly();
       p.waitFor();
       readerThread.interrupt();
-    } else if (staleKilled.get()) {
-      // Process was killed by stale detector; it already exited, just drain
+    } else if (staleKilled.get() || testFailureKilled.get()) {
+      // Process was killed by the stale detector or the real-time failure watcher;
+      // it already exited, just drain.
       readerThread.interrupt();
     }
 
     RunResult runResult =
         !finished
             ? RunResult.HARD_TIMEOUT
-            : staleKilled.get() ? RunResult.STALE_KILLED : RunResult.NORMAL;
+            : testFailureKilled.get()
+                ? RunResult.TEST_FAILURE_KILLED
+                : staleKilled.get() ? RunResult.STALE_KILLED : RunResult.NORMAL;
 
     int exit;
 

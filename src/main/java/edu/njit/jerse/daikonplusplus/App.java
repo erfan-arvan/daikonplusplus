@@ -1016,7 +1016,9 @@ public final class App {
               cfg.registryPath(),
               runLog,
               resolvedScript,
-              BASE_CFG.testFilterMethodBatchSize());
+              BASE_CFG.testFilterMethodBatchSize(),
+              JavaRunner.EXTERNAL_RUN_TIMEOUT_MINUTES,
+              BASE_CFG.staleCheckMinutes());
 
       System.out.println(
           ">>> TEST-FILTER: "

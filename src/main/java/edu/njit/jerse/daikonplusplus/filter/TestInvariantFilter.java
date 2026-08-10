@@ -1,5 +1,6 @@
 package edu.njit.jerse.daikonplusplus.filter;
 
+import edu.njit.jerse.daikonplusplus.JavaRunner;
 import edu.njit.jerse.daikonplusplus.results.LogParser;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -70,6 +71,10 @@ public final class TestInvariantFilter {
    * @param runnerScript external test runner script
    * @param methodBatchSize unused by the current (delta-debugging) strategy; kept for source
    *     compatibility with existing callers/config
+   * @param timeoutMinutes wall-clock timeout applied to every rerun, identical to the timeout used
+   *     for the original run — see {@link JavaRunner#runExternalScript}
+   * @param staleCheckMinutes stale/hang-detection threshold applied to every rerun, identical to
+   *     the threshold used for the original run — see {@link JavaRunner#runExternalScript}
    * @return result object describing the final filtered project and removed invariants
    * @throws Exception if execution fails
    */
@@ -79,7 +84,9 @@ public final class TestInvariantFilter {
       Path registryPath,
       Path initialRunLog,
       Path runnerScript,
-      int methodBatchSize)
+      int methodBatchSize,
+      long timeoutMinutes,
+      long staleCheckMinutes)
       throws Exception {
 
     System.out.println("\n[DP-TEST-FILTER] ===== START TEST-BASED FILTERING =====");
@@ -163,7 +170,9 @@ public final class TestInvariantFilter {
               idToMethod,
               allTrialLog,
               trialCounter,
-              round);
+              round,
+              timeoutMinutes,
+              staleCheckMinutes);
 
       if (!roundResult.attributable) {
         System.out.println(
@@ -194,7 +203,9 @@ public final class TestInvariantFilter {
       Path roundLog = working.resolve("daikonpp-test-filter-round" + round + "-confirm.log");
       System.out.println(
           "[DP-TEST-FILTER] Round " + round + ": confirming run, log -> " + roundLog);
-      int exit = runExternalTestRunner(runnerScript, working, roundLog, shmDir);
+      int exit =
+          runExternalTestRunner(
+              runnerScript, working, roundLog, shmDir, timeoutMinutes, staleCheckMinutes);
       finalExit = exit;
       currentLog = roundLog;
 
@@ -283,7 +294,9 @@ public final class TestInvariantFilter {
       Map<UUID, String> idToMethod,
       List<String> trialLog,
       TrialCounter trialCounter,
-      int round)
+      int round,
+      long timeoutMinutes,
+      long staleCheckMinutes)
       throws IOException, InterruptedException {
 
     List<UUID> candidates = new ArrayList<>(LogParser.readExecutedIds(candidateSourceLog));
@@ -314,7 +327,9 @@ public final class TestInvariantFilter {
             idx,
             originalLines,
             target,
-            trialLog);
+            trialLog,
+            timeoutMinutes,
+            staleCheckMinutes);
 
     if (stillFailsWithAllDisabled) {
       System.out.println(
@@ -339,7 +354,9 @@ public final class TestInvariantFilter {
             target,
             idToMethod,
             trialLog,
-            trialCounter);
+            trialCounter,
+            timeoutMinutes,
+            staleCheckMinutes);
 
     Set<UUID> culpritSet = new LinkedHashSet<>(culprits);
     Set<UUID> keepEnabled = new LinkedHashSet<>(candidates);
@@ -408,7 +425,9 @@ public final class TestInvariantFilter {
       TestFailureLogParser.FailureMatch target,
       Map<UUID, String> idToMethod,
       List<String> trialLog,
-      TrialCounter trialCounter)
+      TrialCounter trialCounter,
+      long timeoutMinutes,
+      long staleCheckMinutes)
       throws IOException, InterruptedException {
 
     List<UUID> delta = new ArrayList<>(deltaInit);
@@ -439,7 +458,9 @@ public final class TestInvariantFilter {
                 idx,
                 originalLines,
                 target,
-                trialLog);
+                trialLog,
+                timeoutMinutes,
+                staleCheckMinutes);
         if (fail) {
           delta = new ArrayList<>(chunk);
           n = 2;
@@ -467,7 +488,9 @@ public final class TestInvariantFilter {
                   idx,
                   originalLines,
                   target,
-                  trialLog);
+                  trialLog,
+                  timeoutMinutes,
+                  staleCheckMinutes);
           if (fail) {
             delta = complement;
             n = Math.max(n - 1, 2);
@@ -504,7 +527,9 @@ public final class TestInvariantFilter {
       BlockIndex idx,
       Map<UUID, List<String>> originalLines,
       TestFailureLogParser.FailureMatch target,
-      List<String> trialLog)
+      List<String> trialLog,
+      long timeoutMinutes,
+      long staleCheckMinutes)
       throws IOException, InterruptedException {
 
     applyConfig(idx, originalLines, deltaAll, enabled);
@@ -523,7 +548,9 @@ public final class TestInvariantFilter {
             + "): executing, log -> "
             + trialLogFile);
 
-    MonitorResult mr = runMonitored(runnerScript, working, trialLogFile, shmDir, target);
+    MonitorResult mr =
+        runMonitored(
+            runnerScript, working, trialLogFile, shmDir, target, timeoutMinutes, staleCheckMinutes);
 
     String desc =
         "Trial "
@@ -655,101 +682,46 @@ public final class TestInvariantFilter {
   }
 
   /**
-   * Runs the external test runner while checking each line of its output, as it streams in, against
-   * {@code target}. The instant a line matches the <em>same</em> failure (see {@link
-   * TestFailureLogParser#isSameFailure}), the process is killed immediately — no need to wait for
-   * the rest of the suite, and no polling delay: detection latency is bounded only by how quickly
-   * the OS delivers the child process's output to this reader.
-   *
-   * <p>Falls back to a full-log scan after the process exits on its own, in case a matching line
-   * was written but not recognized in time (e.g. buffering) — so a genuine reproduction is never
-   * missed, just possibly detected a little later than the real-time path would.
+   * Runs the external test runner via {@link JavaRunner#runExternalScript}, the exact same shared
+   * run path (and its existing stale/hang-detector + hard-timeout protection) used for the original
+   * run — with real-time failure detection layered on as an addition to that existing path, not a
+   * separate implementation. The instant a streamed line matches the <em>same</em> failure (see
+   * {@link TestFailureLogParser#isSameFailure}), the process is killed immediately — no need to
+   * wait for the rest of the suite.
    *
    * @param script external test runner script
    * @param workDir working directory for execution
    * @param runLog output log file
    * @param shmDir shm directory for this run (already reset by the caller)
    * @param target the failure being chased; a run "reproduces" only if the same failure recurs
+   * @param timeoutMinutes wall-clock timeout, identical to the original run's
+   * @param staleCheckMinutes stale/hang-detection threshold, identical to the original run's
    * @return whether the target failure reproduced, and the run's exit code
    */
   private static MonitorResult runMonitored(
-      Path script, Path workDir, Path runLog, Path shmDir, TestFailureLogParser.FailureMatch target)
+      Path script,
+      Path workDir,
+      Path runLog,
+      Path shmDir,
+      TestFailureLogParser.FailureMatch target,
+      long timeoutMinutes,
+      long staleCheckMinutes)
       throws IOException, InterruptedException {
 
-    if (!Files.isRegularFile(script)) {
-      throw new IllegalArgumentException("[DP-TEST-FILTER] runner not found: " + script);
-    }
-    if (!Files.isExecutable(script)) {
-      throw new IllegalArgumentException("[DP-TEST-FILTER] runner not executable: " + script);
-    }
+    JavaRunner.RunResult result =
+        JavaRunner.runExternalScript(
+            script, workDir, "", runLog, timeoutMinutes, staleCheckMinutes, null, shmDir, target);
 
-    Files.createDirectories(Optional.ofNullable(runLog.getParent()).orElse(Path.of(".")));
-
-    Path invDir = workDir.resolve(".daikonpp-events");
-    Files.createDirectories(invDir);
-
-    ProcessBuilder pb = new ProcessBuilder(script.toAbsolutePath().toString());
-    pb.directory(workDir.toFile());
-    pb.redirectErrorStream(true);
-
-    Map<String, String> env = pb.environment();
-    env.put("DP_RUN_LOG", runLog.toAbsolutePath().toString());
-    env.put("DP_INV_DIR", invDir.toAbsolutePath().toString());
-
-    String shmPath = shmDir.toAbsolutePath().toString();
-    env.put("DP_SHM_DIR", shmPath);
-
-    String jvmArgs = "-DDP_INV_DIR=" + invDir.toAbsolutePath() + " -DDP_SHM_DIR=" + shmPath;
-    env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + jvmArgs).trim());
-    env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + jvmArgs).trim());
-    env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + jvmArgs).trim());
-
-    Process p = pb.start();
-
-    boolean reproduced = false;
+    boolean reproduced = result == JavaRunner.RunResult.TEST_FAILURE_KILLED;
     Optional<TestFailureLogParser.FailureMatch> matched = Optional.empty();
 
-    try (BufferedReader r =
-            new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
-        BufferedWriter w =
-            Files.newBufferedWriter(
-                runLog,
-                StandardCharsets.UTF_8,
-                StandardOpenOption.CREATE,
-                StandardOpenOption.TRUNCATE_EXISTING)) {
-
-      String line;
-      int lineNo = 0;
-      while ((line = r.readLine()) != null) {
-        lineNo++;
-        w.write(line);
-        w.newLine();
-        w.flush();
-
-        Optional<TestFailureLogParser.FailureMatch> m =
-            TestFailureLogParser.matchLine(line, lineNo);
-        if (m.isPresent() && TestFailureLogParser.isSameFailure(target, m.get())) {
-          matched = m;
-          reproduced = true;
-          p.destroyForcibly();
-          break;
-        }
-      }
-    }
-
-    int exit;
     if (reproduced) {
-      p.waitFor(); // ensure the forcibly-killed process is fully reaped
-      exit = -1;
-    } else {
-      exit = p.waitFor();
-    }
-
-    appendDpEvents(invDir, runLog);
-
-    if (!reproduced && exit != 0) {
-      // Safety net: exited non-zero without us catching a matching line in real time (e.g. the
-      // child buffered its output). Do one full-log scan before concluding it didn't reproduce.
+      // The kill was already confirmed line-by-line inside runExternalScript; re-derive the
+      // matched line from the log for logging/diagnostics purposes.
+      matched = TestFailureLogParser.firstFailure(readIfExists(runLog));
+    } else if (result == JavaRunner.RunResult.NORMAL) {
+      // Safety net: exited non-zero without the real-time path catching a matching line (e.g.
+      // buffering). Do one full-log scan before concluding it didn't reproduce.
       String fullText = readIfExists(runLog);
       Optional<TestFailureLogParser.FailureMatch> fallback =
           TestFailureLogParser.firstFailure(fullText);
@@ -759,14 +731,13 @@ public final class TestInvariantFilter {
       }
     }
 
-    if (exit != 0) {
-      Files.writeString(
-          runLog,
-          "\n[DP-TEST-FILTER] External runner exited with code " + exit + "\n",
-          StandardCharsets.UTF_8,
-          StandardOpenOption.CREATE,
-          StandardOpenOption.APPEND);
-    }
+    // runExternalScript doesn't return the child's raw exit code; recover pass/fail from the same
+    // marker it appends to the log whenever the exit code is non-zero (exitedNonZero() below),
+    // which every other exit-status check in this class already relies on.
+    int exit =
+        reproduced
+            ? -1
+            : (result == JavaRunner.RunResult.NORMAL && !exitedNonZero(runLog) ? 0 : -1);
 
     return new MonitorResult(reproduced, exit, matched);
   }
@@ -951,117 +922,36 @@ public final class TestInvariantFilter {
   }
 
   /**
-   * Executes an external test runner script and captures its output, waiting for it to run to
-   * completion (no real-time detection) — used for the final confirming run once the culprit set is
-   * already known.
+   * Executes an external test runner script via {@link JavaRunner#runExternalScript} — the same
+   * shared run path (with its stale/hang-detector + hard-timeout protection) used for the original
+   * run — waiting for it to run to completion with no real-time failure detection (no target to
+   * watch for). Used for the confirming reruns once a round's culprit set is already known.
    *
    * @param script executable test runner script
    * @param workDir working directory for execution
    * @param runLog output log file
    * @param shmDir shm directory for this run (already created/reset by the caller)
-   * @return exit code of the test run
+   * @param timeoutMinutes wall-clock timeout, identical to the original run's
+   * @param staleCheckMinutes stale/hang-detection threshold, identical to the original run's
+   * @return exit code of the test run (0 for a clean pass, -1 for any non-normal outcome)
    * @throws IOException if execution fails
    * @throws InterruptedException if execution is interrupted
    */
-  private static int runExternalTestRunner(Path script, Path workDir, Path runLog, Path shmDir)
+  private static int runExternalTestRunner(
+      Path script,
+      Path workDir,
+      Path runLog,
+      Path shmDir,
+      long timeoutMinutes,
+      long staleCheckMinutes)
       throws IOException, InterruptedException {
 
-    if (!Files.isRegularFile(script)) {
-      throw new IllegalArgumentException("[DP-TEST-FILTER] runner not found: " + script);
-    }
+    JavaRunner.RunResult result =
+        JavaRunner.runExternalScript(
+            script, workDir, "", runLog, timeoutMinutes, staleCheckMinutes, null, shmDir);
 
-    if (!Files.isExecutable(script)) {
-      throw new IllegalArgumentException("[DP-TEST-FILTER] runner not executable: " + script);
-    }
-
-    Files.createDirectories(Optional.ofNullable(runLog.getParent()).orElse(Path.of(".")));
-
-    Path invDir = workDir.resolve(".daikonpp-events");
-    Files.createDirectories(invDir);
-
-    ProcessBuilder pb = new ProcessBuilder(script.toAbsolutePath().toString());
-    pb.directory(workDir.toFile());
-    pb.redirectErrorStream(true);
-
-    Map<String, String> env = pb.environment();
-    env.put("DP_RUN_LOG", runLog.toAbsolutePath().toString());
-    env.put("DP_INV_DIR", invDir.toAbsolutePath().toString());
-
-    String shmPath = shmDir.toAbsolutePath().toString();
-    env.put("DP_SHM_DIR", shmPath);
-
-    String jvmArgs = "-DDP_INV_DIR=" + invDir.toAbsolutePath() + " -DDP_SHM_DIR=" + shmPath;
-
-    env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + jvmArgs).trim());
-    env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + jvmArgs).trim());
-    env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + jvmArgs).trim());
-
-    Process p = pb.start();
-
-    try (BufferedReader r =
-            new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
-        BufferedWriter w =
-            Files.newBufferedWriter(
-                runLog,
-                StandardCharsets.UTF_8,
-                StandardOpenOption.CREATE,
-                StandardOpenOption.TRUNCATE_EXISTING)) {
-
-      String line;
-      while ((line = r.readLine()) != null) {
-        w.write(line);
-        w.newLine();
-        w.flush();
-      }
-    }
-
-    int exit = p.waitFor();
-
-    appendDpEvents(invDir, runLog);
-
-    if (exit != 0) {
-      Files.writeString(
-          runLog,
-          "\n[DP-TEST-FILTER] External runner exited with code " + exit + "\n",
-          StandardCharsets.UTF_8,
-          StandardOpenOption.CREATE,
-          StandardOpenOption.APPEND);
-    }
-
-    return exit;
-  }
-
-  /**
-   * Appends recorded invariant event files to the main run log.
-   *
-   * @param invDir directory containing event files
-   * @param runLog log file to append to
-   */
-  private static void appendDpEvents(Path invDir, Path runLog) {
-    try {
-      if (!Files.isDirectory(invDir)) return;
-
-      List<Path> files = new ArrayList<>();
-
-      try (var s = Files.list(invDir)) {
-        s.filter(
-                p -> {
-                  Path name = p.getFileName();
-                  return name != null && name.toString().startsWith("dp-events-");
-                })
-            .sorted()
-            .forEach(files::add);
-      }
-
-      for (Path f : files) {
-        Files.writeString(
-            runLog,
-            Files.readString(f, StandardCharsets.UTF_8),
-            StandardOpenOption.CREATE,
-            StandardOpenOption.APPEND);
-      }
-    } catch (Exception ignored) {
-    }
+    if (result != JavaRunner.RunResult.NORMAL) return -1;
+    return exitedNonZero(runLog) ? -1 : 0;
   }
 
   /**
