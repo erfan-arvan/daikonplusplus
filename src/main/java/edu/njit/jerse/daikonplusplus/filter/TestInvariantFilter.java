@@ -31,13 +31,22 @@ import java.util.regex.*;
  *
  * <p>From there, <a href="https://www.debuggingbook.org/html/DeltaDebugger.html">delta
  * debugging</a> ({@code ddmin}) isolates a 1-minimal culprit set: candidates are disabled/enabled
- * in shrinking, targeted subsets, each checked with a real-time monitored rerun on its own fresh,
- * disposable clone of the project — never a shared, progressively-mutated working copy, so a
- * rerun's environment can never be polluted by whatever an earlier rerun left behind — as the
- * runner's output streams in, each line is checked against the same failure signature, and the
- * instant the <em>same</em> failure (see {@link TestFailureLogParser#isSameFailure}) reappears, the
- * process is killed immediately rather than waiting for the rest of the trial's suite run to
- * finish.
+ * in shrinking, targeted subsets, each checked with a real-time monitored rerun directly against
+ * {@code injectedProjectRoot}'s own already-built working directory — the same directory the main
+ * pipeline's own recovery loop reuses across its iterations — with which invariants are active
+ * driven purely at runtime via {@code DP_DISABLED_FILE} ({@code daikonpp.DpRuntime.DISABLED}),
+ * never by editing source. A previous version of this class cloned a fresh, disposable copy of the
+ * project and commented invariant blocks out of its source for every single trial; that guaranteed
+ * every trial re-paid a full, cold recompile from scratch, which is exactly the condition under
+ * which the main pipeline's own first two recovery iterations also stalled — its third iteration
+ * only got past that same stall because it reused an already-compiled, warm build. Disabling via
+ * {@code DP_DISABLED_FILE} only ever removes an invariant check from running — it can never
+ * introduce new behavior — so reusing one warm working directory across every trial is safe, and
+ * lets every trial run under the same warm conditions the main pipeline's recovery loop enjoys
+ * instead of always repeating its first, cold attempt. As the runner's output streams in, each line
+ * is checked against the same failure signature, and the instant the <em>same</em> failure (see
+ * {@link TestFailureLogParser#isSameFailure}) reappears, the process is killed immediately rather
+ * than waiting for the rest of the trial's suite run to finish.
  *
  * <p>Before trusting that search, each failure is sanity-checked: disabling <em>every</em>
  * candidate invariant must actually make it stop reproducing. If it doesn't — e.g. a build/lint
@@ -51,8 +60,10 @@ import java.util.regex.*;
  * running {@code ddmin} again — continuing until a rerun shows no more recognized failures, a
  * failure turns out not to be attributable, or a safety cap on rounds is hit.
  *
- * <p>The process operates on copies of the project to avoid mutating the original injected code and
- * uses marker-based regions to selectively disable invariants.
+ * <p>Every trial and confirming rerun above executes directly against {@code injectedProjectRoot};
+ * none of them ever edit its source. Only the final result (see {@link Result#finalProjectRoot}) is
+ * built as a fresh copy with the isolated culprit set's marker-based regions actually commented out
+ * of the source, once, at the very end.
  */
 public final class TestInvariantFilter {
 
@@ -681,54 +692,66 @@ public final class TestInvariantFilter {
       }
     }
 
-    Path trialCopy = freshCopy(injectedProjectRoot, "test-filter-trial");
-    try {
-      Path trialMainSrc =
-          trialCopy.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
-      disableBlocks(idx, toDisable, trialMainSrc);
-      resetShmDir(shmDir);
+    // Run directly against the already-built injectedProjectRoot instead of a fresh clone that
+    // forces a full, cold recompile of the whole instrumented tree every trial. Which invariants
+    // are active is driven purely at runtime via DP_DISABLED_FILE (daikonpp.DpRuntime.DISABLED),
+    // the exact same mechanism App's own recovery loop uses across its iterations — never a
+    // source edit, so there is no "pristine copy" to protect and nothing to recompile. Disabling
+    // only ever removes an invariant check from running; it can never introduce new behavior, so
+    // reusing one warm, already-compiled working directory across every trial is safe. This is
+    // what let the main pipeline's own recovery loop (same project dir reused, iterations 1-3)
+    // get past a stale point that no fresh-clone-and-recompile trial ever could within the same
+    // stale-threshold budget — the fresh-clone approach was re-paying iteration 1's cold-start
+    // cost on every single trial instead of ever reaching iteration 3's warm state.
+    Path disabledFile =
+        writeDisabledFile(sessionDir, "daikonpp-disabled-trial" + trialNum + ".txt", toDisable);
+    resetShmDir(shmDir);
 
-      Path trialLogFile = sessionDir.resolve("daikonpp-test-filter-ddmin" + trialNum + ".log");
-      System.out.println(
-          "[DP-TEST-FILTER] Trial "
-              + trialNum
-              + " ("
-              + kind
-              + " "
-              + chunk.size()
-              + " of "
-              + deltaAll.size()
-              + "): executing on pristine clone "
-              + trialCopy
-              + " (stale threshold "
-              + staleBudget.minutes
-              + " min), log -> "
-              + trialLogFile);
+    Path trialLogFile = sessionDir.resolve("daikonpp-test-filter-ddmin" + trialNum + ".log");
+    System.out.println(
+        "[DP-TEST-FILTER] Trial "
+            + trialNum
+            + " ("
+            + kind
+            + " "
+            + chunk.size()
+            + " of "
+            + deltaAll.size()
+            + "): executing against warm build "
+            + injectedProjectRoot
+            + " (stale threshold "
+            + staleBudget.minutes
+            + " min), log -> "
+            + trialLogFile);
 
-      MonitorResult mr =
-          runMonitored(
-              runnerScript, trialCopy, trialLogFile, shmDir, target, timeoutMinutes, staleBudget);
+    MonitorResult mr =
+        runMonitored(
+            runnerScript,
+            injectedProjectRoot,
+            trialLogFile,
+            shmDir,
+            disabledFile,
+            target,
+            timeoutMinutes,
+            staleBudget);
 
-      String desc =
-          "Trial "
-              + trialNum
-              + " ("
-              + kind
-              + " "
-              + chunk.size()
-              + " of "
-              + deltaAll.size()
-              + "): "
-              + (mr.reproduced ? "FAIL (reproduced)" : "no reproduction")
-              + " exit="
-              + mr.exitCode;
-      trialLog.add(desc);
-      System.out.println("[DP-TEST-FILTER]   -> " + desc);
+    String desc =
+        "Trial "
+            + trialNum
+            + " ("
+            + kind
+            + " "
+            + chunk.size()
+            + " of "
+            + deltaAll.size()
+            + "): "
+            + (mr.reproduced ? "FAIL (reproduced)" : "no reproduction")
+            + " exit="
+            + mr.exitCode;
+    trialLog.add(desc);
+    System.out.println("[DP-TEST-FILTER]   -> " + desc);
 
-      return mr.reproduced;
-    } finally {
-      deleteTreeQuietly(trialCopy);
-    }
+    return mr.reproduced;
   }
 
   /** Splits {@code list} into {@code n} contiguous, roughly-equal, non-empty chunks. */
@@ -840,6 +863,7 @@ public final class TestInvariantFilter {
       Path workDir,
       Path runLog,
       Path shmDir,
+      Path disabledFile,
       TestFailureLogParser.FailureMatch target,
       long timeoutMinutes,
       StaleBudget staleBudget)
@@ -847,7 +871,15 @@ public final class TestInvariantFilter {
 
     JavaRunner.RunResult result =
         JavaRunner.runExternalScript(
-            script, workDir, "", runLog, timeoutMinutes, staleBudget.minutes, null, shmDir, target);
+            script,
+            workDir,
+            "",
+            runLog,
+            timeoutMinutes,
+            staleBudget.minutes,
+            disabledFile,
+            shmDir,
+            target);
 
     if (result == JavaRunner.RunResult.STALE_KILLED
         || result == JavaRunner.RunResult.HARD_TIMEOUT) {
@@ -905,6 +937,24 @@ public final class TestInvariantFilter {
       }
       Files.createDirectories(dir);
     }
+  }
+
+  /**
+   * Writes {@code disabled} (one UUID per line) to {@code sessionDir}/{@code name}, for use as a
+   * {@code DP_DISABLED_FILE} — the same runtime skip-list mechanism {@link
+   * JavaRunner#disableInvariant} writes for the main pipeline's recovery loop. Each call writes a
+   * distinct file (named per trial/attempt) so a run's log/shm can always be correlated back to
+   * exactly which set was active for it.
+   */
+  private static Path writeDisabledFile(Path sessionDir, String name, Set<UUID> disabled)
+      throws IOException {
+    Path file = sessionDir.resolve(name);
+    List<String> lines = new ArrayList<>(disabled.size());
+    for (UUID id : disabled) {
+      lines.add(id.toString());
+    }
+    Files.write(file, lines, StandardCharsets.UTF_8);
+    return file;
   }
 
   private static String readIfExists(Path file) throws IOException {
@@ -1116,6 +1166,7 @@ public final class TestInvariantFilter {
       Path workDir,
       Path runLog,
       Path shmDir,
+      Path disabledFile,
       long timeoutMinutes,
       long staleCheckMinutes)
       throws IOException, InterruptedException {
@@ -1131,7 +1182,7 @@ public final class TestInvariantFilter {
             runLog,
             timeoutMinutes,
             staleCheckMinutes,
-            null,
+            disabledFile,
             shmDir,
             null,
             true,
@@ -1208,20 +1259,23 @@ public final class TestInvariantFilter {
               + " min), log -> "
               + roundLog);
 
-      // Fresh pristine clone for this attempt too — an inconclusive stale/hung retry must not
-      // reuse the same (possibly now-polluted) directory the previous attempt just got killed in.
-      Path trialCopy = freshCopy(injectedProjectRoot, "test-filter-confirm");
-      ConfirmResult result;
-      try {
-        Path trialMainSrc =
-            trialCopy.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
-        disableBlocks(idx, disabledSoFar, trialMainSrc);
-        result =
-            runExternalTestRunner(
-                runnerScript, trialCopy, roundLog, shmDir, timeoutMinutes, staleBudget.minutes);
-      } finally {
-        deleteTreeQuietly(trialCopy);
-      }
+      // Run against the same already-built injectedProjectRoot every attempt — see testConfig()
+      // for why this is safe (disabling is a pure runtime DP_DISABLED_FILE skip, never a source
+      // edit) and why it matters (avoids re-paying a full cold recompile on every retry).
+      Path disabledFile =
+          writeDisabledFile(
+              sessionDir,
+              "daikonpp-disabled-round" + round + "-confirm" + attempt + ".txt",
+              disabledSoFar);
+      ConfirmResult result =
+          runExternalTestRunner(
+              runnerScript,
+              injectedProjectRoot,
+              roundLog,
+              shmDir,
+              disabledFile,
+              timeoutMinutes,
+              staleBudget.minutes);
 
       boolean inconclusive =
           result.runResult == JavaRunner.RunResult.STALE_KILLED
