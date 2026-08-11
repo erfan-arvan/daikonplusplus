@@ -707,36 +707,39 @@ public final class TestInvariantFilter {
       }
     }
 
-    // Run directly against the already-built injectedProjectRoot instead of a fresh clone that
-    // forces a full, cold recompile of the whole instrumented tree every trial. Which invariants
-    // are active is driven purely at runtime via DP_DISABLED_FILE (daikonpp.DpRuntime.DISABLED),
-    // the exact same mechanism App's own recovery loop uses across its iterations — never a
-    // source edit, so there is no "pristine copy" to protect and nothing to recompile. Disabling
-    // only ever removes an invariant check from running; it can never introduce new behavior, so
-    // reusing one warm, already-compiled working directory across every trial is safe. This is
-    // what let the main pipeline's own recovery loop (same project dir reused, iterations 1-3)
-    // get past a stale point that no fresh-clone-and-recompile trial ever could within the same
-    // stale-threshold budget — the fresh-clone approach was re-paying iteration 1's cold-start
-    // cost on every single trial instead of ever reaching iteration 3's warm state.
+    // Give this trial its own fresh copy of injectedProjectRoot — the same starting condition
+    // the main pipeline's own initial run gets (a pristine copy, never before executed against).
+    // copyTree() copies build/ along with everything else, so the copy still carries
+    // injectedProjectRoot's already-compiled classes (no cold recompile) — what it does NOT carry
+    // is any of Gradle's incremental-build/test-result/daemon-lock state that running dozens of
+    // trials back-to-back in one shared directory accumulates. Which invariants are active is
+    // still driven purely at runtime via DP_DISABLED_FILE (daikonpp.DpRuntime.DISABLED), never a
+    // source edit, so the copy's source is untouched. Deleted right after the trial finishes.
     Path disabledFile =
         writeDisabledFile(sessionDir, "daikonpp-disabled-trial" + trialNum + ".txt", toDisable);
     resetShmDir(shmDir);
 
-    MonitorResult mr =
-        runTrialWithRetries(
-            trialNum,
-            kind,
-            chunk.size(),
-            deltaAll.size(),
-            runnerScript,
-            injectedProjectRoot,
-            disabledFile,
-            shmDir,
-            target,
-            sessionDir,
-            timeoutMinutes,
-            staleBudget,
-            alreadyDisabled);
+    Path trialWorkDir = freshCopy(injectedProjectRoot, "test-filter-trial" + trialNum);
+    MonitorResult mr;
+    try {
+      mr =
+          runTrialWithRetries(
+              trialNum,
+              kind,
+              chunk.size(),
+              deltaAll.size(),
+              runnerScript,
+              trialWorkDir,
+              disabledFile,
+              shmDir,
+              target,
+              sessionDir,
+              timeoutMinutes,
+              staleBudget,
+              alreadyDisabled);
+    } finally {
+      deleteTreeQuietly(trialWorkDir);
+    }
 
     String desc =
         "Trial "
@@ -1401,23 +1404,31 @@ public final class TestInvariantFilter {
               + " min), log -> "
               + roundLog);
 
-      // Run against the same already-built injectedProjectRoot every attempt — see testConfig()
-      // for why this is safe (disabling is a pure runtime DP_DISABLED_FILE skip, never a source
-      // edit) and why it matters (avoids re-paying a full cold recompile on every retry).
+      // Fresh copy per attempt — see testConfig() for why: a pristine copy of
+      // injectedProjectRoot's already-compiled classes (no cold recompile), but none of the
+      // incremental-build/test-result state that reusing one shared directory across every
+      // round/attempt in this call accumulates.
       Path disabledFile =
           writeDisabledFile(
               sessionDir,
               "daikonpp-disabled-round" + round + "-confirm" + attempt + ".txt",
               disabledSoFar);
-      ConfirmResult result =
-          runExternalTestRunner(
-              runnerScript,
-              injectedProjectRoot,
-              roundLog,
-              shmDir,
-              disabledFile,
-              timeoutMinutes,
-              staleBudget.minutes);
+      Path confirmWorkDir =
+          freshCopy(injectedProjectRoot, "test-filter-round" + round + "-confirm" + attempt);
+      ConfirmResult result;
+      try {
+        result =
+            runExternalTestRunner(
+                runnerScript,
+                confirmWorkDir,
+                roundLog,
+                shmDir,
+                disabledFile,
+                timeoutMinutes,
+                staleBudget.minutes);
+      } finally {
+        deleteTreeQuietly(confirmWorkDir);
+      }
 
       boolean inconclusive =
           result.runResult == JavaRunner.RunResult.STALE_KILLED
