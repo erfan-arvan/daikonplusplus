@@ -180,13 +180,20 @@ public final class TestInvariantFilter {
     // the pristine mainSrcRoot — no working copy needed just to scan it.
     BlockIndex idx = scanInvariantBlocks(mainSrcRoot);
 
-    // Lightweight session directory: holds only trial logs and the shared shm scratch dir, never
-    // a project copy, so it stays cheap to keep around for the whole call.
+    // Lightweight session directory: holds only trial logs, never a project copy, so it stays
+    // cheap to keep around for the whole call.
     Path sessionDir =
         Files.createTempDirectory(sessionParentDir(injectedProjectRoot), "test-filter-session-");
-    Path shmDir = sessionDir.resolve(".daikonpp-test-filter-shm");
+    // shmDir must live on tmpfs (/dev/shm), exactly like App's own main recovery loop picks for
+    // the initial run (see App.java's DP_SHM_BASE/"/dev/shm" selection) — not under sessionDir,
+    // which sits on the same scratch/network filesystem as the project itself. Every invariant
+    // check does a real file create/delete against this directory (recordExecuted/markCurrent/
+    // clearCurrent), so putting it on scratch instead of tmpfs was a real, standing difference
+    // between how a trial runs versus how the initial run runs.
+    Path shmDir = resolveShmDir(injectedProjectRoot);
     Files.createDirectories(shmDir);
-    System.out.println("[DP-TEST-FILTER] Session dir (logs + shm only): " + sessionDir);
+    System.out.println("[DP-TEST-FILTER] Session dir (logs only): " + sessionDir);
+    System.out.println("[DP-TEST-FILTER] shm dir (tmpfs): " + shmDir);
 
     Set<UUID> disabledSoFar = new LinkedHashSet<>();
     List<String> allTrialLog = new ArrayList<>();
@@ -1520,6 +1527,26 @@ public final class TestInvariantFilter {
   private static Path sessionParentDir(Path snapshot) {
     Path parent = snapshot.getParent();
     return parent != null ? parent : Path.of(System.getProperty("java.io.tmpdir"));
+  }
+
+  /**
+   * Picks a tmpfs-backed shm directory for this call's trials, using the exact same selection
+   * {@code App}'s own main recovery loop uses for the initial run: {@code DP_SHM_BASE} if set,
+   * otherwise {@code /dev/shm} if writable. Falls back to a directory under {@code
+   * sessionParentDir} only if neither is available (e.g. a sandbox with no tmpfs), matching App's
+   * own log-only-fallback behavior in spirit.
+   */
+  private static Path resolveShmDir(Path injectedProjectRoot) {
+    String shmBase = System.getenv("DP_SHM_BASE");
+    if (shmBase != null && !shmBase.isBlank()) {
+      return Path.of(shmBase).resolve("daikonpp-test-filter-" + ProcessHandle.current().pid());
+    }
+    Path devShm = Path.of("/dev/shm");
+    if (Files.isDirectory(devShm) && Files.isWritable(devShm)) {
+      return devShm.resolve("daikonpp-test-filter-" + ProcessHandle.current().pid());
+    }
+    return sessionParentDir(injectedProjectRoot)
+        .resolve("daikonpp-test-filter-shm-" + ProcessHandle.current().pid());
   }
 
   /** Recursively deletes a directory tree, logging (not throwing) on failure. */
