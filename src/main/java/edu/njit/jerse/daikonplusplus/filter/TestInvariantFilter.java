@@ -652,17 +652,25 @@ public final class TestInvariantFilter {
     return delta;
   }
 
+  /** How many times one trial's stale/inconclusive kill is retried before giving up on it. */
+  private static final int MAX_TRIAL_STALE_RETRIES = 5;
+
   /**
    * Runs one ddmin trial configuration (exactly {@code enabled} from {@code deltaAll} is enabled,
-   * the rest — plus everything already disabled in an earlier round — is disabled) on a brand-new
-   * pristine clone of {@code injectedProjectRoot}, with real-time monitoring, and records the
-   * outcome.
+   * the rest — plus everything already disabled in an earlier round — is disabled) against {@code
+   * injectedProjectRoot}'s own already-built working directory, with real-time monitoring, and
+   * records the outcome.
    *
-   * <p>Cloning fresh for every single trial (rather than reusing one working copy across all of
-   * them, mutating it in place each time) means every rerun's starting environment — build/test
-   * caches, incremental-compile state, anything a previous killed run's process tree left behind —
-   * is exactly as clean as the very first run's, never accumulating pollution from trials that ran
-   * before it in the same directory.
+   * <p>Retries on an inconclusive kill (stale/hard-timeout) up to {@link #MAX_TRIAL_STALE_RETRIES}
+   * times, same as {@link #confirmRoundClean} already does for confirming reruns — an unrelated
+   * slow/hung spot elsewhere in the suite proves nothing about whether {@code target} reproduces
+   * under this configuration, so one inconclusive kill must not be recorded as "no reproduction".
+   * {@code shmDir} is reset once, before the first attempt, and deliberately <em>not</em> reset
+   * between retries of this same trial: every retry keeps the same enabled/disabled set, so an
+   * invariant that already fired safely in an earlier attempt staying memoized as {@code SEEN} (and
+   * so skipped, inert, on the retry) changes nothing about what this trial is testing — it's the
+   * same mechanism (shm never reset across iterations) that lets the main pipeline's own recovery
+   * loop get past a stale point a single cold attempt can't.
    *
    * @return true if the target failure reproduced with this configuration
    */
@@ -707,31 +715,18 @@ public final class TestInvariantFilter {
         writeDisabledFile(sessionDir, "daikonpp-disabled-trial" + trialNum + ".txt", toDisable);
     resetShmDir(shmDir);
 
-    Path trialLogFile = sessionDir.resolve("daikonpp-test-filter-ddmin" + trialNum + ".log");
-    System.out.println(
-        "[DP-TEST-FILTER] Trial "
-            + trialNum
-            + " ("
-            + kind
-            + " "
-            + chunk.size()
-            + " of "
-            + deltaAll.size()
-            + "): executing against warm build "
-            + injectedProjectRoot
-            + " (stale threshold "
-            + staleBudget.minutes
-            + " min), log -> "
-            + trialLogFile);
-
     MonitorResult mr =
-        runMonitored(
+        runTrialWithRetries(
+            trialNum,
+            kind,
+            chunk.size(),
+            deltaAll.size(),
             runnerScript,
             injectedProjectRoot,
-            trialLogFile,
-            shmDir,
             disabledFile,
+            shmDir,
             target,
+            sessionDir,
             timeoutMinutes,
             staleBudget);
 
@@ -752,6 +747,96 @@ public final class TestInvariantFilter {
     System.out.println("[DP-TEST-FILTER]   -> " + desc);
 
     return mr.reproduced;
+  }
+
+  /**
+   * Runs one trial configuration, retrying on an inconclusive kill (stale/hard-timeout) up to
+   * {@link #MAX_TRIAL_STALE_RETRIES} times — see {@link #testConfig} for why. {@code shmDir} is
+   * <em>not</em> reset between attempts here (the caller already reset it once, before the first
+   * attempt): every retry keeps the same {@code disabledFile}, so accumulating {@code SEEN} state
+   * across retries only ever makes an already-proven-safe invariant inert on a later attempt,
+   * exactly like the main pipeline's own recovery loop.
+   */
+  private static MonitorResult runTrialWithRetries(
+      int trialNum,
+      String kind,
+      int chunkSize,
+      int deltaAllSize,
+      Path runnerScript,
+      Path injectedProjectRoot,
+      Path disabledFile,
+      Path shmDir,
+      TestFailureLogParser.FailureMatch target,
+      Path sessionDir,
+      long timeoutMinutes,
+      StaleBudget staleBudget)
+      throws IOException, InterruptedException {
+
+    for (int attempt = 1; ; attempt++) {
+      Path trialLogFile =
+          sessionDir.resolve(
+              "daikonpp-test-filter-ddmin"
+                  + trialNum
+                  + (attempt > 1 ? "-retry" + attempt : "")
+                  + ".log");
+      System.out.println(
+          "[DP-TEST-FILTER] Trial "
+              + trialNum
+              + " ("
+              + kind
+              + " "
+              + chunkSize
+              + " of "
+              + deltaAllSize
+              + "): executing against warm build "
+              + injectedProjectRoot
+              + " (attempt "
+              + attempt
+              + "/"
+              + MAX_TRIAL_STALE_RETRIES
+              + ", stale threshold "
+              + staleBudget.minutes
+              + " min), log -> "
+              + trialLogFile);
+
+      MonitorResult mr =
+          runMonitored(
+              runnerScript,
+              injectedProjectRoot,
+              trialLogFile,
+              shmDir,
+              disabledFile,
+              target,
+              timeoutMinutes,
+              staleBudget);
+
+      boolean inconclusive =
+          mr.runResult == JavaRunner.RunResult.STALE_KILLED
+              || mr.runResult == JavaRunner.RunResult.HARD_TIMEOUT;
+
+      if (!inconclusive || attempt >= MAX_TRIAL_STALE_RETRIES) {
+        if (inconclusive) {
+          System.out.println(
+              "[DP-TEST-FILTER] Trial "
+                  + trialNum
+                  + ": still inconclusive after "
+                  + MAX_TRIAL_STALE_RETRIES
+                  + " attempts — recording as no reproduction, but this configuration was never "
+                  + "actually confirmed clean");
+        }
+        return mr;
+      }
+
+      System.out.println(
+          "[DP-TEST-FILTER] Trial "
+              + trialNum
+              + ": inconclusive ("
+              + mr.runResult
+              + ") — retrying this same configuration (shm not reset, so anything that already "
+              + "fired safely stays memoized) with stale threshold "
+              + staleBudget.minutes
+              + " min");
+    }
   }
 
   /** Splits {@code list} into {@code n} contiguous, roughly-equal, non-empty chunks. */
