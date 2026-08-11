@@ -728,7 +728,8 @@ public final class TestInvariantFilter {
             target,
             sessionDir,
             timeoutMinutes,
-            staleBudget);
+            staleBudget,
+            alreadyDisabled);
 
     String desc =
         "Trial "
@@ -756,6 +757,12 @@ public final class TestInvariantFilter {
    * attempt): every retry keeps the same {@code disabledFile}, so accumulating {@code SEEN} state
    * across retries only ever makes an already-proven-safe invariant inert on a later attempt,
    * exactly like the main pipeline's own recovery loop.
+   *
+   * <p>On each inconclusive kill, the invariant that was actually stuck (per {@code shm/current/})
+   * is identified and permanently disabled — in {@code disabledFile} for this trial's own next
+   * attempt, and in {@code globalDisabled} for every later trial and round in this call — instead
+   * of being merely reruled-on via SEEN memoization. This mirrors {@code App}'s own recovery loop,
+   * which never rewaits on the same stuck invariant twice.
    */
   private static MonitorResult runTrialWithRetries(
       int trialNum,
@@ -769,7 +776,8 @@ public final class TestInvariantFilter {
       TestFailureLogParser.FailureMatch target,
       Path sessionDir,
       long timeoutMinutes,
-      StaleBudget staleBudget)
+      StaleBudget staleBudget,
+      Set<UUID> globalDisabled)
       throws IOException, InterruptedException {
 
     for (int attempt = 1; ; attempt++) {
@@ -814,16 +822,20 @@ public final class TestInvariantFilter {
           mr.runResult == JavaRunner.RunResult.STALE_KILLED
               || mr.runResult == JavaRunner.RunResult.HARD_TIMEOUT;
 
-      if (!inconclusive || attempt >= MAX_TRIAL_STALE_RETRIES) {
-        if (inconclusive) {
-          System.out.println(
-              "[DP-TEST-FILTER] Trial "
-                  + trialNum
-                  + ": still inconclusive after "
-                  + MAX_TRIAL_STALE_RETRIES
-                  + " attempts — recording as no reproduction, but this configuration was never "
-                  + "actually confirmed clean");
-        }
+      if (!inconclusive) {
+        return mr;
+      }
+
+      Optional<UUID> stuckId = disableStuckInvariant(shmDir, disabledFile, globalDisabled);
+
+      if (attempt >= MAX_TRIAL_STALE_RETRIES) {
+        System.out.println(
+            "[DP-TEST-FILTER] Trial "
+                + trialNum
+                + ": still inconclusive after "
+                + MAX_TRIAL_STALE_RETRIES
+                + " attempts — recording as no reproduction, but this configuration was never "
+                + "actually confirmed clean");
         return mr;
       }
 
@@ -832,11 +844,49 @@ public final class TestInvariantFilter {
               + trialNum
               + ": inconclusive ("
               + mr.runResult
-              + ") — retrying this same configuration (shm not reset, so anything that already "
-              + "fired safely stays memoized) with stale threshold "
+              + ") — retrying this same configuration"
+              + (stuckId.isPresent()
+                  ? " with " + stuckId.get() + " now disabled"
+                  : " (shm not reset, so anything that already fired safely stays memoized)")
+              + " with stale threshold "
               + staleBudget.minutes
               + " min");
     }
+  }
+
+  /**
+   * On an inconclusive (stale/hard-timeout) kill, identifies the invariant that was mid-evaluation
+   * from {@code shmDir}'s {@code current/} marker — written before eval, deleted after, so it
+   * survives the SIGKILL — the exact same mechanism {@link edu.njit.jerse.daikonplusplus.App}'s own
+   * recovery loop uses to find a stuck invariant. If found, it is disabled in two places: {@code
+   * disabledFile} (so an immediate retry of this same trial excludes it) and {@code globalDisabled}
+   * — the one set shared across every trial and round in this {@link #run} call — so it stays
+   * excluded from every later trial too, in this round and any round after it, instead of being
+   * rediscovered and re-waited-on from scratch each time.
+   *
+   * @return the identified stuck UUID, if any
+   */
+  private static Optional<UUID> disableStuckInvariant(
+      Path shmDir, Path disabledFile, Set<UUID> globalDisabled) throws IOException {
+    Optional<UUID> stuckId = LogParser.readCurrentInvariantFromShm(shmDir);
+    if (stuckId.isPresent()) {
+      UUID id = stuckId.get();
+      System.out.println(
+          "[DP-TEST-FILTER] Stuck invariant identified from shm/current/: "
+              + id
+              + " — disabling permanently for the rest of this call");
+      JavaRunner.disableInvariant(disabledFile, id);
+      globalDisabled.add(id);
+      try {
+        Files.deleteIfExists(shmDir.resolve("current").resolve(id.toString()));
+      } catch (IOException ignored) {
+      }
+    } else {
+      System.out.println(
+          "[DP-TEST-FILTER] Inconclusive kill but no stuck invariant found in shm/current/ — "
+              + "SEEN pre-population will still skip already-checked invariants on retry");
+    }
+    return stuckId;
   }
 
   /** Splits {@code list} into {@code n} contiguous, roughly-equal, non-empty chunks. */
@@ -1366,20 +1416,24 @@ public final class TestInvariantFilter {
           result.runResult == JavaRunner.RunResult.STALE_KILLED
               || result.runResult == JavaRunner.RunResult.HARD_TIMEOUT;
 
-      if (inconclusive) {
-        staleBudget.escalate();
+      if (!inconclusive) {
+        return result;
       }
 
-      if (!inconclusive || attempt >= MAX_CONFIRM_STALE_RETRIES) {
-        if (inconclusive) {
-          System.out.println(
-              "[DP-TEST-FILTER] Round "
-                  + round
-                  + ": confirming run still inconclusive after "
-                  + MAX_CONFIRM_STALE_RETRIES
-                  + " attempts — giving up; the suite's clean/failing status could not be "
-                  + "verified");
-        }
+      staleBudget.escalate();
+      // disabledSoFar is the same shared set threaded through every trial/round in this call, so
+      // permanently disabling the stuck invariant here also excludes it from every later ddmin
+      // trial and round — not just this confirming rerun's own retries.
+      Optional<UUID> stuckId = disableStuckInvariant(shmDir, disabledFile, disabledSoFar);
+
+      if (attempt >= MAX_CONFIRM_STALE_RETRIES) {
+        System.out.println(
+            "[DP-TEST-FILTER] Round "
+                + round
+                + ": confirming run still inconclusive after "
+                + MAX_CONFIRM_STALE_RETRIES
+                + " attempts — giving up; the suite's clean/failing status could not be "
+                + "verified");
         return result;
       }
 
@@ -1388,8 +1442,11 @@ public final class TestInvariantFilter {
               + round
               + ": confirming run inconclusive ("
               + result.runResult
-              + ") — an unrelated stale/hung test, not the target failure; retrying with stale "
-              + "threshold "
+              + ") — "
+              + (stuckId.isPresent()
+                  ? "disabled stuck invariant " + stuckId.get()
+                  : "an unrelated stale/hung test, not the target failure")
+              + "; retrying with stale threshold "
               + staleBudget.minutes
               + " min");
     }
