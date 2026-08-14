@@ -1080,8 +1080,27 @@ public final class App {
       System.out.println(">>> TEST-FILTER FINAL PROJECT: " + filterResult.finalProjectRoot);
       System.out.println(">>> TEST-FILTER FINAL LOG: " + filterResult.finalRunLog);
 
-      Set<UUID> filteredFalsified = LogParser.readFalsifiedIds(filterResult.finalRunLog);
-      Set<UUID> filteredExecuted = LogParser.readExecutedIds(filterResult.finalRunLog);
+      // Prefer shm-based reading (survives SIGKILL; more complete than the log's shutdown-hook
+      // sidecar, which never runs on a stale/hard-timeout-killed final rerun) — same pattern used
+      // for the initial run above.
+      final Set<UUID> filteredFalsified;
+      final Set<UUID> filteredExecuted;
+      if (filterResult.finalShmDir != null
+          && Files.isDirectory(filterResult.finalShmDir.resolve("ex"))) {
+        filteredExecuted = LogParser.readExecutedIdsFromShm(filterResult.finalShmDir);
+        filteredFalsified = LogParser.readFalsifiedIdsFromShm(filterResult.finalShmDir);
+        filteredExecuted.addAll(LogParser.readExecutedIds(filterResult.finalRunLog));
+        filteredFalsified.addAll(LogParser.readFalsifiedIds(filterResult.finalRunLog));
+        System.out.println(
+            "[DP] Filtered results read from shm ("
+                + filteredExecuted.size()
+                + " executed, "
+                + filteredFalsified.size()
+                + " falsified) + log fallback");
+      } else {
+        filteredFalsified = LogParser.readFalsifiedIds(filterResult.finalRunLog);
+        filteredExecuted = LogParser.readExecutedIds(filterResult.finalRunLog);
+      }
       Set<UUID> filteredNonCompiled = LogParser.readNonCompiledIds(filterResult.finalMainSrcRoot);
 
       System.out.println(">>> TEST-FILTER FINAL TOTALS:");

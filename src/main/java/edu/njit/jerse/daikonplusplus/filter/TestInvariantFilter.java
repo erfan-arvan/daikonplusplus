@@ -369,7 +369,8 @@ public final class TestInvariantFilter {
         currentLog,
         disabledSoFar,
         allTrialLog,
-        finalExit);
+        finalExit,
+        shmDir);
   }
 
   /** Outcome of chasing a single failure down to a minimal culprit set (or ruling it out). */
@@ -512,7 +513,8 @@ public final class TestInvariantFilter {
         initialRunLog,
         Set.of(),
         List.of(),
-        exitCode);
+        exitCode,
+        null);
   }
 
   // =====================================================================================
@@ -1628,6 +1630,18 @@ public final class TestInvariantFilter {
     public final int finalExitCode;
 
     /**
+     * shm directory reflecting exactly the final confirming rerun's state ({@code
+     * confirmRoundClean} resets it immediately before every attempt, including the last one, and
+     * nothing resets it afterward) — {@code null} for a {@link #noopResult}, where no rerun ever
+     * happened. A killed (stale/hard-timeout) final rerun never runs {@code DpRuntime}'s
+     * shutdown-hook log sidecar, so {@code finalRunLog} alone can under-report; this directory's
+     * {@code ex}/{@code fail} subdirectories are written to live, per invariant, as each one
+     * executes/falsifies, so they survive a SIGKILL and remain the more reliable source — same
+     * shm-first/log-fallback pattern {@code App} already uses for the initial run.
+     */
+    public final @org.checkerframework.checker.nullness.qual.Nullable Path finalShmDir;
+
+    /**
      * @param snapshotProjectRoot initial snapshot of the injected project
      * @param finalProjectRoot project after filtering
      * @param finalMainSrcRoot final main source directory
@@ -1635,6 +1649,8 @@ public final class TestInvariantFilter {
      * @param removedIds set of invariant IDs that were disabled
      * @param removedMethodBatches human-readable descriptions of each disabled invariant and why
      * @param finalExitCode exit code of final test run
+     * @param finalShmDir shm directory matching the final confirming rerun, or {@code null} if no
+     *     rerun happened
      */
     Result(
         Path snapshotProjectRoot,
@@ -1643,7 +1659,8 @@ public final class TestInvariantFilter {
         Path finalRunLog,
         Set<UUID> removedIds,
         List<String> removedMethodBatches,
-        int finalExitCode) {
+        int finalExitCode,
+        @org.checkerframework.checker.nullness.qual.Nullable Path finalShmDir) {
 
       this.snapshotProjectRoot = snapshotProjectRoot;
       this.finalProjectRoot = finalProjectRoot;
@@ -1652,6 +1669,7 @@ public final class TestInvariantFilter {
       this.removedIds = Set.copyOf(removedIds);
       this.removedMethodBatches = List.copyOf(removedMethodBatches);
       this.finalExitCode = finalExitCode;
+      this.finalShmDir = finalShmDir;
     }
   }
 }
