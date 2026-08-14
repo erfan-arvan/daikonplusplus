@@ -201,6 +201,13 @@ public final class TestInvariantFilter {
     List<String> failuresHandled = new ArrayList<>();
 
     Path currentLog = initialRunLog;
+    // Tracks the shm dir matching currentLog, updated in lockstep with it (only right after a
+    // confirmRoundClean call, at the same place currentLog itself is updated) — shmDir is one
+    // continuously-reused/reset directory shared by every trial and confirm attempt in this call,
+    // so reading it "as of whenever run() happens to return" can pick up a *different*, unrelated
+    // run's data (e.g. a later round's sanity trial) than whatever currentLog points to. null
+    // means "no shm run corresponds to currentLog" (true for initialRunLog itself).
+    @org.checkerframework.checker.nullness.qual.Nullable Path currentLogShmDir = null;
     Optional<TestFailureLogParser.FailureMatch> currentFailure = firstFailure;
     int finalExit = 1;
     int round = 0;
@@ -290,6 +297,9 @@ public final class TestInvariantFilter {
               staleBudget);
       finalExit = confirm.exit;
       currentLog = confirm.logPath;
+      // shmDir was just reset-then-used by this same confirmRoundClean call (its last attempt),
+      // so it matches currentLog exactly at this point — safe to associate the two.
+      currentLogShmDir = shmDir;
 
       if (confirm.runResult == JavaRunner.RunResult.STALE_KILLED
           || confirm.runResult == JavaRunner.RunResult.HARD_TIMEOUT) {
@@ -370,7 +380,7 @@ public final class TestInvariantFilter {
         disabledSoFar,
         allTrialLog,
         finalExit,
-        shmDir);
+        currentLogShmDir);
   }
 
   /** Outcome of chasing a single failure down to a minimal culprit set (or ruling it out). */
@@ -1630,14 +1640,18 @@ public final class TestInvariantFilter {
     public final int finalExitCode;
 
     /**
-     * shm directory reflecting exactly the final confirming rerun's state ({@code
-     * confirmRoundClean} resets it immediately before every attempt, including the last one, and
-     * nothing resets it afterward) — {@code null} for a {@link #noopResult}, where no rerun ever
-     * happened. A killed (stale/hard-timeout) final rerun never runs {@code DpRuntime}'s
-     * shutdown-hook log sidecar, so {@code finalRunLog} alone can under-report; this directory's
-     * {@code ex}/{@code fail} subdirectories are written to live, per invariant, as each one
-     * executes/falsifies, so they survive a SIGKILL and remain the more reliable source — same
-     * shm-first/log-fallback pattern {@code App} already uses for the initial run.
+     * shm directory reflecting exactly the run {@link #finalRunLog} came from — {@code null} unless
+     * {@code finalRunLog} is a {@code confirmRoundClean} rerun's log, since {@code shmDir} is one
+     * directory continuously reset and reused by every trial and confirm attempt in one {@link
+     * #run} call; only right after a {@code confirmRoundClean} call do the two definitely
+     * correspond to the same run (e.g. a later round's sanity/ddmin trial can leave unrelated data
+     * in {@code shmDir} while {@code finalRunLog} still points at an earlier round's confirm log —
+     * see where {@code currentLogShmDir} is set in {@link #run}). A killed (stale/hard-timeout)
+     * final rerun never runs {@code DpRuntime}'s shutdown-hook log sidecar, so {@code finalRunLog}
+     * alone can under-report; this directory's {@code ex}/{@code fail} subdirectories are written
+     * to live, per invariant, as each one executes/falsifies, so they survive a SIGKILL and remain
+     * the more reliable source — same shm-first/log-fallback pattern {@code App} already uses for
+     * the initial run.
      */
     public final @org.checkerframework.checker.nullness.qual.Nullable Path finalShmDir;
 
