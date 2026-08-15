@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is essential for insert operations, and it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "A list of records to be inserted must be provided, so hoodieRecords should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext is required to drive the engine operations, so context should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || hoodieRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative; this expresses a property of the records list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "If instantTime is non-null, often it is expected to be a non-empty string representing a commit instant.",
+    "meta" : [ ]
+  } ]
+}

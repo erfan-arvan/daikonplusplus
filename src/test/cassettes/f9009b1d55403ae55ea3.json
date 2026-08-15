@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned map is instantiated before return and never replaced with null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "Map is only populated with PLAN_STRATEGY_SORT_COLUMNS.key() if a condition holds; otherwise, remains empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() == !StringUtils.isNullOrEmpty(getWriteConfig().getClusteringSortColumns())",
+    "rationale" : "Population of the map correlates directly with the presence of clustering sort columns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0 || result.size() == 1",
+    "rationale" : "At most one key-value pair may be added based on the code path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(v -> v != null && !v.isEmpty())",
+    "rationale" : "The only (optional) value is the result of getClusteringSortColumns(), which is checked non-empty before insertion.",
+    "meta" : [ ]
+  } ]
+}

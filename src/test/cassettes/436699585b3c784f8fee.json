@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The method calls methods on writeClient, so a null writeClient would result in a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to writeClient methods. It is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is used as a parameter to a method call, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.get(0) instanceof HoodieRecord",
+    "rationale" : "If preppedRecordInputs is non-empty, its elements should be HoodieRecord instances given the type parameterization.",
+    "meta" : [ ]
+  } ]
+}

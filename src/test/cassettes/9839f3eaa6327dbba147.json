@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method expects a non-null list to repartition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "A repartitioning operation generally should have a positive number of output partitions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "The records parameter must be a List according to the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "The number of output partitions should not typically exceed the number of records, except for an empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "Assuming repartitioning logic expects all HoodieRecord elements to be non-null.",
+    "meta" : [ ]
+  } ]
+}

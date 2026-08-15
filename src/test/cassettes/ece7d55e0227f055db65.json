@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileHandles != null",
+    "rationale" : "fileHandles must not be null to add new handles.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used in file operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset != null",
+    "rationale" : "tileset is dereferenced immediately for getAttribute(\"source\", null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset.hasAttribute(\"source\") || tileset.getAttribute(\"source\", null) == null",
+    "rationale" : "The method safely handles the presence or absence of the 'source' attribute.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileHandles.size >= 0",
+    "rationale" : "fileHandles is an Array, and size should be non-negative.",
+    "meta" : [ ]
+  } ]
+}

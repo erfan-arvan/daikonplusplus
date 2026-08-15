@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Method directly uses 'layer' methods and fields without null checks; 'layer' must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getWidth() >= 0",
+    "rationale" : "Layer width should be non-negative for valid tile arrays; used in bounds calculations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getHeight() >= 0",
+    "rationale" : "Layer height should be non-negative to make row bounds safe.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileWidth() > 0",
+    "rationale" : "Layer tiles must have positive width for sensible rendering and bounds math.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileHeight() > 0",
+    "rationale" : "Layer tile height must be positive for correct rendering and grid coverage.",
+    "meta" : [ ]
+  } ]
+}

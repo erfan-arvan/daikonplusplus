@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The bulkInsert method is expected to return a non-null list of WriteStatus objects representing the bulk insert operation's results.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "ensures result list is not null on method exit"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Since records is an input parameter and used in bulkInsert operation, it is expected not to be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records list is not null on method exit"
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Each input record corresponds to one WriteStatus in the result indicating its write status.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "output list size equals input records list size"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a timestamp for write operations and is assumed non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime string is not null"
+    } ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner == null || userDefinedBulkInsertPartitioner.isPresent() == true",
+    "rationale" : "userDefinedBulkInsertPartitioner may be an Option that can be empty or contain a partitioner; checking for option presence.",
+    "meta" : [ {
+      "key" : "option_handling",
+      "value" : "Option can be empty or defined"
+    } ]
+  } ]
+}

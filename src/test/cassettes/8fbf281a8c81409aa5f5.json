@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs and returns a new HoodieWriteMetadata instance, so result should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The returned result should be of type HoodieWriteMetadata or its subclass, as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The generic parameter is List<WriteStatus>, so getWriteStatuses() should return a List.",
+    "meta" : [ ]
+  } ]
+}

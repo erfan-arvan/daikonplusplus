@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "getName() == null",
+    "rationale" : "The method toString first checks if getName() is null to determine which path to take for its return value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getClass() != null",
+    "rationale" : "The method toString calls getClass(), which must not be null for the call to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getClass().getName() != null",
+    "rationale" : "The method dereferences getClass().getName(), so this must not be null at method entry.",
+    "meta" : [ ]
+  } ]
+}

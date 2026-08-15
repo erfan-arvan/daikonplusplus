@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is typically required for execution and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is not null"
+    } ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is a String parameter representing a time and is expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "rollbackInstantTime is not null"
+    } ]
+  }, {
+    "expression" : "commitInstant == null || commitInstant.getTimestamp() != null",
+    "rationale" : "If commitInstant is not null, its timestamp is expected to be non-null to represent a valid instant.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "commitInstant timestamp is non-null if commitInstant is not null"
+    } ]
+  }, {
+    "expression" : "!deleteInstants || skipLocking == false || skipLocking == true",
+    "rationale" : "deleteInstants and skipLocking are boolean flags with no implied relation yet.",
+    "meta" : [ {
+      "key" : "boolean",
+      "value" : "deleteInstants and skipLocking are booleans"
+    } ]
+  } ]
+}

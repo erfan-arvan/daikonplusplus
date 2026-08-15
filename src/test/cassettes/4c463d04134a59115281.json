@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method is likely expecting an instantTime as a non-null commit time identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition is presumably an identifier for a partition, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is used to route data; a null value would likely lead to failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is required to provide records for the operation and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition >= 0",
+    "rationale" : "Partition indices are typically non-negative integers.",
+    "meta" : [ ]
+  } ]
+}

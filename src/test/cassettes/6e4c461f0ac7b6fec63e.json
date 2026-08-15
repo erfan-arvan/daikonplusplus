@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returning a non-null List of WriteStatus is standard for collection-returning methods.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Ensures method does not return null."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used throughout the method and likely required to be non-null and non-empty for correct operation.",
+    "meta" : [ {
+      "key" : "input requirement",
+      "value" : "instantTime should specify a commit/instant."
+    } ]
+  }, {
+    "expression" : "records != null && !records.isEmpty()",
+    "rationale" : "A bulk insert operation normally requires non-null and non-empty input for records.",
+    "meta" : [ {
+      "key" : "input requirement",
+      "value" : "records should have at least one entry."
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The returned value is a List<WriteStatus> and should always satisfy this expression.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Ensures result is a List."
+    } ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "Using Option for userDefinedBulkInsertPartitioner implies null checks should not be necessary, but ensures method is robust.",
+    "meta" : [ {
+      "key" : "input best practice",
+      "value" : "Passed Option should never be null."
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "postWrite and table.delete should return a non-null List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "Method receives keys as a parameter, and downstream operations likely require it non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to postWrite and delete, so it is likely intended to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Returned value comes from postWrite and is declared as List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result.isEmpty() && keys != null && !keys.isEmpty())",
+    "rationale" : "If keys are provided, some WriteStatus is expected to be in the result.",
+    "meta" : [ ]
+  } ]
+}

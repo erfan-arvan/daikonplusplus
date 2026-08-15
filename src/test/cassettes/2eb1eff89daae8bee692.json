@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A non-null engine context is typically required for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is needed to uniquely identify the timeline instant for operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "Partition list argument should not be null for a partition deletion operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.isEmpty() || partitions.get(0) instanceof String",
+    "rationale" : "If partition list is non-empty, its elements must be Strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Instant time should be a non-empty string to represent a valid timestamp or action instant.",
+    "meta" : [ ]
+  } ]
+}

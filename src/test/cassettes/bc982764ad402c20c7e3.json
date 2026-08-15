@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "Methods in typical Java code often expect non-null map arguments, especially for a load method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer != null",
+    "rationale" : "Layer is subsequently dereferenced via layer.getObjects(), so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Element is likely required to specify what to load, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "The method immediately uses layer.getObjects(), so it should not be null at this point.",
+    "meta" : [ ]
+  } ]
+}

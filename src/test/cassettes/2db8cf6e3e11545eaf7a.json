@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The operation is on an engine context, which is typically required to be initialized for operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid instantTime is likely necessary for versioned or transactional operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The partitions list should be available for deletion to be attempted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions == null || partitions.isEmpty() || partitions.stream().allMatch(p -> p != null && !p.isEmpty())",
+    "rationale" : "Partition names are typically non-null and non-empty strings.",
+    "meta" : [ ]
+  } ]
+}

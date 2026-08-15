@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result instanceof Rectangle",
+    "rationale" : "Since the method returns a Rectangle or null, the result is always either null or an instance of Rectangle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || (result.width >= 0 && result.height >= 0)",
+    "rationale" : "Rectangle dimensions are typically non-negative unless set otherwise; this is a commonly maintained invariant for Rectangle values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || (result.x + result.width >= result.x && result.y + result.height >= result.y)",
+    "rationale" : "If result is not null, its width and height should be such that the bottom-right corner is not precedential to its top-left, which is often an invariant for rectangles.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "spaceBottom >= 0",
+    "rationale" : "Per both Javadoc and method body, negative values for spaceBottom are not allowed.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "method precondition"
+    } ]
+  }, {
+    "expression" : "Float.isFinite(spaceBottom)",
+    "rationale" : "UI layout most likely expects finite numbers; INF/NaN would not make sense for a size.",
+    "meta" : [ {
+      "key" : "robustness",
+      "value" : "prevents NaN and INF inputs"
+    } ]
+  } ]
+}

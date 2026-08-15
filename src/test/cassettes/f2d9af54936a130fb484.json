@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "space >= 0",
+    "rationale" : "Vertical space between UI children is typically non-negative; setting negative spacing is often undesired.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(space)",
+    "rationale" : "Finite values ensure that the space value is meaningful and does not introduce NaN or infinite layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "space == space",
+    "rationale" : "Preventing NaN values since Float.NaN != Float.NaN in Java; ensures the value is not NaN.",
+    "meta" : [ ]
+  } ]
+}

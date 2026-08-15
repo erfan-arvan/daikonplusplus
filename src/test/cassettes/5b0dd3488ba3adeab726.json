@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should typically be non-null when processing a partition in getSmallFiles.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath is likely to be non-empty to reference a valid partition directory.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "sanity"
+    } ]
+  }, {
+    "expression" : "partitionPath.trim().length() > 0",
+    "rationale" : "partitionPath is likely a non-blank string.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "sanity"
+    } ]
+  }, {
+    "expression" : "partitionPath.indexOf(\"/\") >= 0",
+    "rationale" : "Partition paths in file systems often contain path separators.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "domain knowledge"
+    } ]
+  }, {
+    "expression" : "partitionPath.equals(partitionPath.trim())",
+    "rationale" : "Partition path is likely expected to not have leading or trailing whitespace.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "formatting"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == config.getProps().getProperty(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key())",
+    "rationale" : "The method's sole return statement is config.getProps().getProperty(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key()), establishing direct equality.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The method uses config without null checks, so config must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "config.getProps() is called directly, so getProps() must not return null.",
+    "meta" : [ ]
+  } ]
+}

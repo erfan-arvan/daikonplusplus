@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "scrollPane != null",
+    "rationale" : "The method uses scrollPane without null checks, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "scrollPane.getColor() != null",
+    "rationale" : "scrollPane.getColor() is dereferenced; to avoid NullPointerException, getColor() should not return null.",
+    "meta" : [ ]
+  } ]
+}

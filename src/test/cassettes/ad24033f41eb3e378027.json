@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "actorAfter != null",
+    "rationale" : "Methods dealing with actors often expect non-null references; this is a sensible precondition since the method operates on actorAfter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != null",
+    "rationale" : "Similarly, the second Actor parameter likely must not be null to participate in Container operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorAfter != actor",
+    "rationale" : "Since this method names the parameters actorAfter and actor, it's reasonable to assume they may need to be distinct.",
+    "meta" : [ ]
+  } ]
+}

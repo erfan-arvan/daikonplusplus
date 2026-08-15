@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (super.touchDown(event, x, y, pointer, button) && ((pointer != 0 || button == 0) && !disabled))",
+    "rationale" : "This expresses the return value logic combining all early returns according to the observed method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!super.touchDown(event, x, y, pointer, button) || (pointer == 0 && button != 0)) == (!result)",
+    "rationale" : "If superclass touchDown is false, or pointer/button check fails, result will be false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pointer == 0 || result",
+    "rationale" : "If pointer != 0, will not short-circuit second check and result can only be true if all prior conditions passed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "disabled == false || result",
+    "rationale" : "If not disabled, flow is only possible if result is true due to the return true at the end.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || super.touchDown(event, x, y, pointer, button) == false || ((pointer == 0 && button != 0) || disabled)",
+    "rationale" : "If result is false, at least one early exit was taken.",
+    "meta" : [ ]
+  } ]
+}

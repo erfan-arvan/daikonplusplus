@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is required to reference a specific partition, and null would likely not be a valid argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "An empty partitionPath likely does not reference a meaningful partition, so the method assumes non-empty input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is accessed in the method, so it must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is needed for getting the small file size threshold, so it must not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.trim().equals(partitionPath)",
+    "rationale" : "partitionPath probably should not have leading or trailing whitespace, as it is used as a key or identifier.",
+    "meta" : [ ]
+  } ]
+}

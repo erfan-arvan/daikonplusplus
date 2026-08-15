@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "true",
+    "rationale" : "All float values are allowable as input according to the method signature and context; no precondition is imposed.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!(Float.isNaN(value))",
+    "rationale" : "Clamping a NaN value may not be meaningful; many APIs avoid NaN for such parameters.",
+    "meta" : [ {
+      "key" : "input sanity",
+      "value" : "value should not be NaN"
+    } ]
+  }, {
+    "expression" : "!(Float.isInfinite(value))",
+    "rationale" : "Clamping infinite values may not be expected use; this invariant captures that robust code might exclude infinity.",
+    "meta" : [ {
+      "key" : "input sanity",
+      "value" : "value should not be infinite"
+    } ]
+  } ]
+}

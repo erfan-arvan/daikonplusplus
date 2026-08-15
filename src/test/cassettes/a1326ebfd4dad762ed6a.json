@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient parameter should generally not be null for operations on the table metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "A null columnsToIndex likely has no semantic meaning and would be avoided at this program entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.get(0) instanceof String",
+    "rationale" : "If columnsToIndex is not empty, its elements should be of type String as per declaration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "The table config should be present for a valid HoodieTableMetaClient instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(s -> s != null)",
+    "rationale" : "It is a common invariant that all column names in such a list should be non-null.",
+    "meta" : [ ]
+  } ]
+}

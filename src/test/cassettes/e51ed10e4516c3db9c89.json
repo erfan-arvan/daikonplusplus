@@ -1,0 +1,35 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should be non-null and non-empty as it's used for commit identification.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should be non-null because it is used as a key in singletonMap.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "partitionPath"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records should be non-null as it is passed to the commitInternal method.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "records"
+    } ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser should be non-null since it is an input parameter.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "indexParser"
+    } ]
+  }, {
+    "expression" : "records.count() >= 0",
+    "rationale" : "records count must be non-negative.",
+    "meta" : [ ]
+  } ]
+}

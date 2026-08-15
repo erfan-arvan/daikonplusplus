@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Method expects to cast key to Pair, implying it must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key instanceof Pair",
+    "rationale" : "First operation is a cast to Pair<HoodieKey, Option<HoodieRecordLocation>>, so key must be instance of Pair at entry.",
+    "meta" : [ ]
+  } ]
+}

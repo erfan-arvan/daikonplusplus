@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The style object is accessed many times in the method and must therefore be non-null before method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isDisabled() || style.disabledFontColor != null || (!isPressed() && !isOver() && !hasKeyboardFocus() && style.fontColor != null)",
+    "rationale" : "Button state disables font color choice, but if not disabled, other font colors are considered.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isOver() || (isChecked() ? style.checkedOverFontColor != null : style.overFontColor != null) || style.fontColor != null",
+    "rationale" : "If the button is hovered, the relevant over font colors from style may be used, otherwise fallback to default font color.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isChecked() || ((hasKeyboardFocus() && style.checkedFocusedFontColor != null) || style.checkedFontColor != null || (isOver() && style.overFontColor != null) || style.fontColor != null)",
+    "rationale" : "If checked, one of the checked-specific font colors or fallback must be available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hasKeyboardFocus() || !isChecked() || style.checkedFontColor != null || style.fontColor != null",
+    "rationale" : "If focused and checked, at least one relevant font color in style should be available or fallback.",
+    "meta" : [ ]
+  } ]
+}

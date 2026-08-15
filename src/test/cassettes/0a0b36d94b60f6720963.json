@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the 'result' object instantiated at the top.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is a required method parameter and used within the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is required for all operations in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is accessed multiple times in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "The method casts the executor and calls methods on it, so it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

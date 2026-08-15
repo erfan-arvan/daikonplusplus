@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "sortColumnNames != null",
+    "rationale" : "sortColumnNames should be initialized for the partitioner to function properly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "A valid schema must be defined for sorting operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortColumnNames.length > 0",
+    "rationale" : "There should be at least one column to sort by for the partitioner to perform any sorting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!suffixRecordKey || suffixRecordKey == true",
+    "rationale" : "suffixRecordKey is a boolean and at method entry is either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Since the method always returns true, it may be considered a trivial invariant at entry.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "threshold >= 0",
+    "rationale" : "Thresholds for snapping are generally expected to be non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter constraint"
+    } ]
+  }, {
+    "expression" : "values == null || values.length >= 0",
+    "rationale" : "The length of an array in Java is always non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "array non-negativity"
+    } ]
+  }, {
+    "expression" : "values == null || values.getClass().isArray()",
+    "rationale" : "If provided, 'values' should indeed be an array.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type correctness"
+    } ]
+  }, {
+    "expression" : "values == null || java.util.Arrays.stream(values).allMatch(v -> !Float.isNaN(v))",
+    "rationale" : "Snap values should not be NaN for arithmetic operations.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "well-formedness"
+    } ]
+  } ]
+}

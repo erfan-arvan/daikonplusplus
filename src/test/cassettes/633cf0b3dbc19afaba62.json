@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Configuration object should generally not be null when passed to methods operating on the table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is expected to be provided for Hadoop engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatus != null",
+    "rationale" : "Output write status is likely required for compaction or persistence routines.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime should be a non-null and non-empty commit/compaction time string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatus.count() >= 0",
+    "rationale" : "The count of writeStatus should be non-negative, as it represents the number of statuses in the distributed data structure.",
+    "meta" : [ ]
+  } ]
+}

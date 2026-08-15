@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a list of HoodieRecord<T> which is at least an empty ArrayList, so result should not be null.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "Result list is initialized and returned, not null"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List size is always non-negative; ensures logical consistency.",
+    "meta" : [ {
+      "key" : "Size",
+      "value" : "Result list size non-negative"
+    } ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The parameter clusteringGroup must be non-null to call getSlices().",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "Parameter is assumed to be non-null"
+    } ]
+  }, {
+    "expression" : "!result.isEmpty() || result.isEmpty()",
+    "rationale" : "The returned list either contains zero or more HoodieRecord objects.",
+    "meta" : [ {
+      "key" : "Logical",
+      "value" : "Trivially true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used for record retrieval context, assumed non-null.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "Parameter is likely required and non-null"
+    } ]
+  } ]
+}

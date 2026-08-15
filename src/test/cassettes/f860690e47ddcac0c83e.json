@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null",
+    "rationale" : "The parameter 'a' should be non-null to avoid potential NullPointerExceptions when accessing its methods or fields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getQuantity() == a.quantity",
+    "rationale" : "The getQuantity() accessor should return the underlying 'quantity' field, reflecting standard JavaBean semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getUnitPrice() == a.unitPrice",
+    "rationale" : "The getUnitPrice() accessor should return the underlying 'unitPrice' field, reflecting standard JavaBean patterns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getQuantity() >= 0",
+    "rationale" : "The quantity of items in an order is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getUnitPrice() >= 0.0",
+    "rationale" : "Prices per item are conventionally non-negative.",
+    "meta" : [ ]
+  } ]
+}

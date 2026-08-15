@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Method checks for null partitionPaths, and different logic applies depending on this value.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "null partitions are handled early"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used unconditionally for .setJobStatus and .mapToPair calls.",
+    "meta" : [ {
+      "key" : "requirement",
+      "value" : "method will dereference context regardless"
+    } ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() >= 0",
+    "rationale" : "By Java List contract, size >= 0.",
+    "meta" : [ {
+      "key" : "JDK contract",
+      "value" : "size() of list is always >= 0"
+    } ]
+  }, {
+    "expression" : "partitionPaths == null || !partitionPaths.isEmpty() || partitionPaths.size() == 0",
+    "rationale" : "List.isEmpty() is equivalent to size()==0 if not null.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "isEmpty equals size()==0"
+    } ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.stream().allMatch(p -> p != null)",
+    "rationale" : "Partition paths being valid means non-null strings; likely invariant for correctness.",
+    "meta" : [ {
+      "key" : "expectation",
+      "value" : "partitions should not include null paths"
+    } ]
+  } ]
+}

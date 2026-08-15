@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Prevent NullPointerException for method calls on partitionPaths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is dereferenced and used in method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths.size() >= 0",
+    "rationale" : "A list's size cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths.isEmpty() || partitionPaths.size() > 0",
+    "rationale" : "partitionPaths is either empty or has positive size; covers possible states in usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context must be of type HoodieEngineContext to call relevant methods.",
+    "meta" : [ ]
+  } ]
+}

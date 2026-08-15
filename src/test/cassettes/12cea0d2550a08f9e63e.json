@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Rectangle bounds heights are generally non-negative by convention and in most geometric representations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Rectangle.getHeight() should return a finite float value, as infinite or NaN values are unlikely for a bounds height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == rectangle.getHeight()",
+    "rationale" : "The method directly returns rectangle.getHeight(), so the result should always equal this call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= Float.MAX_VALUE",
+    "rationale" : "As a float value from a rectangle, the height should not exceed the maximum float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != Float.NaN",
+    "rationale" : "Rectangle heights should not be NaN, as a shape should have a determinable height.",
+    "meta" : [ ]
+  } ]
+}

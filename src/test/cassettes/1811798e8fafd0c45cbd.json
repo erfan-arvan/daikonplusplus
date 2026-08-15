@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method operates on 'batch' via method calls (e.g., batch.setColor), indicating that 'batch' must not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "Typical UI convention and batch alpha-multiplication use, where alpha values are in [0,1].",
+    "meta" : [ ]
+  }, {
+    "expression" : "getColor() != null",
+    "rationale" : "'getColor()' is dereferenced (color.a used), so it must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getWidth() >= 0.0f && getHeight() >= 0.0f",
+    "rationale" : "Sizes in UI are generally non-negative; negative values would likely be unexpected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hasKeyboardFocus() == this.focused || (!hasKeyboardFocus() && !this.focused)",
+    "rationale" : "At method exit, 'this.focused' is synchronized with 'hasKeyboardFocus()' to handle focus state changes.",
+    "meta" : [ ]
+  } ]
+}

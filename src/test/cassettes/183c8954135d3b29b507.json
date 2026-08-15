@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The postWrite method, which generates the return value, is expected to return a non-null result under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The 'records' parameter must be non-null to perform an upsert; null records would likely result in an exception earlier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required for the upsert operation and is used as an identifier for the write instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type is declared as List<WriteStatus>, so the result must always be a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A list's size is always zero or greater in Java.",
+    "meta" : [ ]
+  } ]
+}

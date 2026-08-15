@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "programmaticChangeEvents == true",
+    "rationale" : "If the backing field is set to true, this method will return true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "programmaticChangeEvents == false",
+    "rationale" : "If the backing field is set to false, this method will return false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(getProgrammaticChangeEvents() == true) == (programmaticChangeEvents == true)",
+    "rationale" : "The method returns the value of programmaticChangeEvents, so their values are always the same.",
+    "meta" : [ ]
+  } ]
+}

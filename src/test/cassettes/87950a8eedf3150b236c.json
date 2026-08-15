@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The 'getWriteClient' method returns a new HoodieJavaWriteClient, which should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "object non-null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The method uses 'config' to construct the HoodieJavaWriteClient, indicating it must be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter non-null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method uses 'context' to construct the HoodieJavaWriteClient, indicating it must be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter non-null"
+    } ]
+  }, {
+    "expression" : "result instanceof BaseHoodieWriteClient",
+    "rationale" : "The result is of type BaseHoodieWriteClient, or its subclass; specifically, HoodieJavaWriteClient.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().equals(\"HoodieJavaWriteClient\")",
+    "rationale" : "The method always returns a HoodieJavaWriteClient.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "result concrete type"
+    } ]
+  } ]
+}

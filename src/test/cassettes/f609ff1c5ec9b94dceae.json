@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The parameter config should not be null when entering the method.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config is not null on method entry"
+    } ]
+  }, {
+    "expression" : "config.getIndexClass() == null || !config.getIndexClass().isEmpty()",
+    "rationale" : "The index class string can be null or non-empty but not empty string.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "indexClass can be null or non-empty string"
+    } ]
+  }, {
+    "expression" : "config.getIndexType() != null",
+    "rationale" : "The index type should be non-null since it is used in switch.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "indexType is not null"
+    } ]
+  }, {
+    "expression" : "config.getIndexClass() == null || !config.getIndexClass().isEmpty()",
+    "rationale" : "Index class, if present, is not empty.",
+    "meta" : [ {
+      "key" : "string",
+      "value" : "indexClass is null or not empty"
+    } ]
+  }, {
+    "expression" : "config.getIndexType().ordinal() >= 0",
+    "rationale" : "Enum ordinal for indexType is non-negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "indexType ordinal is non-negative"
+    } ]
+  } ]
+}

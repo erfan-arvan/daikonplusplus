@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "Profile is actively used throughout the method and accessed for methods and fields, so it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is passed to and used within the method and must remain non-null at completion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "The collection of partition paths is used in multiple places, so it should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "partitionPathToInsertBucketInfos is updated for each partition path and therefore must be initialized and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "updateLocationToBucket is checked and updated inside the loop, so it must be properly initialized and non-null at method exit.",
+    "meta" : [ ]
+  } ]
+}

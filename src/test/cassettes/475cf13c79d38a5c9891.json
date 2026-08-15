@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "idToObject == null",
+    "rationale" : "According to the method Javadoc, idToObject can be null if loadTiledMap(...) has not been called yet.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idToObject != null",
+    "rationale" : "idToObject may be non-null if the tiled map has been successfully loaded, as per the Javadoc description.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a result from either getUpsertPartitioner or getInsertPartitioner, both of which are expected to produce a non-null Partitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The method is always called with a WorkloadProfile parameter, which is always passed to one of the two partitioner creation methods.",
+    "meta" : [ ]
+  } ]
+}

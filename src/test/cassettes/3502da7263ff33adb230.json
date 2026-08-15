@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Upsert returns a HoodieWriteMetadata, which should never be null if execution completes normally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().equals(\"HoodieWriteMetadata\") || result.getClass().getSuperclass().getSimpleName().equals(\"HoodieWriteMetadata\")",
+    "rationale" : "Ensures the runtime type of result is HoodieWriteMetadata or a subclass, matching method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null ? records.size() >= 0 : true",
+    "rationale" : "If records is non-null, its size is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is typically a required non-empty identifier for upsert operations.",
+    "meta" : [ ]
+  } ]
+}

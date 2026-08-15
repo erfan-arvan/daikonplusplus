@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == totalBuckets",
+    "rationale" : "The method implementation directly returns 'totalBuckets', so the result always equals this field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "It is common for partition counts such as 'totalBuckets' to be non-negative; negative partitions would be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Integer.valueOf(result).equals(totalBuckets)",
+    "rationale" : "Re-expresses the equality using Java boxed types, which may be relevant in some contexts.",
+    "meta" : [ ]
+  } ]
+}

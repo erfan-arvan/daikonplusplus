@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is likely required not to be null for correct execution.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "context"
+    } ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "The instant time string should not be null when starting a clean operation.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "cleanInstantTime"
+    } ]
+  }, {
+    "expression" : "cleanInstantTime.length() > 0",
+    "rationale" : "cleanInstantTime should be a non-empty string to represent a valid instant.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "cleanInstantTime"
+    } ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context must be of the correct type for proper operation.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "context"
+    } ]
+  }, {
+    "expression" : "!cleanInstantTime.isEmpty()",
+    "rationale" : "Another way to state that the instant time string should contain at least one character.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "cleanInstantTime"
+    } ]
+  } ]
+}

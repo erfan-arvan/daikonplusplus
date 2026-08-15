@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method uses `result` for method calls and field accesses, so it is assumed to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method invokes `result.getWriteStatuses().stream()`, so `getWriteStatuses()` must not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(status -> status != null)",
+    "rationale" : "The method processes all write statuses, suggesting no element should be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "A commit likely only makes sense with at least one WriteStatus, so the collection should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(status -> status.getStat() != null)",
+    "rationale" : "The code maps WriteStatus::getStat, so each WriteStatus is expected to have a non-null stat field.",
+    "meta" : [ ]
+  } ]
+}

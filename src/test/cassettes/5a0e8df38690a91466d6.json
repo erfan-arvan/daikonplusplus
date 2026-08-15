@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the output of a static utility function and is expected to return a metadata object, never null under normal operation.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The return type of the method is HoodieWriteMetadata<List<WriteStatus>>, so the result must be an instance of HoodieWriteMetadata.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "postcondition"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The primary data in HoodieWriteMetadata is expected in getWriteStatuses(), so it should not be null.",
+    "meta" : [ {
+      "key" : "structural",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "HoodieWriteMetadata parameterizes on List<WriteStatus>. getWriteStatuses() should return a List.",
+    "meta" : [ {
+      "key" : "collection",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "It is common for write status collections to avoid null entries.",
+    "meta" : [ {
+      "key" : "element_nonnull",
+      "value" : "true"
+    } ]
+  } ]
+}

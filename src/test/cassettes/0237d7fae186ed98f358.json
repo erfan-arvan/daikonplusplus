@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely a timestamp string necessary for the write operation.",
+    "meta" : [ {
+      "key" : "NullCheck",
+      "value" : "instantTime is expected to be non-null at method entry"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords are the data input to the operation and expected to be non-null.",
+    "meta" : [ {
+      "key" : "NullCheck",
+      "value" : "inputRecords should be non-null."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is likely execution context needed for the operation.",
+    "meta" : [ {
+      "key" : "NullCheck",
+      "value" : "context should be non-null."
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table reference is required to write data.",
+    "meta" : [ {
+      "key" : "NullCheck",
+      "value" : "table is expected to be non-null."
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used to access configuration details for the write call.",
+    "meta" : [ {
+      "key" : "NullCheck",
+      "value" : "config is expected to be non-null."
+    } ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "batch.dispose() is unconditionally called if ownsBatch is true, so batch must be non-null (else a NullPointerException would be thrown).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!ownsBatch || batch != null",
+    "rationale" : "If ownsBatch is true, batch must be non-null because it will be disposed; if not, batch could potentially be null.",
+    "meta" : [ ]
+  } ]
+}

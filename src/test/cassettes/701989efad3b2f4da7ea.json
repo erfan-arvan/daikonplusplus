@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 1",
+    "rationale" : "The minimum number of node actors added is 1, either via the base case or the sum of recursive cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 1 || result > 1",
+    "rationale" : "The return value is always at least 1 (base case for non-expanded), but may be greater if 'expanded' is true and children are added.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorIndex + result >= actorIndex",
+    "rationale" : "The sum of the input actorIndex and the return value should never be less than the original actorIndex.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorIndex >= 0",
+    "rationale" : "actorIndex appears to be a non-negative index used for insertion into a tree.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tree != null",
+    "rationale" : "tree is dereferenced in the method body, so it must be non-null at method exit.",
+    "meta" : [ ]
+  } ]
+}

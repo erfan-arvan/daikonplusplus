@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "records is dereferenced for isEmpty and sort operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "outputPartitions likely indicates number of target partitions; negative or zero is probably invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "size() of a list is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.get(0) == null",
+    "rationale" : "records.get(0) is accessed after isEmpty() check, safe only if not empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || HoodieTableMetadataUtil.getFileGroupPrefix(null) == null",
+    "rationale" : "getFileGroupPrefix is called on records.get(0) iff records is not empty; otherwise, would pass null if ever called.",
+    "meta" : [ ]
+  } ]
+}

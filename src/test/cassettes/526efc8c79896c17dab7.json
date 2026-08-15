@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method uses profile extensively without null checks, implying it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is passed and method calls are made on it, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "The method iterates over profile.getPartitionPaths(), so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths().isEmpty() || profile.getPartitionPaths().size() > 0",
+    "rationale" : "The code works for any partition count; this checks partitionPaths is either empty or non-empty (partition count is non-negative).",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "If profile is set up to use output workload stats, the output partition path stat map should be non-null.",
+    "meta" : [ ]
+  } ]
+}

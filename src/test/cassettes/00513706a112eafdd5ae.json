@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The style parameter is expected to be non-null for Label construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "If text is not null, its length is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style == null || style.font != null",
+    "rationale" : "If style is not null, its font field should exist (commonly required for rendering Labels in libGDX).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null",
+    "rationale" : "Method expects strategyParams to be a valid map for lookup and configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is passed as argument and likely required for partitioner creation; null schema would cause errors downstream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.isEmpty() || strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()) || !strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "strategyParams may be empty or may/may not contain specific keys; no guarantee on presence of clustering columns key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "All keys in a typical map should be non-null to avoid lookup exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.containsKey(null)",
+    "rationale" : "A Map should not have null keys to avoid NullPointerExceptions during use.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "intervals != null",
+    "rationale" : "The method throws if intervals is null; accessing intervals.length would fail otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "intervals.length == animationIntervals.length",
+    "rationale" : "Method only completes successfully (without exception) if intervals.length matches animationIntervals.length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "loopDuration == java.util.Arrays.stream(intervals).sum()",
+    "rationale" : "loopDuration is set to the sum of elements in intervals.",
+    "meta" : [ ]
+  }, {
+    "expression" : "animationIntervals == intervals",
+    "rationale" : "The method sets this.animationIntervals = intervals on the successful path.",
+    "meta" : [ ]
+  } ]
+}

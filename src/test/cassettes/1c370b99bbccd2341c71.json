@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths != null || partitionPaths == null",
+    "rationale" : "partitionPaths is a parameter and can be null or a non-null List.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "partitionPaths may be null or non-null but cannot be undefined"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a parameter and should not be null to invoke its methods safely.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "context must be non-null to invoke methods on it"
+    } ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths instanceof List",
+    "rationale" : "partitionPaths is declared as List<String> parameter.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "partitionPaths should be a List<String> if not null"
+    } ]
+  }, {
+    "expression" : "!partitionPaths.isEmpty() || partitionPaths.isEmpty()",
+    "rationale" : "partitionPaths.size() > 0 is checked in method, so it can be empty or non-empty.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "partitionPaths is either empty or not empty if not null"
+    } ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context parameter is a HoodieEngineContext instance.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "context is declared of type HoodieEngineContext"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "index >= 0",
+    "rationale" : "Collection indices are typically non-negative, especially for 'remove' methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < getChildren().size()",
+    "rationale" : "Index should be less than the number of children to remove an actor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getChildren().size() > 0",
+    "rationale" : "There must be at least one child to remove an actor at the given index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "unfocus == true || unfocus == false",
+    "rationale" : "Boolean parameters can only be true or false; included for completeness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getChildren() != null",
+    "rationale" : "The children collection should be not null for removal to be meaningful.",
+    "meta" : [ ]
+  } ]
+}

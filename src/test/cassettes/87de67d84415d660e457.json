@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "padLeft >= 0",
+    "rationale" : "Padding is typically expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padLeft <= Float.MAX_VALUE",
+    "rationale" : "padLeft, as a float parameter, cannot exceed Float.MAX_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(padLeft)",
+    "rationale" : "padLeft should not be NaN for valid padding.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(padLeft)",
+    "rationale" : "padLeft should not be infinite for valid layout values.",
+    "meta" : [ ]
+  } ]
+}

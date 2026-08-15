@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "The method is an instance method and accesses object state via 'this', requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getChildren() != null",
+    "rationale" : "The method assigns getChildren() to 'children' and immediately accesses its 'size' field, so getChildren() must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getChildren().size >= 0",
+    "rationale" : "'size' is typically non-negative for lists/arrays; SnapshotArray implementation also expects non-negative size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padLeft >= 0 && padRight >= 0 && padTop >= 0 && padBottom >= 0",
+    "rationale" : "Padding fields are usually non-negative values controlling layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "space >= 0 && wrapSpace >= 0",
+    "rationale" : "Spacing parameters generally are non-negative in UI layout code.",
+    "meta" : [ ]
+  } ]
+}

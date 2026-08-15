@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The iterator() method returns the result of tilesets.iterator(), which should never be null if tilesets is a properly instantiated collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.hasNext() || result.next() != null",
+    "rationale" : "If the iterator has a next element, calling next() should return a non-null TiledMapTileSet instance.",
+    "meta" : [ ]
+  } ]
+}

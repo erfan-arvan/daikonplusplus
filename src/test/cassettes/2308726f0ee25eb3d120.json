@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "Method parameter is expected to be non-null for proper execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() != null",
+    "rationale" : "Null check on getWriteStatuses() is required before using the stream API.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().isEmpty() || writeResult.getWriteStatuses().get(0) != null",
+    "rationale" : "If the writeStatuses list is not empty, its first element should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(status -> status != null)",
+    "rationale" : "The method assumes all WriteStatus in the list are non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(status -> status.getStat() != null)",
+    "rationale" : "getStat() is called on each WriteStatus, so they must not be null.",
+    "meta" : [ ]
+  } ]
+}

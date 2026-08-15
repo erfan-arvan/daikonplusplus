@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "left >= 0",
+    "rationale" : "Spacing values such as icon spacing are conventionally expected to be non-negative.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nonnegativity"
+    } ]
+  }, {
+    "expression" : "right >= 0",
+    "rationale" : "Spacing values such as icon spacing are conventionally expected to be non-negative.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nonnegativity"
+    } ]
+  }, {
+    "expression" : "left == right",
+    "rationale" : "It is common for left and right spacing to be equal; this could be an invariant in some usages.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "equality"
+    } ]
+  }, {
+    "expression" : "left != right",
+    "rationale" : "Alternatively, the method allows for asymmetric spacing; this invariant distinguishes the case where spacings differ.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "non-equality"
+    } ]
+  }, {
+    "expression" : "left + right >= 0",
+    "rationale" : "Even if individual spacings could be negative, their total spacing is likely expected to be non-negative to avoid illegal layout states.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "combined-nonnegativity"
+    } ]
+  } ]
+}

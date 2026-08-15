@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null && result != null",
+    "rationale" : "Typically, bulkInsertPreppedRecords returns a non-null list corresponding to the processed input records.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "Ensures both input list and result list are non-null at method exit."
+    } ]
+  }, {
+    "expression" : "result.size() == preppedRecords.size()",
+    "rationale" : "Each input record usually maps to a WriteStatus in the output list.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "Result list size equals input record list size."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is expected to be a valid timestamp string used internally.",
+    "meta" : [ {
+      "key" : "non_null_param",
+      "value" : "instantTime is non-null when method exits."
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner == null || bulkInsertPartitioner.isPresent()",
+    "rationale" : "bulkInsertPartitioner is an Option type; it should not be an invalid instance.",
+    "meta" : [ {
+      "key" : "option_non_null",
+      "value" : "Either bulkInsertPartitioner is null or has content."
+    } ]
+  } ]
+}

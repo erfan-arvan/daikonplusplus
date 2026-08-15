@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "It is expected preppedRecords is provided for upsertPrepped to operate correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime must be specified for versioned operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A context is always required for engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List size is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

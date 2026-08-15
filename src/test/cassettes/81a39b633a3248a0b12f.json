@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, or throws an exception on error, so result should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() should return a non-null list after a successful bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The HoodieWriteMetadata parameterized type ensures write statuses are held in a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result.getWriteStatuses().isEmpty()) || result.getWriteStatuses().isEmpty()",
+    "rationale" : "The returned list may be empty or non-empty, but it must be a valid List object.",
+    "meta" : [ ]
+  } ]
+}

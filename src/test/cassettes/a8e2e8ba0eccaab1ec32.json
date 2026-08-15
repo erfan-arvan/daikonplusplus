@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method is called with a List of WriteStatus, likely non-null for the commit action to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to update state inside result, so it should be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.isEmpty() || writeStatuses.size() >= 0",
+    "rationale" : "A List's size is always >= 0, and isEmpty() implies size == 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof java.util.List",
+    "rationale" : "writeStatuses is declared as a List, so this holds at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "result is declared as HoodieWriteMetadata, so this type relationship is always valid at entry.",
+    "meta" : [ ]
+  } ]
+}

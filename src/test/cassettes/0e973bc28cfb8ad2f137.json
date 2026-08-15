@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "The program arguments array is non-null and has a length value that is zero or more.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args array is always non-null at method entry and its length is non-negative"
+    } ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "At main method entry, args is guaranteed to be a String array.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is always an array of strings"
+    } ]
+  } ]
+}

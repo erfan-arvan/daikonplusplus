@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "resolve(fileName) is called, which will likely fail with null input",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "file name string must be non-null for file resolution"
+    } ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "parameter is dereferenced to access textureMinFilter and textureMagFilter",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "parameter is passed to loadTiledMap and setTextureFilters"
+    } ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "A non-empty file name is typical for file resolving and loading",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "empty file name likely not supported by resolve(fileName)"
+    } ]
+  }, {
+    "expression" : "parameter.textureMinFilter != null",
+    "rationale" : "setTextureFilters(parameter.textureMinFilter, ...) dereferences this field",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "parameter.textureMinFilter is used in setTextureFilters"
+    } ]
+  }, {
+    "expression" : "parameter.textureMagFilter != null",
+    "rationale" : "setTextureFilters(..., parameter.textureMagFilter) dereferences this field",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "parameter.textureMagFilter is used in setTextureFilters"
+    } ]
+  } ]
+}

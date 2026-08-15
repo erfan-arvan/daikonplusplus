@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List, either a new LinkedList or the original keys, so the result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method contract guarantees the return value is a List, which matches the declared return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "The deduplication process only removes duplicates, so the size of result cannot exceed the size of the input keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "It is typical for parallelism in distributed processing to be set to a sensible value of 1 or above; negative or zero values would be illogical.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || keys.isEmpty()",
+    "rationale" : "If the result is empty, it must be because the input was empty. Otherwise, at least one key would be present in the deduplicated result.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a parameter potentially used as an argument to method calls; ensuring it is non-null may be important to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "String.length() is always non-negative; this is a property that holds for any non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty() || partitionPath.length() == 0",
+    "rationale" : "partitionPath.isEmpty() is true when length is zero; this links two related standard String predicates.",
+    "meta" : [ ]
+  } ]
+}

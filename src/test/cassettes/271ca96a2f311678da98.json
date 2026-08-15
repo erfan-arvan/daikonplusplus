@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method expects the provided layer to be valid, and a null MapLayer is unlikely to be processed safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "The body of the method immediately calls getObjects(), so a null return would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects().size() >= 0",
+    "rationale" : "The size of an object collection should be non-negative per Java Collections contract.",
+    "meta" : [ ]
+  } ]
+}

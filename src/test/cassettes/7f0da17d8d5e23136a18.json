@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of super.execute(preppedRecords) which should generally not be null in well-formed code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Since the return type is HoodieWriteMetadata<List<WriteStatus>>, result should always be an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(HoodieWriteMetadata.class) || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "Ensures that result is either exactly a HoodieWriteMetadata or a compatible subclass, consistent with declared return type.",
+    "meta" : [ ]
+  } ]
+}

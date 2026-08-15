@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Accessing the array frameTiles[] at a valid index should return a non-null TiledMapTile (assuming no nulls in the array).",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "Method is called on an instance, so 'this' cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == frameTiles[getCurrentFrameIndex()]",
+    "rationale" : "Method directly returns this value.",
+    "meta" : [ ]
+  } ]
+}

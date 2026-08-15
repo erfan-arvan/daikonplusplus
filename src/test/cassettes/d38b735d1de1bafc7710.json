@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Defensive check: Option parameters are generally expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient is usually expected to be non-null for metadata initialization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "A valid HoodieTableMetaClient should have a non-null base path after initialization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isPresent() || instantTime.get() != null",
+    "rationale" : "If instantTime is present as an Option, its contained value should also be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "The table config should be available on the meta client after ensuring initialization.",
+    "meta" : [ ]
+  } ]
+}

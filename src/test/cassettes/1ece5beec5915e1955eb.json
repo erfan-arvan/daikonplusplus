@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "polygon != null",
+    "rationale" : "It is common for setter methods to expect non-null input, as null polygons might not be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "polygon.getVertices() != null",
+    "rationale" : "Usually, a Polygon's vertices array should exist; meaningful polygon objects typically have an associated array.",
+    "meta" : [ ]
+  }, {
+    "expression" : "polygon.getVertices().length % 2 == 0",
+    "rationale" : "Polygons are defined by pairs of coordinates, so the array length is likely even.",
+    "meta" : [ ]
+  }, {
+    "expression" : "polygon.getVertices().length >= 6",
+    "rationale" : "A polygon with less than six coordinates would not form a valid polygon (at least 3 points, thus 6 numbers).",
+    "meta" : [ ]
+  }, {
+    "expression" : "polygon.getTransformedVertices() != null",
+    "rationale" : "It is typical for the transformed vertices to exist for valid transformations and rendering of polygons.",
+    "meta" : [ ]
+  } ]
+}

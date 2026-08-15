@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Many data processing frameworks require positive parallelism; zero or negative values would be nonsensical or error-inducing.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Parallelism should be a positive integer"
+    } ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "A null flatMapToPairFunc would lead to a NullPointerException when used.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "flatMapToPairFunc must be provided for correct execution"
+    } ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "A null reduceFunc would cause a NullPointerException during reduce operations.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "reduceFunc is required for aggregation"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Null data would not allow the method logic to proceed and would result in a NullPointerException.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Input data stream should not be null"
+    } ]
+  }, {
+    "expression" : "parallelism <= Runtime.getRuntime().availableProcessors()",
+    "rationale" : "It's common to restrict parallelism to the available number of processors for efficiency.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Parallelism should not exceed available processors"
+    } ]
+  } ]
+}

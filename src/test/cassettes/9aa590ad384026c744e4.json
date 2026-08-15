@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "type != null",
+    "rationale" : "The method expects a Class<T> argument; null is likely not valid or meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type instanceof Class",
+    "rationale" : "type should be an instance of Class; ensures correct parameter usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Class.class.isAssignableFrom(type.getClass())",
+    "rationale" : "The argument is expected to be a type token; its runtime class should be compatible with Class.",
+    "meta" : [ ]
+  } ]
+}

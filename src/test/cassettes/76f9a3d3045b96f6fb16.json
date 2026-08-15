@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new Array<AssetDescriptor> is always created and returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size == getDependencyFileHandles(tmxFile).size",
+    "rationale" : "One AssetDescriptor is added per dependency file handle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array size is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is necessary for dependency resolution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureParameter != null || true",
+    "rationale" : "textureParameter may be null or not, but null is a permitted value for AssetDescriptor construction.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "opacity >= 0.0f && opacity <= 1.0f",
+    "rationale" : "In many graphics frameworks, opacity is typically clamped between 0 (fully transparent) and 1 (fully opaque), and the setter is likely to expect this range.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "!Float.isNaN(opacity)",
+    "rationale" : "It is unlikely that NaN is a valid value for opacity; passing a NaN might indicate a bug.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "Float.isFinite(opacity)",
+    "rationale" : "Opacity should not be infinite; only finite float values should be valid.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

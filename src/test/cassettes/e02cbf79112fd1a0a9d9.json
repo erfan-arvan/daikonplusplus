@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "object != null",
+    "rationale" : "Method likely requires a non-null MapObject for rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "object.isVisible()",
+    "rationale" : "Rendering should occur only if the object is visible.",
+    "meta" : [ ]
+  }, {
+    "expression" : "object.getProperties() != null",
+    "rationale" : "Properties are often required for configuring rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "object.getName() == null || !object.getName().isEmpty()",
+    "rationale" : "A non-empty name may be required or expected for renderable map objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "object.getProperties().containsKey(\"type\")",
+    "rationale" : "Rendering logic may depend on the 'type' property of the MapObject.",
+    "meta" : [ ]
+  } ]
+}

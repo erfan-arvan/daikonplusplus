@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Many uses in method body expect non-null; method handles null, but most real invocations likely use non-null lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is used in method and is likely required to be non-null in practice.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() >= 0",
+    "rationale" : "If not null, List.size() is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

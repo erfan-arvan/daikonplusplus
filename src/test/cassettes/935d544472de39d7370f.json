@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "!recordItr.hasNext() ? result.hasNext() && !result.next().iterator().hasNext() && !result.hasNext() : true",
+    "rationale" : "If input iterator is empty, the returned iterator yields a single empty list.",
+    "meta" : [ {
+      "key" : "case",
+      "value" : "Empty iterator returns singleton empty list iterator"
+    } ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result != null",
+    "rationale" : "The method always returns a non-null iterator regardless of input.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Result is never null"
+    } ]
+  }, {
+    "expression" : "!recordItr.hasNext() ? result.hasNext() && result.next().isEmpty() && !result.hasNext() : true",
+    "rationale" : "For empty input, the result iterator yields exactly one empty list.",
+    "meta" : [ {
+      "key" : "case",
+      "value" : "Empty input yields exactly one empty list in result"
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The method returns an Iterator in all code paths.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Result is Iterator"
+    } ]
+  }, {
+    "expression" : "idPfx != null || true",
+    "rationale" : "There is no check on idPfx, so any value is permitted.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "idPfx can be any value"
+    } ]
+  } ]
+}

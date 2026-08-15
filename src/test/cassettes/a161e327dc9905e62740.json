@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method cast context to HoodieJavaEngineContext and uses it immediately, so context should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required for versioning/timeline operations and should not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The method passes hoodieRecords into further processing, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is an Option, so its presence/absence is handled at runtime, but the reference itself should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is likely a timestamp or identifier, so it should not be empty.",
+    "meta" : [ ]
+  } ]
+}

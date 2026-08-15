@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Option<HoodieRollbackPlan>, so the result should not be null according to Option's design.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required identifier for the rollback and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "instantToRollback designates what is being rolled back; should be valid and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for engine operations, and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(shouldRollbackUsingMarkers && !skipTimelinePublish)",
+    "rationale" : "If rollback is performed using markers, timeline should usually not be published; this ensures a likely protocol consistency.",
+    "meta" : [ ]
+  } ]
+}

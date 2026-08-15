@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tree != null",
+    "rationale" : "The method is called on a potentially non-null tree, as it is immediately passed to tree.removeActorAt().",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorIndex >= 0",
+    "rationale" : "actorIndex is used as an index to removeActorAt(), which likely expects a non-negative value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tree instanceof Tree",
+    "rationale" : "The method declaration enforces that tree is of type Tree<N, V>.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieTable object, which is expected to be non-null on method exit.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieTable",
+    "rationale" : "The return type is HoodieTable, so the result should be an instance of HoodieTable.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The config parameter is required for creating the table, so it should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient parameter is required for creating the table, so it should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0",
+    "rationale" : "Many hit detection routines expect a non-negative x coordinate as part of the visible area.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "Hit calculations often consider positive coordinates for y as part of the valid input region.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x < getWidth()",
+    "rationale" : "The method checks whether x is within the width of the container, suggesting this is a domain invariant for hits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y < getHeight()",
+    "rationale" : "The method checks whether y is within the height of the container, implying hits only occur when y is within this range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!touchable || getTouchable() != Touchable.disabled",
+    "rationale" : "The method returns early if touchable is true and getTouchable() is disabled, so this relationship may constrain valid hits.",
+    "meta" : [ ]
+  } ]
+}

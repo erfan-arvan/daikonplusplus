@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "animationIntervals != null",
+    "rationale" : "Array animationIntervals is actively used in the method, so it is likely that it should never be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "animationIntervals.length > 0",
+    "rationale" : "The for loop assumes that animationIntervals has at least one element; otherwise, it would immediately throw an exception or not operate as intended.",
+    "meta" : [ ]
+  }, {
+    "expression" : "loopDuration > 0",
+    "rationale" : "The computation of currentTime uses loopDuration as a modulus; a zero or negative duration would result in incorrect behavior or exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "lastTiledMapRenderTime >= 0",
+    "rationale" : "Render times are typically expected to be non-negative values, especially if used in animation frame calculations.",
+    "meta" : [ ]
+  } ]
+}

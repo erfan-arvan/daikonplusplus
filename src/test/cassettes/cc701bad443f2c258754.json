@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "props != null",
+    "rationale" : "The method returns a KeyGenerator created from props, so props must not be null to create a valid KeyGenerator.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "required for safe props access"
+    } ]
+  }, {
+    "expression" : "props.size() >= 0",
+    "rationale" : "Properties size cannot be negative.",
+    "meta" : [ {
+      "key" : "property_size",
+      "value" : "props.size() returns number of properties"
+    } ]
+  }, {
+    "expression" : "props instanceof TypedProperties",
+    "rationale" : "props is declared as TypedProperties at method entry.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "props is declared TypedProperties"
+    } ]
+  }, {
+    "expression" : "props.containsKey(\"hoodie.datasource.write.keygenerator.class\") || !props.containsKey(\"hoodie.datasource.write.keygenerator.class\")",
+    "rationale" : "This tautology is valid but trivial; included to show possible property presence checks.",
+    "meta" : [ {
+      "key" : "tautology",
+      "value" : "always true expression used for syntax"
+    } ]
+  } ]
+}

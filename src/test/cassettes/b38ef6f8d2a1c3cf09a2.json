@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of collecting a Stream with Collectors.toList() is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "Each element in the result is produced by calling getFileId() on smallFile.location, and FileIds are expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Collectors.toList() always produces an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> id instanceof String)",
+    "rationale" : "Each item is a file id obtained from getFileId() and should be a String.",
+    "meta" : [ ]
+  } ]
+}

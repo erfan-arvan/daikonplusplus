@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is passed to the executor and is likely required to be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is used to identify the rollback operation, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant is provided to the executor and probably needs to be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteInstants == true || deleteInstants == false",
+    "rationale" : "deleteInstants is a boolean parameter, and this tautology expresses its type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipLocking == true || skipLocking == false",
+    "rationale" : "skipLocking is a boolean parameter, and this tautology expresses its type.",
+    "meta" : [ ]
+  } ]
+}

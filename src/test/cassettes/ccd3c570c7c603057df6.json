@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "The method operates on order's fields and methods, so it is likely required to be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantities are generally non-negative in a sales context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price should not be negative for a customer order.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() * order.getUnitPrice() >= 0.0",
+    "rationale" : "If both quantity and unit price are non-negative, their product (the total price) should also be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() <= Double.MAX_VALUE",
+    "rationale" : "Unit price should be within the bounds of valid double values.",
+    "meta" : [ ]
+  } ]
+}

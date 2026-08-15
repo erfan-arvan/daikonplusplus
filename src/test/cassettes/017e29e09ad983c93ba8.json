@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A non-null iterator is always returned by the method, either from JavaLazyInsertIterable or from the superclass method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is used as a parameter in potentially multiple constructor and method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed downstream to the returned iterator constructor or superclass method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should not be null for meaningful file slice retrieval.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "A non-null String always has non-negative length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty() || partitionPath.length() == 0",
+    "rationale" : "String isEmpty and length() == 0 are equivalent conditions.",
+    "meta" : [ ]
+  } ]
+}

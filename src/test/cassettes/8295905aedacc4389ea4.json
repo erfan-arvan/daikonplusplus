@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a stream, and the stream object itself should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive integer for partitioning data in parallel computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "A valid stream of input data is required for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "The flatMapToPair function must be provided and not null as it is invoked during processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The reduction function is essential for combining values by key, so it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

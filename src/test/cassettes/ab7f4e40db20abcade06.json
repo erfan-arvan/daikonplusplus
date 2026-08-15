@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method receives 'records' as parameter and passes it to the callee; null check is necessary for method operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The method passes 'instantTime' to another method, so it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List<WriteStatus>, which should not be null to avoid NullPointerExceptions downstream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || !result.isEmpty() || result.isEmpty()",
+    "rationale" : "If records is empty, the result could be empty, but the result may also be empty for other reasons; generalized form acknowledging plausible behaviors without contradiction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type is declared as List<WriteStatus>, so the result should always be a List.",
+    "meta" : [ ]
+  } ]
+}

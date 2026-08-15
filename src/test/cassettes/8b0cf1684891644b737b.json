@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is used to create new instant, so it must be non-null to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "Parameter instantTime must be non-null"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is an identifier for timeline operations, so empty string is unlikely or invalid.",
+    "meta" : [ {
+      "key" : "StringNonEmpty",
+      "value" : "instantTime should be non-empty"
+    } ]
+  } ]
+}

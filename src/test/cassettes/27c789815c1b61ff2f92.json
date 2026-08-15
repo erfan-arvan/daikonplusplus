@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns 'map', which is expected to be non-null if loading was successful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "A valid FileHandle is required to load the TiledMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The method's return type guarantees that result is a TiledMap instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "A non-empty file name is needed for map loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "An AssetManager must be provided for asset synchronization.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "All return statements provide non-null arrays of AssetDescriptor via getDependencies; exceptions are thrown on invalid input, so null is never returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "Method would throw or behave incorrectly if 'file' were null; used for extension and passed to other loaders.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "'file.extension()' is called to determine map type, so it cannot be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "'result' is an Array object, which always has a non-negative size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension().equalsIgnoreCase(\"tmx\") || file.extension().equalsIgnoreCase(\"tmj\")",
+    "rationale" : "Only 'tmx' and 'tmj' extensions reach a return statement; other extensions throw an exception.",
+    "meta" : [ ]
+  } ]
+}

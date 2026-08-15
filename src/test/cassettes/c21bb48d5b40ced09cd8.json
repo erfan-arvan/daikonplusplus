@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "Method body calls element.getName(), so element must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "Method uses parentLayers as an argument to further method calls, indicating it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "map is used as an argument to other methods, so must be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is required as an argument in several calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is used in some branches as a method argument, so must be non-null for consistent API usage.",
+    "meta" : [ ]
+  } ]
+}

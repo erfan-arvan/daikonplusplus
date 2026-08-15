@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "records is a required parameter and likely should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "records is declared as List, so at entry, it should be a List instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.get(0) instanceof WriteStatus",
+    "rationale" : "If the list is not empty, its elements should be of type WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(records.isEmpty()) || records.size() == 0",
+    "rationale" : "If the list is empty, its size should be zero.",
+    "meta" : [ ]
+  } ]
+}

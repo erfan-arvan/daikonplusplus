@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null",
+    "rationale" : "Method expects writeStatus parameter to be provided for processing compaction results.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is required for distributed operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration must be set for compaction to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Compaction should be associated with a non-empty instant time for correct operation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Spacing values are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Method likely returns a finite float value for layout spacing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == spaceRight.get(actor)",
+    "rationale" : "The result directly returns from spaceRight.get(actor) call.",
+    "meta" : [ ]
+  } ]
+}

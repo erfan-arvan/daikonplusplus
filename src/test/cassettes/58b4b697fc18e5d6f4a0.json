@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The execute method always returns the result of a helper's execute function, which typically returns a non-null metadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(HoodieWriteMetadata.class) || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The result must be a HoodieWriteMetadata or a subclass as specified by the method's return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Metadata objects should always provide a non-null list of write statuses.",
+    "meta" : [ ]
+  } ]
+}

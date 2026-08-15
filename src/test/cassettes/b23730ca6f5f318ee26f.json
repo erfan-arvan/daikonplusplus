@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method always returns the result of 'execute()', it's unlikely to return null in normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a String parameter representing the operation instant, and is generally expected to be non-null in Hudi write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of HoodieKeys is expected to be provided for delete operations, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext is required to perform any engine operation, and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The result metadata should always provide a list of write statuses to indicate the outcome of the delete operation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The method dereferences writeClient to call methods, so writeClient must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed to a method call, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to a method and likely represents a required timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.bulkInsertPreppedRecords(preppedRecordInputs, instantTime, bulkInsertPartitioner) != null",
+    "rationale" : "The result of bulkInsertPreppedRecords is passed as an argument, which would not be valid if it is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.commit(instantTime, writeClient.bulkInsertPreppedRecords(preppedRecordInputs, instantTime, bulkInsertPartitioner)) == true || writeClient.commit(instantTime, writeClient.bulkInsertPreppedRecords(preppedRecordInputs, instantTime, bulkInsertPartitioner)) == false",
+    "rationale" : "commit is invoked; its return is always a boolean so evaluating to true or false.",
+    "meta" : [ ]
+  } ]
+}

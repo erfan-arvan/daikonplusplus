@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "Mandatory to access Option's methods safely.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Option must not be null for further processing"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Core operations involve using the metaClient object.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Meta client is required for operations"
+    } ]
+  }, {
+    "expression" : "inFlightInstantTimestamp.isPresent() || !inFlightInstantTimestamp.isPresent()",
+    "rationale" : "Covers both cases for Option; required for complete branch analysis.",
+    "meta" : [ {
+      "key" : "option-predicate",
+      "value" : "Covers both presence and absence"
+    } ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "A HoodieTableMetaClient is typically constructed with a non-null base path.",
+    "meta" : [ {
+      "key" : "metaClient state",
+      "value" : "Base path must exist"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "Table config should be present as the meta client is assumed constructed.",
+    "meta" : [ {
+      "key" : "metaClient state",
+      "value" : "TableConfig should be available for meta operations"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "execute() of MergeOnReadRollbackActionExecutor is expected to return a HoodieRollbackMetadata instance, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is used as an argument to the action executor and must be supplied to identify the rollback instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant is provided to the action executor and is essential for identifying which instant is to be rolled back.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRollbackMetadata",
+    "rationale" : "Resulting object from rollback should be of HoodieRollbackMetadata type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getTotalFilesDeleted() >= 0",
+    "rationale" : "Rollback metadata generally tracks number of files deleted; this count should not be negative.",
+    "meta" : [ ]
+  } ]
+}

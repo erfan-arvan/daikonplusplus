@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null Option; Option type should not be null in a properly implemented Java method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The rollback instant time should be a valid non-null string to construct the rollback executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "A valid HoodieInstant to rollback is required to execute the rollback plan.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext is required to execute actions on the table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() ==> result.get() instanceof HoodieRollbackPlan",
+    "rationale" : "If the Option is present, its value should be of the expected type HoodieRollbackPlan.",
+    "meta" : [ ]
+  } ]
+}

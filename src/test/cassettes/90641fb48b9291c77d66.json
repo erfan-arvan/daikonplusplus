@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs and returns a new AvroReaderContextFactory, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is passed as a parameter and immediately used to construct AvroReaderContextFactory, which would throw if metaClient were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof ReaderContextFactory",
+    "rationale" : "The declared return type and returned value guarantee this.",
+    "meta" : [ ]
+  } ]
+}

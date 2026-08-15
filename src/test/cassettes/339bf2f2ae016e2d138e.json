@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && result.getWriteStatuses() == result && result.getWriteStatuses() == writeStatuses",
+    "rationale" : "result holds the updated write statuses list after updating index, hence result.getWriteStatuses() should be consistent with result list.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "result's write statuses should be the same as the result list returned"
+    } ]
+  }, {
+    "expression" : "result != null && result.getWriteStatuses() != null",
+    "rationale" : "After successful index update, the WriteStatuses list in result should be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Write statuses in result must not be null as they are updated from the method result."
+    } ]
+  }, {
+    "expression" : "statuses == result",
+    "rationale" : "Since statuses is returned at method exit, result and statuses refer to identical lists.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns statuses which is assigned to result by the caller if captured."
+    } ]
+  }, {
+    "expression" : "result != null && !result.getWriteStatuses().isEmpty()",
+    "rationale" : "After updating the index, the write statuses list should have zero or more updated entries.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The writeStatuses list is updated and should contain elements."
+    } ]
+  }, {
+    "expression" : "writeStatuses != null && !writeStatuses.isEmpty()",
+    "rationale" : "The method is invoked with a non-null, non-empty list of write statuses to update.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Input writeStatuses list should not be empty for meaningful index update"
+    } ]
+  } ]
+}

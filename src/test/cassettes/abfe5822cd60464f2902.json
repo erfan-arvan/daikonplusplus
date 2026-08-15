@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The config parameter is dereferenced or used in constructor calls.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "ensures no NullPointerException when passing to constructors"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is passed to constructors.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "ensures no NullPointerException when passing to constructors"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is dereferenced for getTableType.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "metaClient.getTableType() is called"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "Only these two table types are supported; others lead to an exception.",
+    "meta" : [ {
+      "key" : "behavior",
+      "value" : "otherwise, an exception is thrown"
+    } ]
+  }, {
+    "expression" : "config.isInitialized()",
+    "rationale" : "Configuration should typically be initialized before creating the table.",
+    "meta" : [ {
+      "key" : "semantic",
+      "value" : "used in table construction; likely needs to be initialized"
+    } ]
+  } ]
+}

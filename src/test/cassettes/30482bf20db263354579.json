@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "character >= Character.MIN_VALUE && character <= Character.MAX_VALUE",
+    "rationale" : "Java char is always within its min and max bounds",
+    "meta" : [ ]
+  }, {
+    "expression" : "Character.isDefined(character)",
+    "rationale" : "The method may only be called with defined Unicode characters",
+    "meta" : [ ]
+  }, {
+    "expression" : "Character.isValidCodePoint(character)",
+    "rationale" : "Since 'character' is a char, it's always a valid Unicode code point",
+    "meta" : [ ]
+  }, {
+    "expression" : "Character.isLetterOrDigit(character) || !Character.isLetterOrDigit(character)",
+    "rationale" : "For any char, it is either a letter/digit or not; helps in analysis splits",
+    "meta" : [ ]
+  }, {
+    "expression" : "Character.getType(character) >= Character.UNASSIGNED && Character.getType(character) <= Character.FINAL_QUOTE_PUNCTUATION",
+    "rationale" : "Character type falls within documented type enum range",
+    "meta" : [ ]
+  } ]
+}

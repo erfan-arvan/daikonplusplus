@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Every return path assigns result to a new HashMap, or a non-null map from context.mapToPair",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || partitionPaths == null || partitionPaths.isEmpty() || config.getParquetSmallFileLimit() <= 0",
+    "rationale" : "result is empty if and only if one of these early exit conditions holds, per method structure",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().containsAll(partitionPaths == null ? java.util.Collections.emptyList() : partitionPaths)",
+    "rationale" : "If we reach the mapToPair call, partitionPaths keys become result keys",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= (partitionPaths == null ? 0 : partitionPaths.size())",
+    "rationale" : "The result cannot have more keys than provided partitionPaths",
+    "meta" : [ ]
+  } ]
+}

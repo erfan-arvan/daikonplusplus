@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(value)",
+    "rationale" : "Progress bar values are typically expected to be within finite bounds; input should not be NaN or infinite.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "value boundedness"
+    } ]
+  }, {
+    "expression" : "value >= -Float.MAX_VALUE && value <= Float.MAX_VALUE",
+    "rationale" : "Checks that 'value' is within the representable float range, which is generally a precondition for value parameters.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "value range"
+    } ]
+  } ]
+}

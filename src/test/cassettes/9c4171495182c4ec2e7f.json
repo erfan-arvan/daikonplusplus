@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List, as returned by Collectors.toList() on a stream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Input parameter 'hoodieRecords' is allowed to be null only if handled in upstream contract; it's likely guarded or required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(v1 -> !v1.isCurrentLocationKnown())",
+    "rationale" : "The result is constructed by filtering for records where isCurrentLocationKnown() is false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= hoodieRecords.size()",
+    "rationale" : "The result list can have at most as many records as input 'hoodieRecords' since it is formed by filtering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "new java.util.HashSet<>(result).size() == result.size()",
+    "rationale" : "The result is a filtered copy with no further deduplication; if input is a set, result preserves uniqueness.",
+    "meta" : [ ]
+  } ]
+}

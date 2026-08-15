@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "textureRegion != null",
+    "rationale" : "It is common for mutator methods to expect non-null arguments, even if not strictly required by implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(textureRegion == null)",
+    "rationale" : "Alternative representation verifying textureRegion is not null for assignments; prevents null assignments if prohibited elsewhere or by contract.",
+    "meta" : [ ]
+  } ]
+}

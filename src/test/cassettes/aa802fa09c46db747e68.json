@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instant time is typically expected for write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition identifier should be specified for partitioned write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Iterator over records must not be null to perform insertions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "A partitioner is required to appropriately distribute records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition instanceof Integer",
+    "rationale" : "Ensures the partition is of the expected type.",
+    "meta" : [ ]
+  } ]
+}

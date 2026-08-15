@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null Option instance (custom Option implementation for results).",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "Restore instant timestamp is required as a parameter to identify the restore point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "Savepoint timestamp to restore is a required parameter for correct restore semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is passed directly to executor; must not be null for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == false || result.get() != null",
+    "rationale" : "If Option is present, the contained HoodieRestorePlan must not be null (common Option contract).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Necessary to avoid NullPointerException when calling methods on config.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "Returned property map must be non-null to call getProperty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps().containsKey(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key())",
+    "rationale" : "Ensures the relevant partition path field name property is defined.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps().getProperty(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key()) != null",
+    "rationale" : "Ensures the property being accessed actually yields a value.",
+    "meta" : [ ]
+  } ]
+}

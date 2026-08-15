@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator according to code paths.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The partition path should be non-null to identify the target partition.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionPath is a method parameter expected to be non-null for identifying partition"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "File identifier should be non-null to identify the file.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "fileId is expected to be non-null as identifier for file"
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The return type is Iterator<List<WriteStatus>> as declared.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result is an Iterator<List<WriteStatus>>"
+    } ]
+  }, {
+    "expression" : "!recordItr.hasNext() || (result != null)",
+    "rationale" : "If recordItr.hasNext is false, an empty iterator is returned; otherwise, result holds the merge results.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "empty record iterator or valid result"
+    } ]
+  } ]
+}

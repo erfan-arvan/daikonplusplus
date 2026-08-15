@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null list due to stream collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size",
+    "rationale" : "The output list contains exactly the same number of elements as the input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null || result == null",
+    "rationale" : "If records are null, invoking stream() would throw, so result would never be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == records.isEmpty()",
+    "rationale" : "Sorting and collecting preserves whether list is empty or not.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || result.size() == 0",
+    "rationale" : "If the result is empty, its size is zero.",
+    "meta" : [ ]
+  } ]
+}

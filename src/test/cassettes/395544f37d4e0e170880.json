@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A successful restore should return a non-null HoodieRestoreMetadata instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "A restore operation requires a valid (non-null) restoreInstantTimestamp parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "A restore operation requires a valid (non-null) savepointToRestoreTimestamp parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRestoreMetadata",
+    "rationale" : "The method returns an object of type HoodieRestoreMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter must be non-null for all engine operations.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method unconditionally returns the result of HoodieMergeHandleFactory.create, which should produce a non-null handle in normal operation.",
+    "meta" : [ {
+      "key" : "returns-instance",
+      "value" : "HoodieMergeHandle"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a method parameter that is passed directly to HoodieMergeHandleFactory.create, which likely expects it to be non-null.",
+    "meta" : [ {
+      "key" : "param-nonnull",
+      "value" : "partitionPath"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is a method parameter and is used directly in instantiation; null may be disallowed.",
+    "meta" : [ {
+      "key" : "param-nonnull",
+      "value" : "fileId"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is expected to be a valid iterator for records in order to create the update handle.",
+    "meta" : [ {
+      "key" : "param-nonnull",
+      "value" : "recordItr"
+    } ]
+  }, {
+    "expression" : "result.getPartitionPath().equals(partitionPath)",
+    "rationale" : "HoodieMergeHandle likely stores the partition path passed in; this relation is expected.",
+    "meta" : [ {
+      "key" : "result-param-relation",
+      "value" : "partitionPath"
+    } ]
+  } ]
+}

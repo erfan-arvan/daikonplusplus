@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new Label instance, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStyle() == style",
+    "rationale" : "The Label is constructed using the provided LabelStyle, so its style matches the style parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getText().equals(text)",
+    "rationale" : "The Label is constructed with the text parameter, so its getText() result should equal text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getText() != null",
+    "rationale" : "The text field of the Label is set to a String, which may be null, but getText() should not throw.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Label",
+    "rationale" : "The method returns a new Label, so result will always be an instance of Label.",
+    "meta" : [ ]
+  } ]
+}

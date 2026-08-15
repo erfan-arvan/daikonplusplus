@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a newly created ArrayList, which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method dereferences clusteringGroup in clusteringGroup.getSlices(), so it must be non-null for safe execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "clusteringGroup.getSlices() is iterated on, so it cannot be null.",
+    "meta" : [ ]
+  } ]
+}

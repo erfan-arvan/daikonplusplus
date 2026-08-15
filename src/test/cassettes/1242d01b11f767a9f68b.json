@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new int[] of length 2, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length == 2",
+    "rationale" : "The returned array always has exactly two elements: left and right.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result[0] <= result[1]",
+    "rationale" : "By construction, left (result[0]) is less than or equal to right (result[1]).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result[0] >= 0",
+    "rationale" : "left is initialized to 0 and only increased, so result[0] is always >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result[1] <= this.text.length()",
+    "rationale" : "right is never set to a value larger than this.text.length().",
+    "meta" : [ ]
+  } ]
+}

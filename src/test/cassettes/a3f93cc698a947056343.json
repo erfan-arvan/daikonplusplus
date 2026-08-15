@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method stores computation output in 'result'; invariants should assume it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "'result.setWriteStatuses(statuses)' is always called, so its value should be set and not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "'result.setIndexUpdateDuration' is set unconditionally in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "The method assigns 'result.setPartitionToReplaceFileIds', so the value should always be set and not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The method sets WriteStatuses with a List<WriteStatus> (from updateLocation().collectAsList()), so this should always be a List.",
+    "meta" : [ ]
+  } ]
+}

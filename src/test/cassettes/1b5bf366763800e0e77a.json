@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method operates on the provided TiledMap map, so it is expected (and usually required) to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile != null",
+    "rationale" : "The method immediately dereferences tile via tile.getObjects() and tile.getTextureRegion(), so tile must be non-null for the method to function.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The method appears to use the element parameter as a required input to load object data, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getTextureRegion() != null",
+    "rationale" : "The method calls tile.getTextureRegion().getRegionHeight(); thus, tile.getTextureRegion() should be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getObjects() != null",
+    "rationale" : "tile.getObjects() is passed to another method; it should be non-null unless the downstream method can handle null.",
+    "meta" : [ ]
+  } ]
+}

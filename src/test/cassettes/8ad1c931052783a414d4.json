@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Bucket indices are typically non-negative and 'result' is used as an index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed into the method and used directly; the method likely assumes it's non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "fileIdHint is a key in a map and used to create a BucketInfo, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < totalBuckets",
+    "rationale" : "totalBuckets is incremented after setting 'bucket = totalBuckets', so 'result' is always less than 'totalBuckets' at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == totalBuckets - 1",
+    "rationale" : "'result' is assigned to the old value of totalBuckets, which is then incremented before return, so result equals totalBuckets - 1.",
+    "meta" : [ ]
+  } ]
+}

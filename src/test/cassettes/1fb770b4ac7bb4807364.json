@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method depends on 'context' and is expected to interact with the engine context; null is likely not allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents an operation timestamp and should not be null for delete logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of HoodieKey objects to delete must be provided; null would make the operation meaningless.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys instanceof java.util.List",
+    "rationale" : "Type safety on arguments: 'keys' should always be a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty string to identify the operation.",
+    "meta" : [ ]
+  } ]
+}

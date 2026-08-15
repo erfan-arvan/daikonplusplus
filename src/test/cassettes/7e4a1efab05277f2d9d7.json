@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result from JavaWriteHelper.newInstance().write(...), which should not return null in normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata<List<WriteStatus>> object is expected to encapsulate a non-null collection of WriteStatus objects after an insert/commit action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "There should be at least one WriteStatus reflecting the result of the write operation when an insert commit action is executed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "All WriteStatus elements describing the results of the write operation should be non-null.",
+    "meta" : [ ]
+  } ]
+}

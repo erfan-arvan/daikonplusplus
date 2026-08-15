@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Records list should be provided for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "Clustering into zero or negative groups is nonsensical.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An instant time must be specified for a commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "Schema is required for record interpretation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupIdList != null && fileGroupIdList.size() >= numOutputGroups",
+    "rationale" : "There should be enough file groups for each output group.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null List due to use of Collectors.toList()",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed as input and used without null check; likely expected non-null",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> id != null)",
+    "rationale" : "File IDs collected from getFileId() are unlikely to be null",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "distinct() is called in the pipeline to remove duplicates",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List always has a non-negative size",
+    "meta" : [ ]
+  } ]
+}

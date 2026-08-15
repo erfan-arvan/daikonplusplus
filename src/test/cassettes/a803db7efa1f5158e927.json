@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this' per the code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.rotation == rotation",
+    "rationale" : "At exit, the 'rotation' field of 'this' has been set to the parameter 'rotation'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.rotation == rotation",
+    "rationale" : "'result' is 'this', whose 'rotation' was just set to the input parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.rotation == this.rotation",
+    "rationale" : "'result' and 'this' refer to the same object, so their 'rotation' fields are equal.",
+    "meta" : [ ]
+  } ]
+}

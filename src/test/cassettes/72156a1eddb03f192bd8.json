@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null",
+    "rationale" : "Method likely expects writeStatus to be a valid HoodieData object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context should be available for any operations, even if this implementation is a no-op.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Write configuration is critical and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely essential as an identifier for the operation.",
+    "meta" : [ ]
+  } ]
+}

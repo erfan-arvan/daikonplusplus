@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method implementation directly returns the input 'records' parameter with no modification, so the result is always reference-equal to 'records'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Since the returned list is the same as 'records', the size is guaranteed to match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((records == null && result == null) || (records != null && result != null))",
+    "rationale" : "If the input is null, null is returned; otherwise, a non-null value is returned. This follows from returning 'records' directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0 || outputPartitions < 0",
+    "rationale" : "The argument 'outputPartitions' is unused and has no effect. This expression is always true for any int value, reflecting that 'outputPartitions' does not impact behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The output must always be a List, since it is returned directly from the List input.",
+    "meta" : [ ]
+  } ]
+}

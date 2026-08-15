@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator<List<WriteStatus>> in both branches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "The 'partitionPath' parameter is expected to be a valid non-null value for file system operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "The 'fileId' parameter is required and used for logging and as handle input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The method expects a non-null Iterator<HoodieRecord<T>> for updating.",
+    "meta" : [ ]
+  } ]
+}

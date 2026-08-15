@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == true || result == false",
+    "rationale" : "The result is a boolean indicating commit success or failure.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "boolean result"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is expected to be non-null as it identifies the commit instant.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The list of write statuses is expected to be non-null when commit is called.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "writeStatuses"
+    } ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "The commitActionType string is expected to be non-null since it identifies the type of commit action.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "commitActionType"
+    } ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "The partitionToReplacedFileIds map is expected to be non-null to represent replaced file information during commit.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "partitionToReplacedFileIds"
+    } ]
+  } ]
+}

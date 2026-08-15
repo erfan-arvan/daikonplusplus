@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The method assumes writeMetadata is used without null checks, so it's likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "The method calls writeMetadata.getWriteStatuses().stream(), which implies the list is non-null.",
+    "meta" : [ ]
+  } ]
+}

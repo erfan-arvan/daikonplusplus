@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is used to construct JavaUpsertPreppedDeltaCommitActionExecutor, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is likely used as a commit identifier and should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is passed for processing; it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.get(0) != null",
+    "rationale" : "If preppedRecords is not empty, it should not contain null records, especially at the head.",
+    "meta" : [ ]
+  } ]
+}

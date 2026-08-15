@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A well-formed SelectBox component should always provide a non-null List as its underlying list; the program context suggests list is an internal field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method contract is to return a List<T>; this confirms the type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List in Java cannot have a negative size; this follows from the List contract.",
+    "meta" : [ ]
+  } ]
+}

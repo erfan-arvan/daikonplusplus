@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "classElement != null",
+    "rationale" : "The method operates on classElement, which must not be null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "propName != null",
+    "rationale" : "propName is dereferenced in .equals(), so it should not be null unless handled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classElement.getChildrenByNameRecursively(\"property\") != null",
+    "rationale" : "The result of getChildrenByNameRecursively is iterated over, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!propName.isEmpty()",
+    "rationale" : "A non-empty string for propName is typically expected for meaningful property lookup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classElement.getChildrenByNameRecursively(\"property\").size() >= 0",
+    "rationale" : "The size of the returned collection is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "(b == 0 && result == Integer.MIN_VALUE) || (b != 0 && result == a / b)",
+    "rationale" : "Based on method code, when b is zero, result should be Integer.MIN_VALUE, else result should equal a/b.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "The method returns Integer.MIN_VALUE if b is zero, otherwise a divided by b."
+    } ]
+  }, {
+    "expression" : "b == 0 || result * b == a",
+    "rationale" : "By method, when b!=0, result = a/b implies result*b = a.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If b is not zero, then result multiplied by b equals a due to integer division."
+    } ]
+  }, {
+    "expression" : "result != Integer.MIN_VALUE || b == 0",
+    "rationale" : "result == Integer.MIN_VALUE implies b == 0.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "result equals Integer.MIN_VALUE only if b equals zero."
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "From method logic, when b==0, result == Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If b is zero, result is Integer.MIN_VALUE."
+    } ]
+  }, {
+    "expression" : "(b != 0) || (result == Integer.MIN_VALUE)",
+    "rationale" : "The inverse of b == 0 implies result == Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Non-zero b implies result is not Integer.MIN_VALUE."
+    } ]
+  } ]
+}

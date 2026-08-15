@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Both tablePrefHeight and background.getMinHeight() are likely non-negative, since they represent dimensions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == tablePrefHeight || (background != null && result == Math.max(tablePrefHeight, background.getMinHeight()))",
+    "rationale" : "The result is either tablePrefHeight, or if background is not null, the max of tablePrefHeight and background's min height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "background == null || result >= background.getMinHeight()",
+    "rationale" : "When background is not null, result is at least background.getMinHeight().",
+    "meta" : [ ]
+  }, {
+    "expression" : "background == null || result == Math.max(tablePrefHeight, background.getMinHeight())",
+    "rationale" : "If there's a background, result is always the max of tablePrefHeight and background's min height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "background != null || result == tablePrefHeight",
+    "rationale" : "If there's no background, result is exactly tablePrefHeight.",
+    "meta" : [ ]
+  } ]
+}

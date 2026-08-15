@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= -1.0f && result <= 1.0f",
+    "rationale" : "The return value represents a percentage from the center to the edge and is likely normalized between -1 and 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == knobPercent.y",
+    "rationale" : "The method directly returns knobPercent.y, so the result equals it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= 1.0f",
+    "rationale" : "As a normalized percent value, the maximum should be 1.0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= -1.0f",
+    "rationale" : "As a normalized percent value, the minimum should be -1.0.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method parameter records is expected to be non-null when passed to the method.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "records is non-null as a method parameter"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Method parameter context is required and should not be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "context is non-null as a method parameter"
+    } ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "Method parameter hoodieTable is required and should not be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "hoodieTable is non-null as a method parameter"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty() || records.isEmpty()",
+    "rationale" : "The records collection can be either empty or not, allowing safe use in the method.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "records can either be empty or not"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "A general tautology invariant always true at method entry.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "always true expression to fit the single line boolean constraint"
+    } ]
+  } ]
+}

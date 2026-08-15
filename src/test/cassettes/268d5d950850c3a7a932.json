@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "delta >= 0.0f",
+    "rationale" : "In animation or game frameworks, time-step deltas are generally non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(delta)",
+    "rationale" : "Method parameter 'delta' should be a valid, finite floating-point value to avoid issues during computations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "delta != Float.NaN",
+    "rationale" : "'delta' should not be NaN (Not-a-Number) as this would represent invalid or undefined input.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method operates on the TiledMap 'map', so it is likely required to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "tile != null",
+    "rationale" : "The method dereferences 'tile', so it should be non-null to avoid NullPointerExceptions.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Null 'element' would not make sense for map loading—likely a required argument.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "tile.getObjects() != null",
+    "rationale" : "'tile.getObjects()' is passed to another method and thus is expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "postulated property"
+    } ]
+  }, {
+    "expression" : "tile.getTextureRegion() != null",
+    "rationale" : "'tile.getTextureRegion()' is dereferenced and its method is called, so it's likely required to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "postulated property"
+    } ]
+  } ]
+}

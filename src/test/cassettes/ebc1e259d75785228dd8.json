@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tilewidth > 0",
+    "rationale" : "Tile width must be positive for tile extraction to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileheight > 0",
+    "rationale" : "Tile height must be positive for tile extraction to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstgid >= 0",
+    "rationale" : "First global tile id is typically non-negative to avoid identifier conflicts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "margin >= 0",
+    "rationale" : "Tiled map margins are unsigned and must be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "spacing >= 0",
+    "rationale" : "Spacing between tiles is unsigned and must be non-negative.",
+    "meta" : [ ]
+  } ]
+}

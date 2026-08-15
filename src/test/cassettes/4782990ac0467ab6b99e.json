@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "The method expects a valid clusteringPlan to perform clustering.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method parameter should not be null at entry"
+    } ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "The schema parameter is necessary and expected to be non-null before method execution.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method parameter should not be null at entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a string timestamp and is expected to be non-null to label the clustering operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method parameter should not be null at entry"
+    } ]
+  }, {
+    "expression" : "clusteringPlan.getInputGroups() != null",
+    "rationale" : "Input groups must be present for clustering to execute, hence expected non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Safe method call on clusteringPlan"
+    } ]
+  }, {
+    "expression" : "clusteringPlan.getStrategy() != null",
+    "rationale" : "Strategy must be set for clustering plan to provide strategy parameters.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Safe method call on clusteringPlan"
+    } ]
+  } ]
+}

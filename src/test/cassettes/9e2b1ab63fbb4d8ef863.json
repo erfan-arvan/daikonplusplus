@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns HoodieWriteMetadata, expected to be non-null to represent successful writing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Input records to be bulk inserted are usually required and not expected to be null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter is used for commit time and should be a valid non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is required for any table operation and is assumed at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata should always provide a (possibly empty but not null) list of WriteStatus.",
+    "meta" : [ ]
+  } ]
+}

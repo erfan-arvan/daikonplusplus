@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The layer parameter is used throughout the method, so it must not be null at the exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() != null",
+    "rationale" : "The function returns early if layer.getTextureRegion() == null, so at method exit this expression must hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxX() >= 0",
+    "rationale" : "Parallax factors for X are typically non-negative in tile map rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxY() >= 0",
+    "rationale" : "Parallax factors for Y are typically non-negative in tile map rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!layer.isVisible() || layer.getTextureRegion() != null",
+    "rationale" : "If the layer is visible, then the texture region must not be null for rendering to proceed.",
+    "meta" : [ ]
+  } ]
+}

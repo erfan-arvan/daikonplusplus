@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() > 0",
+    "rationale" : "The small file limit is used for calculations, so it should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() > 0",
+    "rationale" : "The record size estimation threshold should be positive as it's used as a multiplicative factor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() > 0",
+    "rationale" : "An estimated record size should be positive to ensure meaningful calculations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!commitTimeline.empty() || commitTimeline.empty()",
+    "rationale" : "The timeline is either empty or not before execution; logic depends on this conditional.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "hoodieWriteConfig is accessed immediately, so it should not be null.",
+    "meta" : [ ]
+  } ]
+}

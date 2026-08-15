@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', so 'result' is guaranteed not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this', as indicated by its code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.flipVertically == flipVertically",
+    "rationale" : "After assignment, result.flipVertically always reflects the argument value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.flipVertically == flipVertically",
+    "rationale" : "The method assigns the parameter to the field unconditionally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.flipVertically == this.flipVertically",
+    "rationale" : "Since result is 'this', their fields must be equal.",
+    "meta" : [ ]
+  } ]
+}

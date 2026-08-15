@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method uses 'result' without any null checks, suggesting it should always be non-null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method always sets write statuses on 'result', so this field should be non-null before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "The method explicitly sets the index update duration on 'result', so this field should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "The method sets the partitionToReplaceFileIds on 'result', so this field should always be non-null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of a List in Java is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

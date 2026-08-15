@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "tileset != null",
+    "rationale" : "Method is likely not intended to accept null tilesets; many add semantics require non-null argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets.contains(tileset)",
+    "rationale" : "After addition, the collection should contain the added tileset.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets.indexOf(tileset) >= 0",
+    "rationale" : "Tileset must be present somewhere in the collection after add.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets.size() > 0",
+    "rationale" : "After adding a tileset, the collection should not be empty.",
+    "meta" : [ ]
+  } ]
+}

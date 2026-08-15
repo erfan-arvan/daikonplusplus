@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "ids != null",
+    "rationale" : "Varargs parameter 'ids' is never null when passed into a Java method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cacheKey != null",
+    "rationale" : "It is common for key parameters to be checked for non-nullness; null entries may violate cache semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids.length >= 0",
+    "rationale" : "Array length is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

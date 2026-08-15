@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HoodieWriteMetadata object on successful completion; null is not a valid result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses within the HoodieWriteMetadata should be non-null by contract, reflecting the underlying insert operation's result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "A successful bulk insert should return at least one WriteStatus object representing the status of write actions performed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "All WriteStatus objects within the metadata list are expected to be non-null, indicating each operation's status is recorded.",
+    "meta" : [ ]
+  } ]
+}

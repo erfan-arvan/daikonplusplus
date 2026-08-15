@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a BulkInsertPartitioner instance, so result must not be null.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "Ensures that the method returns a non-null partitioner"
+    } ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "The strategyParams parameter must be non-null to call containsKey safely.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "Ensures safe access to strategyParams"
+    } ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "The schema parameter must be non-null to use HoodieSchemaUtils.addMetadataFields safely.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "Ensures safe access to schema"
+    } ]
+  }, {
+    "expression" : "(strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())) == (result instanceof JavaCustomColumnsSortPartitioner)",
+    "rationale" : "If strategyParams has the SORT_COLUMNS key, the result is a JavaCustomColumnsSortPartitioner, otherwise not.",
+    "meta" : [ {
+      "key" : "correspondence",
+      "value" : "Ties presence of key to returned partitioner type"
+    } ]
+  }, {
+    "expression" : "!(strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())) || (strategyParams.get(PLAN_STRATEGY_SORT_COLUMNS.key()).length() > 0)",
+    "rationale" : "If the key exists, its associated string to split should not be empty.",
+    "meta" : [ {
+      "key" : "validity",
+      "value" : "Ensures split argument non-empty"
+    } ]
+  } ]
+}

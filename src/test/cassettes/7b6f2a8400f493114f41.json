@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is newly created at method entry and populated before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Input records are always used, e.g. partition(inputRecords, ...), without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses are aggregated and set before returning result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "Size of returned write status list is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer != null || !sourceReadAndIndexTimer.isPresent()",
+    "rationale" : "Option is expected to be non-null or empty; null Option would be incorrect API usage.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 || result == a / b",
+    "rationale" : "If b is 0, we don't perform the division; otherwise, the result is a divided by b.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "If b is 0, the method returns Integer.MIN_VALUE as a designated 'error' value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b == 0 || result * b == a - (a % b)",
+    "rationale" : "If b is not 0, result equals a / b; thus, result * b is a - remainder.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != 0 || result < 0",
+    "rationale" : "When b is 0, the result is Integer.MIN_VALUE, which is a negative number.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Math.abs(result) <= Math.abs(a)",
+    "rationale" : "The absolute value of the quotient (when b != 0) or the special value is always less than or equal to |a|.",
+    "meta" : [ ]
+  } ]
+}

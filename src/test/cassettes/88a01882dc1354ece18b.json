@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method operates on 'config', which must not be null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "'Option' values returned should not themselves be null, but rather represent None/empty cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == result.isEmpty()",
+    "rationale" : "If meta fields are to be populated, the method returns Option.empty(); otherwise, Option.of(...)",
+    "meta" : [ ]
+  }, {
+    "expression" : "!config.populateMetaFields() == result.isPresent()",
+    "rationale" : "If meta fields are not to be populated, the method returns Option.of(...), indicating presence.",
+    "meta" : [ ]
+  } ]
+}

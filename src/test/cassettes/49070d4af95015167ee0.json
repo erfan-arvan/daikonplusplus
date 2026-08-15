@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a new merged JsonValue object regardless of parent/template being null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "template == null || parent == null || (result != parent && result != template)",
+    "rationale" : "If neither parent nor template is null, result is a newly constructed JsonValue, not parent or template.",
+    "meta" : [ ]
+  }, {
+    "expression" : "template == null ? result == parent : parent == null ? result == template : true",
+    "rationale" : "When either parent or template is null, result is set to the non-null argument; otherwise, a new JsonValue.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.parent() == null",
+    "rationale" : "Returned merged element is detached (parent == null), per Javadoc.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isObject()",
+    "rationale" : "Merged always represents an object type (created as such).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The return value of 'properties.keys()' is expected to be a non-null iterator representing property names, as returning a null iterator would not be idiomatic in Java collection APIs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext() == false || result.next() != null",
+    "rationale" : "If the iterator has a next element, that element (a property name) should not be null, as property names are strings and null property keys are not expected.",
+    "meta" : [ ]
+  } ]
+}

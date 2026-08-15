@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a (possibly empty) Option, so the result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "indexInstantTime is passed through to another class and used to create the result, so a null value may cause NPE downstream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used to construct RunIndexActionExecutor and must be non-null for operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "Ensures that result is an Option, and its isPresent state is well-defined (trivially true but expresses Option usage at this point).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Option",
+    "rationale" : "Ensures the result is an instance of Option, as per the method signature and implementation.",
+    "meta" : [ ]
+  } ]
+}

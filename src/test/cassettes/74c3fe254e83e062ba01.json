@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime likely represents a required timestamp for compaction scheduling and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for any engine operations and should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is of type Option and should not be null as Option is used to represent presence or absence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "A valid instantTime should not be an empty string for scheduling purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "instantTime should not be just whitespace to be valid for scheduling.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null result Map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The input records list cannot be null for the method to operate correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The Partitioner argument is required for groupings in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().flatMap(List::stream).allMatch(r -> dedupedRecords.contains(r))",
+    "rationale" : "All HoodieRecords in the output are drawn from the provided dedupedRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().mapToInt(List::size).sum() == dedupedRecords.size()",
+    "rationale" : "All input records are distributed across the output partitions, and none are dropped or duplicated.",
+    "meta" : [ ]
+  } ]
+}

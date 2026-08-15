@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is expected to be a valid table client for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is a required parameter for indexing columns; it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.size() >= 0",
+    "rationale" : "List size() is always non-negative if the list is initialized.",
+    "meta" : [ ]
+  } ]
+}

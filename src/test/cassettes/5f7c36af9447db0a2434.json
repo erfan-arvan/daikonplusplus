@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is accessed throughout the method, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "config.getProps() is passed to createKeyGenerator, indicating it's expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == true || config.getProps() != null",
+    "rationale" : "If populateMetaFields is true, Option.empty() is returned; otherwise, getProps() is used, which must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!config.populateMetaFields() || config.getProps() != null",
+    "rationale" : "Only when populateMetaFields() is false does getProps() need to be non-null.",
+    "meta" : [ ]
+  } ]
+}

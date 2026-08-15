@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 || b != 0",
+    "rationale" : "Every possible value of b is covered; only included for completeness, but not recommended as a meaningful invariant.",
+    "meta" : [ {
+      "key" : "tautology",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "a / 1 == a",
+    "rationale" : "Dividing any integer a by 1 yields a; this relates to valid division scenarios when b == 1.",
+    "meta" : [ {
+      "key" : "division",
+      "value" : "identity"
+    } ]
+  }, {
+    "expression" : "b == 1 || b == -1 || b != 0",
+    "rationale" : "When b is 1 or -1, division is exact. Also, the method checks for division by zero, so those cases are handled.",
+    "meta" : [ {
+      "key" : "division",
+      "value" : "specialcases"
+    } ]
+  }, {
+    "expression" : "Integer.MIN_VALUE <= a && a <= Integer.MAX_VALUE",
+    "rationale" : "The parameter a must be within the valid int range by Java's type system.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "int"
+    } ]
+  }, {
+    "expression" : "Integer.MIN_VALUE <= b && b <= Integer.MAX_VALUE",
+    "rationale" : "The parameter b must be within the valid int range by Java's type system.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "int"
+    } ]
+  } ]
+}

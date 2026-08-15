@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "opacity >= 0.0f && opacity <= 1.0f",
+    "rationale" : "Opacity is typically clamped between 0.0 (fully transparent) and 1.0 (fully opaque) in graphics APIs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(opacity)",
+    "rationale" : "Opacity values should be within the finite range of floats; infinite or NaN values are likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "opacity == opacity",
+    "rationale" : "Checks that opacity is not NaN, since NaN != NaN. This is a subtle NaN check.",
+    "meta" : [ ]
+  } ]
+}

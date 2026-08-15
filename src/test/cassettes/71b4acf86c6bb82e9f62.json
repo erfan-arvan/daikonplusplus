@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is dereferenced in the method body, so it is likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to a downstream function, likely requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "commitActionType is forwarded to another method and may be used to determine commit semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds is always supplied to the downstream commit method, so likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The Option extraMetadata is always present as an argument, so not null even if it may be Option.empty().",
+    "meta" : [ ]
+  } ]
+}

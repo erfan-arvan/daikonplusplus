@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "true",
+    "rationale" : "At method entry, without parameters or fields, only universally true invariants are valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "Instance methods have a non-null 'this' reference at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStageIdSupplier() != null",
+    "rationale" : "Method returns a lambda, so never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "org.apache.hudi.client.common.JavaTaskContextSupplier.class.isInstance(this)",
+    "rationale" : "'this' must be an instance of its own class at instance method entry.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned value 'result' is an Option and should never be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is guaranteed non-null due to Option return type"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The parameter 'config' is expected to be non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config is a parameter and not null"
+    } ]
+  }, {
+    "expression" : "(config.populateMetaFields() && result.isEmpty()) || (!config.populateMetaFields() && result.isPresent())",
+    "rationale" : "If config.populateMetaFields() returns true then result is empty; otherwise result is present.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "result presence depends on config.populateMetaFields()"
+    } ]
+  }, {
+    "expression" : "!result.isPresent() || result.get() instanceof BaseKeyGenerator",
+    "rationale" : "If result is present, it wraps an instance of BaseKeyGenerator.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result contains BaseKeyGenerator if present"
+    } ]
+  } ]
+}

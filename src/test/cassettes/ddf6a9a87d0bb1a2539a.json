@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method uses 'batch' without a null check, indicating it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values representing opacity are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha values are usually in the [0, 1] range for color blending.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null && !inputRecords.isEmpty()",
+    "rationale" : "inputRecords list is expected to be non-null and non-empty before clustering.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method is expected to process records, so the inputRecords list should not be null or empty."
+    } ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "numOutputGroups must be positive for correct clustering.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The number of output groups must be positive to perform clustering correctly."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime represents the commit timestamp and must be valid.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime should be a non-null and non-empty commit time string."
+    } ]
+  }, {
+    "expression" : "fileGroupIdList != null",
+    "rationale" : "fileGroupIdList must not be null as it identifies file groups being clustered.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The list of file group IDs should be initialized before starting clustering."
+    } ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams must not be null for correct method operation.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Strategy parameters map should be available for configuring partitioner and strategy."
+    } ]
+  } ]
+}

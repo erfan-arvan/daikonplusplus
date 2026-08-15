@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The return value (result) is expected to be initialized and non-null by contract.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "return-value"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects preppedRecords to be non-null to perform insert operations.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is used as an identifier and is required for insert operation context.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "!(preppedRecords.isEmpty()) || !(result.isEmpty())",
+    "rationale" : "If input records are not empty, the write should produce at least one WriteStatus.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "relation"
+    } ]
+  }, {
+    "expression" : "result.size() <= preppedRecords.size()",
+    "rationale" : "The number of WriteStatus entries should not exceed the number of inserted records.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "size-relation"
+    } ]
+  } ]
+}

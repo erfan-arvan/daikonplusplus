@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null",
+    "rationale" : "It is common to assume input maps are non-null at method entry unless documented otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "The method expects a valid HoodieSchema to operate on; likely guaranteed by callers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams instanceof java.util.Map",
+    "rationale" : "The static type of strategyParams is Map<String, String>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema instanceof org.apache.hudi.common.util.HoodieSchema",
+    "rationale" : "The static type of schema is HoodieSchema.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "Map keys for strategy parameters are generally expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is likely essential for the action and should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is accessed immediately in the method, so it should be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to a helper method and should be non-null for the execution to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is a core object used in write execution and is expected to be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "operationType is provided to the helper and is likely required for correct operation.",
+    "meta" : [ ]
+  } ]
+}

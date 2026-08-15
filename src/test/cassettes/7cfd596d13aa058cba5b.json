@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "record != null",
+    "rationale" : "Method uses 'record' as an argument; null may cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "record.getRecordKey() != null",
+    "rationale" : "Record key is often expected not to be null for sorting/identification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!record.isDeleted()",
+    "rationale" : "Sorting is typically performed on non-deleted records.",
+    "meta" : [ ]
+  } ]
+}

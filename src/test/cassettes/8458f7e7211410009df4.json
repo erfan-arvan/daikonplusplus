@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "(result == null) || (result.getId() == id)",
+    "rationale" : "If a tile is found and returned, its id must match the requested id; otherwise, result is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == null) || (result instanceof TiledMapTile)",
+    "rationale" : "If result is not null, it must be an instance of TiledMapTile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(id < 0) ? (result == null) : true",
+    "rationale" : "If an invalid (negative) id is searched, the method likely returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result != null",
+    "rationale" : "Method returns either null or a TiledMapTile (captures nullability per Javadoc).",
+    "meta" : [ ]
+  } ]
+}

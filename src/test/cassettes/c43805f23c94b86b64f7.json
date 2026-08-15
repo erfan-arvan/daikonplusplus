@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "Methods operating on metaClient may expect a non-null object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Using columnsToIndex likely assumes a valid list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.isEmpty() || columnsToIndex.get(0) != null",
+    "rationale" : "If columnsToIndex is non-null and not empty, its first element should be non-null for proper indexing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "The base path is a central property; many operations on HoodieTableMetaClient expect this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.size() >= 0",
+    "rationale" : "A Java List size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

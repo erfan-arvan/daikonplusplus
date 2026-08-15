@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "max != min",
+    "rationale" : "The method checks if min == max, possibly to prevent division by zero, thus it is reasonable to expect max != min in most valid cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "visualInterpolation != null",
+    "rationale" : "The method calls visualInterpolation.apply(...), so visualInterpolation should not be null to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getVisualValue() >= min",
+    "rationale" : "Typically, a progress bar's value does not fall below its minimum.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getVisualValue() <= max",
+    "rationale" : "Typically, a progress bar's value does not exceed its maximum.",
+    "meta" : [ ]
+  } ]
+}

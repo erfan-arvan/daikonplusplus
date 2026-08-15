@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Heights are typically non-negative in UI/layout contexts, so the returned value is likely always zero or positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (float) result",
+    "rationale" : "As result is a float, this expression is always true and sanity-checks the type and lack of conversion errors.",
+    "meta" : [ ]
+  } ]
+}

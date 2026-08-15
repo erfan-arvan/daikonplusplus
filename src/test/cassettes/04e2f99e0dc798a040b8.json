@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null && !restoreInstantTimestamp.isEmpty()",
+    "rationale" : "The restore instant timestamp should be non-null and non-empty to schedule a restore operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null && !savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "The savepoint timestamp should be non-null and non-empty for a valid restore plan.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.equals(savepointToRestoreTimestamp)",
+    "rationale" : "The restore instant 'to' and 'from' timestamps should usually be different for a meaningful restore.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null engine context is needed to perform scheduled actions.",
+    "meta" : [ ]
+  } ]
+}

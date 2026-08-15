@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter must be provided for deletion operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is not null"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime should be non-null and non-empty to specify the commit instant.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null and not empty"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of keys to delete must be provided.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "keys is not null"
+    } ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "List size cannot be negative by definition.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "keys size is non-negative"
+    } ]
+  } ]
+}

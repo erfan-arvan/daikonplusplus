@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method expects the result parameter to be a valid HoodieWriteMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is called in the method body, so it must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "Processing assumes each WriteStatus in the list is not null.",
+    "meta" : [ ]
+  } ]
+}

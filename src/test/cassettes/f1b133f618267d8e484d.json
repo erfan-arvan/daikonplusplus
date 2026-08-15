@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "index >= -1",
+    "rationale" : "The method enforces that index must be greater than or equal to -1, as per the early guard.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < items.size",
+    "rationale" : "The method enforces index is less than items.size; otherwise, it throws an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index == -1 || (index >= 0 && index < items.size)",
+    "rationale" : "Per method semantics, index -1 clears the selection; otherwise, index is a valid element index.",
+    "meta" : [ ]
+  } ]
+}

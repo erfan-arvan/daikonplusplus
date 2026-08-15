@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "batch is a required UI drawing resource and must be non-null for rendering to function.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "parentAlpha is blended into the alpha/opacity and usually clamped between 0 and 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getColor() != null",
+    "rationale" : "getColor() is used in batch.setColor so a non-null value is expected during draw.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getWidth() >= 0.0f",
+    "rationale" : "UI elements should not have negative dimensions; width is used in rendering math.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getHeight() >= 0.0f",
+    "rationale" : "UI elements should not have negative dimensions; height is used in rendering math.",
+    "meta" : [ ]
+  } ]
+}

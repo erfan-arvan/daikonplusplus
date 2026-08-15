@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is passed as a parameter and is expected to be not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "getProps() should return non-null properties required for key generator creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == true || config.populateMetaFields() == false",
+    "rationale" : "populateMetaFields() returns a boolean value, so one of these must hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps().isEmpty() || !config.getProps().isEmpty()",
+    "rationale" : "getProps().isEmpty() is a total predicate (Properties is always empty or not).",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getClass() == HoodieWriteConfig.class || config.getClass().isAssignableFrom(HoodieWriteConfig.class)",
+    "rationale" : "config must be an instance of HoodieWriteConfig or its subclass.",
+    "meta" : [ ]
+  } ]
+}

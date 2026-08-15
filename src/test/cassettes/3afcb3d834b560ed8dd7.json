@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "It is common to check for null before operating on reference parameters to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantity is typically non-negative; negative quantities likely indicate a bug.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price for an order should not be negative, which is consistent with standard business logic.",
+    "meta" : [ ]
+  } ]
+}

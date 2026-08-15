@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should be non-null for the method logic to correctly query slices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "partitionPath is expected to represent a valid path, which likely cannot be an empty string.",
+    "meta" : [ ]
+  } ]
+}

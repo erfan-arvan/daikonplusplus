@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "Instant time should not be null for clustering actions to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null execution context is required for execution of clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clusteringInstantTime.isEmpty()",
+    "rationale" : "Clustering instant time should not be an empty string, as it usually encodes a timestamp or identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringInstantTime.trim().length() > 0",
+    "rationale" : "Clustering instant time should not be just whitespace; it should have valid content.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringInstantTime.matches(\"\\\\d+\")",
+    "rationale" : "Clustering instant times are often formatted as numeric timestamps.",
+    "meta" : [ ]
+  } ]
+}

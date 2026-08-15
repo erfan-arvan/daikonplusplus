@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "true",
+    "rationale" : "The method entry point defines no constraints, so true is always valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x == false || x == true",
+    "rationale" : "x is a boolean parameter and can only be true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y == false || y == true",
+    "rationale" : "y is a boolean parameter and can only be true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x == !(!x)",
+    "rationale" : "Double negation of a boolean returns itself, which confirms x is a boolean.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y == !(!y)",
+    "rationale" : "Double negation of a boolean returns itself, which confirms y is a boolean.",
+    "meta" : [ ]
+  } ]
+}

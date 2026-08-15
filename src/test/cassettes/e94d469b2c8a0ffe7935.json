@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned commit action type should not be null to represent a valid action.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Method returns value from chained method calls."
+    } ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "A commit action type is expected to be a non-empty String.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "getCommitActionType likely returns a non-empty string"
+    } ]
+  }, {
+    "expression" : "result.equals(result.trim())",
+    "rationale" : "Common style—invariant if the value comes from a standard metadata source.",
+    "meta" : [ {
+      "key" : "style",
+      "value" : "commit action types should not contain leading/trailing whitespace"
+    } ]
+  }, {
+    "expression" : "result.matches(\"[A-Z_]+\")",
+    "rationale" : "Commit action types may follow a naming convention (e.g., upper snake case).",
+    "meta" : [ {
+      "key" : "pattern",
+      "value" : "Upper snake case"
+    } ]
+  }, {
+    "expression" : "result instanceof String",
+    "rationale" : "The result variable is always a String, as per the method signature.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "ensure type safety"
+    } ]
+  } ]
+}

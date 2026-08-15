@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "tintColor != null",
+    "rationale" : "The method expects a tintColor, and likely operates correctly only when tintColor is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.tintColor != null",
+    "rationale" : "set() is called on this.tintColor; a NullPointerException would occur if it were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.tintColor != tintColor",
+    "rationale" : "It's common for set methods to copy values rather than reference assign; likely tintColor and this.tintColor are different Color objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.tintColor.equals(tintColor)",
+    "rationale" : "After set(), the layer's tint color is equal in value to the parameter tintColor.",
+    "meta" : [ ]
+  } ]
+}

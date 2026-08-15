@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "args array is non-null and arrays always have non-negative length.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is the command line arguments array; it must be non-null and have non-negative length."
+    } ]
+  }, {
+    "expression" : "java.util.Arrays.stream(args).allMatch(s -> s != null)",
+    "rationale" : "All elements in args are non-null strings.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Command line arguments normally do not contain null references."
+    } ]
+  } ]
+}

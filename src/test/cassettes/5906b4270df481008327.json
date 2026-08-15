@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "(columnAlign & com.badlogic.gdx.utils.Align.center) == com.badlogic.gdx.utils.Align.center",
+    "rationale" : "Checks if the center alignment bit is set in columnAlign, as center is one of the documented valid values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(columnAlign & com.badlogic.gdx.utils.Align.top) == com.badlogic.gdx.utils.Align.top",
+    "rationale" : "Checks if the top alignment bit is set, which is valid according to Javadoc.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(columnAlign & com.badlogic.gdx.utils.Align.bottom) == com.badlogic.gdx.utils.Align.bottom",
+    "rationale" : "Checks if the bottom alignment flag is active in columnAlign.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(columnAlign & com.badlogic.gdx.utils.Align.left) == com.badlogic.gdx.utils.Align.left",
+    "rationale" : "Checks if the left alignment flag is set according to valid documented options.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(columnAlign & com.badlogic.gdx.utils.Align.right) == com.badlogic.gdx.utils.Align.right",
+    "rationale" : "The right alignment flag being set is meaningful and valid at method entry.",
+    "meta" : [ ]
+  } ]
+}

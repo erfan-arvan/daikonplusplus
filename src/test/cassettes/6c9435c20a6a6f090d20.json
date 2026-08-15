@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The savepoint method constructs and returns a SavepointActionExecutor's execute() result, which should yield a non-null HoodieSavepointMetadata instance if the savepoint is successful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null && !instantToSavepoint.isEmpty()",
+    "rationale" : "Creating a savepoint requires a valid non-empty instant identifier; likely an invariant for successful completion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null && !user.isEmpty()",
+    "rationale" : "A savepoint operation typically requires a non-null, non-empty user string for audit and tracking purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "The 'comment' parameter is passed to the executor; while it may be empty, it is likely required to be non-null to avoid errors in downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is necessary for savepointing; method would not proceed and return a result otherwise.",
+    "meta" : [ ]
+  } ]
+}

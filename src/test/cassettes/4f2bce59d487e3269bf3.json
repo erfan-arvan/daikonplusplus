@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "Null jobId is unlikely to legitimately arise as a value for a job cancellation in most APIs.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Appears in both Drafts A and B"
+    } ]
+  }, {
+    "expression" : "jobId.length() >= 0",
+    "rationale" : "The length of a String is always non-negative in Java if the String is non-null.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Appears in Drafts A, B, and C"
+    } ]
+  } ]
+}

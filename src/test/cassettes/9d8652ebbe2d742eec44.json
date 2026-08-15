@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "manager != null",
+    "rationale" : "The method expects manager to be non-null, as it is always used in subsequent loader calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "file is used in file.extension() and usesAtlas(file), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "file.extension() is used in toLowerCase(); for safety, it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is passed to sub-loader methods; nulls could cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension().toLowerCase().equals(\"tmx\") || file.extension().toLowerCase().equals(\"tmj\") || !file.extension().toLowerCase().equals(\"tmx\") && !file.extension().toLowerCase().equals(\"tmj\")",
+    "rationale" : "The file extension check splits exclusively on these possibilities.",
+    "meta" : [ ]
+  } ]
+}

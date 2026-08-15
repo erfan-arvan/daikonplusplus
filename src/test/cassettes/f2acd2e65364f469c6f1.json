@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The execute() method always returns the result of JavaWriteHelper.newInstance().write(...), which should provide a non-null HoodieWriteMetadata if the write operation completes.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The method's return type guarantees that result is a HoodieWriteMetadata or its subtype.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  } ]
+}

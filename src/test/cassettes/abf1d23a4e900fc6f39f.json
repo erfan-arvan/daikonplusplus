@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method receives 'context' from its caller, and it is critical for the clustering process, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "A null clustering instant time likely does not make sense for a clustering operation, so it is expected to be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clusteringInstantTime.isEmpty()",
+    "rationale" : "clusteringInstantTime should normally represent a concrete timestamp and should not be empty for clustering.",
+    "meta" : [ ]
+  } ]
+}

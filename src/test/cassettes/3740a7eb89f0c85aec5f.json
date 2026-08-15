@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "Java's String.length() always returns a non-negative integer, so if name is not null, its length is at least 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + (name == null ? 0 : name.length()) <= Integer.MAX_VALUE",
+    "rationale" : "Since x is an int and name.length() is non-negative, their sum must be less than or equal to Integer.MAX_VALUE to avoid overflow.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No additional logically meaningful non-tautological invariants can be inferred from the available context and parameters.",
+    "meta" : [ ]
+  } ]
+}

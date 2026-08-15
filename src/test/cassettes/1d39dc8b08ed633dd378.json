@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a HoodieTable instance, so the result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is provided as a parameter to createTable and should never be null for correct table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieTable",
+    "rationale" : "Given the return type, the result should be an instance of HoodieTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "Typically, the table created will retain a reference to the config used to create it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getMetaClient() != null",
+    "rationale" : "A valid HoodieTable (result) should have a non-null meta client after being created.",
+    "meta" : [ ]
+  } ]
+}

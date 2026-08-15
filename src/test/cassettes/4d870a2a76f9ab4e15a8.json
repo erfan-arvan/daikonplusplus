@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths == null || partitionPaths instanceof List",
+    "rationale" : "partitionPaths is either null or a List<String> according to method signature.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "size"
+    } ]
+  }, {
+    "expression" : "partitionPaths == null || !partitionPaths.contains(null)",
+    "rationale" : "Assuming partitionPaths does not contain null elements.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "element nullness"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is expected to be non-null as a method parameter.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() > 0 || partitionPaths.size() == 0",
+    "rationale" : "partitionPaths size is either zero or positive if non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "tautology"
+    } ]
+  } ]
+}

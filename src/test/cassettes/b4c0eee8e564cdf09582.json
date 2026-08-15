@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new HoodieJavaWriteClient, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaWriteClient",
+    "rationale" : "The returned instance is constructed with new HoodieJavaWriteClient, so it must be of that type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((HoodieJavaWriteClient) result).getConfig() == config",
+    "rationale" : "The HoodieJavaWriteClient constructor takes config and context, so its getConfig() should return the same config.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((HoodieJavaWriteClient) result).getEngineContext() == context",
+    "rationale" : "The HoodieJavaWriteClient constructor uses context, so getEngineContext() should return the provided context.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "Method likely expects a valid file handle for correct processing.",
+    "meta" : [ {
+      "key" : "null-safe",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "tmjFile.exists()",
+    "rationale" : "Dependency files should be resolvable, so the FileHandle should exist.",
+    "meta" : [ {
+      "key" : "file-safety",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "tmjFile.isAbsolute()",
+    "rationale" : "FileHandles representing TMJ files are often absolute for correct path resolution.",
+    "meta" : [ {
+      "key" : "path-property",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "tmjFile.extension().equals(\"tmj\")",
+    "rationale" : "This loader appears to work with .tmj Tiled map files.",
+    "meta" : [ {
+      "key" : "file-type",
+      "value" : "tmj"
+    } ]
+  }, {
+    "expression" : "tmjFile.length() > 0",
+    "rationale" : "The TMJ file should not be empty for parsing.",
+    "meta" : [ {
+      "key" : "file-nonempty",
+      "value" : "true"
+    } ]
+  } ]
+}

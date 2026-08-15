@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method always throws an exception and never returns normally, the result is conceptually never assigned and can be considered null at any normal 'exit'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true == false",
+    "rationale" : "Because the method always throws an exception and never reaches a return statement, no valid result can exist, making any nontrivial property about result vacuously true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A required precondition for method invocation in Java; context is a non-null parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A required precondition for correct method invocation; instantTime should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Method parameter Option<Map<String, String>> extraMetadata should be non-null (even if Option can be empty).",
+    "meta" : [ ]
+  } ]
+}

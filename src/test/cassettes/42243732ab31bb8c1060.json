@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The restore method always returns the result of 'execute()', which is expected to produce a non-null HoodieRestoreMetadata on a successful restore.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null && !restoreInstantTimestamp.isEmpty()",
+    "rationale" : "A valid restore operation requires a non-null, non-empty restore instant timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null && !savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "A valid restore operation typically requires a non-null, non-empty savepoint timestamp to define the restore boundary.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is essential for execution and is expected to be non-null for any engine operation.",
+    "meta" : [ ]
+  } ]
+}

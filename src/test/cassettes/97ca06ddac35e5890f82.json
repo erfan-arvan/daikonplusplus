@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since all cases in the method either return a constructed object or the result of a utility, result should never be null at METHOD_EXIT.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The method requires config for all code paths; returning without a valid config is not possible.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "Each constructed HoodieIndex (across all explicit cases) is passed the same config object, so result.getConfig() should equal config.",
+    "meta" : [ ]
+  }, {
+    "expression" : "StringUtils.isNullOrEmpty(config.getIndexClass()) || result == HoodieIndexUtils.createUserDefinedIndex(config)",
+    "rationale" : "If config.getIndexClass() is not null or empty, the method returns HoodieIndexUtils.createUserDefinedIndex(config).",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!StringUtils.isNullOrEmpty(config.getIndexClass())) || (config.getIndexType() != null)",
+    "rationale" : "If index class is null or empty, a valid index type must be specified for the switch statement to return a value.",
+    "meta" : [ ]
+  } ]
+}

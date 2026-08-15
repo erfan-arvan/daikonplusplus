@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "blinkTime >= 0",
+    "rationale" : "A blink time is typically non-negative, representing time duration in seconds or milliseconds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "blinkTime < Float.POSITIVE_INFINITY",
+    "rationale" : "Blink time should not be infinite, as it wouldn't make practical sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "blinkTime != Float.NaN",
+    "rationale" : "Blink time as NaN likely represents invalid input and should not be accepted.",
+    "meta" : [ ]
+  } ]
+}

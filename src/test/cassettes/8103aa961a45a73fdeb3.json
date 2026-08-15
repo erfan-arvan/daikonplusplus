@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The clean method returns a HoodieCleanMetadata instance from the executor, so the result should not be null after successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "cleanInstantTime is used to initiate the action executor and should be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is necessary for the method and is never reassigned, so it remains non-null at exit.",
+    "meta" : [ ]
+  } ]
+}

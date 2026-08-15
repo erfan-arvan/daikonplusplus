@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null && element.getName() != null",
+    "rationale" : "The method calls element.getName(), so element and its name must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getName().equals(\"group\") || element.getName().equals(\"layer\") || element.getName().equals(\"objectgroup\") || element.getName().equals(\"imagelayer\")",
+    "rationale" : "The method only handles these four layer types; likely, the input element's name should be one of them.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "map is passed to all helper methods and thus should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is also passed to all helper methods and thus should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used in all but one helper method call, so it should be non-null to avoid errors.",
+    "meta" : [ ]
+  } ]
+}

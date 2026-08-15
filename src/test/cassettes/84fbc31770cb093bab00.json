@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result % 90 == 0",
+    "rationale" : "The method documentation says rotation is in 90 degree increments, so the result should be a multiple of 90.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "Rotation in tiles is generally non-negative (e.g., 0, 90, 180, 270), so result is likely to be at least zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < 360",
+    "rationale" : "A rotation in 90-degree increments usually covers the range 0,90,180,270, so result is likely to be less than 360.",
+    "meta" : [ ]
+  } ]
+}

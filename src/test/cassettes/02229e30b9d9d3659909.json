@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "getWidth() == getPrefWidth()",
+    "rationale" : "The object repeatedly calls setSize(getPrefWidth(), getPrefHeight()), so the width should match the preferred width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getHeight() == getPrefHeight()",
+    "rationale" : "The object repeatedly sets its size to the preferred height, so height should match the preferred height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isAscendantOf(this) == false",
+    "rationale" : "Typically, an object is not an ascendant of itself.",
+    "meta" : [ ]
+  } ]
+}

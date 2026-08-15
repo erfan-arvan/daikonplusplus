@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieRollbackMetadata object, so result should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null"
+    } ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is a String parameter representing the instant time, likely non-null in normal usage.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "rollbackInstantTime is non-null"
+    } ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant is a HoodieInstant parameter, expected to be non-null for rollback logic.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "commitInstant is non-null"
+    } ]
+  }, {
+    "expression" : "!deleteInstants || result.getDeletedFileCount() >= 0",
+    "rationale" : "If deleteInstants is true, result should reflect at least zero deleted files count.",
+    "meta" : [ {
+      "key" : "value_relation",
+      "value" : "deleteInstants implies result holds deletion information"
+    } ]
+  }, {
+    "expression" : "result.getRollbackTime().compareTo(rollbackInstantTime) >= 0",
+    "rationale" : "The rollback time recorded in result should be on or after the rollbackInstantTime given.",
+    "meta" : [ {
+      "key" : "ordering",
+      "value" : "rollback time in result is not before rollbackInstantTime"
+    } ]
+  } ]
+}

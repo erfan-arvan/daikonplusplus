@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient.getTableType() != null",
+    "rationale" : "The table type must be defined for switch-case; null would likely result in a runtime exception.",
+    "meta" : [ {
+      "key" : "calls-metaClient",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is directly passed into constructors and is likely required to be non-null.",
+    "meta" : [ {
+      "key" : "parameter-nullness",
+      "value" : "config"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is directly passed into constructors and is expected to be non-null.",
+    "meta" : [ {
+      "key" : "parameter-nullness",
+      "value" : "context"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is dereferenced and used for method calls, so it must not be null.",
+    "meta" : [ {
+      "key" : "parameter-nullness",
+      "value" : "metaClient"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "Only COPY_ON_WRITE and MERGE_ON_READ are explicitly handled by the switch; other types cause an exception.",
+    "meta" : [ {
+      "key" : "table-type-guarded",
+      "value" : "true"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a non-null records list to operate on.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition counts in Hadoop-style processing are generally positive and asserted by callers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List sizes in Java are always >= 0, but this encodes awareness of valid state and is non-trivial since method uses isEmpty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "Often, the number of output partitions should not exceed the number of records, unless the input is empty.",
+    "meta" : [ ]
+  } ]
+}

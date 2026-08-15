@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The inputRecords list should not be null for meaningful clustering work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "Number of output groups should be positive to perform clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instant time identifier (not null) is required for clustering operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupIdList != null",
+    "rationale" : "File group list should not be null as clustering needs target groups.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "HoodieSchema is required to interpret records for clustering.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "commitTimeline != null",
+    "rationale" : "The code uses methods on commitTimeline; it should not be null at method entry.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "commitTimeline must not be null before method entry"
+    } ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "The code calls methods on hoodieWriteConfig so it must not be null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "hoodieWriteConfig must not be null before method entry"
+    } ]
+  }, {
+    "expression" : "hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() > 0",
+    "rationale" : "The returned value for initial avg size estimate should be positive to make sense as size.",
+    "meta" : [ {
+      "key" : "initial-avgSize",
+      "value" : "avgSize is initialized from this method, likely positive"
+    } ]
+  }, {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() >= 0",
+    "rationale" : "Threshold should not be negative as it is used in multiplication for comparison.",
+    "meta" : [ {
+      "key" : "parameter-range",
+      "value" : "threshold should be non-negative"
+    } ]
+  }, {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() >= 0",
+    "rationale" : "Small file limit is used as multiplication factor; non-negative to make logical sense.",
+    "meta" : [ {
+      "key" : "parameter-range",
+      "value" : "small file limit should be non-negative"
+    } ]
+  } ]
+}

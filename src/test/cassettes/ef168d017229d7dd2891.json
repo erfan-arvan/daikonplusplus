@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieMergeHandle created via HoodieMergeHandleFactory.create, which is expected to be non-null unless an exception occurs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed as an argument to HoodieMergeHandleFactory.create, which likely expects a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is passed as an argument to HoodieMergeHandleFactory.create, which likely expects a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed as an argument to HoodieMergeHandleFactory.create, which likely expects a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath is likely a non-empty string describing the partition where the update occurs.",
+    "meta" : [ ]
+  } ]
+}

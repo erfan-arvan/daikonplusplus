@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method likely requires a meaningful instantTime; null would likely indicate a programming error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "Rollback actions logically require a specific instant to be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!shouldRollbackUsingMarkers || !isRestore",
+    "rationale" : "Restores and marker-based rollbacks are likely mutually exclusive operations, so both being true may not be allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!isRestore) || skipTimelinePublish",
+    "rationale" : "If a restore is being performed, timeline publishing should be skipped for consistency.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid execution context is required for distributed operations.",
+    "meta" : [ ]
+  } ]
+}

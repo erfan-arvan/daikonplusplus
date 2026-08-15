@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of JavaHoodieIndexFactory.createIndex(config), which should not be null as it is expected to return a HoodieIndex implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The method accesses config and passes it to a factory, implying it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to the method and is available at exit, suggesting it must not be null.",
+    "meta" : [ ]
+  } ]
+}

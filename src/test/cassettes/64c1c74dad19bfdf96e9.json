@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method collects a stream into a list and always returns a non-null List.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "prevents NullPointerException on result usage"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument and should be non-null for valid execution.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionPath is required for downstream calls"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(f -> f != null)",
+    "rationale" : "FileIds returned in the List should all be non-null.",
+    "meta" : [ {
+      "key" : "collection-content",
+      "value" : "non-null file ids"
+    } ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The use of distinct() ensures all elements in result are unique.",
+    "meta" : [ {
+      "key" : "collection-uniqueness",
+      "value" : "distinct values"
+    } ]
+  }, {
+    "expression" : "result.isEmpty() || result.get(0) instanceof String",
+    "rationale" : "Elements are file ids, which must be strings as per method signature and processing.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "List contains only Strings"
+    } ]
+  } ]
+}

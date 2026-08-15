@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "The args array passed to main in Java is never null and can have zero or more elements.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is typically non-null and an array minimum length is zero."
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No other useful invariants about program variables are inferable.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "No other variables are in scope; result variables are local inside main and not available at exit."
+    } ]
+  } ]
+}

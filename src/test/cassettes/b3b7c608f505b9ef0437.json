@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The 'layer' parameter is dereferenced in 'layer.getObjects()', so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "'layer.getObjects()' is used in an enhanced-for loop, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects().size() >= 0",
+    "rationale" : "The size of a collection should never be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isVisible() == true || !layer.isVisible() == true",
+    "rationale" : "The 'isVisible()' property is sometimes useful for layers, though not checked here, but may relate to whether objects are rendered.",
+    "meta" : [ ]
+  } ]
+}

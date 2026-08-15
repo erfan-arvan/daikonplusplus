@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The method immediately returns writeMetadata; a null value may indicate an error or exceptional path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata instanceof HoodieWriteMetadata",
+    "rationale" : "writeMetadata is required to be of the correct type for safe usage and return.",
+    "meta" : [ ]
+  } ]
+}

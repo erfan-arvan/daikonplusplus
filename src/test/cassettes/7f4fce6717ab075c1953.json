@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option.empty() is never null, but a singleton representing absence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Method always returns Option.empty(), so it is guaranteed to be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isPresent()",
+    "rationale" : "Option.empty() is never present.",
+    "meta" : [ ]
+  } ]
+}

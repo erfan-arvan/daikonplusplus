@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method must return a HoodieWriteMetadata object; a null return is unlikely unless as failure which is not evident from context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method immediately forwards the input list to another method without null check, so preppedRecords is likely non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to an executor constructor, suggesting it should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method always returns the result of execute(), which is of type HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

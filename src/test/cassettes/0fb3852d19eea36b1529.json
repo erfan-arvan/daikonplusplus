@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method expects a non-null HoodieEngineContext as a necessary parameter for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Extra metadata parameter is of type Option<...>, and is expected to be non-null for Option semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() == false || extraMetadata.get() instanceof java.util.Map",
+    "rationale" : "If extraMetadata is present, it must wrap a Map<String,String> due to its Option type signature.",
+    "meta" : [ ]
+  } ]
+}

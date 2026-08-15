@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method uses instantTime as an argument to downstream operations, which likely expect a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed into getUpdateHandle and probably must be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is passed to getUpdateHandle and runMerge, both of which likely assume non-null file IDs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "keyToNewRecords is required as a map of records to update; passing null would likely violate method assumptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "oldDataFile is required for update logic and likely must not be null.",
+    "meta" : [ ]
+  } ]
+}

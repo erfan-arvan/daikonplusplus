@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null Stream as per normal Java stream method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "super.getFileSlicesEligibleForClustering(partition) != null",
+    "rationale" : "The superclass method for retrieving file slices should return non-null stream.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.allMatch(slice -> slice.getBaseFile().map(HoodieBaseFile::getFileSize).orElse(0L) < getWriteConfig().getClusteringSmallFileLimit())",
+    "rationale" : "By construction, the result stream only includes slices filtered by this condition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Method requires 'partition' to access file slices, so null would be invalid input.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "index >= 0",
+    "rationale" : "Array/List indices are typically required to be non-negative; this is likely a precondition for remove operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < getChildren().size",
+    "rationale" : "The index should not exceed the collection's bounds, which is typically checked before removal from a list of actors (children).",
+    "meta" : [ ]
+  }, {
+    "expression" : "unfocus == true || unfocus == false",
+    "rationale" : "The unfocus parameter must always be a boolean; this is trivially true but documents the type constraint.",
+    "meta" : [ ]
+  } ]
+}

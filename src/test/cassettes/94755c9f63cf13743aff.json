@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "cursorPosition >= 0",
+    "rationale" : "The method throws an exception if cursorPosition is less than 0, so at the exit it must be >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor == Math.min(cursorPosition, text.length())",
+    "rationale" : "The method sets cursor to this value before exit.",
+    "meta" : [ ]
+  } ]
+}

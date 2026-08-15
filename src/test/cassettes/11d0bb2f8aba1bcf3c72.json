@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "WriteOperationType.isChangingRecords(operationType) ? result == getUpsertPartitioner(profile) : result == getInsertPartitioner(profile)",
+    "rationale" : "The result is determined by a conditional on WriteOperationType.isChangingRecords(operationType).",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "return-value relation"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Both getUpsertPartitioner and getInsertPartitioner likely return non-null partitioners.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "non-null return"
+    } ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "Method explicitly passes profile to both partitioner methods, which are likely to expect a non-null profile.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "parameter precondition"
+    } ]
+  } ]
+}

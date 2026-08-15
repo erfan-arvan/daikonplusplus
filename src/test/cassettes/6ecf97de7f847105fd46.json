@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null",
+    "rationale" : "writeStatus is a parameter and expected to be non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatus is not null at method exit"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a parameter and expected to be non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is not null at method exit"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is a parameter and expected to be non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config is not null at method exit"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime string parameter should remain valid (non-null and non-empty) at method exit.",
+    "meta" : [ {
+      "key" : "validity",
+      "value" : "instantTime is not null or empty"
+    } ]
+  } ]
+}

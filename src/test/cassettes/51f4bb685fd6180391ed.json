@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is likely required for meaningful operations in the method body and is a critical parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex should not be null for the method to process columns safely, consistent with JDK and typical SDK conventions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "If columnsToIndex is not empty, its size must be at least 0 by definition of List.",
+    "meta" : [ ]
+  } ]
+}

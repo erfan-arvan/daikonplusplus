@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new HoodieWriteMetadata object 'result' is always created and returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The method uses instantTime for timeline transitions, implying it should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is dereferenced and passed to bulkInsert, indicating it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced for getActiveTimeline and getInstantGenerator methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "executor is used in a cast and subsequently called, so must be non-null.",
+    "meta" : [ ]
+  } ]
+}

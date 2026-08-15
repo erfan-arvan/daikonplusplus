@@ -1,29 +1,38 @@
 {
   "invariants" : [ {
     "expression" : "b != 0",
-    "rationale" : "The method handles the case b == 0 explicitly, suggesting b is typically non-zero at method entry for safe division.",
+    "rationale" : "Since method handles divide by zero case, b might be zero or not, but at entry, no guarantee b != 0",
     "meta" : [ {
-      "key" : "likely",
-      "value" : "true"
+      "key" : "expectedPrecondition",
+      "value" : "method will not perform division by zero if this holds"
     } ]
   }, {
-    "expression" : "a != Integer.MIN_VALUE",
-    "rationale" : "a can be any int, including Integer.MIN_VALUE, but this value is special for return in division by zero case.",
+    "expression" : "a >= Integer.MIN_VALUE",
+    "rationale" : "a is an int, so always >= Integer.MIN_VALUE",
     "meta" : [ {
-      "key" : "possible",
-      "value" : "true"
+      "key" : "rangeCheck",
+      "value" : "int minimum bound"
+    } ]
+  }, {
+    "expression" : "a <= Integer.MAX_VALUE",
+    "rationale" : "a is an int, so always <= Integer.MAX_VALUE",
+    "meta" : [ {
+      "key" : "rangeCheck",
+      "value" : "int maximum bound"
+    } ]
+  }, {
+    "expression" : "b >= Integer.MIN_VALUE",
+    "rationale" : "b is an int, always >= Integer.MIN_VALUE",
+    "meta" : [ {
+      "key" : "rangeCheck",
+      "value" : "int minimum bound"
     } ]
   }, {
     "expression" : "b <= Integer.MAX_VALUE",
-    "rationale" : "b is an int, so it cannot be greater than Integer.MAX_VALUE.",
-    "meta" : [ ]
-  }, {
-    "expression" : "b >= Integer.MIN_VALUE",
-    "rationale" : "b is an int, so it cannot be less than Integer.MIN_VALUE.",
-    "meta" : [ ]
-  }, {
-    "expression" : "a <= Integer.MAX_VALUE",
-    "rationale" : "a is an int, so it cannot be greater than Integer.MAX_VALUE.",
-    "meta" : [ ]
+    "rationale" : "b is an int, always <= Integer.MAX_VALUE",
+    "meta" : [ {
+      "key" : "rangeCheck",
+      "value" : "int maximum bound"
+    } ]
   } ]
 }

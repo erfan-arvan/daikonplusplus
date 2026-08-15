@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "b.doubleValue() != 0.0",
+    "rationale" : "At method exit with non-null result, divisor b must not be zero.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "method returns null if b.doubleValue() == 0.0; here result is non-null if division happened"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns null if division is not possible, otherwise returns a value.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "method returns null only if b.doubleValue() == 0.0; otherwise returns result"
+    } ]
+  }, {
+    "expression" : "(a instanceof Integer) || (a instanceof Double)",
+    "rationale" : "Since method has not thrown, a must be Integer or Double.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "method throws if a is neither Integer nor Double"
+    } ]
+  }, {
+    "expression" : "((a instanceof Integer) && (result.intValue() == a.intValue() / b.intValue())) || ((a instanceof Double) && (result.doubleValue() == a.doubleValue() / b.doubleValue()))",
+    "rationale" : "The result is the division of a by b according to the type of a.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "result reflects division depending on a's type"
+    } ]
+  } ]
+}

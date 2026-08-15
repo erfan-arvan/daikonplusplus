@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A valid delete operation presumes a non-null engine context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime should be a meaningful, non-empty string identifying the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "A valid delete operation requires a non-null list of HoodieKey objects to delete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "The size of a list is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.stream().allMatch(k -> k != null)",
+    "rationale" : "Deleting requires that no element in the keys list is null for type safety and correctness.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method acts upon TiledMap; it is likely assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "Layers are added to parentLayers; it must be non-null for this to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element.getName() and element methods are always called, so element is assumed to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is passed to layer loading routines and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is passed to other methods and is likely assumed non-null.",
+    "meta" : [ ]
+  } ]
+}

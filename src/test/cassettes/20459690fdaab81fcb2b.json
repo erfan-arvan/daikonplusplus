@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method accessors rely on profile being non-null, so this likely holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "The method immediately traverses this map, implying it is non-null when exiting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The method updates this map (via hasOutputWorkLoadStats and updateOutputPartitionPathStatMap), implying it is non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().size() >= 0",
+    "rationale" : "A map's size is always non-negative and the main for-loop iterates over its entries.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap().size() >= 0",
+    "rationale" : "Guarantees non-negative size after possible updates during the method execution.",
+    "meta" : [ ]
+  } ]
+}

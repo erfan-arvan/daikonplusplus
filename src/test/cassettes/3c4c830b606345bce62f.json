@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a BulkInsertPartitioner instance, never null, in both branches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "Method always dereferences strategyParams, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "Method always dereferences schema (for addMetadataFields), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()) == (result instanceof JavaCustomColumnsSortPartitioner)",
+    "rationale" : "If the parameters contain the sort columns key, JavaCustomColumnsSortPartitioner is returned; otherwise not.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()) == (result instanceof BulkInsertPartitioner)",
+    "rationale" : "If the key is not present, a fallback BulkInsertPartitioner implementation is returned.",
+    "meta" : [ ]
+  } ]
+}

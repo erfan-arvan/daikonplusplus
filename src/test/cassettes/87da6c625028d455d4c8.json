@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always either returns a new instance of a BulkInsertPartitioner or throws an exception; it never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "The method only handles these two cases; other values lead to an exception and cannot reach method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(sortMode != BulkInsertSortMode.NONE && sortMode != BulkInsertSortMode.GLOBAL_SORT)",
+    "rationale" : "Reformulation of the previous: Only NONE or GLOBAL_SORT are possible exit sortMode values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || !(result instanceof JavaNonSortPartitioner)",
+    "rationale" : "If result is a JavaNonSortPartitioner, sortMode must be NONE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.GLOBAL_SORT || !(result instanceof JavaGlobalSortPartitioner)",
+    "rationale" : "If result is a JavaGlobalSortPartitioner, sortMode must be GLOBAL_SORT.",
+    "meta" : [ ]
+  } ]
+}

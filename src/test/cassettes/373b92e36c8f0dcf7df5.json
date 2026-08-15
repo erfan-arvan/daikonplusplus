@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a non-null HoodieEngineContext to operate.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string typically is non-null representing a commit time.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords list of HoodieRecord must be provided for bulk insert operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecords List should not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List size never negative; valid collection even if empty.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "preppedRecords size is zero or more"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option type for BulkInsertPartitioner expected to be non-null, either containing a value or empty.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "bulkInsertPartitioner is represented as an Option type and should not be null"
+    } ]
+  } ]
+}

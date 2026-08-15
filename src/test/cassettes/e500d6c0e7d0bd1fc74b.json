@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method dereferences element (e.g., element.getName()), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "The method accesses map.getTileSets() and map.getLayers(), so map must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getName() != null",
+    "rationale" : "element.getName() is immediately called and compared, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getChildByName(\"Dimensions\") != null",
+    "rationale" : "The code assigns element.getChildByName(\"Dimensions\") and then accesses it, so it must not be null for success path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getTileSets() != null",
+    "rationale" : "map.getTileSets() is called and used to get a TileSet, so it must not be null for correct operation.",
+    "meta" : [ ]
+  } ]
+}

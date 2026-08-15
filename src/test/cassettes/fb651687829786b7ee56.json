@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "animationIntervals != null",
+    "rationale" : "The method returns 'animationIntervals', so it is likely expected to be non-null before method execution to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "animationIntervals.length > 0",
+    "rationale" : "Animation intervals are typically non-empty since an animation should have at least one frame/interval.",
+    "meta" : [ ]
+  }, {
+    "expression" : "animationIntervals.length % 1 == 0",
+    "rationale" : "The length of an int array is always a whole number; this reflects that array length is non-negative.",
+    "meta" : [ ]
+  } ]
+}

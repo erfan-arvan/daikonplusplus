@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a list of WriteStatus, so result should not be null on method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "non-negative size"
+    } ]
+  }, {
+    "expression" : "inputRecords != null && result.size() <= inputRecords.size()",
+    "rationale" : "The number of WriteStatus objects returned typically does not exceed the number of input records, reflecting processed records.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "result.size <= inputRecords.size"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents a timestamp string and is unlikely to be null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "configuredParallelism > 0",
+    "rationale" : "configuredParallelism is an int controlling parallelism and is expected to be positive.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "configuredParallelism positive"
+    } ]
+  } ]
+}

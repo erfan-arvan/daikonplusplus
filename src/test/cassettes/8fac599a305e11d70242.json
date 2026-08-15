@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns 'this', which cannot be null in Java instance methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "Method returns 'this' precsiely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.padRight == padRight",
+    "rationale" : "Method assigns padRight field before returning, matching argument.",
+    "meta" : [ ]
+  } ]
+}

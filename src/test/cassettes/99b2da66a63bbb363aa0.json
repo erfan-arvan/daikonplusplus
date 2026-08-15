@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Aggregation using reduce with a non-null zeroValue should always produce a non-null result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(zeroValue.getClass())",
+    "rationale" : "The aggregation result should have the same runtime type as the zeroValue, which is the initial identity value in the reduction.",
+    "meta" : [ ]
+  } ]
+}

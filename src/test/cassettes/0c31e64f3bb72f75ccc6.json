@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "(b == 0) ? (result == Integer.MIN_VALUE) : (result * b == a)",
+    "rationale" : "This checks the method returns Integer.MIN_VALUE if b == 0, otherwise matches integer division definition.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If denominator b is zero, result equals Integer.MIN_VALUE, else result*b equals a."
+    } ]
+  }, {
+    "expression" : "result == Integer.MIN_VALUE || (b != 0 && a / b == result)",
+    "rationale" : "Ensures the method either returns the error code or the correct division result.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Result is either error code or exactly quotient of a divided by b."
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Captures the condition for safeDivide when b is zero.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Result equals error code if denominator is zero."
+    } ]
+  }, {
+    "expression" : "b != 0 || result <= 0",
+    "rationale" : "Result is Integer.MIN_VALUE if dividing by zero, which is less than zero.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Error code Integer.MIN_VALUE is negative, so result is non-positive if b==0."
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Repeated for clarity of safeDivide behavior when b is zero.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Result is Integer.MIN_VALUE when division by zero occurs."
+    } ]
+  } ]
+}

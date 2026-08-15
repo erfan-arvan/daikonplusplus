@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "file is used in method calls early in the method, so it is expected to be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "file.extension() is called, so the result must be non-null for reasonable use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.path() != null",
+    "rationale" : "file.path() is likely used as FileHandle represents a file, and reading its path is generally required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.exists() || !file.exists()",
+    "rationale" : "file.exists() is a legal predicate (though always true or false), but using the method is valid at this program point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.isDirectory() || !file.isDirectory()",
+    "rationale" : "file.isDirectory() can be called safely; this expresses that such properties are always computable.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "It is expected that the execute method returns a non-null HoodieWriteMetadata object following a successful write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class",
+    "rationale" : "As per the method signature, result should always be an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata instance should return a non-null List of WriteStatus objects upon completion.",
+    "meta" : [ ]
+  } ]
+}

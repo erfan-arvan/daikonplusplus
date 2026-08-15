@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a required argument and likely never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is a parameter that should not be null in normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "columnsToIndex must be an instance of List as per its declared type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this instanceof HoodieJavaWriteClient",
+    "rationale" : "Method is non-static and defined in HoodieJavaWriteClient; 'this' must have correct type.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a required String parameter, often non-null in data-processing contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is a required String parameter, which typically should not be null for record location.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is an Iterator expected to iterate through records; it should be non-null to function correctly.",
+    "meta" : [ ]
+  } ]
+}

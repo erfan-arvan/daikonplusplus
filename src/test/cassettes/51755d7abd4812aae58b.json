@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns an index instance, which is generally expected to be non-null when returned from a factory.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "The configuration should be non-null at this point for correct factory operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "'result' is returned from 'createIndex', which returns a HoodieIndex, so the result must be an instance of HoodieIndex.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == writeConfig",
+    "rationale" : "The result index may encapsulate or be associated with the provided writeConfig (if getConfig() is available).",
+    "meta" : [ ]
+  } ]
+}

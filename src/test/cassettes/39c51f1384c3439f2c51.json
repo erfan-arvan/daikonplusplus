@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always creates and returns a new HoodiePairData",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == 0",
+    "rationale" : "The returned HoodiePairData is constructed from an empty list, so the count is always zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsMap().isEmpty()",
+    "rationale" : "Collecting as map an empty pair data yields an empty map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collect().isEmpty()",
+    "rationale" : "Collecting the data will result in an empty collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "An interface-level predicate indicating no pairs are present in the data object.",
+    "meta" : [ ]
+  } ]
+}

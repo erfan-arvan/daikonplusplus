@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The parameter preppedRecords should not be null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "param"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The parameter instantTime is expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "param"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "nonNegative"
+    } ]
+  }, {
+    "expression" : "!preppedRecords.contains(null)",
+    "rationale" : "Typically, lists of records should not contain null elements.",
+    "meta" : [ {
+      "key" : "content",
+      "value" : "noNullElements"
+    } ]
+  } ]
+}

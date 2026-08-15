@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "It is common for public API methods to expect non-null input collections.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is almost certainly required for delete operations, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.isEmpty() || keys.size() >= 0",
+    "rationale" : "If keys is not null, calling keys.size() is legal, and its size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is likely a timestamp string and generally should be non-empty at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

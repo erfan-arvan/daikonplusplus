@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "prefWidth != null",
+    "rationale" : "The method immediately throws an exception if prefWidth is null, so execution beyond entry requires prefWidth to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!prefWidth.equals(null)",
+    "rationale" : "A non-null prefWidth implies it does not equal null; this avoids null dereference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefWidth instanceof Value",
+    "rationale" : "prefWidth must be an instance of Value since its static type is Value.",
+    "meta" : [ ]
+  } ]
+}

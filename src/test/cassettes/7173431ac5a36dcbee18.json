@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "If orders is null, the method returns early with 0.0, so at this point it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!orders.isEmpty()",
+    "rationale" : "If orders is empty, the method returns early with 0.0, so at this point it must not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "The total price is computed by summing order prices (possibly discounted), all of which are non-negative, so the result cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.size() > 0",
+    "rationale" : "If the list was empty, the method would have returned 0.0 earlier, so it must contain at least one element at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0.0 || orders.size() > 0",
+    "rationale" : "The method only returns result == 0.0 if orders is null or empty; otherwise, orders.size() > 0.",
+    "meta" : [ ]
+  } ]
+}

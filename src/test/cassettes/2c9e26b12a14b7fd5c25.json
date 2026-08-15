@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should be non-null to identify the partition for the update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId should be non-null because it serves as a unique identifier for the file to update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is required for processing, thus should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(recordItr != null && !recordItr.hasNext()) || partitionPath != null",
+    "rationale" : "If recordItr is empty, there is still an expectation that partitionPath is defined.",
+    "meta" : [ ]
+  } ]
+}

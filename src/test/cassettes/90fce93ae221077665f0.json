@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "The 'conf' parameter is required for creating the metadata writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "The 'writeConfig' parameter is essential for writer creation and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The 'context' argument is needed for engine operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "The cleaning policy is passed as a parameter and is required for the method's logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "The Option object representing an inflight instant timestamp is expected to be supplied.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "Method uses writeClient, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed directly into methods and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is used as input and must not be null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs instanceof List",
+    "rationale" : "By method signature, preppedRecordInputs is a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "An empty string is unlikely to be a valid instant time for commit.",
+    "meta" : [ ]
+  } ]
+}

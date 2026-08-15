@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time should be a valid, non-null String representing an operation timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null && !records.isEmpty()",
+    "rationale" : "Bulk insert should operate on a non-null and non-empty list of records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for executing Hoodie actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option objects, such as bulkInsertPartitioner, are expected to be non-null even if they are empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner == null || bulkInsertPartitioner.isPresent() || !bulkInsertPartitioner.isPresent()",
+    "rationale" : "Option.isPresent() always evaluates to true or false, so this expresses well-formedness of the Option.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(offsetY)",
+    "rationale" : "offsetY should be a finite float value for map tile positioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "offsetY >= -Float.MAX_VALUE",
+    "rationale" : "offsetY should not be less than the minimum finite float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "offsetY <= Float.MAX_VALUE",
+    "rationale" : "offsetY should not exceed the maximum finite float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "offsetY == offsetY",
+    "rationale" : "OffsetY is a float, equality with itself checks for NaN (true iff not NaN); can highlight rejection of NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Math.abs(offsetY) <= Float.MAX_VALUE",
+    "rationale" : "Absolute value of offsetY should be within representable bounds.",
+    "meta" : [ ]
+  } ]
+}

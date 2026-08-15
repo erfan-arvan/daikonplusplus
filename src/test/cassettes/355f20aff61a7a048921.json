@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == snapValues",
+    "rationale" : "The method returns the field 'snapValues', so the outgoing result is always 'snapValues'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.length >= 0",
+    "rationale" : "Any array's length is always non-negative, so if result is not null, its length is at least 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getClass().isArray()",
+    "rationale" : "If result is not null, it is always an array since the return type is float[].",
+    "meta" : [ ]
+  } ]
+}

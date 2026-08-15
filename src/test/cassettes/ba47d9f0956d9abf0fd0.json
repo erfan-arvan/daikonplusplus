@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is used for file resolution and string concatenation, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "A non-null TiledMap is always returned unless an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "Returned value is a TiledMap, as constructed and returned by the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isOwnedResourcesSet()",
+    "rationale" : "The map's owned resources are set before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null && fileName != null",
+    "rationale" : "Both result and fileName must be non-null at method exit.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new ArrayList (records), so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size is always greater than or equal to zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is dereferenced (getSlices()) at the start, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof ArrayList",
+    "rationale" : "Method returns a variable initialized as new ArrayList<>(), so result must be an ArrayList.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> r != null)",
+    "rationale" : "Records are added from iterators so individual entries are expected not to be null.",
+    "meta" : [ ]
+  } ]
+}

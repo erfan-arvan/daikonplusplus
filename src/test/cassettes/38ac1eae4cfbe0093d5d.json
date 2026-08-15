@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "sortMode != null",
+    "rationale" : "Method 'sortMode.name()' is called in implementation, so sortMode must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT || sortMode != null",
+    "rationale" : "Method only handles NONE and GLOBAL_SORT explicitly; for other values, sortMode must be non-null for 'sortMode.name()'.",
+    "meta" : [ ]
+  } ]
+}

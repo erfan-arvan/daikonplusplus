@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "parseRegionName likely expects a non-null argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == atlas.findRegion(parseRegionName(name))",
+    "rationale" : "This directly models how the result is computed by the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof TextureRegion",
+    "rationale" : "Result is either null or a TextureRegion (method return type).",
+    "meta" : [ ]
+  }, {
+    "expression" : "parseRegionName(name) != null",
+    "rationale" : "Returned value is always based on a non-null region name parsing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "atlas.findRegion(parseRegionName(name)) == result",
+    "rationale" : "Models the delegated call for result retrieval; equivalent to #2 but direction is canonical and not tautological.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "totalBuckets >= 0",
+    "rationale" : "The number of partitions (totalBuckets) is often non-negative in partitioning logic.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "range"
+    } ]
+  }, {
+    "expression" : "smallFiles != null",
+    "rationale" : "smallFiles is likely initialized and should not be null before partition computation.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "workloadProfile != null",
+    "rationale" : "workloadProfile is essential for partitioning and likely required to be non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "updateLocationToBucket is a supporting data structure and is likely to be non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "partitionPathToInsertBucketInfos is required for insert bucket assignment, so is expected to be non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  } ]
+}

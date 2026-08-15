@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The value returned is a float representing a height, typically non-negative, and v is only increased from its original value in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The result should be a well-defined float, since it is derived from field or method lookups and arithmetic, not from operations that might yield NaN or infinity.",
+    "meta" : [ ]
+  } ]
+}

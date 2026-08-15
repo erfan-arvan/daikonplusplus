@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Since 'data' is iterated in the implementation, it is likely to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The method applies reduceFunc to values; it must be non-null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism indicates the level of concurrency; non-positive parallelism likely makes no sense in context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "When data is not empty, parallelism should likely not exceed data.size(), as that would result in under-utilization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().allMatch(p -> p != null)",
+    "rationale" : "The method processes each Pair in data, so null elements could cause exceptions.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= Float.NEGATIVE_INFINITY",
+    "rationale" : "x is a float parameter in Java and always greater than or equal to Float.NEGATIVE_INFINITY.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x <= Float.POSITIVE_INFINITY",
+    "rationale" : "x is a float parameter in Java and always less than or equal to Float.POSITIVE_INFINITY.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= Float.NEGATIVE_INFINITY",
+    "rationale" : "y is a float parameter in Java and always greater than or equal to Float.NEGATIVE_INFINITY.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y <= Float.POSITIVE_INFINITY",
+    "rationale" : "y is a float parameter in Java and always less than or equal to Float.POSITIVE_INFINITY.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(x) || Float.isNaN(y))",
+    "rationale" : "It's likely that cursor position parameters should not be NaN for proper functioning.",
+    "meta" : [ ]
+  } ]
+}

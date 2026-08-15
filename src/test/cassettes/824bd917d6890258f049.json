@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Methods returning write metadata should not return null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "result non-null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null && preppedRecords.size() >= 0",
+    "rationale" : "Lists in Java have non-negative size, guarding against null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input list well-formed"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An instant time string is required for a write operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string required"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid engine context should be present for the operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "context required"
+    } ]
+  }, {
+    "expression" : "(!bulkInsertPartitioner.isPresent()) || (bulkInsertPartitioner.get() != null)",
+    "rationale" : "If Option is present, the value should be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "optional partitioner"
+    } ]
+  } ]
+}

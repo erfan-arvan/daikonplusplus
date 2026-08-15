@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "drawable == null || scaling != null",
+    "rationale" : "If 'drawable' is non-null, 'scaling' must also be non-null since scaling.apply() is called unconditionally after the drawable null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable == null || getWidth() >= 0",
+    "rationale" : "Width returned by getWidth() should be non-negative if drawable is present, since negative UI dimensions are uncommon.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable == null || getHeight() >= 0",
+    "rationale" : "Height returned by getHeight() should be non-negative if drawable is present, since negative UI dimensions are uncommon.",
+    "meta" : [ ]
+  }, {
+    "expression" : "scaling != null || drawable == null",
+    "rationale" : "If 'scaling' is null, the method will throw a NullPointerException when drawable is not null. This invariant expresses the contrapositive of 'drawable == null || scaling != null'.",
+    "meta" : [ ]
+  } ]
+}

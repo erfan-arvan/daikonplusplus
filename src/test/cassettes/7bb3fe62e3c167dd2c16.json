@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && !result.isEmpty()",
+    "rationale" : "After bulk insert, the result typically contains WriteStatus entries indicating the success and details of the write operations.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns a list of write statuses which is constructed to record write operations; it should not be null or empty after bulk insert."
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is an input parameter and logically must not be null for the bulk insert to have proceeded.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "inputRecords is a parameter list of records to insert and should not be null at method exit."
+    } ]
+  }, {
+    "expression" : "configuredParallelism > 0",
+    "rationale" : "The configuredParallelism parameter is used for determining parallelism, must be positive for parallel operations.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Configured parallelism must be positive to allow proper parallel processing."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime must be correctly set and non-empty for the commit to be identified.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is a string representing the current commit or instant timestamp and should be non-null and non-empty."
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(ws -> ws.getWriteErrors().isEmpty())",
+    "rationale" : "This invariant asserts that the bulk insert completed without any write errors in all write statuses.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "All WriteStatus objects in the result should ideally have no write errors after successful bulk insert."
+    } ]
+  } ]
+}

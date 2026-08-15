@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition counts are usually expected to be positive for repartitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "It is typically required that the input records list is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records == null ? 0 : records.size()",
+    "rationale" : "It may be expected that number of output partitions does not exceed the number of records (if non-null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "If the records list is provided, it may be expected to be non-empty for bulk insert.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "The method throws an exception if operationType is LOG_COMPACT, so at method exit this must hold.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method throws UnsupportedOperationException if operationType is LOG_COMPACT, so here it must not be LOG_COMPACT"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime must not be null to safely call getCompactionInflightInstant(instantTime).",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is used as argument to getCompactionInflightInstant"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table must not be null to call multiple methods.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Used to get instant generator, rollback compaction, meta client"
+    } ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline must not be null to safely call containsInstant.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Used to call containsInstant"
+    } ]
+  }, {
+    "expression" : "table.getInstantGenerator().getCompactionInflightInstant(instantTime) != null",
+    "rationale" : "The inflight instant must exist or be non-null for rollback or timeline contains check to be valid.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Used to check containsInstant and rollbackInflightCompaction"
+    } ]
+  } ]
+}

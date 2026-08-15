@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is likely derived from the dataset structure and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId should be a valid identifier and thus should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "An iterator over records must be provided for an update handle, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId.length() > 0",
+    "rationale" : "fileId should not be the empty string to identify a file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "partitionPath should not be the empty string as it refers to a location in the dataset.",
+    "meta" : [ ]
+  } ]
+}

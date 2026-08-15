@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The input stream `data` must be non-null before the method executes to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "data stream must be non-null to operate on it"
+    } ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "The flattening and mapping function must be non-null for the method to perform its operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "functional interface must be provided"
+    } ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The reduce function must be non-null to properly combine values when reducing by key.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "reduce function must be defined"
+    } ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "The parallelism level must be at least 1, as a non-positive parallelism does not make sense for concurrency.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "parallelism must be positive"
+    } ]
+  } ]
+}

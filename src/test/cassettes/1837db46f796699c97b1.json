@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null && !records.isEmpty()",
+    "rationale" : "The method operates on input records by deduplicating them; calling stream() implies that the list is not null and is likely expected to have elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index != null",
+    "rationale" : "The implementation immediately calls index.isGlobal(), so index must be non-null for safe evaluation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schemaStr != null && !schemaStr.isEmpty()",
+    "rationale" : "schemaStr is parsed at the start, so it should not be null or empty.",
+    "meta" : [ ]
+  } ]
+}

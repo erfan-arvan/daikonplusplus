@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should usually be valid and non-null for update bucketing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "fileIdHint is used as a map key and for creating a BucketInfo, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Partition path should not be the empty string for meaningful bucket operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileIdHint.isEmpty()",
+    "rationale" : "fileIdHint should be a non-empty identifier for correct map behavior and bucket creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Partition path is expected to be a non-empty string identifying a valid partition.",
+    "meta" : [ ]
+  } ]
+}

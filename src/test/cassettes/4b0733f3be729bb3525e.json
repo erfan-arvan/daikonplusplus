@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method expects a JsonValue parameter and dereferences it immediately; it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is dereferenced to pass to getRelativeFileHandle and likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is passed to addStaticTiles and likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.isObject() || element.isArray()",
+    "rationale" : "JsonValue representing JSON must be either an object or array to represent a valid tileset structure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.has(\"firstgid\") || element.getString(\"firstgid\") != null",
+    "rationale" : "The first line checks element.getString(\"firstgid\"), suggesting 'firstgid' is expected to exist or be retrievable.",
+    "meta" : [ ]
+  } ]
+}

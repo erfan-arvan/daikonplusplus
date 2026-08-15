@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method immediately uses 'config' for table creation and expects it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "'context' is passed to constructors directly, so a non-null value is required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "'metaClient' is dereferenced via method calls, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableType() != null",
+    "rationale" : "A table type is required to select the correct case in the switch statement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "Only these two table types are supported; otherwise, an exception is thrown.",
+    "meta" : [ ]
+  } ]
+}

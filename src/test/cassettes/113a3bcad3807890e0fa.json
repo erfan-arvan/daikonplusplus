@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method operates on preppedRecords; it is likely intended to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a parameter in multiple method calls immediately, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty()",
+    "rationale" : "The method is meant to process a set of records, so it is likely called only when preppedRecords is not empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime likely represents an event or commit time and is expected to be a non-empty String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Operations expect all entries in preppedRecords to be non-null HoodieRecord objects.",
+    "meta" : [ ]
+  } ]
+}

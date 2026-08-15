@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method likely expects a non-null list of records to insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null 'instantTime' is required to designate the commit timestamp for insert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty()",
+    "rationale" : "In most insert operations, an empty record list is either a no-op or prohibited, so the input should be non-empty.",
+    "meta" : [ ]
+  } ]
+}

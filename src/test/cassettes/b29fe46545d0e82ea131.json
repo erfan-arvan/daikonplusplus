@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null && b != null && b.doubleValue() != 0.0",
+    "rationale" : "b.doubleValue() is checked for zero later, so it must be non-zero at this point.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "For the method to proceed, b.doubleValue() must not be zero to avoid division by zero."
+    } ]
+  }, {
+    "expression" : "(a instanceof Integer) || (a instanceof Double)",
+    "rationale" : "Input a is either Integer or Double since others cause exception.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method supports only Integer or Double types for a."
+    } ]
+  }, {
+    "expression" : "a.doubleValue() == a.doubleValue()",
+    "rationale" : "a.doubleValue() returns a valid numeric value.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "a.doubleValue() is a valid call with no side effects."
+    } ]
+  }, {
+    "expression" : "b.doubleValue() != 0.0",
+    "rationale" : "b.doubleValue() must be non-zero to avoid division by zero.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "b.doubleValue() cannot be zero as checked immediately after method entry."
+    } ]
+  }, {
+    "expression" : "!(a instanceof Double) || !(b instanceof Integer)",
+    "rationale" : "Mixed types for a and b such as a Double and b Integer is unlikely (based on usage).",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "a and b must be compatible types for argument matching."
+    } ]
+  } ]
+}

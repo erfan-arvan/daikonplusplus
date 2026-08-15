@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "A compaction instant time string should typically be non-null to identify the instant when compaction is performed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime.length() > 0",
+    "rationale" : "The compaction instant time string should be non-empty to represent a specific operation time; methods like 'new RunCompactionActionExecutor' may expect a valid time string.",
+    "meta" : [ ]
+  } ]
+}

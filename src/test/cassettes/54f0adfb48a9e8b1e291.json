@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always initializes and returns a (potentially empty) map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "The writeResult parameter is used as input for this operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.keySet().stream().allMatch(k -> k != null && result.get(k) != null)",
+    "rationale" : "All keys in the map and corresponding file id lists are non-null when present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "All value lists in the result map are non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list.stream().allMatch(s -> s != null))",
+    "rationale" : "No file id in any list should be null.",
+    "meta" : [ ]
+  } ]
+}

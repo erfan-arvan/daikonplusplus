@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is a method parameter and is used directly in method calls, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is wrapped in Option.ofNullable and passed to downstream methods, indicating it is likely non-null in common usages.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() > 0",
+    "rationale" : "If preppedRecords is not empty, then its size should be greater than 0; expresses a basic collection property.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.isEmpty()",
+    "rationale" : "If instantTime is not null, it is often desirable that it is not an empty string, as it represents a timestamp or identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Each HoodieRecord in preppedRecords should be non-null, as they are processed downstream.",
+    "meta" : [ ]
+  } ]
+}

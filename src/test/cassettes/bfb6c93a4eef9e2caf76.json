@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "bulkInsert always returns an instance of HoodieWriteMetadata from execute()",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is a required parameter and passed to executor, hence should not be null",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to construct the executor and must be non-null",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is cast and used, so a non-null restriction is imposed",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The return type is HoodieWriteMetadata<List<WriteStatus>>, guaranteed by construct",
+    "meta" : [ ]
+  } ]
+}

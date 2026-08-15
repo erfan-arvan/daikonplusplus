@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Method parameter should not be null unless explicitly allowed",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "columnsToIndex is declared as List<String> and should remain so",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Method contains no operations, so all input properties are preserved",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.equals(columnsToIndex)",
+    "rationale" : "Reflexive property of equals holds for any object",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "List size cannot be negative",
+    "meta" : [ ]
+  } ]
+}

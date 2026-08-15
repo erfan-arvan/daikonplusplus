@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method receives metaClient as an argument, and most operations on HoodieTableMetaClient require it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "Most HoodieTableMetaClient objects are expected to have a non-null table config.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null && !metaClient.getBasePath().isEmpty()",
+    "rationale" : "The base path of a HoodieTableMetaClient should be a valid non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getFs() != null",
+    "rationale" : "The file system associated with metaClient must be non-null for reading records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableType() != null",
+    "rationale" : "The table type is fundamental expectation for operations on HoodieTableMetaClient.",
+    "meta" : [ ]
+  } ]
+}

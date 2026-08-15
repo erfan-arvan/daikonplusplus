@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "String concatenation always yields a non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.startsWith(\"MapProperties{\")",
+    "rationale" : "The method always starts the return value with this prefix.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.endsWith(\"}\")",
+    "rationale" : "The return value always ends with '}'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.contains(\"properties=\")",
+    "rationale" : "The return value always contains the substring 'properties='.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() >= 18",
+    "rationale" : "The minimal length is the length of 'MapProperties{properties=}', so the result is always at least that long.",
+    "meta" : [ ]
+  } ]
+}

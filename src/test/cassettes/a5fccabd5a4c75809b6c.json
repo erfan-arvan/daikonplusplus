@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "y >= 0",
+    "rationale" : "Scaling factors are often non-negative in graphics or transformation contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y != Float.NaN",
+    "rationale" : "A scale should not be NaN as it may cause graphical or logical errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(y)",
+    "rationale" : "A scale value should not be infinite for practical rendering and transformation stability.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "character >= 0",
+    "rationale" : "Java 'char' values are unsigned 16-bit and cannot be negative. This is always true for any method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event != null",
+    "rationale" : "It is typical for event handler parameters to be non-null at entry; otherwise, NullPointerExceptions may arise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character != '\\0'",
+    "rationale" : "The null character ('\\0') is generally not a valid typed character in UI text components and may be explicitly filtered.",
+    "meta" : [ ]
+  } ]
+}

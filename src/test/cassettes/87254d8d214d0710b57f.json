@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Every possible return statement returns a style field, each of which is only returned if it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == ((SliderStyle)super.getStyle()).disabledKnob || result == ((SliderStyle)super.getStyle()).knobDown || result == ((SliderStyle)super.getStyle()).knobOver || result == ((SliderStyle)super.getStyle()).knob",
+    "rationale" : "The method returns one of these specific fields from the SliderStyle.",
+    "meta" : [ ]
+  } ]
+}

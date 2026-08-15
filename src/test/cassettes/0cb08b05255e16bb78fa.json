@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method receives a profile to operate on, and null input would likely cause NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "The method immediately calls getInputPartitionPathStatMap() and expects a non-null result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().isEmpty() || profile.getInputPartitionPathStatMap().size() >= 0",
+    "rationale" : "A Map's size is always >= 0 and may be empty, ensured by contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The method assumes output partition stats are available and calls get() on this map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() instanceof java.util.Map",
+    "rationale" : "Type safety: The object returned by getInputPartitionPathStatMap() should adhere to the Map interface.",
+    "meta" : [ ]
+  } ]
+}

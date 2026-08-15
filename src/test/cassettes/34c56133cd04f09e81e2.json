@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "debugRects != null",
+    "rationale" : "The method initializes debugRects to a non-null Array if it was null at entry, so it's guaranteed to be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "debugRects.size == 0",
+    "rationale" : "After calling debugRects.clear(), the Array size is zero.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Pair containing two objects, as shown by the return statement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The left element of the result is the partitionPathStatMap, which is constructed as a non-null HashMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The right element of the result is globalStat, constructed as a new WorkloadStat and thus is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft().size() <= inputRecords.size()",
+    "rationale" : "Each unique partitionPath in inputRecords leads to one entry in the map; thus, number of entries in the map cannot exceed the total number of records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inputRecords.isEmpty() || result.getLeft().isEmpty()",
+    "rationale" : "If there are no inputRecords, the resulting partitionPathStatMap will be empty.",
+    "meta" : [ ]
+  } ]
+}

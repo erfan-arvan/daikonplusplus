@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result of execute() should not be null since Option is supposed to represent a result presence or emptiness, not be null itself.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The Option argument extraMetadata should not be null, as Option is used to explicitly represent presence/absence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is provided to downstream executors and should be non-null for scheduling compaction.",
+    "meta" : [ ]
+  } ]
+}

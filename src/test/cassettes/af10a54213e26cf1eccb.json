@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieMergeHandle created by a factory method and should not return null in normal operation.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieMergeHandle",
+    "rationale" : "The return type of the method is HoodieMergeHandle, ensuring result is an instance of this class.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "object"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed directly into the factory method, and a null would likely cause an exception or misbehavior.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument for the factory, suggesting it should be non-null.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "partitionPath"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used in the factory method; it being null could cause failures downstream.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "fileId"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The writeClient is expected to be provided and non-null when the method is entered.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeClient is expected to be non-null on method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a String parameter that should be non-null for committing.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The list of HoodieRecords to upsert should be non-null, even if empty.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecordInputs should not be null"
+    } ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "The list of file groups to update should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "fileGroupsIdsToUpdate should not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs.size() >= 0",
+    "rationale" : "List sizes in Java are always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "preppedRecordInputs size non-negative"
+    } ]
+  } ]
+}

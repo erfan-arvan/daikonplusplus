@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should typically be non-null for clustering to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "The list of FileSlice objects should be provided for clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileSlices.isEmpty() || fileSlices.isEmpty()",
+    "rationale" : "The list will always be either empty or not; no information about contents is available at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.isEmpty() || !partitionPath.isEmpty()",
+    "rationale" : "Partition path could be empty or not; method makes no assumptions at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices == null || fileSlices instanceof java.util.List",
+    "rationale" : "If fileSlices is not null, it must be a List<FileSlice>.",
+    "meta" : [ ]
+  } ]
+}

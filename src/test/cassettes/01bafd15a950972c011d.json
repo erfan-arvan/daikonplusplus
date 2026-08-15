@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string should be non-null to represent a valid commit timestamp.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "The partitionRecordsMap should not be null to hold partition to records mapping.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet().stream().allMatch(key -> key != null)",
+    "rationale" : "The keys of the partitionRecordsMap should be non-null string partition names.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "partitionRecordsMap.values().stream().allMatch(records -> records != null)",
+    "rationale" : "Each partition should map to a non-null HoodieData object holding records.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "medium"
+    } ]
+  } ]
+}

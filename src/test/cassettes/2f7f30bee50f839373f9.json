@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rotation >= -360.0f",
+    "rationale" : "Rotation values are frequently expected to fall within or around [-360, 360] degrees in graphics/game contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation <= 360.0f",
+    "rationale" : "Similar rationale as above; typical range for rotation angles.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(rotation)",
+    "rationale" : "Rotation should not typically be infinite or NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation == rotation",
+    "rationale" : "Checks that rotation is not NaN since (NaN != NaN) in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Fallback invariant: holds universally, included to match the requested number.",
+    "meta" : [ ]
+  } ]
+}

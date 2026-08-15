@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "(result == null) || (result instanceof Actor)",
+    "rationale" : "The result is either null or an instance of Actor, since the method returns an Actor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Any invariant over only the listed parameters is not directly suggested by the method body, as all state is forwarded to the superclass.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((x >= 0.0f) || (result == null))",
+    "rationale" : "If x is not in a positive region, result may be null due to hit detection logic in super.hit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((y >= 0.0f) || (result == null))",
+    "rationale" : "If y is not in a positive region, result may be null due to hit detection logic in super.hit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!touchable || (result == null) || (result != null))",
+    "rationale" : "If touchable is false, the expected behavior is often to return null in hit detection, but as the implementation is deferred, result may be null or non-null.",
+    "meta" : [ ]
+  } ]
+}

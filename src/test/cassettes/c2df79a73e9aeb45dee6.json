@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method always throws an exception, so normally no value is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "Method parameters are unlikely to be null in method contracts unless allowed, and this is a reasonable postcondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a method parameter representing a time instant, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "throw new HoodieNotSupportedException(\"Delete partitions is not supported yet\")",
+    "rationale" : "The only allowed behavior at exit is to throw this specific exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Since the method always throws, any property vacuously holds at the exit point.",
+    "meta" : [ ]
+  } ]
+}

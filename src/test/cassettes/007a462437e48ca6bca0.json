@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "actorBefore != null || actor == null",
+    "rationale" : "If there is no actorBefore, actor must not be present for the call to be meaningful in a Container that only supports one child.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != actorBefore",
+    "rationale" : "It is likely that actor and actorBefore should be different, as adding an actor before itself is not a meaningful operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != null || actorBefore != null",
+    "rationale" : "If one argument is null, it is likely the other should not be for a method inserting one before another.",
+    "meta" : [ ]
+  } ]
+}

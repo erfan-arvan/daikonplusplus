@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The records list should not be null when method is entered.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "required to safely evaluate records.size()"
+    } ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "The number of output partitions should be a positive integer.",
+    "meta" : [ {
+      "key" : "reasonable-input",
+      "value" : "partition count should be positive"
+    } ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "records should be an instance of List.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "Records must be List type as parameter"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of records list is always >= 0.",
+    "meta" : [ {
+      "key" : "size-nonnegative",
+      "value" : "size method is non-negative"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Trivially true invariant to represent no further constraints.",
+    "meta" : [ {
+      "key" : "placeholder",
+      "value" : "trivially true invariant"
+    } ]
+  } ]
+}

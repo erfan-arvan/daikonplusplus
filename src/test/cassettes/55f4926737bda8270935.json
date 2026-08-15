@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieData<T> instance, specifically HoodieListData.eager(data), which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data is passed directly to HoodieListData.eager(data), so it must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "The returned value is always the result of HoodieListData.eager(data), thus it must be of type HoodieListData.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(data)",
+    "rationale" : "The eager method constructs HoodieListData with the input list, so collecting as list from the result should yield the original data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "It makes sense for the method to require a positive parallelism, otherwise parallelization is ill-defined.",
+    "meta" : [ ]
+  } ]
+}

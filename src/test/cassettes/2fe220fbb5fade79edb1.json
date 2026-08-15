@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "The method likely expects a valid id prefix for handling inserts, so a non-null idPfx could be required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The method operates over recordItr, so it should be non-null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.next() != null",
+    "rationale" : "If there are elements, the next element should not be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is a required parameter; likely always provided for rollback operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A non-null commitInstant is likely required to identify the instant to rollback.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is typically required for executing actions like rollback.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "rollbackInstantTime should be a non-empty string as it represents an instant time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!deleteInstants || commitInstant != null",
+    "rationale" : "If deleteInstants is true, commitInstant should not be null to know what to delete.",
+    "meta" : [ ]
+  } ]
+}

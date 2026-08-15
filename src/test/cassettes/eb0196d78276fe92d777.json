@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to represent a commit time and should not be null at method entry.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "instantTime is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table must be non-null to perform an insert operation.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "table is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config object is required to configure the bulk insert.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "config is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "The method is an instance method, so 'this' is non-null.",
+    "meta" : [ {
+      "key" : "Instance",
+      "value" : "this reference is non-null"
+    } ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner == null || userDefinedBulkInsertPartitioner != null",
+    "rationale" : "No constraint can be assumed on userDefinedBulkInsertPartitioner.",
+    "meta" : [ {
+      "key" : "Trivial",
+      "value" : "userDefinedBulkInsertPartitioner may be null or non-null"
+    } ]
+  } ]
+}

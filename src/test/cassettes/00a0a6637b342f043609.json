@@ -1,0 +1,35 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object; it should not be null on exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The result should contain a non-null list of WriteStatus.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses field in result is not null"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "On a successful delta commit, it is expected that there are WriteStatus entries produced.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "writeStatuses is non-empty"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() > 0",
+    "rationale" : "There should be at least one WriteStatus after write operation.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "writeStatuses has at least one element"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "All WriteStatus elements in the list should be non-null.",
+    "meta" : [ ]
+  } ]
+}

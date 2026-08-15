@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "sortMode != null",
+    "rationale" : "The method immediately dereferences sortMode (calls sortMode.name()), so sortMode should never be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "Only NONE and GLOBAL_SORT are handled explicitly in the method; other values result in an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode instanceof BulkInsertSortMode",
+    "rationale" : "sortMode must be an instance of BulkInsertSortMode because it is used in a switch statement of this type.",
+    "meta" : [ ]
+  } ]
+}

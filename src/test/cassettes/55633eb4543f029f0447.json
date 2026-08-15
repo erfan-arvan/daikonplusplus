@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "isChecked == true",
+    "rationale" : "The incoming parameter isChecked indicates the target checked state, and the method is likely used to update the button checked status.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isChecked == false",
+    "rationale" : "It is also possible isChecked could be false, representing the button is being set to unchecked; enumerating both possibilities may help analysis.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fireEvent == true",
+    "rationale" : "fireEvent being true suggests the caller wants to fire a change event when toggling the button state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fireEvent == false",
+    "rationale" : "If fireEvent is false, the caller likely wants to change the checked state silently.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(isChecked && !fireEvent)",
+    "rationale" : "If isChecked is true and fireEvent is false, then only the checked state should update without event firing; this may help characterize method contracts.",
+    "meta" : [ ]
+  } ]
+}

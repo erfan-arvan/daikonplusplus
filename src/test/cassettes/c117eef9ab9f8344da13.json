@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "o == null || o instanceof MapProperties",
+    "rationale" : "The method checks if o is an instance of MapProperties, so this covers all legal input cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "o == null || !(o instanceof MapProperties) || properties != null",
+    "rationale" : "If o is a MapProperties, the equals method will compare properties, which is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "o == null || !(o instanceof MapProperties) || ((MapProperties)o).properties != null",
+    "rationale" : "Symmetric reasoning: when comparing with another MapProperties, the other object's properties are likely to exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "All input is acceptable at method entry, since argument 'o' may be any Object.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= tablePrefWidth",
+    "rationale" : "If background is non-null, the result is the maximum of tablePrefWidth and background.getMinWidth(); otherwise, the result equals tablePrefWidth.",
+    "meta" : [ ]
+  }, {
+    "expression" : "background == null || result >= background.getMinWidth()",
+    "rationale" : "If background is non-null, result must be at least background.getMinWidth(), due to the Math.max branch.",
+    "meta" : [ ]
+  }, {
+    "expression" : "background != null || result == tablePrefWidth",
+    "rationale" : "If background is null, result is tablePrefWidth.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= Math.max(tablePrefWidth, background == null ? Float.NEGATIVE_INFINITY : background.getMinWidth())",
+    "rationale" : "Result can never exceed the Math.max value used in the code.",
+    "meta" : [ ]
+  } ]
+}

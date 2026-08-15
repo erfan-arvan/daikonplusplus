@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is required for distributed actions, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The Option type should be non-null, even if it is Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() == false || extraMetadata.get() != null",
+    "rationale" : "If extraMetadata is present, it should wrap a non-null Map.",
+    "meta" : [ ]
+  } ]
+}

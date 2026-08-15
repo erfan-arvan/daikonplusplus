@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned object is always a new instance thus non-null.",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "method always returns new AvroReaderContextFactory"
+    } ]
+  }, {
+    "expression" : "result instanceof AvroReaderContextFactory",
+    "rationale" : "Return statement directly instantiates AvroReaderContextFactory.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "factory concrete type"
+    } ]
+  }, {
+    "expression" : "((AvroReaderContextFactory) result).metaClient == metaClient",
+    "rationale" : "AvroReaderContextFactory is constructed with the metaClient argument.",
+    "meta" : [ {
+      "key" : "constructor",
+      "value" : "AvroReaderContextFactory(metaClient, ...)"
+    } ]
+  }, {
+    "expression" : "((AvroReaderContextFactory) result).props != null",
+    "rationale" : "Second parameter of constructor is new TypedProperties(), which is non-null.",
+    "meta" : [ {
+      "key" : "constructor",
+      "value" : "props set to new TypedProperties()"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Method does not perform a null check, so metaClient assumed non-null for correctness.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "no null check inside method"
+    } ]
+  } ]
+}

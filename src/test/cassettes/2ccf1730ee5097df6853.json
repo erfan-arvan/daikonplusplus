@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is required for the execution and is used immediately, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime represents a unique timestamp for compaction and should be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The Option<Map<String, String>> parameter should not be null, as it is intended to represent some optional metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.matches(\"\\\\d+\")",
+    "rationale" : "instantTime typically represents a timestamp and is often a string of digits.",
+    "meta" : [ ]
+  } ]
+}

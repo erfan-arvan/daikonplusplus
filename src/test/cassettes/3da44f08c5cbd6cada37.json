@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires a non-null configuration object to function, as it delegates to constructors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is needed by the constructors used inside the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient must be non-null as its methods (getTableType) are invoked unconditionally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableType() != null",
+    "rationale" : "The method switch statement calls getTableType; it must not return null for correct execution.",
+    "meta" : [ ]
+  } ]
+}

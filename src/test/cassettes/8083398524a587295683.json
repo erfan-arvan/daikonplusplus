@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "lastTiledMapRenderTime == TimeUtils.millis() - initialTimeOffset",
+    "rationale" : "The method sets lastTiledMapRenderTime to that value as its only side effect.",
+    "meta" : [ ]
+  }, {
+    "expression" : "TimeUtils.millis() >= 0",
+    "rationale" : "System time in milliseconds should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "lastTiledMapRenderTime + initialTimeOffset == TimeUtils.millis()",
+    "rationale" : "Algebraic relation after assignment in this method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a list, which should not be null after method exit.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result list should be initialized"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> id != null)",
+    "rationale" : "Each fileId obtained from getFileId() is expected to be non-null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "file IDs should be non-null"
+    } ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The method collects distinct file IDs, so result should have no duplicates.",
+    "meta" : [ {
+      "key" : "uniqueness",
+      "value" : "distinct file IDs"
+    } ]
+  }, {
+    "expression" : "!result.contains(\"\")",
+    "rationale" : "File IDs should be meaningful non-empty strings.",
+    "meta" : [ {
+      "key" : "valid-data",
+      "value" : "file IDs are non-empty strings"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is required for the getLatestFileSlices call in the method.",
+    "meta" : [ {
+      "key" : "input-parameter",
+      "value" : "partitionPath must be non-null to retrieve slices"
+    } ]
+  } ]
+}

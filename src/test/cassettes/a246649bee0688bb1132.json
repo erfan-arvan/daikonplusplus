@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "Method parameter should generally be non-null as it is used directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(writeResult.getClass())",
+    "rationale" : "writeResult is expected to be an instance of HoodieWriteMetadata or its subtype.",
+    "meta" : [ ]
+  } ]
+}

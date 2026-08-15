@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "node != null",
+    "rationale" : "The method throws an exception if node is null, so null never reaches METHOD_EXIT.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (node == this || (node instanceof Node && this.isDescendantOf(node)))",
+    "rationale" : "True is returned iff node is this or an ascendant; otherwise false is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (this == node || (node instanceof Node && isCurrentOrAscendant(node)))",
+    "rationale" : "The result matches the definition: true iff the input node is this or an ascendant.",
+    "meta" : [ ]
+  } ]
+}

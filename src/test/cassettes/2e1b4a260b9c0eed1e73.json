@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "A HoodieWriteConfig should be provided to create a table; likely required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "Storage configuration should not be null to configure table storage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true == (skipValidation || !skipValidation)",
+    "rationale" : "skipValidation is always either true or false.",
+    "meta" : [ ]
+  } ]
+}

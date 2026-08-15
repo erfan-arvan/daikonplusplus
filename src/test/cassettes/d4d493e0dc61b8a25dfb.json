@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Using records as an argument and passing to downstream methods implies it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed into optionals and to other methods that expect non-null values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() || !instantTime.isEmpty()",
+    "rationale" : "instantTime being a String can be empty or not, but is always defined if not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.size() == 0",
+    "rationale" : "A list is empty if and only if its size is 0.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is expected to be non-null for the method to execute correctly.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string is used in the commit action executor and should be non-null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The list of records must be non-null to perform bulk insert.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner == null || bulkInsertPartitioner.isPresent()",
+    "rationale" : "The bulkInsertPartitioner may be null or must be a valid Option containing a partitioner.",
+    "meta" : [ {
+      "key" : "option_check",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "Records is expected to be a List of HoodieRecord objects.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "parameter"
+    } ]
+  } ]
+}

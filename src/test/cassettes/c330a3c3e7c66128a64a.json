@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter typically denotes the transaction or commit instant and is expected to be non-null and non-empty for meaningful operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records list must be provided and non-null to perform an insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required to execute the insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || records.size() >= 0",
+    "rationale" : "If records is not null, its size must be non-negative as per the List contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || instantTime.trim().length() > 0",
+    "rationale" : "If instantTime is not null, it should not be all whitespace, ensuring it represents a valid identifier.",
+    "meta" : [ ]
+  } ]
+}

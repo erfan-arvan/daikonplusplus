@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The method likely assumes columnsToIndex is non-null before entering, or null inputs would be a bug.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "columnsToIndex is declared as a List<String>, so it should always be an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "If the list is empty, its size is zero, otherwise non-negative; always true, but highlights the possible states.",
+    "meta" : [ ]
+  } ]
+}

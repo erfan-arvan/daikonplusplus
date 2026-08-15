@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method creates and returns a HoodieMergeHandle via a factory method, unlikely to return null in normal execution, and is critical for downstream correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is likely a required parameter for merge logic and its nullness would likely be validated up the stack or lead to failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is generated upstream or passed in and is required for merge operations; null value would be semantically invalid.",
+    "meta" : [ ]
+  } ]
+}

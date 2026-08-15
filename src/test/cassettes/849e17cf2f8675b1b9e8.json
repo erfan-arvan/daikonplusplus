@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method returns label.getText(), which is likely intended to be a valid CharSequence, the result is probably guaranteed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() >= 0",
+    "rationale" : "Any non-null CharSequence has a non-negative length by contract.",
+    "meta" : [ ]
+  } ]
+}

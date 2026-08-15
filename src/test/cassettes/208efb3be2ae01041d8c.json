@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "value >= -Float.MAX_VALUE && value <= Float.MAX_VALUE",
+    "rationale" : "The parameter is a float, so it must be within the valid float value range.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "float bounds"
+    } ]
+  }, {
+    "expression" : "!(value == 0) || value == 0.0f",
+    "rationale" : "Java float 0 and 0.0f are equivalent; this captures that usage.",
+    "meta" : [ {
+      "key" : "equivalence",
+      "value" : "zero equivalence"
+    } ]
+  }, {
+    "expression" : "value == value",
+    "rationale" : "This expression is only true when value is not NaN, since NaN != NaN in Java; so it checks that value is not NaN.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "NaN check"
+    } ]
+  }, {
+    "expression" : "!(Float.isNaN(value))",
+    "rationale" : "The implementation assumes value is not NaN, e.g., when casting to int for array indexing, so not being NaN is meaningful.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "not NaN"
+    } ]
+  } ]
+}

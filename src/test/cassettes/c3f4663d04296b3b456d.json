@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method will iterate and access inputRecords; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used as an identifier; assumed non-null and non-empty for correct commit semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table methods are called immediately; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used to retrieve configuration values; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "executor is cast and invoked; must be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "atlas == null || atlas instanceof Disposable",
+    "rationale" : "Atlas is accessed as a possible Disposable, so if it is non-null, it is expected to be a Disposable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resources != null",
+    "rationale" : "resources.values() is called and iteration occurs, which requires resources to be non-null.",
+    "meta" : [ ]
+  } ]
+}

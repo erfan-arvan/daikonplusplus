@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Based on checkState(result != null && !result.isEmpty()), result is guaranteed non-null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "Method ensures result is not empty via checkState before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() > 0",
+    "rationale" : "Equivalent to !result.isEmpty(), ensured by method's checkState.",
+    "meta" : [ ]
+  } ]
+}

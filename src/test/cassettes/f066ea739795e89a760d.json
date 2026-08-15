@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "The method always accesses file (e.g., file.extension()), so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "The extension value of file is dereferenced and used in logic, so must be non-null for toLowerCase and comparison.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "manager is passed to loaders and used directly, so it must be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension().equalsIgnoreCase(\"tmx\") || file.extension().equalsIgnoreCase(\"tmj\")",
+    "rationale" : "If an unsupported extension is given, the method throws an exception and does not reach method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "If parameter was null, it is replaced with a new Parameters instance early in the method.",
+    "meta" : [ ]
+  } ]
+}

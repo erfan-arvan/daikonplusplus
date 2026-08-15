@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "Scheduling indexing likely requires a non-null instant time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "The method acts on partitions to index; the list should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Partition paths are used in scheduling and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is needed for scheduling actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex.isEmpty() == false || partitionPaths.isEmpty() == false",
+    "rationale" : "At least one partition or partition path should be specified for meaningful indexing.",
+    "meta" : [ ]
+  } ]
+}

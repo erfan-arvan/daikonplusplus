@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns either parentProps, templateProps, or a newly created merged element, all of which are non-null at the exit point (since if a parameter is null, the other parameter is returned, and otherwise a merged element is created and returned).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != templateProps || parentProps == null",
+    "rationale" : "The method only returns templateProps if parentProps is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != parentProps || templateProps == null",
+    "rationale" : "The method only returns parentProps if templateProps is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != templateProps || templateProps != null",
+    "rationale" : "If result is templateProps, then templateProps must be non-null (since the method checks for null before returning it).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != parentProps || parentProps != null",
+    "rationale" : "If result is parentProps, then parentProps must be non-null (since the method checks for null before returning it).",
+    "meta" : [ ]
+  } ]
+}

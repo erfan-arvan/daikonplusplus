@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', so 'result' cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "'result' refers to 'this', as the method returns 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.tile == tile",
+    "rationale" : "The method assigns 'tile' to 'this.tile', so at return, result.tile equals the input 'tile'.",
+    "meta" : [ ]
+  } ]
+}

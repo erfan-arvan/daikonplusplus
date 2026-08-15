@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null",
+    "rationale" : "The method expects a valid map of strategy parameters for operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "A non-null HoodieSchema is needed for clustering logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.isEmpty() || strategyParams.isEmpty()",
+    "rationale" : "Covers both possibilities (non-empty or empty) for strategyParams, indicating its general state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams instanceof java.util.Map",
+    "rationale" : "strategyParams is expected to be a Map per its declaration.",
+    "meta" : [ ]
+  } ]
+}

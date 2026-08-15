@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method is called with a 'Batch' instance; using it without null checks implies it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha (opacity) values are typically non-negative and passed to drawing operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha (opacity) for drawing is typically in the [0,1] range.",
+    "meta" : [ ]
+  } ]
+}

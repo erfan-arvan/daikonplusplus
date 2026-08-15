@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method delegates directly to another method and always returns its output, so result is expected to not be null as a postcondition.",
+    "meta" : [ {
+      "key" : "draftA",
+      "value" : "checked for basic not-null on result"
+    }, {
+      "key" : "draftB",
+      "value" : "checked for relation between method exit result and params"
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "According to the method signature, result is expected to be an Iterator.",
+    "meta" : [ {
+      "key" : "draftA",
+      "value" : "result type dictated by signature"
+    }, {
+      "key" : "draftB",
+      "value" : "relation of result to return signature"
+    } ]
+  } ]
+}

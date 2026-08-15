@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "metadata is used for method calls in the method body, so it must be non-null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Ensures metadata is not null before method calls."
+    } ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "metadata.getWriteStatuses().collectAsList() is called, implying getWriteStatuses() should not return null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Ensures getWriteStatuses() can be used safely."
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "programmaticChangeEvents == true",
+    "rationale" : "getProgrammaticChangeEvents returns the value of programmaticChangeEvents, so it is possible for this field to be true at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "programmaticChangeEvents == false",
+    "rationale" : "Similarly, it is possible for programmaticChangeEvents to be false at method entry, given it is a boolean field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "The method cannot be called on a null object, so 'this' must be non-null at entry.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always instantiates 'result' as new HoodieWriteMetadata, so it is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned HoodieWriteMetadata has its write statuses updated and populated, thus this field is not null after method execution.",
+    "meta" : [ ]
+  } ]
+}

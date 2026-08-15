@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "The method expects event to be a valid InputEvent during touch events.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pointer >= 0",
+    "rationale" : "Pointer indices for touch events in LibGDX are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button >= 0",
+    "rationale" : "Button codes for input events should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0",
+    "rationale" : "Coordinates for touch events passed to UI scene2d usually have an origin at (0,0), so x should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "Coordinates for touch events passed to UI scene2d usually have an origin at (0,0), so y should be non-negative.",
+    "meta" : [ ]
+  } ]
+}

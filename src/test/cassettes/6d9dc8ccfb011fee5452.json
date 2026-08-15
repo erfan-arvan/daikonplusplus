@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "It is typical for methods operating on engine context to require it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter represents a commit time string and should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The list of prepped records should not be null to execute a deletion operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() > 0",
+    "rationale" : "A well-formed List is either empty or its size is greater than zero, ensuring basic structural integrity.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "(x >= 0 && x < width && y >= 0 && y < height) == (result != null)",
+    "rationale" : "Cell is null iff the coordinates are out of bounds",
+    "meta" : [ ]
+  }, {
+    "expression" : "x < 0 || x >= width || y < 0 || y >= height || result == cells[x][y]",
+    "rationale" : "If within bounds, result is cells[x][y]; otherwise, null",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || (x >= 0 && x < width && y >= 0 && y < height)",
+    "rationale" : "If result is non-null, coordinates must be within bounds",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result == cells[x][y]",
+    "rationale" : "If a cell is returned, it is cells[x][y]",
+    "meta" : [ ]
+  }, {
+    "expression" : "(x < 0 || x >= width || y < 0 || y >= height) || result == cells[x][y]",
+    "rationale" : "When coordinates are out of bounds, cells[x][y] is not dereferenced",
+    "meta" : [ ]
+  } ]
+}

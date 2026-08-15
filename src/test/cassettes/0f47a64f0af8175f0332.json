@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "prefRows >= 0",
+    "rationale" : "Number of rows is usually interpreted as a non-negative value in UIs.",
+    "meta" : [ {
+      "key" : "general_range",
+      "value" : "Rows are generally non-negative."
+    } ]
+  }, {
+    "expression" : "Float.isFinite(prefRows)",
+    "rationale" : "Preferred rows should not be infinite or NaN.",
+    "meta" : [ {
+      "key" : "well_formed",
+      "value" : "The argument should be a finite float value"
+    } ]
+  }, {
+    "expression" : "prefRows != Float.NaN",
+    "rationale" : "NaN for row count does not make sense in UI contexts.",
+    "meta" : [ {
+      "key" : "well_formed",
+      "value" : "NaN is generally not meaningful for row counts"
+    } ]
+  } ]
+}

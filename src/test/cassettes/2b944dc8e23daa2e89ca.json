@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List created via collect(Collectors.toList()), which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(x -> x != null)",
+    "rationale" : "Each fileId in the result is produced by getFileId(), which is assumed to return non-null values for valid file slices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The result is explicitly collected after a distinct() call, so all entries must be unique.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null ? true : result.isEmpty()",
+    "rationale" : "If partitionPath is null, getLatestFileSlices likely returns an empty stream, leading to an empty result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "No null fileIds should be present in the result list.",
+    "meta" : [ ]
+  } ]
+}

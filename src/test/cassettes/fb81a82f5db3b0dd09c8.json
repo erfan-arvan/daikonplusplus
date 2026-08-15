@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "args is a method parameter which in Java is never null at the start of main.",
+    "meta" : [ {
+      "key" : "null check",
+      "value" : "args is the method parameter and must be non-null at entry"
+    } ]
+  }, {
+    "expression" : "args instanceof String[]",
+    "rationale" : "args is declared as a String array parameter.",
+    "meta" : [ {
+      "key" : "type check",
+      "value" : "args must be an array of strings as method signature specifies"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array lengths are always non-negative integers.",
+    "meta" : [ {
+      "key" : "array length",
+      "value" : "args is an array, length is non-negative"
+    } ]
+  } ]
+}

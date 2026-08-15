@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result.size() == writeStatuses.size()",
+    "rationale" : "The output list of WriteStatus typically corresponds one-to-one with the input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The input writeStatuses is referenced without null checking; likely precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(ws -> ws != null)",
+    "rationale" : "All WriteStatus elements in the result list should be non-null.",
+    "meta" : [ ]
+  } ]
+}

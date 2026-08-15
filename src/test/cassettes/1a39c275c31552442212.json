@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "index >= 0",
+    "rationale" : "Index arguments for collections are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < objects.size()",
+    "rationale" : "Index should be less than the number of elements for valid removal in list-like structures.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects != null",
+    "rationale" : "The remove operation is only valid if the collection is initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects.size() > 0",
+    "rationale" : "Removal requires at least one element in the collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < objects.size() && index >= 0",
+    "rationale" : "Composite invariant for valid index range in removal from a collection.",
+    "meta" : [ ]
+  } ]
+}

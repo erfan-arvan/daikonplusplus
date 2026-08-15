@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List due to Stream.collect; collect(Collectors.toList()) never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "All elements produced by fg.getFileId() are file IDs, which are expected to be non-null; Stream.map and file ID extraction for valid slices should not yield nulls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "new java.util.HashSet<>(result).size() == result.size()",
+    "rationale" : "The stream applies 'distinct()', so there are no duplicate file IDs in the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed to getLatestFileSlices, which presumably does not allow null, and is typically required for identifying a partition.",
+    "meta" : [ ]
+  } ]
+}

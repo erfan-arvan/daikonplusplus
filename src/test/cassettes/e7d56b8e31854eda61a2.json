@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "writeConfig != null",
+    "rationale" : "Method requires a HoodieWriteConfig object to operate, so it must not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null check"
+    } ]
+  }, {
+    "expression" : "writeConfig instanceof HoodieWriteConfig",
+    "rationale" : "Parameter writeConfig should be of type HoodieWriteConfig as per method signature.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "type"
+    } ]
+  } ]
+}

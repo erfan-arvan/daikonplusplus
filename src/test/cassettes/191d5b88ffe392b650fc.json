@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is passed to RunIndexActionExecutor constructor, which would likely throw if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "indexInstantTime is forwarded to RunIndexActionExecutor constructor; null would likely be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Result is constructed as the return of execute(), which likely returns a non-null Option object (could be Option.empty()).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "An Option is either present or empty, capturing valid Option states (structural check).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isPresent() || result.get() != null",
+    "rationale" : "If Option is present, its contents are a valid HoodieIndexCommitMetadata.",
+    "meta" : [ ]
+  } ]
+}

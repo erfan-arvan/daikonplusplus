@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always initializes and returns a Map instance; it never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Map",
+    "rationale" : "The result is always a Map<String, List<String>> as per method signature and construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "The writeResult parameter is required for the processing in the method and likely checked by callers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.keySet().stream().allMatch(p -> result.get(p) != null)",
+    "rationale" : "If the result Map is not empty, all its values (List<String>) are filled by getAllExistingFileIds and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "Each list in the result is either created by getAllExistingFileIds or the Map is empty, so no value should be null.",
+    "meta" : [ ]
+  } ]
+}

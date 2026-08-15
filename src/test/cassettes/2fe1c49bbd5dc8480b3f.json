@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a ComparableList, which is expected to be non-null based on its implementation as a wrapper of SortUtils.getComparableSortColumns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "record != null",
+    "rationale" : "The method requires a non-null record parameter to generate comparable sort columns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "ComparableList.size() returns a non-negative integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof FlatLists.ComparableList",
+    "rationale" : "The return value should always be an instance of FlatLists.ComparableList according to the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == (result.size() == 0)",
+    "rationale" : "For list types in Java, isEmpty() is equivalent to checking if size() == 0.",
+    "meta" : [ ]
+  } ]
+}

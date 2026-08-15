@@ -1,0 +1,35 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "Method parameter dedupedRecords is a list of records to process, likely not null at method entry.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "dedupedRecords is expected non-null on method entry"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is expected to be provided and non-null at method entry.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "context is non-null"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The HoodieTable instance must be non-null to invoke methods on it.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "table is non-null"
+    } ]
+  }, {
+    "expression" : "dedupedRecords.size() >= 0",
+    "rationale" : "List sizes are always zero or positive, dedupedRecords is a list.",
+    "meta" : [ {
+      "key" : "Range",
+      "value" : "Size non-negative"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No further precise range or ordering invariants can be inferred from given names and method entry.",
+    "meta" : [ ]
+  } ]
+}

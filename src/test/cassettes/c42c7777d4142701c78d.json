@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "The parameter tmxFile is likely required to resolve relative file handles, so nullness is relevant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "The method processes tmxFile to locate dependencies, so it is plausible to require that the file physically exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.isDirectory() == false",
+    "rationale" : "The method treats tmxFile as a file, not a directory.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.length() > 0",
+    "rationale" : "A tmxFile of length zero is unlikely to have valid map data.",
+    "meta" : [ ]
+  } ]
+}

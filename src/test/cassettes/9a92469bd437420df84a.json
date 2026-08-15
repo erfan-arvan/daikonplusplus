@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of postWrite, which should generally not be null unless an error occurs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method assumes preppedRecords is valid and constructs HoodieListData from it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime participates in several method calls and is wrapped as Option.ofNullable(instantTime).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "result is documented and returned as a List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() || result.size() == 0",
+    "rationale" : "If no input records are provided, likely no WriteStatus results are produced.",
+    "meta" : [ ]
+  } ]
+}

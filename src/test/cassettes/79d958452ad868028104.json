@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method requires the profile argument to be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "The method immediately calls getInputPartitionPathStatMap(), so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().entrySet() != null",
+    "rationale" : "entrySet() should always return a non-null set, as used directly in the loop.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "getOutputPartitionPathStatMap() is called frequently, so its result should be non-null to avoid NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "Consistency: if output workload stats are present, the corresponding map should be non-null.",
+    "meta" : [ ]
+  } ]
+}

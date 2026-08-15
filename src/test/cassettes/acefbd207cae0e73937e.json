@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is likely required to identify a partition and should be non-null for valid processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "fileSlices is expected to hold file slice information for clustering and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices == null || fileSlices.size() >= 0",
+    "rationale" : "fileSlices, if non-null, should have a non-negative size as per List contract.",
+    "meta" : [ ]
+  } ]
+}

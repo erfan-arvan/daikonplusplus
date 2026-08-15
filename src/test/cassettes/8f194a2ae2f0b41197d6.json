@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid write instant should be provided and is typically non-null for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The list of records to insert should be initialized and non-null when performing an insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null execution context is required to drive the insert operation.",
+    "meta" : [ ]
+  } ]
+}

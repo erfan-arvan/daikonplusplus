@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null && !preppedRecords.isEmpty()",
+    "rationale" : "A bulk insert operation requires records to process; empty or null lists would result in a no-op or error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is an identifier for the operation's commit instant and is expected to be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid engine context is required for any table modification operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is wrapped in Option; the Option object itself should not be null.",
+    "meta" : [ ]
+  } ]
+}

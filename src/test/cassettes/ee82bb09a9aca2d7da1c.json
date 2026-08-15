@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns either a singleton iterator or a new JavaLazyInsertIterable, neither can be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is passed as a method parameter and is used in constructor; it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed as a parameter and used in several places; null values would lead to an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result instanceof JavaLazyInsertIterable",
+    "rationale" : "If recordItr has next, result is a JavaLazyInsertIterable; otherwise, it's a singleton iterator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr.hasNext() || (result.hasNext() && result.next().isEmpty())",
+    "rationale" : "If there are no records, result yields a single empty list.",
+    "meta" : [ ]
+  } ]
+}

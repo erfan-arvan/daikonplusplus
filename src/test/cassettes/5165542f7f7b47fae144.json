@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "objects != null",
+    "rationale" : "The instance field 'objects' must be non-null to safely call 'objects.size' in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects.size >= 0",
+    "rationale" : "Collection sizes in Java are non-negative; 'size' should always be >= 0 at method entry if 'objects' is a valid collection.",
+    "meta" : [ ]
+  } ]
+}

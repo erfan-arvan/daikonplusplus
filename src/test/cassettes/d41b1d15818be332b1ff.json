@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A non-null HoodieMergeHandle is expected to be returned from the factory method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime should be non-null and non-empty for a meaningful operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getFileId().equals(fileId)",
+    "rationale" : "The returned handle should refer to the requested fileId.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionPath().equals(partitionPath)",
+    "rationale" : "The returned handle should correspond to the provided partitionPath.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatus() != null",
+    "rationale" : "The write status should be initialized in a valid HoodieMergeHandle.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "splitAmount >= 0.0f",
+    "rationale" : "Possible contract to prevent negative split amounts, since it's clamped later.",
+    "meta" : [ ]
+  }, {
+    "expression" : "splitAmount <= 1.0f",
+    "rationale" : "Likely upper bound since the split amount is probably normalized between min and max.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(splitAmount)",
+    "rationale" : "A split amount should not be NaN to ensure meaningful pane layout computations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(splitAmount)",
+    "rationale" : "Infinite values for splitAmount would not make sense for GUI layout.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is likely a non-null identifier prefix for partitions; the code does not handle or expect null idPfx.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr represents an input iterator, and the method presumes it's properly initialized and not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr.hasNext() || !recordItr.hasNext()",
+    "rationale" : "recordItr.hasNext() will always return either true or false, ensuring the iterator is in a valid state for traversal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.next() != null",
+    "rationale" : "If the iterator has a next element, that element is expected to be non-null HoodieRecord.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx.length() > 0",
+    "rationale" : "idPfx is likely used as a partition prefix and should not be an empty string.",
+    "meta" : [ ]
+  } ]
+}

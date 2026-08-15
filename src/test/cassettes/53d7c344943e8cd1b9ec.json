@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a ReaderContextFactory created by another method; null is unlikely.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "MetaClient is an input argument and is expected to be non-null per contract.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "method contract"
+    } ]
+  }, {
+    "expression" : "result instanceof ReaderContextFactory",
+    "rationale" : "Method return type guarantees result is a ReaderContextFactory.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "enforced"
+    } ]
+  }, {
+    "expression" : "result != metaClient",
+    "rationale" : "Result and metaClient should have distinct and incompatible types, so they cannot be equal.",
+    "meta" : [ {
+      "key" : "type-difference",
+      "value" : "distinct types"
+    } ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "By method signature, metaClient must be an instance of HoodieTableMetaClient.",
+    "meta" : [ {
+      "key" : "input-type",
+      "value" : "expected"
+    } ]
+  } ]
+}

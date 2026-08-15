@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "InputEvent event is typically expected to be non-null when a click event occurs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "Click x-coordinates are often non-negative in GUI frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "Click y-coordinates are often non-negative in GUI frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event.isHandled() == false || event.getTarget() != null",
+    "rationale" : "If the event is not handled, it may still have a target.",
+    "meta" : [ ]
+  } ]
+}

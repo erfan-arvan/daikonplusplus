@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned string is always derived from 'name', which is non-null since it's a parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "Either the whole name or a substring is returned; both should be non-empty if 'name' is non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(name) || name.contains(\"atlas_imagelayer\")",
+    "rationale" : "If 'name' does not contain 'atlas_imagelayer', the result is always 'name'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.contains(\"atlas_imagelayer\") || (result.equals(name) || result.equals(name.substring(name.lastIndexOf('/') + 1)))",
+    "rationale" : "If 'atlas_imagelayer' is present, result can be name or a substring of name after the last '/'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() <= name.length()",
+    "rationale" : "Returned result is at most as long as the input name (could be equal or substring).",
+    "meta" : [ ]
+  } ]
+}

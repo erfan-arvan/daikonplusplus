@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is used as an argument in the method body, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to the constructor; passing null is unlikely to be intended.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is passed to the constructor; a null Option may not be expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime likely represents a timestamp or identifier and should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() == (extraMetadata.get() != null)",
+    "rationale" : "If extraMetadata is present, its value should be non-null per Option semantics.",
+    "meta" : [ ]
+  } ]
+}

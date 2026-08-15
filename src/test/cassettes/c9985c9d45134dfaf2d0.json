@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is always accessed, so it's non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Option.of and Option.empty never return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == result.isEmpty()",
+    "rationale" : "If config.populateMetaFields() is true, result is Option.empty(); otherwise it's Option.of().",
+    "meta" : [ ]
+  }, {
+    "expression" : "!config.populateMetaFields() == result.isPresent()",
+    "rationale" : "When populateMetaFields is false, result is present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.get() instanceof BaseKeyGenerator",
+    "rationale" : "If result is present, it always wraps a BaseKeyGenerator.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "b == null || b.doubleValue() != 0.0 || result == null",
+    "rationale" : "If b is not null and its double value is zero, the result is null to indicate division by zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || a != null",
+    "rationale" : "A returned non-null result implies that a must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || b != null",
+    "rationale" : "A returned non-null result implies that b must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || b.doubleValue() != 0.0",
+    "rationale" : "A non-null result implies division by zero did not happen, so b.doubleValue() != 0.0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || (a instanceof Integer || a instanceof Double)",
+    "rationale" : "A non-null result can only be returned if 'a' is Integer or Double type, as other types throw an exception.",
+    "meta" : [ ]
+  } ]
+}

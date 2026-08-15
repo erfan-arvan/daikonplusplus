@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of performClusteringWithRecordList, which likely does not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "Clustering group is received as input and is likely assumed non-null for clustering logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "Strategy parameters map is used in downstream calls and likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed as an identifier for the clustering operation and is expected to not be null for proper execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.get(0) != null",
+    "rationale" : "If result is not empty, its first element should not be null, ensuring the returned WriteStatus list is valid.",
+    "meta" : [ ]
+  } ]
+}

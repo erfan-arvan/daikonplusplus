@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism for processing is often expected to be a positive integer indicating the number of processing threads/partitions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null && !records.isEmpty()",
+    "rationale" : "Deduplication typically expects a non-null and non-empty list of records to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orderingFieldNames != null && orderingFieldNames.length > 0",
+    "rationale" : "Ordering fields are required to resolve duplicates; the array should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schemaStr != null && !schemaStr.isEmpty()",
+    "rationale" : "The schema string is used to parse record schema and should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "TypedProperties is required for configuration lookups and must be non-null for correct method functioning.",
+    "meta" : [ ]
+  } ]
+}

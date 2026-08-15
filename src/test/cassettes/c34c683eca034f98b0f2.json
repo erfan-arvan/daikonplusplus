@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Engine context should always be provided for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option parameters are expected to be non-null in the API even if empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isDefined() || !extraMetadata.isDefined()",
+    "rationale" : "extraMetadata is always an Option type, so isDefined() is always well-defined; included to ensure API compliance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context must be of proper type for correct engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!extraMetadata.isDefined() || extraMetadata.get() instanceof Map",
+    "rationale" : "If extraMetadata is present, it should provide a Map, as declared in the Option type.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method usage of data.stream() in the body assumes data is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "Method applies a wrapper around the func, implying it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "The parallelism parameter is used as an Integer object, so it should not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism usually refers to the number of threads or partitions, which is expected to be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "It is common to set parallelism less than or equal to the data size, unless data is empty.",
+    "meta" : [ ]
+  } ]
+}

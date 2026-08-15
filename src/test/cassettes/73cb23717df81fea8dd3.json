@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the output of postWrite(), which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Method assumes preconditions that records is not null (required for correct upsert).",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used non-null throughout, so must be non-null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Method returns a List implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.get(0) instanceof WriteStatus",
+    "rationale" : "If result is non-empty, its elements are WriteStatus objects.",
+    "meta" : [ ]
+  } ]
+}

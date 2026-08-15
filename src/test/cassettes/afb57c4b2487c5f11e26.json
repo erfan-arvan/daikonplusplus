@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "w >= 0",
+    "rationale" : "Rectangle width is often expected to be non-negative when adding a debug rectangle.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "geometry"
+    } ]
+  }, {
+    "expression" : "h >= 0",
+    "rationale" : "Rectangle height is often expected to be non-negative when adding a debug rectangle.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "geometry"
+    } ]
+  }, {
+    "expression" : "color != null",
+    "rationale" : "The method uses color directly, so it should not be null to avoid a NullPointerException.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "robustness"
+    } ]
+  }, {
+    "expression" : "w == 0 || h == 0 || (w > 0 && h > 0)",
+    "rationale" : "Either the rectangle is degenerate (zero width or height) or both dimensions are positive.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "geometry"
+    } ]
+  }, {
+    "expression" : "x + w >= x && y + h >= y",
+    "rationale" : "The rectangle's max extents do not overflow in the negative direction assuming non-negative width and height.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "geometry"
+    } ]
+  } ]
+}

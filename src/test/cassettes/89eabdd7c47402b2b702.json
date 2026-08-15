@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "records is dereferenced in records.map(...), so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to tagLocation and may be used internally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is an argument of tagLocation and passed to other methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result is produced via HoodieListData.eager(...), so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == records.count()",
+    "rationale" : "The output result is constructed by mapping input records, so cardinality is preserved.",
+    "meta" : [ ]
+  } ]
+}

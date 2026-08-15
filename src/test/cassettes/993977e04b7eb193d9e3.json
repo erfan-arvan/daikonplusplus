@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an iterator, so result should not be null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "Ensures the result iterator is not null at method exit"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a parameter in creating createHandle, and likely non-null.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "partitionPath is used for indexing or partitioning"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used to identify a file, so should not be null.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "fileId must be valid for file operations"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to denote a timestamp and must be non-null.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "instantTime is a timestamp string parameter"
+    } ]
+  }, {
+    "expression" : "recordMap != null && !recordMap.isEmpty()",
+    "rationale" : "recordMap contains the records to insert, so it should be non-null and non-empty.",
+    "meta" : [ {
+      "key" : "non-empty-map",
+      "value" : "recordMap must contain records for insertion"
+    } ]
+  } ]
+}

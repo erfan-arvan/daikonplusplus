@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x || y",
+    "rationale" : "At least one direction might be forced for scrolling if either x or y is true; could reflect common usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!x || x",
+    "rationale" : "Tautology omitted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x != y",
+    "rationale" : "Both directions being forced independently makes their values possibly different.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(x && !y) || (!x && y) || (x && y) || (!x && !y)",
+    "rationale" : "All combinations of the booleans are permissible.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x == true || x == false",
+    "rationale" : "x is always a boolean.",
+    "meta" : [ ]
+  } ]
+}

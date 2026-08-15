@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the output of the execute() call, which is expected to be non-null in normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed as a parameter and frequently represents a required commit timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "keys is an input parameter expected by the delete executor and typically not optional.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method expects non-null input data to perform tagging.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for distributed processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable needed for lookup and tagging operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof HoodieData",
+    "rationale" : "records is of type HoodieData<HoodieRecord<R>>, enforced by the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable instanceof HoodieTable",
+    "rationale" : "hoodieTable must be of precise type as expected by the implementation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is dereferenced multiple times in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexType() != null",
+    "rationale" : "config.getIndexType() is used in a switch statement, implying it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexClass() == null || config.getIndexClass().length() > 0",
+    "rationale" : "If index class string is not null, it may be used, implying only non-empty values are meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!org.apache.commons.lang3.StringUtils.isNullOrEmpty(config.getIndexClass()) || config.getIndexType() != null",
+    "rationale" : "If the index class string is empty, the index type is consulted; at least one must be meaningfully specified.",
+    "meta" : [ ]
+  } ]
+}

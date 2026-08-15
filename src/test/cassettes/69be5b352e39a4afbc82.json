@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The writeClient parameter must be non-null to perform upsert and commit operations.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeClient is non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time string should be non-null for the commit operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The list of prepped records to upsert is non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecordInputs is non-null"
+    } ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "The list of file group ids to update is non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "fileGroupsIdsToUpdate is non-null"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs.size() >= 0",
+    "rationale" : "List sizes are always zero or positive.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "preppedRecordInputs size is non-negative"
+    } ]
+  } ]
+}

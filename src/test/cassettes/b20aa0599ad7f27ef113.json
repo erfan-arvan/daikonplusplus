@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context should be provided for table actions to execute in a distributed environment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringInstantTime != null && !clusteringInstantTime.isEmpty()",
+    "rationale" : "clusteringInstantTime should be a valid non-empty instant identifier for clustering operations.",
+    "meta" : [ ]
+  } ]
+}

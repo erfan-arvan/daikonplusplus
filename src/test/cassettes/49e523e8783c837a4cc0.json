@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method would require a non-null context to perform any meaningful work, and a null context would likely result in a ClassCastException when casting to HoodieJavaEngineContext.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime represents the time for the upsert operation and should not be null or empty for correct processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "A null hoodieRecords would not allow upsert operations, as there would be no records to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords == null || !hoodieRecords.isEmpty()",
+    "rationale" : "If hoodieRecords is provided, it should contain records to actually perform the upsert; passing an empty list would not trigger any data mutations.",
+    "meta" : [ ]
+  } ]
+}

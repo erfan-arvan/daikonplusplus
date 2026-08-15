@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this' for method chaining.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.flipHorizontally == flipHorizontally",
+    "rationale" : "The method assigns the parameter value to the object's field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.flipHorizontally == flipHorizontally",
+    "rationale" : "Since 'result' is 'this', its 'flipHorizontally' field matches the parameter.",
+    "meta" : [ ]
+  } ]
+}

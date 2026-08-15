@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is used in logging and error handling, so should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The keys list is operated upon directly; passing null would result in a NullPointerException.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used to access configuration values without null checks.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced immediately (table.getIndex()), so should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "deleteExecutor is used for both the delete operation and fallback path, so should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  } ]
+}

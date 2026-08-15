@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "The method operates on clusteringPlan, and methods are invoked on it; it's likely non-null when the method is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "The method expects schema to be non-null since it's passed to other methods without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used as an identifier for clustering and is passed as a non-null, non-empty value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getInputGroups() != null",
+    "rationale" : "getInputGroups() is called and iterated over, so the result should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan.getStrategy() != null",
+    "rationale" : "clusteringPlan.getStrategy() is called for strategy parameters; it's likely required to be non-null.",
+    "meta" : [ ]
+  } ]
+}

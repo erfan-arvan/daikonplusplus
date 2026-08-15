@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method expects a non-null list of WriteStatus to update the index.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Input parameter should not be null for update operation"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The HoodieWriteMetadata result parameter must be non-null to set durations and status.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Result metadata must be non-null to update index status"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() == null || result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the writeStatuses list in result must be non-negative or null initially.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "writeStatuses list size is non-negative"
+    } ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "The index update duration is set at method entry and should be non-null after.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Duration must be set"
+    } ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "writeStatuses is a Java List, so size must be zero or more.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "List size must be non-negative"
+    } ]
+  } ]
+}

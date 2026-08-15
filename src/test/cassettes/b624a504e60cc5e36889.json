@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null HoodieData object wrapping the tagged records.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "method_exit"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input parameter 'records' must be non-null for the method to operate.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!result.isEmpty() || records.isEmpty()",
+    "rationale" : "If input 'records' is empty, the resulting tagged data should also be empty; otherwise, there should be some records.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "emptiness_preservation"
+    } ]
+  }, {
+    "expression" : "result.count() == records.count()",
+    "rationale" : "The tagging operation maintains the same number of records as the input.",
+    "meta" : [ {
+      "key" : "cardinality",
+      "value" : "equal"
+    } ]
+  }, {
+    "expression" : "result != null && records != null && (result.count() <= records.count())",
+    "rationale" : "The result should have at most as many records as the input.",
+    "meta" : [ {
+      "key" : "cardinality",
+      "value" : "upper_bound"
+    } ]
+  } ]
+}

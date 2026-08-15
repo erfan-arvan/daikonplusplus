@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive integer to enable processing in parallel.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null && !records.isEmpty()",
+    "rationale" : "The method likely expects a non-null and non-empty list of records to deduplicate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orderingFieldNames != null && orderingFieldNames.length > 0",
+    "rationale" : "A non-null, non-empty array of ordering field names suggests ordering is needed for deduplication.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index != null && index.isGlobal() == true || index.isGlobal() == false",
+    "rationale" : "The isGlobal() property of the index is always a boolean, so this encodes that it must be defined for correct processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMerger != null",
+    "rationale" : "Record merger logic is essential to the deduplication process and should not be null.",
+    "meta" : [ ]
+  } ]
+}

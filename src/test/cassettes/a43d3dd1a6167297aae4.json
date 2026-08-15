@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Because the method throws an exception, it does not return normally, so result should be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method throws an exception before returning, so result is never assigned."
+    } ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The partitions parameter is expected to be non-null to call this method.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The partitions parameter is given and likely non-null by contract."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is expected to be non-null for the method call.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The instantTime parameter is given and likely non-null by contract."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context parameter should be non-null for method invocation.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The context parameter is expected to be non-null."
+    } ]
+  } ]
+}

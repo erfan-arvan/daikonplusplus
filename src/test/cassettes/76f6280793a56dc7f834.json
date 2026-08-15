@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "actor is being used immediately in the method without null check; safe to assume nonnull.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= Float.NEGATIVE_INFINITY && x <= Float.POSITIVE_INFINITY",
+    "rationale" : "x is a float parameter representing a coordinate, which must be a finite float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= Float.NEGATIVE_INFINITY && y <= Float.POSITIVE_INFINITY",
+    "rationale" : "y is a float parameter representing a coordinate, must be a valid float.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor.getStage() == null || actor.getStage() instanceof Stage",
+    "rationale" : "getStage() is called, expecting either null or a valid Stage instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor.getWidth() >= 0",
+    "rationale" : "Width of an actor is typically non-negative in scene system.",
+    "meta" : [ ]
+  } ]
+}

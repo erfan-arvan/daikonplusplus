@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is dereferenced and used in method calls, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used for method calls (e.g. config.shouldCombineBeforeInsert()), must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is used for method calls (e.g. partitioner.repartitionRecords()), must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is passed into methods and dereferenced, must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "configuredParallelism >= 1",
+    "rationale" : "configuredParallelism is used for deducing targetParallelism and controlling parallelism, which is typically positive for partitioning/workload splitting.",
+    "meta" : [ ]
+  } ]
+}

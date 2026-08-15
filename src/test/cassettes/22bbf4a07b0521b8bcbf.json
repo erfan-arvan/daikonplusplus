@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "rotation >= 0",
+    "rationale" : "Rotation in degrees, in 90 degree increments, is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation <= 3",
+    "rationale" : "If rotation is in 90 degree increments (0, 90, 180, 270), possible values are 0, 1, 2, 3 indicating which increment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation % 1 == 0",
+    "rationale" : "Rotation as an integer should be an exact multiple of 1, i.e., an integer (trivially true for int fields, but states intent regarding increments).",
+    "meta" : [ ]
+  } ]
+}

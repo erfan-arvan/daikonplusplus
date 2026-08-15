@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "!Float.isNaN(y)",
+    "rationale" : "It's typical to require that coordinates are valid numbers; NaN values may not be meaningful for a y coordinate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(y)",
+    "rationale" : "Coordinates are expected to be finite values; infinity is usually not a valid argument for geometric positions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= Float.NEGATIVE_INFINITY && y <= Float.POSITIVE_INFINITY",
+    "rationale" : "All float values are between negative and positive infinity, but this also excludes NaN; included here for completeness in range-checking.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "In the absence of further object state or knowledge about constraints, any float value is technically allowed. This is a fallback.",
+    "meta" : [ ]
+  } ]
+}

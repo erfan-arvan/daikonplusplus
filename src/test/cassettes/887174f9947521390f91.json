@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "splitAmount >= minAmount",
+    "rationale" : "splitAmount is set to at least effectiveMinAmount, which is never less than minAmount.",
+    "meta" : [ ]
+  }, {
+    "expression" : "splitAmount <= maxAmount",
+    "rationale" : "splitAmount is set to no more than effectiveMaxAmount, which is never greater than maxAmount.",
+    "meta" : [ ]
+  }, {
+    "expression" : "splitAmount >= 0.0f",
+    "rationale" : "Since minAmount is likely >= 0 and effective ranges are fractions, splitAmount should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "splitAmount <= 1.0f",
+    "rationale" : "Since maxAmount is likely <= 1 and all calculations clamp fractions in [0,1], splitAmount should not exceed 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "splitAmount <= Math.max(effectiveMinAmount,effectiveMaxAmount) && splitAmount >= Math.min(effectiveMinAmount,effectiveMaxAmount)",
+    "rationale" : "splitAmount is clamped to between effectiveMinAmount and effectiveMaxAmount, regardless of their order.",
+    "meta" : [ ]
+  } ]
+}

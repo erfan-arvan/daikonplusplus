@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is required for method signature; likely non-null in method logic.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "Draft A & C"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is required by method signature; likely non-null for correct operation.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "Draft A & C"
+    } ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "Method requires columnsToIndex as a List; it should be an instance of List.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "Draft A & C"
+    } ]
+  } ]
+}

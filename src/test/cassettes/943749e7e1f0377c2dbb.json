@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List of WriteStatus, so result should not be null at the method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The parameter preppedRecords is expected to be provided and not null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecords is not null as parameter"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List size is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "result size is non-negative"
+    } ]
+  }, {
+    "expression" : "result.size() <= preppedRecords.size()",
+    "rationale" : "The number of WriteStatus entries should not exceed the number of records upserted.",
+    "meta" : [ {
+      "key" : "size relation",
+      "value" : "result size at most preppedRecords size"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be non-null for the write operations.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  } ]
+}

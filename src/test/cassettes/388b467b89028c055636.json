@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method immediately uses clusteringGroup, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is an input that is passed to other methods; it likely must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is used as a commit/operation time and not expected to be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "getSlices() is called without check, so is likely expected not to return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clusteringGroup.getSlices().isEmpty()",
+    "rationale" : "Clustering group should contain at least one slice to process records.",
+    "meta" : [ ]
+  } ]
+}

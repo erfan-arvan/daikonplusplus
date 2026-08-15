@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "If bucketInfoMap always contains entries for all possible bucketNumber values passed in, then result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == bucketInfoMap.get(bucketNumber)",
+    "rationale" : "The method returns exactly bucketInfoMap.get(bucketNumber), so this equality always holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "If bucketNumber represents a valid bucket index, it should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof BucketInfo",
+    "rationale" : "If result is non-null it should always be an instance of BucketInfo as returned from the map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(bucketNumber) == (result != null)",
+    "rationale" : "If the map contains the key, the result is non-null; if the map does not contain the key, the result is null.",
+    "meta" : [ ]
+  } ]
+}

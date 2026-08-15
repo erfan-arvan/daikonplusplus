@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "!layoutEnabled || (layoutEnabled && getParent() == null)",
+    "rationale" : "If this program point is reached, either layoutEnabled was false at entry, or it was true and we processed invalidate() and the optional recursive call; if getParent() is null, the recursive step did not occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!layoutEnabled || !(getParent() instanceof Layout) || ((Layout)getParent()).isInvalidated()",
+    "rationale" : "If layoutEnabled and getParent() is a Layout, then the parent's hierarchical invalidation has been called.",
+    "meta" : [ ]
+  } ]
+}

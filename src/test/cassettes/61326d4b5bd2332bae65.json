@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "intervals != null",
+    "rationale" : "The method uses intervals.length, so intervals must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "intervals.length == animationIntervals.length",
+    "rationale" : "The method expects the intervals array to be the same length as animationIntervals, otherwise it throws an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "intervals.length > 0",
+    "rationale" : "A non-empty intervals array is implied by the operation of summing elements in a loop over the array.",
+    "meta" : [ ]
+  }, {
+    "expression" : "animationIntervals != null",
+    "rationale" : "animationIntervals.length is accessed, so animationIntervals must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "intervals != animationIntervals",
+    "rationale" : "If intervals and animationIntervals reference the same array, the logic could be unnecessary or may be an error.",
+    "meta" : [ ]
+  } ]
+}

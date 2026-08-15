@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A method likely assumes that the result being committed is not null before completion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "It is expected that the metadata object has non-null write statuses to proceed with the commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "Each WriteStatus in the list should be non-null for a meaningful commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "Committing with an empty list of WriteStatus is likely a no-op or error, so the list should not be empty at method exit.",
+    "meta" : [ ]
+  } ]
+}

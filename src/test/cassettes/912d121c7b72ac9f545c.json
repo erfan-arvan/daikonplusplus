@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method enforces non-nullity with checkState before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "checkState(result != null && !result.isEmpty()) ensures the list is non-empty.",
+    "meta" : [ ]
+  } ]
+}

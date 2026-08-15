@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "It is expected that the aggregate method receives a valid HoodieData object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "The reduction operation requires a non-null sequential operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "The reduction operation requires a non-null combination operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "A non-null identity value is necessary for reduce operations in Java streams.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof HoodieData",
+    "rationale" : "data must be of the correct type to support the HoodieData API.",
+    "meta" : [ ]
+  } ]
+}

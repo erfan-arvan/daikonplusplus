@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "templateObject == null ? result == parentObject : (parentObject == null ? result == templateObject : result != null)",
+    "rationale" : "Correct mapping for handling null cases and ensuring a non-null result when both inputs are non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "templateObject != null && parentObject != null ? result != parentObject && result != templateObject : true",
+    "rationale" : "If both parameters are non-null, result is a new object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null JsonValue.",
+    "meta" : [ ]
+  }, {
+    "expression" : "templateObject != null && parentObject != null ? result.isObject() : true",
+    "rationale" : "If both inputs non-null, result is a JsonValue object node.",
+    "meta" : [ ]
+  }, {
+    "expression" : "templateObject == null && parentObject == null ? result == null : true",
+    "rationale" : "Corner case: if both inputs are null, result would be null (though untriggered in given implementation).",
+    "meta" : [ ]
+  } ]
+}

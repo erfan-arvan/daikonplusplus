@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null && !preppedRecords.isEmpty()",
+    "rationale" : "A delete operation with no records to delete may be a no-op; often such methods expect a non-empty collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter typically represents a commit or operation instant and should be a valid, non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "deletePrepped relies on a context for engine operations, which should be non-null for method correctness.",
+    "meta" : [ ]
+  } ]
+}

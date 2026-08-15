@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Option objects should not be null before use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient must be non-null for metadata table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isPresent() == (instantTime.get() != null)",
+    "rationale" : "If Option is present, it must hold a non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "metaClient should have a base path set for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isPresent() || !instantTime.get().isEmpty()",
+    "rationale" : "If an instantTime is present, it should not be empty.",
+    "meta" : [ ]
+  } ]
+}

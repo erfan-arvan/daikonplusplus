@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "It is likely that the method expects a non-null list of keys to delete, as processing a null value may lead to NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null commit instant time is typically required for versioned data operations like delete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.isEmpty() || !keys.isEmpty()",
+    "rationale" : "This expresses that keys, if non-null, is either empty or non-empty, covering all scenarios and may be relevant for method branching. (Includes both cases to avoid assuming non-empty input.)",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instantTime string is likely used as an identifier; it being non-empty is important for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!keys.contains(null)",
+    "rationale" : "Lists of keys for data modification operations typically do not expect any null entries in the collection.",
+    "meta" : [ ]
+  } ]
+}

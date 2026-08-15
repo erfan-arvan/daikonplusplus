@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "Sizes for UI elements are generally non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "UI height is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width == width",
+    "rationale" : "Ensures that width is a defined float value. (Redundant, not recommended, but sometimes useful to check for NaN, though not requested to check NaN explicitly.)",
+    "meta" : [ ]
+  }, {
+    "expression" : "height == height",
+    "rationale" : "Ensures that height is a defined float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width != Float.NaN && height != Float.NaN",
+    "rationale" : "Both width and height should not be NaN before setting cell size.",
+    "meta" : [ ]
+  } ]
+}

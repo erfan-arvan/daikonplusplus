@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an Option, which should not be null itself.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "!(result.isPresent()) || result.get() != null",
+    "rationale" : "By definition, the Option's contained value should not be null when present.",
+    "meta" : [ {
+      "key" : "present implies non-null",
+      "value" : "If result is present, the contained HoodieCompactionPlan is non-null."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is required for compaction scheduling and thus non-null.",
+    "meta" : [ {
+      "key" : "param_non-null",
+      "value" : "instantTime must be non-null to schedule compaction"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option is not expected to be null; it should be some or none.",
+    "meta" : [ {
+      "key" : "param_non-null",
+      "value" : "extraMetadata Option parameter should be non-null"
+    } ]
+  } ]
+}

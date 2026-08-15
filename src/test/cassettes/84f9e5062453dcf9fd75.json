@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "Common invariant for UI widgets; the style is required to provide a background.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background == null || style.background.getMinWidth() >= 0",
+    "rationale" : "Background width is typically non-negative; ensures correctness when computed.",
+    "meta" : [ ]
+  } ]
+}

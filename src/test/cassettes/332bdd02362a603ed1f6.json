@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "(b == 0 && result == Integer.MIN_VALUE) || (b != 0 && result == a / b)",
+    "rationale" : "Result equals Integer.MIN_VALUE when b is zero, otherwise equals a divided by b.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Reflects method behavior based on b being zero or not."
+    } ]
+  }, {
+    "expression" : "b == 0 || a == b * result + a % b",
+    "rationale" : "If b is not zero, a equals b times result plus remainder (a % b).",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Division and remainder relation hold when b != 0."
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "If b is zero, result must be Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "When b is zero, result is MIN_VALUE."
+    } ]
+  }, {
+    "expression" : "b != 0 || a / 1 != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "If b is zero, result is Integer.MIN_VALUE, else division safe.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Provides context for divide by b safety"
+    } ]
+  }, {
+    "expression" : "result != Integer.MIN_VALUE || b == 0",
+    "rationale" : "If result equals Integer.MIN_VALUE, b must have been zero.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If result is MIN_VALUE, then b was zero."
+    } ]
+  } ]
+}

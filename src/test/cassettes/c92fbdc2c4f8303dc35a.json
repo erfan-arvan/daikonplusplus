@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The JVM guarantees that the 'args' parameter to main is never null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args parameter passed to main is non-null according to Java specification"
+    } ]
+  }, {
+    "expression" : "args instanceof String[]",
+    "rationale" : "The args variable is declared as a String array parameter.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args must be an array of Strings as declared"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Arrays in Java have non-negative length at all times.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Array lengths are always non-negative"
+    } ]
+  } ]
+}

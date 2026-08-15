@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method uses layer throughout; it should not be null at this point.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "safe parameter"
+    } ]
+  }, {
+    "expression" : "layer.getTextureRegion() != null",
+    "rationale" : "If region is null, the method returns early before reaching the exit.",
+    "meta" : [ {
+      "key" : "behavior",
+      "value" : "early return check"
+    } ]
+  }, {
+    "expression" : "layer.getParallaxX() >= 0",
+    "rationale" : "Parallax factor is usually non-negative for image layers.",
+    "meta" : [ {
+      "key" : "parallax",
+      "value" : "typical constraint"
+    } ]
+  }, {
+    "expression" : "layer.isVisible()",
+    "rationale" : "Image layers are typically rendered only when visible.",
+    "meta" : [ {
+      "key" : "rendering",
+      "value" : "general rendering condition"
+    } ]
+  }, {
+    "expression" : "layer.getTextureRegion().getRegionWidth() > 0 && layer.getTextureRegion().getRegionHeight() > 0",
+    "rationale" : "The region being rendered is expected to have positive dimensions.",
+    "meta" : [ {
+      "key" : "textureRegion",
+      "value" : "image has nonzero area"
+    } ]
+  } ]
+}

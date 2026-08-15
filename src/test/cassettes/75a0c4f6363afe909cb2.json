@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "result is always assigned a new HoodieWriteMetadata object before returning.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Method returns a non-null HoodieWriteMetadata instance"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "The method aggregates write statuses into result so it should not be empty if there were inserts or updates.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Result should contain write statuses"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The type signature of result suggests getWriteStatuses returns a List.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Write statuses is a List"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "All elements of write statuses list should be valid WriteStatus objects.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "All statuses are non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Size is non-negative"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a HoodieWriteMetadata object, so result should never be null under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata contains a list of WriteStatus objects representing the outcome of compaction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null && !compactionInstantTime.isEmpty()",
+    "rationale" : "compactionInstantTime should be a valid non-empty timestamp string indicating the compaction instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is required for correctly executing actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The number of WriteStatus objects in the result should be non-negative, even for empty outcomes.",
+    "meta" : [ ]
+  } ]
+}

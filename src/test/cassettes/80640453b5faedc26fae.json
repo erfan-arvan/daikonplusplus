@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a String argument representing a partition and is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "fileSlices is a collection parameter and is likely required by the method's logic to not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileSlices.isEmpty()",
+    "rationale" : "The method concerns clustering of file slices, so an empty collection would likely not require clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "partitionPath often denotes a non-empty folder path, so a non-empty string could be a reasonable expectation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Similar to the length check, ensures partitionPath contains at least one character.",
+    "meta" : [ ]
+  } ]
+}

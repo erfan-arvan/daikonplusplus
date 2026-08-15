@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HashMap, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HashMap",
+    "rationale" : "The local variable assigned is a HashMap, so result should always be a HashMap instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0 || result.size() == 1",
+    "rationale" : "At most one key/value pair may be added to the map, so the size is either 0 or 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()) == (!StringUtils.isNullOrEmpty(getWriteConfig().getClusteringSortColumns()))",
+    "rationale" : "The PLAN_STRATEGY_SORT_COLUMNS.key() is only put if clustering sort columns is non-null and non-empty.",
+    "meta" : [ ]
+  } ]
+}

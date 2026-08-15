@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns EngineType.JAVA, which is a non-null enum constant.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "ensures result is not null"
+    } ]
+  }, {
+    "expression" : "result == EngineType.JAVA",
+    "rationale" : "The method explicitly returns EngineType.JAVA at all exit points.",
+    "meta" : [ {
+      "key" : "value",
+      "value" : "constant result"
+    } ]
+  } ]
+}

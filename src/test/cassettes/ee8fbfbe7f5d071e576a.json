@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context must be non-null to cast and use as HoodieJavaEngineContext.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "context must be non-null to invoke method"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a parameter for commit action, likely expected non-null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "instantTime should not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is passed as an argument; must not be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "preppedRecords should not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "preppedRecords is declared as List, thus should be of List type.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "preppedRecords instance of List"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Generally, instantTime representing a commit timestamp should not be empty string.",
+    "meta" : [ {
+      "key" : "non-empty-string",
+      "value" : "instantTime should be non-empty"
+    } ]
+  } ]
+}

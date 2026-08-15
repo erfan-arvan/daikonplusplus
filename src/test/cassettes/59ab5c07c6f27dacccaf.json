@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is likely required for logging, file lookup, and update operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used for update operations and logging.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The returned Iterator should not be null after update handling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is required for the append handle and update process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.hasNext() || result.next() != null",
+    "rationale" : "If the result provides data, each retrieved List<WriteStatus> should not be null.",
+    "meta" : [ ]
+  } ]
+}

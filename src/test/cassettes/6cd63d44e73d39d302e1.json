@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new HoodieWriteMetadata object created via clone.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == metadata.getClass()",
+    "rationale" : "The returned metadata is of the same type as the input metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The return value's write statuses are explicitly constructed as a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().equals(metadata.getWriteStatuses().collectAsList())",
+    "rationale" : "The returned object's write statuses are the list collected from the input metadata's write statuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata != null",
+    "rationale" : "The input metadata must be non-null to safely call its methods.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "pixels >= 0",
+    "rationale" : "pixels is clamped to be at least 0 in the method, so precondition pixels >= 0 would make the clamp unnecessary.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "range"
+    } ]
+  }, {
+    "expression" : "!Float.isNaN(pixels)",
+    "rationale" : "Scroll positions are expected to be valid float values, not NaN.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "numerical soundness"
+    } ]
+  }, {
+    "expression" : "!Float.isInfinite(pixels)",
+    "rationale" : "Infinite scroll positions are nonsensical; the implementation likely expects finite values.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "numerical soundness"
+    } ]
+  } ]
+}

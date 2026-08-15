@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always instantiates and returns a non-null HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "Option objects should be non-null at method exit if present as parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as an identifier for write operations and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table parameter is dereferenced for timeline and metaClient operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Config is accessed for properties such as shouldAllowMultiWriteOnSameInstant and getBulkInsertSortMode.",
+    "meta" : [ ]
+  } ]
+}

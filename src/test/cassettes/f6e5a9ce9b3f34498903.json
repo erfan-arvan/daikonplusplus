@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Prevents NullPointerException when used in HoodieListData.lazy.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "The size of a list is always non-negative, and this is a meaningful property of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.size() == 0",
+    "rationale" : "If records is empty, its size must be exactly 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "records is declared as List<WriteStatus>.",
+    "meta" : [ ]
+  } ]
+}

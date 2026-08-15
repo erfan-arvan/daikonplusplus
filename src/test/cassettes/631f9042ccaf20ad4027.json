@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned map should never be null; it is always initialized before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "The only possible key in the result is PLAN_STRATEGY_SORT_COLUMNS.key() if sort columns are present; otherwise, the map is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= 1",
+    "rationale" : "At most one entry is put into the map based on the given code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() == result.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "result contains PLAN_STRATEGY_SORT_COLUMNS.key() if and only if it is not empty.",
+    "meta" : [ ]
+  } ]
+}

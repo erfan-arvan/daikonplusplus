@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "text != null",
+    "rationale" : "'text' must be non-null for the method's logic and to safely call its methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "NEWLINE != CARRIAGE_RETURN",
+    "rationale" : "It's typical for these constants to differ, as they represent different line terminators.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text.length() >= 0",
+    "rationale" : "String.length() returns a non-negative integer by specification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text instanceof String",
+    "rationale" : "'text' should be a String object to allow valid calls.",
+    "meta" : [ ]
+  } ]
+}

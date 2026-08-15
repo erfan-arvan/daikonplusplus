@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "true",
+    "rationale" : "The method always throws an exception, so no invariants about `textureRegion` or any mutations can be established.",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "Method always throws; no meaningful state change occurs."
+    } ]
+  }, {
+    "expression" : "textureRegion != null || textureRegion == null",
+    "rationale" : "Since the method unconditionally throws before using textureRegion, no relationship or mutation is possible with textureRegion.",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "Method always fails with exception; no constraints can be imposed on textureRegion."
+    } ]
+  } ]
+}

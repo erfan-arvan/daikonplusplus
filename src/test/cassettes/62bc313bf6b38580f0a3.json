@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is used to identify resources, so it should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used to load the map; it needs to be a valid FileHandle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager is required to resolve images and manage assets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile.exists()",
+    "rationale" : "The map file should exist at the point of loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof Parameters",
+    "rationale" : "parameter may be null, but if not, it must be an instance of Parameters.",
+    "meta" : [ ]
+  } ]
+}

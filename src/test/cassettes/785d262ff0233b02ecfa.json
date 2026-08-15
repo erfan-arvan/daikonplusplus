@@ -1,0 +1,35 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, which should not be null on successful completion.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus inside result should be initialized and not null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses list is not null"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "There should be at least one WriteStatus indicating that some writes were attempted.",
+    "meta" : [ {
+      "key" : "nonEmpty",
+      "value" : "writeStatuses list is not empty"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() > 0",
+    "rationale" : "The list of WriteStatus should contain one or more elements on successful writes.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "writeStatuses size is positive"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "All WriteStatus objects inside the list should be non-null.",
+    "meta" : [ ]
+  } ]
+}

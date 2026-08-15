@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "text != null || style != null",
+    "rationale" : "Label constructor may require at least one parameter to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "Common UI patterns expect the style of a Label to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(text == null && style == null)",
+    "rationale" : "It's unlikely both can be null for a valid Label creation.",
+    "meta" : [ ]
+  } ]
+}

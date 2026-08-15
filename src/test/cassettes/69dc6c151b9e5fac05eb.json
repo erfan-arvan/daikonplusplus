@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method receives metaClient as a parameter, which typically should not be null in order for subsequent operations in the method (or overrides) to function properly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The typical contract for a collection parameter (such as columnsToIndex) is to be non-null, ensuring safe iteration or processing if used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.isEmpty() || columnsToIndex.get(0) != null",
+    "rationale" : "This checks that if the list is non-null and non-empty, its first element is non-null, a common defensive check.",
+    "meta" : [ ]
+  } ]
+}

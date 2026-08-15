@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Method invoked with a non-null Option<String> argument instantTime.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is a non-null Option"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient parameter must be provided to initialize the metadata table.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "metaClient is non-null"
+    } ]
+  }, {
+    "expression" : "instantTime.isPresent() || !instantTime.isPresent()",
+    "rationale" : "instantTime is always either present or not present.",
+    "meta" : [ {
+      "key" : "boolean",
+      "value" : "instantTime is an Option indicating presence or absence"
+    } ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "metaClient's base path should not be null for metadata operations.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "metaClient.getBasePath() returns non-null String"
+    } ]
+  } ]
+}

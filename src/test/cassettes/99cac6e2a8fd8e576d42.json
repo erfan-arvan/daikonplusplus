@@ -1,0 +1,50 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && !result.isEmpty() && result.stream().allMatch(ws -> ws.getClass().getSimpleName().equals(\"WriteStatus\")) ",
+    "rationale" : "The method returns a list of WriteStatus objects, thus result should be non-null and contain elements of type WriteStatus.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "safety"
+    }, {
+      "key" : "rationale",
+      "value" : "Method returns list of WriteStatus after bulk insert, so result is non-null and contains WriteStatus objects."
+    } ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "The number of output groups for clustering must be positive.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "parameterConstraint"
+    }, {
+      "key" : "rationale",
+      "value" : "numOutputGroups controls parallelism, typically a positive integer."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instant time parameter should be non-null and non-empty as it represents a commit timestamp.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "parameterConstraint"
+    }, {
+      "key" : "rationale",
+      "value" : "instantTime represents a commit time, which is generally non-null and non-empty."
+    } ]
+  }, {
+    "expression" : "inputRecords != null && !inputRecords.isEmpty()",
+    "rationale" : "Input records list should be non-null and contain at least one record.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "parameterConstraint"
+    }, {
+      "key" : "rationale",
+      "value" : "Clustering operates on a non-empty list of records."
+    } ]
+  }, {
+    "expression" : "fileGroupIdList != null",
+    "rationale" : "The fileGroupIdList parameter is expected to be non-null for clustering management.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nonnull"
+    } ]
+  } ]
+}

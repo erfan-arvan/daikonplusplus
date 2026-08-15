@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "children.size == 0",
+    "rationale" : "After clearing, the children list should be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "children.items != null",
+    "rationale" : "The underlying array for children remains allocated after clear().",
+    "meta" : [ ]
+  }, {
+    "expression" : "children.isEmpty()",
+    "rationale" : "children should report as empty after clear().",
+    "meta" : [ ]
+  }, {
+    "expression" : "!expanded || getTree() == null || actor.getZIndex() + 1 >= 0",
+    "rationale" : "If not expanded or tree is null, the for-loop is not entered. The actor index calculation stands.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "The method is a non-static method, so 'this' must not be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null partitioner instance for supported sort modes.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always returns a new JavaBulkInsertPartitioner instance"
+    } ]
+  }, {
+    "expression" : "sortMode != null",
+    "rationale" : "sortMode must be non-null for the switch statement to execute correctly.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Assuming sortMode is an enum parameter passed to the method"
+    } ]
+  }, {
+    "expression" : "(sortMode == BulkInsertSortMode.NONE) == (result instanceof JavaNonSortPartitioner)",
+    "rationale" : "The result type directly corresponds to the provided sortMode case NONE.",
+    "meta" : [ {
+      "key" : "correspondence",
+      "value" : "true if and only if"
+    } ]
+  }, {
+    "expression" : "(sortMode == BulkInsertSortMode.GLOBAL_SORT) == (result instanceof JavaGlobalSortPartitioner)",
+    "rationale" : "The result type corresponds to the provided sortMode case GLOBAL_SORT.",
+    "meta" : [ {
+      "key" : "correspondence",
+      "value" : "true if and only if"
+    } ]
+  } ]
+}

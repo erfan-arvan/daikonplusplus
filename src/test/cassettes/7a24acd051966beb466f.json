@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this' according to the implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.fillX == (fill ? 1f : 0f)",
+    "rationale" : "fillX is set to 1f if fill is true, and 0f otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.fillY == (fill ? 1f : 0f)",
+    "rationale" : "fillY is set to 1f if fill is true, and 0f otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.fillX == this.fillY",
+    "rationale" : "Both fillX and fillY are set to the same value based on fill, so they are always equal at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(fill && this.fillX == 1f && this.fillY == 1f) || (!fill && this.fillX == 0f && this.fillY == 0f)",
+    "rationale" : "This summarizes the relation: if fill is true, both are 1f, else both are 0f.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "font != null",
+    "rationale" : "The method immediately accesses font.getData(), so font is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selection != null",
+    "rationale" : "selection.draw() is called, so selection must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch is passed to selection.draw(), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0",
+    "rationale" : "x is used as a graphical coordinate in draw operations, commonly non-negative in UI layouts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "y is used as a graphical coordinate in draw operations, commonly non-negative in UI layouts.",
+    "meta" : [ ]
+  } ]
+}

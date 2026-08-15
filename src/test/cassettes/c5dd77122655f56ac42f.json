@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Drawable, choosing from available style fields or possibly null only if all are null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == style.backgroundDisabled || result == style.backgroundOpen || result == style.backgroundOver || result == style.background",
+    "rationale" : "The result is always one of the style background drawables, as returned by the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == style.backgroundDisabled) == (isDisabled() && style.backgroundDisabled != null)",
+    "rationale" : "The result is style.backgroundDisabled exactly when the SelectBox is disabled and that field is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == style.backgroundOpen) == (!isDisabled() || style.backgroundDisabled == null) && scrollPane.hasParent() && style.backgroundOpen != null",
+    "rationale" : "The result is style.backgroundOpen exactly when the 'open' conditions are satisfied—and not already overridden by the 'disabled' case.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == style.background) == (!isDisabled() || style.backgroundDisabled == null) && (!scrollPane.hasParent() || style.backgroundOpen == null) && (!isOver() || style.backgroundOver == null)",
+    "rationale" : "The background style is only returned if all other case conditions fail.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The dedupedRecords list must be non-null before the method proceeds to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "dedupedRecords must be non-null to avoid NullPointerException"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter should be non-null since it is used as an argument in downstream calls.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "context must be non-null for method operations"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table parameter must be non-null to allow method calls like getIndex().",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "table must be non-null to invoke methods on it"
+    } ]
+  }, {
+    "expression" : "table.getIndex() != null",
+    "rationale" : "The index from the table must be non-null as tagLocation is called on it.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "table.getIndex() must be non-null for method calls"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a commit time string and is used in forming exceptions and as a method parameter, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "keys is used directly; method logic expects a collection of HoodieKey objects to process, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used immediately to obtain parallelism and configuration options; hence, it should always be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is used to deduplicate keys and for record/data lookup, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "deleteExecutor is required to perform delete operations and save metadata; being non-null is necessary for the main workflow.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a map key; it may often be expected to be non-null",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "partitionPathToInsertBucketInfos is accessed using get; it should not be null",
+    "meta" : [ ]
+  }, {
+    "expression" : "workloadProfile != null",
+    "rationale" : "workloadProfile is a field expected to be initialized in the class",
+    "meta" : [ ]
+  }, {
+    "expression" : "totalBuckets >= 0",
+    "rationale" : "totalBuckets represents a count and should be non-negative",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos.containsKey(partitionPath)",
+    "rationale" : "getInsertBuckets will return null if the key is not present; this can be a common precondition",
+    "meta" : [ ]
+  } ]
+}

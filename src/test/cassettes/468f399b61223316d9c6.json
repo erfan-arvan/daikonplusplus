@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a constant string, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(\"replace_commit\")",
+    "rationale" : "The only possible return value is HoodieTimeline.REPLACE_COMMIT_ACTION, which is likely the string \"replace_commit\".",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "Since result is a constant string, it can't be empty.",
+    "meta" : [ ]
+  } ]
+}

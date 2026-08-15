@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a String, either from substring or the empty string, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() >= 0",
+    "rationale" : "String.length() is always non-negative for any non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result.isEmpty()) || result.equals(\"\")",
+    "rationale" : "If the result is empty, it must be the empty string; covers both the empty case and non-empty with substring.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() <= text.length()",
+    "rationale" : "The returned substring length or empty string will not exceed the source text's length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(\"\") || (text.contains(result) && !result.isEmpty())",
+    "rationale" : "If not the empty string, result is derived from text and appears as a substring within text.",
+    "meta" : [ ]
+  } ]
+}

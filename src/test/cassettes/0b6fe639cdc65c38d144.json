@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to represent a commit or write instant and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath indicates the Hudi partition and is typically required, so null is not expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId uniquely identifies the data file being updated and is essential for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The map containing records to update should not be null for handle creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dataFileToBeMerged != null",
+    "rationale" : "The method processes an existing data file for updates, so this is generally required.",
+    "meta" : [ ]
+  } ]
+}

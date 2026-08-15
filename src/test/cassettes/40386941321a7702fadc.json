@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null && !preppedRecords.isEmpty()",
+    "rationale" : "The insertPrepped method is expected to insert records, so the records list should typically be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An 'instantTime' parameter should usually be provided to indicate the commit/operation time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid 'HoodieEngineContext' is generally required for engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "If the records list is provided, its entries should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.stream().noneMatch(r -> r == null)",
+    "rationale" : "Alternative expression ensuring no nulls in the records list if it is provided.",
+    "meta" : [ ]
+  } ]
+}

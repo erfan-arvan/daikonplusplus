@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method returns the result of getUpsertPartitioner(profile) and it's likely expected that partitioner is always created.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The method takes profile as a parameter; it is assumed to be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Partitioner",
+    "rationale" : "The result must be a Partitioner, as it's returned from a method typed as such.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != profile",
+    "rationale" : "The returned partitioner is different from the input profile.",
+    "meta" : [ ]
+  } ]
+}

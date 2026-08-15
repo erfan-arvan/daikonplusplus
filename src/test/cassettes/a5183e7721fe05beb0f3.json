@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method expects a list of prepped records to process; likely not designed to accept null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to identify the action timestamp; usually must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(preppedRecords.isEmpty())",
+    "rationale" : "Expected at method entry: inserting should have records to insert; may require non-empty set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Instant time string should typically not be empty, as it's an identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.stream().allMatch(java.util.Objects::nonNull)",
+    "rationale" : "All elements in preppedRecords should be non-null for correct processing.",
+    "meta" : [ ]
+  } ]
+}

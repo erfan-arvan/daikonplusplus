@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method receives metaClient as a parameter and is expected to use it; typically, methods expect required dependencies to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getClass() == HoodieTableMetaClient.class",
+    "rationale" : "metaClient is declared as HoodieTableMetaClient, so its actual class is likely exactly HoodieTableMetaClient at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "metaClient should be an instance of HoodieTableMetaClient, as per the parameter type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getCommitsTimeline() != null",
+    "rationale" : "A HoodieTableMetaClient is generally expected to provide timeline information, implying getCommitsTimeline() should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "The base path returned by getBasePath() should generally be non-null for a valid metaClient.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method assumes 'data' is a valid List for further processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The function to be applied over elements must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "A positive parallelism value ensures that parallel processing can be performed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= Integer.MAX_VALUE",
+    "rationale" : "The 'parallelism' argument is an int, and valid values must not exceed Integer.MAX_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "Lists in Java have non-negative sizes.",
+    "meta" : [ ]
+  } ]
+}

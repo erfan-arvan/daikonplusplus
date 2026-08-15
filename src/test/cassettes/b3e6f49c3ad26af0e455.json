@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method updates fields of result throughout its body, so result must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method assigns statuses to result.setWriteStatuses(), so write statuses should be set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "Duration is set within the method using Duration.between().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "Partition to replaced file ids map is set from getPartitionToReplacedFileIds.",
+    "meta" : [ ]
+  } ]
+}

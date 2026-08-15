@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method expects the parameter 'layer' to be non-null to access its methods and fields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getCombinedTintColor() != null",
+    "rationale" : "The first line in the method calls layer.getCombinedTintColor(), so this should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() == null || layer.getTextureRegion() != null",
+    "rationale" : "The method checks if region is null, so both are possible at entry (non-trivial possibility of either case).",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() >= 0.0f && layer.getOpacity() <= 1.0f",
+    "rationale" : "Opacity is typically expected to be in [0,1] range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.supportsTransparency() == true || layer.supportsTransparency() == false",
+    "rationale" : "The supportsTransparency method will always return either true or false.",
+    "meta" : [ ]
+  } ]
+}

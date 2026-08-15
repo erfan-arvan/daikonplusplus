@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Map, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.keySet().size() > 0",
+    "rationale" : "If the map is not empty, it must have at least one key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "The input writeResult parameter is never modified.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(p -> result.get(p) != null)",
+    "rationale" : "All values in the returned map are lists and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()) == null || FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()).isEmpty()",
+    "rationale" : "If result is empty, then partitionPaths was null or empty.",
+    "meta" : [ ]
+  } ]
+}

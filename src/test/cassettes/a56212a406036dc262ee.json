@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method access style.font and style.selection, so style should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font != null",
+    "rationale" : "The field style.font is dereferenced at the start of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.selection != null",
+    "rationale" : "The field style.selection is dereferenced at the start to call getTopHeight()/getBottomHeight().",
+    "meta" : [ ]
+  }, {
+    "expression" : "items != null",
+    "rationale" : "items.size is called, requiring items to not be null.",
+    "meta" : [ ]
+  } ]
+}

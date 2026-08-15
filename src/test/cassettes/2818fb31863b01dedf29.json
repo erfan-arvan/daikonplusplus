@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (actor != null)",
+    "rationale" : "By method implementation, the result is true if and only if actor is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || actor == null",
+    "rationale" : "If result is false, then actor must be null; conversely, if result is true, actor is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || actor != null",
+    "rationale" : "Logical implication: if result is true, actor must not be null.",
+    "meta" : [ ]
+  } ]
+}

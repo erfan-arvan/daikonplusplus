@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inFlightInstantTimestamp != null && inFlightInstantTimestamp.isPresent() == true || config.isMetadataTableEnabled() == false ",
+    "rationale" : "Since the method returns early if metadata table is disabled, or proceeds and uses inFlightInstantTimestamp, at exit either metadata is disabled, or timestamp is present.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If metadata table is not enabled, method returns early; otherwise inFlightInstantTimestamp must be present."
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient parameter is not modified or set to null, so it remains non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "metaClient is a parameter and expected to be non-null at method exit."
+    } ]
+  }, {
+    "expression" : "!config.isMetadataTableEnabled() || metaClient.getTableConfig() != null",
+    "rationale" : "When metadata table is enabled, metaClient reloadTableConfig might have been called to update table config.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If metadata table is enabled, metaClient has reloaded table config or it is already set."
+    } ]
+  }, {
+    "expression" : "!config.isMetadataTableEnabled() || inFlightInstantTimestamp != null",
+    "rationale" : "This is a safe null check on inFlightInstantTimestamp if metadata table is enabled.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If metadata table is enabled, inFlightInstantTimestamp must not be null as it is used to create the writer."
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Always true.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Trivially true invariant, included as fallback."
+    } ]
+  } ]
+}

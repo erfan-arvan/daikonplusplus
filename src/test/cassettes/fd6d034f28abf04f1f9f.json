@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "percentY >= 0.0f",
+    "rationale" : "Often, percent-based values are expected to be non-negative as negative scroll percent may not be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percentY <= 1.0f",
+    "rationale" : "Percent values are typically bound above by 1.0 (100%).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(percentY)",
+    "rationale" : "A NaN value for percentY would not be meaningful for scrolling; input is often checked for validity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(percentY)",
+    "rationale" : "Infinite percentY is likely invalid as scrolling percent must be finite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percentY == percentY",
+    "rationale" : "This is a check for percentY not being NaN, but less preferable to the direct Float.isNaN check above.",
+    "meta" : [ ]
+  } ]
+}

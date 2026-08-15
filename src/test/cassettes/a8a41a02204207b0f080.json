@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The method returns a bucket number which should be non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Bucket numbers returned are non-negative by the bucketNumber field semantics."
+    } ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "Since key is cast to a Pair without null check, it should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method expects non-null key as it is cast to Pair."
+    } ]
+  }, {
+    "expression" : "result < Integer.MAX_VALUE",
+    "rationale" : "Bucket numbers are valid integer values bounded by Integer.MAX_VALUE.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Bucket numbers are within the bounds of integer values."
+    } ]
+  }, {
+    "expression" : "(result >= 0)",
+    "rationale" : "Since 'result' corresponds to a bucket number or an index, it is non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result is an index or bucket number, which are non-negative integers."
+    } ]
+  }, {
+    "expression" : "key instanceof Pair",
+    "rationale" : "The method casts key to Pair, assuming key is of type Pair.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "key is cast to Pair without explicit checks, so it must be a Pair instance."
+    } ]
+  } ]
+}

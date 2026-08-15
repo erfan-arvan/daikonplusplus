@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "particleEffect != null",
+    "rationale" : "The method start() is called on particleEffect, so it must not be null before method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getClass() == com.badlogic.gdx.scenes.scene2d.ui.ParticleEffectActor.class || getClass().isSubclassOf(com.badlogic.gdx.scenes.scene2d.ui.ParticleEffectActor.class)",
+    "rationale" : "Within an instance method, the object is either the declaring class or a subclass.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No parameters and only object fields are valid at this program point; this is a catch-all.",
+    "meta" : [ ]
+  } ]
+}

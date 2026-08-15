@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result == textureRegion",
+    "rationale" : "The method returns the field textureRegion, so result always equals textureRegion.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "equality"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "If textureRegion is never null, then result is never null, however this depends on the field's invariant.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "non-null return"
+    } ]
+  } ]
+}

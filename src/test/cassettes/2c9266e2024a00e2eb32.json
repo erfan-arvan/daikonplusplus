@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "ids != null",
+    "rationale" : "Varargs parameters in Java are always initialized and never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cacheKey != null || cacheKey == null",
+    "rationale" : "No constraints are imposed on cacheKey; its value is unchanged by the method as there is no operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "The method is a no-op, so all legal invariants at entry hold at exit.",
+    "meta" : [ ]
+  } ]
+}

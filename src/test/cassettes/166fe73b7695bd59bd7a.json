@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method expects a valid HoodieEngineContext parameter to proceed with compaction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "A non-null compaction instant time is required for the compaction operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!compactionInstantTime.isEmpty()",
+    "rationale" : "The compaction instant time should not be an empty string for the operation to make sense.",
+    "meta" : [ ]
+  } ]
+}

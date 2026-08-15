@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the output of getUpsertPartitioner, which likely guarantees a non-null Partitioner required for subsequent operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The input profile is required to compute a partitioner and is passed directly to getUpsertPartitioner; assumed to never be null at method exit.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "properties.containsKey(name)",
+    "rationale" : "The method always puts a value in properties with key 'name', so the map must contain 'name' at method exit.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "propertyEffect"
+    } ]
+  }, {
+    "expression" : "properties.get(name) != null",
+    "rationale" : "The put operation assigns a value (castValue) that is never null; 'castProperty' never returns null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "propertyValue"
+    } ]
+  }, {
+    "expression" : "properties.size() >= 1",
+    "rationale" : "At least one property ('name') was put into the map during this call, so the size must be at least 1.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "mapSize"
+    } ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "Map keys are typically required to be non-null for insertion; otherwise, an exception would be expected.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "argument"
+    } ]
+  }, {
+    "expression" : "type != null",
+    "rationale" : "Null 'type' might not be permitted—'castProperty' likely expects a non-null type.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "argument"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new Image object is instantiated and returned, so result is guaranteed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getDrawable() == null",
+    "rationale" : "The Image is created with (Drawable)null, so its drawable is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getScaling() == Scaling.none",
+    "rationale" : "The returned Image is constructed with Scaling.none as its scaling property.",
+    "meta" : [ ]
+  } ]
+}

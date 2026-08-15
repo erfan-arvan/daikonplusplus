@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result object is assigned and interacted with, so it must not be null at the return point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() == result",
+    "rationale" : "The setWriteStatuses method sets the internal write statuses reference to the newly created statuses list, which is stored in result, matching the returned value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == result.getWriteStatuses().size()",
+    "rationale" : "The returned list (statuses) is assigned as the write statuses for result, so their sizes must match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() == result",
+    "rationale" : "The write statuses in result reference the same object as the returned statuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != writeStatuses",
+    "rationale" : "A new list is produced by the index update process and returned, which is not the original writeStatuses parameter.",
+    "meta" : [ ]
+  } ]
+}

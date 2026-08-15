@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null",
+    "rationale" : "Input 'a' should be provided for division to take place.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != null",
+    "rationale" : "Input 'b' should be provided as the divisor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getClass().equals(b.getClass())",
+    "rationale" : "Both operands should be of the same type for safe division logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a instanceof Integer || a instanceof Double",
+    "rationale" : "Only Integer and Double are supported types for arithmetic in this method.",
+    "meta" : [ ]
+  } ]
+}

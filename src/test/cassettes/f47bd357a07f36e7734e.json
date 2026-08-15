@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null commit instant is required for Hoodie operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should be provided to locate where records will be inserted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "A fileId is required to identify the output file for inserts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "A non-null recordMap is needed to specify records to be inserted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap.isEmpty() || recordMap.values().stream().allMatch(r -> r != null)",
+    "rationale" : "If there are records, each HoodieRecord in recordMap should be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "partition != null",
+    "rationale" : "Method parameter partition is expected to be non-null for identifying data partition.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partition is not null at method entry"
+    } ]
+  }, {
+    "expression" : "partition.length() > 0",
+    "rationale" : "Partition string typically represents a path or name and should be non-empty.",
+    "meta" : [ {
+      "key" : "length",
+      "value" : "partition is non-empty string"
+    } ]
+  }, {
+    "expression" : "partition instanceof String",
+    "rationale" : "Given parameter type is String; the invariant reaffirms this at method entry.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "partition is a String"
+    } ]
+  } ]
+}

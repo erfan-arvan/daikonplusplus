@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned list should never be null; even if no records remain after filtering, an empty list is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Input list should not be null; method assumes this as it operates directly on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(v1 -> !v1.isCurrentLocationKnown())",
+    "rationale" : "The filtering retains only records whose current location is not known.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= hoodieRecords.size()",
+    "rationale" : "Result can only be as large as or smaller than input as it may filter elements out.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(record -> hoodieRecords.contains(record))",
+    "rationale" : "All filtered records must be part of the original input list.",
+    "meta" : [ ]
+  } ]
+}

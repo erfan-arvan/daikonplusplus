@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Ensure the context parameter is not null before method execution.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter should not be null at method entry.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime should be a non-empty string at method entry.",
+    "meta" : [ {
+      "key" : "nonEmptyString",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "context.getClass() != null",
+    "rationale" : "context should be a valid object reference with a class type.",
+    "meta" : [ {
+      "key" : "class_non_null",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime instanceof String",
+    "rationale" : "instantTime is guaranteed to be a String as per method signature.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "true"
+    } ]
+  } ]
+}

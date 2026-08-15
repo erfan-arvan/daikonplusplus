@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The parameter instantTime is an Option which should not be null to safely use its methods.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "instantTime might be an Option and should be checked"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The parameter metaClient is required to initialize the metadata table and expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "metaClient should not be null to call its methods"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty() || instantTime.isEmpty()",
+    "rationale" : "instantTime is an Option which may or may not contain a String, so either is possible here.",
+    "meta" : [ {
+      "key" : "optionCheck",
+      "value" : "instantTime as Option can be empty or present"
+    } ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "MetaClient is initialized at method entry and should have its base path ready.",
+    "meta" : [ {
+      "key" : "methodCall",
+      "value" : "safe to call getBasePath() on metaClient"
+    } ]
+  }, {
+    "expression" : "metaClient.getMetadataTableEnabled() == true || metaClient.getMetadataTableEnabled() == false",
+    "rationale" : "The metadata table enabled property of metaClient is a boolean and must have a definite value.",
+    "meta" : [ {
+      "key" : "methodCall",
+      "value" : "getMetadataTableEnabled() returns a boolean"
+    } ]
+  } ]
+}

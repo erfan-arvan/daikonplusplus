@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "ySpacing >= 0",
+    "rationale" : "Y spacing as a space between nodes is typically expected to be non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-range"
+    } ]
+  }, {
+    "expression" : "Float.isFinite(ySpacing)",
+    "rationale" : "Spacing values should be finite to avoid layout errors.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-sanity"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Typically List arguments should not be null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is usually expected to be a positive integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size()",
+    "rationale" : "Often, parallelism should not exceed the number of items to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof java.util.List",
+    "rationale" : "Ensures data is truly a List, as required by the method signature.",
+    "meta" : [ ]
+  } ]
+}

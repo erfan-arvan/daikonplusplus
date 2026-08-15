@@ -1,0 +1,7 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The getPartitioner method in both upsert and insert partitioner branches expects a non-null WorkloadProfile; null likely leads to failure or is not intended usage.",
+    "meta" : [ ]
+  } ]
+}

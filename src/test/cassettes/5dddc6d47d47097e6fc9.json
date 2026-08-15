@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Method expects a valid input List; null checks are common preconditions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Collection inputs to data-processing methods should not contain null elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.stream().noneMatch(r -> r == null)",
+    "rationale" : "Ensures all elements in hoodieRecords are valid HoodieRecord objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords instanceof List",
+    "rationale" : "Ensures input parameter adheres to the declared interface.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "A List's size should always be non-negative.",
+    "meta" : [ ]
+  } ]
+}

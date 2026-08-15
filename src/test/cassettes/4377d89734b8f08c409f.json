@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Method accepts a List<String>, and implementations often expect a non-null parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "columnsToIndex is explicitly typed as List<String>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "If columnsToIndex is empty, its size is zero or more.",
+    "meta" : [ ]
+  } ]
+}

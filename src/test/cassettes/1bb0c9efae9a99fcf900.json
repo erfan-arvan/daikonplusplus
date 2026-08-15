@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of 'execute()', which is expected to return a non-null write metadata.",
+    "meta" : [ {
+      "key" : "applicability",
+      "value" : "method always returns non-null result"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method directly passes preppedRecords to the executor, so they must not be null.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "preppedRecords passed in should not be null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The method passes instantTime to downstream components; null would likely result in error.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "instantTime should be a valid String"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is cast and used in the executor; must not be null.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "Engine context is required for operations"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The WriteMetadata returned should have a valid List of WriteStatus.",
+    "meta" : [ {
+      "key" : "applies to",
+      "value" : "HoodieWriteMetadata<List<WriteStatus>> result"
+    } ]
+  } ]
+}

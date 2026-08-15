@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The parameter instantTime is required for commit operations and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The list of WriteStatus objects should not be null before being passed to downstream methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "The commit action type should be specified for the commit operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "The partition to replaced file IDs map should be initialized before committing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == true || result == false",
+    "rationale" : "The result returned from this method is a boolean indicating commit success or failure.",
+    "meta" : [ ]
+  } ]
+}

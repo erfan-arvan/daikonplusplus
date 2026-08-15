@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of JavaWriteHelper#write, which is expected to produce a non-null HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The return type of the method is HoodieWriteMetadata<List<WriteStatus>>; this ensures type integrity at the method exit.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns BulkInsertHelperHolder.JAVA_BULK_INSERT_HELPER, which is a static field; it is expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == BulkInsertHelperHolder.JAVA_BULK_INSERT_HELPER",
+    "rationale" : "The returned result is exactly the static field BulkInsertHelperHolder.JAVA_BULK_INSERT_HELPER for all execution paths.",
+    "meta" : [ ]
+  } ]
+}

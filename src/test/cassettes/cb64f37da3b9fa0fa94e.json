@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (order.getQuantity() >= 10)",
+    "rationale" : "The method directly returns whether the order's quantity is at least 10; this expresses the postcondition and method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 10 == result",
+    "rationale" : "Expresses in alternate order the direct correlation between result and order quantity check, as method returns this boolean.",
+    "meta" : [ ]
+  } ]
+}

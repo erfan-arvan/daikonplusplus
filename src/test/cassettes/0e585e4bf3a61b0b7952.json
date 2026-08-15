@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should be set to a valid (non-empty) string representing an instant to perform the delete operation.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "String non-empty"
+    } ]
+  }, {
+    "expression" : "keys != null && !keys.isEmpty()",
+    "rationale" : "There should be at least one key provided to perform a delete action meaningfully.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "List non-empty"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext is needed to perform distributed operations.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Context non-null"
+    } ]
+  }, {
+    "expression" : "keys == null || keys.stream().allMatch(java.util.Objects::nonNull)",
+    "rationale" : "If keys is provided, all elements in the list should be non-null HoodieKey objects.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "List<nonnull>"
+    } ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.trim().isEmpty()",
+    "rationale" : "If instantTime is set, it should not just be whitespace.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "String not blank if set"
+    } ]
+  } ]
+}

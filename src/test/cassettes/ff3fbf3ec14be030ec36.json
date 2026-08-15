@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List, and the last operation is collect(Collectors.toList()), which returns a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The method directly uses hoodieRecords as input for HoodieListData.eager, so it is assumed to be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().noneMatch(v1 -> v1.isCurrentLocationKnown())",
+    "rationale" : "The returned list filters records to those for which isCurrentLocationKnown() is false, so none should have it true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= hoodieRecords.size()",
+    "rationale" : "Filtering can only remove elements or leave the count unchanged, never increase it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || !result.isEmpty() || hoodieRecords.stream().noneMatch(r -> !r.isCurrentLocationKnown())",
+    "rationale" : "If the input is empty, output is empty. If the output is empty, all input records have isCurrentLocationKnown() true.",
+    "meta" : [ ]
+  } ]
+}

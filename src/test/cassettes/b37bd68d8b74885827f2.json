@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method passes instantTime to other methods without null checks, suggesting it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is used as an argument representing an instant identifier, so it is unlikely to be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "The method expects instantTime to be a meaningful identifier, so it should not be whitespace only.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Stream based on its construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism guiding stream execution should be positive to make sense in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "A Stream argument should not be null to support parallel operations and transformations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "Transformation function must be provided and is used directly in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "Reduction function must be provided and is invoked during result computation.",
+    "meta" : [ ]
+  } ]
+}

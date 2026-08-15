@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "pixelsY >= 0",
+    "rationale" : "Visual scroll offsets are commonly non-negative in UI systems.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(pixelsY)",
+    "rationale" : "NaN is unlikely to be a valid scroll offset and may represent an error state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(pixelsY)",
+    "rationale" : "Infinite scroll offsets are generally nonsensical in this context.",
+    "meta" : [ ]
+  } ]
+}

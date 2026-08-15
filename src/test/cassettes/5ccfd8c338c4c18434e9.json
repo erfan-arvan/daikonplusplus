@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method returns a HoodieWriteMetadata object, result is expected to be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns a HoodieWriteMetadata object, so result should not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The preppedRecords parameter is expected to be non-null since it is used in the method call.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "preppedRecords is a method parameter; it is usually expected to be non-null during method execution"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed into the constructor and likely must be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is a method parameter used in the constructor call and should not be null"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "The bulkInsertPartitioner parameter should be non-null here, or checks would prevent use.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "bulkInsertPartitioner is a method parameter and may be null or non-null, but the expression checks that it is not null here"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned HoodieWriteMetadata should contain a non-null list of write statuses.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "WriteStatuses should be available on the result HoodieWriteMetadata object"
+    } ]
+  } ]
+}

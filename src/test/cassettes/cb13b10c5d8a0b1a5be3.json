@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is expected to be non-null for method execution.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method requires a non-null execution context"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime likely represents a timestamp string, which should be valid before method usage.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Instant time string should be non-null and non-empty"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords should be a valid list reference before processing.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Input records list must be initialized"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner == null || bulkInsertPartitioner.isPresent()",
+    "rationale" : "The bulkInsertPartitioner is an Option type, safe to check for presence or null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Option may be empty or have value"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "Ensures list size is valid non-negative integer.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "List size cannot be negative"
+    } ]
+  } ]
+}

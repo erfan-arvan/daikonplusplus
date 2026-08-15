@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method expects a non-null WorkloadProfile parameter, evident from direct usage without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "Method immediately calls 'profile.getInputPartitionPathStatMap().entrySet()', so this map should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.getInputPartitionPathStatMap().isEmpty() || !profile.hasOutputWorkLoadStats()",
+    "rationale" : "If the input partition map is empty, then output workload stats should not be present or needed, based on method usage patterns.",
+    "meta" : [ ]
+  } ]
+}

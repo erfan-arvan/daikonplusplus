@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The cluster method should not return null; it always delegates to execute() which should return a valid HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "The clusteringInstantTime parameter is likely required to be non-null for clustering operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is needed for clustering and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata#getWriteStatuses should return a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The write statuses list should always have length >= 0.",
+    "meta" : [ ]
+  } ]
+}

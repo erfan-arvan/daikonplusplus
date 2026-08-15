@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == defaultValue || result == clazz.cast(get(key))",
+    "rationale" : "Result is either the defaultValue or the value cast to clazz from the map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == defaultValue || get(key) != null",
+    "rationale" : "If result is not defaultValue, then get(key) must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != defaultValue || get(key) == null",
+    "rationale" : "If result is the defaultValue, this implies get(key) returned null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == defaultValue || clazz.isInstance(result)",
+    "rationale" : "If result is not defaultValue, then it should be of the required class.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "The key should not be null as required for lookups.",
+    "meta" : [ ]
+  } ]
+}

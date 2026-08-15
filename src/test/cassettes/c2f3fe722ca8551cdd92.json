@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config must be non-null as it is used to create the table.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "parameters must not be null for method execution"
+    } ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "storageConf must be non-null to properly configure storage for table creation.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "parameters must not be null for method execution"
+    } ]
+  }, {
+    "expression" : "skipValidation == true || skipValidation == false",
+    "rationale" : "skipValidation is a boolean parameter, so it can only be true or false.",
+    "meta" : [ {
+      "key" : "boolean",
+      "value" : "skipValidation is boolean"
+    } ]
+  }, {
+    "expression" : "config instanceof HoodieWriteConfig",
+    "rationale" : "config must be an instance of HoodieWriteConfig as declared.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "config is of declared type HoodieWriteConfig"
+    } ]
+  }, {
+    "expression" : "storageConf instanceof StorageConfiguration",
+    "rationale" : "storageConf must be an instance of StorageConfiguration as declared.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "storageConf is of declared type StorageConfiguration"
+    } ]
+  } ]
+}

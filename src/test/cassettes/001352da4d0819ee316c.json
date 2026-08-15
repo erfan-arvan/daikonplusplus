@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A valid FileHandle is always returned unless an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.exists()",
+    "rationale" : "Before returning, it is checked that the atlas file (result) exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is always used and passed to getRelativeFileHandle, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != tmjFile",
+    "rationale" : "The returned FileHandle is derived from tmjFile but not the same instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isAbsolute() == tmjFile.isAbsolute()",
+    "rationale" : "The returned FileHandle likely preserves the absolute/relative nature of the source tmjFile.",
+    "meta" : [ ]
+  } ]
+}

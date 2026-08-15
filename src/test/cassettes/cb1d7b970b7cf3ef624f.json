@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method operates on 'records', which is expected to be a valid list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition counts are typically positive integers in repartitioning contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size in Java is always non-negative; this is a basic property of lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() == (records.size() == 0)",
+    "rationale" : "By the Java List API contract, isEmpty returns true if and only if size is zero.",
+    "meta" : [ ]
+  } ]
+}

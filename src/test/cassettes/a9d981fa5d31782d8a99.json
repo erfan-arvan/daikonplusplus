@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "!Float.isNaN(x)",
+    "rationale" : "The x coordinate should not be NaN when used for hit testing within a UI framework.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(y)",
+    "rationale" : "The y coordinate should not be NaN when used in UI calculations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= Float.NEGATIVE_INFINITY && x <= Float.POSITIVE_INFINITY",
+    "rationale" : "x must be a finite float value in normal widget layout logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= Float.NEGATIVE_INFINITY && y <= Float.POSITIVE_INFINITY",
+    "rationale" : "y should span the representable float range relevant to layout or hit logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "touchable == true || touchable == false",
+    "rationale" : "touchable is a boolean and will always be either true or false.",
+    "meta" : [ ]
+  } ]
+}

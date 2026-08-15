@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Map lookups typically require non-null keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key.length() >= 0",
+    "rationale" : "String length is always non-negative for any non-null string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key.isEmpty() || !key.isEmpty()",
+    "rationale" : "Key can be empty or non-empty; this is exhaustive, but tautological.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key.trim().length() >= 0",
+    "rationale" : "Trimming a string does not result in negative length for any non-null string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!key.isEmpty()",
+    "rationale" : "Key is often expected to be non-empty for valid map lookups, though not enforced here.",
+    "meta" : [ ]
+  } ]
+}

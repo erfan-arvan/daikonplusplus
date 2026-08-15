@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "contents == null",
+    "rationale" : "Because the parameter is annotated with @Null, it's valid to check if it is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(contents != null && contents.equals(null))",
+    "rationale" : "If contents is not null, it should not equal null, consistent with Object.equals contract.",
+    "meta" : [ ]
+  } ]
+}

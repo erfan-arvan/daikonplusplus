@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A non-null write metadata is returned by the executor for any input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Input records list should not be null when the executor completes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write metadata should provide a non-null list of WriteStatus as output.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The number of WriteStatus objects in result is always zero or greater.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof java.util.List",
+    "rationale" : "The returned write statuses must be a List as per the signature.",
+    "meta" : [ ]
+  } ]
+}

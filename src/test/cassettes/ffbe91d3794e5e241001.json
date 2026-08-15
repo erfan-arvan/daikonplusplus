@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "After execution, the rollback call should return non-null metadata.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null return"
+    } ]
+  }, {
+    "expression" : "rollbackInstantTime != null && !rollbackInstantTime.isEmpty()",
+    "rationale" : "Rollback instant times are expected to be non-null and non-empty.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input validity"
+    } ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "Rollback should target a specific non-null commit instant.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input validity"
+    } ]
+  }, {
+    "expression" : "result.getTotalFilesDeleted() >= 0",
+    "rationale" : "Number of files deleted should be non-negative in the rollback metadata.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "output property"
+    } ]
+  }, {
+    "expression" : "result.getPartitionMetadata().size() >= 0",
+    "rationale" : "Partition metadata map in the rollback result should have non-negative size.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "output property"
+    } ]
+  } ]
+}

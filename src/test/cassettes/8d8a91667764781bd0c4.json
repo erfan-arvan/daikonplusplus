@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return meaningful metadata; returning null may indicate an error.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "ensures method does not return null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write status list in the result should generally be non-null for proper downstream processing.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "write status list should not be null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size cannot be negative.",
+    "meta" : [ {
+      "key" : "correctness",
+      "value" : "size must be non-negative"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().isEmpty() || result.getWriteStatuses().get(0) instanceof WriteStatus",
+    "rationale" : "If the list is not empty, elements should be of type WriteStatus.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "ensures element type correctness"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Result is documented as HoodieWriteMetadata<List<WriteStatus>> by method signature.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "guarantees return type"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == minHeight.get(actor) + padTop.get(this) + padBottom.get(this)",
+    "rationale" : "The result returned is exactly the sum as per the definition in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= minHeight.get(actor)",
+    "rationale" : "Since padTop.get(this) and padBottom.get(this) could be zero or positive, result cannot be less than minHeight.get(actor).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "If minHeight.get(actor), padTop.get(this), and padBottom.get(this) are all non-negative, which is typical for dimensions and paddings, result is also non-negative.",
+    "meta" : [ ]
+  } ]
+}

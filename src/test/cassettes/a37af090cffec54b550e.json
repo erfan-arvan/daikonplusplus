@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the merged parent/template Element, which should not be null unless there's an error, in which case an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != mapElement",
+    "rationale" : "The method always creates and returns a merged Element, not simply the original parent element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getName().equals(\"object\")",
+    "rationale" : "The merged Element is based on 'templateObjectElement' whose name is 'object', as extracted from the template.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapElement != null",
+    "rationale" : "The method accesses 'mapElement.getAttribute' and passes 'mapElement' to merging, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!mapElement.equals(result)",
+    "rationale" : "The merge generates a new Element instance that is not identical to 'mapElement'.",
+    "meta" : [ ]
+  } ]
+}

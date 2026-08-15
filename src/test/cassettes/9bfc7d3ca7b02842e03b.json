@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Many table methods accept HoodieEngineContext; it is unlikely that null context is permitted.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft A and Draft C"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Operation depends on a valid instant time; likely required and non-empty for rollback-related methods.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft A and Draft C"
+    } ]
+  } ]
+}

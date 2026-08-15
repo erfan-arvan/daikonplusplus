@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "parent != null",
+    "rationale" : "The method immediately dereferences parent; assuming it is not null is required for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent.getChildren() != null",
+    "rationale" : "The first line of the method fetches children from parent, so getChildren() should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent instanceof Group",
+    "rationale" : "parent is typed as Group, so this expression is always true at method entry.",
+    "meta" : [ ]
+  } ]
+}

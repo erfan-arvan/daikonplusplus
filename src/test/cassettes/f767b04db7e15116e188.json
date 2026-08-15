@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == writeMetadata",
+    "rationale" : "The method directly returns the input parameter without modification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Since writeMetadata is returned as result and there is no indication it is null, result should also not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The result is the return value of a method declared to return HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

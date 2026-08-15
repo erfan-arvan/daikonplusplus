@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method call batch.setColor() assumes batch is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0f",
+    "rationale" : "Alpha values in graphics (like parentAlpha) are generally non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1f",
+    "rationale" : "Alpha values are typically clamped between 0 and 1.",
+    "meta" : [ ]
+  } ]
+}

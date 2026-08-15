@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new HoodieJavaWriteClient, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaWriteClient",
+    "rationale" : "The return statement always constructs and returns a HoodieJavaWriteClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((HoodieJavaWriteClient)result).getConfig() == config",
+    "rationale" : "The HoodieJavaWriteClient is always created with the provided config object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((HoodieJavaWriteClient)result).getEngineContext() == context",
+    "rationale" : "The HoodieJavaWriteClient is always constructed with the provided context.",
+    "meta" : [ ]
+  } ]
+}

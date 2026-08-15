@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method relies on 'layer' being non-null to access its methods safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "For correct program behavior, 'layer.getObjects()' should not be null before iterating.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects().size() >= 0",
+    "rationale" : "Collection sizes in Java cannot be negative, so this always holds if 'getObjects()' returns a standard Collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isVisible() || !layer.isVisible()",
+    "rationale" : "This covers all possibilities for the visibility property and could be refined if logic depends on visibility.",
+    "meta" : [ ]
+  } ]
+}

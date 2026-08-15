@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == config.getProps().getProperty(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key())",
+    "rationale" : "Returned value is exactly the property from config's properties using the given key.",
+    "meta" : [ {
+      "key" : "postcondition",
+      "value" : "method result"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method likely expects a non-null partition column configuration; otherwise, further processing may fail.",
+    "meta" : [ {
+      "key" : "nullability",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration argument is dereferenced; must not be null at this point.",
+    "meta" : [ {
+      "key" : "input",
+      "value" : "nonnull"
+    } ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "Properties are retrieved from config and used, so getProps() must not return null.",
+    "meta" : [ {
+      "key" : "input",
+      "value" : "nonnull"
+    } ]
+  }, {
+    "expression" : "KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME != null",
+    "rationale" : "The key used to retrieve the property should not be null to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "constant",
+      "value" : "nonnull"
+    } ]
+  } ]
+}

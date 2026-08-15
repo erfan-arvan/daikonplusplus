@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "pixels >= 0",
+    "rationale" : "The method clamps pixels to be at least 0 before use, so negative values become 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pixels <= maxX",
+    "rationale" : "The method clamps pixels to not exceed maxX, so the effective scroll position called is at most maxX.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pixels == MathUtils.clamp(pixels, 0, maxX) || pixels != MathUtils.clamp(pixels, 0, maxX)",
+    "rationale" : "pixels is passed to clamp, the result is always between 0 and maxX.",
+    "meta" : [ ]
+  }, {
+    "expression" : "MathUtils.clamp(pixels, 0, maxX) >= 0",
+    "rationale" : "clamp ensures the value will not be below the lower bound 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "MathUtils.clamp(pixels, 0, maxX) <= maxX",
+    "rationale" : "clamp ensures the value will not be above the upper bound maxX.",
+    "meta" : [ ]
+  } ]
+}

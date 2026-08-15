@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this', so result is always the receiver object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0",
+    "rationale" : "Width likely represents a size and is not expected to be negative when setting size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Height likely represents a size and is not expected to be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width == width",
+    "rationale" : "Width is a valid float value at this point, reflecting that it hasn't been changed.",
+    "meta" : [ ]
+  } ]
+}

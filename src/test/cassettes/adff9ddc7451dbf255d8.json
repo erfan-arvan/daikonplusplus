@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap is passed to construction and used immediately; method likely expects non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used as a parameter for handle creation, likely must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to indicate the operation time and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a core parameter for location; it is used to construct the handle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap.isEmpty() || recordMap.size() > 0",
+    "rationale" : "If recordMap is non-empty, its size must be > 0; this expresses a structural property.",
+    "meta" : [ ]
+  } ]
+}

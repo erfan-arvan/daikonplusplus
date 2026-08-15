@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, which should not be null after a successful overwrite insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The 'records' parameter is expected to be provided and used by the method and downstream handlers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The metadata should always include a non-null collection of write statuses to accurately report outcomes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The 'instantTime' parameter represents the time for this write/commit action and should be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || result.getWriteStatuses().isEmpty()",
+    "rationale" : "If no records are supplied, the resulting write status list should be empty; there cannot be write outcomes without records.",
+    "meta" : [ ]
+  } ]
+}

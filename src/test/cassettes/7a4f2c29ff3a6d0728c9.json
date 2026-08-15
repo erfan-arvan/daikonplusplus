@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Supplier instance; there is no code path returning null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() == 0",
+    "rationale" : "The Supplier returned by the method always supplies the integer value 0, per the lambda implementation.",
+    "meta" : [ ]
+  } ]
+}

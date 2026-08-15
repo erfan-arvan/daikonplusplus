@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns the result of an execute() call, which is typically expected to be non-null if execution succeeds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null && !instantToSavepoint.isEmpty()",
+    "rationale" : "A valid savepoint instant is likely required for savepoint creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null && !user.isEmpty()",
+    "rationale" : "A valid user is likely necessary to create a savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "A 'comment' is provided as context for the savepoint operation (though it may be empty, nullness is important).",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Processing requires a valid engine context for distributed computation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionFilePathAndSizeTriplet != null && !partitionFilePathAndSizeTriplet.isEmpty()",
+    "rationale" : "Suggests the operation expects a non-empty set of files to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "Index definition is required for expression index record generation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "A valid HoodieTableMetaClient is necessary for table metadata operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive integer for concurrent data processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An instant time string is required to indicate the context for the operation.",
+    "meta" : [ ]
+  } ]
+}

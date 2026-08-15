@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null Map object as a result of stream processing.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result can be safely dereferenced"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method's stream operation is performed on data, so data must not be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "data list must be present to perform stream operations"
+    } ]
+  }, {
+    "expression" : "parallelism == null || parallelism > 0",
+    "rationale" : "Parallelism parameter usually represents thread count or parallel level, which is expected to be positive or null if unused.",
+    "meta" : [ {
+      "key" : "parameter-validity",
+      "value" : "parallelism should be positive or null"
+    } ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The function 'func' is applied in the stream map operation, so it should not be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "func argument must be non-null to be invoked"
+    } ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Since each element in data can produce at most one key-value pair, result map size cannot exceed data size.",
+    "meta" : [ {
+      "key" : "size-bound",
+      "value" : "result map size is at most data size"
+    } ]
+  } ]
+}

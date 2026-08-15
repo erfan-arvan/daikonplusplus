@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method is expected to add a resource with a name, and a null name would likely be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resource != null",
+    "rationale" : "The resource being added is expected to be non-null, since getClass() is called on it prior to this program point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resource.getClass() != null",
+    "rationale" : "If resource is non-null, then getClass() is guaranteed to return a non-null result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() > 0",
+    "rationale" : "The resource is likely registered with a non-empty string name to be identified in the Skin.",
+    "meta" : [ ]
+  } ]
+}

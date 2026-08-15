@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == order.getQuantity() * order.getUnitPrice()",
+    "rationale" : "The return value is exactly the product of quantity and unit price per the method implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "Order quantity and unit price are likely non-negative, so the computed price should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order != null",
+    "rationale" : "A precondition for the method to work safely; order must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantity should not be negative in typical order processing scenarios.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Negative unit prices likely do not make sense in normal business logic.",
+    "meta" : [ ]
+  } ]
+}

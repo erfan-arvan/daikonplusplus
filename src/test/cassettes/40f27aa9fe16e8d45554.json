@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is a method parameter expected to be non-null for clustering operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "inputRecords is not null"
+    } ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "numOutputGroups indicates parallelism count and should be positive.",
+    "meta" : [ {
+      "key" : "valueRange",
+      "value" : "numOutputGroups positive"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a commit timestamp string, expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams holds configuration parameters and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "strategyParams is not null"
+    } ]
+  }, {
+    "expression" : "fileGroupIdList != null",
+    "rationale" : "fileGroupIdList is a list of file groups involved in clustering, expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "fileGroupIdList is not null"
+    } ]
+  } ]
+}

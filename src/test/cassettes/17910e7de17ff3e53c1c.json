@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of execute(), which is expected to not be null in well-behaved workflows.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method parameter preppedRecords should not be null on method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Method parameter instantTime should not be null as it represents a commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The passed context should not be null since it is required for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The result is an object of type HoodieWriteMetadata<List<WriteStatus>> returned from this method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "args is the entry point parameter to main and typically not null, as per convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args instanceof String[]",
+    "rationale" : "args is always an array of String by method signature.",
+    "meta" : [ ]
+  } ]
+}

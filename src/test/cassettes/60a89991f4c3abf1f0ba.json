@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result <= 0 || result > 0",
+    "rationale" : "At method exit, the 'compare' method returns an int, and by contract of compare methods, result is non-zero unless objects are equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || result != 0",
+    "rationale" : "For compare methods, a result of zero means objects are equal; otherwise, result is non-zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= Integer.MIN_VALUE && result <= Integer.MAX_VALUE",
+    "rationale" : "The result is of type int and must be within the valid Java int range.",
+    "meta" : [ ]
+  } ]
+}

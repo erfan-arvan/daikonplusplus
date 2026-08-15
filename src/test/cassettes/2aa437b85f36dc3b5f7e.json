@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "xml.parse(tmxFile) is called unconditionally, implying tmxFile cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "getDependencyAssetDescriptors(...) is called and its return value is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null || true",
+    "rationale" : "fileName is passed as a parameter but is not used inside the body; cannot say more without additional usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null || true",
+    "rationale" : "parameter may be null; all usages are guarded by null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == getDependencyAssetDescriptors(tmxFile, (parameter != null ? new TextureLoader.TextureParameter() {{ genMipMaps = parameter.generateMipMaps; minFilter = parameter.textureMinFilter; magFilter = parameter.textureMagFilter; }} : new TextureLoader.TextureParameter()))",
+    "rationale" : "Result is computed as the return value of getDependencyAssetDescriptors using tmxFile and the constructed TextureParameter.",
+    "meta" : [ ]
+  } ]
+}

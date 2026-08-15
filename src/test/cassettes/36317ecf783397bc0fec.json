@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "character != '\\0'",
+    "rationale" : "It is common that a character triggering an action is not the null character.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character != '\\n' || character == '\\n'",
+    "rationale" : "The parameter character can be any char, so it's either newline or not, but not both.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "The character parameter is always defined and usable at method entry.",
+    "meta" : [ ]
+  } ]
+}

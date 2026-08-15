@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Factory methods like HoodieJavaTable.create typically return a non-null instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "The method returns HoodieJavaTable.create(...), which should yield a HoodieJavaTable instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is passed to a method (HoodieJavaTable.create) and likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to a method (HoodieJavaTable.create) and likely required to be non-null.",
+    "meta" : [ ]
+  } ]
+}

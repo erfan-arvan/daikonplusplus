@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "projection != null",
+    "rationale" : "projection is passed to batch.setProjectionMatrix, which likely requires it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0",
+    "rationale" : "width is passed as the width parameter to viewBounds.set, which typically expects non-negative sizes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "height is passed as the height parameter to viewBounds.set, which likely must be non-negative for a bounding rectangle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "viewBounds.getWidth() == width",
+    "rationale" : "viewBounds.set(x, y, width, height) sets the width; after the call it should match the width parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "viewBounds.getHeight() == height",
+    "rationale" : "viewBounds.set(x, y, width, height) sets the height; after the call it should match the height parameter.",
+    "meta" : [ ]
+  } ]
+}

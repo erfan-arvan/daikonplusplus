@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The Javadoc explicitly states that the method never returns null.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Javadoc"
+    } ]
+  }, {
+    "expression" : "result.length() >= 0",
+    "rationale" : "A Java string always has a non-negative length.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Java String contract"
+    } ]
+  }, {
+    "expression" : "!result.isEmpty() || result.length() == 0",
+    "rationale" : "A string is empty if and only if its length is zero.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "String API"
+    } ]
+  }, {
+    "expression" : "result instanceof String",
+    "rationale" : "The method always returns an object of type String.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "getText always returns a String"
+    } ]
+  } ]
+}

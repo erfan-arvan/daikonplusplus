@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "MetaClient is required for this method's purpose even if implementation is no-op.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Columns to index should be a valid list input to the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.size() >= 0",
+    "rationale" : "If columnsToIndex is non-null, its size is non-negative according to List contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "Parameter type is HoodieTableMetaClient, so it is guaranteed to be an instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.stream().allMatch(s -> s != null)",
+    "rationale" : "If the columnsToIndex list is provided, its elements are possibly expected to be non-null strings.",
+    "meta" : [ ]
+  } ]
+}

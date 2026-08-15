@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "File name should not be null because it is used to load resources and would throw an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.isEmpty()",
+    "rationale" : "Empty filenames are usually invalid for resource loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "File name should have at least one character for a valid path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.endsWith(\".tmj\") || fileName.endsWith(\".tmx\")",
+    "rationale" : "The loader likely expects Tiled Map JSON/XML files, which typically have .tmj or .tmx extensions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.trim().length() == fileName.length()",
+    "rationale" : "Trimming the filename should not change its length, indicating no leading/trailing whitespace (often required for file operations).",
+    "meta" : [ ]
+  } ]
+}

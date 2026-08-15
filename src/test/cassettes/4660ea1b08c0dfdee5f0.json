@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "At this program point, the method returns either style.disabledBackground or style.background, both of which are expected to be non-null based on typical API practices unless permissive of nulls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == style.disabledBackground || result == style.background",
+    "rationale" : "The method returns either style.disabledBackground or style.background depending on the condition, and no other value is possible.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == style.disabledBackground) == (disabled && style.disabledBackground != null)",
+    "rationale" : "result equals style.disabledBackground if and only if disabled is true and style.disabledBackground is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == style.background) == (!(disabled && style.disabledBackground != null))",
+    "rationale" : "result equals style.background if and only if the first branch is not taken, meaning either disabled is false or style.disabledBackground is null.",
+    "meta" : [ ]
+  } ]
+}

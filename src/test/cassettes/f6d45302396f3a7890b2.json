@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursors in text fields are usually non-negative and represent valid string indices or positions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "Selection start indices in text fields are generally non-negative, aligning with the beginning of a string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || selectionStart != cursor",
+    "rationale" : "If a selection exists, the selection start should differ from the cursor; otherwise, there is no range selected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || (cursor <= text.length() && selectionStart <= text.length())",
+    "rationale" : "Cursor and selectionStart cannot exceed the text's length, but if text is null, this is not checked.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || (selectionStart >= 0 && cursor >= 0 && selectionStart <= text.length() && cursor <= text.length())",
+    "rationale" : "When there is a selection, the indices should be within text bounds.",
+    "meta" : [ ]
+  } ]
+}

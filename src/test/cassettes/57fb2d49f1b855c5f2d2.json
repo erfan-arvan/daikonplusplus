@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method must be able to iterate over the orders list, so it being non-null is a likely precondition or expectation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.stream().allMatch(o -> o != null)",
+    "rationale" : "During validation, a null order will trigger an exception, so all orders must be non-null for successful execution.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "structure"
+    } ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.stream().allMatch(o -> o.getQuantity() > 0)",
+    "rationale" : "The code enforces getQuantity()>0 for every order.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "value-range"
+    } ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.stream().allMatch(o -> o.getUnitPrice() >= 0)",
+    "rationale" : "The code enforces getUnitPrice() >= 0 for every order.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "value-range"
+    } ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.stream().noneMatch(o -> o == null || o.getQuantity() <= 0 || o.getUnitPrice() < 0)",
+    "rationale" : "Summarizes the overall validity condition being checked by the method.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "aggregate"
+    } ]
+  } ]
+}

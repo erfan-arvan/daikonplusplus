@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is produced by collecting to a list, which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each input element maps to one key, but keys can be shared, so the result will have at most as many elements as the input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism for parallel streams must be positive and is typically required as a precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "'data' is used in a stream and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapToPairFunc != null",
+    "rationale" : "The mapping function is wrapped and invoked, requiring it to be non-null.",
+    "meta" : [ ]
+  } ]
+}

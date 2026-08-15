@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null",
+    "rationale" : "Input parameter a must be non-null for numeric operations to be possible.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != null",
+    "rationale" : "Input parameter b must be non-null so that numeric methods can be called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a instanceof Integer || a instanceof Double",
+    "rationale" : "Method only supports Integer or Double for parameter a, as reflected by code branches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b instanceof Integer || b instanceof Double",
+    "rationale" : "Parameter b is expected to be Integer or Double for the division to be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getClass().equals(b.getClass())",
+    "rationale" : "The code relies on both a and b being of compatible numeric type for correct division.",
+    "meta" : [ ]
+  } ]
+}

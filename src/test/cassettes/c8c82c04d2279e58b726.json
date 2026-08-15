@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns either 'fileId' or the result of a super method call, both expected to be non-null strings.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "File IDs and prefixes are typically non-empty strings.",
+    "meta" : [ {
+      "key" : "length",
+      "value" : "positive"
+    } ]
+  }, {
+    "expression" : "partitionId >= 0",
+    "rationale" : "Partition IDs are commonly non-negative integers.",
+    "meta" : [ {
+      "key" : "parameter_range",
+      "value" : "non-negative"
+    } ]
+  }, {
+    "expression" : "! result.equals(\"\")",
+    "rationale" : "The result string is non-empty, as it represents a file ID prefix.",
+    "meta" : [ {
+      "key" : "string_nonempty",
+      "value" : "true"
+    } ]
+  } ]
+}

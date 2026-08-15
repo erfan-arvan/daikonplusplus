@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == DeleteHelperHolder.JAVA_DELETE_HELPER",
+    "rationale" : "The newInstance method always returns DeleteHelperHolder.JAVA_DELETE_HELPER, so result is always that singleton instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Since DeleteHelperHolder.JAVA_DELETE_HELPER is being returned and presumed to be a valid singleton instance, result is never null.",
+    "meta" : [ ]
+  } ]
+}

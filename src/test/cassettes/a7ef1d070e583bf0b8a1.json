@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of tiles.values().iterator(), which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.hasNext() || result.next() != null",
+    "rationale" : "If the iterator has a next element, calling next() should return a non-null TiledMapTile.",
+    "meta" : [ ]
+  } ]
+}

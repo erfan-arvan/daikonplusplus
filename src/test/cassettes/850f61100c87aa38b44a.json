@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "It is standard to check for non-null keys for cache operations.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "ids != null",
+    "rationale" : "Varargs arrays should not be null at method entry.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "ids.length >= 0",
+    "rationale" : "Array lengths are always non-negative in Java.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "array_length"
+    } ]
+  }, {
+    "expression" : "cacheKey instanceof HoodieDataCacheKey",
+    "rationale" : "cacheKey's static type is HoodieDataCacheKey.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "type_safety"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Always true invariant.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "trivial"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List; collectAsList never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type is explicitly a List and collectAsList returns a List type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == table.getIndex().tagLocation(HoodieListData.eager(dedupedRecords), context, table).count()",
+    "rationale" : "result is constructed directly from collectAsList on the stream returned by tagLocation, which has count equal to the size of the resulting list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!dedupedRecords.isEmpty() || !result.isEmpty()",
+    "rationale" : "If the input dedupedRecords is empty, result will also be empty; if not, result may be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= dedupedRecords.size()",
+    "rationale" : "Tagging does not increase the number of records; each result record corresponds to one or fewer input records.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "The method requires a list of keys to delete; it is unlikely to be called with a null list.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "keys must be non-null to perform deletion"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The deletion is associated with an instant time string which should be provided.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime must be specified"
+    } ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "List size can never be negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "keys size non-negative"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "An empty instant time string likely makes no sense for delete operations.",
+    "meta" : [ {
+      "key" : "emptyCheck",
+      "value" : "instantTime should not be empty"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null",
+    "rationale" : "writeStatus is a required method parameter and is likely non-null for correct usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required method parameter and operations typically require it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is a method parameter expected to be non-null for configuration-driven operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime as a String parameter, likely marking a commit instant, should be non-null.",
+    "meta" : [ ]
+  } ]
+}

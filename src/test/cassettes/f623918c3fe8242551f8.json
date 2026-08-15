@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Streams returned from such pipeline methods are typically non-null even when empty, reflecting expected contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "The method uses 'flatMapToPairFunc' without null checks, implying it's expected non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The method calls 'throwingReduceWrapper(reduceFunc)', which would throw on null; so reduceFunc must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter is typically expected to be positive for parallel processing semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method immediately calls methods on 'data' without a null check.",
+    "meta" : [ ]
+  } ]
+}

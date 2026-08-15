@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a newly created HashMap which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Map",
+    "rationale" : "The return type of the method is Map<String, String> and the returned object is a Map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "Key is only added if the condition is met, so result is either empty or contains the specific key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(v -> v != null)",
+    "rationale" : "Only non-null values from getWriteConfig().getClusteringSortColumns() are put into the map; no null values are inserted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "Keys in the map are generated from PLAN_STRATEGY_SORT_COLUMNS.key(), which should never be null.",
+    "meta" : [ ]
+  } ]
+}

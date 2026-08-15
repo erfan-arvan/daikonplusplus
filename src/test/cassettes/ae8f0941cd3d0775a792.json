@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "table != null",
+    "rationale" : "table is immediately dereferenced, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is expected to provide timeline information, thus should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "operationType is compared to WriteOperationType.LOG_COMPACT, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as an argument for getCompactionInflightInstant, thus must be non-null.",
+    "meta" : [ ]
+  } ]
+}

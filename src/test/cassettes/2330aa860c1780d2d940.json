@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "It is common for methods receiving important objects (like DB or metadata clients) to expect non-null input.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Checks that metaClient is non-null before method logic executes."
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Defensive code often asserts collections passed as parameters are non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Verifies columnsToIndex is non-null before being used."
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex instanceof List",
+    "rationale" : "Since columnsToIndex is declared List<String>, it should always be an instance of List if non-null.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "Ensures columnsToIndex, if non-null, is a proper List."
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.size() >= 0",
+    "rationale" : "In Java, List.size() is always non-negative, so this is a safe property to assert if columnsToIndex is non-null.",
+    "meta" : [ {
+      "key" : "collection-size",
+      "value" : "List.size() should never be negative."
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "HoodieTableMetaClient typically provides non-null config; may be expected for downstream logic.",
+    "meta" : [ {
+      "key" : "meta-access",
+      "value" : "Check that required configuration for metaClient can be accessed."
+    } ]
+  } ]
+}

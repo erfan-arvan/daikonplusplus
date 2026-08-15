@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Processing requires a non-null collection of prepped records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A non-null, non-empty instantTime is generally required for commit actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || !preppedRecords.isEmpty()",
+    "rationale" : "If preppedRecords is present, it should typically contain elements for insertion.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager is required to load assets; most API contracts require it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "FileHandle should be non-null to reference the map file to be loaded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "fileName should be a non-empty string for asset loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || (parameter.textureMinFilter != null && parameter.textureMagFilter != null)",
+    "rationale" : "If parameter is provided, its texture filters should be set (non-null) as they are used.",
+    "meta" : [ ]
+  } ]
+}

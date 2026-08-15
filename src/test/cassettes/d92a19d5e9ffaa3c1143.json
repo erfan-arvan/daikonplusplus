@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Method contract suggests input list should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "hoodieRecords is not null on method entry"
+    } ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "Size of a list cannot be negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "size non-negative"
+    } ]
+  } ]
+}

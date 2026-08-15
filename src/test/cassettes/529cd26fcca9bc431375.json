@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == !disabled",
+    "rationale" : "If 'disabled' is true, method returns false; otherwise, it returns true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!disabled || !result)",
+    "rationale" : "If 'disabled' is true, then 'result' must be false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(disabled || result)",
+    "rationale" : "If 'disabled' is false, then 'result' must be true.",
+    "meta" : [ ]
+  } ]
+}

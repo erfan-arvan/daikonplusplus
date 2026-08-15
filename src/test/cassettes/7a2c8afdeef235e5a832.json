@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method expects a non-null data list to perform streaming and mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "A non-null mapping function is required to transform the list elements into pairs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "The parallelism parameter should be non-null if used for parallel or streaming purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || data.size() >= 0",
+    "rationale" : "List.size() is always non-negative, so either the list is empty or its size is at least zero.",
+    "meta" : [ ]
+  } ]
+}

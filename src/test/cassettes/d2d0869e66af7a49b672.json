@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient is expected to be provided and used for context in most Hoodie client operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "It is reasonable to expect the method parameter list of columns is not null as input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(columnsToIndex != null) || columnsToIndex instanceof List",
+    "rationale" : "If columnsToIndex is not null, it should be an instance of List as per its declared type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.size() >= 0",
+    "rationale" : "If columnsToIndex is not null, its size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

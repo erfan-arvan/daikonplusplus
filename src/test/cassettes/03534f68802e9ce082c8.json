@@ -1,0 +1,26 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The execute method delegates and must return a valid HoodieWriteMetadata, so result is non-null unless explicitly documented otherwise.",
+    "meta" : [ {
+      "key" : "draftA",
+      "value" : "true"
+    }, {
+      "key" : "draftB",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords are passed to methods that expect a non-null List, so null should not be allowed.",
+    "meta" : [ {
+      "key" : "draftA",
+      "value" : "true"
+    }, {
+      "key" : "draftB",
+      "value" : "true"
+    }, {
+      "key" : "draftC",
+      "value" : "true"
+    } ]
+  } ]
+}

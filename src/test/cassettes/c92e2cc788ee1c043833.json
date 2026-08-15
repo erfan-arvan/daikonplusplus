@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Methods commonly require input collections not to be null for safe execution.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime parameter is likely used as an identifier, which is usually required to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "records.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If there are records to insert, the instantTime string should not be empty to ensure proper operation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection-string relationship"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List sizes in Java are always non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection size"
+    } ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.isEmpty()",
+    "rationale" : "If instantTime is provided (non-null), it should not be empty, as empty values may not be valid identifiers.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string property"
+    } ]
+  } ]
+}

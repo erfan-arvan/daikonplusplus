@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Factory methods like HoodieJavaTable.create are expected to return a non-null table object on successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The returned HoodieTable should have the same configuration as provided to the factory.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getContext() == context",
+    "rationale" : "The engine context should be propagated to the returned table object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration objects are non-null by contract/precondition for most APIs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context should be non-null for proper table instantiation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method always throws an exception and does not return normally, result is never assigned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Any property tautologically holds, as the method does not return normally but always throws.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required parameter and has not been modified within the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata as a parameter cannot be null inside the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "throw new HoodieNotSupportedException(\"Bootstrap is not supported yet\") != null",
+    "rationale" : "The method always throws, so any postcondition about 'result' is vacuously true.",
+    "meta" : [ ]
+  } ]
+}

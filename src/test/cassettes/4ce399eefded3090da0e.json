@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "Parameters in Java methods are generally non-null unless documented otherwise, assuming caller provides valid cacheKey.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "cacheKey is non-null on method entry"
+    } ]
+  }, {
+    "expression" : "ids >= 0",
+    "rationale" : "ids likely represents a count or index which is non-negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "ids non-negative count"
+    } ]
+  } ]
+}

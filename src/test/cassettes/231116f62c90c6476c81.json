@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "triggeringInstantTimestamp != null",
+    "rationale" : "String arguments representing timestamps are typically required and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "An enum/config parameter should not be null for proper operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "triggeringInstantTimestamp.length() > 0",
+    "rationale" : "A triggering instant timestamp is expected to be non-empty; a precondition for identifying instants.",
+    "meta" : [ ]
+  }, {
+    "expression" : "streamingWrites == true || streamingWrites == false",
+    "rationale" : "Boolean values can only be true or false (sanity check for correct boolean value).",
+    "meta" : [ ]
+  }, {
+    "expression" : "autoDetectAndDeleteMetadataPartitions == true || autoDetectAndDeleteMetadataPartitions == false",
+    "rationale" : "Confirms the boolean nature of auto-detection/deletion flag.",
+    "meta" : [ ]
+  } ]
+}

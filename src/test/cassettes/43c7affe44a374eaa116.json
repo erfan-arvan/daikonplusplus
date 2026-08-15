@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter likely should not be null when deleting partitions.",
+    "meta" : [ {
+      "key" : "nonNullParameter",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The partitions parameter should not be null at method entry.",
+    "meta" : [ {
+      "key" : "nonNullParameter",
+      "value" : "partitions"
+    } ]
+  }, {
+    "expression" : "partitions.isEmpty() || partitions.get(0) != null",
+    "rationale" : "If partitions is not empty, its elements should be non-null.",
+    "meta" : [ {
+      "key" : "elementNonNullIfPresent",
+      "value" : "partitions"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is probably expected to be a non-empty string.",
+    "meta" : [ {
+      "key" : "nonEmptyString",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "partitions instanceof List",
+    "rationale" : "partitions should be an instance of List.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "partitions"
+    } ]
+  } ]
+}

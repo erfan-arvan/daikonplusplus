@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(pixelsX)",
+    "rationale" : "pixelsX should represent a meaningful scroll amount, so it should be finite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(pixelsX)",
+    "rationale" : "pixelsX should not be NaN as it is being used to set a scroll value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "pixelsX is a primitive float parameter, always defined.",
+    "meta" : [ ]
+  } ]
+}

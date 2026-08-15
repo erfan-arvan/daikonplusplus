@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HoodieWriteMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid context is required for table insert/overwrite operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The operation must be issued with a valid commit instant identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The list of records to insert/overwrite must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(HoodieWriteMetadata.class) || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The returned object is a subtype of HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

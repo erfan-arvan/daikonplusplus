@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this.style == style",
+    "rationale" : "After assigning this.style = style, the this.style field should refer to the style parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null || this.style == null",
+    "rationale" : "If the provided style parameter is null, then this.style will also be null; otherwise, this.style will reference the non-null style at method exit.",
+    "meta" : [ ]
+  } ]
+}

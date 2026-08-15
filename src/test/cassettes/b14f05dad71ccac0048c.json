@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result is expected to be non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "result is non-null at method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata generally contains a list of WriteStatus which should not be null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "the write statuses list inside result is non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The list size of WriteStatus is never negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "list size non-negative"
+    } ]
+  } ]
+}

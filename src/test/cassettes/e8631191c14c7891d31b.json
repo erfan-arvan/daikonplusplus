@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "It is likely a method precondition that the input list of records is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "It is likely required that instantTime, indicating the commit instant, is not null for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A List's size() is always non-negative; this expresses a safe property of the parameter.",
+    "meta" : [ ]
+  } ]
+}

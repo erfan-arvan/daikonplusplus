@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Average size in bytes should never be negative; method returns a long estimate based on file sizes and thresholds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate()",
+    "rationale" : "Unless a recent commit provides a greater average, the method returns at least the default configured size estimate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getParquetSmallFileLimit()",
+    "rationale" : "Average bytes per record should not exceed the small file threshold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() > 0",
+    "rationale" : "Multiplicative threshold used to compute fileSizeThreshold, so would not make sense to be negative or zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!commitTimeline.empty() || result == hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate()",
+    "rationale" : "If there are no commits, the method returns the default size estimate from the configuration.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method iterates over 'orders'; a null value would cause a NullPointerException. Thus, 'orders' must not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o != null)",
+    "rationale" : "The method throws if any element is null. Thus, all list elements must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getQuantity() > 0)",
+    "rationale" : "The method throws if quantity is non-positive for any order. All orders must have positive quantity at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getUnitPrice() >= 0)",
+    "rationale" : "The method throws if unit price is negative. All orders must have non-negative unit price at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.size() >= 0",
+    "rationale" : "The size of a list cannot be negative; serves as a basic sanity check, though not particularly informative.",
+    "meta" : [ ]
+  } ]
+}

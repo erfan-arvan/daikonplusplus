@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is dereferenced via getTile in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile != null",
+    "rationale" : "tile is dereferenced with tile.getId() in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement.getChildByName is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstgid >= 0",
+    "rationale" : "firstgid is used as an array index component and should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"animation\") == null || tileElement.getChildByName(\"animation\").getChildrenByName(\"frame\").size > 0",
+    "rationale" : "If the animation element exists, it must contain at least one frame to get intervals and tiles.",
+    "meta" : [ ]
+  } ]
+}

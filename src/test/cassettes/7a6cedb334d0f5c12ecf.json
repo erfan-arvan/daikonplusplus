@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == properties.containsKey(key)",
+    "rationale" : "The result is defined as the outcome of properties.containsKey(key), per the method implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key == null || !result || properties.containsKey(key)",
+    "rationale" : "If the key is null, properties.containsKey(key) returns false, thus result must be false when key == null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !properties.containsKey(key)",
+    "rationale" : "If result is false, then properties.containsKey(key) must also be false.",
+    "meta" : [ ]
+  } ]
+}

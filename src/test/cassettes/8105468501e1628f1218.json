@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "writeResult is method argument and its non-nullness is typically expected at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is called immediately in the method, implying expectation of non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() instanceof List",
+    "rationale" : "The type signature specifies getWriteStatuses() returns a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream().allMatch(status -> status != null)",
+    "rationale" : "The code operates on each WriteStatus, so it is expected that list elements are non-null.",
+    "meta" : [ ]
+  } ]
+}

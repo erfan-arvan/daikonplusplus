@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "It is likely that context must be non-null for the method to operate correctly, as it is passed directly to the CleanPlanActionExecutor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The Option extraMetadata is dereferenced regardless of value, so it must not be null as a reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "extraMetadata being an Option ensures that isPresent() is always a well-defined boolean value.",
+    "meta" : [ ]
+  } ]
+}

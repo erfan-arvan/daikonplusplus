@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always initializes and returns a non-null ArrayList.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof java.util.ArrayList",
+    "rationale" : "The variable records is initialized as a new ArrayList, and is returned unconditionally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is dereferenced unconditionally via clusteringGroup.getSlices().",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || clusteringGroup.getSlices().isEmpty()",
+    "rationale" : "Records are only added to result if clusteringGroup.getSlices() is non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "Lists always have non-negative sizes.",
+    "meta" : [ ]
+  } ]
+}

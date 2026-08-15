@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object on successful bulk insert, so result should not be null.",
+    "meta" : [ {
+      "key" : "nullSafety",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The write statuses list size is at least zero (empty list allowed).",
+    "meta" : [ {
+      "key" : "collectionSize",
+      "value" : "write statuses list is non-negative size"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws instanceof WriteStatus)",
+    "rationale" : "The list typed as List<WriteStatus> should only contain WriteStatus instances.",
+    "meta" : [ {
+      "key" : "typeConsistency",
+      "value" : "all elements are WriteStatus"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().noneMatch(ws -> ws == null)",
+    "rationale" : "Elements in the write statuses list should not be null.",
+    "meta" : [ {
+      "key" : "nullElements",
+      "value" : "no null elements in list"
+    } ]
+  }, {
+    "expression" : "result.isSuccess() == true",
+    "rationale" : "If the method returns normally, the result should indicate success.",
+    "meta" : [ {
+      "key" : "successStatus",
+      "value" : "bulk insert succeeded"
+    } ]
+  } ]
+}

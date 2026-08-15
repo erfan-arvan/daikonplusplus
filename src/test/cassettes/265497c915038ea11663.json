@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime records the time of the insert operation and is likely a required parameter; many methods would not accept a null instant time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The method is about inserting records and presumes hoodieRecords is a valid List; a null input would likely result in an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is typically required for processing in Hudi table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hoodieRecords.isEmpty()",
+    "rationale" : "It is likely this method is only called when there are records to insert, as inserting an empty list would be a no-op and potentially a bug.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be non-empty to identify the commit instant for the insert operation.",
+    "meta" : [ ]
+  } ]
+}

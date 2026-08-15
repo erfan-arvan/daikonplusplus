@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "A valid file handle is likely required for loading a map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "A non-null, non-empty filename is typically necessary for asset loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager should be provided for loading assets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof Parameters",
+    "rationale" : "Parameter should be null or of the expected Parameters type for correct operation.",
+    "meta" : [ ]
+  } ]
+}

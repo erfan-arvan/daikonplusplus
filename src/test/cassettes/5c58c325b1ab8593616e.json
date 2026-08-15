@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "handleBounds.width == handle.getMinWidth()",
+    "rationale" : "handleBounds is always set with handle width (handle.getMinWidth()).",
+    "meta" : [ ]
+  }, {
+    "expression" : "handleBounds.x == firstWidgetBounds.width",
+    "rationale" : "handleBounds is positioned directly after firstWidgetBounds (at leftAreaWidth, which is firstWidgetBounds' width).",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstWidgetBounds.x == 0",
+    "rationale" : "firstWidgetBounds is always placed at x=0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "secondWidgetBounds.x == firstWidgetBounds.width + handleBounds.width",
+    "rationale" : "secondWidgetBounds is laid out after first widget and handle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "handleBounds.y == 0 && firstWidgetBounds.y == 0 && secondWidgetBounds.y == 0",
+    "rationale" : "All rectangles are aligned on the y=0 axis.",
+    "meta" : [ ]
+  } ]
+}

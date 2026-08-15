@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "getHeight() >= style.handle.getMinHeight()",
+    "rationale" : "To have non-negative available height, the whole widget height should be at least the handle's min height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstWidgetBounds.height + secondWidgetBounds.height + handleBounds.height == getHeight()",
+    "rationale" : "The method splits the total height among two widgets and the handle, so their sum should be the total height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstWidgetBounds.width == getWidth() && secondWidgetBounds.width == getWidth() && handleBounds.width == getWidth()",
+    "rationale" : "All three bounds are set to span the full width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "handleBounds.y == secondWidgetBounds.height",
+    "rationale" : "The y coordinate of the handle is set at the bottom area height, matching the bottom widget's height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstWidgetBounds.y == getHeight() - firstWidgetBounds.height",
+    "rationale" : "The y position for the first widget is consistent with being placed above the lower portion.",
+    "meta" : [ ]
+  } ]
+}

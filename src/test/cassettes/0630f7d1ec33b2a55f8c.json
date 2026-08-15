@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result.equals(item.toString())",
+    "rationale" : "The method returns item.toString(), so the result must equal item.toString().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "item.toString() in Java never returns null, so result is guaranteed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "item != null",
+    "rationale" : "item.toString() would throw NullPointerException if item was null, so item must be non-null by the point of return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() == item.toString().length()",
+    "rationale" : "Since result equals item.toString(), their lengths must match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == String.class",
+    "rationale" : "item.toString() returns a String, so result is always a String object.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The 'reduce' operation over a non-null neutral element and potentially empty collection will always return a non-null value; Java Streams contract that a reduce with identity returns identity if stream is empty, else computation output.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(data.collectAsList().stream().reduce(zeroValue, seqOp::apply, combOp::apply))",
+    "rationale" : "The method returns a reduce operation initialized by zeroValue and using the provided operations; result must match the direct invocation of that computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data.collectAsList() is called, so 'data' cannot be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "'seqOp' is dereferenced as 'seqOp::apply' in the reduce operation; it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "'combOp' is dereferenced as 'combOp::apply' in the reduce operation; it cannot be null.",
+    "meta" : [ ]
+  } ]
+}

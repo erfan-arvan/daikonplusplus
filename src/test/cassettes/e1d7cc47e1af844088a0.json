@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "str == null || str instanceof String",
+    "rationale" : "str is either null or a valid String, per the method's @Null annotation and usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "str == null || !str.isEmpty() || str.isEmpty()",
+    "rationale" : "str may be null, empty, or non-empty, capturing allowable values before the method body assigns \"\" if null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of a super call, which likely should not be null in normal operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "By the method signature, result must be an instance of HoodieWriteMetadata<List<WriteStatus>>.",
+    "meta" : [ ]
+  } ]
+}

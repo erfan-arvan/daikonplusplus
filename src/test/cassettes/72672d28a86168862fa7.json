@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Bucket numbers are typically non-negative indices into maps or lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "bucketInfoMap must be initialized to support get operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "This map is relevant for bucket assignment and is likely initialized prior to use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "totalBuckets > 0",
+    "rationale" : "The partitioner should have at least one bucket.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber < totalBuckets",
+    "rationale" : "bucketNumber likely should be within the total bucket count.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "collect(Collectors.toList()) on a stream never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(fileId -> fileId != null)",
+    "rationale" : "Each fileId returned from getFileId() is assumed to be non-null in the returned result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "new java.util.HashSet<>(result).size() == result.size()",
+    "rationale" : "distinct() call ensures all fileIds in result are unique.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().noneMatch(String::isEmpty)",
+    "rationale" : "File IDs (likely) should not be empty strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath == null || !result.isEmpty() || result.isEmpty()",
+    "rationale" : "Result can be empty or non-empty regardless of partitionPath; this expresses dependence on external state.",
+    "meta" : [ ]
+  } ]
+}

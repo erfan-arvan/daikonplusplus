@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method uses clusteringGroup without a null check, implying it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a parameter in downstream method calls and is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime likely represents a timeline instant, which is expected to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "getSlices() is called immediately, so it is likely assumed to return a non-null list.",
+    "meta" : [ ]
+  } ]
+}

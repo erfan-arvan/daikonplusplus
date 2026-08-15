@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "text != null",
+    "rationale" : "The parameter 'text' is likely used in store(), which probably expects a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursors typically represent positions in a string or text and are non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || (selectionStart >= 0)",
+    "rationale" : "If there is a selection, 'selectionStart' should be a valid (non-negative) index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null && cursor <= text.length()",
+    "rationale" : "If 'text' is non-null, 'cursor' should not exceed its length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null && selectionStart <= text.length()",
+    "rationale" : "If 'text' is non-null, 'selectionStart' should not exceed its length.",
+    "meta" : [ ]
+  } ]
+}

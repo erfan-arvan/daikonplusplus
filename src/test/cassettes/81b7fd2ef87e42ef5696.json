@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a ReaderContextFactory, so result should not be null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Since metaClient is a parameter, generally it should not be null when passed in or used.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "metaClient is not null"
+    } ]
+  } ]
+}

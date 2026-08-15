@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result of bulkInsert should not be null, as a valid write metadata object is always returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null && result.getWriteStats() != null && hoodieRecords.size() == result.getWriteStats().size()",
+    "rationale" : "The number of write statuses should match the number of input records, given typical semantics of bulk inserts and write metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null && bulkInsertPartitioner.isPresent() || bulkInsertPartitioner == null || !bulkInsertPartitioner.isPresent()",
+    "rationale" : "bulkInsertPartitioner is an Option and should either be present or not; this invariant captures that its state is well-formed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for a bulkInsert operation, so context should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter should be a non-null, non-empty string for proper operation.",
+    "meta" : [ ]
+  } ]
+}

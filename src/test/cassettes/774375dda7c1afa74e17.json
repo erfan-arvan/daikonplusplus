@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && instantTime.isEmpty() == false",
+    "rationale" : "instantTime is expected to be a non-null non-empty string.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "instantTime != null"
+    } ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "partitions list should be non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "partitions != null"
+    } ]
+  }, {
+    "expression" : "partitions.isEmpty() || partitions.size() > 0",
+    "rationale" : "partitions list size is valid.",
+    "meta" : [ {
+      "key" : "sizeCheck",
+      "value" : "partitions.size() >= 0"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "This method always throws HoodieNotSupportedException, so normal return invariants may be trivial.",
+    "meta" : [ {
+      "key" : "methodAlwaysThrows",
+      "value" : "true"
+    } ]
+  } ]
+}

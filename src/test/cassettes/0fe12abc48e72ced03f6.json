@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List produced from bulkInsert, which should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The bulkInsert helper always returns a List (specifically List<WriteStatus>); the result type is ensured.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords == null || result.size() <= inputRecords.size()",
+    "rationale" : "Each input record can produce at most one WriteStatus in most clustering strategies, so the result list size cannot exceed inputRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "numOutputGroups > 0 ? result.size() <= numOutputGroups : true",
+    "rationale" : "The number of write statuses should not exceed the number of output groups if positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || inputRecords == null || inputRecords.isEmpty()",
+    "rationale" : "If there are input records, clustering should return some WriteStatus, not an empty result list.",
+    "meta" : [ ]
+  } ]
+}

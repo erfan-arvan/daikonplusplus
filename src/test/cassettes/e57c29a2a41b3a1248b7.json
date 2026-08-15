@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the value from newInstance().bulkInsert(...), which is expected to produce a non-null result or throw an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The declared return type enforces result is an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The number of partitions should be zero or more since partitions represent a count.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Number of partitions cannot be negative"
+    } ]
+  }, {
+    "expression" : "result <= Integer.MAX_VALUE",
+    "rationale" : "The result is an int, so it must be within int range.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Result fits in int"
+    } ]
+  } ]
+}

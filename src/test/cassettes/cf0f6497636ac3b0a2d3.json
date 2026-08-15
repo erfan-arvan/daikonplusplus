@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "padRight >= 0",
+    "rationale" : "UI padding values are often non-negative, so padRight may typically be expected to be zero or greater.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padRight == padRight",
+    "rationale" : "Sanity check: variable equals itself (removed if tautologies are to be avoided, but included here for completeness).",
+    "meta" : [ ]
+  }, {
+    "expression" : "padRight < Float.POSITIVE_INFINITY",
+    "rationale" : "It's meaningful that a padding value should not be infinite for rendering purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padRight > Float.NEGATIVE_INFINITY",
+    "rationale" : "Similarly, padding should not be negative infinity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(padRight)",
+    "rationale" : "Padding values are expected to be valid numbers, not NaN.",
+    "meta" : [ ]
+  } ]
+}

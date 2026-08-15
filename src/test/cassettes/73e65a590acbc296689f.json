@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Both return paths of the method construct and return non-null lists (either new LinkedList<> or keys, which is a parameter), so result can never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method is declared to return List<HoodieKey> and both returns are lists, so result is always a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "Deduplication cannot increase the number of elements, so the result list size is at most the input list size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || keys.isEmpty()",
+    "rationale" : "If the input is empty, so is the result. If result is empty, then the input must have been empty as well.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(x -> keys.contains(x))",
+    "rationale" : "Result contains only elements from the original input keys after deduplication.",
+    "meta" : [ ]
+  } ]
+}

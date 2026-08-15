@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "stage != null",
+    "rationale" : "stage is used throughout the method and methods are called on it, so it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getActors().contains(this, true)",
+    "rationale" : "this SelectBox is added as an actor to the stage at the start of show(Stage), so it should be present in stage's actors at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage.getScrollFocus() == this",
+    "rationale" : "The method sets this SelectBox as scroll focus before method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "list.isTouchable()",
+    "rationale" : "At the end of the method, list.setTouchable(Touchable.enabled) is called, making list touchable at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "list.selection.get() == selectBox.getSelected()",
+    "rationale" : "list.selection.set(selectBox.getSelected()) is explicitly set near the end, matching the selected value.",
+    "meta" : [ ]
+  } ]
+}

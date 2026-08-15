@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "tree != null",
+    "rationale" : "The method will invoke tree.addActorAt(actorIndex, actor), so tree must be non-null to avoid an exception.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "prevents NullPointerException for method calls on tree"
+    } ]
+  }, {
+    "expression" : "actorIndex >= 0",
+    "rationale" : "Indices in UI and collections are generally expected to be non-negative.",
+    "meta" : [ {
+      "key" : "expectedDomain",
+      "value" : "indices are typically non-negative"
+    } ]
+  } ]
+}

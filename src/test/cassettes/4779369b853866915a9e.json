@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Method operates on layer; it is never null at normal METHOD_EXIT.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "layer.getTextureRegion() != null",
+    "rationale" : "If the method did not return early, the region is not null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition-for-nontrivial-return"
+    } ]
+  }, {
+    "expression" : "layer.getCombinedTintColor() != null",
+    "rationale" : "Combined tint is always used without null checks, so assumed non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "side-effects"
+    } ]
+  }, {
+    "expression" : "layer.getOpacity() >= 0.0f && layer.getOpacity() <= 1.0f",
+    "rationale" : "Opacity typically represents an alpha value between 0 and 1.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "domain"
+    } ]
+  }, {
+    "expression" : "layer.supportsTransparency() || layer.getCombinedTintColor().a == 1f",
+    "rationale" : "If not supporting transparency, combined alpha is used as multiplier.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "rendering logic"
+    } ]
+  } ]
+}

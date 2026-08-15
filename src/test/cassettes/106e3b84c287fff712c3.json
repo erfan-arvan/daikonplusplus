@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "Java main method's args array is not null at entry, even if length is 0.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "args is not null on method entry"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length in Java is always non-negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "args length non-negative"
+    } ]
+  } ]
+}

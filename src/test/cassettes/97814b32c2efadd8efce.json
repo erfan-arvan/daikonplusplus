@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "commitTimeline != null",
+    "rationale" : "commitTimeline is an input parameter and is expected to be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "hoodieWriteConfig is an input parameter and is expected to be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() > 0",
+    "rationale" : "Average record size estimates should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() > 0",
+    "rationale" : "Small file size thresholds are required to be positive for reasonable system configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() >= 0.0",
+    "rationale" : "A threshold multiplier is generally expected to be non-negative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A valid commit operation requires a non-null metadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses are required for committing and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof java.util.List",
+    "rationale" : "The write statuses object should be a List as per the generic type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "All WriteStatus entries in the list should be non-null for further processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().isEmpty() || result.getWriteStatuses().get(0) instanceof WriteStatus",
+    "rationale" : "If the list is non-empty, its elements should be WriteStatus objects.",
+    "meta" : [ ]
+  } ]
+}

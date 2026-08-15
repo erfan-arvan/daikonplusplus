@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null",
+    "rationale" : "Method calls such as containsKey and get will throw a NullPointerException if strategyParams is null.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "required for key usage"
+    } ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "The schema parameter is passed to HoodieSchemaUtils.addMetadataFields and should not be null.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "required for schema processing"
+    } ]
+  }, {
+    "expression" : "strategyParams.isEmpty() || strategyParams.size() >= 1",
+    "rationale" : "A Map is either empty or has at least one entry; captures the possible map states.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "map size property"
+    } ]
+  }, {
+    "expression" : "!strategyParams.containsKey(null)",
+    "rationale" : "Maps typically do not have null keys for configuration purposes.",
+    "meta" : [ {
+      "key" : "idiom",
+      "value" : "Map key constraint"
+    } ]
+  }, {
+    "expression" : "strategyParams.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "Ensures all map keys used as strategy parameters are non-null, per common usage in config maps.",
+    "meta" : [ {
+      "key" : "idiom",
+      "value" : "Non-null map keys"
+    } ]
+  } ]
+}

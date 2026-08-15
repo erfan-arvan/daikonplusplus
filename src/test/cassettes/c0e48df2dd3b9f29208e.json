@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'statuses', and statuses is created as the result of collectAsList(), which should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == table.getIndex().updateLocation(HoodieListData.eager(writeStatuses), context, table).collectAsList()",
+    "rationale" : "The method always returns this value as 'result', establishing this precise relationship.",
+    "meta" : [ ]
+  } ]
+}

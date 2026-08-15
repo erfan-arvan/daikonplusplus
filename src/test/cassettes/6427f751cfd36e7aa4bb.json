@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null && consumer != null && parallelism >= 1",
+    "rationale" : "The forEach call is made on data with consumer; thus data and consumer must not be null. Parallelism is expected to be at least 1 to run.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Inputs should be non-null and parallelism positive to execute foreach"
+    } ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "List size is always zero or positive.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "List size is never negative"
+    } ]
+  }, {
+    "expression" : "data.stream() != null",
+    "rationale" : "Calling stream() on a List returns a non-null Stream instance.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "stream() returns non-null Stream"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism must be a positive number to have effect.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "parallelism should be a positive integer"
+    } ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "consumer must be defined for forEach application.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "consumer used in forEach so must not be null"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is typically required for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "Clustering instant time must be non-null for clustering operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clusteringInstantTime.isEmpty()",
+    "rationale" : "Clustering instant time should not be empty to proceed properly.",
+    "meta" : [ ]
+  } ]
+}

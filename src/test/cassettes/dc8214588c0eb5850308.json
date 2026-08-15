@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is used for stream processing and mapping, which would throw NullPointerException if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed directly to the commitStats method and likely denotes the commit instant, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "commitActionType is forwarded and likely used inside commitStats, where a null value may cause failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds is supplied to commitStats and likely expected to be non-null for partition/file mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (commitStats(instantTime, writeStatuses.stream().map(WriteStatus::getStat).collect(java.util.stream.Collectors.toList()), extraMetadata, commitActionType, partitionToReplacedFileIds, extraPreCommitFunc))",
+    "rationale" : "By method implementation, result always equals the return of commitStats(...) with transformed writeStatuses.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Commit time string should be non-null for deletes, used in logging/exceptions and metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "Key list is used and may be processed, should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration is queried for parameters such as parallelism and processing flags.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Table is necessary for index lookups, likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "Delete executor is invoked unconditionally, should be non-null.",
+    "meta" : [ ]
+  } ]
+}

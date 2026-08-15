@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required for version control and is passed to the handle and constructors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath identifies where records are written; it should not be null at insertion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId specifies the file to which records are written; null would likely cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap holds the records to insert; must not be null to process the insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordMap.isEmpty()",
+    "rationale" : "It's likely the method expects to insert at least one record; an empty map would be a no-op.",
+    "meta" : [ ]
+  } ]
+}

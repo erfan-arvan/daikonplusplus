@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fontScaleX >= 0",
+    "rationale" : "Font scale values are typically non-negative in UI rendering; negative scale might not be allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScaleY >= 0",
+    "rationale" : "Font scale Y component should also be non-negative for valid rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScaleX == fontScaleY",
+    "rationale" : "A common use is uniform scaling, so both components might often be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScaleX != 0 || fontScaleY != 0",
+    "rationale" : "At least one axis being non-zero ensures some visible font size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontScaleX <= 10.0f && fontScaleY <= 10.0f",
+    "rationale" : "Practical font scale values could have an upper bound to ensure reasonable UI rendering.",
+    "meta" : [ ]
+  } ]
+}

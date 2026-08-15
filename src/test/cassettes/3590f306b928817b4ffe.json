@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a HoodieWriteMetadata object, so result should be non-null.",
+    "meta" : [ {
+      "key" : "nullSafety",
+      "value" : "Checks that the result is not null before returning"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The result should contain a non-null list of WriteStatus objects.",
+    "meta" : [ {
+      "key" : "nullSafety",
+      "value" : "Checks that the list of WriteStatus objects is non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "List size of write statuses cannot be negative.",
+    "meta" : [ {
+      "key" : "sizeCheck",
+      "value" : "List size is non-negative"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "Expected at least one WriteStatus after commit action execution.",
+    "meta" : [ {
+      "key" : "nonEmptyList",
+      "value" : "Ensures that the write statuses list is not empty"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null) == false == false",
+    "rationale" : "The list should not contain any null elements.",
+    "meta" : [ {
+      "key" : "validity",
+      "value" : "All elements in the write statuses list are non-null"
+    } ]
+  } ]
+}

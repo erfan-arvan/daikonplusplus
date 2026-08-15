@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A HashMap is always allocated (even when config limit <= 0), so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Map",
+    "rationale" : "The method always returns a Map; initially a HashMap, possibly reassigned from context.mapToPair, which also returns a Map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.size() == 0 || result.size() == partitionPaths.size()",
+    "rationale" : "If no partitionPaths are given, result is empty; otherwise, mapToPair generates one entry per partition path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == (config.getParquetSmallFileLimit() <= 0 || partitionPaths == null || partitionPaths.size() == 0)",
+    "rationale" : "The result is empty if small file limit is non-positive, or no partition paths are provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().containsAll(partitionPaths == null ? java.util.Collections.emptyList() : partitionPaths)",
+    "rationale" : "If partitionPaths is non-null and non-empty, the result will map all those partition paths to lists of SmallFiles.",
+    "meta" : [ ]
+  } ]
+}

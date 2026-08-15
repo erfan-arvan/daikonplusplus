@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to always return a non-null HoodieTable instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "A valid HoodieWriteConfig must be provided to create a HoodieTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "A non-null StorageConfiguration is required for table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The resulting table should use the provided config, if getConfig() exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieTable",
+    "rationale" : "The returned object must be an instance of HoodieTable as per method signature.",
+    "meta" : [ ]
+  } ]
+}

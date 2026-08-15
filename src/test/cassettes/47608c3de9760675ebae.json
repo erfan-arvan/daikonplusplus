@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The key parameter should not be null to represent a valid EngineProperty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "The value should not be null for property-setting functions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value == null || !value.isEmpty()",
+    "rationale" : "If value is not null, it is typically expected to be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key instanceof EngineProperty",
+    "rationale" : "The key argument should be an instance of EngineProperty by method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No side effects or functional code are present; all inputs are allowed by the method stub.",
+    "meta" : [ ]
+  } ]
+}

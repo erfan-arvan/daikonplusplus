@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is passed in and is likely expected to be non-null for method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is a parameter and likely expected to be non-null for meaningful operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.size() >= 0",
+    "rationale" : "If columnsToIndex is non-null, its size is always non-negative by List contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "metaClient must be an instance of HoodieTableMetaClient since this type is accepted as a parameter.",
+    "meta" : [ ]
+  } ]
+}

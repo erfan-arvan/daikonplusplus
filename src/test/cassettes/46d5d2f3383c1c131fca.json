@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects to operate on a provided list. Null lists are likely handled before this method is called.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to identify the current write operation's commit instant and must not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty()",
+    "rationale" : "Typically, insert operations are called only when there is data to write.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "non-empty-list"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Instant times are expected to be non-empty strings for correct commit tracking.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "string-non-empty"
+    } ]
+  }, {
+    "expression" : "preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Inserted records should all be non-null to ensure consistent write operations.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "collection-content-null-check"
+    } ]
+  } ]
+}

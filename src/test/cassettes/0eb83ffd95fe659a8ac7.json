@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method operates on 'layer', so it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getWidth() >= 0",
+    "rationale" : "Tile layer widths should be non-negative as they represent a count of tiles.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getHeight() >= 0",
+    "rationale" : "Tile layer heights should be non-negative as they represent a count of tiles.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileWidth() > 0",
+    "rationale" : "Tile width should be positive for the layer to render tiles correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileHeight() > 0",
+    "rationale" : "Tile height should be positive for the layer to render tiles correctly.",
+    "meta" : [ ]
+  } ]
+}

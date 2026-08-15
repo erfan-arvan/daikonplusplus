@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always creates a new JsonValue and returns it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != src",
+    "rationale" : "The method always creates and returns a new JsonValue, never the input src.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.name() == src.name() || (result.name() != null && result.name().equals(src.name()))",
+    "rationale" : "The name of the result is set to that of src.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.type() == src.type()",
+    "rationale" : "The type of the value being cloned is preserved in the clone.",
+    "meta" : [ ]
+  }, {
+    "expression" : "src.type() != com.badlogic.gdx.utils.JsonValue.ValueType.object && src.type() != com.badlogic.gdx.utils.JsonValue.ValueType.array || result != null",
+    "rationale" : "For array/object, the result is a deep copy, but never null.",
+    "meta" : [ ]
+  } ]
+}

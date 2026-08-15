@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of convertMetadata, which likely produces a non-null HoodieWriteMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "The compactionInstantTime parameter is passed to both compactionExecutor and convertMetadata without null protection, so it is likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used to instantiate RunCompactionActionExecutor, so it must be non-null to avoid a NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

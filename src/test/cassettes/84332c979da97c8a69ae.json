@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns Collections.emptyList(), which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Collections.emptyList() returns an empty list, guaranteeing the result is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "The size of Collections.emptyList() is always zero.",
+    "meta" : [ ]
+  } ]
+}

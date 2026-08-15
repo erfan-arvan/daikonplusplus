@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "It is common for methods expecting a List input to require it to be non-null, otherwise a NullPointerException could occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime likely represents a commit or operation timestamp and should be present and non-empty for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "If records is not empty, then its size must be positive, which is always true for Java Lists and could be useful for capturing method expectations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.trim().isEmpty()",
+    "rationale" : "If instantTime is provided (not null), then it should not just be an empty or whitespace string, as it is likely important for write operations.",
+    "meta" : [ ]
+  } ]
+}

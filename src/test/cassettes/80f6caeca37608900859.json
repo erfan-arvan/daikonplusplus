@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "vec != null",
+    "rationale" : "The method assumes vec is non-null to access its fields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "vec.x >= Float.NEGATIVE_INFINITY && vec.x <= Float.POSITIVE_INFINITY",
+    "rationale" : "vec.x is a float value, so it must be within the valid float range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "vec.y >= Float.NEGATIVE_INFINITY && vec.y <= Float.POSITIVE_INFINITY",
+    "rationale" : "vec.y is a float value, and accessing it is only valid if it is within the float range.",
+    "meta" : [ ]
+  } ]
+}

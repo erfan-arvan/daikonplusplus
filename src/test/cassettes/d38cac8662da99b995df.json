@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "(templateProps == null) ? (result == parentProps) : (parentProps == null ? result == templateProps : result != null)",
+    "rationale" : "If either input is null, returns the non-null one. Else, a new merged JsonValue is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(templateProps != null && parentProps != null) ? (result != parentProps && result != templateProps) : true",
+    "rationale" : "A fresh merged JsonValue is returned only when both inputs are non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(templateProps == null && parentProps == null) ? (result == null) : true",
+    "rationale" : "If both inputs are null, the result is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || (parentProps == null && templateProps == null)",
+    "rationale" : "result is not null except when both inputs are null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == parentProps) || (result == templateProps) || (result != parentProps && result != templateProps)",
+    "rationale" : "Result is either parentProps, templateProps, or a new instance.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "passwordMode || !hasSelection",
+    "rationale" : "If passwordMode is enabled or there is no selection, the clipboard is not set in copy() and original clipboard content remains unchanged.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clipboard != null",
+    "rationale" : "copy() assumes clipboard is present to set contents if the main condition holds; clipboard is likely non-null as per design.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "text must be non-null for text.substring to be called safely if hasSelection && !passwordMode.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor >= 0",
+    "rationale" : "cursor is used as a bound in substring(), so must be non-negative for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "selectionStart is also used as a bound in substring(), so must be non-negative for correct operation.",
+    "meta" : [ ]
+  } ]
+}

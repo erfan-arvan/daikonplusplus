@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null map of partitions to lists of records.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null on method exit"
+    } ]
+  }, {
+    "expression" : "!result.containsKey(null)",
+    "rationale" : "Map keys correspond to partition integers; partitioner should not return null keys.",
+    "meta" : [ {
+      "key" : "keyNullness",
+      "value" : "null keys are not present"
+    } ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method begins by streaming over dedupedRecords, which implies it is non-null.",
+    "meta" : [ {
+      "key" : "paramNullness",
+      "value" : "dedupedRecords is non-null on method entry"
+    } ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(key -> key instanceof Integer)",
+    "rationale" : "The map is from Integer to List, so all keys must be instances of Integer.",
+    "meta" : [ {
+      "key" : "typeSafety",
+      "value" : "All keys in the result map are Integers"
+    } ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null && !list.contains(null))",
+    "rationale" : "The result is constructed by collecting lists of records from non-null sources; null entries are unlikely.",
+    "meta" : [ {
+      "key" : "valueIntegrity",
+      "value" : "No null lists or null records inside lists"
+    } ]
+  } ]
+}

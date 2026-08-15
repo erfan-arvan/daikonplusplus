@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result is expected to be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns a HoodieWriteMetadata object, so result is expected to be non-null."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a parameter to the method and likely required to be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is a parameter to the method and likely required to be non-null."
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is a parameter and expected to be non-null for insert operations.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "records is a parameter and expected to be non-null for insert operations."
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The result holds write statuses that should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result holds write statuses that should not be null."
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() == records.size()",
+    "rationale" : "Each record should correspond to a write status in the commit metadata.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Each record should correspond to a write status in the commit metadata."
+    } ]
+  } ]
+}

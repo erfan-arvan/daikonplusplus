@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method implementation always throws an exception and never explicitly returns; thus the result is always null at the exit point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true == false",
+    "rationale" : "The method never actually reaches any normal return path and always throws, so any invariant about return value must be vacuously false.",
+    "meta" : [ ]
+  } ]
+}

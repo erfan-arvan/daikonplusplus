@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Average record size and sizes returned from configuration or computed are always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() || !commitTimeline.empty()",
+    "rationale" : "If timeline is empty, result is always the config estimate. If not, it could be overridden.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getParquetSmallFileLimit()",
+    "rationale" : "Average record size should not exceed the configured small file limit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() || !commitTimeline.getReverseOrderedInstants().iterator().hasNext()",
+    "rationale" : "If there are no past instants, only config value is used, ensuring result is not lower than estimate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < Long.MAX_VALUE",
+    "rationale" : "The method never returns Long.MAX_VALUE; the computation uses smaller positive long values.",
+    "meta" : [ ]
+  } ]
+}

@@ -45,7 +45,9 @@ final class Cassette {
     } catch (Exception e) {
       canonical = system + "\n" + user;
     }
-    return sha256(canonical).substring(0, 20);
+    String key = sha256(canonical).substring(0, 20);
+
+    return key;
   }
 
   /**

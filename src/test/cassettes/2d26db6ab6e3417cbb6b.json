@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "records is a required input for insert, and most write operations expect a valid collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required for the write operation and passed to downstream logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty()",
+    "rationale" : "It is implied by the method's semantic (inserting records) that there should be at least one record to insert.",
+    "meta" : [ ]
+  } ]
+}

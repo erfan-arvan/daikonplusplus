@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0",
+    "rationale" : "expansion factors for layout are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "expansion factors for layout are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x <= 1",
+    "rationale" : "in table layouts, expansion flags are often limited to 0 or 1 (off/on).",
+    "meta" : [ ]
+  }, {
+    "expression" : "y <= 1",
+    "rationale" : "in table layouts, expansion flags are often limited to 0 or 1 (off/on).",
+    "meta" : [ ]
+  }, {
+    "expression" : "(x == 0) || (x == 1)",
+    "rationale" : "the parameter x might only be valid as a binary flag for expansion.",
+    "meta" : [ ]
+  } ]
+}

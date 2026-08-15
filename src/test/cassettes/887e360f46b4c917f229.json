@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this.background == background",
+    "rationale" : "At method exit, the object's background field is set to the background parameter, except for early return if already equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.background != null || background == null",
+    "rationale" : "If this.background becomes non-null, then the input was non-null; otherwise, a null parameter clears the background.",
+    "meta" : [ ]
+  } ]
+}

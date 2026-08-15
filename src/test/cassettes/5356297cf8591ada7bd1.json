@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The engine context is likely required for any engine operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter should be non-null and non-empty to identify the batch commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "A non-null list of records is needed for the bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "The Option wrapper for the bulkInsertPartitioner should never be null, even if empty.",
+    "meta" : [ ]
+  } ]
+}

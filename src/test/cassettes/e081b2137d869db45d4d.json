@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is likely required for compaction-related operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "A valid instant time string should be provided for the compaction operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime.length() > 0",
+    "rationale" : "The compaction instant time string should not be empty.",
+    "meta" : [ ]
+  } ]
+}

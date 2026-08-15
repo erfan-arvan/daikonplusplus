@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.uniformX == Boolean.TRUE",
+    "rationale" : "The method sets uniformX to Boolean.TRUE before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.uniformY == Boolean.TRUE",
+    "rationale" : "The method sets uniformY to Boolean.TRUE before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this', so result and this must reference the same object.",
+    "meta" : [ ]
+  } ]
+}

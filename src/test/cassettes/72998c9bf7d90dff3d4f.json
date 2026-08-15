@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so result should be non-null after method execution.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result must not be null on method exit"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is typically a non-null string representing the commit time.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime parameter should not be null"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The list of hoodieRecords should be non-null even if empty.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "hoodieRecords parameter should not be null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata should include a non-null list of WriteStatus.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "write statuses list inside result must not be null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the write statuses list in result should always be zero or more.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "write statuses size is non-negative"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "operationType != null",
+    "rationale" : "The method throws an exception if operationType equals LOG_COMPACT, so operationType must have been safely dereferenced and thus is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The method instantiates TransactionManager and calls multiple table methods, implying table cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed into table.getInstantGenerator().getCompactionInflightInstant(instantTime), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is dereferenced using containsInstant(), so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "WriteOperationType.LOG_COMPACT.equals(operationType) == false",
+    "rationale" : "The method immediately throws if operationType equals LOG_COMPACT, so upon normal exit this must be false.",
+    "meta" : [ ]
+  } ]
+}

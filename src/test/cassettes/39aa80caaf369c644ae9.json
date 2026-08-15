@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Minimum width values are non-negative in UI layouts; method always returns a maximum of such values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Math.max(super.getPrefWidth(), Math.max((style.up != null ? style.up.getMinWidth() : Float.NEGATIVE_INFINITY), Math.max((style.down != null ? style.down.getMinWidth() : Float.NEGATIVE_INFINITY), (style.checked != null ? style.checked.getMinWidth() : Float.NEGATIVE_INFINITY))))",
+    "rationale" : "The return value is the maximum among super.getPrefWidth() and the min widths of relevant style fields if present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= super.getPrefWidth()",
+    "rationale" : "The returned width is always at least as large as the result of super.getPrefWidth().",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(style.up != null && style.up.getMinWidth() > result)",
+    "rationale" : "If style.up is not null, its getMinWidth() is never greater than result, since result is the maximum.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(style.down != null && style.down.getMinWidth() > result)",
+    "rationale" : "The same maximum logic applies to style.down.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "According to method parameters, writeStatuses should be provided and not null for the method's logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is an engine context required for updateLocation execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is a required resource; null would likely cause errors in downstream code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof HoodieData",
+    "rationale" : "Type of writeStatuses is HoodieData<WriteStatus> by method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context type safety: expected type per method signature.",
+    "meta" : [ ]
+  } ]
+}

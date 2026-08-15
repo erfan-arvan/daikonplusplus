@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "HoodieTableMetaClient is likely required for further operations and its methods may be called; nullness is a key precondition.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The method operates on columnsToIndex, so it should not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null-check"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "The size of a List is always >= 0; this documents the allowed value range, though is close to tautological.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "size-check"
+    } ]
+  }, {
+    "expression" : "!(columnsToIndex.isEmpty() && columnsToIndex.size() > 0)",
+    "rationale" : "A List cannot be empty and have non-zero size simultaneously.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "list-consistency"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "The table config is essential meta information and typically present if metaClient is non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "method-call"
+    } ]
+  } ]
+}

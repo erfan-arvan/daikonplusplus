@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "projection != null",
+    "rationale" : "The method sets the batch's projection matrix, which likely requires projection to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width > 0",
+    "rationale" : "The method sets an area (width, height) for the view bounds; width is typically required to be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height > 0",
+    "rationale" : "Setting view bounds with a non-positive height would not be meaningful for rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(x)",
+    "rationale" : "The x position should not be NaN for view coordinates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(y)",
+    "rationale" : "The y position should not be NaN for view coordinates.",
+    "meta" : [ ]
+  } ]
+}

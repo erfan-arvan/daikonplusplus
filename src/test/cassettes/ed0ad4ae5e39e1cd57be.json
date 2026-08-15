@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The Batch object is used without null checks, so it must be non-null during text drawing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "The BitmapFont object is used for rendering text, so it is required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesBreak.size >= (firstLineShowing + linesShowing) * 2 || linesBreak.size < (firstLineShowing + linesShowing) * 2",
+    "rationale" : "The loop draws at most until linesBreak.size, hence size may be less than or equal to the iteration bound.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y + (-(style.font.getLineHeight() - textHeight) / 2) - ((font.getLineHeight()) * (linesShowing)) <= y",
+    "rationale" : "The lowest drawn y-position (final offsetY) is less than or equal to the initial y argument, as offsetY is reduced each loop.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x == x",
+    "rationale" : "This is just to show a true relation, but not meaningful; can be omitted for more meaningful ones.",
+    "meta" : [ ]
+  } ]
+}

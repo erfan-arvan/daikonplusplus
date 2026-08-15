@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this' explicitly, so the result is always the current Table instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padBottom == this.padBottom.toFloat()",
+    "rationale" : "The argument 'padBottom' is converted to a Fixed value and stored in this.padBottom; toFloat() retrieves the original float value.",
+    "meta" : [ ]
+  } ]
+}

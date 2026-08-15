@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "Method expects a non-null idPfx for downstream use, commonly true for prefix parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Iterator parameter 'recordItr' is guaranteed non-null on entry, since null iterators would typically be handled before or disallowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr instanceof Iterator",
+    "rationale" : "recordItr is declared as an Iterator, so it should be an instance of Iterator at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx instanceof String",
+    "rationale" : "idPfx is declared String, so this type relationship must hold.",
+    "meta" : [ ]
+  } ]
+}

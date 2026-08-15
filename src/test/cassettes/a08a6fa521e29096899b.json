@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result.getName().equals(name)",
+    "rationale" : "If a method is returned, its name must equal the requested name; otherwise, result is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type != null",
+    "rationale" : "The ClassReflection.getMethods call with 'type' implies that 'type' is not null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getDeclaringClass().equals(type)",
+    "rationale" : "If a result is returned, its declaring class should be equal to the given 'type' parameter since methods are sought from this class.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || name != null",
+    "rationale" : "If a Method result is found, it must have been compared to name, so name cannot be null in such a path.",
+    "meta" : [ ]
+  } ]
+}

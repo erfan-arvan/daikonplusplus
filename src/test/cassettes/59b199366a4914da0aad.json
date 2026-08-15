@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive value for parallel execution to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Method expects data as a list input; null data may cause NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapToPairFunc != null",
+    "rationale" : "The mapping function should be provided and non-null for the mapping step to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The reduction function should be provided and non-null for the reduction operation to perform as intended.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "The degree of parallelism typically does not exceed the work to be done (here, the number of elements in data), unless data is empty.",
+    "meta" : [ ]
+  } ]
+}

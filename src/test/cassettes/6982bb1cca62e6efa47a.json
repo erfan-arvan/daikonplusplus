@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method only returns the value produced by 'bulkInsert', and throws otherwise, so 'result' cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "The method's declared return type ensures the runtime type of result is HoodieWriteMetadata or a subclass.",
+    "meta" : [ ]
+  } ]
+}

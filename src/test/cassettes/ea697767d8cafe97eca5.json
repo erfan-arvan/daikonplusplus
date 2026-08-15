@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method requires 'profile' for all its operations, so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "A non-null partition path stat map is needed for entrySet iteration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The method accesses the output partition stat map, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap().size() > 0)",
+    "rationale" : "The hasOutputWorkLoadStats() likely indicates presence of output workload stats, which relates to size > 0 in the output map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().size() >= 0",
+    "rationale" : "Map sizes are always non-negative.",
+    "meta" : [ ]
+  } ]
+}

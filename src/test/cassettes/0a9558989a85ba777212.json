@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Drawable from style fields, all of which are expected to be non-null if returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == ((SliderStyle)super.getStyle()).disabledKnobBefore || result == ((SliderStyle)super.getStyle()).knobBeforeDown || result == ((SliderStyle)super.getStyle()).knobBeforeOver || result == ((SliderStyle)super.getStyle()).knobBefore",
+    "rationale" : "The return value is always one of the four knob variants from SliderStyle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((SliderStyle)super.getStyle()).disabledKnobBefore == result || !(((SliderStyle)super.getStyle()).disabledKnobBefore != null && disabled)",
+    "rationale" : "If disabled and style.disabledKnobBefore is not null, result must be that field; otherwise, not.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((SliderStyle)super.getStyle()).knobBeforeDown == result || !(((SliderStyle)super.getStyle()).knobBeforeDown != null && isDragging() && (!disabled || ((SliderStyle)super.getStyle()).disabledKnobBefore == null)))",
+    "rationale" : "If dragging and knobBeforeDown is available (and prior disabled case did not trigger), result must be that field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((SliderStyle)super.getStyle()).knobBefore == result || (((SliderStyle)super.getStyle()).disabledKnobBefore != null && disabled) || (((SliderStyle)super.getStyle()).knobBeforeDown != null && isDragging() && (!disabled || ((SliderStyle)super.getStyle()).disabledKnobBefore == null)) || (((SliderStyle)super.getStyle()).knobBeforeOver != null && mouseOver && (!disabled || ((SliderStyle)super.getStyle()).disabledKnobBefore == null) && (!isDragging() || ((SliderStyle)super.getStyle()).knobBeforeDown == null)))",
+    "rationale" : "If none of the conditional branches are taken, the fallback is style.knobBefore.",
+    "meta" : [ ]
+  } ]
+}

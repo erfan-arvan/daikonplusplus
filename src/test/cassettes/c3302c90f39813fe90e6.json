@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "focusTraversal == true",
+    "rationale" : "The default value for focusTraversal is true, as described by the Javadoc, so at method entry it's likely that focusTraversal is often set to true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "focusTraversal || !focusTraversal",
+    "rationale" : "focusTraversal is a boolean, so it must hold one of the two possible values: true or false.",
+    "meta" : [ ]
+  } ]
+}

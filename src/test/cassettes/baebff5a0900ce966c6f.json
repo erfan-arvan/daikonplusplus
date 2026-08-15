@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "Ensures that the Option parameter reference is non-null before use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Ensures the metaClient parameter reference is not null, which is required for method use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inFlightInstantTimestamp.isPresent() || inFlightInstantTimestamp.get() != null",
+    "rationale" : "If an instant timestamp is present, the encapsulated value should also be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "Before working with metaClient, its table config should be available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig().getTableName() != null",
+    "rationale" : "The metadata table's name must be defined for further operations.",
+    "meta" : [ ]
+  } ]
+}

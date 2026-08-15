@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of Collections.singletonList(...).iterator(), which can never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext()",
+    "rationale" : "The iterator returned from Collections.singletonList(..) will always have at least one element, so hasNext() is true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap is passed as a method parameter and immediately used, so it must be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.hasNext() || result.next() != null",
+    "rationale" : "If the iterator has a next element, next() will produce the singleton list, which is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.hasNext() || !result.next().isEmpty() || result.hasNext() == false",
+    "rationale" : "Singleton list from createHandle.close() is likely non-empty; if next() is empty, there is no further next element.",
+    "meta" : [ ]
+  } ]
+}

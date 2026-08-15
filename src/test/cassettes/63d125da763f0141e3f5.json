@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is generally required to identify the timeline instant for commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The list of hoodie records to insert must not be null to proceed with the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is necessary to execute engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() > 0",
+    "rationale" : "A List is either empty or has size > 0; this captures the mutually exclusive exhaustive states for preppedRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "The Option type itself should not be null, representing the presence/absence of a BulkInsertPartitioner.",
+    "meta" : [ ]
+  } ]
+}

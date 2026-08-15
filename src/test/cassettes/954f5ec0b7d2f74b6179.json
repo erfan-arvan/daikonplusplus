@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "shapes != null",
+    "rationale" : "shapes is used throughout the method, so it is expected to be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isTransform() || (applyTransform != null && resetTransform != null)",
+    "rationale" : "If isTransform() is true, then transform methods must have been executed, implying their existence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isTransform() || (drawDebugRects != null)",
+    "rationale" : "When isTransform() is true, drawDebugRects is always called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clip || !isTransform() || (applyTransform != null)",
+    "rationale" : "If isTransform() and clip are true, transformations must be handled.",
+    "meta" : [ ]
+  }, {
+    "expression" : "super != null",
+    "rationale" : "super.drawDebug(shapes) is called, indicating the superclass must exist.",
+    "meta" : [ ]
+  } ]
+}

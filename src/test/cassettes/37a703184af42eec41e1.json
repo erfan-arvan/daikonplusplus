@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Resulting metadata should be non-null after successful bulk insert.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input records are expected to be non-null as method parameter.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses inside the result should be non-null if present.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime string representing the commit time should be a non-empty valid string.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input assumption"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is expected to be an Option and not null as a method parameter.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursor positions are typically non-negative indices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "Selection start index should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || selectionStart <= cursor",
+    "rationale" : "If a selection exists, selectionStart should not exceed cursor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "Text being edited should not be null for undo states.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || selectionStart != cursor",
+    "rationale" : "When there is a selection, the selection range should have non-zero length.",
+    "meta" : [ ]
+  } ]
+}

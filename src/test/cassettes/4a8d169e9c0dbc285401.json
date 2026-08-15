@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method uses instantTime directly in a call, so it is likely required to be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "The method uses instantTime as a timeline point; it is unlikely to be valid if it is empty.",
+    "meta" : [ ]
+  } ]
+}

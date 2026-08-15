@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method calls batch methods such as setColor and draw, so batch must not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "parentAlpha is used as an alpha multiplier for colors and is usually clamped between 0 and 1 in rendering code.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "rollback method always returns the output of execute(), which should not be null since it represents rollback metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is required to construct the CopyOnWriteRollbackActionExecutor for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant parameter is also required for constructing the underlying RollbackActionExecutor and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required dependency and must be non-null to correctly execute the rollback logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRollbackMetadata",
+    "rationale" : "The returned object must always be an instance of HoodieRollbackMetadata, as per method contract.",
+    "meta" : [ ]
+  } ]
+}

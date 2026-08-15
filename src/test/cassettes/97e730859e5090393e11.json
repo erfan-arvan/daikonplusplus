@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Most methods expect that a required input collection is not null at entry; method does not appear to safeguard against null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer != null",
+    "rationale" : "An Option parameter is generally expected to be non-null as the wrapper; presence may be checked but null Option may indicate misuse.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inputRecords.isEmpty() || inputRecords.isEmpty()",
+    "rationale" : "Ensures that inputRecords, as a List, is in a valid state: it's either empty or not (covers all possibilities, but avoids self-comparisons).",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer.isPresent() || !sourceReadAndIndexTimer.isPresent()",
+    "rationale" : "This covers the valid contract of Option objects: they are present or not, which are the only two states.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "By Java List contract, the size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

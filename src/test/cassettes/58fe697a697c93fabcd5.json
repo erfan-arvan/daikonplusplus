@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "Method always dereferences 'profile', so it cannot be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method always returns the output of a method call that is expected to provide a non-null Partitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Partitioner",
+    "rationale" : "Method return type is Partitioner, so result must be an instance thereof.",
+    "meta" : [ ]
+  } ]
+}

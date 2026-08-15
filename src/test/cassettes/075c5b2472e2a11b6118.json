@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null || columnsToIndex == null",
+    "rationale" : "Method parameter could be null or non-null but both states are valid.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "columnsToIndex can be null or non-null"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "As a meta client object, it is expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "metaClient should be non-null for method to operate"
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex instanceof java.util.List",
+    "rationale" : "columnsToIndex is declared as List<String> so must be a List or null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "interface"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "metaClient should have a valid table config at method entry.",
+    "meta" : [ {
+      "key" : "object_state",
+      "value" : "metaClient state"
+    } ]
+  }, {
+    "expression" : "columnsToIndex == null || !columnsToIndex.contains(null)",
+    "rationale" : "It is expected that the columnsToIndex list, if present, does not contain null elements.",
+    "meta" : [ {
+      "key" : "validity",
+      "value" : "no null elements"
+    } ]
+  } ]
+}

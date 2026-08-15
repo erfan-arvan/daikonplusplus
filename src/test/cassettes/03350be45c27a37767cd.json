@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionId >= 0",
+    "rationale" : "Partition IDs are typically non-negative, as negative values would be invalid identifiers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionId == partitionId",
+    "rationale" : "This is a minimal non-tautological check: partitionId is always equal to itself at method entry.",
+    "meta" : [ ]
+  } ]
+}

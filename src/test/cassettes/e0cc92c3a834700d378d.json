@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Array is always initialized inside the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size == getDependencyFileHandles(tmjFile).size",
+    "rationale" : "One AssetDescriptor is created per FileHandle in getDependencyFileHandles(tmjFile).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is passed to getDependencyFileHandles and used for AssetDescriptors, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size == 0 || result.get(0).type == Texture.class",
+    "rationale" : "Every AssetDescriptor in result is constructed with Texture.class as its type.",
+    "meta" : [ ]
+  } ]
+}

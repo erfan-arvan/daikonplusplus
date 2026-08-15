@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List of WriteStatus, which should not be null at the method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "size non-negative"
+    } ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The clusteringGroup parameter is expected to be non-null for method execution.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "clusteringGroup is non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a String parameter that is expected to be non-null for clustering execution.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null"
+    } ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams Map parameter is expected to be non-null for the strategy.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "strategyParams is non-null"
+    } ]
+  } ]
+}

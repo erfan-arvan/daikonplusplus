@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedInputRecords != null",
+    "rationale" : "The method assumes preppedInputRecords is non-null as it is used in a for-each loop without null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedInputRecords.size() >= 0",
+    "rationale" : "size() on a List is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedInputRecords.isEmpty() || preppedInputRecords.size() > 0",
+    "rationale" : "A List is either empty or has size > 0; expressing the only two cases for the collection.",
+    "meta" : [ ]
+  } ]
+}

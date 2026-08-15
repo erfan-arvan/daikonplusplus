@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an object produced by another method, suggesting it should never return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write status list inside the metadata should not be null on a successful bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The number of WriteStatus entries is always non-negative for a returned list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime likely identifies the commit and should not be null for a bulkInsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Input records processed by bulkInsert should not be null.",
+    "meta" : [ ]
+  } ]
+}

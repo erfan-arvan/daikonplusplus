@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of execute(), which should not be null for a successful restore operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is a required parameter for restoring and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for the restoration action and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRestoreMetadata",
+    "rationale" : "The method contract and return type guarantee the result is a HoodieRestoreMetadata instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getTotalFilesDeleted() >= 0",
+    "rationale" : "A restore operation cannot delete a negative number of files.",
+    "meta" : [ ]
+  } ]
+}

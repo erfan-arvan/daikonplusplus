@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collections.emptyList() never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Collections.emptyList() always returns an empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "An empty list always has size zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cacheKey != null || result.isEmpty()",
+    "rationale" : "The result is always empty regardless of cacheKey, but this links cacheKey being null with result emptiness for safe usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.contains(0)",
+    "rationale" : "Since the result is empty, it cannot contain any element, including 0.",
+    "meta" : [ ]
+  } ]
+}

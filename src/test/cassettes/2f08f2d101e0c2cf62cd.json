@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null iterator of lists of WriteStatus, as it delegates directly to handleUpsertPartition without additional null logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition is passed as a parameter to downstream methods, and its null value would likely be checked earlier; method is unlikely to operate correctly with null partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The partitioner parameter is required for partitioning logic and is passed into handleUpsertPartition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to represent the commit instant and should be non-null for proper behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is an iterator for records to be inserted; handleUpsertPartition assumes a valid, non-null iterator.",
+    "meta" : [ ]
+  } ]
+}

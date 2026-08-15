@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method immediately dereferences config, so it must not be null.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "required for method to function correctly"
+    } ]
+  }, {
+    "expression" : "config instanceof HoodieWriteConfig",
+    "rationale" : "config must be a HoodieWriteConfig as per the method signature.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "config"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Trivially true; reflects that no deeper precondition is specified at entry.",
+    "meta" : [ {
+      "key" : "universal",
+      "value" : "default"
+    } ]
+  } ]
+}

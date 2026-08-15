@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new table instance for supported table types and throws for unsupported ones, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "The method throws an exception if the table type is not COPY_ON_WRITE or MERGE_ON_READ; thus, at exit, the type must be one of those.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getMetaClient() == metaClient",
+    "rationale" : "The created table must reference the metaClient passed as argument, as all constructors in the switch use it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The config object is consistently passed through to the table constructors, so the resulting table's config should match the method's argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof org.apache.hudi.table.HoodieJavaCopyOnWriteTable || result instanceof org.apache.hudi.table.HoodieJavaMergeOnReadTable",
+    "rationale" : "Depending on the table type, the result is either a HoodieJavaCopyOnWriteTable or HoodieJavaMergeOnReadTable.",
+    "meta" : [ ]
+  } ]
+}

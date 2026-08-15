@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method expects a valid input collection to operate on.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "A non-null function is required to map elements of the data list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism should be at least 1 to make sense for parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof List",
+    "rationale" : "The parameter data must be a List according to the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func instanceof SerializableFunction",
+    "rationale" : "The func argument must be a SerializableFunction as per the signature.",
+    "meta" : [ ]
+  } ]
+}

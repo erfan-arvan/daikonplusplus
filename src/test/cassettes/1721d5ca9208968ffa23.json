@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "The parameter writeResult must be non-null to access its methods.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "Ensures writeResult is not null at method entry"
+    } ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() != null",
+    "rationale" : "To avoid NullPointerException when calling getWriteStatuses().",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "Write statuses list must be non-null"
+    } ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().stream() != null",
+    "rationale" : "The stream is created from a non-null collection of write statuses.",
+    "meta" : [ {
+      "key" : "stream_valid",
+      "value" : "Stream on non-null collection"
+    } ]
+  }, {
+    "expression" : "!writeResult.getWriteStatuses().isEmpty() || writeResult.getWriteStatuses().isEmpty()",
+    "rationale" : "At entry, the write statuses lists can be empty or non-empty, explicitly stating possibility.",
+    "meta" : [ {
+      "key" : "tautology",
+      "value" : "Always true"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "At method entry, without further context, no stronger invariants apply.",
+    "meta" : [ {
+      "key" : "method_entry_invariant",
+      "value" : "No further invariants can be guaranteed at method start"
+    } ]
+  } ]
+}

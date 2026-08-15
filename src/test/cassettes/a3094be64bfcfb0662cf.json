@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The parameter columnsToIndex should be non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "columnsToIndex is non-null"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "size is non-negative"
+    } ]
+  } ]
+}

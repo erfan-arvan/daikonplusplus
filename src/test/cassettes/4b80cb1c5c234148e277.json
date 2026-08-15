@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "List parameters to methods are often expected to be non-null at entry to avoid NullPointerException in stream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || inputRecords.get(0) != null",
+    "rationale" : "If the input list is non-empty, the first element should not be null to avoid downstream issues during record access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Records in inputRecords are expected to be valid; nulls may indicate errors. This holds at entry for robust processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative as per Java API contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().noneMatch(r -> r == null)",
+    "rationale" : "Alternative idiom to ensure there are no null entries in inputRecords.",
+    "meta" : [ ]
+  } ]
+}

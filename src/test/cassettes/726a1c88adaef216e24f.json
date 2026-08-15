@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "The only way to reach the return statement is if sortMode is NONE or GLOBAL_SORT.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(! (sortMode == BulkInsertSortMode.NONE) || result instanceof JavaNonSortPartitioner)",
+    "rationale" : "If sortMode is NONE, then result must be a JavaNonSortPartitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(! (sortMode == BulkInsertSortMode.GLOBAL_SORT) || result instanceof JavaGlobalSortPartitioner)",
+    "rationale" : "If sortMode is GLOBAL_SORT, then result must be a JavaGlobalSortPartitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method only returns new objects for supported enum values, so result is never null at exit.",
+    "meta" : [ ]
+  } ]
+}

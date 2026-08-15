@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "The method throws an IllegalArgumentException if actor is null, so at entry the actor argument is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percent >= 0.0f",
+    "rationale" : "percent typically represents a percentage and is likely non-negative, based on standard conventions for percentages.",
+    "meta" : [ ]
+  }, {
+    "expression" : "percent <= 1.0f",
+    "rationale" : "percent is intended as a fraction of the width, so commonly would be between 0.0f and 1.0f.",
+    "meta" : [ ]
+  } ]
+}

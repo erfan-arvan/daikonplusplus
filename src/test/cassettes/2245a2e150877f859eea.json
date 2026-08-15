@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collectors.toMap never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data.stream() is called, so data must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "Function 'func' is used in map(throwingMapToPairWrapper(func)), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "At most one entry per input; duplicate keys overwrite previous values, so the result map can be at most the number of input elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism == null || parallelism > 0",
+    "rationale" : "Parallelism may be used to control splitting, commonly > 0 when present.",
+    "meta" : [ ]
+  } ]
+}

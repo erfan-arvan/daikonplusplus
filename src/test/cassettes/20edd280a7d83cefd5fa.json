@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method assumes 'config' is a non-null input in all code paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Option (never returns null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == !config.populateMetaFields()",
+    "rationale" : "If 'config.populateMetaFields()' is true, an empty Option is returned; otherwise, Option.of(...) is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!config.populateMetaFields()) == result.isPresent()",
+    "rationale" : "Equivalent relational expression for symmetry, showing the relationship between config and the result Option's presence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() || result.get() instanceof BaseKeyGenerator",
+    "rationale" : "Only if Option is present, its value is cast to BaseKeyGenerator, safe given method code.",
+    "meta" : [ ]
+  } ]
+}

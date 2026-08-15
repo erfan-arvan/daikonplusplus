@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "camera != null",
+    "rationale" : "The method uses fields of camera, so camera must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.viewportWidth >= 0.0f",
+    "rationale" : "Viewport width is typically non-negative for rendering cameras.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.viewportHeight >= 0.0f",
+    "rationale" : "Viewport height is typically non-negative for rendering cameras.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.zoom > 0.0f",
+    "rationale" : "Camera zoom should be positive to produce a sensible projection and avoid divisions by zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.combined != null",
+    "rationale" : "The combined matrix is used to set the projection matrix, implying it should be initialized.",
+    "meta" : [ ]
+  } ]
+}

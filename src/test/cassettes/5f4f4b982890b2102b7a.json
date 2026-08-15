@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && !result.isEmpty() && result.get(0) != null && result.get(0).getStat() != null && result.get(0).getStat().getNumWrites() >= 0",
+    "rationale" : "The result list is not null or empty, and WriteStatus objects have non-negative write counts.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result list contains WriteStatus objects indicating write operations; write count should be non-negative."
+    } ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty()",
+    "rationale" : "Prepped records list is not empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Delete operation is performed on non-empty list of preppedRecords."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime string is non-null and non-empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is provided for the delete operation."
+    } ]
+  }, {
+    "expression" : "result.size() == preppedRecords.size() || result.isEmpty()",
+    "rationale" : "Size of result matches size of preppedRecords or result is empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Expected correspondence between result and prepped records count."
+    } ]
+  }, {
+    "expression" : "preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "No null entries in preppedRecords.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "All preppedRecords are non-null."
+    } ]
+  } ]
+}

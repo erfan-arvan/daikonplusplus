@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The method assumes writeClient is valid to allow method invocations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime represents a timestamp and is typically expected to be set and non-empty during write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The input records list must be initialized before the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option objects may never be null even when empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.size() >= 0",
+    "rationale" : "A list's size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

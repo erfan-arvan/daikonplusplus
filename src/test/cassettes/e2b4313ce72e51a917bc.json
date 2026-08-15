@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is required to perform engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime typically encodes a commit instant; should be set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is expected to be a valid list of HoodieRecords to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "The method upsert is likely only called when there are records to upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || instantTime.trim().length() > 0",
+    "rationale" : "If provided, instantTime should not consist only of whitespace.",
+    "meta" : [ ]
+  } ]
+}

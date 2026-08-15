@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(pixelsY)",
+    "rationale" : "pixelsY should typically be finite since it represents a scroll offset.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input validation"
+    } ]
+  }, {
+    "expression" : "!Float.isNaN(pixelsY)",
+    "rationale" : "pixelsY values that are NaN are not meaningful for scrolling position.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input validation"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No other state or meaningful relationships can be inferred from the available variable at this point; included for completeness.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "vacuous"
+    } ]
+  } ]
+}

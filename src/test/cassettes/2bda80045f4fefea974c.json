@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option types are never null, but represent absence via Option.empty().",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullity"
+    } ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "The method is useless with a null instant time, and instant times are usually required identifiers.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullity"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for any table operation.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullity"
+    } ]
+  }, {
+    "expression" : "result instanceof Option",
+    "rationale" : "The method always returns an Option.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "type"
+    } ]
+  } ]
+}

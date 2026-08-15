@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders == null || result == 0.0",
+    "rationale" : "If the orders list is null, the method returns 0.0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders != null && orders.isEmpty() || result == 0.0",
+    "rationale" : "If the orders list is empty, the method returns 0.0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "The resulting total price cannot be negative, since only addition and discount (multiplication by 0.9) are applied.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders != null || orders == null",
+    "rationale" : "This is not meaningful. [discarded]",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || !orders.isEmpty() || result == 0.0",
+    "rationale" : "Handles both cases where list is null or empty.",
+    "meta" : [ ]
+  } ]
+}

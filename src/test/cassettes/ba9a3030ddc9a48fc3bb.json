@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The Javadoc and method's trivial getter implementation suggest that 'tilesets' (and thus the returned value) should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "Collections in Java always have size >= 0, so any returned TiledMapTileSets instance should respect this invariant.",
+    "meta" : [ ]
+  } ]
+}

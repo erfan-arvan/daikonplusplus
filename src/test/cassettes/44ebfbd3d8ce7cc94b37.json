@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is likely required to uniquely identify the commit operation and avoid downstream NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "A valid partitionPath is necessary to locate the partition for this bulk commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records collection should be non-null so that records can be committed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "A non-null MetadataTableFileGroupIndexParser is likely required for bulk commit indexing behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instantTime should not be empty to represent a valid commit moment.",
+    "meta" : [ ]
+  } ]
+}

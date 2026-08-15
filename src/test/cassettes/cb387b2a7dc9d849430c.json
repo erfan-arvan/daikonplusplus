@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "labelStyle != null",
+    "rationale" : "A LabelStyle is required to create a new Label, as seen in the method implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "If text is not null, its length is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "labelStyle instanceof LabelStyle",
+    "rationale" : "The labelStyle object is expected to be an instance of LabelStyle, as required by the method signature.",
+    "meta" : [ ]
+  } ]
+}

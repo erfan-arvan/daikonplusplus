@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "inFlightInstantTimestamp is an Option<String> and is expected to be non-null as a method parameter.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "input parameter nullness"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a method parameter and should not be null at method entry.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "input parameter nullness"
+    } ]
+  }, {
+    "expression" : "!inFlightInstantTimestamp.isPresent() || inFlightInstantTimestamp.get() != null",
+    "rationale" : "If the Option contains a value, then the contained String should not be null.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "Option content nullness"
+    } ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "metaClient should have a non-null base path initialized at method entry.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "expected metaClient state"
+    } ]
+  } ]
+}

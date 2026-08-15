@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is dereferenced for method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used as a commit identifier and is expected to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed to writeClient.bulkInsertPreppedRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed to writeClient.bulkInsertPreppedRecords, and its presence may affect partitioning logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.get(0) != null",
+    "rationale" : "When preppedRecordInputs is non-empty, elements are expected to be non-null HoodieRecord objects.",
+    "meta" : [ ]
+  } ]
+}

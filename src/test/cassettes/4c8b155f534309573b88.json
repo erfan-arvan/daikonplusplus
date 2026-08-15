@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new HoodieJavaWriteClient is returned, which should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof BaseHoodieWriteClient",
+    "rationale" : "The return type is BaseHoodieWriteClient and HoodieJavaWriteClient extends this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Config is required to construct the HoodieJavaWriteClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is required to construct the HoodieJavaWriteClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaWriteClient",
+    "rationale" : "The method always returns an instance of HoodieJavaWriteClient.",
+    "meta" : [ ]
+  } ]
+}

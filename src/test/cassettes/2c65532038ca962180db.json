@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0",
+    "rationale" : "It is common for x screen coordinates to be non-negative in UI widgets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "It is common for y screen coordinates to be non-negative in UI widgets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(x)",
+    "rationale" : "UI-related float coordinates should not be NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(y)",
+    "rationale" : "UI-related float coordinates should not be NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(x) && !Float.isInfinite(y)",
+    "rationale" : "Coordinates used in UI typically should not be infinite values.",
+    "meta" : [ ]
+  } ]
+}

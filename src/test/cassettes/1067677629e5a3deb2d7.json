@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0",
+    "rationale" : "A common constraint for positions within a rectangular region; negative coordinates often indicate out-of-bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "Similar to x, the y position being non-negative is meaningful for coordinate-based methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x < getWidth()",
+    "rationale" : "Indicates that x is less than the width, commonly checked in GUI element hit detection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y < getHeight()",
+    "rationale" : "Indicates that y is less than the height, used for bounds checking in component hit tests.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!touchable || getTouchable() != Touchable.disabled",
+    "rationale" : "Reflects the implication that if touchable is true, the touchable state should not be disabled for a successful hit.",
+    "meta" : [ ]
+  } ]
+}

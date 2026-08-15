@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for index operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "Index operations must be associated with a valid commit instant time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!indexInstantTime.isEmpty()",
+    "rationale" : "Instant time should not be empty for indexing.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "projection != null",
+    "rationale" : "projection is passed to setProjectionMatrix, and is required for rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width > 0",
+    "rationale" : "width is extended and used as a positive float for bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height > 0",
+    "rationale" : "height is extended and used as a positive float for bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(x)",
+    "rationale" : "x is used in arithmetic and passed to set; NaN or infinite would likely cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(y)",
+    "rationale" : "y is used in arithmetic and passed to set; NaN or infinite would likely cause errors.",
+    "meta" : [ ]
+  } ]
+}

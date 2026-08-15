@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is required for operations in this class and is likely to be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The columnsToIndex list is expected to be non-null to be operated upon or to represent an empty set.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "If columnsToIndex is not empty, its size must be non-negative by definition.",
+    "meta" : [ ]
+  } ]
+}

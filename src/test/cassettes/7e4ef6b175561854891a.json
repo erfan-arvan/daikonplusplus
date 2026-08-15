@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a list, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "A clustering group is required to read records, so this is assumed to be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is never modified, so if non-null on entry, it remains non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "The return value is always a List instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> r != null)",
+    "rationale" : "Records are explicitly added to the list through the iterator, which should only yield non-null HoodieRecord values.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "InputEvent event is likely non-null since it's used, and required for the listener pattern.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0 || x < 0",
+    "rationale" : "x is a float argument; its value can be any float—this invariant simply shows that x must be defined.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0 || y < 0",
+    "rationale" : "y is a float argument; its value is defined for the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getTapCount() % 4 >= 0 && getTapCount() % 4 < 4",
+    "rationale" : "Modulo operation guarantees the result is within [0, 3] range, reflecting possible values of count.",
+    "meta" : [ ]
+  } ]
+}

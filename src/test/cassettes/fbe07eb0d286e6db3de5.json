@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "The method unconditionally dereferences the 'style' field multiple times, so it must be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.disabledBackground == null || style.disabledBackground instanceof Drawable",
+    "rationale" : "If style.disabledBackground is non-null, it must be a Drawable because it is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background != null && style.background instanceof Drawable",
+    "rationale" : "The method always returns style.background if not returning style.disabledBackground, so it must be a non-null Drawable.",
+    "meta" : [ ]
+  } ]
+}

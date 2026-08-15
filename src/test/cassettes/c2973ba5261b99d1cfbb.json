@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned metadata should not be null unless errors are silently swallowed, which is unlikely for a commit action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method returns HoodieWriteMetadata, so result should always be an instance of that class.",
+    "meta" : [ ]
+  } ]
+}

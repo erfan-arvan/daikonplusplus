@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the local variable 'result', which is initialized and only returned as a non-null object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class",
+    "rationale" : "The returned object 'result' is directly constructed as new HoodieWriteMetadata<>(), so its class matches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "'result.getWriteStatuses()' is updated before return and comes from a newly constructed metadata object, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "By construction, 'result' contains a List for write statuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "'result' is always a HoodieWriteMetadata object; method return type is HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

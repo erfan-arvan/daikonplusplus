@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new instance call result, so result should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input parameter records is expected to be not null for processing.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records is not null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write metadata should contain a non-null list of write statuses after insert overwrite.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses is not null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The list of WriteStatus can be empty but should not have a negative size.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "non-negative size"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a crucial temporal identifier and should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  } ]
+}

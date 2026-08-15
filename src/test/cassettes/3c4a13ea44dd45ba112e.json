@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always assigns a non-null value to result before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Write statuses are explicitly set before any return of result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "Write statuses are always set to a List (either a real list or Collections.EMPTY_LIST).",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Config is used in the method body, so it must be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Table is dereferenced within the method and must not be null at return.",
+    "meta" : [ ]
+  } ]
+}

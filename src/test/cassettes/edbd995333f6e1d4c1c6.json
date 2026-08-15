@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null String either from actor.toString() or super.toString().",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != null ? result.equals(actor.toString()) : result.equals(super.toString())",
+    "rationale" : "If actor is not null, result comes from actor.toString(); otherwise, from super.toString().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() >= 0",
+    "rationale" : "All Java strings have a non-negative length; this confirms result is a well-formed string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || result.length() == 0",
+    "rationale" : "A string is empty if and only if its length is zero; this expression is a property of the returned String.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "this.isChecked == isChecked",
+    "rationale" : "After assignment and before return, this.isChecked reflects the value of the isChecked parameter unless modified by fire(changeEvent).",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!fireEvent) || (this.isChecked == isChecked || this.isChecked == !isChecked)",
+    "rationale" : "If fireEvent is true, this.isChecked may be reverted by fire(changeEvent), so must be either isChecked or its opposite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(fireEvent && this.isChecked != isChecked) == false",
+    "rationale" : "After the method logic, it is impossible for fireEvent to be true and this.isChecked to not equal isChecked or its opposite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.isChecked == isChecked || (fireEvent && (this.isChecked == !isChecked))",
+    "rationale" : "After the fire(changeEvent), this.isChecked is either assigned to isChecked or potentially reverted.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "tilewidth > 0",
+    "rationale" : "Each tile should have a positive width to represent actual tile dimensions.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "tile properties"
+    } ]
+  }, {
+    "expression" : "tileheight > 0",
+    "rationale" : "Each tile should have a positive height to represent actual tile dimensions.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "tile properties"
+    } ]
+  }, {
+    "expression" : "firstgid >= 0",
+    "rationale" : "The first GID for a tileset should not be negative.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "tile id"
+    } ]
+  }, {
+    "expression" : "imageWidth >= 0",
+    "rationale" : "A non-negative imageWidth is necessary for valid image dimensions.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "image metadata"
+    } ]
+  }, {
+    "expression" : "imageHeight >= 0",
+    "rationale" : "A non-negative imageHeight is necessary for valid image dimensions.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "image metadata"
+    } ]
+  } ]
+}

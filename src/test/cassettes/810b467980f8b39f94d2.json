@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is used as an argument and is expected to be non-null for proper operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed as an argument and is expected to be non-null since it is used in initializeMetadataTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "metaClient is likely to have a valid base path if it is initialized and in use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "metaClient should have a valid table configuration if it is functional.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getCommitTimeline() != null",
+    "rationale" : "The commit timeline is a core property of the HoodieTableMetaClient and expected to be accessible.",
+    "meta" : [ ]
+  } ]
+}

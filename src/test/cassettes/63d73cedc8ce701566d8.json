@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null List; an empty ArrayList is returned if there are no small files.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf != null)",
+    "rationale" : "All elements added to the result are non-null SmallFile instances.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.sizeBytes < config.getParquetSmallFileLimit())",
+    "rationale" : "Only files smaller than the Parquet small file limit are included as SmallFile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> partitionPath.equals(sf.location.getPartitionPath()))",
+    "rationale" : "Each SmallFile in the result is associated with the given partitionPath.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || partitionPath != null",
+    "rationale" : "If there is any result, then partitionPath must be non-null, because methods on partitionPath are called unconditionally.",
+    "meta" : [ ]
+  } ]
+}

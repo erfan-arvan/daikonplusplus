@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "layer must be non-null to call layer.getObjects().",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects() != null",
+    "rationale" : "getObjects() should be non-null for MapLayer to iterate in the loop.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects().size() >= 0",
+    "rationale" : "A collection's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getObjects().isEmpty() || layer.getObjects().size() > 0",
+    "rationale" : "If the collection is not empty, its size is greater than 0.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned list 'result' is a new ArrayList and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "Method requires 'clusteringGroup' to call 'getSlices()', so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> r != null)",
+    "rationale" : "All elements added to 'records' via lazyIterator are expected to be non-null HoodieRecord instances.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "'clusteringGroup.getSlices()' is used to generate clusteringOps and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "'result' is a List; size is non-negative.",
+    "meta" : [ ]
+  } ]
+}

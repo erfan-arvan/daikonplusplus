@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == commitStats(instantTime, writeStatuses.stream().map(WriteStatus::getStat).collect(java.util.stream.Collectors.toList()), extraMetadata, commitActionType, partitionToReplacedFileIds, extraPreCommitFunc)",
+    "rationale" : "The result is exactly the return value of the commitStats call with mapped writeStatuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method calls writeStatuses.stream(), which requires writeStatuses to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "commitActionType is passed to commitStats and likely must be non-null by convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is directly passed to another method and usually represents a timeline instant, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds is passed directly into the downstream commit call and generally expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

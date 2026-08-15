@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns either a cached or a newly created TiledDrawable, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getName().equals(name)",
+    "rationale" : "The returned TiledDrawable, whether cached or newly created, has its name set to the provided name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledDrawable",
+    "rationale" : "Method guarantees that the result is always a TiledDrawable.",
+    "meta" : [ ]
+  } ]
+}

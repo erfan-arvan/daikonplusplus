@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "true",
+    "rationale" : "At method entry with no parameters or fields in scope, only trivial invariants such as 'true' are valid.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "method_entry"
+    } ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "At method entry of an instance method, 'this' must always be non-null.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "method_entry"
+    } ]
+  } ]
+}

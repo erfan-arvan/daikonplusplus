@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The list of records must be non-null to perform deduplication.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records is non-null"
+    } ]
+  }, {
+    "expression" : "index != null",
+    "rationale" : "The index parameter must be non-null since it is used immediately.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "index is non-null"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive for parallel execution.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "parallelism is positive"
+    } ]
+  }, {
+    "expression" : "schemaStr != null",
+    "rationale" : "Schema string must not be null as it is parsed for schema.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "schemaStr is non-null"
+    } ]
+  }, {
+    "expression" : "orderingFieldNames != null",
+    "rationale" : "The ordering field names array must be non-null since it is passed to reduceRecords.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "orderingFieldNames is non-null"
+    } ]
+  } ]
+}

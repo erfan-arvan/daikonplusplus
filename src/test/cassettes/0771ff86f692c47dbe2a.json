@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is a String parameter and likely required to be non-null for update handling.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionPath is not null on method entry"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is a String identifier and must be non-null to reference files.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "fileId is not null on method entry"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr input Iterator must be non-null to iterate over records.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "recordItr is not null on method entry"
+    } ]
+  }, {
+    "expression" : "!fileId.isEmpty()",
+    "rationale" : "File identifiers are typically non-empty strings to uniquely identify files.",
+    "meta" : [ {
+      "key" : "nonempty",
+      "value" : "fileId is a non-empty string"
+    } ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Partition path strings represent a directory path and thus expected to be non-empty.",
+    "meta" : [ {
+      "key" : "nonempty",
+      "value" : "partitionPath is non-empty"
+    } ]
+  } ]
+}

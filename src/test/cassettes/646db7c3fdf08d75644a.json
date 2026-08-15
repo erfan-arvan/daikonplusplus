@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result.getWriteStatuses() == result",
+    "rationale" : "The method sets the passed-in HoodieWriteMetadata's write statuses to the returned list, so upon exit, result.getWriteStatuses() should be the same object as the return value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The result parameter is not modified to null throughout the method body, so it must remain non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "No code indicates writeStatuses may be set to null in the method, and it is assumed to be a required input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "The method always sets the index update duration on result to a non-null Duration before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() == result",
+    "rationale" : "The method sets the write statuses of result to the returned List<WriteStatus>, which is the same as the result value at method exit.",
+    "meta" : [ ]
+  } ]
+}

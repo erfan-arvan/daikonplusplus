@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "operationType != null",
+    "rationale" : "The method immediately uses 'operationType' for an equals check, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "'instantTime' is passed directly into methods and compared, so null would cause an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "'table' is dereferenced and its methods are called, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "'pendingCompactionTimeline' is used to check for containsInstant, indicating it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "The method throws an exception if the operationType is LOG_COMPACT, so at method entry this cannot be true for normal execution.",
+    "meta" : [ ]
+  } ]
+}

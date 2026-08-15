@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this.visualInterpolationInverse == interpolation",
+    "rationale" : "The method assigns the parameter interpolation to the field visualInterpolationInverse, so this should hold on exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "interpolation != null || this.visualInterpolationInverse == null",
+    "rationale" : "If interpolation is null, then visualInterpolationInverse is set to null; otherwise, it's set to interpolation, so this captures the correspondence.",
+    "meta" : [ ]
+  } ]
+}

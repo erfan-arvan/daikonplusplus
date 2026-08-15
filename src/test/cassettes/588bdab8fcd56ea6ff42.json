@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == value || Math.abs(value - result) <= threshold",
+    "rationale" : "The return value is either the input value, or a snap value within threshold distance from input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Math.abs(value - result) == 0 || Math.abs(value - result) <= threshold",
+    "rationale" : "Returned value is either exactly equal to value, or within snapping threshold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == value || (snapValues != null && snapValues.length > 0)",
+    "rationale" : "If snapping occurs, snapValues must be present and non-empty; otherwise result equals value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(snapValues == null || snapValues.length == 0) || result == value",
+    "rationale" : "If snapValues is null or empty, then result must be value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Math.abs(value - result) == 0 || (snapValues != null && snapValues.length > 0)",
+    "rationale" : "Non-trivial snapping only occurs if snapValues is set and non-empty.",
+    "meta" : [ ]
+  } ]
+}

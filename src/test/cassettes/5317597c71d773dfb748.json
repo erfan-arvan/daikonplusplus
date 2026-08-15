@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns the current object instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result.align & com.badlogic.gdx.utils.Align.top) == com.badlogic.gdx.utils.Align.top",
+    "rationale" : "The top alignment bit is set before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result.align & com.badlogic.gdx.utils.Align.bottom) == 0",
+    "rationale" : "The bottom alignment bit is cleared before returning.",
+    "meta" : [ ]
+  } ]
+}

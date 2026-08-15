@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "rectangle != null",
+    "rationale" : "The method calls rectangle.getWidth(), so rectangle must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rectangle.getWidth() >= 0",
+    "rationale" : "Rectangle widths are commonly non-negative in graphics frameworks.",
+    "meta" : [ ]
+  } ]
+}

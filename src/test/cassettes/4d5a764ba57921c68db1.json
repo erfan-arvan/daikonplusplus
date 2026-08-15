@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "left >= 0.0f",
+    "rationale" : "Spacing values are often non-negative in UI layouts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "right >= 0.0f",
+    "rationale" : "Spacing values are often non-negative in UI layouts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "left == this.iconSpacingLeft",
+    "rationale" : "Method directly assigns left to this.iconSpacingLeft.",
+    "meta" : [ ]
+  }, {
+    "expression" : "right == this.iconSpacingRight",
+    "rationale" : "Method directly assigns right to this.iconSpacingRight.",
+    "meta" : [ ]
+  }, {
+    "expression" : "left <= right",
+    "rationale" : "It is plausible in layouts that left spacing may be less than or equal to right, though not enforced by the method.",
+    "meta" : [ ]
+  } ]
+}

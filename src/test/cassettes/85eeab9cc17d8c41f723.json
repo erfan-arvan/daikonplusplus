@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be non-null as it likely represents a timestamp string for the commit.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords should be non-null as it represents data to be upserted.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is needed for operation and should be non-null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table reference is required for write operation and should not be null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used to retrieve parameters and must be non-null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  } ]
+}

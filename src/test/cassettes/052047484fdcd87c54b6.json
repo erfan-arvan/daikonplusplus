@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "pixels >= 0",
+    "rationale" : "The method clamps pixels to be no less than zero before passing to scrollY, suggesting non-negative input is the lower bound.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pixels <= maxY",
+    "rationale" : "The clamping ensures the value sent to scrollY does not exceed maxY, so the upper bound for pixels is maxY.",
+    "meta" : [ ]
+  } ]
+}

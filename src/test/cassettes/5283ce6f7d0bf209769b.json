@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "Method likely requires dedupedRecords to be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Method uses context, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Method dereferences table, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.isEmpty() || dedupedRecords.size() > 0",
+    "rationale" : "dedupedRecords is a List, its size is always non-negative, and isEmpty is consistent with size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(dedupedRecords == null && table != null)",
+    "rationale" : "If dedupedRecords is null, table should not be used, preventing inconsistent state.",
+    "meta" : [ ]
+  } ]
+}

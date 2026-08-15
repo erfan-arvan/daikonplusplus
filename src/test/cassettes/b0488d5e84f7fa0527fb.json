@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getName().equals(\"TileSheet\") || !map.getTileSets().getTileSets().isEmpty()",
+    "rationale" : "If processing occurs, at least one tileset is added; if not, tilesets might already be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is called via getImage, so it is expected to be non-null when used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null && element.getName() != null",
+    "rationale" : "element and its name are accessed, so they must both be non-null when logic proceeds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tideFile != null",
+    "rationale" : "tideFile is passed to getRelativeFileHandle, indicating it must be non-null when used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null && map.getTileSets() != null",
+    "rationale" : "map and its tile sets are referenced, so both must be non-null in method logic.",
+    "meta" : [ ]
+  } ]
+}

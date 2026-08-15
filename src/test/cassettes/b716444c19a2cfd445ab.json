@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Bitwise AND with 0xFF on a byte yields a non-negative integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= 255",
+    "rationale" : "A byte value ANDed with 255 (0xFF) cannot exceed 255.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (b & 0xFF)",
+    "rationale" : "The result is explicitly defined as b & 0xFF.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(b >= 0) == (result == b)",
+    "rationale" : "If b is non-negative, bitwise AND with 0xFF does not change its value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == ((int) b < 0 ? b + 256 : b)",
+    "rationale" : "Casts b to the proper unsigned representation by adding 256 if negative.",
+    "meta" : [ ]
+  } ]
+}

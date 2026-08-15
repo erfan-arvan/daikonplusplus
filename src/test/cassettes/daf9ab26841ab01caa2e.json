@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A method returning an Option<HoodieRestorePlan> should never return null; Option is used to represent presence or absence safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is passed directly to another method and would typically be required to be non-null before method call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is passed directly via constructor, so should be non-null for correct usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is passed through to an action executor, and should be required for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isPresent() || result.get() != null",
+    "rationale" : "If the Option result is present, it must wrap a non-null HoodieRestorePlan.",
+    "meta" : [ ]
+  } ]
+}

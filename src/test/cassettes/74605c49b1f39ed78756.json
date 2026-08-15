@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The postWrite(...) method is expected to return a non-null List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required for Hoodie timeline operations; method expects a valid instant time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is passed into the method and is required to perform a bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Method returns a List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(userDefinedBulkInsertPartitioner == null) || userDefinedBulkInsertPartitioner == null",
+    "rationale" : "userDefinedBulkInsertPartitioner may or may not be null, this acts as a placeholder to represent that it is allowed to be either.",
+    "meta" : [ ]
+  } ]
+}

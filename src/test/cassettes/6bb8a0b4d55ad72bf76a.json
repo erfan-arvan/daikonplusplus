@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a new List<T> instance, which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isVisible() == false",
+    "rationale" : "Newly constructed List<T> UI widgets in scene2d.ui are typically not visible by default unless shown explicitly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "A new List<T> instance is created without adding elements, so its size is zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getSelectedIndex() == -1",
+    "rationale" : "When a new List<T> is created and no selection is set, the default selected index is typically -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getItems().size == 0",
+    "rationale" : "A new List<T> has an empty items collection by default.",
+    "meta" : [ ]
+  } ]
+}

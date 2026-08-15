@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context object is a required parameter for the method and cannot be null.",
+    "meta" : [ {
+      "key" : "NullSafety",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required parameter and expected to be non-null for a valid operation.",
+    "meta" : [ {
+      "key" : "NullSafety",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords list must be initialized before calling upsertPrepped.",
+    "meta" : [ {
+      "key" : "NullSafety",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime typically represents a timestamp or string identifier which should not be empty.",
+    "meta" : [ {
+      "key" : "NonEmptyString",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A list's size is always zero or more, this captures that fact explicitly.",
+    "meta" : [ {
+      "key" : "ListSize",
+      "value" : "non-negative"
+    } ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionId >= 0",
+    "rationale" : "Partition IDs are usually non-negative integers representing indexes or identifiers.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "partitionId"
+    } ]
+  }, {
+    "expression" : "partitionId <= Integer.MAX_VALUE",
+    "rationale" : "partitionId is an int, so it cannot exceed Integer.MAX_VALUE.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "partitionId"
+    } ]
+  } ]
+}

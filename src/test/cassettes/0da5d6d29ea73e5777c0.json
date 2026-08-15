@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "It is common for time identifiers like instantTime to be non-null when passed to a method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is likely required by the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() || !instantTime.isEmpty()",
+    "rationale" : "instantTime must be either empty or non-empty; this is always true.",
+    "meta" : [ ]
+  } ]
+}

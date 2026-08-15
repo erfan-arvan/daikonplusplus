@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of another 'button' call, which is likely guaranteed to not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Dialog",
+    "rationale" : "The return type is Dialog and the returned value is almost certainly a Dialog object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text instanceof String",
+    "rationale" : "Per parameter type, text is allowed to be null or a String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "object == null || !(object instanceof String) || object instanceof Object",
+    "rationale" : "Parameter 'object' is declared as Object and may be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this || !result.equals(this) || result instanceof Dialog",
+    "rationale" : "The method is likely to return 'this' or another Dialog as part of the builder/master-detail pattern.",
+    "meta" : [ ]
+  } ]
+}

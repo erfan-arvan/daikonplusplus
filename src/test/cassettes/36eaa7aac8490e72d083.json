@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method is expected to operate on a non-null list of WriteStatus; otherwise, downstream operations like eager() or collecting to list would likely fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "HoodieWriteMetadata result object is expected to be non-null since it is used as a mutable output container in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.isEmpty() || !writeStatuses.isEmpty()",
+    "rationale" : "This expresses that writeStatuses may be empty or non-empty, covering the domain without asserting a specific shape at entry.",
+    "meta" : [ ]
+  } ]
+}

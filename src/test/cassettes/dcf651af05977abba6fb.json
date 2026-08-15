@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The 'args' parameter should be non-null during execution of 'main' as per Java runtime guarantees.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "The length of an array in Java is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.getClass() == String[].class",
+    "rationale" : "'args' is guaranteed to be an instance of String[].",
+    "meta" : [ ]
+  } ]
+}

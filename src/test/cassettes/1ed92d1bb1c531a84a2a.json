@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new HoodieWriteMetadata object via clone; it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata != null",
+    "rationale" : "metadata is a required input and is always dereferenced in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == metadata.getClass()",
+    "rationale" : "The clone method likely retains the concrete type of metadata for result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds().equals(metadata.getPartitionToReplaceFileIds())",
+    "rationale" : "Cloning with a new list should preserve other properties of the original metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStats().equals(metadata.getWriteStats())",
+    "rationale" : "Write statistics should be preserved by the clone, only the WriteStatus container type has changed.",
+    "meta" : [ ]
+  } ]
+}

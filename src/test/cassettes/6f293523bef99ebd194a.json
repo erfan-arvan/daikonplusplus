@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a lazy HoodieData wrapping the non-null records list, so result should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null on method exit"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records list is passed in and used to create the HoodieData, so it should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records parameter is non-null as method input"
+    } ]
+  }, {
+    "expression" : "result.size() == (records == null ? 0 : records.size())",
+    "rationale" : "HoodieListData.lazy wraps the records list lazily, so their sizes match.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "result size equals records size"
+    } ]
+  }, {
+    "expression" : "result.isEmpty() == (records == null || records.isEmpty())",
+    "rationale" : "If records is empty or null, result will also appear empty.",
+    "meta" : [ {
+      "key" : "emptiness_relation",
+      "value" : "emptiness of result matches that of records"
+    } ]
+  } ]
+}

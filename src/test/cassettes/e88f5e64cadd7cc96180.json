@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns HoodieTimeline.REPLACE_COMMIT_ACTION, which is a static constant string (non-null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(HoodieTimeline.REPLACE_COMMIT_ACTION)",
+    "rationale" : "By inspection of the method body, the only value returned is HoodieTimeline.REPLACE_COMMIT_ACTION.",
+    "meta" : [ ]
+  } ]
+}

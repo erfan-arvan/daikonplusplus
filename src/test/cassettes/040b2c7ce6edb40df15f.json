@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b != null && b.doubleValue() != 0.0",
+    "rationale" : "Since the method returns null if b.doubleValue() is 0.0, b.doubleValue()!=0.0 is needed to proceed.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "b is not null to safely call doubleValue()"
+    } ]
+  }, {
+    "expression" : "a instanceof Integer || a instanceof Double",
+    "rationale" : "Only Integer and Double types are supported explicitly.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "a must be either Integer or Double"
+    } ]
+  }, {
+    "expression" : "b instanceof Integer || b instanceof Double",
+    "rationale" : "Since b.doubleValue() is called, b must support Number interface which Integer and Double do.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "b must be either Integer or Double"
+    } ]
+  }, {
+    "expression" : "a != null",
+    "rationale" : "a must be non-null for type checks and value calls.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "a should not be null to call intValue() or doubleValue()"
+    } ]
+  }, {
+    "expression" : "b != null",
+    "rationale" : "b must be non-null for value extraction and doubleValue()",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "b should not be null to call intValue() or doubleValue()"
+    } ]
+  } ]
+}

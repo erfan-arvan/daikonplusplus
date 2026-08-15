@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "Null check for parameter to ensure safe dereference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties != this",
+    "rationale" : "Avoid self-putAll to prevent potential issues such as redundant operations or exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.properties != null",
+    "rationale" : "Inner properties field of argument must be non-null to safely call putAll.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.properties.size() >= 0",
+    "rationale" : "Size of a Map (including MapProperties.properties) is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

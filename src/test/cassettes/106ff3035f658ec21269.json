@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "The args array is passed to main, so it is guaranteed not to be null, and its length is non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args array is non-null and has a length of zero or more"
+    } ]
+  }, {
+    "expression" : "Foo.bar(2, \"hi\") != null",
+    "rationale" : "Assuming Foo.bar returns a non-null value for these inputs, this expression holds.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Foo.bar is called with specific arguments and likely returns a non-null result"
+    } ]
+  }, {
+    "expression" : "args.length == 0 || args[0] != null",
+    "rationale" : "Typical usage patterns ensure that if args is non-empty, its first element is non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If the args array is not empty, first element is non-null"
+    } ]
+  } ]
+}

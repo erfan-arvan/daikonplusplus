@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Both method branches return a non-null Iterator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(partitioner != null && partitioner.getSmallFileIds().contains(fileId)) || result.equals(super.handleUpdate(partitionPath, fileId, recordItr))",
+    "rationale" : "If partitioner is not null and fileId is in the small file ids, result is the outcome of the superclass method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(partitioner == null || !partitioner.getSmallFileIds().contains(fileId)) || result.equals(super.handleUpdate(partitionPath, fileId, recordItr))",
+    "rationale" : "Logical converse for the above: in the 'correction' case, the superclass result is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!(!table.getIndex().canIndexLogFiles() && partitioner != null && partitioner.getSmallFileIds().contains(fileId))) || result != null",
+    "rationale" : "Result is always non-null even along the 'correction' branch.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null && fileId != null",
+    "rationale" : "appendHandle is constructed using partitionPath and fileId; they are expected not to be null in normal usage.",
+    "meta" : [ ]
+  } ]
+}

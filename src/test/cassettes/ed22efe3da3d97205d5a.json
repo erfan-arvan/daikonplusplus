@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is likely a required identifier, non-null for a meaningful insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used to identify a file location and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId uniquely identifies a file and should not be null before handling insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap must be non-null as it is operated on by the create handle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordMap.isEmpty()",
+    "rationale" : "Insert operations are meaningful only if there are records to write.",
+    "meta" : [ ]
+  } ]
+}

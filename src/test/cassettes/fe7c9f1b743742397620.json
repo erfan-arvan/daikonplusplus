@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "projectFilePath == null || !projectFilePath.trim().isEmpty()",
+    "rationale" : "The method immediately returns for null or empty/whitespace-only projectFilePath; otherwise, non-null/meaningful path is expected to continue.",
+    "meta" : [ ]
+  }, {
+    "expression" : "projectFilePath == null || projectFilePath.length() >= 0",
+    "rationale" : "String.length() is always non-negative and is safe if projectFilePath is non-null; this checks access safety.",
+    "meta" : [ ]
+  }, {
+    "expression" : "projectFilePath == null || projectFilePath.trim() != null",
+    "rationale" : "String.trim() never returns null, but this checks general API expectations and safe composition.",
+    "meta" : [ ]
+  } ]
+}

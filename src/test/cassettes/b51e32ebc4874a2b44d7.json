@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "Methods are called on file so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "file.extension() is passed to toLowerCase(), so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!file.isDirectory()",
+    "rationale" : "The method expects file to represent a file (for parsing); directories would be invalid here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.exists()",
+    "rationale" : "Parsing is attempted, which presumes the file exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.length() > 0",
+    "rationale" : "Parsing and getting extension implies the file is not empty.",
+    "meta" : [ ]
+  } ]
+}

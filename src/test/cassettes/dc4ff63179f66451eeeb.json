@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieData created via HoodieListData.eager, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Assuming the contract of the API and method, records should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method uses context as a parameter to internal methods, thus it must be non-null at METHOD_EXIT.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "The hoodieTable parameter is used in internal method calls, so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieData",
+    "rationale" : "The return value is explicitly a HoodieData at all exits.",
+    "meta" : [ ]
+  } ]
+}

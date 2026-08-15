@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method requires a non-null MapLayer argument to execute its logic without error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isVisible()",
+    "rationale" : "The method returns immediately for invisible layers, so if the exit of the method is reached, the layer must be visible.",
+    "meta" : [ ]
+  } ]
+}

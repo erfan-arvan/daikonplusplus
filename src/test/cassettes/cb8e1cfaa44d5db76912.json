@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "spaceRight >= 0",
+    "rationale" : "spaceRight is checked to be >= 0 by the method before any state change or return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this', so the result is identical to the current object.",
+    "meta" : [ ]
+  } ]
+}

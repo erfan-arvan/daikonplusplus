@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is essential for executing the compaction action.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "context is not null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter should be provided to specify the compaction time.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "extraMetadata == null || extraMetadata.isPresent()",
+    "rationale" : "extraMetadata is an Option and may or may not contain a Map.",
+    "meta" : [ {
+      "key" : "optional_presence",
+      "value" : "extraMetadata can be null or present"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "The instantTime string is expected to be non-empty to specify a compaction instant.",
+    "meta" : [ {
+      "key" : "string_nonempty",
+      "value" : "instantTime is a non-empty string"
+    } ]
+  } ]
+}

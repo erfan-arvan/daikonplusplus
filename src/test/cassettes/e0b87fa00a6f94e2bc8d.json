@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "The method always operates on properties, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null || properties != null",
+    "rationale" : "If element is null, the method does not proceed, but properties must still be non-null as per its usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || element.isArray() || element.iterator().hasNext() || !\"properties\".equals(element.name())",
+    "rationale" : "Method only processes if element is not null and its name is 'properties', so absence of those short-circuits the loop.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || element.name() != null",
+    "rationale" : "If element is not null, its name is accessed and compared.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element == null || element.name().equals(\"properties\") || !\"properties\".equals(element.name())",
+    "rationale" : "If element is not null, its name is checked to match 'properties'.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires the HoodieWriteConfig parameter to obtain configuration and likely cannot proceed if it is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method requires the HoodieEngineContext parameter to obtain execution context and likely cannot proceed if it is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getEngineType() != null",
+    "rationale" : "The engine type determines the way the table is instantiated; it should not be null.",
+    "meta" : [ ]
+  } ]
+}

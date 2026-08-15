@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "Method expects a non-null HoodieClusteringGroup parameter as it uses it immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is used to look up strategy parameters and create partitioners; null would likely cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a clustering (replace commit) instant time and passed to internal methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "getSlices() is called on clusteringGroup; must not be null for stream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getNumOutputFileGroups() > 0",
+    "rationale" : "NumOutputFileGroups represents number of files to be created and should be positive.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a String referencing an instant identifier; null is likely invalid for time-based operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "instantToRollback represents a specific timeline event and is required for rollback operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is necessary to execute engine operations; a null context would prevent meaningful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!shouldRollbackUsingMarkers || instantToRollback != null",
+    "rationale" : "If rollback markers are used, there should be a specific instant to rollback.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!isRestore) || (instantToRollback != null)",
+    "rationale" : "If this is a restore operation, there must be an instant to rollback.",
+    "meta" : [ ]
+  } ]
+}

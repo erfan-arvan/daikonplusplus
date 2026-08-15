@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "HoodieListData.lazy returns a HoodieData object (never null) constructed from 'records'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "The method always returns HoodieListData.lazy(records), which produces a HoodieListData.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(records)",
+    "rationale" : "HoodieListData.lazy should preserve the contents of 'records'; collectAsList() is expected to yield the input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method is only called with a non-null 'records' argument, as it is immediately passed to HoodieListData.lazy, which would throw otherwise.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "true",
+    "rationale" : "The method always throws an exception, so no other invariants about state or inputs will be violated at this exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime must be non-null if passed to a method and checked at exit, though the method doesn't use it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The method expects a valid List parameter, so partitions should be non-null at exit.",
+    "meta" : [ ]
+  } ]
+}

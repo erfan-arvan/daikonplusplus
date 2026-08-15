@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null BulkInsertPartitioner instance, either via object construction or static factory.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is always used for key lookup, indicating it is non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is used to call HoodieSchemaUtils.addMetadataFields, so it must be non-null along at least the first branch.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.containsKey(\"columns\") == (result instanceof JavaCustomColumnsSortPartitioner)",
+    "rationale" : "If the key is present, the result is exactly JavaCustomColumnsSortPartitioner; otherwise, it's not.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.containsKey(\"columns\") == (result instanceof BulkInsertPartitioner)",
+    "rationale" : "Whenever strategyParams does not contain the key, the factory method returns a BulkInsertPartitioner instance (of another subtype).",
+    "meta" : [ ]
+  } ]
+}

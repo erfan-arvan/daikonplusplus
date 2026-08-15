@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "Partition path should be a valid, non-empty string.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Assuming this method expects a non-empty partition path string"
+    } ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "File ID should be a non-null, non-empty string.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "fileId should identify the file and thus not be null or empty"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Iterator parameter is not null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Iterator over records must be non-null to process updates"
+    } ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.hasNext()",
+    "rationale" : "recordItr.hasNext() is a boolean; either it has next or not.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "recordItr is a valid iterator, it can either be empty or not"
+    } ]
+  } ]
+}

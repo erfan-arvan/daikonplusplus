@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely a required commit/instant identifier and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records must not be null for the insertOverwrite operation to function correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is necessary for engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "records is a List, and either it is empty or its size is positive; this captures the exhaustive possibilities for a List.",
+    "meta" : [ ]
+  } ]
+}

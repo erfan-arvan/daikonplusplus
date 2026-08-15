@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "EngineContext is required for the bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instant time must be specified and not empty, as it is used as a commit timeline marker.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "A list of records must be provided for the bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "The Option wrapper should not be null, even if it might be Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The records list may be empty but should have a valid non-negative size.",
+    "meta" : [ ]
+  } ]
+}

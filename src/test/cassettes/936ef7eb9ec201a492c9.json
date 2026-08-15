@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileset != null",
+    "rationale" : "The method assumes the tileset provided is intended for removal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!tilesets.contains(tileset)",
+    "rationale" : "After removal, the tileset should no longer be present in the collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets.size >= 0",
+    "rationale" : "The size of tilesets should never be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets.indexOf(tileset, true) == -1",
+    "rationale" : "The removed tileset should not have a valid index in the collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets.items != null",
+    "rationale" : "The internal storage of tilesets should remain non-null after removal.",
+    "meta" : [ ]
+  } ]
+}

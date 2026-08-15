@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is a required parameter object and typically should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null && !indexInstantTime.isEmpty()",
+    "rationale" : "indexInstantTime likely represents a point-in-time event (such as a commit instant) and should be a non-empty string for indexing to make sense.",
+    "meta" : [ ]
+  } ]
+}

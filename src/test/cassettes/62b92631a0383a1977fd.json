@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method uses instantTime as an argument to a metadata operation, so it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime is used to represent a timeline instant and should not be an empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "instantTime likely encodes version or transactional information so it should not be whitespace.",
+    "meta" : [ ]
+  } ]
+}

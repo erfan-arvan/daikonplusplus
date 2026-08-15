@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Ensures the metadata object passed is not null, reflecting standard method expectations and precondition for successful operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is called within the method, so the collection should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "getPartitionToReplaceFileIds() is passed into buildMetadata, so should not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getCommitMetadata().isPresent()",
+    "rationale" : "setCommitMetadata is called with Option.of(value), so Option should be present after the method executes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of a List is always non-negative as a general Java collection property.",
+    "meta" : [ ]
+  } ]
+}

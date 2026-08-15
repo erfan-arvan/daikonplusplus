@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layers != null",
+    "rationale" : "The method iterates over elements in layers; layers must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length >= 0",
+    "rationale" : "The length of any array in Java is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length == 0 || (layers[0] >= 0 && layers[0] < map.getLayers().size())",
+    "rationale" : "If layers has any elements, the first must be a valid MapLayer index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "java.util.Arrays.stream(layers).allMatch(idx -> idx >= 0 && idx < map.getLayers().size())",
+    "rationale" : "All used indices in layers must be valid for get() on map.getLayers().",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null && map.getLayers() != null",
+    "rationale" : "The method assumes map and its layers list are non-null to use getLayers().get(idx).",
+    "meta" : [ ]
+  } ]
+}

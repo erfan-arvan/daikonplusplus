@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "Timestamps used for restore operations are usually required and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "The savepoint timestamp to restore from should be non-null for a valid restore operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "An empty restore instant timestamp likely indicates no meaningful restore operation can be performed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "An empty savepoint timestamp would not represent a valid savepoint to restore from.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.equals(savepointToRestoreTimestamp)",
+    "rationale" : "Typically, the restore instant timestamp and the savepoint to restore timestamp should differ, as you are restoring to a different point than the one being restored from.",
+    "meta" : [ ]
+  } ]
+}

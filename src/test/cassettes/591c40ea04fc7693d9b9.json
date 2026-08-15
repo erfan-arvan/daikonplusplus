@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The method always returns Option.empty(), so the result is always empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isPresent()",
+    "rationale" : "An empty Option means that result.isPresent() is always false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(Option.empty())",
+    "rationale" : "The returned Option is always Option.empty(), so it is equal to Option.empty().",
+    "meta" : [ ]
+  } ]
+}

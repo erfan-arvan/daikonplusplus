@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "Method requires a non-null workload profile to compute partitioner.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "profile is not null"
+    } ]
+  }, {
+    "expression" : "this.partitioner != null",
+    "rationale" : "The overridden getUpsertPartitioner method returns a non-null partitioner.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitioner is not null after assignment"
+    } ]
+  }, {
+    "expression" : "this.partitioner instanceof JavaUpsertPartitioner",
+    "rationale" : "partitioner is explicitly casted to JavaUpsertPartitioner, so it must be non-null and of that type.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "partitioner type"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "records must be non-null for streaming and grouping operations.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "data structure non-null"
+    } ]
+  }, {
+    "expression" : "index != null",
+    "rationale" : "index is used immediately with isGlobal(), so must be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "schemaStr != null",
+    "rationale" : "schemaStr is passed to HoodieSchema.parse(schemaStr), requiring it to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "props is used to call DeleteContext.fromRecordSchema(props, schema), so must be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "parallelism is typically a positive value for partitioning/parallel operations.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "properties == null || properties instanceof MapProperties",
+    "rationale" : "After execution, properties will always be a MapProperties, but at entry it is either null or already a MapProperties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No parameters or object is directly in scope; true is vacuously true without accessible fields/methods.",
+    "meta" : [ ]
+  } ]
+}

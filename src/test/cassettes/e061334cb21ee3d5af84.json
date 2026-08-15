@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == price * 0.9",
+    "rationale" : "The method applies a 10% discount to the input price, so the returned value should be 90% of the input price.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= price",
+    "rationale" : "The discounted result should always be less than or equal to the original price.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "Assuming non-negative prices, the discounted result should not be negative given direct proportional calculation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "price >= 0.0",
+    "rationale" : "Prices are typically non-negative, so this is likely an intended invariant in the context of processing orders.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result / price == 0.9",
+    "rationale" : "The returned result should be exactly 90% of the input price under floating-point arithmetic.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rows > 0",
+    "rationale" : "rows is incremented unconditionally in this method, suggesting it is always greater than 0 at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columns >= 0",
+    "rationale" : "columns is the result of Math.max with rowColumns, both expected to be non-negative integers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cells.peek().endRow == true",
+    "rationale" : "By the end of the method, the top cell's endRow is always set to true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cells.size > 0",
+    "rationale" : "cells.peek() is called, which suggests the collection must not be empty at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columns >= rowColumns",
+    "rationale" : "columns is set to Math.max(columns, rowColumns), so it must be at least as large as rowColumns at this point.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new Cell is allocated and always returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!flipDiagonally && result.getFlipHorizontally() == flipHorizontally)",
+    "rationale" : "If diagonal flip is not set, horizontal flip is copied to the cell.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!flipDiagonally && result.getFlipVertically() == flipVertically)",
+    "rationale" : "If diagonal flip is not set, vertical flip is copied to the cell.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(flipDiagonally && result.getRotation() == TiledMapTileLayer.Cell.ROTATE_270 && flipHorizontally) || (!flipDiagonally || !flipHorizontally)",
+    "rationale" : "If diagonal and horizontal flips are set, rotation is 270; otherwise, this does not constrain rotation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(flipDiagonally && flipVertically && !flipHorizontally && result.getRotation() == TiledMapTileLayer.Cell.ROTATE_90) || (!flipDiagonally || !flipVertically || flipHorizontally)",
+    "rationale" : "If diagonal and vertical flips are set and not horizontal, rotation is 90.",
+    "meta" : [ ]
+  } ]
+}

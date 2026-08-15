@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method calls map.getLayers() unconditionally, so map must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "spriteCache != null",
+    "rationale" : "spriteCache methods (clear, begin, end, draw) are called, which requires spriteCache to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "viewBounds != null",
+    "rationale" : "viewBounds fields are accessed (x, y, width, height), so viewBounds must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cacheBounds != null",
+    "rationale" : "cacheBounds fields (x, y, width, height) are written/read, so cacheBounds must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getLayers() != null",
+    "rationale" : "The method assigns map.getLayers() and iterates/calls getCount()/get(index), so getLayers() must be non-null.",
+    "meta" : [ ]
+  } ]
+}

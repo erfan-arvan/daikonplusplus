@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result != null",
+    "rationale" : "Covers the documented method contract: result can be null if nothing is selected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof N",
+    "rationale" : "If result is not null, it must be an instance of N as per method's return type.",
+    "meta" : [ ]
+  } ]
+}

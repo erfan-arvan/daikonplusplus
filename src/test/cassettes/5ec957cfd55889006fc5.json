@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned Option object should not be null to signify a valid Option result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null && !indexInstantTime.isEmpty()",
+    "rationale" : "The index instant time parameter should be a non-empty string, as it is used to identify an instant for indexing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is required for index operation execution and should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "Result's presence state is always determinable via Option contract (trivially true for all Option values).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().equals(\"Option\")",
+    "rationale" : "The method is always expected to return an Option result by contract.",
+    "meta" : [ ]
+  } ]
+}

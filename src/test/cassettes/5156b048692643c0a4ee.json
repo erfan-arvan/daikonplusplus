@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "metadataWriteConfig != null",
+    "rationale" : "metadataWriteConfig is used in condition and method calls, indicating it must be non-null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "metrics != null",
+    "rationale" : "metrics is assigned either Option.of(...) or Option.empty() so it must be non-null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "metrics.isPresent() == metadataWriteConfig.isMetricsOn()",
+    "rationale" : "metrics presence directly corresponds to isMetricsOn flag.",
+    "meta" : [ {
+      "key" : "correlation",
+      "value" : "direct"
+    } ]
+  } ]
+}

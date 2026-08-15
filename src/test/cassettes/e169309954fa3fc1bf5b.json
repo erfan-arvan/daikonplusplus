@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null && !preppedRecords.isEmpty()",
+    "rationale" : "Deleting prepped records typically expects a non-empty input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should be specified for a delete operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Records in the preppedRecords list should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.stream().map(r -> r.getKey()).allMatch(k -> k != null)",
+    "rationale" : "Each HoodieRecord in preppedRecords should have a non-null key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.stream().noneMatch(r -> r.isDeleted())",
+    "rationale" : "Prepped records for a delete operation may be expected not already marked as deleted.",
+    "meta" : [ ]
+  } ]
+}

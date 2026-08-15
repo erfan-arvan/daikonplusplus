@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method unconditionally throws an exception, so no return value is ever assigned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "The program point is unreachable due to the unconditional throw; any invariant trivially holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Method parameters are required for invocation, especially the context object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "Method parameter should not be null for compaction logic (even if unused here).",
+    "meta" : [ ]
+  }, {
+    "expression" : "throw new HoodieNotSupportedException(\"Compaction is not supported on a CopyOnWrite table\") != null",
+    "rationale" : "The throw statement always interrupts control flow; this expression is included for completeness.",
+    "meta" : [ ]
+  } ]
+}

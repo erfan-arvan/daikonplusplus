@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "Method uses null check at the beginning; relevant for method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() || !orders.isEmpty()",
+    "rationale" : "At entry, orders can be either empty or non-empty given its type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders instanceof List",
+    "rationale" : "orders parameter must be a List instance or subclass due to method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o != null)",
+    "rationale" : "If orders contains nulls, validateOrders is likely to throw, but this invariant may indicate expectation about list contents.",
+    "meta" : [ ]
+  } ]
+}

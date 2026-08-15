@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodieRollbackMetadata object, so result should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null because the method returns an object"
+    } ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is used as a parameter to execute rollback and likely to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "rollbackInstantTime is non-null"
+    } ]
+  }, {
+    "expression" : "commitInstant == null || commitInstant.getTimestamp() != null",
+    "rationale" : "If commitInstant is not null, its timestamp should not be null for identifying the commit instant.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "commitInstant or its timestamp is non-null"
+    } ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "rollbackInstantTime represents an instant time string typically non-empty.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "rollbackInstantTime is a non-empty string"
+    } ]
+  }, {
+    "expression" : "!deleteInstants || deleteInstants == true",
+    "rationale" : "deleteInstants is a boolean parameter and reflects a true/false value indicating deletion intent.",
+    "meta" : [ {
+      "key" : "boolean",
+      "value" : "deleteInstants is boolean"
+    } ]
+  } ]
+}

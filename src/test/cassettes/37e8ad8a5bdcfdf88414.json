@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime (commit time) is required for a delete operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null && !keys.isEmpty()",
+    "rationale" : "There must be some keys to delete; the operation is only meaningful if keys is non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is required for distributed execution and IO operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "HoodieWriteConfig is needed for configuration lookup during the delete operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The HoodieTable reference is required to perform table-related actions such as index lookup and deduplication.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "size >= 0.0",
+    "rationale" : "Sizes are typically non-negative in UI contexts.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "domain"
+    } ]
+  }, {
+    "expression" : "Float.isFinite(size)",
+    "rationale" : "A size parameter should be a finite float for meaningful layout calculation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "sanity"
+    } ]
+  }, {
+    "expression" : "size != Float.NaN",
+    "rationale" : "Size should not be NaN to prevent layout errors.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "sanity"
+    } ]
+  } ]
+}

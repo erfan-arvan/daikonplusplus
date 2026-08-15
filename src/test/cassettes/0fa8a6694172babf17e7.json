@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Typically, the input list of records to upsert should be non-null for the operation to proceed.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string represents a commit timestamp and is expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "Size of a list is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "records size is non-negative"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime representing a timestamp is unlikely to be empty string.",
+    "meta" : [ {
+      "key" : "string",
+      "value" : "instantTime is not empty"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter should not be null to perform rollback operations.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime string should be non-null to identify the rollback instant.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "commitInstant == null || commitInstant.getTimestamp() != null",
+    "rationale" : "If commitInstant is provided, its timestamp should be non-null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "!skipLocking || (skipLocking && deleteInstants)",
+    "rationale" : "If skipLocking is true, deleteInstants may control further behavior safely.",
+    "meta" : [ {
+      "key" : "predicate",
+      "value" : "boolean logic"
+    } ]
+  }, {
+    "expression" : "!deleteInstants || deleteInstants",
+    "rationale" : "deleteInstants is a boolean and can only be true or false.",
+    "meta" : [ {
+      "key" : "booleanValue",
+      "value" : "boolean tautology"
+    } ]
+  } ]
+}

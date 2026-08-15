@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Usually, write metadata objects should not be null after successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method is only called with pre-processed records; list should not be null by contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An operation instant should always be specified for record insertion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is required for operation and therefore should not be null at method exit.",
+    "meta" : [ ]
+  } ]
+}

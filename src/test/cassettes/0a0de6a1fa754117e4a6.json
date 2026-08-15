@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursor index should not be negative; typically, a cursor index in text fields starts at 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "Selection start index is expected to be non-negative, as it indexes into the text field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "The text provided as a parameter should not be null to represent an editable string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor <= text.length()",
+    "rationale" : "The cursor position should not exceed the length of the text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart <= text.length()",
+    "rationale" : "Selection start index should be within the bounds of the text.",
+    "meta" : [ ]
+  } ]
+}

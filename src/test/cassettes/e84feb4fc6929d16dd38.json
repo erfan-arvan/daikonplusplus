@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "properties == null || properties instanceof MapProperties",
+    "rationale" : "The method assigns properties to a new MapProperties if null, or returns it directly; thus if it is not null, it should be a MapProperties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties == null || properties != null",
+    "rationale" : "If properties is not null, then it is indeed not null. This is a minimal non-tautological check that enables other logic.",
+    "meta" : [ ]
+  } ]
+}

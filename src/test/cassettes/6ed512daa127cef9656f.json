@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns either style.disabledKnob or style.knob, which are likely non-null fields when disabledKnob is selected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == style.disabledKnob || result == style.knob",
+    "rationale" : "Method returns either style.disabledKnob if disabled and it is non-null, otherwise style.knob.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.disabledKnob == null || result != null",
+    "rationale" : "If style.disabledKnob is null, result will be style.knob, ensuring result is not affected by a null disabledKnob.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(disabled && style.disabledKnob != null) || result == style.disabledKnob",
+    "rationale" : "If the method takes the first return, result is definitely style.disabledKnob.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(disabled && style.disabledKnob != null) && result == style.knob || (disabled && style.disabledKnob != null) && result == style.disabledKnob",
+    "rationale" : "Covers the relationship between input conditions and exactly which field is returned.",
+    "meta" : [ ]
+  } ]
+}

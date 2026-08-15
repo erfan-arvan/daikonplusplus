@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "If text is not null, its length is always non-negative due to CharSequence contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || !text.equals(\"\") || text.length() > 0",
+    "rationale" : "If text is not null and not equal to the empty string, then its length is greater than 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(text != null && text.length() == 0 && !text.equals(\"\"))",
+    "rationale" : "If text is not null and its length is 0, then it must equal the empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.toString() != null",
+    "rationale" : "If text is not null, text.toString() must be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "false",
+    "rationale" : "The method always throws an exception, so reaching METHOD_EXIT is impossible.",
+    "meta" : [ {
+      "key" : "exception",
+      "value" : "HoodieNotSupportedException"
+    } ]
+  }, {
+    "expression" : "result == null",
+    "rationale" : "Because the method always throws, result is never defined; if it were, it must be null.",
+    "meta" : [ {
+      "key" : "exception",
+      "value" : "HoodieNotSupportedException"
+    } ]
+  } ]
+}

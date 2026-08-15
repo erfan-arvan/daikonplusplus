@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Stream (Stream instances can be empty but not null, unless explicitly returned as null, which is not the case here).",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is used by the engine to control parallel processing and should be positive for meaningful computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The input stream is expected to be non-null to perform operations; a null input would likely cause an exception before method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "flatMapToPairFunc is dereferenced and passed to wrappers, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc is wrapped and used in a reduce operation, so it must be non-null by method exit.",
+    "meta" : [ ]
+  } ]
+}

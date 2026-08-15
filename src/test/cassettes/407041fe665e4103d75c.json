@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "Ensures that the method is being called on a valid object instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "The method accesses style.handle, so style must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstWidget == null || firstWidget instanceof Layout || firstWidget.getWidth() >= 0",
+    "rationale" : "If firstWidget is not null and not a Layout, getWidth() is called, which is typically non-negative for UI widgets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "secondWidget == null || secondWidget instanceof Layout || secondWidget.getWidth() >= 0",
+    "rationale" : "Similarly, for secondWidget, if it is not null and not a Layout, getWidth() should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.handle != null",
+    "rationale" : "style.handle is accessed for its min width, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A clustering operation is scheduled for a specified time instant, which is unlikely to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is required for any table operation and is generally non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option as a parameter is conventionally instantiated even if it represents none, so the reference is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "A valid instant time for scheduling should be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context.isPresent() == false || context != null",
+    "rationale" : "If context were an Option type it would make sense to check this; here it demonstrates awareness that nullness and presence are linked when using Optionals, though HoodieEngineContext here is likely not Optional.",
+    "meta" : [ ]
+  } ]
+}

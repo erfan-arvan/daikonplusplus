@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "API methods generally expect non-null input collections.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "records"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be non-null as it identifies the write instant.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "records.isEmpty() || records.get(0) != null",
+    "rationale" : "If records is not empty, its first element should be non-null (write APIs expect valid records).",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "records"
+    } ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.isEmpty()",
+    "rationale" : "If instantTime is non-null, it should not be an empty string for a valid write.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "If records is not empty, its size is strictly positive.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "records"
+    } ]
+  } ]
+}

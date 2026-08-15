@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "(metadataWriteConfig.isMetricsOn() && metrics.isPresent()) || (!metadataWriteConfig.isMetricsOn() && !metrics.isPresent())",
+    "rationale" : "The metrics Option is present iff isMetricsOn() is true, else it is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!metadataWriteConfig.isMetricsOn() || metrics.get() instanceof HoodieMetadataMetrics",
+    "rationale" : "If metrics are enabled, the Option holds a HoodieMetadataMetrics instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metrics != null",
+    "rationale" : "metrics is assigned either Option.of(...) or Option.empty(), never null.",
+    "meta" : [ ]
+  } ]
+}

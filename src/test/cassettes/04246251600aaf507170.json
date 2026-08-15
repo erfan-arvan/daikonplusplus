@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new Array, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "The size of the returned Array is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size <= 1",
+    "rationale" : "At most one AssetDescriptor is added to the array.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.items != null",
+    "rationale" : "The items array in a newly-constructed Array is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureParameter != null ? true : true",
+    "rationale" : "The method does not use textureParameter, so it does not affect the result.",
+    "meta" : [ ]
+  } ]
+}

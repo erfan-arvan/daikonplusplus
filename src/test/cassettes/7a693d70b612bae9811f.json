@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "It is typical to check that a collection parameter is not null before use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "If columnsToIndex is not empty, its size is at least 1; in all cases, size() >= 0 by List contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.stream().allMatch(col -> col != null)",
+    "rationale" : "Each entry in columnsToIndex should be non-null if the list itself is non-null.",
+    "meta" : [ ]
+  } ]
+}

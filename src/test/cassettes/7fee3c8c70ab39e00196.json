@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be a valid commit time string.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null at method entry"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration object should be initialized before calling execute.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config is not null at method entry"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table reference must be available for bulk insert.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "table is not null at method entry"
+    } ]
+  }, {
+    "expression" : "(userDefinedBulkInsertPartitioner == null) || (userDefinedBulkInsertPartitioner != null)",
+    "rationale" : "userDefinedBulkInsertPartitioner may be null or non-null, no restriction at entry point.",
+    "meta" : [ {
+      "key" : "tautology_check",
+      "value" : "Always true or null allowed"
+    } ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "The method cannot be invoked on a null reference.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "this instance must be non-null"
+    } ]
+  } ]
+}

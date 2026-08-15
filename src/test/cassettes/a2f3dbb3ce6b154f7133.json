@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A valid HoodieWriteMetadata result is expected, not null, upon successful completion of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input records list must not be null as it is used for table overwrite operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null instantTime is essential for identifying the commit time in the overwrite operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is mandatory for executing the table overwrite operation.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "align >= 0",
+    "rationale" : "Alignment constants such as Align#center, Align#top, etc., are typically defined as non-negative integers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "align == com.badlogic.gdx.utils.Align.center || align == com.badlogic.gdx.utils.Align.top || align == com.badlogic.gdx.utils.Align.bottom || align == com.badlogic.gdx.utils.Align.left || align == com.badlogic.gdx.utils.Align.right || ((align & ~(com.badlogic.gdx.utils.Align.center | com.badlogic.gdx.utils.Align.top | com.badlogic.gdx.utils.Align.bottom | com.badlogic.gdx.utils.Align.left | com.badlogic.gdx.utils.Align.right)) == 0)",
+    "rationale" : "Valid alignments are individual constants or valid combinations of those bits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & (com.badlogic.gdx.utils.Align.left | com.badlogic.gdx.utils.Align.right)) != (com.badlogic.gdx.utils.Align.left | com.badlogic.gdx.utils.Align.right) || (align == (com.badlogic.gdx.utils.Align.left | com.badlogic.gdx.utils.Align.right))",
+    "rationale" : "Left and right can be combined or separate but not both unless intentional for combination masks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & (com.badlogic.gdx.utils.Align.top | com.badlogic.gdx.utils.Align.bottom)) != (com.badlogic.gdx.utils.Align.top | com.badlogic.gdx.utils.Align.bottom) || (align == (com.badlogic.gdx.utils.Align.top | com.badlogic.gdx.utils.Align.bottom))",
+    "rationale" : "Top and bottom can be combined for certain alignments, so this logic checks for meaningful combinations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(align & com.badlogic.gdx.utils.Align.center) != 0 || (align & (com.badlogic.gdx.utils.Align.left | com.badlogic.gdx.utils.Align.right | com.badlogic.gdx.utils.Align.top | com.badlogic.gdx.utils.Align.bottom)) != 0",
+    "rationale" : "At least one alignment flag (center, left, right, top, or bottom) should be present.",
+    "meta" : [ ]
+  } ]
+}

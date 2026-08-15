@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "debug != null",
+    "rationale" : "Typically, method parameters that are immediately used in expressions will be non-null, or null-checked upon use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "debug instanceof Debug",
+    "rationale" : "The parameter 'debug' is expected to be an instance of Debug as per the method signature, redundancy against null but a standard type property.",
+    "meta" : [ ]
+  } ]
+}

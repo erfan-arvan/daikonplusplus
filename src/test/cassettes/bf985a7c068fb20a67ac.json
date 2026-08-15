@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "region != null",
+    "rationale" : "It's typical to check that the region parameter is non-null before accessing its methods and fields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "region.getTexture() != null",
+    "rationale" : "The method dereferences region.getTexture(), implying that a valid region is expected to have a non-null texture.",
+    "meta" : [ ]
+  }, {
+    "expression" : "region.getTexture().getTextureData() != null",
+    "rationale" : "The method continues to dereference getTexture().getTextureData(), implying it expects this to be non-null as part of valid usage.",
+    "meta" : [ ]
+  } ]
+}

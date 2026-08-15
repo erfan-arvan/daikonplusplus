@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Stream instance should not be null as it is created via Stream operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "The partition parameter is passed to super and is expected to be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.allMatch(slice -> slice.getBaseFile().map(HoodieBaseFile::getFileSize).orElse(0L) < getWriteConfig().getClusteringSmallFileLimit())",
+    "rationale" : "All FileSlice elements in the result satisfy the clustering small file size condition enforced by the filter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.anyMatch(slice -> true) == result.findAny().isPresent()",
+    "rationale" : "The Stream anyMatch with a true predicate returns true if at least one element exists, matching findAny().isPresent().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.noneMatch(slice -> slice.getBaseFile().map(HoodieBaseFile::getFileSize).orElse(0L) >= getWriteConfig().getClusteringSmallFileLimit())",
+    "rationale" : "No FileSlice in the result can have a basefile size greater than or equal to the configured limit.",
+    "meta" : [ ]
+  } ]
+}

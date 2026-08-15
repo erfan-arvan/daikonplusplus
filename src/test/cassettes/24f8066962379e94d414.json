@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "pixelsX == pixelsX",
+    "rationale" : "pixelsX is defined and valid (float is always equal to itself, serves as a minimal validity check).",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(pixelsX)",
+    "rationale" : "pixelsX, being used as an amount value, is likely expected to be a finite float.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(pixelsX))",
+    "rationale" : "pixelsX is probably not allowed to be NaN when setting scroll amount.",
+    "meta" : [ ]
+  } ]
+}

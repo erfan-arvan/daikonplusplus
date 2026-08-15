@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Input 'records' should not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "The number of output partitions should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "'records' must be an instance of List to conform to the parameter's type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "It's common to require fewer or equal partitions than input records, unless the list is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "All elements of 'records' should be non-null.",
+    "meta" : [ ]
+  } ]
+}

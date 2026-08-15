@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "A method expecting to insert records typically requires non-null input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime string should be non-null and non-empty to uniquely identify the commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "A table instance is required for the bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "A non-null configuration is necessary for determining bulk insert parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "An executor is required for handling commit logic during the bulk insert.",
+    "meta" : [ ]
+  } ]
+}

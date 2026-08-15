@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "The FileHandle used to load the map must not be null to perform further operations such as file.extension().",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "A non-null fileName is expected to identify the map file to load dependencies from.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "The method immediately calls file.extension(), so it must be safe to do so and unlikely to return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension().length() > 0",
+    "rationale" : "The extension string should be non-empty for valid map files.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof BaseTiledMapLoader.Parameters",
+    "rationale" : "If parameter is provided, it must be an instance of the expected Parameters class.",
+    "meta" : [ ]
+  } ]
+}

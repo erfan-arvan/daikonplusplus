@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an instance created by HoodieMergeHandleFactory, so result should not be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result is returned from a factory method, likely not null"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath parameter should not be null for the factory call to succeed.",
+    "meta" : [ {
+      "key" : "parameter-nonnull",
+      "value" : "partitionPath is used as a key parameter in factory method"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId parameter should not be null for the factory call to succeed.",
+    "meta" : [ {
+      "key" : "parameter-nonnull",
+      "value" : "fileId is used as a key parameter in factory method"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr should be non-null so the factory method can process the records.",
+    "meta" : [ {
+      "key" : "parameter-nonnull",
+      "value" : "recordItr is passed into the factory method"
+    } ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result.canMerge()",
+    "rationale" : "If there are records to process, the HoodieMergeHandle should support merging.",
+    "meta" : [ {
+      "key" : "logical-condition",
+      "value" : "if record iterator has elements, result should be mergeable"
+    } ]
+  } ]
+}

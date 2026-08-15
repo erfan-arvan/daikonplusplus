@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method uses preppedRecords directly, so it cannot be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to several methods as a parameter, so a non-null value is reasonable.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of postWrite, which is expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "result is declared as List<WriteStatus>; invariant confirms type.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || !result.isEmpty()",
+    "rationale" : "If there is something to write, typically output should not be empty; if input is empty, output could be empty.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "pre/post relation"
+    } ]
+  } ]
+}

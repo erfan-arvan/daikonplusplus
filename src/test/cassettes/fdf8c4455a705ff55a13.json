@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism == null || parallelism > 0",
+    "rationale" : "Parallelism being null or positive is a common precondition for methods using parallel computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method relies on 'data' being non-null, as it will be streamed upon.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is passed to a downstream wrapper and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism == null || parallelism instanceof Integer",
+    "rationale" : "If parallelism is supplied, it should be an Integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || data.size() == 0",
+    "rationale" : "This expresses the relationship between isEmpty() and size() for lists.",
+    "meta" : [ ]
+  } ]
+}

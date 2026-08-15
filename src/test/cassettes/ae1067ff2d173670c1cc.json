@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a newly created object, which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaHoodieBackedTableMetadataWriter",
+    "rationale" : "The returned object is explicitly constructed as JavaHoodieBackedTableMetadataWriter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteConfig() == writeConfig",
+    "rationale" : "writeConfig is passed directly to the constructor and assigned as a field; getter should reflect this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getContext() == context",
+    "rationale" : "context is passed unmodified to the constructor and likely directly stored/referenced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getInflightInstantTimestamp() == inflightInstantTimestamp",
+    "rationale" : "inflightInstantTimestamp is passed to the constructor and likely exposed through a getter.",
+    "meta" : [ ]
+  } ]
+}

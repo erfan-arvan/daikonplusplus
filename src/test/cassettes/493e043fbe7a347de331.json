@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of either getUpsertPartitioner or getInsertPartitioner, both of which likely return a non-null Partitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == getUpsertPartitioner(profile) || result == getInsertPartitioner(profile)",
+    "rationale" : "Based on the method's implementation, it always returns one of the two partitioners computed with the given profile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The method immediately passes profile to another method without null checks, implying it is expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

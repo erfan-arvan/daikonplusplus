@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "Preferred width is usually non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Preferred height is typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width < Float.POSITIVE_INFINITY",
+    "rationale" : "Width should be finite to be meaningful for layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height < Float.POSITIVE_INFINITY",
+    "rationale" : "Height should be finite to avoid layout issues.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(width) && !Float.isNaN(height)",
+    "rationale" : "Widths and heights as NaN would not make sense for preferred size.",
+    "meta" : [ ]
+  } ]
+}

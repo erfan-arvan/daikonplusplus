@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Partitioner instance, so result should not be null.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The method parameter profile is used to get the Partitioner, implying it should not be null.",
+    "meta" : [ {
+      "key" : "parameter_non_null",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "(WriteOperationType.isChangingRecords(operationType) && result.equals(getUpsertPartitioner(profile))) || (!WriteOperationType.isChangingRecords(operationType) && result.equals(getInsertPartitioner(profile)))",
+    "rationale" : "The result Partitioner depends on the operationType deciding which partitioner to return.",
+    "meta" : [ {
+      "key" : "conditional_return",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "operationType is used in WriteOperationType.isChangingRecords, so it is assumed non-null.",
+    "meta" : [ {
+      "key" : "field_non_null",
+      "value" : "true"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tiledColor != null && result != null",
+    "rationale" : "The method assumes tiledColor is non-null and always returns a non-null result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiledColor.charAt(0) == '#'",
+    "rationale" : "Input is expected to be a color code beginning with '#'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.startsWith(tiledColor.substring(tiledColor.length() == 9 ? 3 : 1, tiledColor.length() == 9 ? 5 : 3)) == false",
+    "rationale" : "The result does not simply start with the original color's green component; its form is changed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() == (tiledColor.length() == 9 ? 8 : 8)",
+    "rationale" : "Resulting string always has 8 characters (RRGGBBAA).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.endsWith(tiledColor.length() == 9 ? tiledColor.substring(1, 3) : \"ff\")",
+    "rationale" : "If an alpha channel is present in input, it's moved to result's end; otherwise, 'ff' is appended.",
+    "meta" : [ ]
+  } ]
+}

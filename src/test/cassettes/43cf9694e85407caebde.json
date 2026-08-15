@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "(b == 0) == (result == Integer.MIN_VALUE)",
+    "rationale" : "If b==0, the method returns Integer.MIN_VALUE; otherwise, it returns the division result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(b != 0) == (result == a / b)",
+    "rationale" : "If b is not zero, the method returns the integer division of a by b.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(b == 0) || (result == a / b)",
+    "rationale" : "If b==0, result need not equal a/b, but if not, it must be a/b.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(b != 0) || (result == Integer.MIN_VALUE)",
+    "rationale" : "If b==0, result is Integer.MIN_VALUE; otherwise, this is vacuously true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(b != 0) || (a >= Integer.MIN_VALUE)",
+    "rationale" : "If b==0, ensures that a is within range; always true, but relates a to the control logic.",
+    "meta" : [ ]
+  } ]
+}

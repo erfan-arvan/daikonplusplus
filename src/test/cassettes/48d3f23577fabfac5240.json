@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result.equals(item.toString())",
+    "rationale" : "The method returns item.toString(), so result equals item.toString().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "item.toString() should return a non-null String according to the Object contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() == item.toString().length()",
+    "rationale" : "Since result is item.toString(), their lengths must match.",
+    "meta" : [ ]
+  } ]
+}

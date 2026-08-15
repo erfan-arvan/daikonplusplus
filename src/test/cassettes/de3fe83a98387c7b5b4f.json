@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "textField != null",
+    "rationale" : "Method is private and expects a valid parameter; textField is dereferenced so it is likely assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.maxLength >= -1",
+    "rationale" : "maxLength is used as-is or set to -1 if <= 0, so this property ensures the plausible range.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.filter == null || textField.filter.acceptChar(textField, 'a') == textField.filter.acceptChar(textField, 'a')",
+    "rationale" : "If filter is non-null, acceptChar can be called safely (any char), suggesting method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.passwordMode == true || textField.passwordMode == false",
+    "rationale" : "passwordMode is a boolean property, so it must be true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textField.writeEnters == true || textField.writeEnters == false",
+    "rationale" : "writeEnters is a boolean property; its value must be true or false.",
+    "meta" : [ ]
+  } ]
+}

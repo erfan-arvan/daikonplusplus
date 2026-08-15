@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method always throws an exception and does not return normally, so result is effectively never defined and must be null at this exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "false",
+    "rationale" : "Since the method body only throws and never returns, reaching the method exit is impossible; thus, 'false' is a valid invariant here.",
+    "meta" : [ ]
+  } ]
+}

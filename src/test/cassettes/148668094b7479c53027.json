@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The method returns a calculated average size, which should be non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Average size or estimate cannot be negative"
+    } ]
+  }, {
+    "expression" : "result == hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() || result > 0",
+    "rationale" : "Result is either the default estimate or a computed positive average if available.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result is either default estimate or computed positive size"
+    } ]
+  }, {
+    "expression" : "commitTimeline != null",
+    "rationale" : "commitTimeline is used in the method and must be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "commitTimeline must be non-null for method operation"
+    } ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "hoodieWriteConfig is used in the method and must be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "hoodieWriteConfig must be non-null for method operation"
+    } ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() || result >= 1",
+    "rationale" : "After computation, result either equals the default or a positive average record size.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "result is either default or a valid average size >= 1"
+    } ]
+  } ]
+}

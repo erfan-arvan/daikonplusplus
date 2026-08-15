@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "type != null",
+    "rationale" : "The method expects a valid Class object to retrieve objects of the specified type; passing null is likely invalid and may result in a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type.isAssignableFrom(MapObject.class) || MapObject.class.isAssignableFrom(type)",
+    "rationale" : "The generic type T is bounded by MapObject; type must either be or inherit from MapObject for this method to function properly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type instanceof Class",
+    "rationale" : "Confirms that the variable type is of the expected Class type for generic use.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method contracts typically guarantee a non-null return unless an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned HoodieWriteMetadata should contain a valid, non-null list of WriteStatus objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The returned WriteStatus collection is declared as a list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result.getWriteStatuses().isEmpty()) || inputRecords.isEmpty()",
+    "rationale" : "If there were input records, there should be corresponding write statuses; if there are no input records, write statuses could be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "All WriteStatus items in the result should be non-null for valid insertions.",
+    "meta" : [ ]
+  } ]
+}

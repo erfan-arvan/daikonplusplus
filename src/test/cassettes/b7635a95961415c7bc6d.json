@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionId >= 0",
+    "rationale" : "partitionId often represents an index or identifier, which is commonly non-negative in partitioning contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId == null || !fileId.isEmpty()",
+    "rationale" : "If fileId is not null, it is likely expected to be non-empty to serve as a valid identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionId < Integer.MAX_VALUE",
+    "rationale" : "partitionId is an int parameter, so its value must be less than Integer.MAX_VALUE.",
+    "meta" : [ ]
+  } ]
+}

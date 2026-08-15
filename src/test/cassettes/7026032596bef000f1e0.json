@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "This method always throws, so 'result' is never assigned and remains null.",
+    "meta" : [ {
+      "key" : "exception",
+      "value" : "HoodieNotSupportedException always thrown"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Method exit is unreachable due to always throwing an exception.",
+    "meta" : [ {
+      "key" : "method_exit",
+      "value" : "unreachable"
+    } ]
+  } ]
+}

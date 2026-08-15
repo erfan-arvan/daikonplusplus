@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "writeResult is a parameter likely required for subsequent processing, and should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult instanceof HoodieWriteMetadata",
+    "rationale" : "The method signature enforces the type, so the input should always be an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

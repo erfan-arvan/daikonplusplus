@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Input data list should not be null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The mapping function should not be null to safely apply to elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive for meaningful parallel operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism >= 1",
+    "rationale" : "If there is data to process, at least one thread of parallelism is required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size() || data.isEmpty()",
+    "rationale" : "Parallelism should not exceed the number of tasks/data items unless data is empty.",
+    "meta" : [ ]
+  } ]
+}

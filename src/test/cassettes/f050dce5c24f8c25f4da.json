@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method always returns the result of execute(), which should yield a HoodieWriteMetadata, result is not expected to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "clusteringInstantTime is used as an argument, and its non-nullness is expected for clustering operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof java.util.List",
+    "rationale" : "The HoodieWriteMetadata's getWriteStatuses method should return a List, as per the declared type.",
+    "meta" : [ ]
+  } ]
+}

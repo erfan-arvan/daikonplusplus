@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is expected to be a valid identifier for the commit instant and should not be null before method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "The partition identifier should not be null to ensure correct bucket retrieval and upsert partitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "A valid partitioner is needed for casting and subsequent method calls in the upsert process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The iterator of records to upsert must not be null to guarantee that records can be processed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition >= 0",
+    "rationale" : "Partition indexes are typically non-negative; negative partition values may indicate a logic error.",
+    "meta" : [ ]
+  } ]
+}

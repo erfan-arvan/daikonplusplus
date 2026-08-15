@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "(name == null && result == -1) || (name != null && result == x + name.length())",
+    "rationale" : "The method returns -1 if name is null, otherwise returns x plus the length of name.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "Invariant connecting input parameters to the result"
+    } ]
+  }, {
+    "expression" : "result >= -1",
+    "rationale" : "The method can only return -1 or x plus the positive length of name, so result >= -1.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "Result is at least -1"
+    } ]
+  }, {
+    "expression" : "name == null || result > x",
+    "rationale" : "Since name.length() > 0 if name is not null, result = x + name.length() > x.",
+    "meta" : [ {
+      "key" : "comment",
+      "value" : "If name is not null, result is greater than x"
+    } ]
+  } ]
+}

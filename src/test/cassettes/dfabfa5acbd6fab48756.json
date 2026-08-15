@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "totalBuckets >= 0",
+    "rationale" : "The total number of partitions or buckets should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "smallFiles != null",
+    "rationale" : "Lists representing files are typically initialized and should not be null for valid partitioners.",
+    "meta" : [ ]
+  }, {
+    "expression" : "workloadProfile != null",
+    "rationale" : "A workload profile should be present to guide partitioning decisions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "Buckets for update locations should have a mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "Mappings of partition paths to insert information should be initialized.",
+    "meta" : [ ]
+  } ]
+}

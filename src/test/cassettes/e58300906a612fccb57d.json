@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is dereferenced to invoke bulkInsertPreppedRecords and commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to methods and likely cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed to writeClient.bulkInsertPreppedRecords and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed into the method and used, so it must not be null (Option may be empty but not null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.size() >= 0",
+    "rationale" : "preppedRecordInputs should be a valid list, either empty or with non-negative size.",
+    "meta" : [ ]
+  } ]
+}

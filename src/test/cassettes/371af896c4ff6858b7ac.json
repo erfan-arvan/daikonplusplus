@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "props != null",
+    "rationale" : "props is required for KeyGenerator creation in downstream call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props.isKeyAvailable(\"hoodie.datasource.write.recordkey.field\")",
+    "rationale" : "A key generator usually depends on the presence of a record key field property.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props.getString(\"hoodie.datasource.write.recordkey.field\") != null",
+    "rationale" : "The record key field should be set in props for key generator creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props.getString(\"hoodie.datasource.write.partitionpath.field\") != null",
+    "rationale" : "Partition path field may be required for KeyGenerator behavior.",
+    "meta" : [ ]
+  } ]
+}

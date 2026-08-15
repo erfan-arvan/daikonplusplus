@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "It is likely that context is required for method execution and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "To safely interact with extraMetadata (Option type), it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "This is always true and helps ensure Option contract, but may be omitted if considered tautological.",
+    "meta" : [ ]
+  } ]
+}

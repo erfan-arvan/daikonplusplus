@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "properties is used as a receiver in properties.put in the Runnable, so must not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "safe to call properties.put"
+    } ]
+  }, {
+    "expression" : "name != null && !name.isEmpty()",
+    "rationale" : "Name is used as a key in properties.put, so it should be non-null and non-empty.",
+    "meta" : [ {
+      "key" : "string",
+      "value" : "name"
+    } ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "value is passed to Integer.parseInt, which requires a non-null argument.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "value"
+    } ]
+  }, {
+    "expression" : "value.matches(\"-?\\\\d+\")",
+    "rationale" : "value should be a valid integer string to avoid NumberFormatException at Integer.parseInt.",
+    "meta" : [ {
+      "key" : "format",
+      "value" : "value"
+    } ]
+  }, {
+    "expression" : "properties.containsKey(name) == false || properties.get(name) == null",
+    "rationale" : "Suggests that it may be safe to (re)set the property named 'name' during load.",
+    "meta" : [ {
+      "key" : "mapping",
+      "value" : "property overwrite"
+    } ]
+  } ]
+}

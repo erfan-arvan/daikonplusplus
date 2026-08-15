@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Safely using instantTime requires it not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The partitions list should not be null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.isEmpty() || partitions.size() > 0",
+    "rationale" : "Ensures partitions is either empty or has at least one element; safe for all cases when partitions is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime often represents a time or version and is usually non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.stream().allMatch(p -> p != null)",
+    "rationale" : "Lists of enum/partition types should not contain null elements to avoid downstream errors.",
+    "meta" : [ ]
+  } ]
+}

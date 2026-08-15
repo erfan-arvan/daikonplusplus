@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length == 1 && args[0].equals(\"hi\")",
+    "rationale" : "The main method is called with a single argument 'hi', so args should have length 1 and args[0] equals 'hi'.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args must contain exactly one element, which is 'hi', as per the main method usage."
+    } ]
+  }, {
+    "expression" : "args.length == 1",
+    "rationale" : "The args array has exactly one element since main was called with one argument.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Simpler invariant derived from the call site argument."
+    } ]
+  }, {
+    "expression" : "args != null",
+    "rationale" : "The args array passed to main must be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args must be non-null according to the Java specification for main."
+    } ]
+  } ]
+}

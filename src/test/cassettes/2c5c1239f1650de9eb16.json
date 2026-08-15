@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "Method returns the input records list directly; thus, result is identical to records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Since the returned result is the same list as input, their sizes must match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == records.isEmpty()",
+    "rationale" : "Both lists are the same object, so their emptiness states are equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0 || outputPartitions < 0",
+    "rationale" : "Covers all int values; included due to the lack of usage of outputPartitions in the logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Result is a List, as specified by the method signature and return statement.",
+    "meta" : [ ]
+  } ]
+}

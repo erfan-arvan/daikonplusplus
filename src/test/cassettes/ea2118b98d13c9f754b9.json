@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "records.collectAsList() should never return null; it returns an empty List if records is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "collectAsList() returns a List type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.count()",
+    "rationale" : "collectAsList() gathers all the elements of records into the result, so their counts should match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> r instanceof HoodieRecord)",
+    "rationale" : "records is HoodieData<HoodieRecord>, so every item in result must be a HoodieRecord.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == (records.count() == 0)",
+    "rationale" : "If records is empty, the resulting List will also be empty, and vice versa.",
+    "meta" : [ ]
+  } ]
+}

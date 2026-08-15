@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "currentText != null",
+    "rationale" : "Since currentText is used in an equals call, it must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!currentText.isEmpty()",
+    "rationale" : "It is likely expected that currentText is not empty for meaningful undo behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "currentText.length() >= 0",
+    "rationale" : "The length of any String is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "currentText.trim().length() <= currentText.length()",
+    "rationale" : "Trimming a String cannot increase its length, and this holds for all Strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "currentText.equals(currentText)",
+    "rationale" : "Reflexivity of equals for Strings; always holds if currentText is non-null.",
+    "meta" : [ ]
+  } ]
+}

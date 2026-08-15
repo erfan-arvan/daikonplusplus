@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0",
+    "rationale" : "Method returns null if x < 0; meaningful behavior only for x >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x < width",
+    "rationale" : "Method returns null if x >= width, so valid x is strictly less than width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "Method returns null if y < 0; meaningful behavior only for y >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y < height",
+    "rationale" : "Method returns null if y >= height, so valid y is strictly less than height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width > 0 && height > 0",
+    "rationale" : "To have a valid tileset, both width and height should be positive.",
+    "meta" : [ ]
+  } ]
+}

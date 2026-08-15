@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method uses map for operations such as resolveTemplateObject and loadObject, so it should be non-null.",
+    "meta" : [ {
+      "key" : "safe-method-call",
+      "value" : "ensures Map API is safe"
+    } ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers.add(layer) is called, so parentLayers should not be null.",
+    "meta" : [ {
+      "key" : "safe-method-call",
+      "value" : "ensures MapLayers API is safe"
+    } ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element.getString(...) and other methods are invoked on element, so it should be non-null.",
+    "meta" : [ {
+      "key" : "safe-method-call",
+      "value" : "ensures JsonValue API is safe"
+    } ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is passed to resolveTemplateObject, so it should not be null.",
+    "meta" : [ {
+      "key" : "safe-method-call",
+      "value" : "ensures FileHandle API is safe"
+    } ]
+  }, {
+    "expression" : "element.getString(\"type\", \"\").equals(\"objectgroup\") || true",
+    "rationale" : "The main body is only executed if element.getString(\"type\", \"\") equals \"objectgroup\"; otherwise, method is a no-op.",
+    "meta" : [ {
+      "key" : "branch-condition",
+      "value" : "captures guarded logic"
+    } ]
+  } ]
+}

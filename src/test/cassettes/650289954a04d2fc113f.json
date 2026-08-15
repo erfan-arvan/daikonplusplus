@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of the conversion method should never be null since it returns a cloned metadata object.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result must not be null as it is the return value"
+    } ]
+  }, {
+    "expression" : "metadata != null",
+    "rationale" : "Input parameter metadata is expected to be non-null to perform cloning and getWriteStatuses.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "input parameter metadata must not be null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() == metadata.getWriteStatuses().collectAsList().size()",
+    "rationale" : "The clone method creates a new HoodieWriteMetadata with a list of WriteStatuses of the same size as the original.",
+    "meta" : [ {
+      "key" : "size-consistency",
+      "value" : "The result's write statuses list size equals the source list size"
+    } ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "Calling collectAsList on writeStatuses is only valid if writeStatuses is not null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "write statuses collection must not be null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "clone copies the list of write statuses so it should not be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result's write statuses list must not be null"
+    } ]
+  } ]
+}

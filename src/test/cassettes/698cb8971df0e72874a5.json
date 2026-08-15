@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method is about to pass metaClient to a constructor; it likely expects a non-null metaClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "HoodieTableMetaClient instances are typically constructed with a non-null base path; useful for reading context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "Table configuration is essential for most client operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig().getTableName() != null",
+    "rationale" : "A table name must be defined for operations involving a meta client.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getFs() != null",
+    "rationale" : "A FileSystem reference is generally required and expected to be present for HoodieTableMetaClient.",
+    "meta" : [ ]
+  } ]
+}

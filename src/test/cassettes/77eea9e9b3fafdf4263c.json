@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == name",
+    "rationale" : "The method returns the value of the field 'name', so the result must always equal 'name'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.equals(name)",
+    "rationale" : "If result is not null, it must equal 'name' since the method returns 'name' directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.length() == name.length()",
+    "rationale" : "If result is not null, its length matches that of 'name', as result == name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || name.contains(result)",
+    "rationale" : "If result is not null, and if 'result == name', then 'name' contains 'result' (trivial but non-tautologous).",
+    "meta" : [ ]
+  } ]
+}

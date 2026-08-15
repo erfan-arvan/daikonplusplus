@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The compact method always returns non-null metadata after compaction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "The compaction instant time should not be null for a valid compaction operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The operation requires a non-null execution context to launch compaction.",
+    "meta" : [ ]
+  } ]
+}

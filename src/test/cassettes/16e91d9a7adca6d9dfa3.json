@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "profile is accessed throughout the method; it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used in method calls and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "The method iterates over profile.getPartitionPaths(), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.getPartitionPaths().isEmpty() || profile.getPartitionPaths().isEmpty()",
+    "rationale" : "Partition paths may be empty or non-empty, so both states are possible (sanity check that the set is not null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "hasOutputWorkLoadStats likely indicates presence of output stats; null output map would imply stats are not present.",
+    "meta" : [ ]
+  } ]
+}

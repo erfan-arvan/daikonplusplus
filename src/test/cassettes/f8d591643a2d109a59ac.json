@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "top >= 0",
+    "rationale" : "Padding values are often required to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "left >= 0",
+    "rationale" : "Padding values are usually set as non-negative, consistent with UI conventions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bottom >= 0",
+    "rationale" : "Padding should typically not be negative to avoid layout issues.",
+    "meta" : [ ]
+  }, {
+    "expression" : "right >= 0",
+    "rationale" : "Non-negative padding is a common expectation for layout parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "top + bottom >= 0",
+    "rationale" : "The sum of top and bottom paddings is usually meaningful (e.g., calculating vertical space), and is expected to be non-negative.",
+    "meta" : [ ]
+  } ]
+}

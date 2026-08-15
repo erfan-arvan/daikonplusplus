@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result instanceof AnimatedTiledMapTile",
+    "rationale" : "If a value is returned, it is always either null or an AnimatedTiledMapTile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement is used to access children regardless of the control path, so it cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getId() == tile.getId()",
+    "rationale" : "If an animated tile is created, its id matches that of the original tile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || !result.equals(null)",
+    "rationale" : "If result is not null, then it is a valid object (never equals null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || tileElement.get(\"animation\") == null",
+    "rationale" : "If result is null, animation information was not present in tileElement.",
+    "meta" : [ ]
+  } ]
+}

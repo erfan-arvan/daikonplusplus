@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "padTop >= 0",
+    "rationale" : "Padding values are typically non-negative in UI layout contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padTop == padTop",
+    "rationale" : "padTop must be defined and not NaN for meaningful padding assignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(padTop)",
+    "rationale" : "Padding should be a finite value for correct UI behavior.",
+    "meta" : [ ]
+  } ]
+}

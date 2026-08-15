@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Method requires a name to perform lookups; null name would likely cause a failure or unexpected behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() > 0",
+    "rationale" : "It is likely that empty strings are not valid resource names for lookups in skin.",
+    "meta" : [ ]
+  } ]
+}

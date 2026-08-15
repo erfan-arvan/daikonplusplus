@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method directly calls methods on result without null checks, so result must be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The implementation calls stream() on result.getWriteStatuses() without a null check, so it must be non-null at method entry.",
+    "meta" : [ ]
+  } ]
+}

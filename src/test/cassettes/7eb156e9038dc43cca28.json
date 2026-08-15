@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The engine context must be available to execute clustering plan",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "context is never null at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string identifier must be known to schedule clustering",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "instantTime is never null at method entry"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The optional extraMetadata container is initialized even if empty",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "extraMetadata Option object is not null"
+    } ]
+  }, {
+    "expression" : "extraMetadata.isEmpty() || extraMetadata.get().size() >= 0",
+    "rationale" : "If extraMetadata is present, the map size is non-negative",
+    "meta" : [ {
+      "key" : "validity",
+      "value" : "Sanity check on optional map size"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is expected to be a non-empty string identifier",
+    "meta" : [ {
+      "key" : "validity",
+      "value" : "Non-empty instantTime string"
+    } ]
+  } ]
+}

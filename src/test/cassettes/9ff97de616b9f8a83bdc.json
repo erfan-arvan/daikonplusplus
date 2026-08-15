@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "EngineProperty keys are often required to be non-null for property-setting methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value == null || !value.isEmpty()",
+    "rationale" : "A property value may be null, but if not, it probably should not be empty.",
+    "meta" : [ ]
+  } ]
+}

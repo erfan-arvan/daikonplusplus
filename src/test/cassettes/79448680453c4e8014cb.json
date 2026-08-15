@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method relies on the profile object being non-null, as it is dereferenced multiple times.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "The method iterates over profile.getInputPartitionPathStatMap().entrySet(), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The method accesses profile.getOutputPartitionPathStatMap(), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().entrySet() != null",
+    "rationale" : "iteration over entrySet() implies it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().size() >= 0",
+    "rationale" : "The size of any Map is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

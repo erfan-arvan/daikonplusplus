@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'result', which should not be null as per good API practice.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "Input 'writeResult' should usually be non-null for proper function.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(partitionPath -> partitionPath != null)",
+    "rationale" : "Partition paths are derived from distinct non-null paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "Each partition's value (a list of file IDs) should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.entrySet().stream().allMatch(e -> e.getValue().stream().allMatch(id -> id != null))",
+    "rationale" : "All stored file IDs should be non-null.",
+    "meta" : [ ]
+  } ]
+}

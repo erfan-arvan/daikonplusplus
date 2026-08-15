@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result == totalBuckets",
+    "rationale" : "The method returns totalBuckets directly, so result equals totalBuckets.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "direct return field"
+    } ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "The number of partitions (totalBuckets) should be non-negative.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "nonnegative partition count"
+    } ]
+  }, {
+    "expression" : "result <= Integer.MAX_VALUE",
+    "rationale" : "As result is an int, it is always less than or equal to Integer.MAX_VALUE.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "within int range"
+    } ]
+  }, {
+    "expression" : "result == ((JavaUpsertPartitioner)this).totalBuckets",
+    "rationale" : "Accessing totalBuckets through 'this' is equivalent; helps for object invariants.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "field access via this"
+    } ]
+  } ]
+}

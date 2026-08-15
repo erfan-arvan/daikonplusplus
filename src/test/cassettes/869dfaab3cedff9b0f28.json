@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method expects instantTime to be a valid string; downstream usage likely assumes non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Typically, timestamps are non-empty strings and empty values may lead to errors when creating instants.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string"
+    } ]
+  }, {
+    "expression" : "instantTime.matches(\"\\\\d+\")",
+    "rationale" : "Hudi instant times are typically numeric strings representing timestamps.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "format"
+    } ]
+  }, {
+    "expression" : "!instantTime.contains(\" \")",
+    "rationale" : "Timestamps should not contain spaces; indicates possible bad formatting.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "format"
+    } ]
+  }, {
+    "expression" : "instantTime.length() >= 10",
+    "rationale" : "Typical Hudi instant times (used as unique identifiers) have a minimum length to avoid collision.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "format"
+    } ]
+  } ]
+}

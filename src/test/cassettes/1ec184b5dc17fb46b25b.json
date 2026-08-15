@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "Element is dereferenced using get()/getString(), so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width > 0",
+    "rationale" : "ids is allocated as new int[width * height]; dimensions should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height > 0",
+    "rationale" : "ids is allocated as new int[width * height]; dimensions should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.has(\"data\")",
+    "rationale" : "element.get(\"data\") is called; presence is critical for function execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getString(\"encoding\", null) == null || element.getString(\"encoding\", null).equals(\"csv\") || element.getString(\"encoding\", null).equals(\"base64\")",
+    "rationale" : "The function only handles null, \"csv\", and \"base64\" encoding values; others cause exceptions.",
+    "meta" : [ ]
+  } ]
+}

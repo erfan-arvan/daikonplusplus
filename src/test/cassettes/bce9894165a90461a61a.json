@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method relies on partitionPath for filesystem or table operations, and passing null could cause exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "The method will likely query a table by partitionPath, so it being non-empty is a reasonable precondition.",
+    "meta" : [ ]
+  } ]
+}

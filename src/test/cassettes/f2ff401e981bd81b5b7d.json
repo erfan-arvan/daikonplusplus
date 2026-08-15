@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method immediately uses 'map' as a parameter, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "The method adds a new group layer to parentLayers, so a non-null parentLayers is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The method calls element.getString and checks properties on 'element', indicating it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is passed along to other methods, suggesting it is necessary for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is forwarded to other method calls, so it is likely required to be non-null.",
+    "meta" : [ ]
+  } ]
+}

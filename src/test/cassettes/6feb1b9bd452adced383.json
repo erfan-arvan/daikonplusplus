@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should generally not be null, representing a valid timeline instant for rollback.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is generally required to perform rollback operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "An empty instantTime would not represent a valid timeline state to roll back; the string should be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.trim().isEmpty()",
+    "rationale" : "Handles cases where instantTime is spaces only; it should contain real timeline information.",
+    "meta" : [ ]
+  } ]
+}

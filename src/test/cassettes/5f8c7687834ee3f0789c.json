@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method likely requires an instantTime string to identify the commit and passes it to another method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "The partitionRecordsMap is used as an argument in the internal commit method, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty()",
+    "rationale" : "A commit operation is meaningful if there are records mapped to partitions to be committed.",
+    "meta" : [ ]
+  } ]
+}

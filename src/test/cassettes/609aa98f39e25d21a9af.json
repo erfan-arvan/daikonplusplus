@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Method requires writeStatuses to be non-null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is needed for method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "Cannot update locations without a target HoodieTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof HoodieData",
+    "rationale" : "Type of writeStatuses parameter as declared in signature.",
+    "meta" : [ ]
+  } ]
+}

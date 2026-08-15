@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List, produced by collect(Collectors.toList()).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Sorting does not change the number of elements in the list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() == !records.isEmpty()",
+    "rationale" : "The result is empty iff the input is empty, since all records are returned (sorted).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.containsAll(records) && records.containsAll(result)",
+    "rationale" : "All input elements are present in the result; sorting does not add/remove elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "new java.util.HashSet<>(result).size() == new java.util.HashSet<>(records).size()",
+    "rationale" : "The number of unique elements does not change; sorting does not add/remove elements.",
+    "meta" : [ ]
+  } ]
+}

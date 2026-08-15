@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of execute(), which should not be null to adhere to typical API contracts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses method should return a non-null List as part of write metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null && records.size() >= 0",
+    "rationale" : "A List's size is always non-negative if not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is an Option type and should not be null by convention; it may represent an empty option but the object itself should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is typically a non-null, non-empty string corresponding to the commit/instant.",
+    "meta" : [ ]
+  } ]
+}

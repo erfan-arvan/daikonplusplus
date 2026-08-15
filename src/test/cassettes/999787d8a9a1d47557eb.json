@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The return of collect(toList()) should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List.size() is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method operates on data; a null input would throw NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is used in flatMap; a null func would throw NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "The parallelism is expected to be positive to make sense in the context of parallel execution.",
+    "meta" : [ ]
+  } ]
+}

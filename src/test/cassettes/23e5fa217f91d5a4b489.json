@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tooltip != null",
+    "rationale" : "Tooltip is used as a parameter and its fields are accessed without null checks, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.always == true || tooltip.always == false",
+    "rationale" : "tooltip.always is a boolean field accessed in the method, so its value must be either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!tooltip.instant || tooltip.always == tooltip.always",
+    "rationale" : "This shows tooltip.instant can be used regardless of tooltip.always; both boolean fields are accessed independently.",
+    "meta" : [ ]
+  } ]
+}

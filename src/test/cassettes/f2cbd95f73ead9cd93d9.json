@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method requires a list of input records to process, so it's reasonable to expect 'inputRecords' is not null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer != null",
+    "rationale" : "Option values in typical usage are not null, even if they may represent None internally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || !inputRecords.isEmpty()",
+    "rationale" : "inputRecords could be empty, so the method should be able to handle both empty and non-empty lists safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer.isPresent() || !sourceReadAndIndexTimer.isPresent()",
+    "rationale" : "The Option API allows both presence and absence of a value, and both states are expected at the method entry.",
+    "meta" : [ ]
+  } ]
+}

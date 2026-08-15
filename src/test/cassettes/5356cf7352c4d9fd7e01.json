@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "width != null",
+    "rationale" : "The method immediately throws an exception if width is null; thus, it must be non-null for normal execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height != null",
+    "rationale" : "The method throws an exception if height is null, so height must also be non-null at normal method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width != height || width == null || height == null",
+    "rationale" : "width and height can be the same or different Value objects, but if they are distinct, this relation covers all cases respecting null safety.",
+    "meta" : [ ]
+  } ]
+}

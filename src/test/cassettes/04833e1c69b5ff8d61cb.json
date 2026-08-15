@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null && !restoreInstantTimestamp.isEmpty()",
+    "rationale" : "restoreInstantTimestamp is likely used to identify a specific commit or instant, so it should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp == null || !savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "If savepointToRestoreTimestamp is provided, it should be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required to be non-null to perform distributed engine actions.",
+    "meta" : [ ]
+  } ]
+}

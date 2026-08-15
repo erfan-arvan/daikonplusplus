@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned iterator should not be null as it is produced via Collections.singletonList(...).iterator().",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "The recordMap is provided to the HoodieCreateHandle constructor, which likely expects a non-null map.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "!result.hasNext() || (result.next() != null && result.next() instanceof List)",
+    "rationale" : "If the iterator has a next element, it should be a non-null List as per Collections.singletonList(...) usage.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "iterator-content"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed into HoodieCreateHandle and is likely required to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "!result.hasNext() || (result.next() instanceof List && ((List<?>)result.next()).size() >= 0)",
+    "rationale" : "If the iterator has elements, they are single List<WriteStatus> instances as per the singletonList wrapping, and lists always have non-negative size.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "iterator-content"
+    } ]
+  } ]
+}

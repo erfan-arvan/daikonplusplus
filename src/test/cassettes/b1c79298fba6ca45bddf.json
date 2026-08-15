@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is expected to be provided to perform the savepoint operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is not null"
+    } ]
+  }, {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "instantToSavepoint must be specified to identify which instant to savepoint.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantToSavepoint is not null"
+    } ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "The user parameter is expected to be non-null to attribute the savepoint to a user.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "user is not null"
+    } ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "The comment parameter is typically expected to be non-null, possibly empty.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "comment is not null"
+    } ]
+  } ]
+}

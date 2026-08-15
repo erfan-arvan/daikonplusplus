@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == partitionPathToInsertBucketInfos.get(partitionPath)",
+    "rationale" : "The method returns the value fetched from the map for the given partitionPath.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath == null || result == partitionPathToInsertBucketInfos.get(partitionPath)",
+    "rationale" : "If partitionPath is null, the map get may be null, ensuring no NullPointerException in the comparison.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof List",
+    "rationale" : "The return type is List, so result is either null or a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos.containsKey(partitionPath) == (result != null)",
+    "rationale" : "If the map contains the key, result (from get) is non-null; otherwise, result is null.",
+    "meta" : [ ]
+  } ]
+}

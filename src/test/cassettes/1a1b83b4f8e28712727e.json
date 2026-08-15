@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "It's reasonable to expect that createTable should return a non-null HoodieTable instance on success.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The config argument is expected to be valid and non-null for table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient is an essential parameter and is likely to be non-null by method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getMetaClient() == metaClient",
+    "rationale" : "The returned HoodieTable's meta client should match the one passed in.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The returned HoodieTable should be configured with the config passed in.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method argument 'layer' is expected to be non-null for normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() == null || layer.getTextureRegion() != null",
+    "rationale" : "The texture region of the layer may or may not be present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getX() == layer.getX()",
+    "rationale" : "Getting X coordinate should always return itself (used here to indicate the method is available and side-effect free).",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isRepeatX() == true || layer.isRepeatX() == false",
+    "rationale" : "isRepeatX always returns a boolean value, and both are possible.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isRepeatY() == true || layer.isRepeatY() == false",
+    "rationale" : "isRepeatY always returns a boolean value, and both are possible.",
+    "meta" : [ ]
+  } ]
+}

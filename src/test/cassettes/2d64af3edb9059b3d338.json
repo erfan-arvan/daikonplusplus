@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is used to construct a new HoodieJavaTable. Null would cause a NullPointerException.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used to construct a new HoodieJavaTable. Null would cause a NullPointerException.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is dereferenced at metaClient.getTableType().",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() != null",
+    "rationale" : "The switch statement expects a non-null table type.",
+    "meta" : [ {
+      "key" : "relatedTo",
+      "value" : "switch"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "Only these two types allow creating a table, as the default case throws an exception.",
+    "meta" : [ {
+      "key" : "cause",
+      "value" : "otherwise exception is thrown"
+    } ]
+  } ]
+}

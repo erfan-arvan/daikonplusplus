@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "engineContext != null",
+    "rationale" : "The method uses engineContext to create a new HoodieJavaWriteClient, so engineContext must not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "metadataWriteConfig != null",
+    "rationale" : "metadataWriteConfig is passed to HoodieJavaWriteClient constructor and must not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  } ]
+}

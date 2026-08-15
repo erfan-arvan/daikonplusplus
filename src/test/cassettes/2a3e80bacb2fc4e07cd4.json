@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of collecting a stream with toList() is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null ? result.size() >= 0 : true",
+    "rationale" : "If data is not null, the resulting list size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null ? result.size() <= data.size() * Integer.MAX_VALUE : true",
+    "rationale" : "The maximum possible size of result is bound by the size of data times the largest possible output per element, here conservatively as Integer.MAX_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data == null ? result.isEmpty() : true",
+    "rationale" : "If the input list is null, the stream is empty and so is the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0 ? result.size() >= 0 : true",
+    "rationale" : "Positive parallelism implies the stream is processed and the resulting list has non-negative size.",
+    "meta" : [ ]
+  } ]
+}

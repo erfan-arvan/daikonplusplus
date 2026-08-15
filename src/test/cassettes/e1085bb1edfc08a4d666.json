@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs a new TableWriteStats and returns it, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "writeMetadata is accessed in the method body, so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "writeMetadata.getWriteStatuses() is used to construct the result, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats() != null",
+    "rationale" : "getStats() of the returned TableWriteStats is initialized from a stream collect, and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStats().size() == writeMetadata.getWriteStatuses().size()",
+    "rationale" : "The stats list is constructed by mapping each WriteStatus to its stat, preserving the original size.",
+    "meta" : [ ]
+  } ]
+}

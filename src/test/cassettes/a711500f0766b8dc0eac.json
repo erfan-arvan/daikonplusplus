@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null",
+    "rationale" : "It is common for parameters representing module names or identifiers to be non-null when passed to a method like setJobStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null",
+    "rationale" : "Activity descriptions are often expected to be non-null when setting the status of a job.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.isEmpty()",
+    "rationale" : "An empty module name may not make sense in the context of setting job status; thus, the string may be expected to be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activityDescription.isEmpty()",
+    "rationale" : "The activity description may be expected to be a meaningful, non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.equals(activityDescription)",
+    "rationale" : "The module name and activity description may be intended to describe different aspects of a job and thus should not usually be equal.",
+    "meta" : [ ]
+  } ]
+}

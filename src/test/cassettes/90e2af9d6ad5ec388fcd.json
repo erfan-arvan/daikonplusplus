@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parentObject != null || templateObject != null",
+    "rationale" : "At least one of the objects must be non-null to return a non-null result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(templateObject == null) || templateObject.isObject()",
+    "rationale" : "If templateObject is non-null, it is expected to be an object so its children can be iterated.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(parentObject == null) || parentObject.isObject()",
+    "rationale" : "If parentObject is non-null, it is expected to be an object so its children can be iterated.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(templateObject == null) || templateObject.child() == null || templateObject.child().name() != null",
+    "rationale" : "If templateObject has children, their names are used as map keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(parentObject == null) || parentObject.child() == null || parentObject.child().name() != null",
+    "rationale" : "If parentObject has children, their names are used as map keys.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "totalBuckets >= 0",
+    "rationale" : "Number of buckets (totalBuckets) is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "smallFiles != null",
+    "rationale" : "smallFiles should be a valid, initialized list at all times.",
+    "meta" : [ ]
+  }, {
+    "expression" : "workloadProfile != null",
+    "rationale" : "workloadProfile should be present to represent workload state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is necessary for upsert partition logic and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is a required field representing the target HoodieTable and should be initialized.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The records parameter is expected to be a valid List input to bulkInsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter should not be null as it represents a required instant for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "If records is not empty, its size must be greater than 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If instantTime is not empty, then it has positive length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null && records.stream().allMatch(r -> r != null)",
+    "rationale" : "All elements of records should be non-null to perform bulk operations safely.",
+    "meta" : [ ]
+  } ]
+}

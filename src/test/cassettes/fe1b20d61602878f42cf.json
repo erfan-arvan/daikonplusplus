@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "spaceLeft >= 0",
+    "rationale" : "The method throws an exception if spaceLeft < 0, so at exit it must be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The return value is always 'this', per the code.",
+    "meta" : [ ]
+  } ]
+}

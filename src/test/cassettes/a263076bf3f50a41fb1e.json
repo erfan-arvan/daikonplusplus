@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a non-null HoodieWriteMetadata object.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "Ensures the method does not return null value"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should always be set before returning a result.",
+    "meta" : [ {
+      "key" : "method-param",
+      "value" : "instantTime is a method parameter typically expected to be non-null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The list of preppedRecords passed in should be non-null at method exit.",
+    "meta" : [ {
+      "key" : "method-param",
+      "value" : "preppedRecords is a method parameter expected to be a valid list"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata typically contains a list of WriteStatus that should not be null.",
+    "meta" : [ {
+      "key" : "method-calling",
+      "value" : "Accessing write statuses from the result object"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() == preppedRecords.size()",
+    "rationale" : "Each prepped record corresponds to one WriteStatus returned in the result.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "Ensures one WriteStatus per prepped record"
+    } ]
+  } ]
+}

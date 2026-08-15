@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null",
+    "rationale" : "The method requires strategyParams to be non-null to perform operations such as containsKey and get.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "The method uses schema as an argument for HoodieSchemaUtils, so it must be non-null to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.isEmpty() || strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()) || !strategyParams.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "strategyParams may or may not contain the PLAN_STRATEGY_SORT_COLUMNS.key(), which, if present, alters the control flow of the method.",
+    "meta" : [ ]
+  } ]
+}

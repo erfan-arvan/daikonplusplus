@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "partitionPath should be valid path string provided to the method",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "partitionPath is used as input so often expected non-null and non-empty"
+    } ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "fileId string should be valid identifier as used to getUpdateHandle and log message",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "fileId uniquely identifies file, expected non-null and non-empty"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The result is the iterator to return; it should not be null at method exit",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "Method returns an iterator result"
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The result must always be an Iterator<List<WriteStatus>>",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "Result is an iterator over lists of WriteStatus as per method return"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Input iterator recordItr should be non-null when method exits",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "recordItr is an input iterator over HoodieRecord"
+    } ]
+  } ]
+}

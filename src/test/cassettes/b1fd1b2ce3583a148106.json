@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List<WriteStatus> as the result after postWrite; postWrite should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used in several subsequent method calls as an identifier, likely required to be set and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null && !records.isEmpty()",
+    "rationale" : "bulkInsert operations should only occur with a non-null, non-empty record list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "Each WriteStatus typically corresponds to one or more records; result cannot have more entries than input records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "The Option<BulkInsertPartitioner> is expected to be non-null (though it can be Option.empty()).",
+    "meta" : [ ]
+  } ]
+}

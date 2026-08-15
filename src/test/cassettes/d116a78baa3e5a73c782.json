@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "'execute' returns a non-null HoodieWriteMetadata, as it directly returns the result of a superclass call expected to produce metadata for further processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses in the metadata should always be set, ensuring callers have consistent access to write results.",
+    "meta" : [ ]
+  } ]
+}

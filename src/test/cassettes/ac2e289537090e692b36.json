@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned stream object should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "The parallelism parameter must be positive to allow for partitioning and parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The input data stream should not be null before processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "The function for mapping partitions must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The reduction function must be valid for reducing values by key.",
+    "meta" : [ ]
+  } ]
+}

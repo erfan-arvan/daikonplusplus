@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "A Label will likely require a non-null LabelStyle to be constructed successfully.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "If text is non-null, its length is always non-negative; this captures a basic property of non-null Java Strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || !text.isEmpty() || text.isEmpty()",
+    "rationale" : "For any String, it is either empty or not empty; this is a basic property of Java Strings meant to hint at possible string content checks upon method entry.",
+    "meta" : [ ]
+  } ]
+}

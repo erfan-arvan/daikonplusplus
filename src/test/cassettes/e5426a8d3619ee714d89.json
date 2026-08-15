@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "Method cannot operate without a metaClient object.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Ensures metaClient can be safely used."
+    } ]
+  }, {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "Option<String> should not be null for safe Option operations.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Ensures Option argument is not null."
+    } ]
+  }, {
+    "expression" : "!inFlightInstantTimestamp.isPresent() || !inFlightInstantTimestamp.get().isEmpty()",
+    "rationale" : "If an in-flight action is specified, its string should not be empty.",
+    "meta" : [ {
+      "key" : "defensive",
+      "value" : "Avoids empty strings as present Option values."
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "The method may reload table config; metaClient should have a table config.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Ensures underlying table config is available for reloads."
+    } ]
+  } ]
+}

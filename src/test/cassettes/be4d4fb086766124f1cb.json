@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "index >= 0",
+    "rationale" : "Method is expected to access items.get(index), so index should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < items.size()",
+    "rationale" : "Access to items.get(index) requires index be less than items.size().",
+    "meta" : [ ]
+  }, {
+    "expression" : "selection.contains(items.get(index))",
+    "rationale" : "After setting selection.set(items.get(index)), the selection should contain the item at the given index.",
+    "meta" : [ ]
+  } ]
+}

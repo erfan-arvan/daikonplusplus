@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "A FileHandle parameter passed to this method is likely required to be non-null, as it is immediately used as an argument in further operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "The method expects tmxFile to represent an existing file since it's used to resolve another resource.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.isDirectory() == false",
+    "rationale" : "tmxFile is expected to represent a TMX map file, which should be a file and not a directory.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.path() != null",
+    "rationale" : "A FileHandle for a map file likely needs to have a non-null path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!tmxFile.isDirectory()",
+    "rationale" : "Redundant with above, but stresses that tmxFile is not a directory and should represent a TMX file.",
+    "meta" : [ ]
+  } ]
+}

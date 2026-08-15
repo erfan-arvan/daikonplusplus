@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "Prevents null dereference if method assumes non-null input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(writeMetadata.getClass())",
+    "rationale" : "Subtype check: writeMetadata should be a HoodieWriteMetadata or subclass as required by the declared type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus objects should be non-null for processing.",
+    "meta" : [ ]
+  } ]
+}

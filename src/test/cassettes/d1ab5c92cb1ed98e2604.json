@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "key == null || key.isEmpty()",
+    "rationale" : "Checks if key is null or empty, a potential precondition or common usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key == null || !key.contains(\" \")",
+    "rationale" : "Checks that keys do not contain whitespace, which may be a naming convention.",
+    "meta" : [ ]
+  } ]
+}

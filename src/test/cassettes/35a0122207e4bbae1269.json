@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a lambda expression, which is non-null.",
+    "meta" : [ {
+      "key" : "guaranteedByImplementation",
+      "value" : "Method returns a non-null lambda."
+    } ]
+  }, {
+    "expression" : "result.get() == 0",
+    "rationale" : "The returned Supplier always returns 0 based on the implementation.",
+    "meta" : [ {
+      "key" : "implementationDetail",
+      "value" : "The lambda always returns 0."
+    } ]
+  } ]
+}

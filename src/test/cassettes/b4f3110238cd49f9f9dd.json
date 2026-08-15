@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is collected into a List, guaranteeing a non-null List reference.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is assigned from stream collect and hence non-null"
+    } ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism indicates the level of parallel execution and must be positive.",
+    "meta" : [ {
+      "key" : "parameter constraint",
+      "value" : "Method requires parallelism to be a positive integer"
+    } ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "The stream filters out null values before collecting into the result list.",
+    "meta" : [ {
+      "key" : "nonNullElements",
+      "value" : "null elements are filtered out during collection"
+    } ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "The number of reduced results cannot exceed the number of input pairs.",
+    "meta" : [ {
+      "key" : "sizeRelation",
+      "value" : "Grouping and reduction cannot produce more groups than initial elements"
+    } ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "A reduction function must be provided to combine values.",
+    "meta" : [ {
+      "key" : "parameter constraint",
+      "value" : "reduceFunc is required for reduction"
+    } ]
+  } ]
+}

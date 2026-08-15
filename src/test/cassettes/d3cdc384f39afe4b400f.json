@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is expected to be a required parameter for table operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is a required input and should be non-null for any list processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.get(0) != null",
+    "rationale" : "If the columnsToIndex list is non-empty, its first element should be non-null, implying a well-formed list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "Table metaClient should have a table configuration available for most table operations.",
+    "meta" : [ ]
+  } ]
+}

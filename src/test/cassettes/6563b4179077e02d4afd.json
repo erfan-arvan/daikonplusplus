@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "The method returns 'properties', which is likely always initialized and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.getKeys() != null",
+    "rationale" : "'properties.getKeys()' should be well-defined if properties is a valid MapProperties instance.",
+    "meta" : [ ]
+  } ]
+}

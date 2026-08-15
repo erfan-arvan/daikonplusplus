@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "It is common for padding values in UI components to be non-negative, as negative padding often doesn't make sense in layout contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == padRight.get(this)",
+    "rationale" : "The method immediately returns the result of padRight.get(this), so at exit, result is equal to that value.",
+    "meta" : [ ]
+  } ]
+}

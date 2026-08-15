@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always instantiates and returns a non-null HoodieWriteMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "userDefinedBulkInsertPartitioner is an Option and likely never null at method exit since it's a parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is always passed in as an argument and not modified in the method, so cannot be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is required for all processing and never reassigned, so remains non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is a parameter and not reassigned, so cannot be null when the method returns.",
+    "meta" : [ ]
+  } ]
+}

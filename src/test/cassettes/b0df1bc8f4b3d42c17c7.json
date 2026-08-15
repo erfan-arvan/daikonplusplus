@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "!(o instanceof MapProperties) || result == Objects.equals(properties, ((MapProperties)o).properties)",
+    "rationale" : "If o is a MapProperties, result reflects equality of the properties fields via Objects.equals.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(o instanceof MapProperties) == (result == Objects.equals(properties, ((MapProperties)o).properties))",
+    "rationale" : "Result comparing to Objects.equals for MapProperties instances.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(o instanceof MapProperties) || ((MapProperties)o).properties != null || properties == null || result == Objects.equals(properties, ((MapProperties)o).properties)",
+    "rationale" : "For safe field access, at least one properties field is non-null if result reflects Objects.equals.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (o instanceof MapProperties && Objects.equals(properties, ((MapProperties)o).properties))",
+    "rationale" : "Result is true only when o is a MapProperties and properties are equal.",
+    "meta" : [ ]
+  } ]
+}

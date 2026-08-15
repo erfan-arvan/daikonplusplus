@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "(b == 0 && result == Integer.MIN_VALUE) || (b != 0 && result == a / b)",
+    "rationale" : "The method returns Integer.MIN_VALUE if b is zero, otherwise a/b.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Result equals Integer.MIN_VALUE when b is zero, else result equals a divided by b."
+    } ]
+  }, {
+    "expression" : "b == 0 || b != 0",
+    "rationale" : "Logical tautology but helps categorize behavior.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "b is always either zero or not zero."
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "From the method implementation.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If b is zero, result must be Integer.MIN_VALUE."
+    } ]
+  }, {
+    "expression" : "b == 0 || result * b == a",
+    "rationale" : "Reverse calculation of a from result and b for non-zero b.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If b is not zero, then result * b must equal a."
+    } ]
+  }, {
+    "expression" : "result != Integer.MIN_VALUE || b == 0",
+    "rationale" : "Contrapositive of the zero division check.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "If result is not Integer.MIN_VALUE, then b must not be zero."
+    } ]
+  } ]
+}

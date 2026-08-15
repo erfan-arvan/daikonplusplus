@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "It is likely that writeStatuses, as a required argument for committing results, is not null when this method is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result is meant to carry metadata for the write and should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof java.util.List",
+    "rationale" : "writeStatuses is declared as List<WriteStatus> and should be an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof org.apache.hudi.common.model.HoodieWriteMetadata",
+    "rationale" : "result is declared as HoodieWriteMetadata<List<WriteStatus>>, so should be an instance of HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cullingArea == null",
+    "rationale" : "The method allows cullingArea to be null, as signaled by the @Null annotation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cullingArea != null",
+    "rationale" : "cullingArea may also be non-null, as the method does not require null input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(cullingArea == null) || (cullingArea.width >= 0)",
+    "rationale" : "Rectangle width is typically non-negative when Rectangle is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(cullingArea == null) || (cullingArea.height >= 0)",
+    "rationale" : "Rectangle height is typically non-negative when Rectangle is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(cullingArea == null) || (cullingArea.x + cullingArea.width >= cullingArea.x)",
+    "rationale" : "If width is non-negative, then x + width should not be less than x.",
+    "meta" : [ ]
+  } ]
+}

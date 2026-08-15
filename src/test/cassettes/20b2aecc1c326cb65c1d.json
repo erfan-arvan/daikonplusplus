@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The method expects a List<String> parameter; nullness may be important for method contracts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.get(0) != null",
+    "rationale" : "If the list is not empty, its first element should not be null to avoid issues during processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "A List's size is never negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(s -> s != null)",
+    "rationale" : "Lists of columns to index commonly should not contain null elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.stream().distinct().count() == columnsToIndex.size()",
+    "rationale" : "Column names to be indexed are likely unique; duplicates may indicate a logic error.",
+    "meta" : [ ]
+  } ]
+}

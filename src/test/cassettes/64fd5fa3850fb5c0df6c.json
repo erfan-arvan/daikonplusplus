@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "pointer >= 0",
+    "rationale" : "Pointer values for input events are typically non-negative (pointing device index).",
+    "meta" : [ ]
+  }, {
+    "expression" : "event != null",
+    "rationale" : "The method relies on event being non-null, as it immediately calls event.getListenerActor().",
+    "meta" : [ ]
+  }, {
+    "expression" : "event.getListenerActor() != null",
+    "rationale" : "The method calls toActor.isDescendantOf(event.getListenerActor()), so event.getListenerActor() must be non-null for meaningful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0.0f",
+    "rationale" : "Stage or UI actors often use non-negative coordinates for position, making it likely that x is >= 0 at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0.0f",
+    "rationale" : "UI or stage coordinates are frequently non-negative, so y >= 0.0f expresses a likely invariant at method entry.",
+    "meta" : [ ]
+  } ]
+}

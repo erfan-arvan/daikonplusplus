@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a valid HoodieTable instance, not null, as it delegates to createTableAndValidate which returns a HoodieTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The configuration object is required to create a HoodieTable, so it should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieTable",
+    "rationale" : "By contract, the result must be an instance of HoodieTable because this is the declared return type.",
+    "meta" : [ ]
+  } ]
+}

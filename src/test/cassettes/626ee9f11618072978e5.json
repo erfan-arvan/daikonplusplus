@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A rollback should always return a metadata result, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null && !rollbackInstantTime.isEmpty()",
+    "rationale" : "A rollback is expected to be associated with a specific instant time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A rollback must specify the instant being rolled back.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().equals(\"HoodieRollbackMetadata\")",
+    "rationale" : "The return value must be of type HoodieRollbackMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext is required for rollback execution.",
+    "meta" : [ ]
+  } ]
+}

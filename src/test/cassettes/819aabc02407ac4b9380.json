@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null list (as it is constructed via stream operations on a non-null list).",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The input list is accessed without null checks, implying it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> !r.isCurrentLocationKnown())",
+    "rationale" : "The returned list only contains records for which isCurrentLocationKnown() is false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= hoodieRecords.size()",
+    "rationale" : "Filtering elements from hoodieRecords can only decrease or keep the same the size of the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(hoodieRecords::contains)",
+    "rationale" : "Every record in the result must come from the original input hoodieRecords.",
+    "meta" : [ ]
+  } ]
+}

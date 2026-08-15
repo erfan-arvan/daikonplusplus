@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result.getId() == id",
+    "rationale" : "If a tile exists for the given id, then the result's id should match the input id; otherwise, result may be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "id >= 0",
+    "rationale" : "Tile IDs are typically non-negative, especially as indices or identifiers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || tiles.get(id) == null",
+    "rationale" : "If the result is null, then tiles.get(id) should also be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == tiles.get(id)",
+    "rationale" : "The method returns the value of tiles.get(id), so result should equal this value.",
+    "meta" : [ ]
+  } ]
+}

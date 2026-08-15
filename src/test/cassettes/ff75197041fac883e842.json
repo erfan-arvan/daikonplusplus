@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Methods related to data changes may expect a valid commit instantTime.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The method requires a non-null list of partition types to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.isEmpty() || partitions.size() > 0",
+    "rationale" : "The partitions list must be either empty or contain at least one element; this captures that it is not null.",
+    "meta" : [ ]
+  } ]
+}

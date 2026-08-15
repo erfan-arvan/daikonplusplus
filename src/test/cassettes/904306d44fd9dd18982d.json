@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && result.getLeft() != null && result.getRight() != null",
+    "rationale" : "result is constructed with Pair.of(partitionPathStatMap, globalStat), which are never null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Ensures result and its parts are not null"
+    } ]
+  }, {
+    "expression" : "result.getLeft().size() <= inputRecords.size()",
+    "rationale" : "partitionPathStatMap keys correspond to partition paths present in inputRecords.",
+    "meta" : [ {
+      "key" : "size-bound",
+      "value" : "partitionPathStatMap size can't exceed distinct partition paths in inputRecords"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method processes inputRecords stream; null input would cause exception.",
+    "meta" : [ {
+      "key" : "input-validity",
+      "value" : "inputRecords must not be null to build partition statistics"
+    } ]
+  }, {
+    "expression" : "result.getLeft().values().stream().allMatch(ws -> ws.inserts() >= 0)",
+    "rationale" : "WorkloadStat addInserts increments must result in non-negative counts.",
+    "meta" : [ {
+      "key" : "workloadstat-insert-nonnegative",
+      "value" : "insert counts per partition are non-negative"
+    } ]
+  }, {
+    "expression" : "result.getRight().inserts() >= 0",
+    "rationale" : "WorkloadStat addInserts increments must result in non-negative counts.",
+    "meta" : [ {
+      "key" : "globalstat-insert-nonnegative",
+      "value" : "globalStat insert count is non-negative"
+    } ]
+  } ]
+}

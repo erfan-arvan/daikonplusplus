@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method calls a utility and returns its result, which is typically non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "record != null",
+    "rationale" : "record is used as an argument to the utility method; a null value would likely cause an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "Collections in Java never have negative size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!record.equals(null)",
+    "rationale" : "As per Java conventions, this expression is equivalent to 'record != null' and safe if 'record' is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof FlatLists.ComparableList",
+    "rationale" : "Return type indicates result should be an instance of FlatLists.ComparableList.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Record size estimates and commit metadata are all non-negative quantities, so result representing an average byte size cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getParquetSmallFileLimit()",
+    "rationale" : "The average record size cannot be larger than the small file limit used as a threshold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() || commitTimeline.empty()",
+    "rationale" : "If timeline is not empty and a newer estimate is found, result could be greater than the default estimate; otherwise, for empty timelines or failed estimation, the default is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitTimeline.empty() || result <= (long) Math.ceil(hoodieWriteConfig.getParquetSmallFileLimit())",
+    "rationale" : "If the timeline is not empty, average size is estimated with respect to file limits, so should not exceed the limit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!commitTimeline.empty()) || result == hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate()",
+    "rationale" : "If there is no commit history, the result defaults to the static estimate from the config.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == partitionPathToInsertBucketInfos.get(partitionPath)",
+    "rationale" : "The method directly returns the map lookup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos.containsKey(partitionPath) == (result != null)",
+    "rationale" : "If the map contains the key, the returned value is non-null, and vice versa.",
+    "meta" : [ ]
+  } ]
+}

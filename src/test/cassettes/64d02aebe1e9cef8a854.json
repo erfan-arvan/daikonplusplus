@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Method likely expects a valid timestamp string.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime should be non-null for the insert operation"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is needed to correctly insert data.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPath should be non-null to specify data partition"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "File identifier is required for insertion.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "fileId should be non-null to identify the target file"
+    } ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "Method depends on recordMap containing records.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "recordMap should be non-null to hold records for insertion"
+    } ]
+  }, {
+    "expression" : "!recordMap.isEmpty()",
+    "rationale" : "Inserting with empty records map is likely invalid or no-op.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "there should be records to insert"
+    } ]
+  } ]
+}

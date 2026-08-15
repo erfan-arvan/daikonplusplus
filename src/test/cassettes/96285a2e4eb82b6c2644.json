@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (hasKeyboardFocus() || super.keyDown(event, keycode))",
+    "rationale" : "If the text area has keyboard focus, the method will always return true. If not, it delegates to the superclass's keyDown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hasKeyboardFocus() ? (result == true) : true",
+    "rationale" : "If the text area has keyboard focus, the result will always be true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keycode == com.badlogic.gdx.Input.Keys.DOWN || keycode == com.badlogic.gdx.Input.Keys.UP || moveOffset == -1",
+    "rationale" : "If keycode is neither DOWN nor UP, moveOffset is set to -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !hasKeyboardFocus()",
+    "rationale" : "If the method returns false, it must be because the text area does not have keyboard focus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || super.keyDown(event, keycode)",
+    "rationale" : "If the method returns false, it must be because the superclass also would have returned false.",
+    "meta" : [ ]
+  } ]
+}

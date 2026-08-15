@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this instanceof com.badlogic.gdx.scenes.scene2d.ui.Slider",
+    "rationale" : "Since this is an instance method, 'this' must be an instance of Slider.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStyle() != null",
+    "rationale" : "The method immediately casts super.getStyle() to SliderStyle, which suggests getStyle() should not return null.",
+    "meta" : [ ]
+  } ]
+}

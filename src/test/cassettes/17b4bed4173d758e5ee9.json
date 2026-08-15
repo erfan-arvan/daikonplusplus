@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getName().equals(\"group\") || element.getName().equals(\"layer\") || element.getName().equals(\"objectgroup\") || element.getName().equals(\"imagelayer\")",
+    "rationale" : "The method logic ensures that one and only one of these four cases is handled based on element.getName().",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "The map is required by all loader helper methods, so it is unlikely to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is always passed into sub-methods and is required for layer organization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is dereferenced and its getName() is called, so it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

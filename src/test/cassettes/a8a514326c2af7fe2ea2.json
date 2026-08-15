@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "The method is an instance method and `this` is implicitly non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "The method accesses style.font and style.background, so style should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "The method calls text.equals and text.length(), so text must be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesBreak != null",
+    "rationale" : "The method accesses linesBreak.clear() and linesBreak.add(), so linesBreak must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "lastText != null || text != null",
+    "rationale" : "The code compares text.equals(lastText), so at least one being non-null avoids NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

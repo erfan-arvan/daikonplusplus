@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "drawble != null",
+    "rationale" : "The method calls several methods on 'drawble', which would throw if it were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawble.getLeftWidth() >= 0",
+    "rationale" : "Drawable width values are likely to remain non-negative after scaling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawble.getRightWidth() >= 0",
+    "rationale" : "Drawable width values are likely to remain non-negative after scaling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawble.getMinWidth() == Math.min(drawble.getLeftWidth() + drawble.getRightWidth(), drawble.getMinWidth())",
+    "rationale" : "The minimum width after scaling should not exceed the sum of the left and right widths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawble.getMinHeight() >= 0",
+    "rationale" : "Minimum height should be non-negative after scaling.",
+    "meta" : [ ]
+  } ]
+}

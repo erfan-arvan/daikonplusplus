@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The method constructs and returns a new HashMap, which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The globalStat is always newly created and never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft().values().contains(result.getRight()) == false",
+    "rationale" : "result.getRight() (globalStat) is distinct from any WorkloadStat in the partition map; a new WorkloadStat is created for globalStat and for each partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft().isEmpty() == (inputRecords.isEmpty())",
+    "rationale" : "partitionPathStatMap is empty if and only if inputRecords is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft().size() <= inputRecords.size()",
+    "rationale" : "There is at most one partitionPathStatMap entry per unique (partitionPath, currentLocation); the number of unique keys cannot exceed the number of records.",
+    "meta" : [ ]
+  } ]
+}

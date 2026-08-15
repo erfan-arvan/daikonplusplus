@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient parameter is likely required and should not be null for metadata table initialization.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is an Option type and typically should not be null itself; its content may be empty/null, but Option itself should be non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  } ]
+}

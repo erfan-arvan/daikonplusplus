@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should be non-null to fetch relevant file slices.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "partitionPath is expected to be a non-empty string representing a valid partition.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "non-empty string"
+    } ]
+  } ]
+}

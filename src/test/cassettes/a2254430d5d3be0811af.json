@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method requires a WorkloadProfile parameter to operate, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "Profile should have a non-null input partition path stat map as the method iterates over its entrySet.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.getInputPartitionPathStatMap().isEmpty() || profile.getInputPartitionPathStatMap().isEmpty()",
+    "rationale" : "Covers the exhaustive possibilities for the input map, ensuring it's always a valid collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The method calls methods on the output partition path stat map, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "If output workload stats exist, then outputPartitionPathStatMap should not be null.",
+    "meta" : [ ]
+  } ]
+}

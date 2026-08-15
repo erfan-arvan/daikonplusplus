@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "commitTimeline != null ",
+    "rationale" : "commitTimeline is used and its methods are called in the method, so it must not be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "commitTimeline is checked for emptiness"
+    } ]
+  }, {
+    "expression" : "hoodieWriteConfig != null ",
+    "rationale" : "hoodieWriteConfig is dereferenced to call methods, so it must not be null.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "hoodieWriteConfig is used and its methods are called"
+    } ]
+  }, {
+    "expression" : "commitTimeline.empty() == false || commitTimeline.empty() == true",
+    "rationale" : "commitTimeline.empty() returns a boolean, either true or false.",
+    "meta" : [ {
+      "key" : "formal",
+      "value" : "boolean return type of empty() method"
+    } ]
+  }, {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() >= 0",
+    "rationale" : "Record size thresholds are generally non-negative.",
+    "meta" : [ {
+      "key" : "parameter-range",
+      "value" : "size estimation threshold should be non-negative"
+    } ]
+  }, {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() > 0",
+    "rationale" : "Small file limit should be positive to make sense for threshold calculation.",
+    "meta" : [ {
+      "key" : "parameter-range",
+      "value" : "small file limit should be positive"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the output of execute(), which is expected to return a HoodieRestoreMetadata object; returning null would typically indicate an error or exceptional situation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "This parameter is passed directly to the executor and is expected not to be null as it specifies the instant to restore.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "This parameter is directly forwarded and should encode the savepoint; nullity would likely be handled earlier or is unsupported.",
+    "meta" : [ ]
+  } ]
+}

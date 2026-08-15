@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "It is typical for method entry to expect the input list is not null, as null inputs may lead to NullPointerExceptions in method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || hoodieRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative, so if the list is empty or not, its size is >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "It is often expected that collections of records do not contain null elements; this is a likely invariant at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hoodieRecords.isEmpty() || hoodieRecords.size() == 0",
+    "rationale" : "If the list is empty, its size is 0.",
+    "meta" : [ ]
+  } ]
+}

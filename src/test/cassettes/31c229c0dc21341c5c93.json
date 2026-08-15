@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Ensures the parameter is not null, likely required for correct operation if method were non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Ensures the parameter metaClient is not null, making it safe for usage if the method is implemented in subclasses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "Verifies that columnsToIndex is of type List, matching the method signature and avoiding type errors.",
+    "meta" : [ ]
+  } ]
+}

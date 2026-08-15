@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "objects == null || objects instanceof MapObjects",
+    "rationale" : "After method execution, objects will always be a MapObjects instance, but at entry it may be null or already a MapObjects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects == null || objects.size() >= 0",
+    "rationale" : "MapObjects size is always non-negative; if objects is non-null, the size is valid.",
+    "meta" : [ ]
+  } ]
+}

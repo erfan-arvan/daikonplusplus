@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "layers != null",
+    "rationale" : "The method accesses layers.size() and layers.get(i), so layers must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.size() >= 0",
+    "rationale" : "A list's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.isEmpty() == (layers.size() == 0)",
+    "rationale" : "isEmpty() is true exactly when size is 0.",
+    "meta" : [ ]
+  } ]
+}

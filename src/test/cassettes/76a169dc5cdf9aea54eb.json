@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime represents a commit or action timestamp in Hudi, which is generally required and unlikely to be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects a list of prepared records to process; a null input would likely indicate an error or violate preconditions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "The size of a List in Java is always non-negative, so this is a safe structural property.",
+    "meta" : [ ]
+  } ]
+}

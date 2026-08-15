@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null list due to the use of stream().collect().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "No elements are dropped or added; the list is just reordered.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input 'records' list is required for stream processing; assumed non-null during method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Partition counts are typically non-negative by convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> r != null)",
+    "rationale" : "No null elements are introduced or removed; all records in the input are present and reordered in the result.",
+    "meta" : [ ]
+  } ]
+}

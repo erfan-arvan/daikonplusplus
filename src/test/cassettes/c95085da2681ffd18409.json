@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this.fontFamily == fontFamily",
+    "rationale" : "The method assigns the parameter to the field, so at method exit they must be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fontFamily == null || this.fontFamily.equals(fontFamily)",
+    "rationale" : "If fontFamily is non-null, the new field value equals the parameter value via equals().",
+    "meta" : [ ]
+  } ]
+}

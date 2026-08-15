@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method makes multiple calls on 'element', so it must be non-null by exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects != null",
+    "rationale" : "'objects' is used to add a new object at the end of the method, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "'map' is referenced early in the method, so it must be non-null by method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "heightInPixels >= 0",
+    "rationale" : "'heightInPixels' represents spatial dimensions and is used in geometric calculations, so it is likely non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects.size() > 0",
+    "rationale" : "At least one object is added to 'objects' before method exit.",
+    "meta" : [ ]
+  } ]
+}

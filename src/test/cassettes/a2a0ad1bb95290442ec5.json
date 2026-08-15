@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires the config parameter to execute its logic and calls methods on it, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config instanceof HoodieWriteConfig",
+    "rationale" : "The static type of config is HoodieWriteConfig, so it must be an instance of HoodieWriteConfig.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexType() != null",
+    "rationale" : "The method switches on config.getIndexType(), so it should not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexClass() == null || !StringUtils.isNullOrEmpty(config.getIndexClass())",
+    "rationale" : "The first conditional checks for this; before returning, createIndex will use this check.",
+    "meta" : [ ]
+  } ]
+}

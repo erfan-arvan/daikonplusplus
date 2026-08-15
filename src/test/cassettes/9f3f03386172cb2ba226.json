@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursor positions in text fields are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || (selectionStart >= 0)",
+    "rationale" : "If there is a selection, the selection start index should be valid (non-negative).",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "The text parameter should refer to a valid string when storing the undo state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hasSelection || (selectionStart <= text.length())",
+    "rationale" : "If there is a selection, selectionStart should not exceed the length of the text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor <= text.length()",
+    "rationale" : "The cursor should not go beyond the end of the text.",
+    "meta" : [ ]
+  } ]
+}

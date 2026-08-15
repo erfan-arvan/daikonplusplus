@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option API conventionally does not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == (isMetadataTableExists && (config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()))",
+    "rationale" : "A metadata writer is returned iff the metadata table exists and is enabled or available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isMetadataTable() ? !result.isPresent() : true",
+    "rationale" : "If the table is a metadata table, the method always returns Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!config.isMetadataTableEnabled() && !metaClient.getTableConfig().isMetadataTableAvailable()) ? !result.isPresent() : true",
+    "rationale" : "If neither configuration nor table config has metadata enabled/available, result is Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() ? (config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()) : true",
+    "rationale" : "A present result implies either config enables metadata or it is available in the table config.",
+    "meta" : [ ]
+  } ]
+}

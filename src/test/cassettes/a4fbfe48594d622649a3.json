@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "Since the method sorts in place and returns 'records', 'result' and 'records' refer to the same object.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The method returns the input list after in-place sorting."
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Sorting does not alter the number of elements.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "No elements added or removed, only sorted in place."
+    } ]
+  }, {
+    "expression" : "outputPartitions >= 0",
+    "rationale" : "Partition count must not be negative and is likely a contract invariant.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Partition counts are naturally non-negative."
+    } ]
+  }, {
+    "expression" : "java.util.Collections.unmodifiableList(new java.util.ArrayList<>(result)).equals(java.util.Collections.unmodifiableList(new java.util.ArrayList<>(records)))",
+    "rationale" : "Since elements are only reordered, the immutable copy of 'result' and 'records' remain equivalent.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Permutation-invariant comparison after sort-in-place."
+    } ]
+  }, {
+    "expression" : "records instanceof java.util.List",
+    "rationale" : "Input parameter contractual requirement.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method signature enforces List type for input 'records'."
+    } ]
+  } ]
+}

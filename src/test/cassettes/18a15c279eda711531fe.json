@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collections.emptyList() never returns null",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Collections.emptyList() returns an immutable empty list",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "The returned list is empty",
+    "meta" : [ ]
+  }, {
+    "expression" : "cacheKey != null",
+    "rationale" : "API convention: typically, cacheKey should not be null",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Collections.emptyList() returns a List instance",
+    "meta" : [ ]
+  } ]
+}

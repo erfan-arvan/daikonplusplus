@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "padBottom != null",
+    "rationale" : "The method throws an exception if padBottom is null, so it must be non-null upon method return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which by Java semantics of instance methods cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.padBottom == padBottom",
+    "rationale" : "The field this.padBottom is set to the padBottom argument before the return, so the result's padBottom field is equal to the argument.",
+    "meta" : [ ]
+  } ]
+}

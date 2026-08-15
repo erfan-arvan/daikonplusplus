@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "The method expects idPfx to represent a prefix value, which is likely assumed to be non-null in most table and partition contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is required for iteration and method functionality—should not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.hasNext()",
+    "rationale" : "recordItr.hasNext() is called for control flow in the method, so the call must be safe and side-effect free.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method returns the input 'records' list directly without modification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Since 'records' is returned and is a parameter, if 'records' is not null, result is also not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || result.size() == records.size()",
+    "rationale" : "Since result is exactly 'records', if 'records' is not null, the sizes will be the same.",
+    "meta" : [ ]
+  } ]
+}

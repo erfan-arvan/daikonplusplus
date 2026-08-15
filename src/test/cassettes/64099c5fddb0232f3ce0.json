@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is the direct output of records.collectAsList(), which should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.collectAsList().size()",
+    "rationale" : "Result is exactly the list returned from records.collectAsList(), so their sizes must match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(records.collectAsList())",
+    "rationale" : "The result is directly returned from records.collectAsList(), so the two are equal.",
+    "meta" : [ ]
+  } ]
+}

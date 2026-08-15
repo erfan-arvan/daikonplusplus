@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive for parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The data list must not be null for streaming and reduction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The reduce function must not be null for reduction to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || data.isEmpty()",
+    "rationale" : "The list is either empty or not empty; tautology but included for completeness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size() || data.isEmpty()",
+    "rationale" : "Typically, parallelism should not exceed the data size unless the data is empty.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is supplied as a method argument and likely should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null constraint"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath typically represents a directory path and is expected to not be empty.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-empty string"
+    } ]
+  }, {
+    "expression" : "partitionPath.trim().length() > 0",
+    "rationale" : "partitionPath should not be blank whitespace to represent a meaningful partition.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "path is not blank"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "manager != null",
+    "rationale" : "manager is passed to the AssetManagerImageResolver and will be dereferenced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used in loadTiledMap and will likely be accessed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "fileName is expected to represent a valid file and is often required to be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof Parameters",
+    "rationale" : "parameter should be null or a valid Parameters object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "tmxFile is likely required to exist if it is being used to load a map.",
+    "meta" : [ ]
+  } ]
+}

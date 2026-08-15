@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partition != null",
+    "rationale" : "The method immediately delegates to super.getFileSlicesEligibleForClustering(partition), which likely requires partition to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partition.isEmpty()",
+    "rationale" : "Partition likely represents a partition path or key and is expected to not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition.trim().length() > 0",
+    "rationale" : "Partition strings typically do not consist solely of whitespace and are expected to represent valid directory or key information.",
+    "meta" : [ ]
+  } ]
+}

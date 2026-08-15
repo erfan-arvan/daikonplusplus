@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "!flipHorizontally || flipHorizontally",
+    "rationale" : "flipHorizontally is a boolean parameter and can be true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!flipVertically || flipVertically",
+    "rationale" : "flipVertically is an unconstrained boolean parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!flipDiagonally || flipDiagonally",
+    "rationale" : "flipDiagonally is a boolean parameter and can be true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flipHorizontally == true || flipHorizontally == false",
+    "rationale" : "flipHorizontally must be either true or false (domain property of boolean).",
+    "meta" : [ ]
+  }, {
+    "expression" : "flipDiagonally || !flipDiagonally",
+    "rationale" : "flipDiagonally is always either true or false (boolean domain property).",
+    "meta" : [ ]
+  } ]
+}

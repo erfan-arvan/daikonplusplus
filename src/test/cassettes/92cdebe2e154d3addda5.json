@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method updates fields and calls methods on 'result', implying it is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "'result.setWriteStatuses(statuses)' is called, so 'getWriteStatuses()' should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "'result.setIndexUpdateDuration(Duration)' is unconditionally called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "'result.setPartitionToReplaceFileIds' is always called with a value from 'getPartitionToReplacedFileIds(result)'.",
+    "meta" : [ ]
+  } ]
+}

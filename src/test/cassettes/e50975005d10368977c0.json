@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "Method cannot safely proceed if metadata is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "The method collects the write statuses, so this value must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.getWriteStatuses().collectAsList() != null",
+    "rationale" : "collectAsList is called on getWriteStatuses, so it is expected to return a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata instanceof HoodieWriteMetadata",
+    "rationale" : "metadata is expected to be of the type HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

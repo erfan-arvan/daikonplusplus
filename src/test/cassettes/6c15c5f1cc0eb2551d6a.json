@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always initializes and returns a Map, so result cannot be null.",
+    "meta" : [ {
+      "key" : "null",
+      "value" : "result is never null on method exit"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "Map size is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "result size non-negative"
+    } ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(key -> key != null)",
+    "rationale" : "HashMap keys are not expected to be null after insertion.",
+    "meta" : [ {
+      "key" : "nonNullKeys",
+      "value" : "all keys in result are non-null"
+    } ]
+  }, {
+    "expression" : "result.values().stream().allMatch(value -> value != null)",
+    "rationale" : "Values inserted into result are from non-null config getters or not put at all.",
+    "meta" : [ {
+      "key" : "nonNullValues",
+      "value" : "all values in result are non-null"
+    } ]
+  }, {
+    "expression" : "(result.size() == 0) || (result.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key()))",
+    "rationale" : "The method only puts PLAN_STRATEGY_SORT_COLUMNS key when condition matches, so if map is not empty it must contain that key.",
+    "meta" : [ {
+      "key" : "conditionalPut",
+      "value" : "if result is non-empty, it must contain PLAN_STRATEGY_SORT_COLUMNS key"
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Javadoc states the return is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof String",
+    "rationale" : "Ensures result is always a String type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || result.isEmpty()",
+    "rationale" : "Covers the specification that the result might be an empty string, but never null.",
+    "meta" : [ ]
+  } ]
+}

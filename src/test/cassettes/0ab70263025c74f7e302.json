@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an Array<FileHandle>, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "The input FileHandle parameter is not modified, and correct operation likely requires it non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "The size of an Array<FileHandle> is never negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size <= root.get(\"tilesets\").size + collectImageLayerFileHandles(root.get(\"layers\"), tmjFile, new Array<FileHandle>()).size",
+    "rationale" : "The returned array can have at most as many entries as dependencies referenced in the map's tilesets and layers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.contains(tmjFile, false) == false",
+    "rationale" : "The output likely should not contain the input map file itself as a dependency.",
+    "meta" : [ ]
+  } ]
+}

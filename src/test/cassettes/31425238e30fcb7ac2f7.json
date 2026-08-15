@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "The list of keys must be provided for deduplication to be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table context is required to access index properties for deduplication.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive, indicating that deduplication uses at least one thread or parallelism unit.",
+    "meta" : [ ]
+  } ]
+}

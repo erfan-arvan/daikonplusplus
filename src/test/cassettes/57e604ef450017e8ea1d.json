@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == price * 0.9",
+    "rationale" : "The method always returns the input price multiplied by 0.9, as per the method implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= price",
+    "rationale" : "A 10% discount ensures the result is less than or equal to the original price for non-negative prices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "As long as price is non-negative, the result cannot be negative after applying a positive multiplier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "price == 0 || result == 0 || result / price == 0.9",
+    "rationale" : "Either the price or result is zero, or the ratio of result to price is always 0.9.",
+    "meta" : [ ]
+  } ]
+}

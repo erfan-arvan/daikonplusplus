@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of another method call, which should not be null to avoid potential NullPointerExceptions and preserve expected API behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method is called with records as an argument and would typically expect this input to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required argument representing a commit timestamp and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method returns a value of type List<WriteStatus>, so result must be an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "records is explicitly typed as List<HoodieRecord<T>> and should be a List instance.",
+    "meta" : [ ]
+  } ]
+}

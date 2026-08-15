@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The key should be non-null as it is needed to identify the property.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "key must be non-null to set a property reliably."
+    } ]
+  }, {
+    "expression" : "value == null || !value.isEmpty()",
+    "rationale" : "The value parameter may be null or a non-empty string, but empty strings are unlikely.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "value can be null or a non-empty string."
+    } ]
+  }, {
+    "expression" : "key.toString().length() > 0",
+    "rationale" : "The key's string representation should not be empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "EngineProperty key should have a meaningful string representation."
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No operation is performed, so all states valid at entry remain valid at exit.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method is a no-op currently."
+    } ]
+  } ]
+}

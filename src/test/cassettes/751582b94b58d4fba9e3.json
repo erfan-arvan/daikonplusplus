@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method returns HoodieListData.eager(data), which requires 'data' to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns HoodieListData.eager(data), which returns a non-null HoodieData object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter is expected to be positive to indicate the level of parallelism.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == data.size()",
+    "rationale" : "HoodieListData.eager(data) likely preserves the size of data in the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.containsAll(data)",
+    "rationale" : "The result HoodieData should contain all elements of the input data list.",
+    "meta" : [ ]
+  } ]
+}

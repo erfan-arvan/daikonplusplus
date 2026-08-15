@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The returned value is always the same instance as the current object, as per 'return this;'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.align == align",
+    "rationale" : "The align field of the result is set to align before returning.",
+    "meta" : [ ]
+  } ]
+}

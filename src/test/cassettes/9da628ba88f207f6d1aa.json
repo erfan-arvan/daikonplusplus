@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method dereferences 'batch' multiple times, so it cannot be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0f",
+    "rationale" : "'parentAlpha' is used for alpha calculations, which are typically non-negative in rendering code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha blending factors are typically in [0,1], and this is common for UI components like this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch.isDrawing()",
+    "rationale" : "Drawing operations are being performed on 'batch', so it is expected to be in the drawing state at method exit.",
+    "meta" : [ ]
+  } ]
+}

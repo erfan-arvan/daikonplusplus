@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null TiledMap instance, based on construction and return flow.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "The fileName is resolved and used to load a file, so it should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "The parameter argument is dereferenced for field access (parameter.generateMipMaps), so it cannot be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "The method explicitly builds and returns an instance of TiledMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getOwnedResources().length > 0",
+    "rationale" : "The TiledMap result is set with a non-empty array of texture resources before returning.",
+    "meta" : [ ]
+  } ]
+}

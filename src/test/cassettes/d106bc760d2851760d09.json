@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects to deduplicate a list of records; null input may cause exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index != null",
+    "rationale" : "The index is accessed for globalness; it must not be null for correct behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically a positive integer for parallel streams or processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schemaStr != null && !schemaStr.isEmpty()",
+    "rationale" : "schemaStr is parsed; it should be a non-null, non-empty string to represent a schema.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMerger != null",
+    "rationale" : "A non-null BufferedRecordMerger is required to reduce HoodieRecords.",
+    "meta" : [ ]
+  } ]
+}

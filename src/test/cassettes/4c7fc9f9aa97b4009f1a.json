@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Ensuring the instantTime parameter is not null may be a desirable precondition, as it likely participates in time-based operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The partitions list should not be null to avoid NullPointerExceptions in any downstream logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions instanceof List",
+    "rationale" : "Verifies that partitions is actually a List, matching the declared type.",
+    "meta" : [ ]
+  } ]
+}

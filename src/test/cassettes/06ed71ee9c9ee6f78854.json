@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Method throws IllegalArgumentException if name is null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type != null",
+    "rationale" : "Method throws IllegalArgumentException if type is null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.isEmpty() == false",
+    "rationale" : "Resource names are typically non-empty; empty names are rarely valid resource identifiers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type.isInterface() == false",
+    "rationale" : "Resource types are generally concrete classes, not interfaces.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type.isPrimitive() == false",
+    "rationale" : "Primitives cannot be used as resource types and are not supported by the method.",
+    "meta" : [ ]
+  } ]
+}

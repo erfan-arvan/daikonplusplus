@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive to enable parallel mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Input data list must be non-null since method operates on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "Mapping function must be non-null since it is applied to elements of data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= Runtime.getRuntime().availableProcessors()",
+    "rationale" : "Parallelism is often set to at most the number of available processor cores.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || parallelism == 1",
+    "rationale" : "If data is empty, parallelism should have no effect; in such cases, parallelism may be set to 1.",
+    "meta" : [ ]
+  } ]
+}

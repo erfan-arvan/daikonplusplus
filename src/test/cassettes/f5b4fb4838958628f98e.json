@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "The method intends to use fileName to load a TiledMap; null would be an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "An empty fileName would not refer to a valid file and loading would likely fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.trim().length() == fileName.length()",
+    "rationale" : "Leading or trailing whitespace in fileName can cause file resolution issues.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.endsWith(\".tmx\")",
+    "rationale" : "TiledMap files commonly have a .tmx extension, and the loader is likely specialized for those files.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.indexOf('/') >= 0 || fileName.indexOf('\\\\') >= 0 || fileName.indexOf('.') >= 0",
+    "rationale" : "fileName typically represents a path or file, so it usually includes a directory separator or an extension period.",
+    "meta" : [ ]
+  } ]
+}

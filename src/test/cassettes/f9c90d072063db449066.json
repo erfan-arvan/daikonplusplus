@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns partitioner, which is assigned from a superclass method's return.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result instanceof JavaUpsertPartitioner",
+    "rationale" : "result is assigned to this.partitioner cast to JavaUpsertPartitioner.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "profile is used as an argument to a method, likely must be non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "partitioner == result",
+    "rationale" : "partitioner is assigned and then immediately returned.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "partitioner instanceof JavaUpsertPartitioner",
+    "rationale" : "partitioner is cast to JavaUpsertPartitioner.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  } ]
+}

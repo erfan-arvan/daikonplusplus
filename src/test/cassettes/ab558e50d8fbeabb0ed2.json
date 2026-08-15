@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Checking that the records list is not null prevents NullPointerExceptions on subsequent operations (e.g., sort).",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "The method is expected to repartition records, which only makes sense if the number of output partitions is positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a list is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "If records is empty, any outputPartitions value is permissible, otherwise there can't be more partitions than records.",
+    "meta" : [ ]
+  } ]
+}

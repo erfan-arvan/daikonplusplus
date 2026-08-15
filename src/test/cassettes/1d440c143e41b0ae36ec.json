@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method directly accesses layer fields and calls methods (e.g., getWidth, getHeight), so layer must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getWidth() >= 0",
+    "rationale" : "Layer width is used as a bound in Math.max/Math.min, and for tiling dimensions, so it should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getHeight() >= 0",
+    "rationale" : "Layer height is an array/grid bound and is assumed non-negative when iterating cells.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileWidth() > 0",
+    "rationale" : "Tile width is multiplied and used as a divisor, so it must be positive to avoid division by zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTileHeight() > 0",
+    "rationale" : "Tile height is used as a dimension and divisor, so it must be positive.",
+    "meta" : [ ]
+  } ]
+}

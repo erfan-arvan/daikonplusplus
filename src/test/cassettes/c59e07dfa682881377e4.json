@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "It is a common contract to ensure input parameters are non-null, and the method as implemented does not modify or dereference it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "The formal parameter is declared as List<String>; it should be a List at this exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == columnsToIndex",
+    "rationale" : "The parameter identity should not have changed as the method is a no-op (but this is tautological; included for completeness but generally discouraged).",
+    "meta" : [ ]
+  } ]
+}

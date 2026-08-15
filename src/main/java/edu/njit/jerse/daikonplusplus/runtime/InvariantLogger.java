@@ -1,22 +1,55 @@
 package edu.njit.jerse.daikonplusplus.runtime;
 
 /**
- * Centralized logger for invariant evaluation results.
+ * Lightweight, stdout-based logger for invariant evaluation results.
  *
- * <p>Emits one-line JSON objects on stdout to simplify downstream parsing.
+ * <p>This class emits structured, single-line JSON records to standard output to enable easy
+ * downstream parsing (e.g., by log collectors or post-processing tools).
+ *
+ * <p>It is intentionally minimal and stateless:
+ *
+ * <ul>
+ *   <li>No buffering or aggregation
+ *   <li>No deduplication
+ *   <li>No synchronization
+ * </ul>
+ *
+ * <p>Each invocation produces exactly one JSON line representing an invariant failure or evaluation
+ * error.
+ *
+ * <p>Typical usage: called from injected invariant guards during program execution.
  */
 public final class InvariantLogger {
   private InvariantLogger() {}
 
   /**
-   * Records a failed invariant or evaluation error.
+   * Emits a JSON record describing a failed invariant or evaluation error.
    *
-   * @param id UUID of the invariant
-   * @param element human-readable element label (e.g., a.b.C#m(int):void)
-   * @param file source file path
-   * @param expr original expression string
-   * @param phase "ENTRY" or "EXIT"
-   * @param error empty for a normal falsification; otherwise, throwable class name
+   * <p>The output is written as a single line to {@code stdout} in the following format:
+   *
+   * <pre>
+   * {
+   *   "type": "INV_FAIL",
+   *   "id": "<uuid>",
+   *   "element": "<program element>",
+   *   "file": "<source file>",
+   *   "expr": "<invariant expression>",
+   *   "phase": "<ENTRY|EXIT>",
+   *   "error": "<error description>"
+   * }
+   * </pre>
+   *
+   * <p>The {@code error} field is empty for normal falsifications and contains a description (e.g.,
+   * exception class name) if evaluation failed due to a runtime error.
+   *
+   * <p>All fields are JSON-escaped to ensure valid output.
+   *
+   * @param id unique invariant identifier (UUID string)
+   * @param element human-readable program element label
+   * @param file source file path where the invariant is injected
+   * @param expr original invariant expression
+   * @param phase evaluation phase ("ENTRY" or "EXIT")
+   * @param error empty string for falsification, or error description if evaluation failed
    */
   public static void fail(
       String id, String element, String file, String expr, String phase, String error) {
@@ -36,6 +69,14 @@ public final class InvariantLogger {
             + "\"}");
   }
 
+  /**
+   * Escapes a string for safe inclusion in JSON output.
+   *
+   * <p>Currently escapes backslashes and double quotes. Null inputs are converted to empty strings.
+   *
+   * @param s input string
+   * @return JSON-safe escaped string
+   */
   private static String esc(String s) {
     return s == null ? "" : s.replace("\\", "\\\\").replace("\"", "\\\"");
   }

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "skin != null",
+    "rationale" : "The method calls skin.getDrawable(drawableName), so skin must not be null for safe execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawableName != null",
+    "rationale" : "drawableName is passed to skin.getDrawable and thus must be non-null for correct lookup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skin.getDrawable(drawableName) != null",
+    "rationale" : "The method delegates to setDrawable with skin.getDrawable(drawableName), implying the drawable should exist.",
+    "meta" : [ ]
+  } ]
+}

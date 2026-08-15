@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit operation requires an instant time to identify the commit, so it is expected not to be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "non-null parameter"
+    } ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is immediately used for streaming and mapping; should not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "non-null parameter"
+    } ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "commitActionType is passed into commitStats and likely required for the commit logic.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "non-null parameter"
+    } ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds is used downstream and must not be null for correct commit operation.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "non-null parameter"
+    } ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "The size of a list is always non-negative in Java.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "size non-negative"
+    } ]
+  } ]
+}

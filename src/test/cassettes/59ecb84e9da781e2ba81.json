@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "size != null",
+    "rationale" : "The method throws if size is null, ensuring it is never null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', which cannot be null, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns this instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.minWidth == size",
+    "rationale" : "minWidth is set to size before returning, so this must hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.minHeight == size",
+    "rationale" : "minHeight is also set to size before returning, so this must hold.",
+    "meta" : [ ]
+  } ]
+}

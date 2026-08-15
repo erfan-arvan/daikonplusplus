@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null && !restoreInstantTimestamp.isEmpty()",
+    "rationale" : "A restore instant timestamp should be a non-null and non-empty string for a restore operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null && !savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "A savepoint to restore timestamp should also be a non-null and non-empty string for a correct restore operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context should be non-null for performing table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.equals(savepointToRestoreTimestamp)",
+    "rationale" : "It is likely the restore instant and the savepoint timestamp should be different for a meaningful restore.",
+    "meta" : [ ]
+  } ]
+}

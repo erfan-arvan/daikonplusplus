@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Most 'put' operations expect a non-null key; this is often a requirement for map-like structures.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.containsKey(key)",
+    "rationale" : "After put, the map should contain the key that was added or updated.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.get(key) == value",
+    "rationale" : "After putting, the value associated with the key should be updated to the most recent value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.size() >= 1",
+    "rationale" : "Assuming 'put' adds at least one entry, the map should not be empty after an insertion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties != null",
+    "rationale" : "The field 'properties' must be non-null for the 'put' operation to succeed.",
+    "meta" : [ ]
+  } ]
+}

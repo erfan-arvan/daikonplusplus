@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The parameter should be non-null for validation; passing null would likely be handled elsewhere or considered invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders instanceof List",
+    "rationale" : "The orders parameter is expected to be a List at method entry, matching the API signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.size() >= 0",
+    "rationale" : "The size() of a List in Java is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.get(0) instanceof Order",
+    "rationale" : "If the list is not empty, its elements should be of type Order.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.isEmpty() || orders.get(0) != null",
+    "rationale" : "If the list is not empty, the first element should be a non-null Order to be valid for validation.",
+    "meta" : [ ]
+  } ]
+}

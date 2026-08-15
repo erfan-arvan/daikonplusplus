@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "The method accesses tile.getProperties(), so tile must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement is used for several getString and get calls, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getProperties() != null",
+    "rationale" : "tile.getProperties() is used and passed to other methods, thus expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getProperties().containsKey(\"type\") == (tileElement.getString(\"type\", null) != null)",
+    "rationale" : "The \"type\" property is set in properties if and only if tileElement has a non-null \"type\" attribute.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getProperties().containsKey(\"terrain\") == (tileElement.getString(\"terrain\", null) != null)",
+    "rationale" : "The \"terrain\" property is set if and only if tileElement has a non-null \"terrain\" attribute.",
+    "meta" : [ ]
+  } ]
+}

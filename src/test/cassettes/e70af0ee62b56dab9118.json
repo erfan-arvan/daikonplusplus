@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Method expects writeStatuses as input; a null value is likely not valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The result parameter is used to set various properties, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof java.util.List",
+    "rationale" : "Parameter type guarantees it is some List implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The parameter is statically typed as HoodieWriteMetadata, so this is always true.",
+    "meta" : [ ]
+  } ]
+}

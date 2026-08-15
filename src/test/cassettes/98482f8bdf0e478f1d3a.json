@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is likely used as a String argument, and null values may not be expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is important as an identifier and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is an Iterator that will be consumed by downstream code, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath should not be an empty string if it identifies a partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileId.isEmpty()",
+    "rationale" : "fileId should not be an empty string if it uniquely identifies a file.",
+    "meta" : [ ]
+  } ]
+}

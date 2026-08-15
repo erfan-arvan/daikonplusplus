@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "maxWidth != null",
+    "rationale" : "The method getMaxWidth() immediately uses 'maxWidth', so it needs to be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != null",
+    "rationale" : "The call to maxWidth.get(actor) requires 'actor' to be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padLeft != null",
+    "rationale" : "The method padLeft.get(this) later in the method requires 'padLeft' to be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padRight != null",
+    "rationale" : "The method padRight.get(this) later in the method requires 'padRight' to be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "Within an instance method, 'this' is guaranteed not to be null.",
+    "meta" : [ ]
+  } ]
+}

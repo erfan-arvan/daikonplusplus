@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "It is typical for a getter method to return a non-null object, especially when representing a collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The size of a collection (such as TiledMapTileSets) is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == (result.size() == 0)",
+    "rationale" : "The isEmpty() method of collections is true if and only if size() returns zero.",
+    "meta" : [ ]
+  } ]
+}

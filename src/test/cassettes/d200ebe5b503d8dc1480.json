@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "A non-null partitionPath is likely required for correct bucket assignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "A non-null fileIdHint ensures a valid mapping to buckets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath should not be empty to reference a valid partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileIdHint.isEmpty()",
+    "rationale" : "fileIdHint should not be empty to represent a valid file identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.trim().length() > 0",
+    "rationale" : "partitionPath should contain non-whitespace characters.",
+    "meta" : [ ]
+  } ]
+}

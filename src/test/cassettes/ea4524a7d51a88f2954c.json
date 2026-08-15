@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Either getUpsertPartitioner or getInsertPartitioner is always invoked, both expected to return a valid Partitioner; commonly, partitioners are expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "Method only delegates to another method with 'profile' as argument and does not make sense to accept null here; both delegated partitioner methods expect a valid Profile.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The result represents the number of lines the text occupies, so it must be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == linesBreak.size / 2 + (newLineAtEnd() ? 1 : 0)",
+    "rationale" : "This is the return expression of the method, so it always holds at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == linesBreak.size / 2 || result == linesBreak.size / 2 + 1",
+    "rationale" : "The conditional addition of 1 based on newLineAtEnd() determines these two possible result values.",
+    "meta" : [ ]
+  } ]
+}

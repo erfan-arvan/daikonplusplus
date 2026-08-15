@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "writeMetadata is a parameter and will likely be non-null for correct method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "Triggering writes and collecting stats from writeMetadata implies its write statuses are available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size is never negative in Java.",
+    "meta" : [ ]
+  } ]
+}

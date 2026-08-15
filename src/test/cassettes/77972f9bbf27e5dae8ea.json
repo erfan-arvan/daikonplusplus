@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to represent a point in time; should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is a collection of records to update; should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "fileGroupsIdsToUpdate represents file groups targeted for update; typically gated against null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient != null",
+    "rationale" : "A valid writeClient is needed for upsert and commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.size() > 0",
+    "rationale" : "Catch-all invariant: a non-empty list has size > 0, and an empty list has size = 0.",
+    "meta" : [ ]
+  } ]
+}

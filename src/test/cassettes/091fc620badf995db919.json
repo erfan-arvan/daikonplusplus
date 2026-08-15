@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "disabled || result",
+    "rationale" : "If the TextField is disabled, the method returns false, otherwise result may be true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!disabled || !result",
+    "rationale" : "When the TextField is disabled, keyTyped always returns false, so if result is true then !disabled must hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(character != BACKSPACE && character != TAB && character != NEWLINE && character != CARRIAGE_RETURN && character < 32) ? !result : true",
+    "rationale" : "If the character is a control character not in the switch-case, the method returns false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hasKeyboardFocus() || !result",
+    "rationale" : "If the TextField does not have keyboard focus, the method returns false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(filter == null || filter.acceptChar(this, character)) || enter || !result",
+    "rationale" : "If there is a filter and it does not accept the character (and it's not enter), the method must return true (early return), otherwise result could be true.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "newItems != null",
+    "rationale" : "The method throws an exception if newItems is null, so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selection != null",
+    "rationale" : "selection.validate() is called; this implies selection is non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "overIndex == -1",
+    "rationale" : "overIndex is assigned -1 just before exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pressedIndex == -1",
+    "rationale" : "pressedIndex is set to -1 towards the end of the method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "items != null",
+    "rationale" : "items.clear() is called, so items cannot be null at this point.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The parameter 'records' is expected to be non-null for the method to operate correctly.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "records instanceof HoodieData",
+    "rationale" : "The 'records' parameter should be an instance of HoodieData as declared.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "true"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "Filename must be provided for the loader to resolve and load the map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "Likely requirement that filename is not an empty string for file resolution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "Load method expects parameter to provide configuration (e.g., for mipmaps or texture filtering).",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter.textureMinFilter != null",
+    "rationale" : "Texture creation and filter setting rely on this field in parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter.textureMagFilter != null",
+    "rationale" : "Texture creation and filter setting rely on this field in parameter.",
+    "meta" : [ ]
+  } ]
+}

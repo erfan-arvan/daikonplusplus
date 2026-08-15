@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method creates and returns a HoodieJavaTable, so the result must be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns a HoodieJavaTable instance, so result should not be null."
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used for creating the HoodieJavaTable, so it should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The config parameter is used to create the table and thus must be non-null."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used in creating the HoodieJavaTable, so it should not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The context parameter is used during creation."
+    } ]
+  }, {
+    "expression" : "result.getConfig().equals(config)",
+    "rationale" : "Assuming the HoodieJavaTable exposes getConfig() to verify it was created with the provided config.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Expected result's config to be equal to the input config used for creation."
+    } ]
+  }, {
+    "expression" : "result.getContext().equals(context)",
+    "rationale" : "Assuming the HoodieJavaTable exposes getContext() to verify it was created with the provided context.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Expected result's context to be equal to the input context used for creation."
+    } ]
+  } ]
+}

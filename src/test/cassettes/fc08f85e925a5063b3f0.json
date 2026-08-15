@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "result is an array index for animationIntervals, so it should always be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < animationIntervals.length",
+    "rationale" : "result is only returned from within a loop from 0 to animationIntervals.length - 1, so it must be less than animationIntervals.length.",
+    "meta" : [ ]
+  } ]
+}

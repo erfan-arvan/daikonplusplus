@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter should be non-null to represent a valid commit or action instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "List parameters, such as preppedRecordInputs, are generally expected to be non-null to avoid NullPointerExceptions when accessed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "fileGroupsIdsToUpdate is likely expected to be non-null as it specifies the groups to update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient must be initialized before performing upsert and commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "The instantTime parameter should be a non-empty string as it typically denotes a commit instant identifier.",
+    "meta" : [ ]
+  } ]
+}

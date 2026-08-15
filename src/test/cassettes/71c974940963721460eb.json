@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The parameter writeMetadata is expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeMetadata is non-null"
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "The write statuses list should be non-null to operate on it.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeMetadata.getWriteStatuses() is non-null"
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().size() >= 0",
+    "rationale" : "List sizes are always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "writeMetadata.getWriteStatuses() has non-negative size"
+    } ]
+  }, {
+    "expression" : "!writeMetadata.getWriteStatuses().contains(null)",
+    "rationale" : "The list of WriteStatus should not contain null references to avoid NPE in map operations.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "No null elements in writeMetadata.getWriteStatuses()"
+    } ]
+  } ]
+}

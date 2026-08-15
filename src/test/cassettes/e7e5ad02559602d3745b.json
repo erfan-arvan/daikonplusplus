@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitions != null",
+    "rationale" : "The method expects a List<String> of partitions; null is likely not accepted in production scenarios.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is required for timeline operations, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid engine context is necessary for distributed table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.isEmpty() || partitions.size() > 0",
+    "rationale" : "If partitions is not empty, it must have at least one partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(partitions == null || instantTime == null || context == null)",
+    "rationale" : "None of the method parameters should be null for the logic to behave correctly.",
+    "meta" : [ ]
+  } ]
+}

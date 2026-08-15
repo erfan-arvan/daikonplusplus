@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of postWrite, which is expected to return a non-null list of WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method is declared to return List<WriteStatus> and result is always returned from postWrite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is used in method calls without null checks, so it is assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to several method calls without a null check, implying it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "result is a List, and List size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

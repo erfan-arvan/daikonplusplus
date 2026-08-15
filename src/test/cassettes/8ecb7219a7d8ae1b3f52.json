@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "icon == null || icon instanceof Drawable",
+    "rationale" : "Since icon may be null, or it should be a Drawable; enforces type correctness at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "icon != null || icon == null",
+    "rationale" : "icon is allowed to be either null or non-null at the point of method entry by the @Null annotation.",
+    "meta" : [ ]
+  } ]
+}

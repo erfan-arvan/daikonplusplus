@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "b >= Integer.MIN_VALUE",
+    "rationale" : "Ensures the denominator is at least the minimum value of int, which always holds for ints.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b <= Integer.MAX_VALUE",
+    "rationale" : "Ensures the denominator is at most the maximum value of int, which always holds for ints.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a >= Integer.MIN_VALUE",
+    "rationale" : "Ensures the numerator is at least the minimum value of int, which holds for all ints.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a <= Integer.MAX_VALUE",
+    "rationale" : "Ensures the numerator is at most the maximum value of int, which holds for all ints.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Captures that all ints are valid inputs. No additional method-specific precondition is enforced.",
+    "meta" : [ ]
+  } ]
+}

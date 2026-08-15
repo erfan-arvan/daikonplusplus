@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Stream, which is non-null if the method completes normally.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism typically represents the number of threads and must be positive.",
+    "meta" : [ {
+      "key" : "input parameter",
+      "value" : "parallelism must be positive"
+    } ]
+  }, {
+    "expression" : "result.noneMatch(p -> p == null)",
+    "rationale" : "The filter(Objects::nonNull) removes any null elements from the result stream.",
+    "meta" : [ {
+      "key" : "non-null elements",
+      "value" : "result stream elements are not null"
+    } ]
+  }, {
+    "expression" : "result.allMatch(p -> p.getKey() != null)",
+    "rationale" : "Group keys and map keys are assumed non-null as groupingBy uses non-null keys.",
+    "meta" : [ {
+      "key" : "key non-null",
+      "value" : "Keys in result pairs are non-null"
+    } ]
+  }, {
+    "expression" : "result.allMatch(p -> p.getValue() != null || p.getValue() == null)",
+    "rationale" : "The value reduction uses orElse(null), so values may be null.",
+    "meta" : [ {
+      "key" : "value nullable",
+      "value" : "Value can be null if reduction yields empty"
+    } ]
+  } ]
+}

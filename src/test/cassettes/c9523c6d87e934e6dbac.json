@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a non-null list of records for bulk insert.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records is non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used for write operations and expected to be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null"
+    } ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner == null || userDefinedBulkInsertPartitioner.isPresent()",
+    "rationale" : "userDefinedBulkInsertPartitioner is an Option and either not provided or contains a partitioner.",
+    "meta" : [ {
+      "key" : "optionCheck",
+      "value" : "userDefinedBulkInsertPartitioner is either null or present"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is never negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "records.size is non-negative"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty() || records.isEmpty()",
+    "rationale" : "This is a tautology but confirms records.isEmpty() is boolean, useful for reasoning.",
+    "meta" : [ {
+      "key" : "tautologyCheck",
+      "value" : "records is a list, so isEmpty() returns a boolean"
+    } ]
+  } ]
+}

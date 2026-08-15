@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "The idPfx parameter is likely to be non-null as it serves as a prefix for IDs.",
+    "meta" : [ {
+      "key" : "Non-null parameter",
+      "value" : "idPfx is typically expected to be non-null"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The recordItr parameter must be non-null so that iteration over records can proceed.",
+    "meta" : [ {
+      "key" : "Non-null parameter",
+      "value" : "recordItr is a parameter representing records to insert"
+    } ]
+  }, {
+    "expression" : "recordItr.hasNext() || !recordItr.hasNext()",
+    "rationale" : "This tautology confirms no assumptions about the iterator's content or emptiness.",
+    "meta" : [ {
+      "key" : "Logical tautology",
+      "value" : "recordItr either has a next element or not"
+    } ]
+  }, {
+    "expression" : "idPfx.length() >= 0",
+    "rationale" : "String length for any string, including possibly empty, is non-negative.",
+    "meta" : [ {
+      "key" : "String length",
+      "value" : "idPfx is a String and length is non-negative"
+    } ]
+  }, {
+    "expression" : "idPfx.getClass() == String.class",
+    "rationale" : "idPfx is declared as String type parameter",
+    "meta" : [ {
+      "key" : "Class type check",
+      "value" : "idPfx is declared as String"
+    } ]
+  } ]
+}

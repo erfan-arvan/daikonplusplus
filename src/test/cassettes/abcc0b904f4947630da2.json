@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method always returns 'this', result is guaranteed to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this', so result must be the same as the current object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.padBottom == padBottom",
+    "rationale" : "The field 'padBottom' is set to the input parameter and the same object is returned.",
+    "meta" : [ ]
+  } ]
+}

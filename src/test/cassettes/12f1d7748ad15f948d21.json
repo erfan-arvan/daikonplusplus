@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Option, as returning null would be unconventional for Option types and the code always returns the result of an execute() call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter is used as an identifier for compaction and should be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option parameters are conventionally non-null and represent presence or absence via Option's state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context object is required for engine operations and is expected to be non-null for any table operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Option",
+    "rationale" : "The method guarantees result is an Option type due to its signature and implementation.",
+    "meta" : [ ]
+  } ]
+}

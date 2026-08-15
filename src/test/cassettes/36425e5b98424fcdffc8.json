@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Bucket index is non-negative as it represents a bucket identifier incremented from 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket.get(fileIdHint).equals(result)",
+    "rationale" : "The method assigns result as the value mapped to fileIdHint in updateLocationToBucket.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result) != null",
+    "rationale" : "A new BucketInfo was put into bucketInfoMap at the key equal to result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result).fileId.equals(fileIdHint)",
+    "rationale" : "The BucketInfo inserted for result uses fileIdHint as its fileId.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap.get(result).partitionPath.equals(partitionPath)",
+    "rationale" : "The BucketInfo inserted for result contains partitionPath as its partitionPath.",
+    "meta" : [ ]
+  } ]
+}

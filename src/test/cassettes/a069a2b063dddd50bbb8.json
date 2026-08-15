@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new TableWriteStats instance, so the result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The method uses writeMetadata directly, so it must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is called and its result is streamed, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

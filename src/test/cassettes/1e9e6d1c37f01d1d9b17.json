@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (!scrollX || amountX <= 0)",
+    "rationale" : "The method returns the value of the boolean expression '!scrollX || amountX <= 0', so the result always equals this expression.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || (scrollX && amountX > 0)",
+    "rationale" : "If 'result' is false, then both 'scrollX' is true and 'amountX' > 0, so the disjunction must always hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || (!scrollX || amountX <= 0)",
+    "rationale" : "If 'result' is true, then '!scrollX || amountX <= 0' must be true, capturing the logical equivalence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || amountX > 0",
+    "rationale" : "If 'amountX' <= 0, then '(scrollX && amountX <= 0)' implies 'result' is true, so if 'result' is false, 'amountX' must be positive.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Array<AssetDescriptor> is constructed and returned; it is never null in the provided code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array.size in libGDX cannot be negative; this is always true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "The method directly passes tmxFile to xml.parse, so it cannot be null without throwing a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is used in string concatenation in the exception and so must be non-null to avoid NullPointerException in the catch block.",
+    "meta" : [ ]
+  } ]
+}

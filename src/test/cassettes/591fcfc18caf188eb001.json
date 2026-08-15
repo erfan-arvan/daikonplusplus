@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method cannot operate on a null list; usually, methods processing collections expect non-null input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "The consumer must be valid and non-null to be used inside the foreach operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism should be at least 1, as non-positive values would not make sense for task execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof List",
+    "rationale" : "By type signature, data is a List, which must hold at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer instanceof SerializableConsumer",
+    "rationale" : "By type signature, consumer is a SerializableConsumer, which must hold at entry.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The clean method always returns a HoodieCleanMetadata object, which is likely not null if cleaning was performed successfully.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "The cleanInstantTime parameter is typically a required argument for identifying the instant being cleaned and is not likely to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null HoodieEngineContext is expected for any engine operations.",
+    "meta" : [ ]
+  } ]
+}

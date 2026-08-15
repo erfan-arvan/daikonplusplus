@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be provided for versioning and write timeline management.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The insert operation needs a list of HoodieRecords to insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid execution context is necessary for distributed operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || hoodieRecords.size() >= 0",
+    "rationale" : "The size of the hoodieRecords list is always non-negative, and isEmpty() implies size() == 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() || !instantTime.isEmpty()",
+    "rationale" : "Ensures that instantTime can be either empty or not empty; a placeholder to show all string states are valid.",
+    "meta" : [ ]
+  } ]
+}

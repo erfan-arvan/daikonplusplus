@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "getName() == null",
+    "rationale" : "Checks if this TextButton object has a name assigned, which influences the return value path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getClass() != null",
+    "rationale" : "Ensures the object has an associated runtime class before calling getClass().",
+    "meta" : [ ]
+  }, {
+    "expression" : "label != null",
+    "rationale" : "label is later dereferenced to call getText(), so it must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "label.getText() != null",
+    "rationale" : "toString concatenates the label's text, so getText() should return a non-null string for correct output.",
+    "meta" : [ ]
+  } ]
+}

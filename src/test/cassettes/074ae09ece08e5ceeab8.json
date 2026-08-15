@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "It is typical for record lists to be non-null when passed to insert operations.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as an identifier for the write, so null would likely be invalid.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() == false",
+    "rationale" : "Insert operations typically expect a non-empty set of input records.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "collection-size"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "A valid instantTime should be a non-empty string.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "string-property"
+    } ]
+  }, {
+    "expression" : "!preppedRecords.contains(null)",
+    "rationale" : "It is unlikely valid for the list of records to contain null entries at this method's entry.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "collection-contents"
+    } ]
+  } ]
+}

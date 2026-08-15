@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a key lookup and should not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath should be a non-empty string to represent a valid partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "partitionPathToInsertBucketInfos must be initialized to support the method's core logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos.containsKey(partitionPath) == (partitionPathToInsertBucketInfos.get(partitionPath) != null)",
+    "rationale" : "HashMap#get returns null iff the key is absent, ensuring this relationship holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos instanceof java.util.HashMap",
+    "rationale" : "partitionPathToInsertBucketInfos is declared as a HashMap field of the class.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is typically required for the execution of actions and is expected not to be null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to identify the compaction instant, so it should always be non-null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Compaction operations should be associated with a non-empty instant time.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "non-empty"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option types are expected non-null, even if empty.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "non-null"
+    } ]
+  } ]
+}

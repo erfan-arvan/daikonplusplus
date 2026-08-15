@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The key for a map property must not be null for most Map implementations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!key.isEmpty()",
+    "rationale" : "Property names (keys) are typically non-empty strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "It is common to require that map entries have non-null values.",
+    "meta" : [ ]
+  } ]
+}

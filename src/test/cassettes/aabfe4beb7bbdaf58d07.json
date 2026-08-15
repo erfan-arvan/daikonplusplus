@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A commit instantTime is expected to be provided for delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null && !keys.isEmpty()",
+    "rationale" : "There must be keys to delete; passing an empty or null list does not make sense in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration object is required for deletion operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Table object must be provided for delete operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "Delete executor must be present to process the deletion logic.",
+    "meta" : [ ]
+  } ]
+}

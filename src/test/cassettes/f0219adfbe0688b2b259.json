@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is likely required for parallel execution or context-awareness and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime generally encodes a commit or operation timestamp and should be a non-null, non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records list to be processed must not be null to allow overwriting.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || records.size() >= 0",
+    "rationale" : "List.size() is always non-negative if the list is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || records.stream().allMatch(r -> r != null)",
+    "rationale" : "To ensure processing correctness, each record within the list should be non-null if the list itself is non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator as per the method body, either a new JavaLazyInsertIterable or Collections.singletonList(...).iterator().",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "Agreed by Drafts A & B"
+    } ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result.hasNext()",
+    "rationale" : "When recordItr has items, result is a JavaLazyInsertIterable which will haveNext. Otherwise, it's a singleton iterator that also hasNext for the empty list.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "Appears in Drafts B & C"
+    } ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is supplied as a String parameter (used as argument), and usage in new JavaLazyInsertIterable presumes it is not null.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "Agreed by Drafts A & B"
+    } ]
+  } ]
+}

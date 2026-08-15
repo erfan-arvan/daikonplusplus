@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata object as per the implementation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method is not expected to be called with null records and passes them directly to another constructor.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The method expects an instant time string, which is likely required to be non-null for correct execution.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter nullness"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context object is passed to an executor, so it is required to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter nullness"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The result is always an instance of HoodieWriteMetadata as per the method signature and implementation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "result type"
+    } ]
+  } ]
+}

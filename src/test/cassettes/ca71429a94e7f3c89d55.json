@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "conf is used to construct JavaHoodieBackedTableMetadataWriter; likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is used directly in instantiation; almost certainly non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "failedWritesCleaningPolicy is required by the constructor and thus likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed into the core writer logic and expected to be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "Option objects in this codebase are likely assumed non-null rather than empty, so only their contained value may be absent.",
+    "meta" : [ ]
+  } ]
+}

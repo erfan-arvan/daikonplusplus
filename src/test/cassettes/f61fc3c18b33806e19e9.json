@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the output of postWrite(...), which is expected to be non-null according to typical usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The input records list is a required argument and typically should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is consistently used and passed to called methods; it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method's return type is List<WriteStatus>, so result should always be a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "The Option<BulkInsertPartitioner> parameter should not be null (Option is used to represent absence/presence, not to encode null itself).",
+    "meta" : [ ]
+  } ]
+}

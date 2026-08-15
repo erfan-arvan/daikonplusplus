@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "sortMode != null",
+    "rationale" : "The switch statement on sortMode requires it to be non-null, otherwise a NullPointerException would occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode instanceof BulkInsertSortMode",
+    "rationale" : "The type of sortMode is BulkInsertSortMode, which must be true at method entry.",
+    "meta" : [ ]
+  } ]
+}

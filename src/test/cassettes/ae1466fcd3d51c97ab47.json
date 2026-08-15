@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "'element' is used throughout the method and must be non-null for method calls to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "'parentLayers' is accessed at the end for add and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "'map' is used to access properties and tile sets, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getString(\"type\",\"\").equals(\"tilelayer\") || !element.getString(\"type\",\"\").equals(\"tilelayer\")",
+    "rationale" : "The logic only processes if type is \"tilelayer\" but allows for both cases at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers.getCount() >= 0",
+    "rationale" : "After possibly adding a layer, the count of layers cannot be negative.",
+    "meta" : [ ]
+  } ]
+}

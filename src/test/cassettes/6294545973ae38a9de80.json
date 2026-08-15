@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method allocates a new ArrayList<WriteStatus> for writeStatuses, and always returns this instance, so result is never null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always returns a List<WriteStatus> allocated on the heap."
+    } ]
+  }, {
+    "expression" : "result.isEmpty() || result.get(0) != null",
+    "rationale" : "WriteStatus objects are collected from the JavaLazyInsertIterable into the result; only non-null batches are added.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "WriteStatus objects added to the result list by forEachRemaining; if present, they should not be null."
+    } ]
+  }, {
+    "expression" : "!(inputRecords == null) || result.isEmpty()",
+    "rationale" : "If inputRecords is null, then dedupedRecords is null, which could produce an empty iterator and thus result.empty.",
+    "meta" : [ {
+      "key" : "logic",
+      "value" : "If inputRecords is null, result will be empty (because dedupedRecords becomes null, and so repartitionedRecords will be an empty list or an empty iterator.)"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The result is an ArrayList; all Java lists have sizes >= 0.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "List sizes cannot be negative in Java."
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is dereferenced (repartitionRecords, instanceof, getWriteHandleFactory) without null checks, so must be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitioner is used directly in the method body, so at this point before the return it must not be null."
+    } ]
+  } ]
+}

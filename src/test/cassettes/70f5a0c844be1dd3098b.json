@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of HoodieJavaTable.create(...) which should be non-null unless an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is passed into method and directly used; it must be non-null to safely access its methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used to call context.getStorageConf().newInstance(); cannot be null at this program point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "Factory-style methods typically associate the configuration passed in with the created object, and HoodieJavaTable likely stores or exposes its config.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getContext() == context",
+    "rationale" : "HoodieJavaTable is constructed with the context parameter, so it is likely to hold a reference to it.",
+    "meta" : [ ]
+  } ]
+}

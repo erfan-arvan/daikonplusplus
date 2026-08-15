@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the output of the execute() method, which should be non-null for successful executions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method assumes preppedRecords is used as an argument for other calls, so it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is passed as an argument and probably encodes a non-empty commit or transaction instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "A HoodieWriteMetadata is expected to contain a non-null list of WriteStatus to represent the write outcome.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option values representing optional arguments are expected to be non-null, with possible empty states.",
+    "meta" : [ ]
+  } ]
+}

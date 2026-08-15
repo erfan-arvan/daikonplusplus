@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option<T> should never be null in well-designed Java code. This is a standard invariant for Option return values.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result.isPresent() == (config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()) && (isMetadataTableExists || metaClient.getStorage().exists(HoodieTableMetadata.getMetadataTableBasePath(metaClient.getBasePath())))",
+    "rationale" : "The Option is only present if metadata table is enabled or available and it exists, matching the guarded returns.",
+    "meta" : [ {
+      "key" : "relational",
+      "value" : "result"
+    } ]
+  }, {
+    "expression" : "result.isPresent() == !(isMetadataTable()) && (config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()) && (isMetadataTableExists || metaClient.getStorage().exists(HoodieTableMetadata.getMetadataTableBasePath(metaClient.getBasePath())))",
+    "rationale" : "The result is present only if not inside a metadata table and the subsequent checks succeed, corresponding to the two-level guards.",
+    "meta" : [ {
+      "key" : "precise",
+      "value" : "full-path"
+    } ]
+  }, {
+    "expression" : "result.isPresent() || !((config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()) && (isMetadataTableExists || metaClient.getStorage().exists(HoodieTableMetadata.getMetadataTableBasePath(metaClient.getBasePath()))))",
+    "rationale" : "If the result is not present, then one of the conditions for returning a present Option was not met.",
+    "meta" : [ {
+      "key" : "contrapositive",
+      "value" : "absent"
+    } ]
+  }, {
+    "expression" : "!result.isPresent() || !isMetadataTable()",
+    "rationale" : "If result is present, then the call did not hit the early return where isMetadataTable() is true.",
+    "meta" : [ {
+      "key" : "implied-guard",
+      "value" : "early-exit"
+    } ]
+  } ]
+}

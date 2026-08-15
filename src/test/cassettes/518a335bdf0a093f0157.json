@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A valid HoodieTable object is expected to be returned by the factory method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is an input parameter and the table cannot be created without it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is an input parameter and needed for HoodieTable creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getMetaClient() != null",
+    "rationale" : "A valid HoodieTable should have an associated non-null HoodieTableMetaClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getMetaClient() == metaClient",
+    "rationale" : "The HoodieTable returned should be associated with the same metaClient that was passed in.",
+    "meta" : [ ]
+  } ]
+}

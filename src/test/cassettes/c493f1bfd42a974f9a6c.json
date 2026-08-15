@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns records.collectAsList(), which guarantees a non-null List (assuming records itself is non-null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == (records.isEmpty())",
+    "rationale" : "If records is empty, collectAsList() will return an empty List, and vice versa.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.count()",
+    "rationale" : "The number of records collected into the List should match the number of elements in HoodieData.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() == (records.count() > 0)",
+    "rationale" : "Non-emptiness of the result List exactly matches non-zero HoodieData count.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> r != null)",
+    "rationale" : "Assuming HoodieData<HoodieRecord> contains no nulls, collectAsList() should yield a List with no nulls.",
+    "meta" : [ ]
+  } ]
+}

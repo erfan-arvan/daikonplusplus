@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (order.getQuantity() >= 10)",
+    "rationale" : "Directly reflects the method's logic: the result is true iff the order's quantity is at least 10.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() < 10 == !result",
+    "rationale" : "If the quantity is less than 10, result must be false, and vice versa.",
+    "meta" : [ ]
+  } ]
+}

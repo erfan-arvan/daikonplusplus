@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of HoodieJavaTable.create, which is expected to return a non-null HoodieTable instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is required and passed to HoodieJavaTable.create, which likely does not handle a null argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required and passed to HoodieJavaTable.create, which likely does not handle a null argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "HoodieJavaTable.create returns an instance of HoodieJavaTable, which extends or implements HoodieTable.",
+    "meta" : [ ]
+  } ]
+}

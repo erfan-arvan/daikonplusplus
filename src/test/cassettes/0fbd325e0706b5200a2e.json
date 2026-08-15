@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "It is typical for partitionPath to be non-null as it is used as a key for lookup in a HashMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.isEmpty() == false",
+    "rationale" : "partitionPath is expected to represent a directory or path, so being non-empty is a reasonable invariant.",
+    "meta" : [ ]
+  } ]
+}

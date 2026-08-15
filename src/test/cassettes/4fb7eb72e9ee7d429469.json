@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null && !data.isEmpty() ? parallelism > 0 : true",
+    "rationale" : "If there is work to parallelize, parallelism should be positive. Otherwise, parallelism's value doesn't matter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Method will operate on the provided list, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The function to apply must be provided and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallel stream processing requires at least one thread for meaningful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data == null || data.size() >= 0",
+    "rationale" : "If the data list is not null, its size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

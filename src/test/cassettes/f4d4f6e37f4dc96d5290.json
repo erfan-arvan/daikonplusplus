@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always assigns a non-null HoodieWriteMetadata before returning, either from deleteExecutor.execute or by new HoodieWriteMetadata<>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Regardless of branch, 'result' is always assigned and its write statuses field is set, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "deleteExecutor is used in all code paths, so it cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used in all code paths (e.g., config.shouldCombineBeforeDelete()), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "getWriteStatuses() is assigned a List by design in the method's logic.",
+    "meta" : [ ]
+  } ]
+}

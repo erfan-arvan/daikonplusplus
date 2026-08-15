@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is a parameter and should not be null in normal operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result is a parameter and is expected to be non-null for the method to function correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getName().contains(\"HoodieWriteMetadata\")",
+    "rationale" : "result should be of type HoodieWriteMetadata (or subclass).",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof java.util.List",
+    "rationale" : "writeStatuses should be an implementation of the List interface.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.stream().allMatch(ws -> ws != null)",
+    "rationale" : "All entries in writeStatuses are expected to be non-null WriteStatus objects.",
+    "meta" : [ ]
+  } ]
+}

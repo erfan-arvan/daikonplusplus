@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returning a non-null List<WriteStatus> is standard postcondition for collection returns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required downstream and passed into further methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Input record list should be non-null given the method contract and JDK/collection usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() || !result.isEmpty()",
+    "rationale" : "If there were no records input, there should also be no write results—or else results are always empty only if preppedRecords is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= preppedRecords.size()",
+    "rationale" : "Each WriteStatus should correspond to at most one input record, or fewer if some were filtered or merged.",
+    "meta" : [ ]
+  } ]
+}

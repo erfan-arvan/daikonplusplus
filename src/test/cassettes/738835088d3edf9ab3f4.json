@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned value is a constant string and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(\"clustering\") || result.equals(HoodieTimeline.CLUSTERING_ACTION)",
+    "rationale" : "The returned string is HoodieTimeline.CLUSTERING_ACTION, and possibly \"clustering\" if static equals that value in context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(HoodieTimeline.CLUSTERING_ACTION)",
+    "rationale" : "This is the exact value returned by the method according to source.",
+    "meta" : [ ]
+  } ]
+}

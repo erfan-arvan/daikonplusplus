@@ -1,0 +1,13 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null && mapToPairFunc != null && reduceFunc != null && parallelism > 0 ",
+    "rationale" : "Parameters must be non-null for the method to operate correctly, and parallelism typically should be positive.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "parameters must not be null except parallelism"
+    }, {
+      "key" : "parallelismCheck",
+      "value" : "parallelism must be positive"
+    } ]
+  } ]
+}

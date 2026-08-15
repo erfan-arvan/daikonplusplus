@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The createIndex method should return a HoodieIndex instance, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "A non-null HoodieWriteConfig is required to create the index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is required for the method, though it is not directly used here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "createIndex returns an instance of HoodieIndex.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "It is likely that the HoodieIndex produced is associated with the supplied config.",
+    "meta" : [ ]
+  } ]
+}

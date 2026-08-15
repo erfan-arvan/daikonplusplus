@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method is expected to return HoodieWriteMetadata, typically not null upon successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class",
+    "rationale" : "Result is explicitly constructed as a HoodieWriteMetadata with a specific type, so its runtime type should match.",
+    "meta" : [ ]
+  } ]
+}

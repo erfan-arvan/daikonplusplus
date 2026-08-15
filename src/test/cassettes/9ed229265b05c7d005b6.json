@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "sourceElement != null",
+    "rationale" : "The method dereferences sourceElement, so it must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceElement.getName() != null",
+    "rationale" : "The constructor of the copy element uses sourceElement.getName(), which is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceElement.getAttributes() == null || sourceElement.getAttributes().size >= 0",
+    "rationale" : "If attributes are present, their size should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceElement.getText() == null || sourceElement.getText().length() >= 0",
+    "rationale" : "If text is present on the element, its length is >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceElement.getAttributes() == null || sourceElement.getAttributes().size == sourceElement.getAttributes().entries().size",
+    "rationale" : "The number of entries returned by entries() should match the attribute map's size.",
+    "meta" : [ ]
+  } ]
+}

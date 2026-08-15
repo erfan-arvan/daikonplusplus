@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of getDependencyAssetDescriptors, which should produce a non-null Array.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "The FileHandle tmxFile is used for parsing and passed into another method, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is used to identify resources; a null value may not be valid input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter.generateMipMaps == ((TextureLoader.TextureParameter) textureParameter).genMipMaps",
+    "rationale" : "If the parameter is non-null, its generateMipMaps field is copied to textureParameter.genMipMaps before being passed onward.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "An Array's size should never be negative.",
+    "meta" : [ ]
+  } ]
+}

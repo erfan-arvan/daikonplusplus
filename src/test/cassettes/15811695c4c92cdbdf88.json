@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new JavaHoodieBackedTableMetadataWriter instance, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaHoodieBackedTableMetadataWriter",
+    "rationale" : "The returned object is constructed as a JavaHoodieBackedTableMetadataWriter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteConfig() == writeConfig",
+    "rationale" : "The constructor for JavaHoodieBackedTableMetadataWriter passes writeConfig as an argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getEngineContext() == context",
+    "rationale" : "The EngineContext parameter is passed directly to the writer in the constructor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getInflightInstantTimestamp().equals(inflightInstantTimestamp)",
+    "rationale" : "The inflightInstantTimestamp parameter is passed to the constructor as-is, suggesting equality for a getter if present.",
+    "meta" : [ ]
+  } ]
+}

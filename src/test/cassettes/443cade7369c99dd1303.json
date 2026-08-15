@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method expects a non-null HoodieWriteConfig to function, otherwise it may throw NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config instanceof HoodieWriteConfig",
+    "rationale" : "By the method signature, config is always a HoodieWriteConfig.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "The factory method createKeyGenerator expects non-null properties; config.getProps() should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Option.class != null",
+    "rationale" : "Option is used in the return type; it must be available and loadable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "BaseKeyGenerator.class != null",
+    "rationale" : "BaseKeyGenerator is casted and used; it must be available and loadable.",
+    "meta" : [ ]
+  } ]
+}

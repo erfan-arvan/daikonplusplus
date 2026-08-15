@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.uniformX == Boolean.TRUE",
+    "rationale" : "The method sets the field 'uniformX' to Boolean.TRUE before returning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Boolean.TRUE.equals(result.uniformX)",
+    "rationale" : "A null-safe check that the 'uniformX' field of the result is set to TRUE.",
+    "meta" : [ ]
+  } ]
+}

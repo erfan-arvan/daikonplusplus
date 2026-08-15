@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Method is expected to use the config parameter via JavaHoodieIndexFactory.createIndex, so config should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed as a parameter and may be utilized by some method variants or downstream logic, so should not be null.",
+    "meta" : [ ]
+  } ]
+}

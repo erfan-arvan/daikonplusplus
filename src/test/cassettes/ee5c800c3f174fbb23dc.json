@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "Max width should not be negative; negative sizes are likely invalid or unsupported.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Max height should not be negative; negative sizes are likely invalid or unsupported.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width != Float.NaN",
+    "rationale" : "Width should not be NaN to avoid undefined behavior when setting max size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height != Float.NaN",
+    "rationale" : "Height should not be NaN to avoid undefined behavior when setting max size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width == 0 || width > 0",
+    "rationale" : "If width is not zero, it is expected to be positive for a meaningful max size.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is required for executing index operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "The indexInstantTime is used for identifying the instant for the indexing operation and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!indexInstantTime.isEmpty()",
+    "rationale" : "An empty indexInstantTime would likely not be meaningful for identifying an operation and methods typically expect a non-empty value.",
+    "meta" : [ ]
+  } ]
+}

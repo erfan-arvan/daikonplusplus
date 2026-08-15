@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "Main methods typically expect args to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "System.out != null",
+    "rationale" : "System.out should be initialized at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Foo.bar(2, \"hi\") != null",
+    "rationale" : "Assumes Foo.bar returns a non-null value suitable for System.out.println.",
+    "meta" : [ ]
+  }, {
+    "expression" : "System.out.checkError() == false",
+    "rationale" : "Assumes no error has occurred in System.out after println execution.",
+    "meta" : [ ]
+  } ]
+}

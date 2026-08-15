@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method should return a non-null HoodieWriteMetadata as per its contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Returned write statuses list should be non-null if result is a valid HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "Write statuses should be of type List, matching the generic signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input record list should be non-null when calling this method and when reflected in output result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime typically represents a commit or operation time and should be non-null and non-empty for correct operation.",
+    "meta" : [ ]
+  } ]
+}

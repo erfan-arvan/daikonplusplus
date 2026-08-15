@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 || result == a / b",
+    "rationale" : "If b is nonzero, division proceeds and result is the integer division; if b is zero, an alternate value is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b == 0 ==> result == Integer.MIN_VALUE",
+    "rationale" : "If b equals zero, result is set to Integer.MIN_VALUE as a sentinel.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != 0 ==> result * b <= a && result * b > a - Math.abs(b)",
+    "rationale" : "For integer division, the result times divisor is in the range [a - |b| + 1, a] (division truncates toward zero).",
+    "meta" : [ ]
+  }, {
+    "expression" : "b == 1 ==> result == a",
+    "rationale" : "Dividing by one yields the dividend itself as the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b == -1 && a != Integer.MIN_VALUE ==> result == -a",
+    "rationale" : "Dividing by negative one negates a unless a is Integer.MIN_VALUE, which cannot be negated safely in Java.",
+    "meta" : [ ]
+  } ]
+}

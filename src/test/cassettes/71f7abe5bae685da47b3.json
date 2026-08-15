@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new HoodieWriteMetadata instance is explicitly constructed and returned, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "The method casts executor to BaseJavaCommitActionExecutor and uses it, implying it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The method invokes methods on table, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is dereferenced in several calls (e.g., for getBulkInsertSortMode(), shouldAllowMultiWriteOnSameInstant()), so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is passed to another method; dereferencing without null check implies it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

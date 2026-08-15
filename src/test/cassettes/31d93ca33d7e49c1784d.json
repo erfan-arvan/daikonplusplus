@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method dereferences clusteringGroup to call getSlices(), so it must not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required to identify the clustering instant; the method passes it to getRecordIterator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "The method calls clusteringGroup.getSlices().stream(), so getSlices() cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clusteringGroup.getSlices().isEmpty()",
+    "rationale" : "Clustering groups are expected to contain at least one slice in typical cluster operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty string to represent a valid timestamp or instant.",
+    "meta" : [ ]
+  } ]
+}

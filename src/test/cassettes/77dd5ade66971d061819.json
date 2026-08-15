@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method creates and returns a KeyGenerator instance; it is expected that the factory does not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "The method requires a non-null TypedProperties object to create a KeyGenerator; passing null would likely result in an exception before method exit.",
+    "meta" : [ ]
+  } ]
+}

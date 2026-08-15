@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context must be non-null as it is passed to executor constructor",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null because it is used to construct executor"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime must be non-null as it is passed to executor constructor",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null as it is used in executor construction"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records must be non-null because it is passed to the executor",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records list is non-null as it is passed to executor"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is an Option and non-null by API contract",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "bulkInsertPartitioner option is non-null"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "records refers to a list whose size is always non-negative",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "records size is non-negative"
+    } ]
+  } ]
+}

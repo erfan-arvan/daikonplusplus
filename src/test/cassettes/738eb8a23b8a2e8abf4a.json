@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of postWrite, which is expected to be a non-null List of WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method assumes records is a valid input and uses it in core operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to multiple downstream API calls, implying it should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "By contract, result must be a List of WriteStatus objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List.size() is always non-negative; ensures that the returned list size is never negative.",
+    "meta" : [ ]
+  } ]
+}

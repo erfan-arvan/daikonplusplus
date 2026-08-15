@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= -1",
+    "rationale" : "The return value is -1 if the object is not found or >=0 if found.",
+    "meta" : [ ]
+  }, {
+    "expression" : "object != null",
+    "rationale" : "The method 'indexOf' is called on the object, which requires 'object' to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == -1) || (result >= 0)",
+    "rationale" : "By the documentation, return value must be -1 or a valid non-negative index.",
+    "meta" : [ ]
+  } ]
+}

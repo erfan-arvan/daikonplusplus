@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of execute(), which is expected to return a non-null HoodieCleanMetadata instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getEarliestCommitToRetain() == null || result.getEarliestCommitToRetain().compareTo(cleanInstantTime) >= 0",
+    "rationale" : "Clean metadata should never try to retain a commit earlier than the clean instant time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStartTime().equals(cleanInstantTime)",
+    "rationale" : "The clean metadata should record the start time as the instant at which the clean action occurred.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is used in the clean operation and is expected to be non-null for a successful clean.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getPartitionMetadata().isEmpty() || result.getTotalFilesDeleted() == 0",
+    "rationale" : "If no partitions are cleaned, no files should be deleted.",
+    "meta" : [ ]
+  } ]
+}

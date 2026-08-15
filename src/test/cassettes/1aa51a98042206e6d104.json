@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "It's likely that execute should return a non-null metadata object to indicate the result of the write.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write status list in the metadata should not be null, as it represents the result of the write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "Assuming input records are not empty, the write operation should produce at least one WriteStatus entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "getWriteStatuses() should return a List instance, as per the method's expected return type.",
+    "meta" : [ ]
+  } ]
+}

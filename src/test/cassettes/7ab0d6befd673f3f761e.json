@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The parameter columnsToIndex should not be null when the method exits.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "Non-null parameter"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The parameter metaClient should not be null when the method exits.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "Non-null parameter"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "The size method of List returns a non-negative integer.",
+    "meta" : [ {
+      "key" : "Range",
+      "value" : "Size is non-negative"
+    } ]
+  } ]
+}

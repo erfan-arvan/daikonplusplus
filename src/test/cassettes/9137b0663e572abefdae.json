@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context must be non-null to proceed with scheduling compaction.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string must be non-null as it is used for compaction scheduling.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The extraMetadata Option object should be non-null, even if empty.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "extraMetadata.isEmpty() || extraMetadata.get() != null",
+    "rationale" : "If extraMetadata is not empty, its contained Map must be non-null.",
+    "meta" : [ {
+      "key" : "option_safe_access",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "The context variable is an instance of HoodieEngineContext.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "true"
+    } ]
+  } ]
+}

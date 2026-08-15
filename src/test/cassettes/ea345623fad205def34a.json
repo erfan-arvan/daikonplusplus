@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "A valid StorageConfiguration is necessary for creating a metadata writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "A non-null HoodieWriteConfig is required for the writer to be constructed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext is needed for metadata writer creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "The inflightInstantTimestamp Option instance should be present (even if empty) for clarity in parameter passing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp.isPresent() == false || inflightInstantTimestamp.get() != null",
+    "rationale" : "If inflightInstantTimestamp is present, it should not wrap null, satisfying Option's contract.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns WriteHelperHolder.JAVA_WRITE_HELPER, which must not be null to avoid NullPointerExceptions and to be a valid singleton.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == WriteHelperHolder.JAVA_WRITE_HELPER",
+    "rationale" : "By method body, result is always the static singleton WriteHelperHolder.JAVA_WRITE_HELPER.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaWriteHelper",
+    "rationale" : "The declared return value and singleton object are instances of JavaWriteHelper.",
+    "meta" : [ ]
+  }, {
+    "expression" : "WriteHelperHolder.JAVA_WRITE_HELPER != null",
+    "rationale" : "The static field used as the singleton must be initialized and non-null for the method to function properly.",
+    "meta" : [ ]
+  } ]
+}

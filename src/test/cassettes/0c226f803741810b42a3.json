@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator, as both return paths create new Iterator instances.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext() || !recordItr.hasNext()",
+    "rationale" : "If the input recordItr has no next, the result is an iterator over a singleton empty list; otherwise, result may or may not have next, but for the empty case, it always does.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is required for the update operation and always passed through to getUpdateHandle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used for logging and merge handle and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is dereferenced with recordItr.hasNext(), so must be non-null.",
+    "meta" : [ ]
+  } ]
+}

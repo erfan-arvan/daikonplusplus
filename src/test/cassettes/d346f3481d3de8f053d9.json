@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "false",
+    "rationale" : "The method only throws an exception and cannot complete normally, so this program point is unreachable.",
+    "meta" : [ {
+      "key" : "exception",
+      "value" : "HoodieNotSupportedException is always thrown"
+    } ]
+  }, {
+    "expression" : "result == null",
+    "rationale" : "No result is ever returned since an exception is always thrown.",
+    "meta" : [ {
+      "key" : "result",
+      "value" : "uninitialized due to exception"
+    } ]
+  } ]
+}

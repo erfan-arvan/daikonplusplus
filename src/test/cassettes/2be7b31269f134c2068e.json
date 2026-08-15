@@ -1,0 +1,10 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method always throws HoodieNotSupportedException, it never returns normally, so 'result' is always null at method exit.",
+    "meta" : [ {
+      "key" : "guarantee",
+      "value" : "exception thrown, so no result"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new JavaHoodieBackedTableMetadataWriter object is always instantiated and returned. Thus, result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaHoodieBackedTableMetadataWriter",
+    "rationale" : "The returned value is constructed using 'new JavaHoodieBackedTableMetadataWriter', guaranteeing that result is always of this type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getEngineType() != null",
+    "rationale" : "Assuming JavaHoodieBackedTableMetadataWriter initializes all required fields, getEngineType() should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != conf",
+    "rationale" : "conf is passed as a parameter, but result is a new object unrelated to conf's type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != writeConfig",
+    "rationale" : "writeConfig is passed as a parameter, but result is of a different type, so they can't be equal.",
+    "meta" : [ ]
+  } ]
+}

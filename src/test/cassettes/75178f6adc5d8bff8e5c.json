@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method always receives metaClient and calls reloadTableConfig on it, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "inFlightInstantTimestamp is passed to another method and may be required to be non-null for method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "reloadTableConfig is invoked, and metaClient should have valid table config.",
+    "meta" : [ ]
+  } ]
+}

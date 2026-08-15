@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "pad >= 0",
+    "rationale" : "It is common for padding values to be non-negative in UI layout contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(pad)",
+    "rationale" : "Finite padding values are typically expected; infinite or NaN values may not make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pad != Float.NaN",
+    "rationale" : "Padding being NaN is likely unintended for UI layout.",
+    "meta" : [ ]
+  } ]
+}

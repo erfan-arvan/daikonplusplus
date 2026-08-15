@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "A null partitionPath is likely not valid for locating or updating records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "A non-null fileId is required to identify a file for updating.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "A non-null iterator is necessary to process records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "An empty partitionPath may be invalid for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileId.isEmpty()",
+    "rationale" : "An empty fileId could not uniquely identify a file for merging.",
+    "meta" : [ ]
+  } ]
+}

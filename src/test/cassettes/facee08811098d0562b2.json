@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this.repeatY",
+    "rationale" : "The method directly returns the value of the repeatY field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !this.repeatY",
+    "rationale" : "If result is false, then repeatY must be false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || this.repeatY",
+    "rationale" : "If result is true, repeatY is true.",
+    "meta" : [ ]
+  } ]
+}

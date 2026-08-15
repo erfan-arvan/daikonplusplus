@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && keys != null",
+    "rationale" : "The method always returns a non-null list derived from keys, so result and keys should be non-null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "result and keys are not null"
+    } ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "The result is a deduplicated subset of keys, so its size should be less or equal to the original list size.",
+    "meta" : [ {
+      "key" : "sizeRelation",
+      "value" : "result size less or equal initial keys size"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(k -> k != null)",
+    "rationale" : "The deduplicated keys list should only contain valid HoodieKey objects from the original keys list.",
+    "meta" : [ {
+      "key" : "elementNonNull",
+      "value" : "elements in result are non-null"
+    } ]
+  }, {
+    "expression" : "keys.containsAll(result)",
+    "rationale" : "The result list contains elements that are originally from keys, so keys contain all elements from result.",
+    "meta" : [ {
+      "key" : "subsetRelation",
+      "value" : "result is subset of keys"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically a positive integer indicating the level of concurrency.",
+    "meta" : [ {
+      "key" : "parameterRange",
+      "value" : "parallelism is positive"
+    } ]
+  } ]
+}

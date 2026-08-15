@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "top != null",
+    "rationale" : "The method throws an exception if top is null, implying callers are expected to provide non-null values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "left != null",
+    "rationale" : "The method checks left for null and throws if so, requiring a non-null input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bottom != null",
+    "rationale" : "The method throws if bottom is null, so it should be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "right != null",
+    "rationale" : "The method immediately checks that right is not null, so callers must pass non-null.",
+    "meta" : [ ]
+  } ]
+}

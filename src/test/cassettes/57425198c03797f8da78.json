@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a value from super.execute(), which likely guarantees a non-null return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The result should always be an instance of HoodieWriteMetadata as per the method signature.",
+    "meta" : [ ]
+  } ]
+}

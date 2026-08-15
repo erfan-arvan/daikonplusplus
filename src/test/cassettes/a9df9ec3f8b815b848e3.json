@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is expected to be a valid engine context object; most Hoodie table methods require non-null context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option objects are typically non-null (presence/absence encoded in isPresent()) for clarity and uniformity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() == (extraMetadata.get() != null)",
+    "rationale" : "If extraMetadata is present, then get() returns a non-null Map; if not present, get() should not be used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!extraMetadata.isPresent() || !extraMetadata.get().isEmpty()",
+    "rationale" : "If extraMetadata is present, it is likely to contain metadata entries; Option is rarely present with empty value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!extraMetadata.isPresent() || extraMetadata.get().size() >= 0",
+    "rationale" : "If extraMetadata is present, its value is a Map whose size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

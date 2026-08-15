@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method creates HoodieData from records; null records may be disallowed or handled as a programming error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method returns non-null HoodieListData instance for any valid input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListData",
+    "rationale" : "Method implementation returns HoodieListData.lazy(records), so result is always of this type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == records.size()",
+    "rationale" : "HoodieListData should preserve the number of elements from input records list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(records)",
+    "rationale" : "Assuming HoodieListData.collectAsList() returns the input list unchanged due to .lazy(records).",
+    "meta" : [ ]
+  } ]
+}

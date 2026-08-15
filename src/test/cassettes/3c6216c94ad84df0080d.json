@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter should be a valid non-null String identifying the commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "A non-null 'partitionPath' is required to refer to the correct partition for records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "'records' must not be null for commit operations to process data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "A non-null 'indexParser' should be provided to interpret hoodie metadata file group index.",
+    "meta" : [ ]
+  } ]
+}

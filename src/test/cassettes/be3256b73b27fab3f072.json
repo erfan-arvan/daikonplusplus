@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == Character.isDigit(c)",
+    "rationale" : "The method returns the result of Character.isDigit(c), so result will always be equal to that value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (c >= '0' && c <= '9')",
+    "rationale" : "Character.isDigit(c) for ASCII digits is equivalent to checking if c is between '0' and '9'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!Character.isDigit(c)) == !result",
+    "rationale" : "If c is not a digit, result is false, mirroring the primary return expression.",
+    "meta" : [ ]
+  } ]
+}

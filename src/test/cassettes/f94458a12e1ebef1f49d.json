@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a new LinkedHashMap, never null.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft A and B"
+    } ]
+  }, {
+    "expression" : "result.size() <= dedupedRecords.size()",
+    "rationale" : "There is one entry per partition, never more than total records.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft A and B"
+    } ]
+  }, {
+    "expression" : "result.values().stream().flatMap(List::stream).allMatch(dedupedRecords::contains)",
+    "rationale" : "Every record in the result is from the dedupedRecords input list.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft B and C"
+    } ]
+  }, {
+    "expression" : "result.values().stream().mapToInt(List::size).sum() == dedupedRecords.size()",
+    "rationale" : "Partitioning is grouping only; no loss or creation of records.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft B and C"
+    } ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "Partitioner returns Integer partition keys; null keys are not used.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Draft A and B"
+    } ]
+  } ]
+}

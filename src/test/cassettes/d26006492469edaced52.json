@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "It is common for job identifiers to be non-null to reference valid jobs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId == null || !jobId.isEmpty()",
+    "rationale" : "A job ID is typically non-empty if it is present, unless null indicates optionality.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId == null || jobId.trim().length() > 0",
+    "rationale" : "If the job ID is not null, expecting it to be non-blank is reasonable for job referencing.",
+    "meta" : [ ]
+  } ]
+}

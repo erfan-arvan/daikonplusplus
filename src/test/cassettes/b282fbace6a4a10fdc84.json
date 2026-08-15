@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Methods returning an object, especially when delegating to a superclass, may be expected to return a non-null result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method's return type guarantees that result is a HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

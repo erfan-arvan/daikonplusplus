@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns result, which should not be null after creation unless an exception was thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The config parameter is used to create the table; it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "The storageConf parameter is passed for table creation; it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieTable",
+    "rationale" : "The return type is HoodieTable, so result is expected to always be an instance of HoodieTable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipValidation == true || skipValidation == false",
+    "rationale" : "skipValidation is a boolean value, so it can only be true or false.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketInfoMap.get(bucketNumber) == result",
+    "rationale" : "The method directly returns bucketInfoMap.get(bucketNumber), so the result is equal to this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber >= 0 ? bucketInfoMap.containsKey(bucketNumber) == (result != null) : true",
+    "rationale" : "If the bucketNumber is non-negative, result is non-null iff there is an entry in the map (containsKey).",
+    "meta" : [ ]
+  } ]
+}

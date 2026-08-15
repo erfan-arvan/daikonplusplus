@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Both topAndBottom + textHeight and minHeight use Math.max with initial zeros, so negatives cannot arise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= Math.max(topAndBottom + textHeight, minHeight)",
+    "rationale" : "result is set to this value via the return expression.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Math.max(topAndBottom + textHeight, minHeight)",
+    "rationale" : "result directly returns this value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= minHeight",
+    "rationale" : "By definition of Math.max, result is always at least minHeight.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= topAndBottom + textHeight",
+    "rationale" : "By definition of Math.max, result is always at least topAndBottom + textHeight if it is greater than minHeight.",
+    "meta" : [ ]
+  } ]
+}

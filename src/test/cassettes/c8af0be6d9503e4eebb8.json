@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path should not be null to form valid clustering groups.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "The list of file slices must not be null to process clustering.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "fileSlices instanceof List",
+    "rationale" : "fileSlices is declared as a List<FileSlice> and should be an instance of List.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "Partition path is typically a non-empty string in file systems.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string"
+    } ]
+  }, {
+    "expression" : "fileSlices.stream().allMatch(fs -> fs != null)",
+    "rationale" : "Each entry in the fileSlices list should be non-null for valid processing.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection"
+    } ]
+  } ]
+}

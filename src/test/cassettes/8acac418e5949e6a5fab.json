@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a list, so result should not be null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "result is non-null at method exit"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The input parameter hoodieRecords is expected to be non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "parameter hoodieRecords is non-null"
+    } ]
+  }, {
+    "expression" : "result.size() <= hoodieRecords.size()",
+    "rationale" : "Filtering returns a subset of the input list, so result size cannot be larger than input.",
+    "meta" : [ {
+      "key" : "size-relation",
+      "value" : "result size is no greater than input hoodieRecords size"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> !r.isCurrentLocationKnown())",
+    "rationale" : "The filtering keeps only records whose isCurrentLocationKnown() method returns false.",
+    "meta" : [ {
+      "key" : "filter-property",
+      "value" : "all result records have unknown location"
+    } ]
+  }, {
+    "expression" : "!result.isEmpty() || hoodieRecords.stream().allMatch(r -> r.isCurrentLocationKnown())",
+    "rationale" : "If result is empty, it indicates all input records have current location known.",
+    "meta" : [ {
+      "key" : "empty-result-condition",
+      "value" : "result empty means no record passed filter"
+    } ]
+  } ]
+}

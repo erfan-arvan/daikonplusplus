@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords should be provided to perform bulk inserts; most operations assume a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime is expected to be a valid, non-empty String representing a commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table must exist in order to perform operations relating to the bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The configuration must be present to determine the behavior of the bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "The executor is required to update index and perform necessary actions as part of the commit logic.",
+    "meta" : [ ]
+  } ]
+}

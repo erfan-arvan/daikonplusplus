@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieData<WriteStatus> object 'result' which is expected to be non-null at method exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null"
+    } ]
+  }, {
+    "expression" : "writeStatuses != null && result != null",
+    "rationale" : "Assuming inputs are non-null, the result should also be non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "both inputs and output non-null"
+    } ]
+  }, {
+    "expression" : "result.isEmpty() == writeStatuses.isEmpty()",
+    "rationale" : "The result relates to the input writeStatuses and likely preserves emptiness.",
+    "meta" : [ {
+      "key" : "size-relation",
+      "value" : "empty-preservation"
+    } ]
+  }, {
+    "expression" : "writeStatuses != null && result != null",
+    "rationale" : "Since input and output are HoodieData objects, they should not be null at the method exit.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "inputs and outputs non-null"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The size of the result collection cannot be negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "non-negative"
+    } ]
+  } ]
+}

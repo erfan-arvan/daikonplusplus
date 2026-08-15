@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is expected to be a valid engine context for method execution, so it should not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime typically represents a required timestamp or commit instant and is expected to be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "A list of prepped records to insert is required; a null value would generally be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Even if the Option may be empty, it should not itself be null according to method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.get(0) != null",
+    "rationale" : "If the list of records is non-empty, its first element should not be null, indicating properly constructed records.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', which cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this', so 'result' and 'this' must reference the same object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result.align & Align.top) == Align.top",
+    "rationale" : "The method sets the Align.top bit in the 'align' field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result.align & Align.bottom) == 0",
+    "rationale" : "The method clears the Align.bottom bit in the 'align' field.",
+    "meta" : [ ]
+  } ]
+}

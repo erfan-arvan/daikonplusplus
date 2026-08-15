@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Layer is used for multiple setter invocations, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Element is used for method calls, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getName().equals(element.getString(\"name\"))",
+    "rationale" : "Layer's name is set directly from element's 'name' property.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isVisible() == element.getBoolean(\"visible\", true)",
+    "rationale" : "Layer's visible flag is set based on element's 'visible' key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() == element.getFloat(\"opacity\", 1.0f)",
+    "rationale" : "Layer's opacity is set from element's 'opacity' key with default 1.0.",
+    "meta" : [ ]
+  } ]
+}

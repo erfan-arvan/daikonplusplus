@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "b >= -128",
+    "rationale" : "Java bytes are always >= -128.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b <= 127",
+    "rationale" : "Java bytes are always <= 127.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(b & 0xFF) >= 0",
+    "rationale" : "Bitwise AND with 0xFF results in values from 0 to 255.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(b & 0xFF) <= 255",
+    "rationale" : "Unsigned conversion for a byte produces values in [0,255].",
+    "meta" : [ ]
+  } ]
+}

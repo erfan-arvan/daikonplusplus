@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method uses writeStatuses as an argument to HoodieListData.eager and then to updateLocation; it must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method dereferences result with result.setIndexUpdateDuration and other setters; it must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof List",
+    "rationale" : "writeStatuses is expected to be a List<WriteStatus> as per the method signature.",
+    "meta" : [ ]
+  } ]
+}

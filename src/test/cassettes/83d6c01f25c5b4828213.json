@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "The method expects a metadata object as a parameter; non-nullness is usually required for safe method invocation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "The method calls metadata.getWriteStatuses().collectAsList(), implying that getWriteStatuses() should not return null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is likely required to identify the partition for clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "fileSlices must be non-null to process the clustering plan.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices.isEmpty() || fileSlices.size() >= 0",
+    "rationale" : "A List's size is always non-negative, ensures fileSlices.size() is safe if fileSlices is non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "String.length() is always non-negative if partitionPath is non-null.",
+    "meta" : [ ]
+  } ]
+}

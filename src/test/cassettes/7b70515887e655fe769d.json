@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata object, so result should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method is called with preppedRecords as part of its core operation; a null input would likely have been handled earlier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid instantTime is required for all table operations and is passed through to the commit action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null engine context is necessary for processing records and delegating execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "result is of type HoodieWriteMetadata<List<WriteStatus>>, so getWriteStatuses() should return a List.",
+    "meta" : [ ]
+  } ]
+}

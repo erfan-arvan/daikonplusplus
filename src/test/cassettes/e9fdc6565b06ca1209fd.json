@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method immediately returns the input list without any modification.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "return identity"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The returned value is the input, which is assumed to be non-null if passed to the method (as per typical Java idioms).",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null result"
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "As the method returns the exact input list reference, their sizes are guaranteed to be the same.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "size preservation"
+    } ]
+  } ]
+}

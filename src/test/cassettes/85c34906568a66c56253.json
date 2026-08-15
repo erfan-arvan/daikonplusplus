@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method checks for null and returns 0.0 in that case, so 'orders' is never null at any return except when 'result == 0.0'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || !orders.isEmpty()",
+    "rationale" : "If orders is not null, it cannot be empty at this point, because the method returns immediately if empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(orders == null || orders.isEmpty()) == (result == 0.0)",
+    "rationale" : "If orders is null or empty, the returned result is 0.0, and vice versa.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "Total price is initialized to 0.0 and only non-negative prices are added, so result cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders.stream().allMatch(order -> order != null)",
+    "rationale" : "If orders is not null, the validation step is called, so orders likely does not contain nulls after validation.",
+    "meta" : [ ]
+  } ]
+}

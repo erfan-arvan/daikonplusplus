@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method does not appear to expect null inputRecords, as further execution assumes it's non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer != null",
+    "rationale" : "Option arguments are conventionally passed as non-null; their presence/absence is indicated by Option's internal state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() == (inputRecords.size() == 0)",
+    "rationale" : "List.isEmpty() and size()==0 are equivalent and both safe here.",
+    "meta" : [ ]
+  } ]
+}

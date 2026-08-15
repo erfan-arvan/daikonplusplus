@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of another execute() method, which is expected to be non-null under standard success conditions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The declared return type enforces that result is a HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

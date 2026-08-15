@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null",
+    "rationale" : "The method expects strategyParams to be non-null as it is used immediately via containsKey and get.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is used to create other objects and is expected to be not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.isEmpty() || strategyParams.isEmpty()",
+    "rationale" : "strategyParams must be either empty or not; included for completeness as a basic property of the map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.keySet().containsAll(strategyParams.keySet())",
+    "rationale" : "A set always contains all of its own elements. Included as a basic sanity property.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.size() >= 0",
+    "rationale" : "Size of a Java Map is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

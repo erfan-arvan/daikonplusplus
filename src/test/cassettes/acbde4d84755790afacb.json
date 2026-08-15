@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A valid operation on context would require that it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely expected to represent a point in time, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() || !instantTime.isEmpty()",
+    "rationale" : "instantTime is a String, and its empty state partitions all possibilities. This expression is always true if instantTime is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() >= 0",
+    "rationale" : "The length of a String is always non-negative if instantTime is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context.hashCode() == context.hashCode()",
+    "rationale" : "The hashCode of context remains consistent during the method entry if context is non-null.",
+    "meta" : [ ]
+  } ]
+}

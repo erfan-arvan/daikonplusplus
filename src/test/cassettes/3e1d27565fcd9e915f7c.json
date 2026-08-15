@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new HoodieWriteMetadata object is always created and returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner.isPresent() || config.getBulkInsertSortMode() != null",
+    "rationale" : "A BulkInsertPartitioner is always assigned, either from the Option or via configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "executor is required to call updateIndexAndMaybeRunPreCommitValidations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced multiple times, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used to retrieve multiple configuration values.",
+    "meta" : [ ]
+  } ]
+}

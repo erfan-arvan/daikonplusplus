@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns Collections.emptyList(), which is non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is guaranteed non-null because it is Collections.emptyList()"
+    } ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Collections.emptyList() is an empty list.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "result.size() == 0"
+    } ]
+  }, {
+    "expression" : "cacheKey != null",
+    "rationale" : "Typically, cacheKey should not be null to query the cache, and method semantics suggest it is non-null.",
+    "meta" : [ {
+      "key" : "parameter_nullness",
+      "value" : "cacheKey is assumed non-null"
+    } ]
+  } ]
+}

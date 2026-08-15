@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "flingTime >= 0",
+    "rationale" : "flingTime represents a duration parameter and is likely expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "velocityX == this.velocityX",
+    "rationale" : "The parameter velocityX is assigned directly to this.velocityX within the method, so they should be equal at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "velocityY == this.velocityY",
+    "rationale" : "The parameter velocityY is assigned directly to this.velocityY within the method, so they should be equal at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flingTime == this.flingTimer",
+    "rationale" : "The parameter flingTime is assigned directly to this.flingTimer within the method, so they should be equal at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Math.abs(velocityX) >= 0",
+    "rationale" : "The absolute value of a velocity (float) is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

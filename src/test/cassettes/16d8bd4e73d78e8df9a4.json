@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "The map loading process requires a valid file and tmxFile parameter is expected to represent the TMX file to load.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "ImageResolver is necessary for associating images with tiles; assumed to be non-null for proper functionality.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter.projectFilePath != null",
+    "rationale" : "If the parameter object is provided, its projectFilePath field or property is accessed for loading project file; null projectFilePath would likely lead to an error later.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || (parameter.projectFilePath == null || parameter.projectFilePath.length() >= 0)",
+    "rationale" : "Defends against cases when projectFilePath is present but empty; also is a syntactically valid string property assumption.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "Map loading requires that the specified tmxFile exists on the filesystem or resource path.",
+    "meta" : [ ]
+  } ]
+}

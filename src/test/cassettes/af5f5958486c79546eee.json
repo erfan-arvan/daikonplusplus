@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is required by getUpdateHandle; null likely forbidden.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is logged and passed to downstream methods; null likely prohibited.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null Iterator for List<WriteStatus>, either a singleton iterator or the result of IOUtils.runMerge.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result.hasNext()",
+    "rationale" : "If recordItr is not empty, result should yield at least one batch of WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is dereferenced directly in code; must not be null.",
+    "meta" : [ ]
+  } ]
+}

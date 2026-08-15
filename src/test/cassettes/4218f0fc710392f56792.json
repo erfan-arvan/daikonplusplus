@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List<WriteStatus> created via postWrite; result should never be null for correct implementations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to multiple methods where it's dereferenced or used in Option.ofNullable; it should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "keys is passed as an argument to internal methods and dereferenced to build operations, so it is expected to be non-null at the program point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size is always non-negative; ensures result is a valid List instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "A List's size is always non-negative; reflects well-formedness of the input keys.",
+    "meta" : [ ]
+  } ]
+}

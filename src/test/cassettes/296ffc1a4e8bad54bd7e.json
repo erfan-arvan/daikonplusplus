@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should be a non-null, non-empty string representing commit time.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is typically a non-empty commit timestamp string."
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "keys list should never be null at method entry.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "keys list must be provided to perform deletes."
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration is required to control delete behavior.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "config must be present to get delete shuffle parallelism and flags."
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Table instance is needed for delete operation.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "table reference must be non-null to access index and other methods."
+    } ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "Delete executor should be non-null for the method to proceed.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Executor required for delete action."
+    } ]
+  } ]
+}

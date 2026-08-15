@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Method likely expects the input list to be non-null, even though implementation is currently a no-op.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "ensures argument is not null"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "If columnsToIndex is empty, its size is 0, a general property of lists.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "empty list has size 0"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects a list of HoodieRecord<T>, which will be used in several downstream operations; null would result in a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required by the logic to identify the operation instant; it is passed to other methods and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is of type Option<BulkInsertPartitioner> and should not be null by usage conventions for Option types.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "As per List contract, size() is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner.isPresent() || !bulkInsertPartitioner.isPresent()",
+    "rationale" : "BulkInsertPartitioner is an Option, which is always either present or absent, capturing a basic but real Option invariant.",
+    "meta" : [ ]
+  } ]
+}

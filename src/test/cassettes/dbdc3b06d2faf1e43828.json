@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of the add method, which should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getActor() != null",
+    "rationale" : "The result is a Cell containing a Label, so the actor should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getActor() instanceof Label",
+    "rationale" : "The actor placed in the cell is always a Label per method construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "labelStyleName != null",
+    "rationale" : "labelStyleName is used to look up a style in the skin, so it should be non-null to avoid NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getActor().getStyle() == skin.get(labelStyleName, Label.LabelStyle.class)",
+    "rationale" : "The Label in the cell is always created with the style from the skin for the given labelStyleName.",
+    "meta" : [ ]
+  } ]
+}

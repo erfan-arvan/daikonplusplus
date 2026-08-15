@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeConfig != null",
+    "rationale" : "Method is expected to configure the index, and passing a null config is generally not meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The factory method should return a non-null HoodieIndex instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "Result is expected to be a subtype of HoodieIndex.",
+    "meta" : [ ]
+  } ]
+}

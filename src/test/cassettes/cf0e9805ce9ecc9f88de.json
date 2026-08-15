@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "character == '\\t'",
+    "rationale" : "TAB is often represented by '\\t', so comparing to '\\t' may be meaningful as focus traversal uses TAB.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character != '\\0'",
+    "rationale" : "Assuming that character is intended to be a printable or control character, not the null char.",
+    "meta" : [ ]
+  } ]
+}

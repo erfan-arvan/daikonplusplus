@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method only ever returns 'ids', which is allocated via data.asIntArray() or via new int[width * height], and thus is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length == width * height",
+    "rationale" : "Both branches where 'ids' is assigned guarantee that it is either data.asIntArray() (which must match the tile area) or new int[width * height].",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0 && height >= 0",
+    "rationale" : "An int array of length width * height is allocated, which can only succeed if width and height are non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Methods on 'element' (e.g., get, getString) are called without null checks, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length >= 0",
+    "rationale" : "Arrays in Java always have non-negative length.",
+    "meta" : [ ]
+  } ]
+}

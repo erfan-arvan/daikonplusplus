@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "background != null",
+    "rationale" : "The method returns immediately if background == null, so at method exit, background must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "The Batch parameter is used for method calls and field accesses, so it must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getColor() != null",
+    "rationale" : "The color is retrieved and its fields are accessed, which would cause a NullPointerException if getColor() returned null.",
+    "meta" : [ ]
+  } ]
+}

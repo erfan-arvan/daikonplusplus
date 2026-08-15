@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a ComparableList, which should be non-null on method exit.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result is verified as non-null before method returns"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The size of the returned ComparableList is non-negative by definition.",
+    "meta" : [ {
+      "key" : "size-nonnegative",
+      "value" : "List size is never negative"
+    } ]
+  }, {
+    "expression" : "record != null",
+    "rationale" : "The record parameter is expected to be non-null when passed in.",
+    "meta" : [ {
+      "key" : "parameter-nonnull",
+      "value" : "The input record is expected to be non-null based on typical usage."
+    } ]
+  }, {
+    "expression" : "result instanceof FlatLists.ComparableList",
+    "rationale" : "result is declared of type FlatLists.ComparableList at method exit.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "result's type matches the method's declared return type"
+    } ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "Generally, the ComparableList of Comparable<HoodieRecord> should not contain null for consistency and valid comparison.",
+    "meta" : [ {
+      "key" : "no-null-elements",
+      "value" : "The ComparableList should not contain null elements"
+    } ]
+  } ]
+}

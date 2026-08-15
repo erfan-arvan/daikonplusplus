@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cursor >= 0",
+    "rationale" : "Cursor positions are typically non-negative indices within text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "Selection start is generally an index in the text and should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text != null",
+    "rationale" : "The method likely expects a valid String to store a state; a null text may indicate an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor <= (text != null ? text.length() : 0)",
+    "rationale" : "Cursor should not be beyond the end of the text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart <= (text != null ? text.length() : 0)",
+    "rationale" : "Selection start should not be beyond the end of the text.",
+    "meta" : [ ]
+  } ]
+}

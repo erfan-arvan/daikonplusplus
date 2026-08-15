@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The mergeParentElementWithTemplate method should return a non-null merged Element, barring exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == mergeParentElementWithTemplate(mapElement, templateCache.get(mapElement.getAttribute(\"template\")).getChildByName(\"object\")) || result == mergeParentElementWithTemplate(mapElement, xml.parse(getRelativeFileHandle(tmxFile, mapElement.getAttribute(\"template\"))).getChildByName(\"object\"))",
+    "rationale" : "The result is always produced via merging mapElement with an object subelement (\"object\") from a template, either from the cache or by parsing a file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapElement != null && mapElement.getAttribute(\"template\") != null && !mapElement.getAttribute(\"template\").isEmpty()",
+    "rationale" : "The method expects mapElement and a non-empty template attribute to function as described.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != mapElement",
+    "rationale" : "The merged result is distinct from the original mapElement, as it contains merged properties from both sources.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getName().equals(mapElement.getName())",
+    "rationale" : "The merged element typically preserves the name of the parent mapElement.",
+    "meta" : [ ]
+  } ]
+}

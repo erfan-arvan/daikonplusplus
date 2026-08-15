@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "writeMetadata is a parameter and is likely required to be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata instanceof HoodieWriteMetadata",
+    "rationale" : "writeMetadata should always be of type HoodieWriteMetadata at method entry since it is a parameter.",
+    "meta" : [ ]
+  } ]
+}

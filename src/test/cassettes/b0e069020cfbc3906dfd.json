@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned helper instance should not be null as it is statically initialized.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "result instanceof JavaBulkInsertHelper",
+    "rationale" : "The returned object is guaranteed to be of the expected JavaBulkInsertHelper type.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "result == BulkInsertHelperHolder.JAVA_BULK_INSERT_HELPER",
+    "rationale" : "This method returns exactly the static field value each time, suggesting singleton semantics.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "singleton"
+    } ]
+  } ]
+}

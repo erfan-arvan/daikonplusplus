@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns an Iterator, either from singletonList or runMerge.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is required to locate partition, and method relies on it.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input contract"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used in logging and downstream methods, expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input contract"
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "Returned value is always an Iterator.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  } ]
+}

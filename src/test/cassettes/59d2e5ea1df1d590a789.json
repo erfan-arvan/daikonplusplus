@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a required parameter and likely not null for a table operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is a parameter expected to be valid for update operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.isEmpty() || columnsToIndex.get(0) != null",
+    "rationale" : "If columnsToIndex is not null or empty, its first element should not be null, as it specifies a column name.",
+    "meta" : [ ]
+  } ]
+}

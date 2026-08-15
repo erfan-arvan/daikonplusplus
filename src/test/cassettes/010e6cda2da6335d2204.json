@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Factory methods typically return a non-null object unless there is a failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Config parameter must be non-null for table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "Storage configuration must be provided for table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieTable",
+    "rationale" : "The result must be a HoodieTable as per the return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipValidation || result != null",
+    "rationale" : "If validation is skipped or not skipped, result should still be non-null.",
+    "meta" : [ ]
+  } ]
+}

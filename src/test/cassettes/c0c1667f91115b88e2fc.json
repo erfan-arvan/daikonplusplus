@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The parameter dedupedRecords should not be null, as it is used as an argument to HoodieListData.eager.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context must not be null, since it is passed as an argument and likely required for distributed computations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table parameter is dereferenced (table.getIndex()), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.size() >= 0",
+    "rationale" : "A List's size() is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid commit instant time is usually required; code likely expects a non-null string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "A non-null input map is generally expected for committing records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty()",
+    "rationale" : "Commits typically only proceed if there are records to commit, so the map should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "A non-empty string for instant time is likely required for tracking commit instants.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet().stream().allMatch(k -> k != null && !k.isEmpty())",
+    "rationale" : "Partition keys in the map should be valid, non-null and non-empty strings.",
+    "meta" : [ ]
+  } ]
+}

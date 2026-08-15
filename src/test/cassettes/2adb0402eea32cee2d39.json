@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "A null check on metadata ensures it is safe to call methods on this parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() method is called on metadata, so it should not return null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == HoodieRecord.HoodieRecordType.AVRO",
+    "rationale" : "The method always returns HoodieRecord.HoodieRecordType.AVRO.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Enum constants are non-null; the returned value is always a non-null enum constant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.ordinal() == HoodieRecord.HoodieRecordType.AVRO.ordinal()",
+    "rationale" : "The returned enum instance has the same ordinal as HoodieRecord.HoodieRecordType.AVRO.",
+    "meta" : [ ]
+  } ]
+}

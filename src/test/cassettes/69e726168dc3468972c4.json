@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "cullingArea == null || (cullingArea.width >= 0.0f && cullingArea.height >= 0.0f)",
+    "rationale" : "Rectangle width and height are often expected to be non-negative, reflecting a valid bounding box if cullingArea is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cullingArea == null || (cullingArea.getClass() == Rectangle.class)",
+    "rationale" : "If cullingArea is non-null, it is expected to be an actual instance of Rectangle as required by the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cullingArea == null || (!Float.isNaN(cullingArea.x) && !Float.isNaN(cullingArea.y) && !Float.isNaN(cullingArea.width) && !Float.isNaN(cullingArea.height))",
+    "rationale" : "Rectangle coordinates and dimensions should not be NaN for proper geometry calculations.",
+    "meta" : [ ]
+  } ]
+}

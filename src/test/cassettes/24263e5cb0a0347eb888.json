@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "metadata != null",
+    "rationale" : "metadata is dereferenced, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is called on metadata, so the return value must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.getWriteStatuses().collectAsList() != null",
+    "rationale" : "collectAsList() result is passed to clone, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.clone(metadata.getWriteStatuses().collectAsList()) != null",
+    "rationale" : "The method returns the result of this call, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

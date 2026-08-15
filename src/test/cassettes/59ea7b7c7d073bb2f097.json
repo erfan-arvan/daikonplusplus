@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "Method throws IllegalArgumentException if actor is null, so actor must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.actor == actor",
+    "rationale" : "If result is not null, it must be a Cell whose actor is the given actor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || actor == result.actor",
+    "rationale" : "Equivalent, showing the relationship from the other side.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || (result.actor != null && result.actor == actor)",
+    "rationale" : "Ensures that a non-null result has a non-null actor which is equal to the input actor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || actor != null",
+    "rationale" : "actor is always non-null, but this encodes that whenever result is non-null, actor must also be.",
+    "meta" : [ ]
+  } ]
+}

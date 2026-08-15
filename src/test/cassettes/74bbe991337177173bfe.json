@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null && !records.isEmpty() && instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "records and instantTime are expected to be non-null and have meaningful content before method execution.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Before method execution, parameters records and instantTime are non-null and non-empty to proceed with upsert"
+    } ]
+  }, {
+    "expression" : "records != null && instantTime != null",
+    "rationale" : "Basic null check on parameters.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Both parameters must not be null before method execution to avoid NullPointerException."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should be valid before method execution.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is a string representing time and should be non-null and non-empty."
+    } ]
+  }, {
+    "expression" : "records != null && records.size() >= 0",
+    "rationale" : "records list is a valid list at method entry.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "records list is non-null and can have size zero or more."
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records must exist before the method executes.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "records list should be non-null to perform the upsert operation."
+    } ]
+  } ]
+}

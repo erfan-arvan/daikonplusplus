@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "getCommitActionType likely returns a non-null String result, as it's delegated from a meta client getter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "A commit action type should not be an empty string, so the returned string should be non-empty.",
+    "meta" : [ ]
+  } ]
+}

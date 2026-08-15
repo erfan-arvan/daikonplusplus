@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "className != null",
+    "rationale" : "className is used as a key in projectClassInfo.get(className), so null would cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProperties != null",
+    "rationale" : "classProperties is passed to methods and used as a target for put(), so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classElement != null",
+    "rationale" : "classElement is used for method calls like classElement.get(...), so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProperties.getKeys().hasNext()",
+    "rationale" : "The method potentially populates classProperties, so after execution it is likely to have at least one key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProperties.containsKey(\"type\") || !classElement.isObject()",
+    "rationale" : "When a 'class' property is processed, nestedClassProperties has 'type' key added, tying classProperties type information to classElement objectness.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "It is likely that the method expects a non-null records list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime should represent a valid timestamp and is likely not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "If records is empty, its size is zero or more; ensures the size is non-negative.",
+    "meta" : [ ]
+  } ]
+}

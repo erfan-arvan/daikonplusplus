@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == cached",
+    "rationale" : "The method isCached() returns the value of the field 'cached', so at exit, result equals cached.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !result",
+    "rationale" : "As result is a boolean, this is always true, but tautological so not useful.",
+    "meta" : [ ]
+  } ]
+}

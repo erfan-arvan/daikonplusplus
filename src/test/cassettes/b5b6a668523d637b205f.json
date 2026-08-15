@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parent != null",
+    "rationale" : "The method dereferences 'parent' to obtain its children; parent is assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent.getChildren() != null",
+    "rationale" : "The children of the parent group are used in the for loop, so getChildren() should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent.getChildren().size >= 0",
+    "rationale" : "The size of children should be non-negative as it represents a count.",
+    "meta" : [ ]
+  }, {
+    "expression" : "enabled == enabled",
+    "rationale" : "The parameter 'enabled' is not mutated within the method; this is tautological and should not be included.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parent.getChildren().size == parent.getChildren().size",
+    "rationale" : "The size of the children collection does not change in this method.",
+    "meta" : [ ]
+  } ]
+}

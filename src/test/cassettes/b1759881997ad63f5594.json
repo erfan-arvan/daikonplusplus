@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string should not be null as it likely identifies the commit time or operation instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null && !partitionPath.isEmpty()",
+    "rationale" : "The partition path must be a valid, non-empty string to identify the data partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null && !fileId.isEmpty()",
+    "rationale" : "A valid fileId is required to identify the target file for merging updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null && !keyToNewRecords.isEmpty()",
+    "rationale" : "The map of records to update should not be null or empty; otherwise, no update work would be needed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dataFileToBeMerged != null",
+    "rationale" : "There must be a data file to be merged as this handle operates on an existing file.",
+    "meta" : [ ]
+  } ]
+}

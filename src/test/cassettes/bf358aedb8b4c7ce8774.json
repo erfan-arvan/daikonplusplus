@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "Ensures that the write client used for upsert and commit is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit and upsert operations require a non-null instantTime.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "Records to upsert should not be null for the operation to execute as shown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecordInputs.isEmpty() || preppedRecordInputs.isEmpty()",
+    "rationale" : "Covers all cases to ensure the list exists, but also allows empty lists since no assertion of non-emptiness is in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.isCommitted(instantTime)",
+    "rationale" : "After committing via writeClient.commit(instantTime, writeStatusJavaRDD), the provided instantTime should be committed.",
+    "meta" : [ ]
+  } ]
+}

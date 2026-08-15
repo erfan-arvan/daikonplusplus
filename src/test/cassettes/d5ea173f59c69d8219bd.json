@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The parameter preppedRecords is expected to be non-null when execute is called.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecords is not null at method entry"
+    } ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "preppedRecords should be a List as per method contract or usage.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "preppedRecords is a List due to method signature expectations"
+    } ]
+  } ]
+}

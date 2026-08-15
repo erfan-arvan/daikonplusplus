@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "font != null",
+    "rationale" : "Font is required for the computation and is expected to be non-null at this method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "background == null || background.getTopHeight() >= 0",
+    "rationale" : "Drawable background's top height is typically non-negative if present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font.getCapHeight() >= 0",
+    "rationale" : "BitmapFont's cap height should be non-negative for valid fonts.",
+    "meta" : [ ]
+  } ]
+}

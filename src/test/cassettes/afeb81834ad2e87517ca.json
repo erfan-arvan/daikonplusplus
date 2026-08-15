@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "index >= 0",
+    "rationale" : "Array or list indices are typically non-negative in Java collections.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < size()",
+    "rationale" : "The method likely removes an actor at the given index; index should be in bounds, where size() returns the collection size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "unfocus == true || unfocus == false",
+    "rationale" : "unfocus is a boolean, so it must be either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getCell(super.removeActorAt(index, unfocus)) == null || getCell(super.removeActorAt(index, unfocus)).actor == null",
+    "rationale" : "After removal, the cell's actor is set to null if the cell exists.",
+    "meta" : [ ]
+  } ]
+}

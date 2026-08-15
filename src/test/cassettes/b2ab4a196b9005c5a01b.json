@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method accesses element.getString(\"type\", \"\"); thus, element must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is passed unchanged to all called sub-methods and should be non-null for expected execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is required in every called branch except tilelayer; its presence suggests it should not be null when invoked.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null || element.getString(\"type\", \"\").equals(\"tilelayer\") || element.getString(\"type\", \"\").equals(\"objectgroup\")",
+    "rationale" : "imageResolver is only used in group and imagelayer branches, so if the type is not one of those, imageResolver may be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "map is a core object in the method signature and is always used as an argument, suggesting it must not be null.",
+    "meta" : [ ]
+  } ]
+}

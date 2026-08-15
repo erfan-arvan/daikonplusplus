@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns Collections.emptyList(), which is non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Collections.emptyList() never returns null"
+    } ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The return value is always an empty list.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Collections.emptyList() always returns an empty list"
+    } ]
+  }, {
+    "expression" : "cacheKey != null",
+    "rationale" : "Typically, cache keys are expected to be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Even though not checked, API design may require non-null keys."
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Result is always a List as per return expression.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Collections.emptyList() returns a List implementation"
+    } ]
+  } ]
+}

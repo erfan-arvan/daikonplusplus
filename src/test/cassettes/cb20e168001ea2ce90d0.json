@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient must be non-null to call upsertPreppedRecords and commit without throwing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a parameter for both upsertPreppedRecords and commit calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed to upsertPreppedRecords and likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.commit(instantTime, writeClient.upsertPreppedRecords(preppedRecordInputs, instantTime)) == null",
+    "rationale" : "The commit method is void, so this expression is type-valid and always true if commit returns void.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || writeClient != null",
+    "rationale" : "If preppedRecordInputs is empty, writeClient's presence might still be required, but this captures that non-empty input requires a valid client.",
+    "meta" : [ ]
+  } ]
+}

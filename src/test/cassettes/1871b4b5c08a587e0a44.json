@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method delegates to an executor that expects a non-null context; most Hudi API methods require this.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Context is required for IO/parallelism operations."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A commit or write should have a valid instantTime; most processing in Hudi is associated with a timeline instant that must be present.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime should identify a commit, should not be null or empty."
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records list is required for performing the bulk insert; a null would violate API expectations.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Cannot process records if null."
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option objects are typically not null, just optionally empty; executor expects this.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Option type must be non-null; may or may not contain a partitioner."
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a List in Java cannot be negative; this is always true by the type contract.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "List.size() cannot be negative, by contract."
+    } ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method likely requires a valid engine context to perform index actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null && !indexInstantTime.isEmpty()",
+    "rationale" : "Indexing typically depends on a valid instant time string, which should not be null or empty.",
+    "meta" : [ ]
+  } ]
+}

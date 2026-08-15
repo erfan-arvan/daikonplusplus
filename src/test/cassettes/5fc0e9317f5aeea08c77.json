@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Because the method always returns DeleteHelperHolder.JAVA_DELETE_HELPER, which is assumed to be non-null, result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaDeleteHelper",
+    "rationale" : "The method has a declared return type of JavaDeleteHelper and returns DeleteHelperHolder.JAVA_DELETE_HELPER, so result always has the correct type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == DeleteHelperHolder.JAVA_DELETE_HELPER",
+    "rationale" : "The method directly returns DeleteHelperHolder.JAVA_DELETE_HELPER, so result is always that instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "JavaDeleteHelper.class.isInstance(result)",
+    "rationale" : "As a sanity check using reflection, the returned result is always an instance of JavaDeleteHelper.",
+    "meta" : [ ]
+  } ]
+}

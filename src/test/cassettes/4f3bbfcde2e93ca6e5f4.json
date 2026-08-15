@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result.equals(HoodieTimeline.REPLACE_COMMIT_ACTION)",
+    "rationale" : "The only value returned by the method is HoodieTimeline.REPLACE_COMMIT_ACTION, so result must equal it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result comes from a static field of type String and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "HoodieTimeline.REPLACE_COMMIT_ACTION is expected to be a non-empty string representing an action type.",
+    "meta" : [ ]
+  } ]
+}

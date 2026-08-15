@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "EngineProperty key should typically not be null when setting a property.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "Property values are generally expected to be non-null when passed to setProperty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(value != null) || !value.isEmpty()",
+    "rationale" : "If value is non-null, it could be expected to not be empty as property values are often non-empty.",
+    "meta" : [ ]
+  } ]
+}

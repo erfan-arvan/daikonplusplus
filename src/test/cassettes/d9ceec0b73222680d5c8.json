@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "nodes != null",
+    "rationale" : "The method operates on 'nodes' without null checks, suggesting 'nodes' is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "In Java, the size of an Array is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size == 0 || nodes.get(0) != null",
+    "rationale" : "If the array is non-empty, its first element should not be null to avoid NullPointerException during method calls.",
+    "meta" : [ ]
+  } ]
+}

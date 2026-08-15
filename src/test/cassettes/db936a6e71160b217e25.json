@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "A method is generally expected not to receive null collections unless explicitly allowed.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "records"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime likely encodes critical write information and should not be null.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "records is declared as a List, so this should always hold.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "records"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "An instantTime string is expected to be non-empty for write operations.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a Java List cannot be negative.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "records"
+    } ]
+  } ]
+}

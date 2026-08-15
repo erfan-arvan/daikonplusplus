@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Option; assuming execute() never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "Parameter is passed directly to a constructor, so is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Parameter is passed directly to a constructor, so is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "Parameter is used as constructor argument and likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Required to construct ScheduleIndexActionExecutor, unlikely to be null at method exit.",
+    "meta" : [ ]
+  } ]
+}

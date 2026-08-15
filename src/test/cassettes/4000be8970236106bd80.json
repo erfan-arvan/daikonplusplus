@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "padTop >= 0",
+    "rationale" : "Padding values are often required to be non-negative, which is common in UI layout logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(padTop)",
+    "rationale" : "Padding values should be finite to avoid layout misbehavior; this checks for NaN and infinite values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padTop < Float.MAX_VALUE",
+    "rationale" : "To avoid excessively large paddings that may cause rendering issues.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padTop != Float.NaN",
+    "rationale" : "NaN as a padding value would make little sense semantically in a UI context.",
+    "meta" : [ ]
+  } ]
+}

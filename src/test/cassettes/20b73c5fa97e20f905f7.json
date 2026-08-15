@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "A write client is required to perform any operations; unlikely this method would be called with a null client.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid instant time is required for committing, so it should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is used immediately, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option objects are used to represent optional values, but the Option instance itself should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs instanceof List",
+    "rationale" : "The parameter is declared as a List<HoodieRecord>; verifying type coherence.",
+    "meta" : [ ]
+  } ]
+}

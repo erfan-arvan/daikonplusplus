@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata instance created by clone, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses is called with non-null argument and part of the HoodieWriteMetadata invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The clone is given a List<WriteStatus>, so the result's writeStatuses should be a List.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "The method accesses tileSet.getProperties(), so tileSet must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "The method uses imageResolver.getImage(...), requiring imageResolver to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstgid >= 0",
+    "rationale" : "Tile IDs are based on firstgid and incremented; it should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilewidth > 0",
+    "rationale" : "tilewidth is used in calculations and as a region size; must be positive to avoid errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileheight > 0",
+    "rationale" : "tileheight is used in calculations and as a region size; must be positive to avoid errors.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method expects a list of records, cannot operate if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An instant time identifier should be provided and must not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table argument is required for operations, must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration object must be present to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "executor != null",
+    "rationale" : "An executor for commit actions must be supplied.",
+    "meta" : [ ]
+  } ]
+}

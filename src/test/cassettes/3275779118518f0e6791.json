@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionId >= 0",
+    "rationale" : "Partition identifiers are usually assigned as non-negative integers.",
+    "meta" : [ {
+      "key" : "common_assumption",
+      "value" : "Partition ids are typically non-negative"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "At method entry, there are no constraints on partitionId except its type.",
+    "meta" : [ {
+      "key" : "trivial_invariant",
+      "value" : "Method entry point"
+    } ]
+  } ]
+}

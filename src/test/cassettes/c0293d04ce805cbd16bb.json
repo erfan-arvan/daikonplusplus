@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null",
+    "rationale" : "The input data writeStatus should not be null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatus is non-null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is expected to be non-null for processing.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The configuration object should be provided and non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config is non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string parameter should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null"
+    } ]
+  } ]
+}

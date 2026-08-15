@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext context parameter should be non-null as it's essential for execution.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "context is method parameter, likely non-null"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is required to specify the instant to restore.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "input parameter"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is expected to be non-null for specifying the savepoint.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "input parameter"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp.length() > 0",
+    "rationale" : "restoreInstantTimestamp is expected to be a non-empty string representing a timestamp.",
+    "meta" : [ {
+      "key" : "length-check",
+      "value" : "non-empty string"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp.length() > 0",
+    "rationale" : "savepointToRestoreTimestamp should be non-empty to represent a valid timestamp.",
+    "meta" : [ {
+      "key" : "length-check",
+      "value" : "non-empty string"
+    } ]
+  } ]
+}

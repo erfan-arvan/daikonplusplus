@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null || x == -1",
+    "rationale" : "If the name is null, the method returns -1, so before normal computation x must not be -1 unless name is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "If name is non-null, its length is at least zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null || true",
+    "rationale" : "For all inputs at method entry, name may be null or non-null (this is safe, non-trivial in some contexts as the branch is explicit in the code).",
+    "meta" : [ ]
+  } ]
+}

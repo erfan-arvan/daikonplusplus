@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Since instantTime is used to create a handle, it should be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime parameter should not be null at method entry"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is critical for partitioning, so it is expected to be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPath parameter should not be null at method entry"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId likely used for identifying files, so should be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "fileId parameter should not be null at method entry"
+    } ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap is a key parameter that maps keys to HoodieRecords, should be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "recordMap parameter should not be null at method entry"
+    } ]
+  }, {
+    "expression" : "recordMap.isEmpty() == false",
+    "rationale" : "Since the method handles insert, recordMap is expected to contain entries.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "recordMap generally expected to have records to insert"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a required parameter and likely should never be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is a method parameter and the method as a no-op likely does not modify or nullify it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "columnsToIndex is passed as a List<String> and should retain its type at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "metaClient is a method parameter and should be of type HoodieTableMetaClient.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getClass() == HoodieJavaWriteClient.class",
+    "rationale" : "This method is non-virtual and not expected to be overridden, so the runtime class should match.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(velocityX)",
+    "rationale" : "Velocity values are typically expected to be finite for UI scrolling logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "velocityX == velocityX",
+    "rationale" : "VelocityX must be a valid float value (not NaN), but this expression is tautological and should be avoided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(velocityX))",
+    "rationale" : "It is unlikely that velocity should be NaN when setting a UI scroll velocity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Math.abs(velocityX) >= 0",
+    "rationale" : "Absolute velocityX is always non-negative by definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No additional relationships are implied by a single float parameter.",
+    "meta" : [ ]
+  } ]
+}

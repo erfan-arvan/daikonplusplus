@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result of the method should be a non-null HoodieWriteMetadata instance.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "result"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Input list of preppedRecords should not be null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "preppedRecords"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time parameter should not be null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus inside result should not be null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "result.getWriteStatuses()"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() == preppedRecords.size()",
+    "rationale" : "Number of write statuses typically corresponds to the number of input records processed.",
+    "meta" : [ {
+      "key" : "sizeMatch",
+      "value" : "WriteStatusesSizeEqualsPreppedRecordsSize"
+    } ]
+  } ]
+}

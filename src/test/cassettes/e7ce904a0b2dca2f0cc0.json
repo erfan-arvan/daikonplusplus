@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "All operands in both code paths (minWidths and Math.max) are >= 0, so result cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(vertical) || result == Math.max(firstWidget instanceof Layout ? ((Layout)firstWidget).getMinWidth() : 0, secondWidget instanceof Layout ? ((Layout)secondWidget).getMinWidth() : 0)",
+    "rationale" : "If vertical is true, result is computed as the max of the minWidths of the two widgets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "vertical || result == ((firstWidget instanceof Layout ? ((Layout)firstWidget).getMinWidth() : 0) + ((secondWidget instanceof Layout ? ((Layout)secondWidget).getMinWidth() : 0) + style.handle.getMinWidth()))",
+    "rationale" : "If vertical is false, result is the sum of minWidths and the handle's minWidth.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= (vertical ? Math.max(firstWidget instanceof Layout ? ((Layout)firstWidget).getMinWidth() : 0, secondWidget instanceof Layout ? ((Layout)secondWidget).getMinWidth() : 0) : (firstWidget instanceof Layout ? ((Layout)firstWidget).getMinWidth() : 0) + (secondWidget instanceof Layout ? ((Layout)secondWidget).getMinWidth() : 0))",
+    "rationale" : "Result is always at least as great as the min combination of its two subwidgets (without handle when horizontal).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (vertical ? Math.max(firstWidget instanceof Layout ? ((Layout)firstWidget).getMinWidth() : 0, secondWidget instanceof Layout ? ((Layout)secondWidget).getMinWidth() : 0) : (firstWidget instanceof Layout ? ((Layout)firstWidget).getMinWidth() : 0) + style.handle.getMinWidth() + (secondWidget instanceof Layout ? ((Layout)secondWidget).getMinWidth() : 0))",
+    "rationale" : "This matches exactly what the method does for either code path.",
+    "meta" : [ ]
+  } ]
+}

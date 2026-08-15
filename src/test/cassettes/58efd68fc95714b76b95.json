@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always initializes and returns a HashMap, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= 1",
+    "rationale" : "At most one entry is put into the map in the method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "The only possible key inserted is PLAN_STRATEGY_SORT_COLUMNS.key().",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns SINGLETON_INSTANCE, which, by singleton pattern convention, is expected to be initialized and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == JavaUpgradeDowngradeHelper.SINGLETON_INSTANCE",
+    "rationale" : "getInstance() always returns the static SINGLETON_INSTANCE.",
+    "meta" : [ ]
+  } ]
+}

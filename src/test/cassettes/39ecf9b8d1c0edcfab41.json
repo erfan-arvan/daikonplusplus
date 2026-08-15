@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator<List<WriteStatus>> (either via Collections.singletonList(...).iterator() or IOUtils.runMerge(...)).",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is always provided as an argument to getUpdateHandle(...), which requires a non-null value to function correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is always logged or used in getUpdateHandle or IOUtils.runMerge, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result != null",
+    "rationale" : "If the record iterator is empty, result is singleton iterator, else it is result of runMerge, both are non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "Result is always an Iterator at method exit.",
+    "meta" : [ ]
+  } ]
+}

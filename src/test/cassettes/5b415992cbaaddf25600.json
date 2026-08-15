@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method throws IllegalArgumentException if name is null, so at the start of the method name is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type != null",
+    "rationale" : "The Class parameter is used as a key in a map, and in usual design, type should be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "It is common for resource names to be non-empty strings, although not checked explicitly in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type.isInstance(type)",
+    "rationale" : "Every Java class is an instance of Class, so this relation often holds; however, this is a generic relation and may or may not hold, included for coverage.",
+    "meta" : [ ]
+  } ]
+}

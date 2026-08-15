@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a non-null HoodieWriteMetadata or throw, as bulkInsert should not produce null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses method should return a non-null list as per typical contracts of metadata objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size is always non-negative, capturing a property of the returned metadata's write status list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().isEmpty() == (result.getWriteStatuses().size() == 0)",
+    "rationale" : "This relational property always holds for any Java List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty() || result.getWriteStatuses().size() == 0",
+    "rationale" : "This is a property of Java Lists: if isEmpty is false, then size must be greater than 0, otherwise size==0.",
+    "meta" : [ ]
+  } ]
+}

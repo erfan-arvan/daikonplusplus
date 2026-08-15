@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The draw method likely requires batch to be non-null to render correctly without NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0f && parentAlpha <= 1f",
+    "rationale" : "Alpha values are conventionally within [0, 1], reflecting opacity; this reflects a logical constraint on parentAlpha.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a newly constructed HoodieJavaTable instance on all non-exceptional paths.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Every non-exceptional return constructs and returns a new object."
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient must be non-null because getTableType() is called without null checks.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "metaClient.getTableType() is called unconditionally."
+    } ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.HoodieTableType.MERGE_ON_READ",
+    "rationale" : "The method returns only if the table type is one of the two supported by the switch.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Otherwise, an exception is thrown and method does not return."
+    } ]
+  } ]
+}

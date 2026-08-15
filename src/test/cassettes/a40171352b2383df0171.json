@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a parameter for timeline transition method, likely required non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "Timeline transition likely requires a valid non-empty instant time string.",
+    "meta" : [ {
+      "key" : "emptiness",
+      "value" : "instantTime is non-empty"
+    } ]
+  } ]
+}

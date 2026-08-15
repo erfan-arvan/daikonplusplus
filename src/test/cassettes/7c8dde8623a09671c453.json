@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is used to retrieve slices, suggesting it must be non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is passed to downstream methods, so it is expected to be non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to read records and pass to other methods, so it should not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "Clustering instant time is usually required to be a valid, non-empty string.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "string constraint"
+    } ]
+  }, {
+    "expression" : "clusteringGroup.getNumOutputFileGroups() > 0",
+    "rationale" : "The number of output groups for clustering should be positive for meaningful clustering.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "range"
+    } ]
+  } ]
+}

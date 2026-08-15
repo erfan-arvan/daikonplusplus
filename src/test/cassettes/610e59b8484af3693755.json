@@ -1,0 +1,47 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new instance of HoodieWriteMetadata, so result is expected to be non-null.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "result might be null or non-null at method exit"
+    }, {
+      "key" : "reason",
+      "value" : "method returns HoodieWriteMetadata; typically not null"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is passed in and used to create the result, likely non-null.",
+    "meta" : [ {
+      "key" : "check",
+      "value" : "preppedRecords might be null or non-null"
+    }, {
+      "key" : "reason",
+      "value" : "preppedRecords is a parameter and unlikely to be null if method succeeded"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The WriteMetadata should contain a non-null list of write statuses.",
+    "meta" : [ {
+      "key" : "call",
+      "value" : "result.getWriteStatuses() is usually non-null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() == preppedRecords.size()",
+    "rationale" : "Each prepped record normally corresponds to one write status in the result.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "count of write statuses corresponds to count of preppedRecords"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime identifiers are usually non-null and non-empty to mark commits.",
+    "meta" : [ {
+      "key" : "nonEmpty",
+      "value" : "instantTime is a String that represents time"
+    }, {
+      "key" : "check",
+      "value" : "instantTime should be a valid non-empty string"
+    } ]
+  } ]
+}

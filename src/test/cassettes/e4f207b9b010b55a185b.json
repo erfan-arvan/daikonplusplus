@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option should not be null; always initialized to Option.empty() or Option.of(...)",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || result.equals(Option.empty())",
+    "rationale" : "Result will either represent an Option.empty() or Option.of(...) value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "streamingWrites == false || streamingWrites == true",
+    "rationale" : "streamingWrites is always a boolean value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isPresent() || (config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable())",
+    "rationale" : "A present result only occurs if the metadata table is enabled or available via configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == (config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable())",
+    "rationale" : "Result is only present if the table is enabled or available by config.",
+    "meta" : [ ]
+  } ]
+}

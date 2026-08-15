@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "Method performs element.getString and element.getInt; null would cause NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used to resolve relative files, requiring non-nullness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is passed to downstream calls and almost certainly required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.isObject()",
+    "rationale" : "element is treated as an object (has fields, getString, getInt, get), so underlying type must support those operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.has(\"firstgid\") || element.getString(\"firstgid\") != null",
+    "rationale" : "Method begins by checking if a firstgid string is present; either 'has' or 'getString' yields information.",
+    "meta" : [ ]
+  } ]
+}

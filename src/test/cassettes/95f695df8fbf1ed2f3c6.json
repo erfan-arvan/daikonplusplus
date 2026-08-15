@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "layout != null",
+    "rationale" : "The method always uses the layout and calls its methods; it's not expected to be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layout.width >= 0",
+    "rationale" : "The layout.width is set based on UI element measurements which should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layout.height >= 0",
+    "rationale" : "The layout.height is set based on text and UI measurements, which are not negative.",
+    "meta" : [ ]
+  } ]
+}

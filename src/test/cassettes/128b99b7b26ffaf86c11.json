@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodiePairData instance, which should not be null as it is created from a new empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The returned HoodiePairData is constructed using Collections.emptyList(), so it should be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == 0",
+    "rationale" : "Because the underlying data is an empty list, the element count in the result should be zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().isEmpty()",
+    "rationale" : "Collecting the result as a list should yield an empty list since the backing list is empty.",
+    "meta" : [ ]
+  } ]
+}

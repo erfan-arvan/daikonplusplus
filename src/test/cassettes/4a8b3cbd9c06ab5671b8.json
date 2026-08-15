@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used to compute the atlasHandle and as a parameter to loadTiledMap, so it must be non-null to prevent exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "manager is passed to the AssetManagerAtlasResolver constructor; it must not be null to construct the resolver.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null || parameter == null",
+    "rationale" : "parameter may be nullable, as it is passed directly to loadTiledMap, suggesting its possible nullness is supported.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is typically expected to be a valid string representing a file name; in practical use it should be non-null.",
+    "meta" : [ ]
+  } ]
+}

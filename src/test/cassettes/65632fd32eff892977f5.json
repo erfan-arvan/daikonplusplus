@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "The file name is used for file resolution and processing; it must be non-null to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "The parameter object is dereferenced to access its fields; it must be non-null to prevent NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "A non-empty file name is typically required to resolve a file.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter.textureMinFilter != null",
+    "rationale" : "Field 'textureMinFilter' is used without a null check, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter.textureMagFilter != null",
+    "rationale" : "Field 'textureMagFilter' is used without a null check, so it should be non-null.",
+    "meta" : [ ]
+  } ]
+}

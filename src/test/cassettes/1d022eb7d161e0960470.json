@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "over != null",
+    "rationale" : "Drawable must be non-null for over.draw() to succeed without NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "Batch must be non-null for over.draw() to render correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0.0f",
+    "rationale" : "Drawing widths are typically non-negative in GUI rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0.0f",
+    "rationale" : "Drawing heights are typically non-negative in GUI rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "over.getLeftWidth() + over.getRightWidth() <= width",
+    "rationale" : "Drawable's left and right paddings should not exceed the total drawing width.",
+    "meta" : [ ]
+  } ]
+}

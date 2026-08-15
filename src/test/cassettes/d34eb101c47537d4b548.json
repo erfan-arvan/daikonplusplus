@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "text != null",
+    "rationale" : "setText likely expects a non-null CharSequence for correct label display.",
+    "meta" : [ ]
+  }, {
+    "expression" : "label.getText().equals(text)",
+    "rationale" : "After setText is called, label's text should match the text parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "label.getText() != null",
+    "rationale" : "label's text should always be non-null after setting it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "label.getText().length() == (text == null ? 0 : text.length())",
+    "rationale" : "If text is non-null, the label's text length should match the input; if null, fallback to 0 or empty representation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "label.getText().toString().equals(text == null ? \"\" : text.toString())",
+    "rationale" : "label displays string representation of the input; null usually yields the empty string.",
+    "meta" : [ ]
+  } ]
+}

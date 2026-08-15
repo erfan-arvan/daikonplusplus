@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Null check on records parameter to ensure safe access and iteration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Null check on instantTime string to guarantee it is safe and usable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Checks that instantTime is not an empty string, a probable precondition for use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "The size of a Java List is always non-negative; defensive check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.get(0) != null",
+    "rationale" : "If the records list is not empty, its first element should not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

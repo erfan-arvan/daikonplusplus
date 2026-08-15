@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a non-null list, since it is a filtered version of recordsWithLocation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The method should not be called with null input lists, ensuring safe processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> !r.isCurrentLocationKnown())",
+    "rationale" : "The returned list is created by filtering recordsWithLocation to contain only those where isCurrentLocationKnown() is false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= hoodieRecords.size()",
+    "rationale" : "Filtering hoodieRecords can only keep the same or fewer records, never more.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(hoodieRecords::contains)",
+    "rationale" : "All elements of result must come from the original input hoodieRecords list, since it is ultimately a filtered sublist.",
+    "meta" : [ ]
+  } ]
+}

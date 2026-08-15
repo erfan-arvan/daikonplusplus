@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "A null records list would likely lead to errors; many callers expect input lists to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 1",
+    "rationale" : "It is typical for partition counts to be at least 1 in a repartitioning context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "By definition, a List's size() is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "It is common in coalesce-type partitioners for partition count to not exceed record count, unless records is empty.",
+    "meta" : [ ]
+  } ]
+}

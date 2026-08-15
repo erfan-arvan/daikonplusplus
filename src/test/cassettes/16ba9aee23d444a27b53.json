@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result <= 0 || result > 0",
+    "rationale" : "According to the Javadoc, result can be <= 0 (to display all items) or > 0 (to limit the number of items).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == scrollPane.maxListCount",
+    "rationale" : "The method returns scrollPane.maxListCount, so result must always equal scrollPane.maxListCount.",
+    "meta" : [ ]
+  } ]
+}

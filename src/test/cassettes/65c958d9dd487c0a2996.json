@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width > 0",
+    "rationale" : "It is reasonable to expect width to be positive for a layer in a tiled map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height > 0",
+    "rationale" : "It is reasonable to expect height to be positive for a layer in a tiled map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "The caller is expected to provide a non-null JsonValue element for proper deserialization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width * height > 0",
+    "rationale" : "The total number of tiles in the layer (width * height) should be greater than zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.isObject()",
+    "rationale" : "The element parameter likely represents an object node in the map's JSON.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "delta >= 0",
+    "rationale" : "Time deltas are typically non-negative when used in animation and physics updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(delta)",
+    "rationale" : "The delta parameter should be a finite value representing a time step.",
+    "meta" : [ ]
+  }, {
+    "expression" : "delta != Float.NaN",
+    "rationale" : "NaN deltas would break time-based animations or scrolling.",
+    "meta" : [ ]
+  } ]
+}

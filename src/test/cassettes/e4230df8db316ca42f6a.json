@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The Java runtime guarantees that the parameter 'args' to main is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Arrays in Java always have a non-negative length, including zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "The 'args' parameter is always an array at this method point.",
+    "meta" : [ ]
+  } ]
+}

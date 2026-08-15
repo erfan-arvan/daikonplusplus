@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method uses 'profile' immediately and expects it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method uses 'context' to retrieve small files; it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "The method calls profile.getPartitionPaths() and uses it as a collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths().isEmpty() || profile.getPartitionPaths().size() >= 0",
+    "rationale" : "A collection's size is always >= 0; this is safe and captures structural property.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "The method uses hasOutputWorkLoadStats() to conditionally reference getOutputPartitionPathStatMap(); ties their nullness/validity.",
+    "meta" : [ ]
+  } ]
+}

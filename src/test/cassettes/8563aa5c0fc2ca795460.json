@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a newly constructed Image, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getDrawable() == null",
+    "rationale" : "The Image is constructed with a null Drawable so getDrawable() returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getScaling() == Scaling.fit",
+    "rationale" : "The Image is constructed with Scaling.fit as the scaling parameter.",
+    "meta" : [ ]
+  } ]
+}

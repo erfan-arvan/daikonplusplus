@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "Timestamp parameters are critical for scheduling operations and are typically required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "Timestamps representing savepoints targeted for restore should be non-null for the restore process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "A non-empty restore instant timestamp is required to identify the restore operation uniquely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "A non-empty savepoint timestamp is needed to specify which savepoint is to be restored.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is necessary for execution on the engine and is assumed to be non-null.",
+    "meta" : [ ]
+  } ]
+}

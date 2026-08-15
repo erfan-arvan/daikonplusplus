@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "profile is passed to super.getUpsertPartitioner and is required to construct the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "This.partitioner is assigned and then returned, so result should not be null if no exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this.partitioner",
+    "rationale" : "The method always returns this.partitioner as set in the line above.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaUpsertPartitioner",
+    "rationale" : "partioner is explicitly cast to JavaUpsertPartitioner before return, so result must be JavaUpsertPartitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "super.getUpsertPartitioner(profile) == result",
+    "rationale" : "this.partitioner is set from super.getUpsertPartitioner(profile) and returned as result, possibly with casting.",
+    "meta" : [ ]
+  } ]
+}

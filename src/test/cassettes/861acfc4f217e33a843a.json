@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method relies on 'data' and calls its methods; it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "The sequential operator is essential for the reduction process, thus should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "The combiner operator is required for parallel reduction, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "The identity element for reduction may need to be non-null for correct operation.",
+    "meta" : [ ]
+  } ]
+}

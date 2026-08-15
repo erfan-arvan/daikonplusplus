@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "text != null",
+    "rationale" : "String parameters are often assumed non-null, especially when further string operations or storage are involved.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor >= 0",
+    "rationale" : "The cursor position in text input is typically a non-negative integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectionStart >= 0",
+    "rationale" : "Selection start in a text field usually cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(hasSelection && selectionStart != cursor) || (!hasSelection)",
+    "rationale" : "A selection typically exists only if the selectionStart and cursor are not equal; otherwise, 'hasSelection' should be false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cursor <= text.length()",
+    "rationale" : "The cursor should not exceed the length of the text.",
+    "meta" : [ ]
+  } ]
+}

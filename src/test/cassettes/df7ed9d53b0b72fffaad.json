@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "result is instantiated at the beginning of the method and always returned",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The writeStatuses list is created and set into the HoodieWriteMetadata (result) before return",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is a method parameter and assumed non-null for typical collection processing in the method",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "getWriteStatuses returns a List as per the generic type of HoodieWriteMetadata<List<WriteStatus>>",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of any List collection in Java is always non-negative",
+    "meta" : [ ]
+  } ]
+}

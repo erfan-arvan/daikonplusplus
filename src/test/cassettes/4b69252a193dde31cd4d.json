@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getName().equals(\"group\") || !element.getName().equals(\"group\")",
+    "rationale" : "At this program point, no matter the path, element.getName() may or may not equal 'group'; this expression is always defined and avoids NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is used as a receiver and thus must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is dereferenced, so it must not be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "map is used in loadLayer calls and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is passed into loadLayer and cannot be null at this point.",
+    "meta" : [ ]
+  } ]
+}

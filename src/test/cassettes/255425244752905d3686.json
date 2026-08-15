@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "A partition index is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result < totalBuckets",
+    "rationale" : "Partition indices should be less than the total number of buckets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "totalBuckets > 0",
+    "rationale" : "There should always be at least one bucket for partitioning to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "key != null",
+    "rationale" : "The partitioning key should not be null when computing partitions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "workloadProfile != null",
+    "rationale" : "workloadProfile is used in the method and must not be null.",
+    "meta" : [ ]
+  } ]
+}

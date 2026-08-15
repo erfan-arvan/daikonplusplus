@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "It is reasonable to assume the context, being required for engine operations, must not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "The compaction instant time should be specified to identify the compaction action; it is unlikely to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!compactionInstantTime.isEmpty()",
+    "rationale" : "A valid compaction instant time is expected to be a non-empty string at method entry.",
+    "meta" : [ ]
+  } ]
+}

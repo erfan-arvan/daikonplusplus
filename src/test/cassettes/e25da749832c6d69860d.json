@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "triggeringInstantTimestamp != null",
+    "rationale" : "A non-null triggeringInstantTimestamp is likely required for correct method behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "A valid cleaning policy should be provided to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "streamingWrites == true || streamingWrites == false",
+    "rationale" : "streamingWrites being a boolean ensures it is always true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "autoDetectAndDeleteMetadataPartitions == true || autoDetectAndDeleteMetadataPartitions == false",
+    "rationale" : "autoDetectAndDeleteMetadataPartitions is strictly boolean.",
+    "meta" : [ ]
+  } ]
+}

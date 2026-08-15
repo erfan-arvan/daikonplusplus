@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method expects a list of orders to validate; a null list is likely considered invalid input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o != null)",
+    "rationale" : "To validate element fields, each order in the list must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getQuantity() > 0)",
+    "rationale" : "Each order's quantity must be positive for the validation to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.stream().allMatch(o -> o.getUnitPrice() >= 0)",
+    "rationale" : "Order validation requires unit prices to be non-negative.",
+    "meta" : [ ]
+  } ]
+}

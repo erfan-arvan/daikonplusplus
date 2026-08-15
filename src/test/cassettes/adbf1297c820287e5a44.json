@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (file.extension().toLowerCase().equals(\"tmx\") || file.extension().toLowerCase().equals(\"tmj\")) ? result : false",
+    "rationale" : "Method only returns true if the file extension is 'tmx' or 'tmj', otherwise returns false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (file.extension().toLowerCase().equals(\"tmx\") || file.extension().toLowerCase().equals(\"tmj\")) ? result : false",
+    "rationale" : "Return value can only be true if file extension is 'tmx' or 'tmj'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!file.extension().toLowerCase().equals(\"tmx\") && !file.extension().toLowerCase().equals(\"tmj\") ? !result : true",
+    "rationale" : "If the extension is not 'tmx' or 'tmj', the result must be false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (file.extension().toLowerCase().equals(\"tmx\") || file.extension().toLowerCase().equals(\"tmj\")) && result ? true : !result",
+    "rationale" : "Whenever the result is true, the extension must be 'tmx' or 'tmj'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(file.extension().toLowerCase().equals(\"tmx\") || file.extension().toLowerCase().equals(\"tmj\")) || !result",
+    "rationale" : "Result cannot be true when extension is not 'tmx' or 'tmj'.",
+    "meta" : [ ]
+  } ]
+}

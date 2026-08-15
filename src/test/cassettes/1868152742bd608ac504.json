@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layers != null",
+    "rationale" : "The method iterates through layers, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length >= 0",
+    "rationale" : "An array's length is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length == 0 || layers[0] >= 0",
+    "rationale" : "Layer indices are used to access MapLayers by index, so must be non-negative if present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layers.length == 0 || layers[layers.length - 1] >= 0",
+    "rationale" : "All indices used to access layers must be non-negative; adds coverage for the last element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "java.util.Arrays.stream(layers).allMatch(i -> i >= 0)",
+    "rationale" : "Every layer index is used as a positive index; negative indices would likely cause errors.",
+    "meta" : [ ]
+  } ]
+}

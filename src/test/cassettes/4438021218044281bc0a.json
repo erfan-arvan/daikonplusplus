@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager must be non-null for resource loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "FileHandle must point to a file, so commonly non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.exists()",
+    "rationale" : "FileHandle should refer to an existing resource for map loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "Filename string is expected to denote a valid resource and be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof Parameters",
+    "rationale" : "Parameters is either absent or of the correct type for this loader.",
+    "meta" : [ ]
+  } ]
+}

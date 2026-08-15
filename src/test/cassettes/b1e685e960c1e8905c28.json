@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The execute() method from ScheduleCompactionActionExecutor likely returns a non-null Option instance to represent absence/presence of value rather than null itself.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == false || result.get() != null",
+    "rationale" : "If result is present, then result.get() should not be null by Option contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Compaction scheduling requires a valid instant time string that is non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option should not be null; Option.empty() or Option.of is typically used to represent absence or presence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is necessary to schedule compaction, so context should not be null.",
+    "meta" : [ ]
+  } ]
+}

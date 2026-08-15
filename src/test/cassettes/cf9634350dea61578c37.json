@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List<WriteStatus> produced by postWrite, which should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The input records for bulk insert are assumed to be non-null and are required by downstream table and postWrite methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used as a commit/operation time, so it is expected to be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The List.size() method always returns a non-negative integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "The List.size() method always returns a non-negative integer.",
+    "meta" : [ ]
+  } ]
+}

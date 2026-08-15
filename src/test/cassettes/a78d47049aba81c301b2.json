@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method operates on profile; it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method uses context to query or perform actions; it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "Partition paths are fetched and used; returning null would cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths().size() >= 0",
+    "rationale" : "Set size for partition paths is never negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "If output workload stats are present, the corresponding map should be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "at >= 0",
+    "rationale" : "Java indices are typically non-negative, and text cursor positions are usually >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "at <= this.text.length()",
+    "rationale" : "It is common practice for cursor or index variables to be less than or equal to the length of the text, matching the logic within the method.",
+    "meta" : [ ]
+  } ]
+}

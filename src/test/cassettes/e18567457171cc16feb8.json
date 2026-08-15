@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "convertEngineSpecificDataToHoodieData always returns HoodieListData.lazy(records), which is non-null.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "result non-nullness"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is required to be non-null for HoodieListData.lazy to work and would likely be validated upstream.",
+    "meta" : [ {
+      "key" : "focus",
+      "value" : "param non-nullness"
+    } ]
+  } ]
+}

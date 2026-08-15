@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "isoTransform != null",
+    "rationale" : "isoTransform is newly created and initialized before method return.",
+    "meta" : [ {
+      "key" : "robustness",
+      "value" : "Matrix should be constructed."
+    } ]
+  }, {
+    "expression" : "invIsotransform != null",
+    "rationale" : "invIsotransform is created from isoTransform and inverted before method return.",
+    "meta" : [ {
+      "key" : "robustness",
+      "value" : "Inverse matrix should be constructed."
+    } ]
+  }, {
+    "expression" : "isoTransform.isIdentity() == false",
+    "rationale" : "isoTransform is scaled and rotated, so it should not be identity.",
+    "meta" : [ {
+      "key" : "correctness",
+      "value" : "isoTransform has been transformed and rotated, not left as identity."
+    } ]
+  }, {
+    "expression" : "invIsotransform.mul(isoTransform).isIdentity()",
+    "rationale" : "By definition, the product of a matrix and its inverse is the identity matrix.",
+    "meta" : [ {
+      "key" : "matrix property",
+      "value" : "Inverse times original equals identity."
+    } ]
+  } ]
+}

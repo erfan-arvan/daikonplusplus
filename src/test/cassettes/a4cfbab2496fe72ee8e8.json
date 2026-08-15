@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to identify a commit or operation and should typically be non-null for correctness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The partitions list should be non-null to enumerate partitions to delete.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions == null || partitions.size() >= 0",
+    "rationale" : "List.size() is always non-negative for a valid Java List; null check safeguards from potential NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions == null || !partitions.contains(null)",
+    "rationale" : "A partitions list should not contain null partition elements for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.isEmpty()",
+    "rationale" : "If instantTime is non-null, it is likely expected to be non-empty to represent a valid instant.",
+    "meta" : [ ]
+  } ]
+}

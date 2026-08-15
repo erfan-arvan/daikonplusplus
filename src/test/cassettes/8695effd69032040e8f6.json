@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method requires metaClient as an argument, and meaningful behavior likely assumes it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "HoodieTableMetaClient typically provides a non-null base path for a valid table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "A valid metaClient should have an associated table configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getFs() != null",
+    "rationale" : "File system access is central to HoodieTableMetaClient operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig().getTableName() != null",
+    "rationale" : "Table name is essential for identifying the table managed by metaClient.",
+    "meta" : [ ]
+  } ]
+}

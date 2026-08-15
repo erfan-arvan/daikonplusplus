@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method unconditionally returns the result of HoodieMergeHandleFactory.create, so result should not be null if the factory does not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed directly to the handle factory and likely non-null in valid usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is passed directly to the handle factory and likely non-null in valid usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is an argument passed through to the factory and must be non-null for normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().contains(\"MergeHandle\")",
+    "rationale" : "Result is created by HoodieMergeHandleFactory.create and should be some subtype of HoodieMergeHandle.",
+    "meta" : [ ]
+  } ]
+}

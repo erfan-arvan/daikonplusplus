@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is typically a required String identifier, most methods assume it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant will be used to identify what needs to be rolled back, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for distributed operations; a null value would likely raise an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "rollbackInstantTime denotes an instant and such identifiers are not typically empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteInstants || !deleteInstants",
+    "rationale" : "deleteInstants is a boolean and must be true or false; including to span both cases, but mainly to show it is always defined and no side effects.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an initialized map, so the result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.entrySet().stream().allMatch(e -> e.getValue() != null)",
+    "rationale" : "All values in the result map are non-null lists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list.stream().allMatch(rec -> dedupedRecords.contains(rec)))",
+    "rationale" : "All HoodieRecord objects in the result can be traced back to the dedupedRecords input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(k -> partitioner != null && dedupedRecords.stream().anyMatch(r -> partitioner.getPartition(Pair.of(r.getKey(), Option.ofNullable(r.getCurrentLocation()))) == k))",
+    "rationale" : "For each key in the result map, there exists at least one dedupedRecord that was mapped to it using the partitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().flatMap(List::stream).distinct().count() == dedupedRecords.size()",
+    "rationale" : "Each dedupedRecord appears exactly once across all result map values, indicating no duplication or omission of records.",
+    "meta" : [ ]
+  } ]
+}

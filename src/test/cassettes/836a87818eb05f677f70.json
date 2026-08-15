@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "str == null || str instanceof String",
+    "rationale" : "If str is not null, it must be a Java String, matching the method signature.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-safety"
+    } ]
+  }, {
+    "expression" : "str == null || !str.equals(\"\") || str.length() > 0",
+    "rationale" : "If str is not null and not the empty string, then its length must be greater than 0.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string-content"
+    } ]
+  }, {
+    "expression" : "str == null || str.length() >= 0",
+    "rationale" : "String length is always non-negative if str is not null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string-length"
+    } ]
+  }, {
+    "expression" : "str == null || str != null",
+    "rationale" : "Trivially true, included for completeness; likely to be filtered.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness-trivial"
+    } ]
+  } ]
+}

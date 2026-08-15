@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "The method unconditionally calls methods (extension, etc.) on 'file'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is passed as a resource name and is always needed for dependency lookup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "file.extension() is chained with .toLowerCase() and .equals(), so should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!file.extension().isEmpty()",
+    "rationale" : "The extension string is used to direct branching logic; an empty string would likely lead to an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.exists()",
+    "rationale" : "It is likely that the file must exist in order to load its dependencies.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a Pair object, so 'result' must not be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The method returns a non-null Pair."
+    } ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The left part of the Pair holds a Stream and must be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The Stream of HoodieClusteringGroup should not be null in the Pair."
+    } ]
+  }, {
+    "expression" : "result.getRight() instanceof Boolean",
+    "rationale" : "The Pair's right component is specified as Boolean, so it must be an instance of Boolean.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The second element of the Pair is a Boolean."
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is used for grouping, expected to be non-null for proper operation.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Partition path is a String parameter, expected non-null."
+    } ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "The method relies on fileSlices list, which should not be null before constructing clustering groups.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "File slices list should not be null."
+    } ]
+  } ]
+}

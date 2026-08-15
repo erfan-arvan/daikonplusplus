@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method should return a non-null list of WriteStatus, as it immediately returns the output of JavaBulkInsertHelper.bulkInsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is passed to bulkInsert and should be non-null for clustering to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "numOutputGroups controls parallelism and is used both for configuration and as a parameter, so it should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to identify the clustering commit and is passed downstream, so should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is used to derive partitioner and should be non-null for correct configuration.",
+    "meta" : [ ]
+  } ]
+}

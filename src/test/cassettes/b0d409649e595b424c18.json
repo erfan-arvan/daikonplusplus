@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "configuredParallelism >= 1",
+    "rationale" : "Parallelism should be at least 1 for valid processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null && !inputRecords.isEmpty()",
+    "rationale" : "The method is expected to process a non-empty set of input records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "HoodieWriteConfig is required for configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The HoodieTable reference must be non-null for writes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "A BulkInsertPartitioner is required to partition records.",
+    "meta" : [ ]
+  } ]
+}

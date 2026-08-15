@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object and not null, as it delegates to super.execute which is expected to return a valid metadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses within the HoodieWriteMetadata should be initialized and valid when returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The getWriteStatuses method is expected to return a List of WriteStatus.",
+    "meta" : [ ]
+  } ]
+}

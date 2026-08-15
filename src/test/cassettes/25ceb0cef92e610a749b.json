@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPathToInsertBucketInfos.get(partitionPath) == result",
+    "rationale" : "By code, the method returns the value from the map for the given partitionPath.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos.containsKey(partitionPath) == (result != null)",
+    "rationale" : "If the map contains the key, result is non-null; otherwise, it's null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == null) || result instanceof List",
+    "rationale" : "Result is always either null or a List object, per the map's value type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == null) || result.size() >= 0",
+    "rationale" : "A List's size is never negative.",
+    "meta" : [ ]
+  } ]
+}

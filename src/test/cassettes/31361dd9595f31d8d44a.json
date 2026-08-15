@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method accesses 'element' fields and methods unconditionally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "'parentLayers.add(layer)' implies 'parentLayers' must be non-null when code reaches that point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "'map' is dereferenced (getProperties(), getTileSets()) and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!element.getString(\"type\", \"\").equals(\"tilelayer\") || parentLayers.getCount() > 0",
+    "rationale" : "If a 'tilelayer' was processed, a new layer is added to 'parentLayers'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!element.getString(\"type\", \"\").equals(\"tilelayer\") || element.getInt(\"width\", 0) > 0",
+    "rationale" : "When 'type' is 'tilelayer', 'width' is obtained and likely positive to process layer data.",
+    "meta" : [ ]
+  } ]
+}

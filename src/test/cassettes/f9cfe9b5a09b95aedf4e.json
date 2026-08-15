@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "columnIndex >= 0",
+    "rationale" : "Array indices must be non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "indexBounds"
+    } ]
+  }, {
+    "expression" : "columnIndex < columnMinWidth.length",
+    "rationale" : "The column index should be within the valid range for array access.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "indexBounds"
+    } ]
+  } ]
+}

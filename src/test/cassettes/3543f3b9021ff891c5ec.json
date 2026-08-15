@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A successful savepoint operation typically results in a non-null metadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "The savepoint instant identifier must be provided for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "The savepoint operation usually requires a non-null user identity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The computation context is required to perform the savepoint action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieSavepointMetadata",
+    "rationale" : "The returned result should always be of the expected savepoint metadata type.",
+    "meta" : [ ]
+  } ]
+}

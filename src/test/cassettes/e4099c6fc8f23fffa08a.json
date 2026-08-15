@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List<WriteStatus> (created via new ArrayList<> and populated), so the result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size is always non-negative; result is always a valid List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "configuredParallelism >= 0",
+    "rationale" : "Parallelism is typically non-negative and is used as a partition count.",
+    "meta" : [ ]
+  } ]
+}

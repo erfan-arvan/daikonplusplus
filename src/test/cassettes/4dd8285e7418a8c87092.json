@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method should not return null; List<WriteStatus> should be non-null for downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "A list of HoodieKey 'keys' being deleted must have been provided and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter, representing the timeline instant for the delete operation, is required and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || !result.isEmpty()",
+    "rationale" : "This is trivially true for any non-null List; this checks that result behaves as a List (sanity).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "Typically, the number of WriteStatus results returned should not exceed the number of keys requested for deletion.",
+    "meta" : [ ]
+  } ]
+}

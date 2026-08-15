@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is the outcome of execute() on a new executor, expected non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method returns a new object instantiated by execute()"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is likely non-null for restore operations.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "restoreInstantTimestamp is passed to the executor and likely required."
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp == null || !savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "If savepointToRestoreTimestamp is provided, it is probably a valid timestamp string.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "savepointToRestoreTimestamp when non-null should not be empty string."
+    } ]
+  }, {
+    "expression" : "result.getRestoreInstantTimestamp().equals(restoreInstantTimestamp)",
+    "rationale" : "The result's restore instant timestamp equals the parameter passed.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Assuming result has a getter for restore instant timestamp matching parameter."
+    } ]
+  }, {
+    "expression" : "result.getSavepointToRestoreTimestamp() == null || result.getSavepointToRestoreTimestamp().equals(savepointToRestoreTimestamp)",
+    "rationale" : "The result's savepoint timestamp matches input or is null if input is null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result's savepoint timestamp either null or same as input parameter."
+    } ]
+  } ]
+}

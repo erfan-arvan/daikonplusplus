@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "The method assumes the input parameter is not null, as it is dereferenced without a null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.properties != null",
+    "rationale" : "The method calls putAll on this.properties, which means it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.properties != null",
+    "rationale" : "The method accesses properties.properties and passes it to putAll, so it is required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.properties.size() >= properties.properties.size()",
+    "rationale" : "After adding all entries from properties.properties to this.properties, the size of this.properties must be at least as large as properties.properties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.properties.keySet().containsAll(properties.properties.keySet())",
+    "rationale" : "After the call, this.properties must contain all keys that were present in properties.properties.",
+    "meta" : [ ]
+  } ]
+}

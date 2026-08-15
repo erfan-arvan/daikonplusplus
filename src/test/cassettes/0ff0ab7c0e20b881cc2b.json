@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is a required operational dependency and is expected to be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter should always be provided and non-null as it typically identifies the action time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata as an Option<Map<String, String>> is expected to be a non-null Option instance, possibly Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime must be a non-empty String as it likely represents a timestamp or unique identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() ? extraMetadata.get() != null : true",
+    "rationale" : "If extraMetadata is present, its contained Map must be non-null; otherwise, the invariant holds vacuously.",
+    "meta" : [ ]
+  } ]
+}

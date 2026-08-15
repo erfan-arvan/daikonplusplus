@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Padding values are typically non-negative, so their sum should also be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == padLeft.get(this) + padRight.get(this)",
+    "rationale" : "This matches the method's implementation and javadoc: result is defined as the sum of padLeft and padRight.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= padLeft.get(this)",
+    "rationale" : "Since padRight.get(this) is expected to be non-negative, result should be at least as large as padLeft.get(this).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= padRight.get(this)",
+    "rationale" : "Similarly, as padLeft.get(this) is expected to be non-negative, result should be at least as large as padRight.get(this).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == getPadLeft() + getPadRight()",
+    "rationale" : "The result is expected to equal the sum of the two pad values obtained via their accessors, as implied by the javadoc.",
+    "meta" : [ ]
+  } ]
+}

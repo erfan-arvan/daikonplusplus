@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Parameter context must be non-null for method execution.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Parameter instantTime must be non-null to represent a logical commit time.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records list must be non-null to insert records.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty()",
+    "rationale" : "Insertion typically involves a non-empty list of records.",
+    "meta" : [ {
+      "key" : "common-case",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "All elements in records must be non-null to process reliably.",
+    "meta" : [ {
+      "key" : "all-non-null",
+      "value" : "records elements"
+    } ]
+  } ]
+}

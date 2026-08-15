@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A method returning a List<WriteStatus> from JavaBulkInsertHelper.bulkInsert is expected to return a non-null result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "Parallelism (numOutputGroups) is expected to be positive; negative or zero would not be meaningful for clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is a String commit identifier and should not be null for clustering operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result is cast to a List<WriteStatus> and should conform to this interface.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupIdList != null",
+    "rationale" : "fileGroupIdList is passed to the method and clustering typically relies on a collection of file group IDs being non-null.",
+    "meta" : [ ]
+  } ]
+}

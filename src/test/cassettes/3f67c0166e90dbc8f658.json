@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The method returns a Y coordinate, which should be a finite number representing a position.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result is a finite float"
+    } ]
+  }, {
+    "expression" : "result >= Float.NEGATIVE_INFINITY",
+    "rationale" : "Any float value satisfies this, but it captures that result cannot be less than the representable range.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "lower bound"
+    } ]
+  }, {
+    "expression" : "result <= Float.POSITIVE_INFINITY",
+    "rationale" : "Any float value satisfies this, but it documents the upper representable bound.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "upper bound"
+    } ]
+  } ]
+}

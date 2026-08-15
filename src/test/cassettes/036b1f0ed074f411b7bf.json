@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "It is common for remove methods to require a non-null argument, though the method implementation does not explicitly check for null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getCell(actor) == null || getCell(actor).actor == actor",
+    "rationale" : "If the actor is already contained in a cell, the cell should reference the actor at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "unfocus || !unfocus",
+    "rationale" : "This captures the exhaustiveness of the 'unfocus' boolean, though not particularly insightful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(actor == null && unfocus)",
+    "rationale" : "It might be undesirable to attempt to unfocus when there is no actor, so this expresses that if actor is null, unfocus should not be true.",
+    "meta" : [ ]
+  } ]
+}

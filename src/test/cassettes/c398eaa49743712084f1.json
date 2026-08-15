@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "operationType != null",
+    "rationale" : "The operationType parameter is used directly for a comparison, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to methods and used to create HoodieInstant; must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced multiple times for method calls, so must not be null on entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is used for method calls and thus must not be null on entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "WriteOperationType.LOG_COMPACT != null",
+    "rationale" : "A static enum constant, likely always non-null; asserted to avoid potential null dereference in equals.",
+    "meta" : [ ]
+  } ]
+}

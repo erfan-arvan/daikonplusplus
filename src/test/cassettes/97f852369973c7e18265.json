@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "this.name == name",
+    "rationale" : "The method assigns the parameter 'name' to the field 'this.name', so at exit they should be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || this.name != null",
+    "rationale" : "If 'name' is null, 'this.name' may be null as assigned; otherwise, 'this.name' has at least the value of 'name'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.name == null || this.name.equals(name)",
+    "rationale" : "If 'this.name' is not null, it will be equal to 'name' since it was just assigned to it.",
+    "meta" : [ ]
+  } ]
+}

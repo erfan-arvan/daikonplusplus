@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (other != null && text.size == other.length())",
+    "rationale" : "The result can only be true if 'other' is non-null and has the same length as the label's text.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!result) || (text.size == other.length())",
+    "rationale" : "If result is true, then text.size must equal other.length().",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!result) || (other != null)",
+    "rationale" : "If result is true, then other must be non-null.",
+    "meta" : [ ]
+  } ]
+}

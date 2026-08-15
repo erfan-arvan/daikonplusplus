@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new HoodieWriteMetadata instance, so result should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata != null",
+    "rationale" : "The parameter metadata is always used in the method, and the method assumes it is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != metadata",
+    "rationale" : "result is a clone of metadata with a transformed WriteStatus collection, so they must be distinct objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.getWriteStatuses().collectAsList() instanceof List",
+    "rationale" : "The result from collectAsList is used as a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The result's WriteStatuses has List type according to the method signature.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "content != null",
+    "rationale" : "The method returns immediately if content is null, so at method exit content must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!content.isEmpty()",
+    "rationale" : "The buffer only receives characters that meet certain filter criteria, but regardless, the method produces a content string (from the buffer) and then changes state; content is not re-nullified, so it's likely non-empty after processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "content.length() >= 0",
+    "rationale" : "By definition, String.length() is always >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fireChangeEvent == true || fireChangeEvent == false",
+    "rationale" : "fireChangeEvent is a boolean parameter so must be either true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "content.equals(\"\") == content.isEmpty()",
+    "rationale" : "For Strings in Java, equals(\"\") and isEmpty() are equivalent.",
+    "meta" : [ ]
+  } ]
+}

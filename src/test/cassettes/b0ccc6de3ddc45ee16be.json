@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a valid execution context to perform delete operations.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "context is required for operation"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime indicates the commit or delete call instant and is typically non-null and non-empty for operations.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "instantTime identifies the operation instant"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The delete operation expects a (possibly empty but non-null) collection of keys to act upon.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "keys to delete cannot be null"
+    } ]
+  }, {
+    "expression" : "keys instanceof java.util.List",
+    "rationale" : "Declared type of keys is List<HoodieKey>; other collections or null are not expected.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "keys must be a List"
+    } ]
+  } ]
+}

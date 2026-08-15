@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is dereferenced via resolve(fileName), so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "A valid filename should be non-empty for file loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.toLowerCase().endsWith(\".tmx\") || fileName.toLowerCase().endsWith(\".tmj\")",
+    "rationale" : "The method expects .tmx or .tmj files as indicated in the javadoc and checked within.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof BaseTiledMapLoader.Parameters",
+    "rationale" : "parameter may be null, or if not, must be an instance of the expected parameter type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.toLowerCase().endsWith(\".tmx\") || !fileName.toLowerCase().endsWith(\".tmj\")",
+    "rationale" : "A file cannot simultaneously end with .tmx and .tmj.",
+    "meta" : [ ]
+  } ]
+}

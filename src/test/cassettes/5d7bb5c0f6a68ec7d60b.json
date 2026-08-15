@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(offsetX)",
+    "rationale" : "Ensures that offsetX is a valid finite float.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "numerical robustness"
+    } ]
+  }, {
+    "expression" : "!Float.isNaN(offsetX)",
+    "rationale" : "offsetX should not be NaN as an offset parameter.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "numerical robustness"
+    } ]
+  } ]
+}

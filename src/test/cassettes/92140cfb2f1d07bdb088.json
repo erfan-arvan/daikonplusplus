@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The returned average record size is never negative, result is assigned from values that are all non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() || (result >= (long)Math.ceil(hoodieWriteConfig.getRecordSizeEstimationThreshold() * hoodieWriteConfig.getParquetSmallFileLimit()))",
+    "rationale" : "Result is either the config's estimate or calculated based on commit metadata only if the threshold is crossed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getParquetSmallFileLimit()",
+    "rationale" : "The computed average record size is unlikely to exceed the maximum configured small file limit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "hoodieWriteConfig is dereferenced, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitTimeline != null",
+    "rationale" : "commitTimeline is dereferenced, so must not be null.",
+    "meta" : [ ]
+  } ]
+}

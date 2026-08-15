@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Methods typically expect an engine context not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "A compaction timestamp string should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime.length() > 0",
+    "rationale" : "A compaction timestamp should be non-empty when compacting.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a non-null HoodieEngineContext to execute actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should be provided and non-empty, as it determines the timeline instant for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is a required input; the copy-on-write operation cannot proceed with a null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "It is likely that insertOverwrite should not be called with an empty record list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || records.stream().allMatch(r -> r != null)",
+    "rationale" : "HoodieRecord list should not contain null entries for correctness.",
+    "meta" : [ ]
+  } ]
+}

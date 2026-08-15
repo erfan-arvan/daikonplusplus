@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Null safety: the stream() and forEach() operations require 'data' to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "Consumer must be non-null to perform the foreach operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism values less than 1 would not make sense in distributed/parallel environments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || data.stream().count() == data.size()",
+    "rationale" : "If data is not empty, the stream().count() should equal the size, indicating that data is a 'normal' list.",
+    "meta" : [ ]
+  } ]
+}

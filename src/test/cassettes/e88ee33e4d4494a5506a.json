@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a new instance, so result is non-null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "non-null-return"
+    } ]
+  }, {
+    "expression" : "result instanceof AvroReaderContextFactory",
+    "rationale" : "Method always returns an instance of AvroReaderContextFactory.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is passed as a parameter and used for construction.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "((AvroReaderContextFactory) result).getMetaClient() == metaClient",
+    "rationale" : "The factory returned was constructed with the given metaClient.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "constructor-link"
+    } ]
+  }, {
+    "expression" : "((AvroReaderContextFactory) result).getProperties() != null",
+    "rationale" : "The constructor passes 'new TypedProperties()', therefore properties is always non-null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "non-null-property"
+    } ]
+  } ]
+}

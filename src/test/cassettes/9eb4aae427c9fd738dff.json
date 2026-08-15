@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is required for adding tile properties and tiles; it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is invoked in both code paths, so it is expected not to be null on normal execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilewidth > 0 && tileheight > 0",
+    "rationale" : "tilewidth and tileheight are used as region sizes and increments in loops; they should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstgid >= 0",
+    "rationale" : "firstgid is used as a base id for tile ids; tile ids must be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiles != null",
+    "rationale" : "tiles is iterated in the else branch, so it must be non-null for that to succeed.",
+    "meta" : [ ]
+  } ]
+}

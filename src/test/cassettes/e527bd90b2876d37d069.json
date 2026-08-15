@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "As the method returns 'result' as type Dialog, it's expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "buttonStyle != null",
+    "rationale" : "A valid TextButton requires a non-null style, so 'buttonStyle' is likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Dialog",
+    "rationale" : "The returned object must be a Dialog, so this type relationship always holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this || result != null",
+    "rationale" : "The result is typically 'this', but may be delegated or always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || !text.isEmpty() || text.length() == 0",
+    "rationale" : "If 'text' is not null, it could be non-empty or empty; this covers both.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of a postWrite operation, which is expected to be a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is passed through several operations and methods that would typically not accept null inputs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is provided to downstream method calls, and a null value would likely cause failures or exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type is List<WriteStatus>, so the result must be a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "preppedRecords must be a List as declared in the method signature and used as such in the method body.",
+    "meta" : [ ]
+  } ]
+}

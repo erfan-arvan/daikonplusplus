@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "Method implementation continuously dereferences metaClient; it is likely a required precondition.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "metaClient must not be null for correct operation"
+    } ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "metaClient is declared as HoodieTableMetaClient, so it must be an instance of that class.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "formal parameter already strongly typed"
+    } ]
+  } ]
+}

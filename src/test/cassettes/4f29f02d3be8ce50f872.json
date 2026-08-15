@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "alignment == com.badlogic.gdx.utils.Align.left || alignment == com.badlogic.gdx.utils.Align.center || alignment == com.badlogic.gdx.utils.Align.right",
+    "rationale" : "The method is for setting horizontal alignment, which is expected to use one of the defined constants for left, center, or right.",
+    "meta" : [ {
+      "key" : "Align values",
+      "value" : "Represents allowed alignment constants"
+    } ]
+  }, {
+    "expression" : "alignment >= 0",
+    "rationale" : "Alignment constants like left, center, and right are typically represented by non-negative integers.",
+    "meta" : [ {
+      "key" : "non-negative alignment",
+      "value" : "Alignment values are usually non-negative constants"
+    } ]
+  } ]
+}

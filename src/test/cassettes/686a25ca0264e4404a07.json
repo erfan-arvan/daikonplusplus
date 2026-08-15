@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Commit operations typically require a non-null instantTime.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "A partition path is usually needed for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "A collection of records must be available for bulk commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "Index parser is required for interpreting file group indexes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || partitionPath.length() > 0",
+    "rationale" : "If there are records, a valid (non-empty) partition path is likely required.",
+    "meta" : [ ]
+  } ]
+}

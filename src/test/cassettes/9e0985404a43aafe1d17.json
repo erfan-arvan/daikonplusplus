@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The execute method returns an object from a helper or throws an exception, so result should never be null upon successful return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() method should return a non-null List as the write statuses are a core result of the bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the write status list should never be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToRowsStats() != null",
+    "rationale" : "Partition to rows stats should be available after a successful bulk insert operation.",
+    "meta" : [ ]
+  } ]
+}

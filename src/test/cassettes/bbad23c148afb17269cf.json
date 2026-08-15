@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "The rollback instant time should be defined for a rollback operation to target the correct instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A rollback is intended to target a specific commit instant, so the instant should be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipLocking || !deleteInstants",
+    "rationale" : "If skipLocking is true, it is likely safe only when not also deleting instants, suggesting a possible protocol invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "Rollback instant times are typically non-empty strings identifying the instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(deleteInstants && skipLocking)",
+    "rationale" : "Deleting instants without locks may be disallowed for safety, so perhaps both are not true at the same time.",
+    "meta" : [ ]
+  } ]
+}

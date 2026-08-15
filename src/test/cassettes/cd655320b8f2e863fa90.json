@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "text == null || !text.isEmpty()",
+    "rationale" : "If text is not null, it is often expected that button labels are non-empty for usability.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "String.length() is defined to be non-negative, so if text is not null this holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.trim().length() >= 0",
+    "rationale" : "The trimmed version of the string also guarantees a non-negative length.",
+    "meta" : [ ]
+  } ]
+}

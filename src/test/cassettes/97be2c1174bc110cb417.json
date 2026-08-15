@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The inputRecords list must be provided for the commit operation to execute correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer != null",
+    "rationale" : "sourceReadAndIndexTimer being non-null ensures Option methods can be safely called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || inputRecords.size() > 0",
+    "rationale" : "For all Java lists, isEmpty() is true if and only if size is 0, and vice versa.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!sourceReadAndIndexTimer.isPresent() || sourceReadAndIndexTimer.get() != null",
+    "rationale" : "If the Option has a value, get() should return a non-null HoodieTimer object.",
+    "meta" : [ ]
+  } ]
+}

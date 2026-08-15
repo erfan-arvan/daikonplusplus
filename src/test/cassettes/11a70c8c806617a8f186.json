@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "root != null",
+    "rationale" : "The method requires the XML root element; it's expected to be non-null as a precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "The method operates on the file handle; it is expected to be non-null as a reasonable precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "The method uses imageResolver parameter to resolve tile textures, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "root.getChildByName(\"TileSheets\") != null",
+    "rationale" : "A tiled map should have at least a TileSheets section in its root, so it's reasonable to expect this child element exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "root.getChildByName(\"Layers\") != null",
+    "rationale" : "A tiled map should have a Layers section in its root; this is needed for loading layers.",
+    "meta" : [ ]
+  } ]
+}

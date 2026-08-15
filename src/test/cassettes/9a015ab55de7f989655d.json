@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Method uses instantTime as a parameter to create an instant; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime likely represents an identifier for an operation instant, typically not an empty string.",
+    "meta" : [ ]
+  } ]
+}

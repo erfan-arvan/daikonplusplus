@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "price >= 0.0",
+    "rationale" : "Prices are typically non-negative for order processing; discounts would not make sense for negative values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "price < Double.POSITIVE_INFINITY",
+    "rationale" : "Price should be a finite value prior to computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "price == price",
+    "rationale" : "Ensures price is not NaN (since NaN != NaN in Java), which could otherwise invalidate discount computations.",
+    "meta" : [ ]
+  } ]
+}

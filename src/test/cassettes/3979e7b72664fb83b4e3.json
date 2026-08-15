@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "The method requires a non-null StorageConfiguration instance to create the metadata writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "A valid HoodieWriteConfig is needed to configure the writer and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is required to create the writer and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "Option<String> should be non-null; the method may use None/empty Option to indicate absence, but Option itself should be a valid object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp.isPresent() || !inflightInstantTimestamp.isPresent()",
+    "rationale" : "Option.isPresent() is always true or false; included for completeness with Option semantics.",
+    "meta" : [ ]
+  } ]
+}

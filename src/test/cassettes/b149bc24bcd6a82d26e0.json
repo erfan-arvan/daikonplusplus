@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically expected to be positive for effective parallel reduction.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parallelism-constraint"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Data list should not be null to perform reduction.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input-safety"
+    } ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc must be provided for reduction to proceed.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input-safety"
+    } ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "It is common to not set parallelism greater than the amount of work (data size).",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input-parallelism"
+    } ]
+  }, {
+    "expression" : "parallelism <= Runtime.getRuntime().availableProcessors()",
+    "rationale" : "Typically, parallelism does not exceed the number of available processors.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "resource-utilization"
+    } ]
+  } ]
+}

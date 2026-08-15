@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "x < 0 || x >= width || y < 0 || y >= height || cells[x][y] == cell",
+    "rationale" : "If the coordinates are in bounds, the assignment is performed, ensuring cells[x][y] == cell; otherwise, nothing is changed.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "method_guard_and_assignment"
+    } ]
+  }, {
+    "expression" : "cell == null || x < 0 || x >= width || y < 0 || y >= height || cells[x][y] == null || cells[x][y] == cell",
+    "rationale" : "If cell is null, or the assignment occurs, cells[x][y] should reflect the correct value, unless the coordinates are out of bounds.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "nullness_and_assignment"
+    } ]
+  }, {
+    "expression" : "x < 0 || x >= width || cells.length > x",
+    "rationale" : "If x is within bounds, then cells[x] access is safe and must be within cells' length.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "index_and_array_bounds"
+    } ]
+  }, {
+    "expression" : "y < 0 || y >= height || cells[x].length > y",
+    "rationale" : "If y is within bounds, cells[x][y] is a valid access, so y must be less than cells[x].length.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "index_and_array_bounds"
+    } ]
+  }, {
+    "expression" : "x >= 0 && x < width && y >= 0 && y < height ? cells[x][y] == cell : true",
+    "rationale" : "On valid indices, the cell at the given coordinate should always be equal to the input cell after the method exits.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "conditional_assignment"
+    } ]
+  } ]
+}

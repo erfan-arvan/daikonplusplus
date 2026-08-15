@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "drawableName != null",
+    "rationale" : "This prevents possible runtime errors if the called method does not handle nulls.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "avoids NullPointerException if setBackground uses the argument without a null check"
+    } ]
+  }, {
+    "expression" : "drawableName == null || !drawableName.isEmpty()",
+    "rationale" : "If a drawable name is supplied, it should not be an empty string for valid background assignment.",
+    "meta" : [ {
+      "key" : "API_usage",
+      "value" : "common pattern for non-empty resource identifiers"
+    } ]
+  } ]
+}

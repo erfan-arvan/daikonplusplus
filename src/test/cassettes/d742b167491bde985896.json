@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The method always returns Option.empty(), so result is always empty.",
+    "meta" : [ {
+      "key" : "strength",
+      "value" : "definitely true given method body"
+    } ]
+  }, {
+    "expression" : "!result.isPresent()",
+    "rationale" : "An empty Option is not present.",
+    "meta" : [ {
+      "key" : "strength",
+      "value" : "equivalent to isEmpty"
+    } ]
+  }, {
+    "expression" : "result instanceof Option",
+    "rationale" : "Result is always an Option<String>.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "Option"
+    } ]
+  } ]
+}

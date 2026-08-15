@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Option<HoodieRollbackPlan> (possibly empty), as it is constructed by the execute() method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed directly to another method as a parameter; it is likely non-null for proper functioning of the plan execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "instantToRollback must be non-null for the rollback process and is passed into plan executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == false || result.get() != null",
+    "rationale" : "If the Option is present, then get() will return a non-null HoodieRollbackPlan (by Option semantics).",
+    "meta" : [ ]
+  }, {
+    "expression" : "skipTimelinePublish == true || skipTimelinePublish == false",
+    "rationale" : "As a boolean parameter, skipTimelinePublish can only be true or false (included for completeness).",
+    "meta" : [ ]
+  } ]
+}

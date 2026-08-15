@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "value != null",
+    "rationale" : "The method throws an exception if value is null, so at exit value must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getValue().equals(value)",
+    "rationale" : "If a node is found, it has the given value; if not found, result is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.getValue() != null",
+    "rationale" : "If a node is found, its value must not be null, because value is tested for null and findNode(rootNodes, value) should only match non-null values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || value.equals(result.getValue())",
+    "rationale" : "If a node is returned, its value must equal the searched value.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "index + offset >= Integer.MIN_VALUE",
+    "rationale" : "Prevent integer underflow when computing index + offset in calculateCurrentLineIndex.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index + offset <= Integer.MAX_VALUE",
+    "rationale" : "Prevent integer overflow when computing index + offset in calculateCurrentLineIndex.",
+    "meta" : [ ]
+  }, {
+    "expression" : "offset == 0 || offset != 0",
+    "rationale" : "offset must have some integer value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index >= Integer.MIN_VALUE",
+    "rationale" : "index (as int) is within the integer range; this is always true for ints.",
+    "meta" : [ ]
+  }, {
+    "expression" : "offset >= Integer.MIN_VALUE",
+    "rationale" : "offset (as int) is within the integer range; this is always true for ints.",
+    "meta" : [ ]
+  } ]
+}

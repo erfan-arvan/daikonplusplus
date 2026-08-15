@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Checking for non-nullity is a safe precondition for operating on the list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.size() >= 0",
+    "rationale" : "List.size() is always >= 0; this covers the trivial lower-bound on size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(e -> e != null)",
+    "rationale" : "If the method is intended to operate on column names, it is reasonable to expect no null entries.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns HoodieListData.eager(data), which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().equals(data)",
+    "rationale" : "The result is constructed with HoodieListData.eager(data), so collecting as list yields the original data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || !result.collectAsList().isEmpty()",
+    "rationale" : "If data is empty, the result will also collect as an empty list, so implication holds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().size() == data.size()",
+    "rationale" : "The result reflects all elements of the input data list, preserving size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1 || parallelism <= 0",
+    "rationale" : "This is a property of the parameter as seen at this point (trivially always true but not tautological in comparison semantics).",
+    "meta" : [ ]
+  } ]
+}

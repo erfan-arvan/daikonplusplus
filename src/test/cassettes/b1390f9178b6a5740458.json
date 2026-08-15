@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "It is likely that padding values represent valid finite numbers (not NaN or infinity).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0f",
+    "rationale" : "Padding and spacing are typically non-negative quantities.",
+    "meta" : [ ]
+  } ]
+}

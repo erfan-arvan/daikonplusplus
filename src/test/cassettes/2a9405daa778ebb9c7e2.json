@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method is public and assumes the argument should not be null for correct execution; null would likely lead to a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isVisible() == true || layer.isVisible() == false",
+    "rationale" : "The result of isVisible() should be deterministically true or false, with no side effects assumed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer instanceof MapLayer",
+    "rationale" : "The parameter 'layer' is of type MapLayer, so this must always be true at entry.",
+    "meta" : [ ]
+  } ]
+}

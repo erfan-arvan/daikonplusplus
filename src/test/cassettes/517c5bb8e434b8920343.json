@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a newly constructed JavaHoodieBackedTableMetadataWriter, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaHoodieBackedTableMetadataWriter",
+    "rationale" : "The returned object is explicitly constructed as JavaHoodieBackedTableMetadataWriter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteConfig() == writeConfig",
+    "rationale" : "The writeConfig parameter is directly passed into the constructor, so it should match the internal value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfiguration() == conf",
+    "rationale" : "The configuration parameter is directly passed into the constructor and should be the same object accessible via getter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getEngineContext() == context",
+    "rationale" : "The context parameter is passed to the constructor and should be stored in result.",
+    "meta" : [ ]
+  } ]
+}

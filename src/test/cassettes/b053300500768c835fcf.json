@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method operates on 'data', which must not be null to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "data must be non-null for processing"
+    } ]
+  }, {
+    "expression" : "mapToPairFunc != null",
+    "rationale" : "The mapping function 'mapToPairFunc' is used to map elements, so it should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "mapToPairFunc must be non-null"
+    } ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The reduction function 'reduceFunc' is used to reduce values, so it should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "reduceFunc must be non-null"
+    } ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism level must be positive to have meaningful parallel processing.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "parallelism should be at least 1"
+    } ]
+  } ]
+}

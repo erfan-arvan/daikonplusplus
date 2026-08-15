@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Image heights are typically non-negative in UI frameworks; negative values are usually invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (int) result || result != (int) result",
+    "rationale" : "Covers both integer and non-integer possibilities for result; shows exhaustiveness but not a strict property.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The method likely expects the image height to be a finite float, excluding NaN and infinity.",
+    "meta" : [ ]
+  } ]
+}

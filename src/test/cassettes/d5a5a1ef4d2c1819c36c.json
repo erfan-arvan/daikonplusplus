@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string is likely required for write operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The list of HoodieRecords to upsert should not be null for the method's operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient != null",
+    "rationale" : "A non-null write client is required to perform upsert and commit steps.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.size() >= 0",
+    "rationale" : "List size is always non-negative; this expresses a basic property of the input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecordInputs.isEmpty() || preppedRecordInputs.size() == 0",
+    "rationale" : "If the list is empty, its size should be zero, ensuring consistent state.",
+    "meta" : [ ]
+  } ]
+}

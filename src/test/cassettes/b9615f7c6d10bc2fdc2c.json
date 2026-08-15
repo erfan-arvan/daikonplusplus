@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Ensures records can be streamed and processed without NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition count should be positive as negative or zero partitions are invalid for repartitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() > 0",
+    "rationale" : "If the list is not empty, its size must be positive (non-empty structure invariant).",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "The number of output partitions should not exceed the number of records, unless records is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || outputPartitions == 0 || outputPartitions > 0",
+    "rationale" : "If records is empty, outputPartitions may be zero or positive, depending on downstream requirements.",
+    "meta" : [ ]
+  } ]
+}

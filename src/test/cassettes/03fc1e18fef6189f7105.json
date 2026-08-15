@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "The method is likely expected to operate on a non-null instant identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "The method expects a List of MetadataPartitionType to operate on.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "A list of partition paths must be provided for indexing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required to execute indexing operations.",
+    "meta" : [ ]
+  } ]
+}

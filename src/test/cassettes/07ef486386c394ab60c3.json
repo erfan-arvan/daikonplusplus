@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new object is returned from clone, so result should not be null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "metadata != null",
+    "rationale" : "metadata is used without null-check, so it's expected to be non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "convertMetadata returns HoodieWriteMetadata with List<WriteStatus> write statuses.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().equals(metadata.getWriteStatuses().collectAsList())",
+    "rationale" : "Result is constructed using metadata's write statuses collected as a list.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "result != metadata",
+    "rationale" : "Clone pattern suggests a new object is created; result should be a different instance than metadata.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

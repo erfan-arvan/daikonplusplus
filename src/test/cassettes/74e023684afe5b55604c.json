@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null constant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(HoodieTimeline.REPLACE_COMMIT_ACTION)",
+    "rationale" : "Method implementation always returns HoodieTimeline.REPLACE_COMMIT_ACTION.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == HoodieTimeline.REPLACE_COMMIT_ACTION",
+    "rationale" : "The returned result is exactly the static field HoodieTimeline.REPLACE_COMMIT_ACTION.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "Since the method always returns a non-empty string constant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() == HoodieTimeline.REPLACE_COMMIT_ACTION.length()",
+    "rationale" : "Since result is exactly HoodieTimeline.REPLACE_COMMIT_ACTION, their lengths match.",
+    "meta" : [ ]
+  } ]
+}

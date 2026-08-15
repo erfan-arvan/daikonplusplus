@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns the result of postWrite, which should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used as an argument for table operations and likely must be non-null/non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is used for HoodieListData.eager and table.bulkInsert with no null check visible, so it's likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result is always a List as returned by postWrite.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || !result.isEmpty()",
+    "rationale" : "If there are input records, the write operation is expected to produce some WriteStatus output.",
+    "meta" : [ ]
+  } ]
+}

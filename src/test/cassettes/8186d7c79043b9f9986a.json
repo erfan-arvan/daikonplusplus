@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "button != null",
+    "rationale" : "The method is intended to add a non-null Button, as adding null to UI elements may cause a failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "Instance methods cannot be called on a null reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button instanceof Button",
+    "rationale" : "Type safety: ensures button is of the expected type at method entry.",
+    "meta" : [ ]
+  } ]
+}

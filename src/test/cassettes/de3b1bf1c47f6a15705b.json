@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null list, as Collectors.toList() never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(v -> v != null)",
+    "rationale" : "Each element V in the result list must be non-null; nulls cannot result from the reduction pipeline.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "The number of values in the result list cannot exceed the number of input elements since each input contributes at most one group.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A list’s size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be greater than zero to ensure the stream can be executed in parallel as expected.",
+    "meta" : [ ]
+  } ]
+}

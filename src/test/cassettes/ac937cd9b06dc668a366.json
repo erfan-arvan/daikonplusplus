@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 1",
+    "rationale" : "The minimum return value is 1 (when !expanded).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 1 || result > 1",
+    "rationale" : "If !expanded, returns 1; otherwise result is strictly greater.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorIndex + result >= actorIndex",
+    "rationale" : "The sum is at least actorIndex, since result >= 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tree != null",
+    "rationale" : "tree must be non-null to call addActorAt and addToTree.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorIndex >= 0",
+    "rationale" : "actorIndex is only used as an index and incremented, so must be non-negative.",
+    "meta" : [ ]
+  } ]
+}

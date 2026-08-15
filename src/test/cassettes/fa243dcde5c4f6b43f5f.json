@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an instantiated HoodieWriteMetadata, assigned to 'result' at the beginning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is directly passed as a parameter and always used (e.g., in partition) without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata instance is created and manipulated, and writeStatuses (ultimately stored in result) is always a LinkedList at minimum.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "By construction, result contains a List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(sourceReadAndIndexTimer != null && sourceReadAndIndexTimer.isPresent()) || sourceReadAndIndexTimer.get() != null",
+    "rationale" : "If sourceReadAndIndexTimer is not null and present, its .get() should not be null.",
+    "meta" : [ ]
+  } ]
+}

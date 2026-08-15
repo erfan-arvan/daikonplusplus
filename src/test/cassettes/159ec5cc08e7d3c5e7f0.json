@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "The method operates on the actor parameter, which is likely expected to be non-null for correct reflective operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor.getClass() != null",
+    "rationale" : "Accessing actor.getClass() is fundamental to the method's first operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "enabled == true || enabled == false",
+    "rationale" : "enabled is of boolean type, so it must be true or false.",
+    "meta" : [ ]
+  } ]
+}

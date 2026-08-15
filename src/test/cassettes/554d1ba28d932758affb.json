@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "Loading a TiledMap requires a valid file name, and the method is expected to handle nulls via exception or contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "File name strings are typically expected to be non-empty for loading resources.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.endsWith(\".tmx\") || fileName.endsWith(\".tmj\")",
+    "rationale" : "Per the Javadoc, only .tmx or .tmj files are accepted as input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.trim().length() == fileName.length()",
+    "rationale" : "Leading or trailing whitespace in file names could indicate malformed input or accidental errors.",
+    "meta" : [ ]
+  } ]
+}

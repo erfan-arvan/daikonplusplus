@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "operationType != null",
+    "rationale" : "The method throws an exception if operationType is LOG_COMPACT, so operationType must not be null to avoid a NullPointerException in the equals call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as an argument to getCompactionInflightInstant, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "Methods are called on table; it cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "Methods are called on pendingCompactionTimeline; it cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "The method throws an exception and does not exit normally if operationType is LOG_COMPACT.",
+    "meta" : [ ]
+  } ]
+}

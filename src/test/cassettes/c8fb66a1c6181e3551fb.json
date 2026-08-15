@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata object as per implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata#getWriteStatuses() should return a non-null list corresponding to write status.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getOperationType() == HoodieWriteOperationType.INSERT",
+    "rationale" : "Since this is an insert operation, the operation type in the metadata should be INSERT if available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is used to identify the commit action and should not be null or empty at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null && !records.isEmpty()",
+    "rationale" : "Insert is generally expected to be called with non-empty records; an empty write might be treated as a no-op.",
+    "meta" : [ ]
+  } ]
+}

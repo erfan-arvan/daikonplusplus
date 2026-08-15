@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The parameter preppedRecords is a list of records to upsert, it is expected not to be null on method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecords must not be null at method entry"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents a valid logical timestamp and must not be null for the operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime must not be null"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List size is always zero or positive.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "size is non-negative"
+    } ]
+  }, {
+    "expression" : "!preppedRecords.contains(null)",
+    "rationale" : "Typically, a HoodieRecord list fully specifies records without null entries.",
+    "meta" : [ {
+      "key" : "content",
+      "value" : "preppedRecords does not contain null elements"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime usually represents a valid instant string, should not be empty.",
+    "meta" : [ {
+      "key" : "nonEmpty",
+      "value" : "instantTime is a non-empty string"
+    } ]
+  } ]
+}

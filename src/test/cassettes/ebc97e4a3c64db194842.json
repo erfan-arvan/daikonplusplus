@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Option objects in Hoodie code are typically never null, so this asserts expected object usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is expected to be valid and non-null for metadata initialization work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(instantTime == null) || metaClient != null",
+    "rationale" : "If instantTime is unexpectedly null, metaClient is still expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isPresent() || instantTime.get() != null",
+    "rationale" : "If the Option has a present value, it should be non-null per Option contract.",
+    "meta" : [ ]
+  } ]
+}

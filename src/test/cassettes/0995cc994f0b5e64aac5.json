@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "Method is an instance method and requires 'this' to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "Method accesses 'style.font', which requires 'style' to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font != null",
+    "rationale" : "The method accesses 'style.font.getData()', so 'font' should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "glyphPositions != null",
+    "rationale" : "The method accesses 'glyphPositions.size' and 'glyphPositions.get()', so 'glyphPositions' must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesBreak != null",
+    "rationale" : "The method accesses 'linesBreak.size' and 'linesBreak.items', so 'linesBreak' should not be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is a required identifier and likely critical to the rollback operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant is needed to represent the instant to roll back and is likely required for safe execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is essential for execution, as most Hoodie operations require a valid engine context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!deleteInstants || commitInstant != null",
+    "rationale" : "If deleteInstants is true, the commitInstant should exist to refer to the instant for deletion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "The instant time string should not be empty for a productive rollback action.",
+    "meta" : [ ]
+  } ]
+}

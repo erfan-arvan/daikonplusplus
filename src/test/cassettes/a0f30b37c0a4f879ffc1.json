@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "cell == null || cell.getTile() != null",
+    "rationale" : "If cell is not null and execution reaches this point, cell.getTile() must not be null to pass the null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cell == null || !(cell.getTile() instanceof AnimatedTiledMapTile)",
+    "rationale" : "If cell is not null, then cell.getTile() must not be an AnimatedTiledMapTile, or the method would have returned earlier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cell == null || (cell.getTile() != null && !(cell.getTile() instanceof AnimatedTiledMapTile))",
+    "rationale" : "Combined: If cell is not null, cell.getTile() must not be null or animated at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cell == null || (cell.getTile() != null && cell.getTile().getTextureRegion() != null)",
+    "rationale" : "If cell is not null and execution continues, cell.getTile().getTextureRegion() must be non-null for rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cell == null || !(cell.getTile() instanceof AnimatedTiledMapTile)",
+    "rationale" : "Ensures the method returns early if the tile is animated; at this exit, this is not the case.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getName().equals(\"TileSheet\")",
+    "rationale" : "The entire body is nested inside an if condition checking for this, which must hold at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "The map is dereferenced with map.getTileSets(), so it must be non-null at all program points after the null check.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is used to resolve an image (imageResolver.getImage(image.path())), so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tideFile != null",
+    "rationale" : "tideFile is used to resolve the image file and passed to getRelativeFileHandle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is used to retrieve children and attributes, requiring it to be non-null.",
+    "meta" : [ ]
+  } ]
+}

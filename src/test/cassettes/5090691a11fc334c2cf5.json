@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "The idPfx argument is likely expected to be a non-null string to identify or prefix inserts; null could cause downstream errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr must be non-null as the method is designed to iterate over hoodie records for insertion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.next() != null",
+    "rationale" : "If the iterator is non-empty, the next element should not be null; this guards against null records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx.isEmpty() || !idPfx.trim().isEmpty()",
+    "rationale" : "If idPfx is not empty in a raw sense, it should also not be just whitespace; this maintains id string integrity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.equals(idPfx)",
+    "rationale" : "Iterator and String should be distinct in identity and semantics; this checks against accidental aliasing or mistaken assignment.",
+    "meta" : [ ]
+  } ]
+}

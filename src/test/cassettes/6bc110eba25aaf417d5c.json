@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method executes a SavepointActionExecutor and returns its metadata, which should always be non-null upon successful creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "A valid instantToSavepoint is required to identify the savepoint; null would not make sense for a save operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "The savepoint metadata needs to record which user made the savepoint, making a null user invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext is required to execute the underlying action for savepointing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "comment != null",
+    "rationale" : "A comment is supplied as an argument and is likely stored in the savepoint metadata; it does not make sense to save with a null comment.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method expects 'instantTime' to be a valid String; a null value might cause downstream errors or exceptions.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "Typically, an instant time identifier should not be an empty string; it usually represents a valid timestamp or unique commit identifier.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "Ensures that the input is not a string with only whitespace, which is likely invalid as a commit instant identifier.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "parameter"
+    } ]
+  } ]
+}

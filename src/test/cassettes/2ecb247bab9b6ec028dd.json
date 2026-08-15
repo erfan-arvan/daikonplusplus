@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to always return a HoodieWriteMetadata object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "It is likely that the caller is expected to provide a valid (non-null) list of records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is likely a required parameter indicating the commit instant, so it should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned write metadata should always contain a non-null list of WriteStatus objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the WriteStatus list should not be negative and reflects the outcome of the upsert operation.",
+    "meta" : [ ]
+  } ]
+}

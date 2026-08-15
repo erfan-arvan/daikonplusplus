@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is an input required to perform the upsert and commit; likely expected non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as an identifier for operations; must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs are passed to client methods, so are likely expected non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecordInputs.isEmpty() || preppedRecordInputs.isEmpty()",
+    "rationale" : "preppedRecordInputs is a List and, regardless of content, is either empty or not.",
+    "meta" : [ ]
+  } ]
+}

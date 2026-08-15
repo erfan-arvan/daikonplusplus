@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "The method requires a valid order to check its quantity; null should not be passed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantities are typically non-negative in well-formed business logic.",
+    "meta" : [ ]
+  } ]
+}

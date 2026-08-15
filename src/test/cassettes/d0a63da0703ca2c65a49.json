@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is likely required for compaction and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "The compaction instant time is required to determine what data to compact; should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!logCompactionInstantTime.isEmpty()",
+    "rationale" : "An empty instant time would likely not be valid for compaction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime.length() > 0",
+    "rationale" : "Non-empty instant time typically expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "The 'context' parameter should be of the correct type.",
+    "meta" : [ ]
+  } ]
+}

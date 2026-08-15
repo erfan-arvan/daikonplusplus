@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is critical for scheduling a restore and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is used for identifying the savepoint and is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "If restoreInstantTimestamp is non-empty, it is likely a valid instant timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "A non-empty savepointToRestoreTimestamp likely indicates a valid savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is essential for executing and is expected to be non-null before method logic begins.",
+    "meta" : [ ]
+  } ]
+}

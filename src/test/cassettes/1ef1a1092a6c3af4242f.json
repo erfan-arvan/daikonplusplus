@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null",
+    "rationale" : "It is likely that methods do not expect null writeStatus as a valid input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext should be provided for processing actions in the table compactor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Configuration is required for method logic and passed down, so should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Commit/instant times are usually required and expected to be non-null in Hoodie flows.",
+    "meta" : [ ]
+  } ]
+}

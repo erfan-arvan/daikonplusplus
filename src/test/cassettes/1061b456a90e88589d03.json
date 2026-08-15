@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is always collected into a list and returned, never null due to the use of collect(Collectors.toList()).",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method uses records.stream() without any null guard, so records must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "The deduplication process removes duplicates, so the size of result cannot exceed that of the input records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "The variable parallelism suggests degree of parallel execution and is generally expected to be at least 1.",
+    "meta" : [ ]
+  } ]
+}

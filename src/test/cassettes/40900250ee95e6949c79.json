@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be a valid identifier for the commit instant, which typically must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method requires a list of records to process; a null value would likely cause failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is necessary for executing data pipeline operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() >= 0",
+    "rationale" : "If preppedRecords is not empty, its size must be non-negative; List.size() is always >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option<BulkInsertPartitioner> must be a valid Option instance, even if it may not contain a value.",
+    "meta" : [ ]
+  } ]
+}

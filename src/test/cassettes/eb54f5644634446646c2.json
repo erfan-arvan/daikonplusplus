@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned Array is newly constructed and always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size == getDependencyFileHandles(tmjFile).size",
+    "rationale" : "One AssetDescriptor is created in 'result' for each dependency FileHandle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is passed to other methods and can be assumed non-null for correct processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureParameter != null",
+    "rationale" : "textureParameter is used in constructing AssetDescriptors in a way that implies it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array.size in libGDX is always non-negative, even if empty.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "'result' must be non-null since the method always returns a Stream (never null in the code path).",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "'parallelism' is used for parallel stream operations; it is typically positive and enforced in usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The Stream 'data' is referenced and dereferenced, so it must be non-null for the method execution to succeed.",
+    "meta" : [ ]
+  } ]
+}

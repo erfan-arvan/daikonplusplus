@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method returns a non-null Iterator as seen in both return statements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The return type is explicitly Iterator<List<WriteStatus>> in both cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is passed as a parameter and transitively used in constructing JavaLazyInsertIterable; likely must be non-null.",
+    "meta" : [ ]
+  } ]
+}

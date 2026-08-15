@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned object from the execute() method should be non-null as a direct return of a clone operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The result object should contain a non-null write statuses field, based on the method implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The result contains write statuses created as a List and passed to the clone method.",
+    "meta" : [ ]
+  } ]
+}

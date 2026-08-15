@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Compaction operations typically require a non-null instant time; method would likely not be called with null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option objects (from Java or Scala) should not be null as per their intended usage pattern.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A context object is generally required for any distributed or engine operation.",
+    "meta" : [ ]
+  } ]
+}

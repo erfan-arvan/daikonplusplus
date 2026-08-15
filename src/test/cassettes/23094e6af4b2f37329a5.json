@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition paths are often expected to be non-null in data partitioning scenarios.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.isEmpty() || !partitionPath.isEmpty()",
+    "rationale" : "partitionPath is a String and thus supports isEmpty(), reinforcing its String nature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.trim().length() == 0 || partitionPath.trim().length() > 0",
+    "rationale" : "partitionPath, if not null, always has a non-negative length, and this property distinguishes empty vs non-empty partition paths.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null && !partitionPath.trim().isEmpty()",
+    "rationale" : "Partitions are often represented as non-empty and non-null strings.",
+    "meta" : [ ]
+  } ]
+}

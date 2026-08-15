@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "firstWidget == widget",
+    "rationale" : "The method assigns 'widget' to 'firstWidget', so they should be equal at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "widget == null || this.getChildren().contains(widget)",
+    "rationale" : "If 'widget' is non-null, it is added to the children actors, so it must be contained by getChildren().",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstWidget == null || this.getChildren().contains(firstWidget)",
+    "rationale" : "If 'firstWidget' is non-null, it was just added as a child actor.",
+    "meta" : [ ]
+  } ]
+}

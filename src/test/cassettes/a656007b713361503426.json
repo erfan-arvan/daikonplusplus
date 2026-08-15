@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "triggeringInstantTimestamp != null",
+    "rationale" : "Usually a timestamp string is expected to be non-null when triggering metadata writing; null values might indicate a misconfiguration or a special fallback case.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "A valid failedWritesCleaningPolicy is typically required to determine how to handle failed writes; null likely means undefined handling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "triggeringInstantTimestamp.isEmpty() == false",
+    "rationale" : "An empty triggering instant timestamp may not make sense for a metadata writer; typically this represents the instant to which the action should be associated.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!streamingWrites || autoDetectAndDeleteMetadataPartitions == autoDetectAndDeleteMetadataPartitions)",
+    "rationale" : "This expresses that if streamingWrites is false, then the value of autoDetectAndDeleteMetadataPartitions is not constrained; intended as a placeholder for more nuanced relationships.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(streamingWrites == true) || (autoDetectAndDeleteMetadataPartitions == false)",
+    "rationale" : "If streamingWrites is not enabled, automatic deletion of metadata partitions may not be necessary or allowed.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "Method calls on map occur, e.g., map.getTileSets()",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects != null",
+    "rationale" : "objects.add(object) is called unconditionally",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is used frequently without null check",
+    "meta" : [ ]
+  }, {
+    "expression" : "heightInPixels >= 0",
+    "rationale" : "Used in coordinate computation, negative height is uncommon/unsupported",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.size >= 0",
+    "rationale" : "element.size is referenced; JsonValue size is non-negative",
+    "meta" : [ ]
+  } ]
+}

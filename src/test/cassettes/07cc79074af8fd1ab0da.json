@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The method dereferences writeClient and makes two calls on it, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed to a method and must be non-null to avoid NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used by value in two method calls and must be non-null to avoid NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.isCommitted(instantTime)",
+    "rationale" : "After calling writeClient.commit, the commit should be registered for instantTime.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.size() >= 0",
+    "rationale" : "List size is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

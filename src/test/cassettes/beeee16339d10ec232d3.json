@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which is never null for an instance method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this', so result is equivalent to the current instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "((HorizontalGroup)this).padLeft == padLeft",
+    "rationale" : "The method sets the instance's padLeft field to the padLeft parameter before returning.",
+    "meta" : [ ]
+  } ]
+}

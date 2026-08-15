@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == false",
+    "rationale" : "The method always returns 'expanded', which is initialized to false and never set to true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes != null",
+    "rationale" : "A for-loop accesses nodes.size and nodes.get(i); for safety, nodes must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values != null",
+    "rationale" : "The method calls values.add(...), so 'values' must be non-null for this call to be safe.",
+    "meta" : [ ]
+  }, {
+    "expression" : "nodes.size >= 0",
+    "rationale" : "Array.size in LibGDX is always >= 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values.size >= 0",
+    "rationale" : "Array.size in LibGDX is always >= 0.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "str == null || str.equals(\"\")",
+    "rationale" : "The method sets str to \"\" if it is null at the beginning.",
+    "meta" : [ {
+      "key" : "null-string-normalization",
+      "value" : "str is set to empty string if null"
+    } ]
+  }, {
+    "expression" : "str == null || !str.equals(text)",
+    "rationale" : "The method only proceeds to modify text if str is not equal to the current text, otherwise it returns early.",
+    "meta" : [ {
+      "key" : "precondition-for-processing",
+      "value" : "Processing occurs only if str differs from text"
+    } ]
+  }, {
+    "expression" : "text.isEmpty() || !str.equals(text)",
+    "rationale" : "After processing, text is only set to str via paste. If paste or changeText does not set text equal to str, text remains empty or different.",
+    "meta" : [ {
+      "key" : "postcondition",
+      "value" : "text is either empty or not equal to the argument str"
+    } ]
+  } ]
+}

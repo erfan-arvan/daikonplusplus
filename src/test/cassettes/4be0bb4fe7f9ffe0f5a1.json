@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is an input parameter and is expected to be not null for method logic.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition preservation"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "columnsToIndex is an input parameter and is likely to be required non-null for intended usage.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition preservation"
+    } ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "columnsToIndex is declared as a List, so the reference should always be an instance of List by static typing.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type invariant"
+    } ]
+  } ]
+}

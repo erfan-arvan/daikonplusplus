@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is passed into the method and is likely required for write consistency and identification in Hoodie operations, so it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath indicates where records are inserted and must be defined for partitioned storage; thus, a non-null constraint is critical.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId helps identify the file being written to and is essential for correct storage, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap holds the records to insert and is required for write operations; null would likely cause a failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap.isEmpty() || recordMap.size() > 0",
+    "rationale" : "If the recordMap is empty, its size is zero; if not empty, the size must be greater than zero, summarizing the mutual relationship between isEmpty and size.",
+    "meta" : [ ]
+  } ]
+}

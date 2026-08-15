@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "Method argument 'profile' should not be null for correct partitioning logic.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "profile instanceof WorkloadProfile",
+    "rationale" : "'profile' must be an instance of WorkloadProfile as per method signature and usage.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-safety"
+    } ]
+  } ]
+}

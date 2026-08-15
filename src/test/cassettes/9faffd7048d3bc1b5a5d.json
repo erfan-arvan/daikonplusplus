@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "(data == null && result == null) || (data != null && result != null)",
+    "rationale" : "If the input list is null, the returned list is null; otherwise, it is a list (can be empty).",
+    "meta" : [ {
+      "key" : "null-consistency",
+      "value" : "output null iff input null"
+    } ]
+  }, {
+    "expression" : "result != null ? result.size() == (data != null ? data.size() : 0) : true",
+    "rationale" : "The map operation produces an output list of the same size as the input list.",
+    "meta" : [ {
+      "key" : "size-consistency",
+      "value" : "output size equals input size"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallel streams require a positive parallelism parameter for sensible execution.",
+    "meta" : [ {
+      "key" : "parallelism-precondition",
+      "value" : "provided parallelism is positive"
+    } ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "Function for mapping should not be null to avoid NullPointerException at runtime.",
+    "meta" : [ {
+      "key" : "function-precondition",
+      "value" : "mapping function not null"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Result is not null if data is not null and method implementation ensures collectors never return null; with null input, null is returned.",
+    "meta" : [ {
+      "key" : "result-not-null",
+      "value" : "always returns non-null output"
+    } ]
+  } ]
+}

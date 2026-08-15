@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method requires the TiledMapImageLayer parameter, which cannot be dereferenced if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batchColor != null",
+    "rationale" : "batchColor is dereferenced for its color components, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getCombinedTintColor() != null",
+    "rationale" : "The method immediately assigns layer.getCombinedTintColor() to a variable, implying this value must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() >= 0f && layer.getOpacity() <= 1f",
+    "rationale" : "Opacity values for layers are conventionally between 0 and 1 for color blending.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.supportsTransparency() == true || layer.supportsTransparency() == false",
+    "rationale" : "supportsTransparency is a boolean-returning method, hence its value is always true or false.",
+    "meta" : [ ]
+  } ]
+}

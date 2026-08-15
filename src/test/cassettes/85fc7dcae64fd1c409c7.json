@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is likely required for restoring and passed to an internal executor, so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is required for restoration logic and passed to an executor, hence should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to an executor and is mandatory for this and other methods in the class, so should not be null.",
+    "meta" : [ ]
+  } ]
+}

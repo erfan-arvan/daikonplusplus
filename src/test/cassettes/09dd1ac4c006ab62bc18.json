@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method accesses methods and fields on 'element', so it is expected not to be null on entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used as an argument to methods and is expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is passed to other methods; it is expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getName() != null",
+    "rationale" : "element.getName().equals(\"tileset\") is used, indicating getName() should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getChildCount() >= 0",
+    "rationale" : "The number of children in an Element should be non-negative by definition.",
+    "meta" : [ ]
+  } ]
+}

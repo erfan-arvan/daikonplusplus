@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of HoodieAtomicLongAccumulator.create(), which should never return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof org.apache.hudi.common.util.HoodieAtomicLongAccumulator",
+    "rationale" : "The result is the output of HoodieAtomicLongAccumulator.create() and should be an instance of HoodieAtomicLongAccumulator.",
+    "meta" : [ ]
+  } ]
+}

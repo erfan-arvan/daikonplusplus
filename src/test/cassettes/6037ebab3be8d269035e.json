@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "strategyParams != null",
+    "rationale" : "Method requires strategyParams to perform key lookup and obtain partitioning strategy.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "Schema is needed to create partitioners and add metadata fields.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.isEmpty() || !strategyParams.containsKey(null)",
+    "rationale" : "Map keys should not be null for clustering strategy parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.keySet().stream().allMatch(k -> k != null)",
+    "rationale" : "Ensures all keys in strategyParams are non-null, aligning with clustering plan expectations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.values().stream().allMatch(v -> v != null)",
+    "rationale" : "All strategy parameter values should be non-null to ensure correct partitioner behavior.",
+    "meta" : [ ]
+  } ]
+}

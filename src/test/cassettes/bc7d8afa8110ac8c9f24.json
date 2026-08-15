@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "If operationType is LOG_COMPACT, the method throws and does not reach exit.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "method throws if LOG_COMPACT"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced in multiple places above so must be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "table is dereferenced"
+    } ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline is used for method call so must be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "used for containsInstant"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in method call so must be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "called as argument"
+    } ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "operationType is used in equals so must be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "equals called"
+    } ]
+  } ]
+}

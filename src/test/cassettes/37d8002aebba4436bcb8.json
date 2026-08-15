@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "min != null",
+    "rationale" : "The method directly calls Texture.setFilter(min, mag); effects, and null TextureFilter values may not be acceptable for graphics filter settings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mag != null",
+    "rationale" : "The method directly calls Texture.setFilter(min, mag); effects, and null TextureFilter values may not be acceptable for graphics filter settings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min != mag",
+    "rationale" : "Filtering modes for minification and magnification are often intentionally different for best results; this invariant checks for their difference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min.ordinal() <= mag.ordinal()",
+    "rationale" : "Filtering enums may have a natural ordering, where minification is expected to be less than or equal to magnification in effect strength.",
+    "meta" : [ ]
+  }, {
+    "expression" : "min.equals(Texture.TextureFilter.Nearest) || min.equals(Texture.TextureFilter.Linear) || min.equals(Texture.TextureFilter.MipMapLinearNearest) || min.equals(Texture.TextureFilter.MipMapLinearLinear) || min.equals(Texture.TextureFilter.MipMapNearestNearest) || min.equals(Texture.TextureFilter.MipMapNearestLinear)",
+    "rationale" : "min must be one of the valid Texture.TextureFilter enum values.",
+    "meta" : [ ]
+  } ]
+}

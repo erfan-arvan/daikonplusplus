@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "classProperties != null",
+    "rationale" : "classProperties is used and populated throughout the method, so it should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classElement != null",
+    "rationale" : "classElement is dereferenced (e.g., passed to getPropertyByName) in the method, so it should not be null at method exit unless every projectClassMember is handled with classProp as null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "className != null",
+    "rationale" : "className is used as a key to retrieve projectClassMembers and is required for correct operation; a null value would cause failure earlier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProperties instanceof MapProperties",
+    "rationale" : "classProperties is type MapProperties; ensuring it remains so is necessary for invariants on the type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "classProperties.getKeys().hasNext() || classProperties.size() == 0",
+    "rationale" : "After population, classProperties either has at least one key or is empty, reflecting its internal consistency.",
+    "meta" : [ ]
+  } ]
+}

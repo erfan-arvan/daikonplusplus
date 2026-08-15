@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "enabled == true || enabled == false",
+    "rationale" : "Since 'enabled' is a boolean parameter, it must be either true or false at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getDebug() == (enabled ? Debug.all : Debug.none)",
+    "rationale" : "The method sets debug to 'Debug.all' if enabled is true, otherwise to 'Debug.none'; at exit this property holds if getDebug() returns the current debug state.",
+    "meta" : [ ]
+  } ]
+}

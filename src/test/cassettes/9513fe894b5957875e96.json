@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (animateTime > 0 ? animateInterpolation.apply(animateFromValue, value, 1 - animateTime / animateDuration) : value)",
+    "rationale" : "This captures the return logic of the method using all relevant fields and decision points.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "mirrors method definition"
+    } ]
+  }, {
+    "expression" : "!(animateTime > 0) || (result == animateInterpolation.apply(animateFromValue, value, 1 - animateTime / animateDuration))",
+    "rationale" : "If the animation is active (animateTime > 0), the result must be the value from the interpolation.",
+    "meta" : [ {
+      "key" : "branch",
+      "value" : "if-clause"
+    } ]
+  }, {
+    "expression" : "(animateTime <= 0) || (result != value)",
+    "rationale" : "If animation is active, the result is not simply value.",
+    "meta" : [ {
+      "key" : "implication",
+      "value" : "result is taken from interpolation only when animateTime > 0"
+    } ]
+  }, {
+    "expression" : "(animateTime <= 0) == (result == value)",
+    "rationale" : "When animation is inactive, the result equals value and vice versa.",
+    "meta" : [ {
+      "key" : "equivalence",
+      "value" : "no animation iff result equals value"
+    } ]
+  } ]
+}

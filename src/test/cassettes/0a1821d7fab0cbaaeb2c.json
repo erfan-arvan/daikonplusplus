@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The factory method returns a new instance, so the result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "conf != null",
+    "rationale" : "conf is a required parameter for constructing the metadata writer, so it cannot be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is a required parameter for construction and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed directly to the constructor; it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaHoodieBackedTableMetadataWriter",
+    "rationale" : "The result of this method is always a JavaHoodieBackedTableMetadataWriter as per method implementation.",
+    "meta" : [ ]
+  } ]
+}

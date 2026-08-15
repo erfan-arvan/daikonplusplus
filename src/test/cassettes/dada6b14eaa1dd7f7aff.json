@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "font != null",
+    "rationale" : "The method uses the font parameter to draw text; it must not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "The batch parameter is used for rendering and should not be null for drawing to succeed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxWidth >= 0",
+    "rationale" : "A negative maxWidth may not make sense when rendering text; it is likely intended to describe an allowable drawing width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0",
+    "rationale" : "Text drawing coordinates are often non-negative, representing screen or widget coordinates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "Screen coordinate systems are typically non-negative in graphics frameworks like libGDX.",
+    "meta" : [ ]
+  } ]
+}

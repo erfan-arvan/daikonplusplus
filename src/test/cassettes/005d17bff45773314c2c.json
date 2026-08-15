@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method expects a non-null execution context to proceed with the insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid instantTime string is required to track the commit instant, and it is likely never empty or null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects the records list to be non-null in order to insert prepped records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.size() >= 0",
+    "rationale" : "If preppedRecords is not null, its size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || instantTime.trim().length() > 0",
+    "rationale" : "If instantTime is non-null, it generally should not be just whitespace; a valid commit time should be well-formed.",
+    "meta" : [ ]
+  } ]
+}

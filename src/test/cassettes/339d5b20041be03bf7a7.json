@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a BulkInsertPartitioner instance, which is always a new object or obtained from a factory method, so result will not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is used in method body without null check, implying it cannot be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is used in HoodieSchemaUtils.addMetadataFields without a null check, suggesting it must not be null before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.containsKey(\"hoodie.cluster.plan.strategy.sort_columns\") == (result instanceof JavaCustomColumnsSortPartitioner)",
+    "rationale" : "If strategyParams contains the relevant key, the method returns a JavaCustomColumnsSortPartitioner, otherwise not.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.containsKey(\"hoodie.cluster.plan.strategy.sort_columns\") == (result instanceof BulkInsertPartitioner)",
+    "rationale" : "Whenever the key is missing, the result is a BulkInsertPartitioner returned from the factory; but all returned objects technically implement BulkInsertPartitioner.",
+    "meta" : [ ]
+  } ]
+}

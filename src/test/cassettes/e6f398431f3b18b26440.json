@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "true",
+    "rationale" : "The only code path is immediately throwing an exception; thus, any condition is vacuously true at the method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "false",
+    "rationale" : "Control can never reach normal method exit; the method always throws.",
+    "meta" : [ ]
+  }, {
+    "expression" : "throw new HoodieNotSupportedException(\"RollbackBootstrap is not supported yet\") == null",
+    "rationale" : "The throw statement never returns; this expression is always false, representing unreachable end.",
+    "meta" : [ ]
+  } ]
+}

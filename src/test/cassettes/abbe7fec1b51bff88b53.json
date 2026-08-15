@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "camera != null",
+    "rationale" : "The method immediately dereferences camera, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.viewportWidth >= 0",
+    "rationale" : "A negative viewport width would not make sense for rendering and likely should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.viewportHeight >= 0",
+    "rationale" : "A negative viewport height would be nonsensical for a camera viewport.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.zoom > 0",
+    "rationale" : "A negative or zero zoom would produce invalid render results; positive zoom is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.combined != null",
+    "rationale" : "camera.combined is used for setting the projection matrix, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The 'records' parameter is expected to be a valid list before method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter is expected to be provided and non-null for versioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || instantTime.length() > 0",
+    "rationale" : "If there are records to upsert, the instantTime string should not be empty to associate the operation with a time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always non-negative in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() == instantTime.length()",
+    "rationale" : "The 'instantTime' parameter likely represents a version or timestamp and should not have leading or trailing whitespace.",
+    "meta" : [ ]
+  } ]
+}

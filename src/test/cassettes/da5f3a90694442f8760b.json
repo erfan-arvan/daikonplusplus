@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is required for identifying the Tiled map to load and must not be null for normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "The FileHandle for the TMJ file must be non-null to read the map data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "fileName should normally be a non-empty string to correctly specify a file.",
+    "meta" : [ ]
+  } ]
+}

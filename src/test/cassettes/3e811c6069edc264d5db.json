@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs a HoodieData via HoodieListData.eager, which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The method creates HoodieData from Collections.emptyList(), which is empty, so isEmpty() should hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == 0",
+    "rationale" : "The returned HoodieData has no elements, as it's created from an empty list.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Since instantTime is used directly as a parameter in method calls, it is likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime typically represents an action timestamp, which is expected to be a non-empty string.",
+    "meta" : [ ]
+  } ]
+}

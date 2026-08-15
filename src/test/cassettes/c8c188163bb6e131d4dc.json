@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is dereferenced to call stream() and map(), so it must be non-null before method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a method argument and likely required non-null for commitStats.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "commitActionType is directly passed to commitStats, which likely expects it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds is passed to commitStats, likely expecting a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == true || result == false",
+    "rationale" : "The method returns a boolean; result must always be exactly true or false.",
+    "meta" : [ ]
+  } ]
+}

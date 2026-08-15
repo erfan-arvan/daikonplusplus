@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns new instances or factory results in all non-exceptional cases, ensuring a non-null result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The method accesses config methods unconditionally, so config must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "The method's return type is HoodieIndex and all return statements produce HoodieIndex instances.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexType() == HoodieIndex.IndexType.SIMPLE || config.getIndexType() == HoodieIndex.IndexType.GLOBAL_SIMPLE || config.getIndexType() == HoodieIndex.IndexType.INMEMORY || config.getIndexType() == HoodieIndex.IndexType.BLOOM || !org.apache.hudi.common.util.StringUtils.isNullOrEmpty(config.getIndexClass())",
+    "rationale" : "The method only returns for these index types or when a custom index class is specified; otherwise, it throws.",
+    "meta" : [ ]
+  } ]
+}

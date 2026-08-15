@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieData instance, derived from HoodieListData.eager, which should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method assumes a non-null records argument, as records.map() is called directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method assumes a non-null context argument, as it is passed into other methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "The method passes hoodieTable to other methods, so it cannot be null.",
+    "meta" : [ ]
+  } ]
+}

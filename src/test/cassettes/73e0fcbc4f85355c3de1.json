@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is required for table write operations; passing null would likely indicate a bug.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is typically a required identifier for the commit; it should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs must be provided for upsert operations; a null list is not meaningful in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "The method expects a list of file group IDs to update; null would likely indicate incorrect usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.size() >= 0",
+    "rationale" : "A list's size is always non-negative according to List contract.",
+    "meta" : [ ]
+  } ]
+}

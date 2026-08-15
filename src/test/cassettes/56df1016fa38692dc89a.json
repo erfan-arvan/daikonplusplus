@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "properties.isEmpty()",
+    "rationale" : "After calling clear(), the properties map should be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.size() == 0",
+    "rationale" : "Clearing the properties removes all entries, so the size should be zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.entrySet().isEmpty()",
+    "rationale" : "The entry set of properties should be empty after clear() is called.",
+    "meta" : [ ]
+  } ]
+}

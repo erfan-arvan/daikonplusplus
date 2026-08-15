@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is likely necessary for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A non-null, non-empty instantTime is likely required for a valid operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "A non-null list of records is needed for writing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || records.size() >= 0",
+    "rationale" : "If records is non-null, size should be non-negative as per List contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || instantTime.trim().length() > 0",
+    "rationale" : "If instantTime is not null, trimming should yield length > 0.",
+    "meta" : [ ]
+  } ]
+}

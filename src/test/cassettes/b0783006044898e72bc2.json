@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null lambda expression as Supplier<Integer>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.get() == 0",
+    "rationale" : "The returned Supplier always returns 0 by construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof java.util.function.Supplier",
+    "rationale" : "The type returned is a Supplier<Integer> as specified by the method signature.",
+    "meta" : [ ]
+  } ]
+}

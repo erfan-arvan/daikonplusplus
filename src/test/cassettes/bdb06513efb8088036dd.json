@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A return value should never be null for successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "Result must be a HoodieWriteMetadata type object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The write statuses in result should be stored as a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus objects should not be null in a successful write operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result.hasErrors()) || result.getWriteStatuses().stream().anyMatch(ws -> ws.hasErrors())",
+    "rationale" : "If the result indicates any error, then at least one WriteStatus in the returned list should reflect that error.",
+    "meta" : [ ]
+  } ]
+}

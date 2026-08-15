@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of tiles.values().iterator(), which should not be null if values() always returns a valid collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The method contract and return type guarantee that result is an Iterator.",
+    "meta" : [ ]
+  } ]
+}

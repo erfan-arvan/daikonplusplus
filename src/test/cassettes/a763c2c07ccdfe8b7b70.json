@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "minHeight != null",
+    "rationale" : "Method throws if minHeight is null, so it's guaranteed non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "Method always returns 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.minHeight == minHeight",
+    "rationale" : "Field assignment ensures result's minHeight field matches the parameter.",
+    "meta" : [ ]
+  } ]
+}

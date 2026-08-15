@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "selection != null",
+    "rationale" : "selection is used to invoke draw(), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch is passed to selection.draw(), so it must not be null when the method executes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "font is used to call getDescent(), so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

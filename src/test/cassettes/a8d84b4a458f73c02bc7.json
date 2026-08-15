@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "properties must be non-null to safely invoke properties.values().",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.values() != null",
+    "rationale" : "properties.values() should not return null as it is a java.util.Map method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.size() >= 0",
+    "rationale" : "Map size should always be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.keySet() != null",
+    "rationale" : "properties.keySet() should never be null for a valid Map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.values().iterator() != null",
+    "rationale" : "Map.values().iterator() should return a valid non-null iterator.",
+    "meta" : [ ]
+  } ]
+}

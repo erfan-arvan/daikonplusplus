@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "It is expected that the configuration object is not null when creating an index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexType() != null",
+    "rationale" : "The index type is likely required for the switch-case logic shown in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getIndexClass() != null",
+    "rationale" : "getIndexClass is called, so it's likely allowed and relevant at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!StringUtils.isNullOrEmpty(config.getIndexClass()) || config.getIndexType() != null",
+    "rationale" : "The method logic ultimately always requires either a valid index class or an index type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!StringUtils.isNullOrEmpty(config.getIndexClass()) || (config.getIndexType() == org.apache.hudi.index.HoodieIndex.IndexType.SIMPLE || config.getIndexType() == org.apache.hudi.index.HoodieIndex.IndexType.GLOBAL_SIMPLE || config.getIndexType() == org.apache.hudi.index.HoodieIndex.IndexType.INMEMORY || config.getIndexType() == org.apache.hudi.index.HoodieIndex.IndexType.BLOOM)",
+    "rationale" : "If no user-defined index class, then index type must match one of the supported cases.",
+    "meta" : [ ]
+  } ]
+}

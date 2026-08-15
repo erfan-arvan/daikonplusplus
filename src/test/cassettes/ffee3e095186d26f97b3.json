@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned HoodieIndex 'result' is expected to be non-null given that the factory method creates and returns an index object.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result non-null"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The parameter 'config' should be non-null as it is used to create the index.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "config non-null"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "The returned object 'result' is of type HoodieIndex.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "expected return type"
+    } ]
+  } ]
+}

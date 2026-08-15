@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "String.length() is always non-negative, but call is only safe if name is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || x + name.length() >= x",
+    "rationale" : "If name is not null, name.length() >= 0, so the sum is at least x.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || x + name.length() >= name.length()",
+    "rationale" : "If name is not null, x + name.length() is at least name.length().",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + (name == null ? 0 : name.length()) >= x",
+    "rationale" : "Using a safe evaluation, the sum is never less than x.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + (name == null ? 0 : name.length()) >= (name == null ? 0 : name.length())",
+    "rationale" : "The sum is never less than name.length() (or 0 if name is null).",
+    "meta" : [ ]
+  } ]
+}

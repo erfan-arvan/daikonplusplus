@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == Character.isDigit(c)",
+    "rationale" : "The method returns Character.isDigit(c) unconditionally; result will always equal Character.isDigit(c).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !Character.isDigit(c)",
+    "rationale" : "If result is false, then Character.isDigit(c) must also be false, as the method returns Character.isDigit(c).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || Character.isDigit(c)",
+    "rationale" : "If result is true, then Character.isDigit(c) must also be true, per the return statement.",
+    "meta" : [ ]
+  } ]
+}

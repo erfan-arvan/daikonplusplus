@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "maxWidth != null",
+    "rationale" : "The method throws an exception if maxWidth is null, so it is always non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.maxWidth == maxWidth",
+    "rationale" : "The return value ('this') has its maxWidth field set to the parameter value.",
+    "meta" : [ ]
+  } ]
+}

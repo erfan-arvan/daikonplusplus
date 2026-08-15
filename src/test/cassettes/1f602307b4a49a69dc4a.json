@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is essential for operation and is likely non-null at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should be a valid string identifier for the insert operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime non-null and non-empty"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Records list must be non-null to perform insert action.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records is non-null"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "records size non-negative"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (order.getQuantity() >= 10)",
+    "rationale" : "The method returns true if and only if the order's quantity is at least 10.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || order.getQuantity() < 10",
+    "rationale" : "If result is false, then order.getQuantity() must be less than 10; logical implication of the return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || order.getQuantity() >= 10",
+    "rationale" : "If result is true, then order.getQuantity() must be at least 10; logical implication of the return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order != null",
+    "rationale" : "The method always receives a non-null order object for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantity is likely non-negative, as negative quantities do not make sense in this context.",
+    "meta" : [ ]
+  } ]
+}

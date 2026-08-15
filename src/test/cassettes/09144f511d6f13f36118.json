@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null List.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "method_exit"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Return type is always List.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "List<HoodieKey>"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(x -> x != null)",
+    "rationale" : "Returned List should not contain null elements.",
+    "meta" : [ {
+      "key" : "element_type",
+      "value" : "HoodieKey"
+    } ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "Deduplication never increases the number of elements.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "deduplication"
+    } ]
+  }, {
+    "expression" : "new HashSet<>(result).size() == result.size()",
+    "rationale" : "Result is a List with all unique elements.",
+    "meta" : [ {
+      "key" : "property",
+      "value" : "all_unique"
+    } ]
+  } ]
+}

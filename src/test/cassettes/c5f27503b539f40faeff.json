@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is a parameter representing inputs, should be non-null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "fileGroupsIdsToUpdate is a parameter likely needed for update operations, should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime signifies a logical time for the operation, should be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient must be non-null to invoke client operations.",
+    "meta" : [ ]
+  } ]
+}

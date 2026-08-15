@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionFilePathAndSizeTriplet != null",
+    "rationale" : "The method expects a non-null list of partition file path and size triplets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "Index definition is required for index record retrieval.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The HoodieTableMetaClient is required to interact with table metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive integer for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid, non-empty instantTime string is necessary for versioned operations.",
+    "meta" : [ ]
+  } ]
+}

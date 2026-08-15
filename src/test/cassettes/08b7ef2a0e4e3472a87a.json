@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Iterators for collections are never null; returning a null Iterator would violate standard contract.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "Iterators returned from standard collections are non-null."
+    } ]
+  }, {
+    "expression" : "result.hasNext() == (layers.size() > 0)",
+    "rationale" : "The initial hasNext() call on the iterator reflects whether the layers collection is empty.",
+    "meta" : [ {
+      "key" : "initial_hasNext",
+      "value" : "If the collection is not empty, hasNext() is true; otherwise, it is false."
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The returned result claims to be an Iterator<MapLayer>.",
+    "meta" : [ {
+      "key" : "result_type",
+      "value" : "Iterator"
+    } ]
+  }, {
+    "expression" : "!result.hasNext() || (layers.contains(result.next()))",
+    "rationale" : "Calling next() on the iterator yields an element from the layers collection, if there is one.",
+    "meta" : [ {
+      "key" : "next_element_belongs",
+      "value" : "The iterator yields only elements from the layers collection."
+    } ]
+  } ]
+}

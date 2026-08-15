@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method is named insert and takes records as a parameter, which is expected to be a non-null list for insertion.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records is not null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely a string representing a time instant, which must be non-null for the operation to proceed.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always non-negative, so records.size() >= 0.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "records size is non-negative"
+    } ]
+  }, {
+    "expression" : "!records.contains(null)",
+    "rationale" : "For insert operations, records list typically does not contain null elements.",
+    "meta" : [ {
+      "key" : "contents",
+      "value" : "records does not contain null elements"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty string representing a valid instant.",
+    "meta" : [ {
+      "key" : "string",
+      "value" : "instantTime is a non-empty string"
+    } ]
+  } ]
+}

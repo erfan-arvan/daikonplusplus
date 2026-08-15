@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null HoodieWriteMetadata result.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "result"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The hoodieRecords parameter should be non-null before method exit.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "hoodieRecords"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be non-null as it identifies the commit instant.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus inside the result should not be null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "result.getWriteStatuses()"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() <= hoodieRecords.size()",
+    "rationale" : "Number of WriteStatuses is less than or equal to number of input records.",
+    "meta" : [ {
+      "key" : "size-relation",
+      "value" : "result.getWriteStatuses().size() <= hoodieRecords.size()"
+    } ]
+  } ]
+}

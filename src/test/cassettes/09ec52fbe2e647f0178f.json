@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "space >= 0",
+    "rationale" : "The method throws an exception if space is negative, so space is guaranteed non-negative at this point.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Explicit check"
+    } ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this', so result must be equal to this at method exit.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "Method implementation"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "'this' is never null, so the returned result is not null.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "return this"
+    } ]
+  } ]
+}

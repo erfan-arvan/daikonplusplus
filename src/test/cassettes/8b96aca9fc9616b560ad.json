@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "index >= 0",
+    "rationale" : "Index values for lists/collections should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index < tilesets.size()",
+    "rationale" : "To remove an element at 'index', the index must be within the current tileset bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilesets.size() > 0",
+    "rationale" : "There must be at least one tileset to remove.",
+    "meta" : [ ]
+  } ]
+}

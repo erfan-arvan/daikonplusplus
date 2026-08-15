@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Methods related to commits generally require a meaningful instantTime; a null value would be unexpected at commit time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "partitionRecordsMap is passed to commitInternal, so it must be non-null prior to return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty() || partitionRecordsMap.isEmpty()",
+    "rationale" : "This covers all possibilities, ensuring method safety; a more interesting invariant would need further semantic context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Typically, instantTime represents a commit timestamp or identifier, which is expected to be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet() != null",
+    "rationale" : "The keySet of a non-null map should itself be non-null, ensuring safe further processing based on partition names.",
+    "meta" : [ ]
+  } ]
+}

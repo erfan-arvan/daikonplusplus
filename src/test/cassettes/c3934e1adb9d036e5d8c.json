@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == commitStats(instantTime, writeStatuses.stream().map(WriteStatus::getStat).collect(Collectors.toList()), extraMetadata, commitActionType, partitionToReplacedFileIds, extraPreCommitFunc)",
+    "rationale" : "The result returned by the commit method is exactly the value returned by commitStats applied to the listed arguments, following the implementation.",
+    "meta" : [ {
+      "key" : "step",
+      "value" : "Step 2"
+    } ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method dereferences writeStatuses to create a stream and map, so it must be non-null.",
+    "meta" : [ {
+      "key" : "step",
+      "value" : "Step 1"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to commitStats; most likely required to be non-null for normal operation.",
+    "meta" : [ {
+      "key" : "step",
+      "value" : "Step 1"
+    } ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "commitActionType is passed to commitStats, implying it should be non-null.",
+    "meta" : [ {
+      "key" : "step",
+      "value" : "Step 1"
+    } ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds is passed to commitStats and is expected to be non-null before return.",
+    "meta" : [ {
+      "key" : "step",
+      "value" : "Step 1"
+    } ]
+  } ]
+}

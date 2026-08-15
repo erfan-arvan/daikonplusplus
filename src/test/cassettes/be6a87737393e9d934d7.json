@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always creates result via a static factory and returns it, never explicitly returning null.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "result must be constructed and is never null"
+    } ]
+  }, {
+    "expression" : "result.getPartitionPath().equals(partitionPath)",
+    "rationale" : "The factory call passes partitionPath directly, so result should contain or reflect it.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "result's partition path reflects given argument"
+    } ]
+  }, {
+    "expression" : "result.getFileId().equals(fileId)",
+    "rationale" : "fileId is provided as a parameter and passed to the result constructor, so the invariant likely holds.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "result's file id matches input fileId"
+    } ]
+  }, {
+    "expression" : "result.getInstantTime().equals(instantTime)",
+    "rationale" : "instantTime is a parameter passed to the result creation, so the invariant is likely true.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "result's instant time equals input instantTime"
+    } ]
+  }, {
+    "expression" : "result.getBaseFile() == dataFileToBeMerged",
+    "rationale" : "The base file to merge is a direct constructor argument to result.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "result associates with the same base file as argument"
+    } ]
+  } ]
+}

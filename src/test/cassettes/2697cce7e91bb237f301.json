@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "Since the method returns writeMetadata directly, it should be non-null at entry to avoid returning null unexpectedly.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "Method parameter is expected to be non-null"
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "The writeStatuses list held inside writeMetadata should be initialized and non-null at method entry.",
+    "meta" : [ {
+      "key" : "non-null",
+      "value" : "write statuses expected to be non-null"
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().size() >= 0",
+    "rationale" : "A collection size cannot be negative, useful for code reasoning about emptiness.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "Non-negative size expected"
+    } ]
+  }, {
+    "expression" : "writeMetadata.isSuccess() || !writeMetadata.isSuccess()",
+    "rationale" : "The success flag is a boolean and thus either true or false.",
+    "meta" : [ {
+      "key" : "boolean",
+      "value" : "Boolean method"
+    } ]
+  } ]
+}

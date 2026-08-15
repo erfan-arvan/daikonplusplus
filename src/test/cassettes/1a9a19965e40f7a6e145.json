@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "It is common for partition-related parameters to be positive.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records must not be null to avoid NullPointerException during records.isEmpty().",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "If records are empty, number of outputPartitions does not have to respect size, else it typically should not exceed the number of records.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "relation"
+    } ]
+  }, {
+    "expression" : "records.stream().allMatch(record -> record != null)",
+    "rationale" : "Method expects non-null elements for sorting and processing hoodie records.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection-content"
+    } ]
+  }, {
+    "expression" : "outputPartitions <= Integer.MAX_VALUE",
+    "rationale" : "outputPartitions is an int and thus cannot exceed its max value.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "sanity"
+    } ]
+  } ]
+}

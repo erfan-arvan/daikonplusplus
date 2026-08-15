@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method uses 'context' directly, so must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "An empty or null 'instantTime' would not be meaningful as an identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "'records' is passed to an executor and likely must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "Proceeding with an empty list of records may be disallowed or a no-op.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || records.stream().allMatch(r -> r != null)",
+    "rationale" : "All elements in 'records' are expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null",
+    "rationale" : "Method parameter 'activeModule' is likely non-null by convention, though not enforced by implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null",
+    "rationale" : "Method parameter 'activityDescription' is likely non-null by convention, though not enforced by implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule instanceof String",
+    "rationale" : "Declared type of 'activeModule' is String; always true unless null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription instanceof String",
+    "rationale" : "Declared type of 'activityDescription' is String; always true unless null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule.equals(activeModule)",
+    "rationale" : "Any String (including null) is equal to itself, so this always holds.",
+    "meta" : [ ]
+  } ]
+}

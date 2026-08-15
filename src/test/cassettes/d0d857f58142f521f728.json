@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is required for execution; null likely results in error.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "context"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a commit marker and should not be null.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords must be non-null for proper bulk insert operations.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "preppedRecords"
+    } ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "List entries should be non-null if preppedRecords is not empty.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "preppedRecords"
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is an Option type and should itself not be null; it may still be empty.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "bulkInsertPartitioner"
+    } ]
+  } ]
+}

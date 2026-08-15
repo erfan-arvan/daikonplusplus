@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method body always throws an exception and never returns, result can only be null at any exit (i.e., normal exit is impossible; but symbolically, result is always null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "false",
+    "rationale" : "This method always throws an exception, so no execution reaches a normal return; thus, the method exit is unreachable and 'false' is a valid invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "Method would not reach normal exit path; if it ever did, the incoming parameter would still be non-null unless specified otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime would only be null if passed as null, and its value is not altered; if method could return, the invariant still stands.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context can only be null if passed as null; value is not assigned in method, so invariant holds if method could return.",
+    "meta" : [ ]
+  } ]
+}

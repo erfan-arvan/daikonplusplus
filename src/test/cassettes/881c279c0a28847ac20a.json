@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "Since inFlightInstantTimestamp is wrapped in an Option, checking for null avoids NullPointerExceptions on further accesses.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "Ensure Option parameter is non-null before use"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The method expects metaClient to be operational and likely non-null to perform further logic.",
+    "meta" : [ {
+      "key" : "purpose",
+      "value" : "metaClient should always reference a valid HoodieTableMetaClient"
+    } ]
+  } ]
+}

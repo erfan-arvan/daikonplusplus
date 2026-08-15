@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "pointer >= 0",
+    "rationale" : "Pointer indices for touch events are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "screenX >= 0",
+    "rationale" : "Screen X coordinates are commonly non-negative in most coordinate systems.",
+    "meta" : [ ]
+  }, {
+    "expression" : "screenY >= 0",
+    "rationale" : "Screen Y coordinates are commonly non-negative in most coordinate systems.",
+    "meta" : [ ]
+  }, {
+    "expression" : "screenX != screenY",
+    "rationale" : "Screen coordinates with the same X and Y value are less common in real touch interaction scenarios.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pointer < Integer.MAX_VALUE",
+    "rationale" : "Pointer, being an int parameter, is always less than Integer.MAX_VALUE.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new JavaUpsertPartitioner instance, which is never null.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "postcondition"
+    } ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The method throws an exception if profile is null, so it cannot be null at method exit.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "postcondition"
+    } ]
+  }, {
+    "expression" : "result instanceof Partitioner",
+    "rationale" : "The method returns a new instance implementing the Partitioner interface.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "postcondition"
+    } ]
+  } ]
+}

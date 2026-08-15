@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "The method directly returns the input list without any modification, so result and records are the same object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Since result and records are the same reference, their sizes must be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == records.isEmpty()",
+    "rationale" : "The emptiness property is preserved since result and records are the same object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions >= 0 || outputPartitions < 0",
+    "rationale" : "The method does not use outputPartitions, so no relationship between outputPartitions and result is enforced.",
+    "meta" : [ ]
+  } ]
+}

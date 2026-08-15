@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "It is common to check for null before processing a List parameter, as is done at the beginning of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || !orders.isEmpty() || orders.isEmpty()",
+    "rationale" : "The method is designed to return 0.0 if orders is null or orders is empty, so these scenarios are anticipated at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders instanceof List",
+    "rationale" : "orders must either be null or a valid List instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders.size() >= 0",
+    "rationale" : "If orders is not null, its size cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null || orders.stream().allMatch(order -> order != null)",
+    "rationale" : "It is typical for a list of orders to contain only non-null elements; otherwise, validation or processing may fail.",
+    "meta" : [ ]
+  } ]
+}

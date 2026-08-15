@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is required for table operations and is almost always expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instant time identifies the commit or action time, so should be set.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method expects a records list to insert/overwrite—passing null would be invalid usage.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "It's likely that insert/overwrite should not be called with an empty records list; alternatively, if records is null, this check passes safely.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection-content"
+    } ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.isEmpty()",
+    "rationale" : "If instantTime is provided, it is expected to be non-empty to identify the commit/search time.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string-content"
+    } ]
+  } ]
+}

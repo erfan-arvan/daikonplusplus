@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Stream#collect never returns null; empty stream gives an empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "Sorting does not change the size of the list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Method does not check for null so input should be non-null at call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "'collect(Collectors.toList())' always produces a List.",
+    "meta" : [ ]
+  } ]
+}

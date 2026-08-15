@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method operates on 'data' via stream operations, which would throw NullPointerException if data is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "'reduceFunc' is used for reduction and must not be null for correct behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is used as a positive integral parameter for operations that expect a positive integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof List",
+    "rationale" : "'data' is passed as List<Pair<K, V>>, so it should always be a List instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size() || data.isEmpty()",
+    "rationale" : "Parallelism should not exceed the number of elements unless data is empty; otherwise, excessive parallelism is not meaningful.",
+    "meta" : [ ]
+  } ]
+}

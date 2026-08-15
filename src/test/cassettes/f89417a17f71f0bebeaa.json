@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument and likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used in string concatenation and lookups, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to constructors and may be traversed, so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(recordItr != null && !recordItr.hasNext()) || partitionPath.length() > 0",
+    "rationale" : "If records are empty (recordItr.hasNext() == false), partitionPath may still be required to be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileId.isEmpty()",
+    "rationale" : "fileId is used to identify files, so an empty fileId is likely invalid.",
+    "meta" : [ ]
+  } ]
+}

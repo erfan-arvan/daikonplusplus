@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is created by calling Option.of() or Option.empty() in RunIndexActionExecutor#execute(), making it non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is passed as a parameter and likely required for the executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "This covers the exhaustive option pattern for Option, and can be useful for tools checking presence.",
+    "meta" : [ ]
+  } ]
+}

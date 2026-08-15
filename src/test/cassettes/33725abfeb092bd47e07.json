@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a result object; null would break contract with return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The input list of prepped records should not be null for an upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instant time is a required input parameter and should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext parameter is required for any table operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(HoodieWriteMetadata.class) || result instanceof HoodieWriteMetadata",
+    "rationale" : "The returned value is required to be or extend HoodieWriteMetadata.",
+    "meta" : [ ]
+  } ]
+}

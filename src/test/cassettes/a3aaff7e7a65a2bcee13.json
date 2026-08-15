@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is returned after construction and population, always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "dedupedRecords is used in stream transformation; method would fail if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is used in grouping; method would fail if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= dedupedRecords.size()",
+    "rationale" : "Each dedupedRecord is assigned to at most one partition, so number of partitions cannot exceed number of records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().mapToInt(List::size).sum() == dedupedRecords.size()",
+    "rationale" : "All input records are partitioned; sum of partitioned record counts equals input size.",
+    "meta" : [ ]
+  } ]
+}

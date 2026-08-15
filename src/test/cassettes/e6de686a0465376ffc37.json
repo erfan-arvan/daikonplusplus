@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method depends on the engine context; deleting prepped records likely requires a valid context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An instant time string is typically required to uniquely identify the operation moment; null value would not be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The list of records to delete should be non-null for a valid delete operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.size() >= 0",
+    "rationale" : "A Java List's size() is always non-negative even if the list is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || !instantTime.isEmpty()",
+    "rationale" : "If instantTime is non-null, it is likely expected to be a non-empty String indicating a known time.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects preppedRecords to be a valid list for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The method immediately uses instantTime to initialize the table; a null value may lead to issues.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "The parameter is typed as List, so it should be an instance of List at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "instantTime is likely used as a time marker; an empty value may be invalid for the operation.",
+    "meta" : [ ]
+  } ]
+}

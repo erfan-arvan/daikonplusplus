@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Insert operations in Hudi are versioned by the instant time, so this value should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "A partition path is typically required for insert operations to determine file placement.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "Each insert is associated with a file identifier; this should not be null to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "A valid map of records is required for insertion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap == null || !recordMap.isEmpty()",
+    "rationale" : "If the recordMap is non-null, it is expected to contain at least some records for insertion.",
+    "meta" : [ ]
+  } ]
+}

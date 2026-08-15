@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "values == null || values.length > 0",
+    "rationale" : "Method implementation throws an exception if values is not null and length is zero; thus, at this point, values is either null or a non-empty array.",
+    "meta" : [ ]
+  }, {
+    "expression" : "threshold >= 0",
+    "rationale" : "Thresholds are generally non-negative in slider contexts; negative thresholds likely do not make sense for snapping behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values == null || values.length >= 1",
+    "rationale" : "Redundant with the first, but sometimes minimum length required for correct snapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values == null || values instanceof float[]",
+    "rationale" : "If values is not null, it must be a float array (by type system); included for defensive coverage.",
+    "meta" : [ ]
+  } ]
+}

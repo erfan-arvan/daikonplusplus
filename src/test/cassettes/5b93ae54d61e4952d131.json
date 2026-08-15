@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "The computePrice method dereferences 'order', so it's likely non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Order quantities are typically non-negative; negative quantities are unlikely for valid orders.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getUnitPrice() >= 0.0",
+    "rationale" : "Unit price for an item in an order is generally expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() * order.getUnitPrice() >= 0.0",
+    "rationale" : "If both quantity and unitPrice are non-negative, the total price cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!OrderProcessor.isEligibleForDiscount(order) || order.getQuantity() > 0",
+    "rationale" : "If an order is eligible for a discount, it likely has at least one item (nonzero quantity).",
+    "meta" : [ ]
+  } ]
+}

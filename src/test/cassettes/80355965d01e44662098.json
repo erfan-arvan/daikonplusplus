@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "metadataWriteConfig.isMetricsOn() || !metadataWriteConfig.isMetricsOn()",
+    "rationale" : "metadataWriteConfig.isMetricsOn() returns a boolean, so it's either true or false.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Boolean method isMetricsOn() can only be true or false"
+    } ]
+  }, {
+    "expression" : "metrics != null",
+    "rationale" : "metrics is always assigned a non-null Option reference in the assignment.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "metrics is always assigned to either an Option.of(...) or Option.empty(), so it is never null."
+    } ]
+  }, {
+    "expression" : "(metadataWriteConfig.isMetricsOn() && metrics.isPresent()) || (!metadataWriteConfig.isMetricsOn() && !metrics.isPresent())",
+    "rationale" : "If isMetricsOn() is true then metrics should be present, else metrics is empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Consistency between isMetricsOn() and metrics presence."
+    } ]
+  }, {
+    "expression" : "metrics.isPresent() == metadataWriteConfig.isMetricsOn()",
+    "rationale" : "metrics.isPresent() exactly corresponds to the isMetricsOn() boolean.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "metrics presence is consistent with isMetricsOn boolean."
+    } ]
+  } ]
+}

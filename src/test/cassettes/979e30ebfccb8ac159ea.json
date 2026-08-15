@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "projection != null",
+    "rationale" : "Passing a non-null Matrix4 is required for setProjectionMatrix and assumed for setView to function correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width > 0",
+    "rationale" : "Width is likely expected to be positive to represent a valid view rectangle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height > 0",
+    "rationale" : "Height is likely expected to be positive to represent a valid view rectangle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + width > x",
+    "rationale" : "If width is positive, the right edge is to the right of x.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y + height > y",
+    "rationale" : "If height is positive, the top edge is above y.",
+    "meta" : [ ]
+  } ]
+}

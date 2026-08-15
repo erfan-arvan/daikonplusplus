@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of JavaBulkInsertHelper.bulkInsert, which should not be null under normal successful operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is a required parameter, and the method is unlikely to be called with a null input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "numOutputGroups is used as the bulk insert parallelism and number of groups, which must be positive for correct clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed as a required argument to bulkInsert and must be non-null to represent the commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method guarantees to return a List, as enforced by the return type and cast.",
+    "meta" : [ ]
+  } ]
+}

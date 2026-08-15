@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "Method calls on tile are performed unconditionally; null would cause NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "Method calls on tileElement are performed unconditionally; null would cause NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getProperties() != null",
+    "rationale" : "Unconditional call to tile.getProperties(), used as a Map-like object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getAttribute(\"terrain\", null) == null || tileElement.getAttribute(\"terrain\", null).length() >= 0",
+    "rationale" : "Returned terrain attribute is either null or a valid string with non-negative length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getChildByName(\"properties\") == null || tileElement.getChildByName(\"properties\") != null",
+    "rationale" : "getChildByName may return null or a valid Element; both outcomes are handled.",
+    "meta" : [ ]
+  } ]
+}

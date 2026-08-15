@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 ? result == Integer.MIN_VALUE : result == a / b",
+    "rationale" : "Captures the main logic: if divisor is zero, return Integer.MIN_VALUE, otherwise return the integer division.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b == 0 || result == a / b",
+    "rationale" : "If b is not zero, the result must be equal to a / b.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "If b is zero, only then the result is Integer.MIN_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Integer.MIN_VALUE || result == a / b",
+    "rationale" : "The only possible results are Integer.MIN_VALUE (when b == 0) or a / b.",
+    "meta" : [ ]
+  } ]
+}

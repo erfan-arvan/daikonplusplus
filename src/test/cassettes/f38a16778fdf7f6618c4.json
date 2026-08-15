@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "'result' is constructed using Option.empty() or Option.of(...), both of which do not return null.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "'result' is always non-null because Option.of()/Option.empty() never return null in this codebase."
+    } ]
+  }, {
+    "expression" : "!(isMetadataTable()) || (result.isPresent() == false)",
+    "rationale" : "If the table is a metadata table, the result is always Option.empty().",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "If isMetadataTable() is true, the method returns Option.empty(), i.e., result.isPresent() == false."
+    } ]
+  }, {
+    "expression" : "result.isPresent() == (config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()) && (isMetadataTableExists)",
+    "rationale" : "The result is Option.of(...) if and only if metadata table is enabled/available and it exists at this point.",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "Non-empty Option is only returned if metadata table is enabled/available AND it exists (isMetadataTableExists is set to true)."
+    } ]
+  }, {
+    "expression" : "(!config.isMetadataTableEnabled() && !metaClient.getTableConfig().isMetadataTableAvailable() && !isMetadataTable()) || (!result.isPresent())",
+    "rationale" : "If none of the enabling/availability conditions are true and the table isn't a metadata table, result is Option.empty().",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "When metadata table is not enabled/available and the table is not itself a metadata table, Option.empty() is returned."
+    } ]
+  }, {
+    "expression" : "result.isPresent() || !isMetadataTableExists",
+    "rationale" : "If result is not present, isMetadataTableExists must be false (or became false earlier in the method's logic).",
+    "meta" : [ {
+      "key" : "reasoning",
+      "value" : "If Option.empty() is returned, either metadata table doesn't exist yet or preconditions for constructing it are unmet."
+    } ]
+  } ]
+}

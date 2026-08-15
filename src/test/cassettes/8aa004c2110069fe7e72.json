@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method only returns the result of 'postWrite', which is expected to be a new List<WriteStatus>.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The method performs actions based on 'instantTime', implying it should not be null at exit.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "parameter-safety"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method assumes 'preppedRecords' contains data to commit, so it is expected to be non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "parameter-safety"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method's return type is List<WriteStatus>, guaranteeing result is a List.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "type-safety"
+    } ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A List in Java cannot have a negative size, so this holds at method exit.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "container-size"
+    } ]
+  } ]
+}

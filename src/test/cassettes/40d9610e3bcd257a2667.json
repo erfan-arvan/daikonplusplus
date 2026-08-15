@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this', so result always refers to the same object as the receiver.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.wrapReverse == wrapReverse",
+    "rationale" : "The method assigns the parameter 'wrapReverse' to the field before returning.",
+    "meta" : [ ]
+  } ]
+}

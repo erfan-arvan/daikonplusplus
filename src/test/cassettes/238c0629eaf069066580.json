@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is likely required and expected to be non-null to perform compaction actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "The instant time is used to reference compaction operations, so it should typically be specified (non-null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!logCompactionInstantTime.isEmpty()",
+    "rationale" : "A valid log compaction instant time should not be an empty string if it is non-null.",
+    "meta" : [ ]
+  } ]
+}

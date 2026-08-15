@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "labelAlign >= 0",
+    "rationale" : "labelAlign is likely to be a bitmask/alignment constant, typically a non-negative int representing alignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "lineAlign >= 0",
+    "rationale" : "lineAlign is likely derived from alignment constants in Align, so it should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(lineAlign & com.badlogic.gdx.utils.Align.left) == 0 || (lineAlign & com.badlogic.gdx.utils.Align.right) == 0",
+    "rationale" : "lineAlign should not typically have both left and right bits set at the same time for alignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "labelAlign != lineAlign",
+    "rationale" : "labelAlign and lineAlign are conceptually used for different alignment axes and may often differ.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(lineAlign & com.badlogic.gdx.utils.Align.left) != 0 || (lineAlign & com.badlogic.gdx.utils.Align.right) != 0 || (lineAlign & com.badlogic.gdx.utils.Align.center) != 0",
+    "rationale" : "lineAlign should represent a horizontal alignment and must match one of the valid alignment bits.",
+    "meta" : [ ]
+  } ]
+}

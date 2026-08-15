@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A rollback operation should return rollback metadata, so result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime acts as an identifier for the rollback and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant represents the instant to be rolled back and is required to identify the rollback target.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieRollbackMetadata",
+    "rationale" : "The method is declared to return HoodieRollbackMetadata, so result must be an instance of it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to the rollback executor, and should be non-null for engine operations.",
+    "meta" : [ ]
+  } ]
+}

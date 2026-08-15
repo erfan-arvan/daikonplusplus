@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method always throws an exception, it never returns normally, so 'result' is null at method exit.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "partitionFilePathAndSizeTriplet != null",
+    "rationale" : "The input parameter must be non-null for the method to be called properly.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "The input parameter is used and expected non-null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient parameter is expected non-null for meaningful operation.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The timestamp parameter instantTime is expected non-null as a precondition.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  } ]
+}

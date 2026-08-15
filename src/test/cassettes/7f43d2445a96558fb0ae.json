@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && !result.isEmpty()",
+    "rationale" : "The clustering process should return a non-null, non-empty list of write statuses.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result list of WriteStatus objects is expected to be non-null and contain elements after clustering."
+    } ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method relies on a valid clusteringGroup parameter.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The clustering group must be non-null to execute the clustering."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter passed to the method must be non-null and non-empty.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "A valid instant time string is required for clustering operations."
+    } ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "Parameters for clustering strategy must be available.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Strategy parameters map should be initialized to avoid null pointer exceptions."
+    } ]
+  }, {
+    "expression" : "preserveHoodieMetadata == true || preserveHoodieMetadata == false",
+    "rationale" : "The preserveHoodieMetadata flag is a boolean.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "This is always a boolean condition."
+    } ]
+  } ]
+}

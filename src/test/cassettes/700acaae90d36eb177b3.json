@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "args.length >= 0",
+    "rationale" : "The args array length must be zero or more.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Array length should always be non-negative"
+    } ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "args is definitely an array.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is an array of Strings"
+    } ]
+  }, {
+    "expression" : "(args == null) || (args.length >= 0)",
+    "rationale" : "Safe check even if args were null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Defensive check to ensure no null pointer exceptions when accessing length"
+    } ]
+  }, {
+    "expression" : "args != null",
+    "rationale" : "Main method always receives a non-null array.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args should not be null when main is called"
+    } ]
+  } ]
+}

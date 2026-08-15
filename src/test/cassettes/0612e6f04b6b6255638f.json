@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "node != null",
+    "rationale" : "The method is acting on 'node', and nullness is generally required to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "node.parent == null || node.parent != null",
+    "rationale" : "This captures the exhaustive state of the node's parent, which controls the major branch structure of the method.",
+    "meta" : [ ]
+  } ]
+}

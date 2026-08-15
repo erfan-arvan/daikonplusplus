@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Method parameter should not be null for safe access and to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "getPartitionColumns calls config.getProps(), which must not return null for proper method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps().containsKey(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key())",
+    "rationale" : "getPartitionColumns retrieves the property named by KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key(), which is likely present if the config is properly initialized.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method operates on 'data' and expects it to be a List, which should not be null to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The mapping function must be non-null to apply it to elements of data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be positive to make sense for parallel processing and is likely an application invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size() || data.isEmpty()",
+    "rationale" : "It's common to bound the parallelism by the number of items, unless data is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().allMatch(x -> x != null)",
+    "rationale" : "None of the elements in data should be null to ensure map operations do not fail when 'func' is applied.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a non-null list of records to operate on.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Number of output partitions should be positive for bulk insert partitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "Number of output partitions should not typically exceed the number of records, unless no records are present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof java.util.List",
+    "rationale" : "The input parameter is typed as a java.util.List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.stream().allMatch(rec -> rec != null)",
+    "rationale" : "All HoodieRecord elements in the input list should be non-null for correct sorting.",
+    "meta" : [ ]
+  } ]
+}

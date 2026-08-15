@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Option<HoodieRollbackPlan> because Option is generally used as a non-null wrapper.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is always passed to the underlying executor and is expected to be non-null for rollback scheduling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "instantToRollback is required and passed to the executor; rollback logic depends on a concrete instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for parallel/engine operations, and base methods in the codebase rely on it being non-null.",
+    "meta" : [ ]
+  } ]
+}

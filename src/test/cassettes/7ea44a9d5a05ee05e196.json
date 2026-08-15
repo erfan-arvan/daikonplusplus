@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which is a non-null Cell instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method implementation always returns 'this', ensuring result is the same as this object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.flipHorizontally == flipHorizontally",
+    "rationale" : "The method sets the flipHorizontally field and then returns this, so the returned object's field value must match the argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.flipHorizontally == flipHorizontally",
+    "rationale" : "The purpose of the method is to update the field flipHorizontally to match the argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.flipHorizontally == this.flipHorizontally",
+    "rationale" : "Since result and this are the same object, the field's value is shared.",
+    "meta" : [ ]
+  } ]
+}

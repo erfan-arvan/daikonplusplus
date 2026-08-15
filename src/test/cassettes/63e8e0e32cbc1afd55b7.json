@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "expandIcon != null",
+    "rationale" : "expandIcon is dereferenced to call draw and getMinWidth/getMinHeight, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "batch is passed to expandIcon.draw and thus must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "expandIcon.getMinWidth() >= 0",
+    "rationale" : "Drawable's minimum width is typically non-negative, especially since it is used as a width in draw.",
+    "meta" : [ ]
+  }, {
+    "expression" : "expandIcon.getMinHeight() >= 0",
+    "rationale" : "Drawable's minimum height is typically non-negative and used as a height in draw.",
+    "meta" : [ ]
+  }, {
+    "expression" : "node != null",
+    "rationale" : "The node is a generic parameter representing a tree node and is likely required and non-null for meaningful use.",
+    "meta" : [ ]
+  } ]
+}

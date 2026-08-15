@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "Ensures metaClient is valid for possible operations",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Use of metaClient in the method (metaClient.reloadTableConfig()) implies metaClient is not null"
+    } ]
+  }, {
+    "expression" : "!inFlightInstantTimestamp.isPresent() || inFlightInstantTimestamp.get() != null",
+    "rationale" : "If inFlightInstantTimestamp is present, its value is non-null",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Option.get() is only safe if isPresent(), and stored value should be non-null by Option contract"
+    } ]
+  }, {
+    "expression" : "config.isMetadataTableEnabled()",
+    "rationale" : "The method would return early if metadata table is not enabled",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "Method returns immediately if metadata table not enabled"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "metaClient should have a table configuration available after execution",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "metaClient.reloadTableConfig() likely requires table config to be present"
+    } ]
+  }, {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "Ensures Option is not null for method operations",
+    "meta" : [ {
+      "key" : "API",
+      "value" : "Option parameters should not be null for this code style"
+    } ]
+  } ]
+}

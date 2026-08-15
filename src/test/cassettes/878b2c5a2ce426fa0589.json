@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "fileName should not be null because it is used to load a map file.",
+    "meta" : [ {
+      "key" : "null-safe",
+      "value" : "yes"
+    } ]
+  }, {
+    "expression" : "!fileName.isEmpty()",
+    "rationale" : "fileName should not be empty to reference a valid file.",
+    "meta" : [ {
+      "key" : "non-empty",
+      "value" : "yes"
+    } ]
+  }, {
+    "expression" : "fileName.trim().length() > 0",
+    "rationale" : "fileName should contain non-whitespace characters to be a valid path.",
+    "meta" : [ {
+      "key" : "whitespace-check",
+      "value" : "yes"
+    } ]
+  }, {
+    "expression" : "fileName.endsWith(\".tmx\")",
+    "rationale" : "TmxMapLoader typically expects TMX files (Tiled Map XML) so the fileName should have this extension.",
+    "meta" : [ {
+      "key" : "file-extension",
+      "value" : "yes"
+    } ]
+  }, {
+    "expression" : "fileName.indexOf(\"/\") >= 0 || fileName.indexOf(\"\\\\\") >= 0 || !fileName.contains(\"/\")",
+    "rationale" : "fileName can be a simple name or a relative/absolute path, so it either contains path separators or is a simple name.",
+    "meta" : [ {
+      "key" : "path-format",
+      "value" : "yes"
+    } ]
+  } ]
+}

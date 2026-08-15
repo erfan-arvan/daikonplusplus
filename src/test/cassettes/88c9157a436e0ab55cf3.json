@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The parameter 'profile' should not be null when entering the method, as the method dereferences it immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "The method directly calls entrySet() on this map, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The method calls getOrDefault() on this map, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().size() >= 0",
+    "rationale" : "A map's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap().size() >= 0",
+    "rationale" : "A map's size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

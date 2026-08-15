@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a HoodieEngineContext to operate; passing null may not be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is used for identifying the rollback's point in time and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "The HoodieInstant to rollback should be provided and non-null for the rollback process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should not be the empty string since it usually represents a unique commit or action time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(shouldRollbackUsingMarkers && !skipTimelinePublish)",
+    "rationale" : "If rollback is using markers, timeline publish may need to be skipped for consistency.",
+    "meta" : [ ]
+  } ]
+}

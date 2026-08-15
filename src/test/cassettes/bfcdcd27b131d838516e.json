@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method requires a context to perform the insert action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is essential for transaction and commit identification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "Cannot insert a null collection of records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.isEmpty() || hoodieRecords.get(0) instanceof HoodieRecord",
+    "rationale" : "If hoodieRecords is not empty, its elements should be HoodieRecord instances.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "padBottom >= 0",
+    "rationale" : "Padding values in UI are typically non-negative, representing a positive or zero space.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padBottom == padBottom",
+    "rationale" : "This serves as a sanity check for the variable's definition -- but omitting this since it's a tautology.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(padBottom)",
+    "rationale" : "It is reasonable to expect padding not to be infinite or NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padBottom < Float.MAX_VALUE",
+    "rationale" : "To prevent overflow, UI padding values should be within the float representable range.",
+    "meta" : [ ]
+  } ]
+}

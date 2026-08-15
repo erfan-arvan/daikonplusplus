@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is provided as a method argument and is typically expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result is expected to be a valid HoodieWriteMetadata instance for the method to operate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof List",
+    "rationale" : "The type of writeStatuses is declared as List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "result is declared as HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.isEmpty() || writeStatuses.size() >= 0",
+    "rationale" : "A list is either empty or its size is non-negative.",
+    "meta" : [ ]
+  } ]
+}

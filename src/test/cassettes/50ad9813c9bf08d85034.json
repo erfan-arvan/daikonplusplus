@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Common best practice for collection parameters is to ensure non-nullness before usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.get(0) instanceof String",
+    "rationale" : "As columnsToIndex is a List<String>, if it is not empty, its first element should be a String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

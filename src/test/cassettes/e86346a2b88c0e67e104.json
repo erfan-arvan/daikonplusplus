@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of postWrite(...), which is expected to be a non-null List of WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to multiple methods and wrapped with Option.ofNullable or Option.of, which requires non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is used in HoodieListData.eager(records) and other places without null checks, suggesting it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "By return type, result is a List<WriteStatus>, and the method returns a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0 && result.size() >= 0",
+    "rationale" : "List.size() is defined to be >=0 in Java, so these collections are valid.",
+    "meta" : [ ]
+  } ]
+}

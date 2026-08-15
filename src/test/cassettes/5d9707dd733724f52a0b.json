@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A successful return from execute() should return a non-null HoodieWriteMetadata object unless there was an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses() method should not return null to properly represent the status of the bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "A successful bulk insert typically yields one or more WriteStatus objects in the return metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The method is expected to return HoodieWriteMetadata parameterized by List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "Each WriteStatus in the result list should be non-null to maintain metadata integrity.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time is typically required for versioned upsert operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The input record list should not be null for upsert operations; an empty list is preferred over null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null engine context is necessary for processing and coordinating distributed writes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!hoodieRecords.isEmpty() || hoodieRecords.size() == 0",
+    "rationale" : "The input records list might be empty (size 0) or not, but the reference itself should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Instant time is usually a non-empty string to meaningfully identify a commit or delta instant.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is directly used as a key to access a map; a null value may cause errors or unexpected behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath is expected to be a non-empty string to represent a valid partition; empty strings likely do not correspond to valid partitions.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Stream operations assume a non-null stream argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "Function references for mapping must be valid (non-null) to be applied.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "Reduce function must be non-null to be wrapped and applied.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism for partitioning/parallel processing should be positive.",
+    "meta" : [ ]
+  } ]
+}

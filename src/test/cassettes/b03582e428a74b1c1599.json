@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Method requires a HoodieWriteConfig object to create a table; usually, this should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "A HoodieTableMetaClient is necessary to create a table; method callers are expected to provide it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "A valid base path is typically required for table storage operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "metaClient should have a defined base path for identifying the storage location of the table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName() != null && !config.getTableName().isEmpty()",
+    "rationale" : "A non-empty table name is usually required for database table creation.",
+    "meta" : [ ]
+  } ]
+}

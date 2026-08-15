@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "!Float.isNaN(prefWidth)",
+    "rationale" : "Method takes a float parameter, and NaN is often undesired or filtered in APIs; may represent an invariant to ensure valid numeric argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefWidth >= Float.NEGATIVE_INFINITY && prefWidth <= Float.POSITIVE_INFINITY",
+    "rationale" : "prefWidth is always within the bounds of Java float, disallowing values outside the float domain.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefWidth == prefWidth",
+    "rationale" : "PrefWidth parameter is a valid float (not NaN), but this is a tautology and should be avoided; primarily for example purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "At method entry, prefWidth could be any float (unless method has preconditions elsewhere).",
+    "meta" : [ ]
+  } ]
+}

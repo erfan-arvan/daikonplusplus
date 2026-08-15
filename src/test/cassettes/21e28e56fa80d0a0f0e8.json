@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "Minimum width is likely non-negative, as negative sizes typically do not make sense for UI elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Minimum height is likely to be non-negative, since heights are not expected to be negative for UI components.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(width)",
+    "rationale" : "Valid widths should be finite for UI layout computation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(height)",
+    "rationale" : "Valid heights should be finite for UI layout computation.",
+    "meta" : [ ]
+  } ]
+}

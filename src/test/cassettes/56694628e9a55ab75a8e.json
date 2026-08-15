@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == Math.max(200 * delta, difference * 7 * delta)",
+    "rationale" : "The return statement sets result to the maximum of these two quantities.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 200 * delta",
+    "rationale" : "The result must be at least 200 * delta, by definition of Math.max.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= difference * 7 * delta",
+    "rationale" : "The result must also be at least difference * 7 * delta, by the definition of Math.max.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0 || delta < 0",
+    "rationale" : "If delta is not negative, both arguments to Math.max are non-negative, so result must be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "difference == 0 || result == 200 * delta || result == difference * 7 * delta",
+    "rationale" : "If difference is zero, one argument is zero; result must be equal to one of the Math.max arguments.",
+    "meta" : [ ]
+  } ]
+}

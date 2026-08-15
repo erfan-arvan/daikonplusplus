@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A method returning a list of results should not return null, as per good practice; an empty list is preferable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is important for identifying commit instants and should not be null throughout the write path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords should be non-null to perform upsert operations; null records would not be upserted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The size of a list returned by the method should never be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "The input list size should never be negative, by the semantics of Java lists.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method will likely fail if records is null, and typically expects a non-null list of records for upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is critical for identifying the upsert action's timing—null is likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A list's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.size() == 0",
+    "rationale" : "If the list is not empty, its size will be greater than 0, and vice versa; this links isEmpty and size semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "An instantTime string likely represents a non-empty timestamp or operation time.",
+    "meta" : [ ]
+  } ]
+}

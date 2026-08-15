@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Width values and dimensions are typically non-negative in UI frameworks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == Math.max(result, 0)",
+    "rationale" : "Reinforces that result cannot be less than 0, consistent with expected width behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == ((actor instanceof Layout) ? ((Layout)actor).getPrefWidth() : (actor != null ? actor.getWidth() : 0)) + ((style.background != null) ? Math.max(style.background.getLeftWidth() + style.background.getRightWidth() + ((actor instanceof Layout) ? ((Layout)actor).getPrefWidth() : (actor != null ? actor.getWidth() : 0)), style.background.getMinWidth()) - ((actor instanceof Layout) ? ((Layout)actor).getPrefWidth() : (actor != null ? actor.getWidth() : 0)) : 0) + (scrollY ? Math.max((style.vScrollKnob != null ? style.vScrollKnob.getMinWidth() : 0),(style.vScroll != null ? style.vScroll.getMinWidth() : 0)) : 0)",
+    "rationale" : "This is the exact relationship between the result value and the method's computation, expanded per the code logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(actor == null || result >= 0)",
+    "rationale" : "Even if actor is null, result is at least 0, never negative.",
+    "meta" : [ ]
+  } ]
+}

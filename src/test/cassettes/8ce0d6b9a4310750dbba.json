@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of performClusteringWithRecordList, which is a non-null List.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "Input group should not be null for clustering to proceed.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "input"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is passed into multiple helper methods and likely required.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "input"
+    } ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "Strategy parameters are used by performClusteringWithRecordList, so must not be null.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "input"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Method return type is List<WriteStatus>; result should always be a List.",
+    "meta" : [ {
+      "key" : "type-safety",
+      "value" : "output"
+    } ]
+  } ]
+}

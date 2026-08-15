@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "actor != null",
+    "rationale" : "The method operates on actor and calls methods on it, so actor is expected to be non-null if the program execution reaches here.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor.getClass() != null",
+    "rationale" : "For reflection, actor.getClass() must return a non-null class object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "enabled == true || enabled == false",
+    "rationale" : "enabled is a boolean parameter, so it must be either true or false.",
+    "meta" : [ ]
+  } ]
+}

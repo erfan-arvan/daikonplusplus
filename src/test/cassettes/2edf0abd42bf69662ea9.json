@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned map should never be null as it is explicitly instantiated before being returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "Method assumes dedupedRecords is non-null as it streams and maps over it without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner is used without null checks, and its methods are invoked.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().flatMap(List::stream).allMatch(record -> dedupedRecords.contains(record))",
+    "rationale" : "All returned HoodieRecords are subsets of the input dedupedRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().mapToInt(List::size).sum() == dedupedRecords.size()",
+    "rationale" : "Every dedupedRecord is distributed among (possibly multiple) partition map entries, preserving the total count.",
+    "meta" : [ ]
+  } ]
+}

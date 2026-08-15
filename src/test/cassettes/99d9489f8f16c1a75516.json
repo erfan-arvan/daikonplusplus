@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is used to call various methods; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used to call methods; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "config.getBasePath() passed to setBasePath; likely expected non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getConsistencyGuardConfig() != null",
+    "rationale" : "config.getConsistencyGuardConfig() used for setConsistencyGuardConfig; likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context.getStorageConf() != null",
+    "rationale" : "context.getStorageConf() is used to create an instance.",
+    "meta" : [ ]
+  } ]
+}

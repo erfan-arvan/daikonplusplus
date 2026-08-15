@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned string is always constructed from string concatenation, resulting in a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.startsWith(\"ProjectClassMember{\")",
+    "rationale" : "The returned string always starts with the class literal prefix.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.contains(\"name=\")",
+    "rationale" : "The returned string always includes the name field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.endsWith(\"}\")",
+    "rationale" : "The returned string always ends with a closing curly brace.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.indexOf(\"type='\") > 0",
+    "rationale" : "The substring for the type field is always present and not at the very start.",
+    "meta" : [ ]
+  } ]
+}

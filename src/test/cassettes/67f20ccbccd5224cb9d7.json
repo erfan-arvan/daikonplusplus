@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new ArrayList, so result cannot be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "return value"
+    } ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is dereferenced via clusteringGroup.getSlices(), so it must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "result is always an instance of List from ArrayList instantiation.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "Any List in Java, including an ArrayList, has a non-negative size.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection size"
+    } ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "clusteringGroup.getSlices() is used to obtain clusteringOps, so it must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter structure"
+    } ]
+  } ]
+}

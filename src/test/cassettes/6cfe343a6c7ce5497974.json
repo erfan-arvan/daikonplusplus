@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns tempColor.set(...) and tempColor/set never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == tempColor",
+    "rationale" : "The method always returns the tempColor object after mutating it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.a >= 0.0f && result.a <= 1.0f",
+    "rationale" : "Color alpha values are typically clamped between 0 and 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(tempColor)",
+    "rationale" : "The result is a reference to tempColor, so their contents and references must be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != tintColor",
+    "rationale" : "The result is tempColor, which is not the same object as tintColor.",
+    "meta" : [ ]
+  } ]
+}

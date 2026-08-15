@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null HoodieWriteMetadata object upon successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records parameter should not be null when invoking this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A valid, non-null timestamp (instantTime) should be provided for versioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for executing actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStats() != null",
+    "rationale" : "The write statistics in the result metadata should be initialized and non-null.",
+    "meta" : [ ]
+  } ]
+}

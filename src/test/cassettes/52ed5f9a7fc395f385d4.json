@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method operates on preppedRecords and passes it to several calls, so it is expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in preWrite and passed into Option.ofNullable indicating that it's expected to be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.size() >= 0",
+    "rationale" : "If the list is empty, its size is 0; if not empty, size is at least 0. This is always true for lists and ensures valid operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime likely represents a timestamp and is expected to be a non-empty string for operations like preWrite and for constructing unique instant entries.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A list's size is always non-negative according to the List contract.",
+    "meta" : [ ]
+  } ]
+}

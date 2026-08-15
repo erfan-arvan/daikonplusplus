@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is used to retrieve properties, thus expected non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is used to retrieve images, indicating it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilewidth > 0",
+    "rationale" : "tilewidth is used as a pixel width, so positive values are expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileheight > 0",
+    "rationale" : "tileheight is used as a pixel height, so positive values are expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstgid >= 0",
+    "rationale" : "firstgid is used as a tile ID base; usually non-negative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "The instant time of rollback is essential for execution and likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A rollback operation requires the target commit instant to be specified and non-null.",
+    "meta" : [ ]
+  } ]
+}

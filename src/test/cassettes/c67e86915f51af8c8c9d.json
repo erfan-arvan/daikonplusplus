@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "GDX Scene2d APIs expect 'Batch' objects to be non-null when 'draw' is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f && parentAlpha <= 1.0f",
+    "rationale" : "Alpha blending factors in GDX are typically in [0,1] range, and draw(float) usually expects valid alpha values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "label != null",
+    "rationale" : "The 'label' field is assumed initialized as it is dereferenced in this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "label.getStyle() != null",
+    "rationale" : "The method accesses 'label.getStyle()', so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "label.getStyle().fontColor == getFontColor()",
+    "rationale" : "The method sets 'label.getStyle().fontColor = getFontColor();', so they should be equal upon method exit.",
+    "meta" : [ ]
+  } ]
+}

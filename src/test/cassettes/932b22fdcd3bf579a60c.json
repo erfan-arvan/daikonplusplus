@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The config parameter is expected to be non-null for configuration to be used in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter must be non-null for engine context methods to be invoked.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "The base path is accessed inside the method, indicating it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getConsistencyGuardConfig() != null",
+    "rationale" : "The consistency guard config is accessed in building the meta client, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTimeGeneratorConfig() != null",
+    "rationale" : "Time generator config is passed to the meta client builder, thus should not be null.",
+    "meta" : [ ]
+  } ]
+}

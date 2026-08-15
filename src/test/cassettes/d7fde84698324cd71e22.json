@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "triggeringInstantTimestamp != null",
+    "rationale" : "A non-null instant timestamp is likely required to identify the operation triggering the metadata writer.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "Cleaning policy should not be null, as it determines the cleanup policy for failed writes.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "streamingWrites == true || streamingWrites == false",
+    "rationale" : "Boolean parameters should always be true or false.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "boolean"
+    } ]
+  }, {
+    "expression" : "autoDetectAndDeleteMetadataPartitions == true || autoDetectAndDeleteMetadataPartitions == false",
+    "rationale" : "Boolean parameters should always be true or false.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "boolean"
+    } ]
+  }, {
+    "expression" : "!triggeringInstantTimestamp.isEmpty()",
+    "rationale" : "An empty triggering instant timestamp may be invalid.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "non-empty string"
+    } ]
+  } ]
+}

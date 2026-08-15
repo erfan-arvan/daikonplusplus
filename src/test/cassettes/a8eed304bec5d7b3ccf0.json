@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new or original List, so the result is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method return type is List<HoodieKey> and the returned object is always a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "The deduplication can only remove elements, not add, so the result size is less than or equal to the input keys size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 0",
+    "rationale" : "Parallelism is typically a non-negative integer, as negative parallelism does not make sense in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "From usage within the method, keys is assumed to be non-null upon method completion.",
+    "meta" : [ ]
+  } ]
+}

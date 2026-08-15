@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is produced via collect(toList()), which always returns a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method operates on data.stream(), which would throw if data were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The function throwingFlatMapWrapper(func) requires func to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result is the output of collect(toList()), which is always a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter typically must be positive for parallel stream processing, though not validated explicitly here.",
+    "meta" : [ ]
+  } ]
+}

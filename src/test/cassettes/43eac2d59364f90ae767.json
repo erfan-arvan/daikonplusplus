@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of postWrite, which should be a non-null list.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-safety"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method is likely not called with a null records list, and upsert logic expects an actual list.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-safety"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime argument is used for write operations; commonly expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "null-safety"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method is specified to return List<WriteStatus>, so result should be a List instance.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection"
+    } ]
+  } ]
+}

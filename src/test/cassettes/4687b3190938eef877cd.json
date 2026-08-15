@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "padLeft >= 0",
+    "rationale" : "Padding amounts are often required to be non-negative in UI layouts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padLeft <= Float.MAX_VALUE",
+    "rationale" : "The float parameter 'padLeft' cannot exceed the maximum float value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(padLeft)",
+    "rationale" : "Padding should not be NaN; UI logic would typically not accept it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(padLeft)",
+    "rationale" : "Padding should not be infinite for rendering and layout purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padLeft == padLeft + 0.0f",
+    "rationale" : "No loss of value with 0.0f addition; can help reveal if padLeft is NaN in checks.",
+    "meta" : [ ]
+  } ]
+}

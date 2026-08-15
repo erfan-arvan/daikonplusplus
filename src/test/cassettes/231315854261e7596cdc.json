@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "Since map is required for processing and passed to sub-methods, it is likely non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile != null",
+    "rationale" : "tile is dereferenced for getObjects() and getTextureRegion(); thus, must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is an argument and passed forward; being null would likely trigger an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getTextureRegion() != null",
+    "rationale" : "Method uses tile.getTextureRegion().getRegionHeight(); so getTextureRegion() must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getObjects() != null",
+    "rationale" : "tile.getObjects() is used as an argument and must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

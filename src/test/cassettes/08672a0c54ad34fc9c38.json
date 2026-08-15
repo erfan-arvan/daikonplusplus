@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "records passed to insert is expected to be non-null for write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is expected to be a non-null, valid commit or transaction instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List.size() always returns a non-negative integer in Java; this checks for standard contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.size() == 0",
+    "rationale" : "records.isEmpty() is equivalent to records.size() == 0.",
+    "meta" : [ ]
+  } ]
+}

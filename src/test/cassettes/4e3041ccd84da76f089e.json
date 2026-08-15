@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collections.emptyList() never returns null, so result is always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Method always returns Collections.emptyList(), which is always empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0",
+    "rationale" : "An empty List has size 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Collections.EMPTY_LIST.equals(result)",
+    "rationale" : "Collections.emptyList() returns Collections.EMPTY_LIST.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "Collections.emptyList() contains no elements, so it cannot contain null.",
+    "meta" : [ ]
+  } ]
+}

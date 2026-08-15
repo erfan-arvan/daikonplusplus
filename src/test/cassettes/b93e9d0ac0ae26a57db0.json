@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The method uses metaClient to reload the table config, so it should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "inFlightInstantTimestamp, an Option, is passed to several methods; it should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!metaClient.getTableConfig().isMetadataTableAvailable() || config.isMetadataTableEnabled()",
+    "rationale" : "The method only initializes metadata table when metadata is enabled in config.",
+    "meta" : [ ]
+  } ]
+}

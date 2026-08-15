@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The config parameter should not be null at the entry of the method to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getProps() != null",
+    "rationale" : "The getProps() method is called on config, so it is expected that it returns a non-null object.",
+    "meta" : [ ]
+  } ]
+}

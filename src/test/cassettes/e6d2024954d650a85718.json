@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be a valid non-null string representing the commit time.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input constraint"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The list of keys to delete from the table should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input constraint"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "WriteConfig is required to determine delete parallelism and behavior.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input constraint"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The target HoodieTable must exist to perform deletion operations.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input constraint"
+    } ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "A valid commit action executor is needed to run the delete logic.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input constraint"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context is expected to be provided as a required engine context for scheduling compaction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An instantTime string must be provided for identifying the compaction instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata parameter is passed as an Option and should not be null, though it may be Option.empty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime should not be an empty string, as it is used to identify a compaction instant.",
+    "meta" : [ ]
+  } ]
+}

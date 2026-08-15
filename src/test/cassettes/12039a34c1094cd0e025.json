@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is being cast and passed to another class; it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to the executor and likely represents a timestamp that should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords is passed to another method and represents records to upsert; should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty string to represent a meaningful instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords instanceof java.util.List",
+    "rationale" : "hoodieRecords should always be a List, as per the method signature.",
+    "meta" : [ ]
+  } ]
+}

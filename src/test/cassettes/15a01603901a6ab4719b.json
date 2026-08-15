@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a commit instant and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The writeStatuses list is immediately operated on, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "commitActionType is used as a String argument for downstream commitStats and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds map is passed into commitStats and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "writeStatuses is a List, and its size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

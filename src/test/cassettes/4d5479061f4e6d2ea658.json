@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "camera != null",
+    "rationale" : "The method uses 'camera' without null check and accesses its fields, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.zoom >= 0",
+    "rationale" : "Zoom typically represents a scale factor, and is often non-negative in rendering or graphics APIs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.viewportWidth >= 0",
+    "rationale" : "Viewport width should not be negative in graphical contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.viewportHeight >= 0",
+    "rationale" : "Viewport height should not be negative in graphical contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "camera.combined != null",
+    "rationale" : "'camera.combined' is used for setting projection, so it should not be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is called with a non-null result object to operate on.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "result parameter must not be null at method entry"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Before setting commit metadata, write statuses should be non-null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "write statuses list must be initialized"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "List size in Java is always >= 0.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "size of write statuses list is non-negative"
+    } ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "Partition map should be non-null for proper commit metadata building.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionToReplaceFileIds map must be initialized"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "WriteStatus elements must be valid for building metadata.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "no null elements in write statuses list"
+    } ]
+  } ]
+}

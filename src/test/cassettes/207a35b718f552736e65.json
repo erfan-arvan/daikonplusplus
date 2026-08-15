@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null && !activeModule.isEmpty()",
+    "rationale" : "activeModule is likely intended to denote a module name, so it's expected to be non-null and non-empty when provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null && !activityDescription.isEmpty()",
+    "rationale" : "activityDescription should likely describe a job, so it should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.equals(activityDescription)",
+    "rationale" : "It's possible that activeModule and activityDescription are meant to describe different things, so they should not be equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule != null && activityDescription != null",
+    "rationale" : "Null checks ensure the parameters are safely usable given they are both strings expected to contain content.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule.length() <= 128",
+    "rationale" : "Module identifiers are often of bounded length to avoid excessively long names.",
+    "meta" : [ ]
+  } ]
+}

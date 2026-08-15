@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "this.label == label",
+    "rationale" : "The method assigns the parameter label to the field this.label at the end of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getLabelCell().getActor() == label",
+    "rationale" : "The method sets the actor of the label cell to the label parameter using getLabelCell().setActor(label).",
+    "meta" : [ ]
+  }, {
+    "expression" : "label != null || this.label == null",
+    "rationale" : "If label is null, then the assignment this.label = label results in this.label being null; otherwise, no implication.",
+    "meta" : [ ]
+  } ]
+}

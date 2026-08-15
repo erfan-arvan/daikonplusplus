@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a String representing an instant and is likely non-null for meaningful rollbacks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToRollback != null",
+    "rationale" : "instantToRollback denotes the commit/instant to be rolled back and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "An instant time string used for scheduling rollbacks is typically non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(isRestore && skipTimelinePublish)",
+    "rationale" : "If it is a restore operation, timeline publish should not be skipped in many rollback semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required to perform any engine-level operation.",
+    "meta" : [ ]
+  } ]
+}

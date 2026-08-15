@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The input parameter should not be null for typical execution, as passing null is likely not intended and could cause a NullPointerException.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "A List's size is always non-negative in Java.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection"
+    } ]
+  }, {
+    "expression" : "!inputRecords.isEmpty() || inputRecords.size() == 0",
+    "rationale" : "A List is empty if and only if its size is zero.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection"
+    } ]
+  } ]
+}

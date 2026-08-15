@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a HoodieWriteMetadata object; cannot return null since 'new ...().execute()' is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords are passed to another method and used in the constructor; unlikely to be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed into the returned action and likely required for correct operation.",
+    "meta" : [ ]
+  } ]
+}

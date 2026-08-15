@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (order.getQuantity() >= 10)",
+    "rationale" : "The method directly returns true if order's quantity is at least 10; captures precise result definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() < 10 == !result",
+    "rationale" : "If order quantity is less than 10, result must be false, restating method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || order.getQuantity() < 10",
+    "rationale" : "If result is false, then order quantity must be less than 10; ensures no case where result is false and quantity >= 10.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order != null",
+    "rationale" : "The method assumes order is non-null since it dereferences order; helps prevent NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

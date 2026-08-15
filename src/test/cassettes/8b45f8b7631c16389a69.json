@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of JavaWriteHelper.newInstance().write(), which should not be null under normal circumstances.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata is expected to return a non-null List of WriteStatus objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The type returned by result.getWriteStatuses() should be a List per the generic signature.",
+    "meta" : [ ]
+  } ]
+}

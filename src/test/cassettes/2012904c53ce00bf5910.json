@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since getCurrentFrame().getTextureRegion() is being returned, result should not be null if getTextureRegion() never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == getCurrentFrame().getTextureRegion()",
+    "rationale" : "By directly returning getCurrentFrame().getTextureRegion(), the result must be equal to its value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TextureRegion",
+    "rationale" : "As the method returns a TextureRegion, result should always be an instance of TextureRegion.",
+    "meta" : [ ]
+  } ]
+}

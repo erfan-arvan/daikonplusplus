@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method likely requires a non-null instantTime to identify the operation timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "A list of partitions to delete should not be null; if it were null, the method would likely error before any processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is likely required for method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.isEmpty() || partitions.size() >= 0",
+    "rationale" : "The size of a collection is always non-negative; empty lists are supported.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitions.isEmpty() || partitions.size() == 0",
+    "rationale" : "If partitions is empty, its size is zero (relationship between .isEmpty and .size).",
+    "meta" : [ ]
+  } ]
+}

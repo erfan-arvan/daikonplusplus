@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "Dereferencing writeMetadata methods is unsafe if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "Method creates a stream over writeMetadata.getWriteStatuses(), which must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!writeMetadata.getWriteStatuses().isEmpty()",
+    "rationale" : "The stream and mapping operate over writeMetadata.getWriteStatuses(); an empty list may be valid but a non-empty list is likely expected for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "Dereferencing writeStatus.getStat() is only safe if each WriteStatus is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "The result of writeStatus.getStat() is collected; so all such calls should be non-null for correct downstream processing.",
+    "meta" : [ ]
+  } ]
+}

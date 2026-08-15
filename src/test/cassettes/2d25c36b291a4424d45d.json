@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method assumes inputRecords is not null for streaming and processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords instanceof List",
+    "rationale" : "inputRecords is declared as a List type, so this should always hold at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "List.size() returns a non-negative integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Trivially, at method entry, no further information about content is guaranteed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(record -> record != null)",
+    "rationale" : "Common API usage expects that all elements of inputRecords are non-null for downstream processing, though not strictly required.",
+    "meta" : [ ]
+  } ]
+}

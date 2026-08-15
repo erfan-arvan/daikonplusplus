@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "!WriteOperationType.LOG_COMPACT.equals(operationType)",
+    "rationale" : "Method throws and does not reach exit if operationType is LOG_COMPACT.",
+    "meta" : [ {
+      "key" : "defensiveCheck",
+      "value" : "Ensures method proceeds only if operation type is not LOG_COMPACT"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is required for method logic and is not expected to be null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "table"
+    } ]
+  }, {
+    "expression" : "pendingCompactionTimeline != null",
+    "rationale" : "pendingCompactionTimeline must be non-null for meaningful compaction checks.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "pendingCompactionTimeline"
+    } ]
+  }, {
+    "expression" : "operationType != null",
+    "rationale" : "operationType is required for dispatch and is expected to be non-null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "operationType"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to method calls and must not be null.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "instantTime"
+    } ]
+  } ]
+}

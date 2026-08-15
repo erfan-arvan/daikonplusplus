@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "text == null || text.length() >= 0",
+    "rationale" : "A String's length is always >= 0 if text is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || !text.isEmpty()",
+    "rationale" : "The method is intended to set display text, so a non-empty String may be desirable if not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "text == null || text.trim().length() >= 0",
+    "rationale" : "Trimming a String results in a non-negative length (if text is not null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No additional constraints are imposed by the method implementation.",
+    "meta" : [ ]
+  } ]
+}

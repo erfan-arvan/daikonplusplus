@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List, as a List is constructed using stream.collect() even if it could be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> r != null)",
+    "rationale" : "Only non-null HoodieRecord<T> are included in the returned list, due to filter(Objects::nonNull).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "After deduplication, the output list cannot have more elements than the input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schemaStr != null",
+    "rationale" : "schemaStr is used to create a HoodieSchema via HoodieSchema.parse(schemaStr); it must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orderingFieldNames != null",
+    "rationale" : "orderingFieldNames is passed to the reduceRecords call and expected to be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

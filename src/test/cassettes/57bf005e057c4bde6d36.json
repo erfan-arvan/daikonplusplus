@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs and returns a new LinkedHashMap, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().flatMap(List::stream).allMatch(dedupedRecords::contains)",
+    "rationale" : "Each value in result is created from dedupedRecords, so all HoodieRecord<T> in the result map's values must exist in the input list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().mapToInt(List::size).sum() == dedupedRecords.size()",
+    "rationale" : "Partitioning does not drop or duplicate records, so the total number of HoodieRecord<T> in the result map should equal the input list size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().stream().allMatch(key -> partitioner != null)",
+    "rationale" : "If there are any partitions, partitioner must have been used to calculate keys, so partitioner is never null if partitions are present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> !list.isEmpty())",
+    "rationale" : "Each entry in result is created only for partition keys with at least one HoodieRecord<T>, so all value lists must be non-empty.",
+    "meta" : [ ]
+  } ]
+}

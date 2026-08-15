@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "method immediately operates on tileSet, and tileSet.getProperties() is called without null checks.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiles != null",
+    "rationale" : "enhanced for loop over tiles; must not be null to allow iteration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageWidth >= 0",
+    "rationale" : "tile and image-related values are non-negative in tile map contexts; negative widths would be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilewidth > 0",
+    "rationale" : "tilewidth used as divisor; division by zero must not occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileheight > 0",
+    "rationale" : "tileheight used as divisor; division by zero must not occur.",
+    "meta" : [ ]
+  } ]
+}

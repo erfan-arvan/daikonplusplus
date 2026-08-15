@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders == null || !orders.isEmpty()",
+    "rationale" : "If orders is null or not empty, the method proceeds beyond the early return; otherwise, we never reach this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "The total price computed is never negative; 0.0 is returned for empty or null orders, otherwise positive totals accumulate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders == null ? result == 0.0 : true",
+    "rationale" : "If orders is null, the method immediately returns 0.0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "! (orders != null && orders.isEmpty()) || result == 0.0",
+    "rationale" : "If orders is empty (and not null), result is 0.0 due to the early return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders != null || result == 0.0",
+    "rationale" : "If orders is null, only possible result is 0.0 from the early return.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method assigns data based on the WorkloadProfile so the profile should not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method expects a valid HoodieEngineContext to process inserts, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "The method iterates over partition paths from the profile, so getPartitionPaths() must not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths().isEmpty() || profile.getPartitionPaths().size() > 0",
+    "rationale" : "Partition paths may be empty, but if not, there will be at least one partition path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.config != null",
+    "rationale" : "The method relies on config for settings, so it should be initialized.",
+    "meta" : [ ]
+  } ]
+}

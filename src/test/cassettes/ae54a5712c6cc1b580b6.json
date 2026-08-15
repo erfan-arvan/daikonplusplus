@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "The args array passed to main is never null and has a non-negative length.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Java main method args array is always non-null."
+    } ]
+  }, {
+    "expression" : "args.getClass().isArray()",
+    "rationale" : "args is an array of String objects.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is an array of String."
+    } ]
+  } ]
+}

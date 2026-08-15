@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result instanceof N",
+    "rationale" : "The method may return null or an instance of N, as indicated by the @Null annotation and the return comment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0 || result == null",
+    "rationale" : "If y is negative, a valid node cannot be selected, so result is likely null.",
+    "meta" : [ ]
+  } ]
+}

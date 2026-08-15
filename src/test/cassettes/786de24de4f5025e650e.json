@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method uses the context object and passes it to another constructor, so it must be non-null to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is passed as an argument to another class; likely required to be non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is used as an argument; likely not expected to be null in normal use.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp.length() > 0",
+    "rationale" : "restoreInstantTimestamp, if non-null, is likely a timestamp string that should not be empty.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "low"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp.length() > 0",
+    "rationale" : "savepointToRestoreTimestamp, if non-null, is likely a non-empty string representing a timestamp.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "low"
+    } ]
+  } ]
+}

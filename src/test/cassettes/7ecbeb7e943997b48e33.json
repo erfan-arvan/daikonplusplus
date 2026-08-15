@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "width != null",
+    "rationale" : "The method will throw an exception if width is null, so this must hold at method entry.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "height != null",
+    "rationale" : "The method will throw an exception if height is null, establishing this as a required invariant at method entry.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "!width.equals(null)",
+    "rationale" : "By contract, .equals(null) should be false for any object; with the null check above, this is safe and indicates non-nullity further.",
+    "meta" : [ {
+      "key" : "equalsNullCheck",
+      "value" : "Value"
+    } ]
+  }, {
+    "expression" : "!height.equals(null)",
+    "rationale" : "Reinforces non-nullness for use in code that may use .equals on height.",
+    "meta" : [ {
+      "key" : "equalsNullCheck",
+      "value" : "Value"
+    } ]
+  } ]
+}

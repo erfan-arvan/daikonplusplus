@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "An upsert should have a non-null instant time as that identifies the commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The list of records to be upserted should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required to perform upserts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.size() >= 0",
+    "rationale" : "If 'records' is not empty, its size must be non-negative; this uses pure List property, confirming input integrity.",
+    "meta" : [ ]
+  } ]
+}

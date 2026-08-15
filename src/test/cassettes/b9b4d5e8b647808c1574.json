@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Padding values are often non-negative in UI frameworks; padBottom likely follows this convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == padBottom",
+    "rationale" : "The method directly returns padBottom, so result always equals padBottom.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= Float.MAX_VALUE",
+    "rationale" : "The result is a float and thus cannot exceed Float.MAX_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= -Float.MAX_VALUE",
+    "rationale" : "A float value cannot be less than -Float.MAX_VALUE.",
+    "meta" : [ ]
+  } ]
+}

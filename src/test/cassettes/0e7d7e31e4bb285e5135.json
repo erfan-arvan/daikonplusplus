@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a parameter for creating a new instant, so it should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "Instant time should represent a specific point in time, thus should not be empty.",
+    "meta" : [ {
+      "key" : "nonEmpty",
+      "value" : "instantTime is not empty string"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Valid instant time strings have positive length.",
+    "meta" : [ {
+      "key" : "length",
+      "value" : "instantTime length positive"
+    } ]
+  } ]
+}

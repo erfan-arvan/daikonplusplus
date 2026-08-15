@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The input list 'data' should not be null to perform mapping.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "data not null"
+    } ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The mapping function 'func' should not be null to apply mapping.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "func not null"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "The 'parallelism' parameter is expected to be a positive integer for parallel processing.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "positive integer"
+    } ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "The size of 'data' list is always non-negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "non-negative size"
+    } ]
+  } ]
+}

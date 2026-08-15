@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata; a null return would be exceptional and not expected for this method pattern.",
+    "meta" : [ ]
+  }, {
+    "expression" : "logCompactionInstantTime != null",
+    "rationale" : "logCompactionInstantTime is passed as input to underlying compaction logic and is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required parameter handed to the RunCompactionActionExecutor constructor, likely always non-null at exit.",
+    "meta" : [ ]
+  } ]
+}

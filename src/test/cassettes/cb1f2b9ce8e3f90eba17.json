@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method expects non-null input records to process; null input may result in NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The HoodieTable instance is required for all subsequent operations, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "HoodieWriteConfig contains configuration for the bulk insert and must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "BulkInsertPartitioner is used to repartition records, must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "configuredParallelism > 0",
+    "rationale" : "Parallelism should be a positive integer for shuffle and write operations.",
+    "meta" : [ ]
+  } ]
+}

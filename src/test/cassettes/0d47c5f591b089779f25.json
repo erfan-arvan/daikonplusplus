@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of bulkInsert, unless an exception is thrown; if it returns, result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Successful bulkInsert should produce non-null WriteStatus list in the HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "By method contract, getWriteStatuses returns a List.",
+    "meta" : [ ]
+  } ]
+}

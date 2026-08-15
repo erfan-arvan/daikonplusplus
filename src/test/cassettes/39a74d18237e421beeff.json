@@ -1,0 +1,34 @@
+{
+  "invariants" : [ {
+    "expression" : "b.doubleValue() != 0.0",
+    "rationale" : "Denominator should not be zero to avoid division by zero.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method excludes the case b.doubleValue() == 0.0 by returning null early"
+    }, {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "(a instanceof Integer) || (a instanceof Double)",
+    "rationale" : "Parameter 'a' must be either Integer or Double to avoid exception.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Only Integer or Double types are supported for parameter 'a' in the method."
+    } ]
+  }, {
+    "expression" : "b instanceof Number",
+    "rationale" : "Parameter 'b' must be a Number.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Parameter b must be a Number to call doubleValue()."
+    } ]
+  }, {
+    "expression" : "a instanceof Number",
+    "rationale" : "Parameter 'a' must be a Number.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Parameter a must be a Number to call intValue() or doubleValue()."
+    } ]
+  } ]
+}

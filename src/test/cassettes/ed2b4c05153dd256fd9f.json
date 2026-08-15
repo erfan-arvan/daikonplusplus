@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter should not be null for the clean operation to proceed.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "Ensures no NullPointerException when context is used"
+    } ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "cleanInstantTime should be non-null to specify the clean instant time.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "Ensures cleanInstantTime is provided"
+    } ]
+  }, {
+    "expression" : "!cleanInstantTime.isEmpty()",
+    "rationale" : "cleanInstantTime should not be empty to be a valid instant time string.",
+    "meta" : [ {
+      "key" : "string-check",
+      "value" : "Ensures cleanInstantTime is not empty"
+    } ]
+  }, {
+    "expression" : "context instanceof org.apache.hudi.common.engine.HoodieEngineContext",
+    "rationale" : "context is expected to be of HoodieEngineContext type or its subclass.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "Confirms expected runtime type"
+    } ]
+  } ]
+}

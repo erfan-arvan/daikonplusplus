@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null list by collecting the stream into a list, which never results in null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(fid -> fid != null)",
+    "rationale" : "The getFileId() method is expected to return non-null file ids for each file slice, so the result list should contain no null entries.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The code applies distinct() to the stream before collecting, so the resulting list contains only unique file ids.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.stream().allMatch(fid -> !fid.isEmpty())",
+    "rationale" : "Assuming file ids are non-empty strings, as they identify file slices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument in several method calls, so it must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

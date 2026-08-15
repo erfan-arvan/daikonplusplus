@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required as an operation instant and is likely expected to be non-null for commit actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "partition is used as a key input to determine bucket info; null would result in failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is cast and method-called immediately, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to further methods, which implies it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner instanceof JavaUpsertPartitioner",
+    "rationale" : "partitioner is cast to JavaUpsertPartitioner before use, so it must be that type.",
+    "meta" : [ ]
+  } ]
+}

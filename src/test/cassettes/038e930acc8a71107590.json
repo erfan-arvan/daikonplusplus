@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of an execute() operation which is expected to produce a HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The input list of keys is passed to another method and used in constructor, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is used in the construction of a commit action; it should be present and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStats() != null",
+    "rationale" : "The write statistics inside HoodieWriteMetadata should be initialized after deletion commit execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatus() != null",
+    "rationale" : "The write status is a main output of the underlying JavaDeleteCommitActionExecutor and should not be null.",
+    "meta" : [ ]
+  } ]
+}

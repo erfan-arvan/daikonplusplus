@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "prefWidth != null",
+    "rationale" : "prefWidth must be accessible to call prefWidth.get(actor).",
+    "meta" : [ ]
+  }, {
+    "expression" : "padLeft != null",
+    "rationale" : "padLeft must be accessible to call padLeft.get(this).",
+    "meta" : [ ]
+  }, {
+    "expression" : "padRight != null",
+    "rationale" : "padRight must be accessible to call padRight.get(this).",
+    "meta" : [ ]
+  }, {
+    "expression" : "getMinWidth() >= 0",
+    "rationale" : "Preferred and minimum sizes are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != null || prefWidth.get(null) != null",
+    "rationale" : "prefWidth.get(actor) is called, so either actor is not null or prefWidth.get can handle null.",
+    "meta" : [ ]
+  } ]
+}

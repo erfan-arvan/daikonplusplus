@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method expects pre-prepared records as input, and downstream operations will likely require a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime is used for versioning/commit purposes, and an empty or null string would be invalid in typical Hudi workflows.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || instantTime != null",
+    "rationale" : "If there are records to process, instantTime must not be null for versioning/commit tracking.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative; helps confirm the state of the input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "It is typical to expect each HoodieRecord in the input list to be non-null to prevent processing errors.",
+    "meta" : [ ]
+  } ]
+}

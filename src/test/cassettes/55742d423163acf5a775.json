@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "minWidth != null",
+    "rationale" : "The method throws an exception if minWidth is null, so minWidth must be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this', so result must be identical to this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.minWidth == minWidth",
+    "rationale" : "The method assigns the parameter minWidth to this.minWidth prior to return.",
+    "meta" : [ ]
+  } ]
+}

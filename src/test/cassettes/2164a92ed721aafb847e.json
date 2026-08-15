@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Method cannot operate without a valid config.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Config is usually required to initialize or create a table."
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Table creation relies on metaClient to access metadata.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "MetaClient is required to locate and interact with table metadata."
+    } ]
+  }, {
+    "expression" : "metaClient.getBasePath() != null",
+    "rationale" : "A valid base path is generally mandatory for table operations.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Base path for table storage must be set."
+    } ]
+  }, {
+    "expression" : "!metaClient.isClosed()",
+    "rationale" : "The metaClient object is expected to be open when used.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Cannot create/use table using a closed MetaClient."
+    } ]
+  }, {
+    "expression" : "config.getBasePath().equals(metaClient.getBasePath())",
+    "rationale" : "Consistent base paths ensure the correct table is created and referenced.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Paths between config and metaClient should match for integrity."
+    } ]
+  } ]
+}

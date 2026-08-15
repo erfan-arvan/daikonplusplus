@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always collects results into a new List, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The input parameter 'data' is expected to be non-null to avoid NullPointerException during streaming.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == data.size()",
+    "rationale" : "The map operation produces exactly one output for each input element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is usually required to be a positive integer, although it is not directly used in the implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "Null function would cause a NullPointerException; a valid function is required for mapping.",
+    "meta" : [ ]
+  } ]
+}

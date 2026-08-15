@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The parameter writeMetadata is used directly in the method, so it is likely to be expected non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata instanceof HoodieWriteMetadata",
+    "rationale" : "The argument writeMetadata is explicitly typed as HoodieWriteMetadata<List<WriteStatus>>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata instanceof java.io.Serializable",
+    "rationale" : "HoodieWriteMetadata might implement Serializable to support distributed processing.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "Required to safely call setter methods on layer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "Required to safely call attribute retrieval methods on element.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getAttribute(\"opacity\", \"1.0\") != null",
+    "rationale" : "Ensures the string value for opacity can be parsed by Float.parseFloat.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getIntAttribute(\"visible\", 1) == 1 || element.getIntAttribute(\"visible\", 1) == 0",
+    "rationale" : "The visible attribute is interpreted as a boolean flag.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getAttribute(\"tintcolor\", \"#ffffffff\").startsWith(\"#\")",
+    "rationale" : "Tint color strings use a hex code prefixed with '#'.",
+    "meta" : [ ]
+  } ]
+}

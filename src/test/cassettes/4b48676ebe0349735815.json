@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "indexInstantTime is a required parameter passed to the index scheduling, so it is unlikely to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "partitionsToIndex must not be null since it is required for indexing operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "partitionPaths should be non-null to indicate the data partitions involved.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex.size() >= 0",
+    "rationale" : "List.size() is always non-negative; this captures list invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths.size() >= 0",
+    "rationale" : "List.size() is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

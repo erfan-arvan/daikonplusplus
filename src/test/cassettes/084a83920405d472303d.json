@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "The EngineProperty key should typically not be null when setting a property; many property maps or enums may not permit null keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "Setting a property to a null value often represents omission, which may not be intended; many property systems expect non-null values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value == null || !value.isEmpty()",
+    "rationale" : "If value is provided (not null), it should not be an empty string to represent a meaningful property value.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "Event is expected to be non-null when passed into an input event handler.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keycode >= 0",
+    "rationale" : "Keycodes are typically non-negative integer constants representing keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event instanceof com.badlogic.gdx.scenes.scene2d.InputEvent",
+    "rationale" : "The method expects an InputEvent; verifying correct type can be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() != null || event.getStage() == null",
+    "rationale" : "If this field exists, there may be a relationship between the text field's stage and the event's stage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "Method is an instance method, and 'this' is in scope and non-null at entry.",
+    "meta" : [ ]
+  } ]
+}

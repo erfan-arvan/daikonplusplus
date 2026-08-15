@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null && writeMetadata.getWriteStatuses() != null && !writeMetadata.getWriteStatuses().isEmpty()",
+    "rationale" : "writeMetadata and its write statuses should be non-null and contain elements before triggering writes.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "Ensures writeMetadata and its write statuses list are non-null and non-empty for safe iteration."
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "All elements in the write statuses list must be non-null to avoid NullPointerExceptions in the stream operation.",
+    "meta" : [ {
+      "key" : "element-non-null",
+      "value" : "Ensures no null elements in write statuses list."
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "Each write status's stat should be non-null since they are collected into TableWriteStats.",
+    "meta" : [ {
+      "key" : "stat-non-null",
+      "value" : "Ensures write status stats are non-null."
+    } ]
+  }, {
+    "expression" : "writeMetadata.getClass().getName().contains(\"HoodieWriteMetadata\")",
+    "rationale" : "writeMetadata should be an instance of HoodieWriteMetadata.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "Confirms correct type of writeMetadata."
+    } ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses().size() >= 0",
+    "rationale" : "The list size of write statuses must be zero or more.",
+    "meta" : [ {
+      "key" : "size-non-negative",
+      "value" : "Ensures size is non-negative."
+    } ]
+  } ]
+}

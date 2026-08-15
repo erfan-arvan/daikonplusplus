@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "draggingPointer != -1",
+    "rationale" : "This matches the slider's concept of being dragged, as seen in the method body.",
+    "meta" : [ {
+      "key" : "relatesTo",
+      "value" : "dragging state"
+    } ]
+  }, {
+    "expression" : "draggingPointer == -1 || draggingPointer >= 0",
+    "rationale" : "Either the pointer is not dragging (special value -1), or a valid non-negative pointer id.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "valid pointer id values"
+    } ]
+  } ]
+}

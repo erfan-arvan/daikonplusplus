@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method is about to stream dedupedRecords and use it in mapping and grouping operations, which would throw if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is used in a lambda for grouping; if it is null a NullPointerException would occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "Each element of dedupedRecords is dereferenced via r.getKey() and r.getCurrentLocation().",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.stream().allMatch(r -> r.getKey() != null)",
+    "rationale" : "The key is used in partitioner.getPartition, so null keys could result in runtime errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords.isEmpty() || dedupedRecords.size() > 0",
+    "rationale" : "If dedupedRecords is not empty, it must have size greater than 0; this is not a tautology but a basic collection property.",
+    "meta" : [ ]
+  } ]
+}

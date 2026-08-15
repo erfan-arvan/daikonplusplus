@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "map is always dereferenced by called methods, implying it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is passed into layer-processing routines, which are likely to require a valid reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element.getString is called, which requires element to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.isObject()",
+    "rationale" : "Tiled map layer entries should be JSON objects; many methods on JsonValue assume this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is passed to several layer processing methods, which would typically expect a valid file reference.",
+    "meta" : [ ]
+  } ]
+}

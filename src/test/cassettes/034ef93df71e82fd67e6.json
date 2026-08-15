@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "A null check is performed in the method body via region = layer.getTextureRegion(); if region == null return, but 'layer' itself should not be null to call methods on it safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() == null || layer.getTextureRegion().getTexture() != null",
+    "rationale" : "batch.draw is called with region.getTexture(); method returns early if region is null, so if not null, getTexture() must also be usable and non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getX() >= 0",
+    "rationale" : "Layer X coordinate used as a position; it may reasonably be non-negative in most map scenarios.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getY() >= 0",
+    "rationale" : "Layer Y coordinate used as a position; often non-negative in world-space layouts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isRepeatX() == true || layer.isRepeatY() == true || (layer.isRepeatX() == false && layer.isRepeatY() == false)",
+    "rationale" : "The code distinguishes between the cases when both repeats are false and when either is true; these are the only possibilities.",
+    "meta" : [ ]
+  } ]
+}

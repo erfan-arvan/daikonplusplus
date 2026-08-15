@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method expects a list of records to write; null would likely be invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime identifies the commit instant and is critical for write operations, so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof java.util.List",
+    "rationale" : "The parameter is declared as a List; should always be a List at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime is typically a non-empty string representing a timestamp.",
+    "meta" : [ ]
+  } ]
+}

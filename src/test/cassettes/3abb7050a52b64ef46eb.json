@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method expects dedupedRecords to be non-null as it will be passed into HoodieListData.eager.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method assumes a valid HoodieEngineContext to perform tagging and indexing operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "A non-null table is necessary for calling table.getIndex() and tagLocation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords instanceof List",
+    "rationale" : "dedupedRecords is explicitly typed as List<HoodieRecord<T>>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table instanceof HoodieTable",
+    "rationale" : "table is explicitly typed as HoodieTable<T, List<HoodieRecord<T>>, List<HoodieKey>, List<WriteStatus>>.",
+    "meta" : [ ]
+  } ]
+}

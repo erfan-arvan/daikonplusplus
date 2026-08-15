@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && writeStatuses != null",
+    "rationale" : "The method uses result and writeStatuses objects and returns a non-null list, so both should be non-null at exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "checks both result and writeStatuses are non-null"
+    } ]
+  }, {
+    "expression" : "result.size() == writeStatuses.size()",
+    "rationale" : "The method processes writeStatuses and returns an updated list status of the same size.",
+    "meta" : [ {
+      "key" : "size relation",
+      "value" : "result and writeStatuses sizes should match"
+    } ]
+  }, {
+    "expression" : "result.containsAll(writeStatuses) == false",
+    "rationale" : "Result is an updated list from updateLocation, so it is not identical to writeStatuses.",
+    "meta" : [ {
+      "key" : "difference",
+      "value" : "result likely contains updated WriteStatus objects, not the originals"
+    } ]
+  }, {
+    "expression" : "writeStatuses.stream().allMatch(ws -> ws != null)",
+    "rationale" : "Input list writeStatuses elements should be non-null for updateLocation to process them correctly.",
+    "meta" : [ {
+      "key" : "non-null elements",
+      "value" : "writeStatuses list elements are non-null"
+    } ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "The updateLocation likely returns a non-empty list representing updated statuses.",
+    "meta" : [ {
+      "key" : "non-emptiness",
+      "value" : "result list is non-empty after update"
+    } ]
+  } ]
+}

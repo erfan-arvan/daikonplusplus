@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of the execute() method from JavaUpsertDeltaCommitActionExecutor, so result should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter is passed directly to the action executor and likely required to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The collection of records to upsert should be non-null for the upsert to make sense.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is required for the action and is cast within the method, so it should be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Since result is a HoodieWriteMetadata<List<WriteStatus>>, its collection of WriteStatus results should not be null upon return.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "result consistency"
+    } ]
+  } ]
+}

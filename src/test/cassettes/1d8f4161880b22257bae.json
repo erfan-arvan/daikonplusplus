@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to downstream commitStats, which likely expects a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is used for stream and mapping, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "partitionToReplacedFileIds is provided to downstream calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null",
+    "rationale" : "commitActionType distinguishes commit behavior, likely must be provided.",
+    "meta" : [ ]
+  } ]
+}

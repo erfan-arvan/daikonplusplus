@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism often refers to the number of worker threads or tasks, which should be positive.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter constraint"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method immediately operates on 'keys', so it is expected not to be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter nullness"
+    } ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The method invokes methods on 'table', so it is expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter nullness"
+    } ]
+  }, {
+    "expression" : "parallelism <= keys.size()",
+    "rationale" : "Often, the parallelism should not exceed the number of items to be processed.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter relationship"
+    } ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection property"
+    } ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "The method returns either 0 or the result of Math.max with non-negative getMinWidth() values, so result cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 0 || result == style.vScrollKnob.getMinWidth() || result == style.vScroll.getMinWidth() || result == Math.max(style.vScrollKnob.getMinWidth(), style.vScroll.getMinWidth())",
+    "rationale" : "These are the only possible return values due to the flow of the method.",
+    "meta" : [ ]
+  } ]
+}

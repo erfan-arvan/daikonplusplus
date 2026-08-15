@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an iterator, produced by Collections.singletonList(...).iterator(), which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext()",
+    "rationale" : "Since the method returns an iterator of a singleton list, hasNext() will always be true when the iterator is created.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.hasNext() || result.next() != null",
+    "rationale" : "The singleton list contains a non-null WriteStatus list returned by createHandle.close(), so if hasNext() is true, next() is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordMap.isEmpty() || result.hasNext()",
+    "rationale" : "Even if the recordMap is empty, the method creates a WriteStatus list and returns it wrapped in an iterator, which will always have next.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null && fileId != null && instantTime != null",
+    "rationale" : "These are passed to the HoodieCreateHandle constructor, which likely requires non-null values for proper operation.",
+    "meta" : [ ]
+  } ]
+}

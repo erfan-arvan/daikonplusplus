@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords is a required field for bulkInsert, so it should not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed to bulkInsert, so it is likely initialized.",
+    "meta" : [ ]
+  } ]
+}

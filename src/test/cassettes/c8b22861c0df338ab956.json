@@ -1,0 +1,41 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a List<O>, so result must not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is guaranteed not to be null"
+    }, {
+      "key" : "method_exit",
+      "value" : "result is the returned value"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method calls data.stream(), so data must not be null.",
+    "meta" : [ {
+      "key" : "parameter_nullness",
+      "value" : "data is assumed non-null for stream() call"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "The size of a List is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "size non-negative"
+    } ]
+  }, {
+    "expression" : "result.size() >= 0 && (data == null || data.size() >= 0)",
+    "rationale" : "If data is non-null then its size is >= 0; result size is >= 0.",
+    "meta" : [ {
+      "key" : "redundant_null_check",
+      "value" : "redundant because data is non-null, but defensive"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "parallelism is typically positive to enable parallel processing.",
+    "meta" : [ {
+      "key" : "parameter_range",
+      "value" : "parallelism is positive for meaningful parallelism"
+    } ]
+  } ]
+}

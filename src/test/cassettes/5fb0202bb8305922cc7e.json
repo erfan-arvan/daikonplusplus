@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method collects to a new list, which will never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "Each element comes from getFileId() of a SmallFile's location, which should not yield null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == smallFiles.size()",
+    "rationale" : "Result is produced by mapping each element of smallFiles to a file id.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> id != null && !id.isEmpty())",
+    "rationale" : "File IDs are likely to be non-null and non-empty for valid SmallFile objects.",
+    "meta" : [ ]
+  } ]
+}

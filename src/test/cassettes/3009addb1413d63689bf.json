@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method consistently operates on result, invoking setters and passing it to another method, so it is expected to be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "result.setWriteStatuses(statuses) is always called in the method body with a presumably non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "result.setPartitionToReplaceFileIds(...) is always called before return with the method result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "result.setWriteStatuses is called with a List argument.",
+    "meta" : [ ]
+  } ]
+}

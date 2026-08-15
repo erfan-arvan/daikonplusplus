@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "verticalAlign != null",
+    "rationale" : "It is common for alignment strings to be non-null, as null might not convey useful alignment information.",
+    "meta" : [ ]
+  }, {
+    "expression" : "verticalAlign == null || verticalAlign.length() >= 0",
+    "rationale" : "If verticalAlign is not null, its length is always non-negative by definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "verticalAlign == null || !verticalAlign.isEmpty() || verticalAlign.isEmpty()",
+    "rationale" : "Covers the exhaustiveness of the String API: if not null, the string is either empty or not empty.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Ensures context is available before proceeding.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The context parameter is typically required for engine operations and is expected to be non-null."
+    } ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "Prevents null pointer exceptions when using the parameter.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "A valid compaction instant time string is needed for compaction attempts or error reporting."
+    } ]
+  }, {
+    "expression" : "!compactionInstantTime.isEmpty()",
+    "rationale" : "Ensures compaction instant time is present if compaction is triggered.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The compaction instant time parameter should represent a concrete instant, not an empty string."
+    } ]
+  }, {
+    "expression" : "compactionInstantTime.trim().length() > 0",
+    "rationale" : "Protects against strings with only whitespace for instant time.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Whitespace-only values for compactionInstantTime are not meaningful."
+    } ]
+  } ]
+}

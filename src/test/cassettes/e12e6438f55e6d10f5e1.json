@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "cullingArea == null || (cullingArea.width >= 0 && cullingArea.height >= 0)",
+    "rationale" : "Rectangle dimensions (width, height) are typically non-negative in graphical culling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cullingArea == null || cullingArea.width == Math.abs(cullingArea.width)",
+    "rationale" : "Width should be non-negative due to assignment from another rectangle's width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cullingArea == null || cullingArea.height == Math.abs(cullingArea.height)",
+    "rationale" : "Height should be non-negative due to assignment from another rectangle's height.",
+    "meta" : [ ]
+  } ]
+}

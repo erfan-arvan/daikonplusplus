@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs and returns a new HoodieData object via HoodieListData.eager, ensuring non-nullity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method immediately dereferences and uses 'records', implying it cannot be null on method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method directly uses 'context', so it must have been non-null throughout execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "The method directly uses 'hoodieTable', so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == records.count()",
+    "rationale" : "The method maps over all input records and tags location, preserving the number of records.",
+    "meta" : [ ]
+  } ]
+}

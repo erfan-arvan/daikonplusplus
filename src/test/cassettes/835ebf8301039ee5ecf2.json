@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method operates on 'records', so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method uses 'context', so it must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "The method relies on 'hoodieTable' and needs it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof HoodieData",
+    "rationale" : "By the method signature, 'records' must be a HoodieData.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable instanceof HoodieTable",
+    "rationale" : "'hoodieTable' is expected to be of type HoodieTable from the signature.",
+    "meta" : [ ]
+  } ]
+}

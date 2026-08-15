@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionFilePathAndSizeTriplet != null",
+    "rationale" : "Method parameters should not be null unless specified, and null checks are often preconditions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "indexDefinition is required for index record generation and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive integer reflecting the desired level of parallel execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tableSchema != null",
+    "rationale" : "tableSchema is essential for interpreting input records and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to track the point in time for the operation and is expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

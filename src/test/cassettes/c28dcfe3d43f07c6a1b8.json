@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new list, and the collect(Collectors.toList()) never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "The result list is constructed by filtering out nulls from the intermediate stream, so there are no nulls in result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "The deduplication process groups and reduces records, so there cannot be more records in the result than the input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> r != null)",
+    "rationale" : "All elements in the result stream are filtered to be non-null before collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism is likely expected to be at least 1, as 0 parallelism does not make sense in execution and would likely cause error upstream.",
+    "meta" : [ ]
+  } ]
+}

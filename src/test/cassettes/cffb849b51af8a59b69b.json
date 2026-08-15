@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "prefRows >= 0",
+    "rationale" : "It is likely that the number of rows for a text area should be non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "range"
+    } ]
+  }, {
+    "expression" : "prefRows == this.prefRows",
+    "rationale" : "The method directly assigns the parameter to the object's field, so they are equal at method exit.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "assignment"
+    } ]
+  }, {
+    "expression" : "Float.isFinite(prefRows)",
+    "rationale" : "A sensible invariant for numeric parameters is that they be finite, not infinite or NaN.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "sanity"
+    } ]
+  } ]
+}

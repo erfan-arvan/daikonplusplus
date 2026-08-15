@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "Option values by convention should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "MetaClient is typically non-null when operations are performed on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inFlightInstantTimestamp.isPresent() || !inFlightInstantTimestamp.isPresent()",
+    "rationale" : "isPresent() on Option is side-effect free and encapsulates value presence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "MetaClient should provide access to a non-null table configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inFlightInstantTimestamp.isPresent() || inFlightInstantTimestamp.get() != null",
+    "rationale" : "If Option is present, its value should be non-null.",
+    "meta" : [ ]
+  } ]
+}

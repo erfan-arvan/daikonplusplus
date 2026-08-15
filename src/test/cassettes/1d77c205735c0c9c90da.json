@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method uses 'instantTime' as an argument in a constructor, so it is expected to be non-null at method exit.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-check"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "A non-empty 'instantTime' is likely required for transition to inflight state; empty strings would not represent valid instants.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-check"
+    } ]
+  } ]
+}

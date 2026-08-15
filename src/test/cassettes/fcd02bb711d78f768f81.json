@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantToSavepoint != null",
+    "rationale" : "An instant to savepoint is likely required for a savepoint operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user != null",
+    "rationale" : "A user is commonly required to create a savepoint for auditing or tracking.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is necessary for distributed operations in Hudi.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantToSavepoint.length() > 0",
+    "rationale" : "The instant identifier for a savepoint should be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "user.length() > 0",
+    "rationale" : "A user identifier is typically not blank in audit-sensitive operations like savepointing.",
+    "meta" : [ ]
+  } ]
+}

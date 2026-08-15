@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionId >= 0",
+    "rationale" : "Partition ID should be non-negative as it identifies partitions.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Partition IDs are typically non-negative integers."
+    } ]
+  }, {
+    "expression" : "partitionId <= Integer.MAX_VALUE",
+    "rationale" : "Partition ID is an int value, bounded by integer limits.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "partitionId is of type int, so its value is bounded."
+    } ]
+  } ]
+}

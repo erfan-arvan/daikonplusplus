@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null || (index < 0)",
+    "rationale" : "If no actor is removed, result is null, likely due to an out-of-bounds or invalid index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || (index >= 0)",
+    "rationale" : "If an actor is actually removed, its index must be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || !unfocus",
+    "rationale" : "If result is null, it is likely that unfocus is false or the index was out-of-bounds; otherwise, remove might not succeed.",
+    "meta" : [ ]
+  } ]
+}

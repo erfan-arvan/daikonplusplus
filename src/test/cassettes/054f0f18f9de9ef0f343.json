@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "selection != null",
+    "rationale" : "Drawable selection must be non-null to safely call draw on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "batch != null",
+    "rationale" : "Batch must be non-null as it is required by the selection.draw method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0",
+    "rationale" : "Width is likely to represent a non-negative dimension for drawing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Height should be non-negative as it is a dimension for rendering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selection instanceof Drawable",
+    "rationale" : "Ensures that the selection object is a valid Drawable before use.",
+    "meta" : [ ]
+  } ]
+}

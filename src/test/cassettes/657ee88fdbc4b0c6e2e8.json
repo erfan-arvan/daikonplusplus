@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getName().equals(\"objectgroup\") ? parentLayers.getCount() > 0 : true",
+    "rationale" : "parentLayers is only added to if element is objectgroup.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If an objectgroup was processed, a layer was added to parentLayers."
+    } ]
+  }, {
+    "expression" : "element != null && element.getName().equals(\"objectgroup\") ? element.getChildrenByName(\"object\").size >= 0 : true",
+    "rationale" : "objectgroup element's child object count is non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If the element is an objectgroup, it may have zero or more child 'object' elements."
+    } ]
+  }, {
+    "expression" : "element != null && element.getName().equals(\"objectgroup\") ? parentLayers.getCount() >= 1 : parentLayers.getCount() >= 0",
+    "rationale" : "parentLayers grows by at most one.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "An objectgroup adds one layer to parentLayers."
+    } ]
+  }, {
+    "expression" : "!(element.getName().equals(\"objectgroup\")) || parentLayers.get(parentLayers.getCount() - 1) != null",
+    "rationale" : "Recently added layer is not null if objectgroup.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If an objectgroup was processed, the new layer was added and is not null."
+    } ]
+  }, {
+    "expression" : "element.getName().equals(\"objectgroup\") == parentLayers.getCount() > 0 || !element.getName().equals(\"objectgroup\")",
+    "rationale" : "parentLayers reflects objectgroup processing.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "parentLayers only grows if processing an objectgroup."
+    } ]
+  } ]
+}

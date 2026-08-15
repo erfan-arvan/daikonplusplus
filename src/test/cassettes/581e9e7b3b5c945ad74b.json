@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(velocityY)",
+    "rationale" : "Ensures the velocityY parameter is a finite float value before assignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isNaN(velocityY) == false",
+    "rationale" : "Guarantees that velocityY is not NaN prior to being set, which may be expected in GUI input contexts.",
+    "meta" : [ ]
+  } ]
+}

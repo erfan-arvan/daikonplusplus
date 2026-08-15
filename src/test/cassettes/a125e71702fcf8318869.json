@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method unconditionally returns the result of getUpsertPartitioner(profile) or getInsertPartitioner(profile), and neither is expected to return null in correct usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile != null",
+    "rationale" : "The parameter profile is directly used as an argument and is thus expected to be non-null for method correctness.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method immediately calls methods on 'config', implying it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method immediately calls methods on 'context', implying it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "The base path from 'config' is used to initialize resources, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context.getStorageConf() != null",
+    "rationale" : "The result of 'context.getStorageConf()' is used to create a new instance, indicating it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

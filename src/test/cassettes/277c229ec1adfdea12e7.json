@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Many API conventions, especially for resource retrieval by name, require non-null names.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() > 0",
+    "rationale" : "Resource or color names passed to getColor are often expected to be non-empty strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.trim().length() == name.length()",
+    "rationale" : "A name with no leading or trailing whitespace is a common constraint for resource identifiers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "An empty string is typically not a valid key for color lookups.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.matches(\"[a-zA-Z0-9_]+\")",
+    "rationale" : "Name might be constrained to alphanumeric and underscore characters for resource names.",
+    "meta" : [ ]
+  } ]
+}

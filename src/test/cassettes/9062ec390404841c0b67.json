@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method is expected to process a list of input pairs; a null value may indicate a caller error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "A reduction function is required for the reduceByKey operation; it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism should be a positive integer to enable parallel processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().allMatch(pair -> pair != null)",
+    "rationale" : "The method implies mapping over pairs, hence pairs in the list should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().allMatch(pair -> pair.getKey() != null)",
+    "rationale" : "Keys are used for grouping in reduceByKey, so keys should not be null.",
+    "meta" : [ ]
+  } ]
+}

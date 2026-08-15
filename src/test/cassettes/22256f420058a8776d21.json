@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The code calls name.equals(...), so name should not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.isEmpty() == (name.length() == 0)",
+    "rationale" : "This invariant always holds for Java Strings as a property of the APIs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name instanceof String",
+    "rationale" : "Since 'name' is declared as a parameter of type String, this is always true.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Method expects a valid HoodieData for tagging location; null would likely cause failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext is used within method calls and cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "A valid HoodieTable is necessary for record location tagging.",
+    "meta" : [ ]
+  } ]
+}

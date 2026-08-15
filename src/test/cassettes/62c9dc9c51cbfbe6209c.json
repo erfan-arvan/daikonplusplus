@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "Region width is usually non-negative in UI layout code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Region height is usually non-negative in UI layout code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + width >= x",
+    "rationale" : "Sum of starting coordinate and non-negative width should be at least starting coordinate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y + height >= y",
+    "rationale" : "Sum of starting coordinate and non-negative height should be at least starting coordinate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width == actorWidth",
+    "rationale" : "After assignment, the field should equal the parameter.",
+    "meta" : [ ]
+  } ]
+}

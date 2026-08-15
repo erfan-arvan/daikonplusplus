@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator as per the return statements in both branches.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Input parameter 'recordItr' is expected to be non-null for this method to operate correctly.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "The 'idPfx' parameter is likely non-null since it is passed to the return objects without null-checks.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "The variable 'result' is declared and returned as an Iterator.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "java.util.Iterator"
+    } ]
+  }, {
+    "expression" : "result != null && (result.hasNext() || true)",
+    "rationale" : "Since 'result' is a fresh iterator, it will either have elements or be empty, but never null.",
+    "meta" : [ {
+      "key" : "trivial",
+      "value" : "true"
+    } ]
+  } ]
+}

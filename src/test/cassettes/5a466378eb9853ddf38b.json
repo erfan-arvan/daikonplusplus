@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism typically must be positive for parallel processing to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data must be non-null to be used by stream().",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func must be non-null to be used in flatMap operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!data.isEmpty() || parallelism >= 1",
+    "rationale" : "If data is empty, parallelism may still be at least 1; otherwise, parallelism > 0 is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= data.size() || data.isEmpty()",
+    "rationale" : "Parallelism is typically not set above data size unless the input is empty.",
+    "meta" : [ ]
+  } ]
+}

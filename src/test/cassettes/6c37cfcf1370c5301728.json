@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HoodieWriteMetadata, based on both conditional assignments in each branch.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "Regardless of whether records were deleted, result.getWriteStatuses() is always set, even using Collections.EMPTY_LIST in the empty case.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexLookupDuration() != null || result.getWriteStatuses().isEmpty()",
+    "rationale" : "Index lookup duration is set only if there were tagged valid records; otherwise, the WriteStatuses is set to an empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "deleteExecutor is required for both the delete or validator logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is used for parallelism and combine/shuffle checks and must be non-null.",
+    "meta" : [ ]
+  } ]
+}

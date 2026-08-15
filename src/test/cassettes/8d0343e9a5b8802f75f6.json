@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPaths != null",
+    "rationale" : "Checking for non-null input list is common for defensive programming and impacts method behavior.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null context parameter is typically required for computation, given method calls on it inside.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths instanceof List",
+    "rationale" : "partitionPaths is declared as List<String>; if not null, it should be a List instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths == null || partitionPaths.isEmpty() || partitionPaths.size() > 0",
+    "rationale" : "If partitionPaths is not null, it is either empty or its size is positive; this corresponds to path choices in the method.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The switch cases return new objects; the only way to exit without throwing (default) is through those cases.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "All non-exceptional method exits assign a non-null value to result."
+    } ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "Any other value for sortMode throws an exception instead of returning.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Only these two enum values avoid the exception case."
+    } ]
+  }, {
+    "expression" : "result instanceof BulkInsertPartitioner",
+    "rationale" : "Method always returns an object that implements BulkInsertPartitioner.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "All return values are BulkInsertPartitioner implementations."
+    } ]
+  }, {
+    "expression" : "sortMode != null",
+    "rationale" : "sortMode is always dereferenced or switched upon, so can't be null.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Dereferencing sortMode (sortMode.name()) means it cannot be null."
+    } ]
+  } ]
+}

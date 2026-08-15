@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "records.collectAsList() should never return null; an empty collection is returned if there are no items.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(records.collectAsList())",
+    "rationale" : "The method's implementation returns records.collectAsList(), so result will always equal this call's output.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == records.collectAsList().size()",
+    "rationale" : "The result's size should match that of records.collectAsList() as it is directly returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return value is explicitly a List, as per the method's signature.",
+    "meta" : [ ]
+  } ]
+}

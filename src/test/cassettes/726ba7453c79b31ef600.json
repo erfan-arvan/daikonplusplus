@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the tileset at the given index; unless the underlying list/map can return null, the result should be non-null for valid indices.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index >= 0",
+    "rationale" : "The method intends to look up the tileset at the given index—negative indices are typically invalid for such retrievals.",
+    "meta" : [ ]
+  } ]
+}

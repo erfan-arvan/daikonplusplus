@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "wrap || !wrap",
+    "rationale" : "The method returns early if wrap is true and otherwise continues; thus at exit, wrap could be either value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!wrap",
+    "rationale" : "At this program point, the return associated with wrap==true has already executed, so wrap must be false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!reverse || (i == -1)",
+    "rationale" : "If reverse is true, then the loop completes with i == n == -1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reverse || (i == children.size)",
+    "rationale" : "If reverse is false, then the loop completes with i == n == children.size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getChildren() != null",
+    "rationale" : "getChildren() is dereferenced and used in the method, so it must be non-null at exit.",
+    "meta" : [ ]
+  } ]
+}

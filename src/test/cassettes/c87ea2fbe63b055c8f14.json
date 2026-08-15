@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method expects a non-null inputRecords list as a parameter.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "inputRecords is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer == null || sourceReadAndIndexTimer.isPresent()",
+    "rationale" : "sourceReadAndIndexTimer is an Option that may be null or present.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "sourceReadAndIndexTimer is nullable option"
+    } ]
+  }, {
+    "expression" : "inputRecords instanceof java.util.List",
+    "rationale" : "inputRecords is declared as a List parameter.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "inputRecords is a List"
+    } ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "List size is always zero or positive.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "inputRecords size non-negative"
+    } ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer == null || sourceReadAndIndexTimer instanceof com.twitter.util.Option",
+    "rationale" : "sourceReadAndIndexTimer is declared as an Option type.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "sourceReadAndIndexTimer is an Option type"
+    } ]
+  } ]
+}

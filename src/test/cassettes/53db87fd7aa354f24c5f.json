@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == fill",
+    "rationale" : "The method returns 'fill' directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size <= layers.size",
+    "rationale" : "'result' receives zero or more layers from 'layers', thus cannot be larger than 'layers'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fill.size <= layers.size",
+    "rationale" : "'fill' contains at most all layers from the original collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fill.size == result.size",
+    "rationale" : "'fill' and 'result' are the same array, so their sizes are always equal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "type != null",
+    "rationale" : "'type' must be non-null for ClassReflection.isInstance to operate correctly.",
+    "meta" : [ ]
+  } ]
+}

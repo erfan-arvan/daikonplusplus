@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method directly delegates to super.execute(preppedRecords), it's likely a valid HoodieWriteMetadata is always returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write statuses list in the metadata should typically be non-null for correct execution results.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().isEmpty() || result.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size() is always non-negative, so this should always hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(HoodieWriteMetadata.class) || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "Returned object should be of type HoodieWriteMetadata or its subclass.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The type parameter of HoodieWriteMetadata is a List, so getWriteStatuses() should return a List.",
+    "meta" : [ ]
+  } ]
+}

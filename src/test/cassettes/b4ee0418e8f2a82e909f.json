@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is expected to be provided for most Hoodie table operations, and required for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null && !restoreInstantTimestamp.isEmpty()",
+    "rationale" : "The instant timestamp string for restore should be present and not empty to denote a valid restore point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null && !savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "The savepoint timestamp, if the operation is restoring to a savepoint, should not be null or empty.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method expects writeStatuses to be provided and typically would not operate on a null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method expects result to be provided and to hold metadata, so it should not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.isEmpty() || writeStatuses.size() > 0",
+    "rationale" : "writeStatuses, as a list, is either empty or has a positive size; this expresses the mutually exclusive possibilities.",
+    "meta" : [ ]
+  } ]
+}

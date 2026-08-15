@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method contract is to return a non-null List<WriteStatus>; null is unlikely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method logically expects preppedRecords to be non-null to perform bulk inserts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime represents a required commit time and is expected to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || preppedRecords.size() >= 0",
+    "rationale" : "If preppedRecords is non-null, List.size() is always greater than or equal to zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size() is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

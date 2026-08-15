@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup should reference a valid HoodieClusteringGroup for the method to operate correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required to read records for a cluster group and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "The list of file slices for the group should be available to process records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime should not be an empty string, as it represents a specific clustering commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!clusteringGroup.getSlices().isEmpty()",
+    "rationale" : "There should be at least one file slice in the group to retrieve records from.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "Method calls on data (stream, etc.) require data to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapToPairFunc != null",
+    "rationale" : "Delegation to throwingMapToPairWrapper(mapToPairFunc) requires mapToPairFunc to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "reduceFunc is passed to throwingReduceWrapper and must be non-null for reduce operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "A positive parallelism is meaningful for parallel processing and may be enforced by the context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.size() >= 0",
+    "rationale" : "The size of a list is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

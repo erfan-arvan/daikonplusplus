@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient must be non-null to invoke bulkInsertPreppedRecords and commit methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime must be non-null as it is passed to write methods and is likely a required reference.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is dereferenced as an argument, so it cannot be null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient instanceof BaseHoodieWriteClient",
+    "rationale" : "The method signature and calls require writeClient to be of this type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.size() >= 0",
+    "rationale" : "List sizes are always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is required for engine operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Instant time should be a non-null, non-empty timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "Partitions list should be provided (even if empty).",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions == null || partitions.stream().allMatch(p -> p != null && !p.isEmpty())",
+    "rationale" : "All partition strings, if present, should be non-null and non-empty.",
+    "meta" : [ ]
+  } ]
+}

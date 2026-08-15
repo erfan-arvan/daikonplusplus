@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The method calls data.stream(), which would throw if data is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "consumer != null",
+    "rationale" : "Method passes consumer (via throwingForeachWrapper) to forEach—consumer must be non-null to avoid NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream() != null",
+    "rationale" : "For a non-null List, stream() always returns a non-null Stream instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "A parallelism parameter less than 1 is likely disallowed for meaningful parallel or sequential execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.stream().count() == data.size()",
+    "rationale" : "Stream over a List yields each element once; count() matches size().",
+    "meta" : [ ]
+  } ]
+}

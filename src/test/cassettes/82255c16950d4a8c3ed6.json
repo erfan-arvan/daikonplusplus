@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be a valid Option instance before the method executes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient must be non-null for the method to properly initialize the metadata table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isPresent() || !instantTime.isPresent()",
+    "rationale" : "Option.isPresent() is always either true or false; this captures the exhaustive possibility.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isPresent() || instantTime.get() != null",
+    "rationale" : "If instantTime is present, its value should not be null, as per Option contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableConfig() != null",
+    "rationale" : "Table configuration should be initialized in metaClient for correct operation.",
+    "meta" : [ ]
+  } ]
+}

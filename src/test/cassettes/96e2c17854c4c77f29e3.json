@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "lastText == null",
+    "rationale" : "lastText is explicitly set to null in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesShowing == (int)Math.floor((getHeight() - (style.background == null ? 0 : style.background.getBottomHeight() + style.background.getTopHeight())) / style.font.getLineHeight())",
+    "rationale" : "linesShowing is recalculated using the given formula in every execution of sizeChanged().",
+    "meta" : [ ]
+  }, {
+    "expression" : "getHeight() >= 0",
+    "rationale" : "UI element heights are typically non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font != null",
+    "rationale" : "style.font is accessed in the method, indicating it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "linesShowing >= 0",
+    "rationale" : "The number of lines shown should not be negative.",
+    "meta" : [ ]
+  } ]
+}

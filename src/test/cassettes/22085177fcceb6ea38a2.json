@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "projectFilePath == null || !projectFilePath.trim().isEmpty()",
+    "rationale" : "The method exits early if projectFilePath is null or empty after trimming.",
+    "meta" : [ ]
+  }, {
+    "expression" : "projectFilePath == null || resolve(projectFilePath) != null",
+    "rationale" : "If not null, projectFilePath is passed to resolve; resolve should produce a non-null FileHandle.",
+    "meta" : [ ]
+  }, {
+    "expression" : "projectFilePath == null || !projectFilePath.trim().isEmpty() || true",
+    "rationale" : "Execution reaches this point only if projectFilePath is neither null nor empty after trimming.",
+    "meta" : [ ]
+  }, {
+    "expression" : "projectFilePath == null || !(new JsonReader().parse(resolve(projectFilePath)).get(\"propertyTypes\") == null)",
+    "rationale" : "If not null or empty, projectFilePath leads to projectRoot having a non-null 'propertyTypes'.",
+    "meta" : [ ]
+  } ]
+}

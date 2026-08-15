@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "properties == null",
+    "rationale" : "Method initializes properties if it is null, so it's valid to check for null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties != null",
+    "rationale" : "At method entry, properties could also be non-null, since the method only initializes it if it is null.",
+    "meta" : [ ]
+  } ]
+}

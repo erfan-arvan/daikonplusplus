@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && result.getWriteStatuses() != null && result.getWriteStatuses().size() >= 0",
+    "rationale" : "The method returns result of bulkInsert operation which includes write statuses list that should be non-null and have size >= 0.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The result and its write statuses list must be non-null and non-negative in size."
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input to the method is non-null list of records to be bulk inserted.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Input records list is passed in and expected to be non-null."
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The method uses instantTime to mark commit instant; it is expected to be a valid non-empty string.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The instant time string parameter should be valid and non-empty."
+    } ]
+  }, {
+    "expression" : "bulkInsertPartitioner == null || bulkInsertPartitioner.isPresent()",
+    "rationale" : "bulkInsertPartitioner is an option, can be null or present, to control partitioning during bulk insert.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If bulkInsertPartitioner is not null, it should be present or empty option."
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context object used for execution must not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The engine context must be non-null to execute bulk insert."
+    } ]
+  } ]
+}

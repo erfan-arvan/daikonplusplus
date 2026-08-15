@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "Likely required since TiledMap is used directly in method call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile != null",
+    "rationale" : "tile is dereferenced by tile.getObjects() and tile.getTextureRegion().",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is passed to downstream call and may be used unguardedly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getObjects() != null",
+    "rationale" : "Dereferenced in nested call in method, so safe evaluation is required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getTextureRegion() != null",
+    "rationale" : "getTextureRegion() is accessed, so cannot be null for method call.",
+    "meta" : [ ]
+  } ]
+}

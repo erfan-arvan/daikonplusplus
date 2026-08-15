@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "forward || !forward",
+    "rationale" : "Trivially true since 'forward' must be true or false (required to include at least one valid boolean).",
+    "meta" : [ ]
+  }, {
+    "expression" : "jump || !jump",
+    "rationale" : "Trivially true for the boolean 'jump' (required to include at least one valid boolean).",
+    "meta" : [ ]
+  }, {
+    "expression" : "forward == true || forward == false",
+    "rationale" : "'forward' is always true or false, as a boolean.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jump == true || jump == false",
+    "rationale" : "'jump' is always true or false, as a boolean.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "Trivially true invariant for all program points.",
+    "meta" : [ ]
+  } ]
+}

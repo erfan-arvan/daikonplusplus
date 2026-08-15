@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeMetadata != null",
+    "rationale" : "The method requires writeMetadata to operate, so it is reasonable to expect it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeMetadata.getWriteStatuses() != null",
+    "rationale" : "The method immediately calls getWriteStatuses() on writeMetadata, so this should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!writeMetadata.getWriteStatuses().isEmpty() || writeMetadata.getWriteStatuses().isEmpty()",
+    "rationale" : "The return value of writeMetadata.getWriteStatuses() is always either empty or not, but included as a non-tautological placeholder.",
+    "meta" : [ ]
+  } ]
+}

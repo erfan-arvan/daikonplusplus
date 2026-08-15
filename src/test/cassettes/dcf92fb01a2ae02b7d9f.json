@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null iterator by construction, as it wraps a singletonList().iterator().",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is passed to a handle and likely required to be non-null for writes.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter nullness"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used to uniquely identify the file created and likely required to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter nullness"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime identifies the commit/version and is required for Hoodie operations; typically cannot be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter nullness"
+    } ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap is used to create and write records, so expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter nullness"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new HoodieCleanMetadata instance, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getEarliestCommitToRetain() != null",
+    "rationale" : "Clean metadata should have information on the earliest commit retained, so this field should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionMetadata() != null",
+    "rationale" : "Partition metadata is central to the clean result, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getStartTime() != null",
+    "rationale" : "Start time for cleaning is essential metadata and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getEndTime() != null",
+    "rationale" : "End time for the cleaning operation should be set in the returned metadata.",
+    "meta" : [ ]
+  } ]
+}

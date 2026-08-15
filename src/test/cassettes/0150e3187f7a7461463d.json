@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "The method immediately calls methods on clusteringPlan, so it must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-precondition"
+    } ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "The schema is passed to downstream clustering functions and likely must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-precondition"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to uniquely identify the clustering commit, so it should not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-precondition"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "An empty instantTime may not be a valid clustering instant.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-assumption"
+    } ]
+  }, {
+    "expression" : "clusteringPlan.getInputGroups() != null",
+    "rationale" : "The method iterates over clusteringPlan.getInputGroups(), so it must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "internal-object-state"
+    } ]
+  } ]
+}

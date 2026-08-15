@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "It is expected that execute() returns a non-null HoodieWriteMetadata object upon successful completion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The HoodieWriteMetadata should have a non-null list of WriteStatus as its core data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty()",
+    "rationale" : "A commit typically results in at least one WriteStatus, so the result list should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "Each WriteStatus in the list should be non-null to represent valid write outcomes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.isValid())",
+    "rationale" : "It is common for commits to ensure all WriteStatus instances represent successful operations.",
+    "meta" : [ ]
+  } ]
+}

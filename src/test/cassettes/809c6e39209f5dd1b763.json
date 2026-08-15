@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Every return path produces a non-null String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "Every return path produces a non-empty String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.indexOf(':') != -1 || getName() != null",
+    "rationale" : "If result does not contain ':', it must be due to a non-null name being returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getName() == null || result.equals(getName())",
+    "rationale" : "If getName() is non-null, then result is exactly getName().",
+    "meta" : [ ]
+  }, {
+    "expression" : "getName() == null || !result.contains(\": \")",
+    "rationale" : "If result contains ': ', it must be because getName() was null.",
+    "meta" : [ ]
+  } ]
+}

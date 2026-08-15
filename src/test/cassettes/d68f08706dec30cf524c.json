@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to always return a non-null ComparableList when called with a valid HoodieRecord.",
+    "meta" : [ ]
+  }, {
+    "expression" : "record != null",
+    "rationale" : "Methods like SortUtils.getComparableSortColumns would require a valid record, making null unlikely at this point.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Map, and a non-null return is expected unless explicitly returned as null, which is not shown in the implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "The input writeResult is required to call getWriteStatuses, so it must be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() == !writeResult.getWriteStatuses().isEmpty()",
+    "rationale" : "If there are WriteStatus entries, then there should be at least one partition, hence result is not empty if and only if getWriteStatuses is not empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().containsAll(writeResult.getWriteStatuses().stream().map(status -> status.getStat().getPartitionPath()).distinct().collect(java.util.stream.Collectors.toList()))",
+    "rationale" : "All distinct partition paths from write statuses should be covered as keys in the result map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.values().stream().allMatch(list -> list != null)",
+    "rationale" : "All mapped lists should be non-null since the mapping function always returns a Pair with a non-null List.",
+    "meta" : [ ]
+  } ]
+}

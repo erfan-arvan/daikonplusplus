@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result from a commit/write operation is expected to be non-null to report write metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "By construction, the result is always of this type (matching the generic return signature).",
+    "meta" : [ ]
+  } ]
+}

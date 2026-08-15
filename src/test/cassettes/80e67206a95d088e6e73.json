@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method collects non-null reduced values into a list; result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(v -> v != null)",
+    "rationale" : "All values in 'result' are filtered to be non-null before collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each key in the input data maps to exactly one output in result, and there cannot be more output elements than input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == data.isEmpty()",
+    "rationale" : "If input is empty, result will be empty; non-empty input may still yield empty result only if all groups reduce to null, but this never happens due to non-null filter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallel streams require parallelism to be positive by design intent.",
+    "meta" : [ ]
+  } ]
+}

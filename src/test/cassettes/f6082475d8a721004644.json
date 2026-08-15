@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "flingTime >= 0",
+    "rationale" : "Fling time represents a duration in seconds, which should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flingTime <= 10",
+    "rationale" : "A fling duration greater than 10 seconds is unlikely to be practical; this expresses an upper bound for typical UI interactions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(flingTime)",
+    "rationale" : "Fling duration should be a finite value, not infinite or NaN.",
+    "meta" : [ ]
+  } ]
+}

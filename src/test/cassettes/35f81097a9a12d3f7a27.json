@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a value from execute(), which should not be null if execution is successful.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Hudi instant times are expected to be non-null and non-empty strings for valid operations.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "instant identifier"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The method likely expects a list of records to be supplied; null input would typically result in error.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "input validation"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is required for any engine-specific actions and should not be null.",
+    "meta" : [ {
+      "key" : "input",
+      "value" : "context object must be provided"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "WriteMetadata will contain a list of WriteStatus objects reflecting the upsert result.",
+    "meta" : [ {
+      "key" : "output",
+      "value" : "operation result"
+    } ]
+  } ]
+}

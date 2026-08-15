@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "atlas == null || !atlas.equals(null)",
+    "rationale" : "If atlas is not null, it references a valid object at this point; confirming non-null reference after possible disposal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resources != null",
+    "rationale" : "resources must be non-null, as it is iterated over in the method.",
+    "meta" : [ ]
+  } ]
+}

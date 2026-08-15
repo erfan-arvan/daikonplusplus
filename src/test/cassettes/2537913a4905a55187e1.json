@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The 'aggregate' method operates on 'data', which is required to compute the result; a null value would likely cause a failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "'seqOp' is a functional parameter used for reduction. Its absence would prevent aggregation logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "'combOp' is used to combine results, so its presence is necessary for correct aggregation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data instanceof HoodieData",
+    "rationale" : "The method expects 'data' to be of type 'HoodieData', which is required for the aggregate operation.",
+    "meta" : [ ]
+  } ]
+}

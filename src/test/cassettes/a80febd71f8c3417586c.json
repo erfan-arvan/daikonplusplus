@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid commit should have a non-null, non-empty instant time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses list should not be null before commit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitActionType != null && !commitActionType.isEmpty()",
+    "rationale" : "A valid commit requires a non-null, non-empty action type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionToReplacedFileIds != null",
+    "rationale" : "The partition to replaced file ids map should not be null for commit operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Option extraMetadata should not be null (though it may be empty).",
+    "meta" : [ ]
+  } ]
+}

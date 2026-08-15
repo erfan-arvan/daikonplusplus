@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method expects inputRecords to be a non-null List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is a required String identifier and should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "A valid HoodieTable instance is required for inserting records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "HoodieWriteConfig must be initialized for the insertion process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "A BulkInsertPartitioner is necessary for record repartitioning.",
+    "meta" : [ ]
+  } ]
+}

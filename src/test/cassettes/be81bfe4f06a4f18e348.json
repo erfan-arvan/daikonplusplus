@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to create a new HoodieInstant; null would likely cause an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime should not be empty since it's used as part of an identifier for an instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "instantTime is expected to contain non-whitespace characters for a valid timeline instant.",
+    "meta" : [ ]
+  } ]
+}

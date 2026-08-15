@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == handleUpsertPartition(instantTime, partition, recordItr, partitioner)",
+    "rationale" : "Since the method simply returns the result of handleUpsertPartition with the same arguments, the result must always be equal to that call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns the non-null value from handleUpsertPartition, so result is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Since instantTime is passed to another method and likely represents a required commit time identifier, it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition is used as an argument and likely represents a required partition index or id, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner is passed to handleUpsertPartition, so it is expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

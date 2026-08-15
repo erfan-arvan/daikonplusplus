@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "The method accepts jobId as a parameter; for many contexts, jobId is expected to be non-null for proper cancellation logic, even though the current implementation is a no-op.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId instanceof String",
+    "rationale" : "jobId must be a String object, as declared by the method signature.",
+    "meta" : [ ]
+  } ]
+}

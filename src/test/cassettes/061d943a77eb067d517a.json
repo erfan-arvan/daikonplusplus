@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The String[] args parameter is never explicitly set to null, and Java automatically provides an array (possibly empty) when invoking main.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "The length property of any Java array is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "args instanceof String[]",
+    "rationale" : "By Java typing, the 'args' variable is always a String[].",
+    "meta" : [ ]
+  } ]
+}

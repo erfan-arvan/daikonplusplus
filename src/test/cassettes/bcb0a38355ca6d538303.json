@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is used as an argument in super.execute(preppedRecords), so it is likely intended to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A List's size() method is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "preppedRecords is declared as a List, so this should always be true.",
+    "meta" : [ ]
+  } ]
+}

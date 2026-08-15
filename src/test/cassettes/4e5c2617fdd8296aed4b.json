@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method should not return null; Option type is used instead of null for absence of value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == false || result.get() != null",
+    "rationale" : "If an Option is present, it should wrap a non-null HoodieCleanerPlan.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context must not be null as it is used for constructing the executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "An Option should not be null; it should be an Option.empty() if no value is present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Option",
+    "rationale" : "The returned result must be of type Option<HoodieCleanerPlan> as per method signature.",
+    "meta" : [ ]
+  } ]
+}

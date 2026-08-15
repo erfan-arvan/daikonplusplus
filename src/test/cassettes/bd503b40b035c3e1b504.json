@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time is typically required as a valid commit identifier and is unlikely to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap != null",
+    "rationale" : "The commit operation likely requires a non-null map of partition records to operate correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionRecordsMap.isEmpty()",
+    "rationale" : "A commit operation usually operates on at least one partition; calling with an empty map may be invalid or a no-op.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "A commit instant time string is generally expected to be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionRecordsMap.keySet().contains(instantTime) == false",
+    "rationale" : "It is unlikely for commit instantTime to be used as a partition key; expressing this negative relationship may prevent misuse where the key space must be disjoint from commit IDs.",
+    "meta" : [ ]
+  } ]
+}

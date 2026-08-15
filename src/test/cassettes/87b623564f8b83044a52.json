@@ -1,0 +1,32 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The writeClient parameter is expected to be non-null to invoke instance methods.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime must be non-null as it is used as an argument during commit.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs should be non-null to perform upsert operations.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs instanceof List",
+    "rationale" : "preppedRecordInputs is declared as a List and should be an instance of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime instanceof String",
+    "rationale" : "instantTime is declared as a String and should be an instance of String.",
+    "meta" : [ ]
+  } ]
+}

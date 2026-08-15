@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this', so result and 'this' reference the same object at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "label != null",
+    "rationale" : "A null label would likely cause an exception when contentTable.add(label) is invoked; so label must be non-null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Dialog",
+    "rationale" : "Since result is 'this', and the method is in Dialog, result must be an instance of Dialog.",
+    "meta" : [ ]
+  } ]
+}

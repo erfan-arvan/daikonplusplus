@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so the result should not be null upon method exit.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "The compactionInstantTime parameter is likely a non-null String representing time, so it should be non-null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.getMetadata() != null",
+    "rationale" : "The metadata inside the HoodieWriteMetadata result should be non-null to represent write statuses.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result.getMetadata().size() >= 0",
+    "rationale" : "The list of WriteStatus in the result's metadata should have a non-negative size (possibly empty).",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is an input context object and should be non-null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  } ]
+}

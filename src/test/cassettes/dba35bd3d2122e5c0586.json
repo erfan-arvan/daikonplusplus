@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of JavaWriteHelper.newInstance().write(...), which is expected to produce a non-null HoodieWriteMetadata under normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The method signature enforces that the result is a HoodieWriteMetadata, and the return statement matches this type, ensuring type safety.",
+    "meta" : [ ]
+  } ]
+}

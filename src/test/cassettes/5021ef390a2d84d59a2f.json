@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result <= getHeight()",
+    "rationale" : "Since textY starts as getHeight() and can only decrease by up to background.getTopHeight(), result cannot exceed getHeight().",
+    "meta" : [ ]
+  }, {
+    "expression" : "background != null || result == getHeight() || result == (int)getHeight()",
+    "rationale" : "If background is null, textY (result) is never decremented: it is either getHeight() or possibly cast to (int)getHeight() if font.usesIntegerPositions().",
+    "meta" : [ ]
+  }, {
+    "expression" : "background == null || result == getHeight() - background.getTopHeight() || result == (int)(getHeight() - background.getTopHeight())",
+    "rationale" : "If background is not null, then result is either the float or integer version of (getHeight() - background.getTopHeight()), depending on font.usesIntegerPositions().",
+    "meta" : [ ]
+  }, {
+    "expression" : "font != null",
+    "rationale" : "The code always dereferences font, so font must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(font.usesIntegerPositions() && result == (int)result) || (!font.usesIntegerPositions() && result == result)",
+    "rationale" : "If font.usesIntegerPositions() is true, result was cast to int and so is integral; otherwise it may be any float.",
+    "meta" : [ ]
+  } ]
+}

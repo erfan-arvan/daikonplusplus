@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method is expected to work with a valid partition path; a null value may lead to errors at runtime.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() >= 0",
+    "rationale" : "A non-null String's length is always non-negative, ensuring partitionPath is a valid String.",
+    "meta" : [ ]
+  } ]
+}

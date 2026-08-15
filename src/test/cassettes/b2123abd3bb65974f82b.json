@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 || b != 0",
+    "rationale" : "At method entry, b is an int and can either be zero or non-zero.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "Logical tautology indicating b is either zero or not zero"
+    } ]
+  }, {
+    "expression" : "a >= Integer.MIN_VALUE",
+    "rationale" : "a must be within the valid int range including Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "range"
+    } ]
+  }, {
+    "expression" : "b >= Integer.MIN_VALUE",
+    "rationale" : "b must be within the valid int range including Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "range"
+    } ]
+  }, {
+    "expression" : "b != Integer.MIN_VALUE",
+    "rationale" : "Ensures b is a valid int and can be used in division (except zero case handled separately).",
+    "meta" : [ {
+      "key" : "non_min_value",
+      "value" : "b is not Integer.MIN_VALUE in general"
+    } ]
+  }, {
+    "expression" : "a != Integer.MIN_VALUE || b != 0",
+    "rationale" : "Check helps avoid special edge cases when dividing Integer.MIN_VALUE by zero.",
+    "meta" : [ {
+      "key" : "exception_handling",
+      "value" : "Avoid division by zero scenario combined with a being min value"
+    } ]
+  } ]
+}

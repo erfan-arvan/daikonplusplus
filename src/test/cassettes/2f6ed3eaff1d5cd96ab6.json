@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == writeMetadata",
+    "rationale" : "The method returns exactly the input argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "If the input writeMetadata is non-null, so is the result; the method does not introduce new nulls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The result is explicitly a HoodieWriteMetadata, matching the declared return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == writeMetadata.getClass()",
+    "rationale" : "Since the returned object is the exact same as the input, their runtime types are identical.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.equals(writeMetadata)",
+    "rationale" : "If HoodieWriteMetadata does not override equals, this is equivalent to identity. Otherwise, it still holds since it's the same object.",
+    "meta" : [ ]
+  } ]
+}

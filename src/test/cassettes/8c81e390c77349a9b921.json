@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == getEngineReaderContextFactory(metaClient)",
+    "rationale" : "The method returns the result of getEngineReaderContextFactory(metaClient); thus, at method exit, result must equal this call.",
+    "meta" : [ {
+      "key" : "semantic",
+      "value" : "Delegation"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is passed directly to the delegated method, and ReaderContextFactory creation likely requires a non-null metaClient.",
+    "meta" : [ {
+      "key" : "requirement",
+      "value" : "API safety"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a valid ReaderContextFactory, not null.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "API contract"
+    } ]
+  } ]
+}

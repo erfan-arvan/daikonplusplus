@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "type == null || \"string\".equals(type) || \"file\".equals(type) || \"int\".equals(type) || \"float\".equals(type) || \"bool\".equals(type) || \"color\".equals(type)",
+    "rationale" : "type must be one of the supported types, otherwise an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(type == null || \"string\".equals(type) || \"file\".equals(type)) ? result == value : true",
+    "rationale" : "For string, file, or null types, the returned result must be the input value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(\"int\".equals(type)) ? result.equals(Integer.valueOf(value)) : true",
+    "rationale" : "If type is 'int', result is the Integer value of the string 'value'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(\"float\".equals(type)) ? result.equals(Float.valueOf(value)) : true",
+    "rationale" : "If type is 'float', result is the Float value of the string 'value'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(\"bool\".equals(type)) ? result.equals(Boolean.valueOf(value)) : true",
+    "rationale" : "If type is 'bool', result is the Boolean value of the string 'value'.",
+    "meta" : [ ]
+  } ]
+}

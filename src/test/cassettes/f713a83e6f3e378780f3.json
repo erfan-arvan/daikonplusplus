@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 1",
+    "rationale" : "The method returns 1 if wrap is false, or a possibly greater value if wrap is true, but never less than 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == 1 || result == (columnSizes.size >> 1)",
+    "rationale" : "If wrap is false, result is 1; if true, result is columnSizes.size >> 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "wrap || result == 1",
+    "rationale" : "If wrap is not enabled, the result is always 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!wrap || result == (columnSizes.size >> 1)",
+    "rationale" : "If wrap is enabled, result is columnSizes.size >> 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= columnSizes.size",
+    "rationale" : "Shift-right by 1 yields a value no greater than columnSizes.size if wrap is true; otherwise, result is 1.",
+    "meta" : [ ]
+  } ]
+}

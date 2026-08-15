@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method should return a valid property map, never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof MapProperties",
+    "rationale" : "The return value is always of type MapProperties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "MapProperties should not have a negative size.",
+    "meta" : [ ]
+  } ]
+}

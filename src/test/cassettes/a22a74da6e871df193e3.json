@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Both branches of the method return a non-null Iterator object as per the implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used in logging and lookups, suggesting it should be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is required for downstream processing (passed to append handle or super call), so should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to another method or handle, which likely requires it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext() || !result.hasNext()",
+    "rationale" : "Iterator returned may or may not have elements, expressing that it is always valid to query hasNext on the result.",
+    "meta" : [ ]
+  } ]
+}

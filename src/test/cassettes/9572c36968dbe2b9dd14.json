@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is passed to HoodieListData.eager and is expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "result is dereferenced to call setIndexUpdateDuration and setWriteStatuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() == null",
+    "rationale" : "At method entry, result.getWriteStatuses() is likely not yet set by this method and may be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "List.size() in Java is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.isEmpty() == (writeStatuses.size() == 0)",
+    "rationale" : "Consistency between .isEmpty() and .size() for a Java List.",
+    "meta" : [ ]
+  } ]
+}

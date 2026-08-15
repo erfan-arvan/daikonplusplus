@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is passed to downstream components and is required for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null && !compactionInstantTime.isEmpty()",
+    "rationale" : "Compaction instant time is likely required to specify the compaction event.",
+    "meta" : [ ]
+  } ]
+}

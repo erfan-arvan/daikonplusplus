@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result should not be null since Option is expected to be a valid object, possibly empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely critical for compaction planning, and should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata argument is wrapped as Option and expected to be non-null for safe use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for engine operations and should be non-null after method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == false || result.get() != null",
+    "rationale" : "If result Option is present, it must wrap a non-null HoodieCompactionPlan.",
+    "meta" : [ ]
+  } ]
+}

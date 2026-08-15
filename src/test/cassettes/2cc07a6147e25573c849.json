@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires a configuration to proceed, so config should not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "A valid table typically requires a non-null base path in the configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName() != null",
+    "rationale" : "Table creation usually requires a non-null table name specified in the configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!config.getBasePath().isEmpty()",
+    "rationale" : "The base path string should not be empty for a correct table setup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!config.getTableName().isEmpty()",
+    "rationale" : "The table name should not be empty to uniquely identify a table.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is typically expected to be non-null for versioned operations in Hoodie APIs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The method requires a list of partitions, which is expected to be provided by callers and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions instanceof List",
+    "rationale" : "The partitions parameter is defined as a List type and should be a valid List instance.",
+    "meta" : [ ]
+  } ]
+}

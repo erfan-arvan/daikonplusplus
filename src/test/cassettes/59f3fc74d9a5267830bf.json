@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0.0f",
+    "rationale" : "Preferred height is expected to be non-negative in UI layout code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == prefHeight.get(actor)",
+    "rationale" : "The returned value is always exactly what prefHeight.get(actor) provides.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Preferred height should always be a finite float value.",
+    "meta" : [ ]
+  } ]
+}

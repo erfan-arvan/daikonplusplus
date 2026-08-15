@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "Method contract and method Javadoc indicate inFlightInstantTimestamp is not allowed to be null, as Option<T> should never be null in well-written code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a required parameter for metadata initialization; it must not be null for the method to work as intended.",
+    "meta" : [ ]
+  } ]
+}

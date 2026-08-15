@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires a configuration object; it is likely assumed non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "A write config typically has a base path set for table operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!config.isEmbeddedTimelineServerEnabled() || config.getEmbeddedTimelineServerReuseEnabled() == false",
+    "rationale" : "If embedded timeline server is enabled, reuse should be explicitly controlled; this captures a potential invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getSchema() != null || config.getSchemaFile() != null",
+    "rationale" : "Either a schema or schema file should be specified for table operations involving schema-aware formats.",
+    "meta" : [ ]
+  } ]
+}

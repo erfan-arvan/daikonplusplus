@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method uses records without null checks, implying non-null input.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Parameter should not be null at method entry"
+    } ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition count is expected to be a positive integer.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Number of partitions should be positive"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "List size is non-negative"
+    } ]
+  }, {
+    "expression" : "records != null && (records.isEmpty() || records.get(0) != null)",
+    "rationale" : "Records are expected non-null elements as operations are performed on them.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "If records not empty, first element is non-null"
+    } ]
+  }, {
+    "expression" : "records == null || records.stream().allMatch(r -> r != null) == false",
+    "rationale" : "Exclude expressions with streams or lambdas, discard",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Avoid streams/lambdas"
+    } ]
+  } ]
+}

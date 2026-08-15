@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "element is accessed throughout the method (e.g., element.getString()), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "map is passed to loadLayer and likely used; it must be non-null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers.add(groupLayer) is called if the group is processed, implying parentLayers is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is passed through for file/resource loading in recursive calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!element.getString(\"type\", \"\").equals(\"group\") || parentLayers.getCount() > 0",
+    "rationale" : "If the element is a group, at least one layer (the group) is added to parentLayers by the end of the method.",
+    "meta" : [ ]
+  } ]
+}

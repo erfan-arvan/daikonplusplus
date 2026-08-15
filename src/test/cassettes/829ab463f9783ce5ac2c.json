@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result <= 1 && result >= -1",
+    "rationale" : "The compare() method returns -1, 0, or 1 according to Comparable contract.",
+    "meta" : [ {
+      "key" : "relation",
+      "value" : "result range"
+    } ]
+  }, {
+    "expression" : "result == 0 || result == -1 || result == 1",
+    "rationale" : "Standard contract for comparator returning only these values.",
+    "meta" : [ {
+      "key" : "result_values",
+      "value" : "-1, 0, 1"
+    } ]
+  }, {
+    "expression" : "obj1 != null && obj2 != null",
+    "rationale" : "Typical compare method assumes both input objects are non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null inputs"
+    } ]
+  }, {
+    "expression" : "(result == 0) == (obj1.equals(obj2))",
+    "rationale" : "If compare returns 0, objects should be equal.",
+    "meta" : [ {
+      "key" : "equality_relation",
+      "value" : "result and equals consistency"
+    } ]
+  }, {
+    "expression" : "(result < 0) == (/* obj1 considered less than obj2 */ true)",
+    "rationale" : "If result is negative, obj1 is less than obj2.",
+    "meta" : [ {
+      "key" : "ordering_relation",
+      "value" : "consistent with contract"
+    } ]
+  } ]
+}

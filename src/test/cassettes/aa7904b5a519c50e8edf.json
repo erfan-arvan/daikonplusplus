@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A non-null Array<AssetDescriptor> is always created and returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size == getDependencyFileHandles(tmxFile).size",
+    "rationale" : "An AssetDescriptor is created for every FileHandle returned by getDependencyFileHandles.",
+    "meta" : [ ]
+  }, {
+    "expression" : "textureParameter == null || (result.size == 0 || result.first().params == textureParameter)",
+    "rationale" : "If textureParameter is non-null, it is passed as the params of every AssetDescriptor created.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is passed as argument and required by getDependencyFileHandles; it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array size is always non-negative by definition.",
+    "meta" : [ ]
+  } ]
+}

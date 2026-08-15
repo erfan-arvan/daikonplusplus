@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "JavaHoodieIndexFactory.createIndex should return a HoodieIndex implementation; typically factories do not return null unless exceptional.",
+    "meta" : [ {
+      "key" : "priority",
+      "value" : "HIGH"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "The result must be of type HoodieIndex by the method's signature and construction.",
+    "meta" : [ {
+      "key" : "semantic",
+      "value" : "type-safety"
+    } ]
+  } ]
+}

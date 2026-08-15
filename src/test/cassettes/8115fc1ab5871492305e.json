@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "Paths are typically non-null for partitioning in storage systems.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "Input lists for processing are conventionally required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileSlices.isEmpty()",
+    "rationale" : "Clustering usually requires at least one FileSlice to process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices.stream().allMatch(slice -> slice != null)",
+    "rationale" : "Collection elements are assumed to be non-null for processing.",
+    "meta" : [ ]
+  } ]
+}

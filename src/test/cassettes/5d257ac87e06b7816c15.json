@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "A non-null clusteringGroup is required to read records and access its members.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is passed to downstream methods and expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required to identify the clustering instant and is used in processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "instantTime should be a valid non-empty string representing a specific instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getNumOutputFileGroups() > 0",
+    "rationale" : "Clustering only makes sense if there is at least one output file group.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "Method uses profile in dereferences; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used for calls to getSmallFilesForPartitions, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "profile.getPartitionPaths() is iterated over, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.getPartitionPaths().isEmpty()",
+    "rationale" : "A for-each is performed over partitionPaths; likely non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats()",
+    "rationale" : "The method checks and relies on whether profile has output workload stats.",
+    "meta" : [ ]
+  } ]
+}

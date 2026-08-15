@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Engine context should be provided for an upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instant time is typically required and should not be empty when initiating an upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The list of prepped records should be present before upsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords == null || !preppedRecords.isEmpty()",
+    "rationale" : "If preppedRecords is not null, it likely should contain records to upsert.",
+    "meta" : [ ]
+  } ]
+}

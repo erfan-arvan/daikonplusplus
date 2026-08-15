@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "Since writeClient is dereferenced, it must not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "writeClient is used to invoke methods and must not be null to avoid NullPointerException."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as an argument and likely cannot be null for correct client operation.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is passed to writeClient methods and cannot be null according to typical invariants of write operations."
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The method assumes preppedRecordInputs is non-null since it passes to another method.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "preppedRecordInputs are provided to writeClient.bulkInsertPreppedRecords; must not be null to avoid NullPointerException."
+    } ]
+  }, {
+    "expression" : "writeClient.bulkInsertPreppedRecords(preppedRecordInputs, instantTime, bulkInsertPartitioner) != null",
+    "rationale" : "The list returned from bulkInsertPreppedRecords must be non-null because it’s subsequently used.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The output of bulkInsertPreppedRecords is used as input to commit and therefore must not be null."
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.get(0) != null",
+    "rationale" : "If preppedRecordInputs is non-empty, then the first element is expected to be a valid HoodieRecord (not null).",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If the list is non-empty, elements should not be null as null records would not be valid HoodieRecords."
+    } ]
+  } ]
+}

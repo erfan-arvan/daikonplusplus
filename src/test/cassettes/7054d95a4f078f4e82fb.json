@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Static factory methods returning a cached singleton are expected to never return null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "non-null singleton expected"
+    } ]
+  }, {
+    "expression" : "result instanceof JavaDeleteHelper",
+    "rationale" : "The method newInstance returns an instance of JavaDeleteHelper.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "returned object is of correct class"
+    } ]
+  } ]
+}

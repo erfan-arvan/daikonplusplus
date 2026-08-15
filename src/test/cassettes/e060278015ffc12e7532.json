@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Commit instant time parameter should be non-null for correct downstream processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "List of records to write should be non-null as required by method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null execution context is required for performing write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || preppedRecords.get(0) != null",
+    "rationale" : "If records list is not empty, its first element should be non-null as expected by write logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!preppedRecords.isEmpty() || preppedRecords.size() == 0",
+    "rationale" : "List is either non-empty or has size zero, for consistency between size and emptiness.",
+    "meta" : [ ]
+  } ]
+}

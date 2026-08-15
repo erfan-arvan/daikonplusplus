@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A valid HoodieWriteMetadata should be returned upon successful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus must be initialized and available in the write metadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The HoodieWriteMetadata parameterized type specifies List<WriteStatus>.",
+    "meta" : [ ]
+  } ]
+}

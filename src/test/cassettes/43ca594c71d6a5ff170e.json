@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method always dereferences 'config', so it must be non-null at the exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Option value (Option.empty() or Option.of(...)).",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.populateMetaFields() == result.isEmpty()",
+    "rationale" : "If 'populateMetaFields' is true, returns Option.empty(); otherwise, Option.of(...).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!config.populateMetaFields() == result.isPresent()",
+    "rationale" : "If 'populateMetaFields' is false, returns Option.of(...); otherwise, Option.empty().",
+    "meta" : [ ]
+  } ]
+}

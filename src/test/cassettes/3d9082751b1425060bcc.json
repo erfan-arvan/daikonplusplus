@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Rectangle width is guaranteed to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Width of a rectangle should always be a finite floating point value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == rectangle.getWidth()",
+    "rationale" : "Method returns the result of rectangle.getWidth().",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result < 0)",
+    "rationale" : "This is another way to express that the rectangle width is never negative.",
+    "meta" : [ ]
+  } ]
+}

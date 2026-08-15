@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method dereferences batch to call setColor and is required to pass it to draw; thus, batch cannot be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width >= 0",
+    "rationale" : "Width is used as a dimension argument for drawing; negative widths are likely disallowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0",
+    "rationale" : "Height is used as a dimension argument for drawing; negative heights are likely disallowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0 && parentAlpha <= 1",
+    "rationale" : "parentAlpha is used for alpha blending and is conventionally within [0,1] for valid alpha values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null && style.stageBackground != null",
+    "rationale" : "The method accesses style and style.stageBackground, so they must not be null at this point.",
+    "meta" : [ ]
+  } ]
+}

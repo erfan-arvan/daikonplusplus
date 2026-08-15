@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "It is a reasonable expectation for collection parameters to be non-null unless explicitly mentioned, especially in framework or system code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.get(0) != null",
+    "rationale" : "If the list is non-empty, its elements should not be null; this is a common expectation for lists of identifiers like column names.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(x -> x != null)",
+    "rationale" : "Ensures all elements in the column list are non-null, which is likely required for further processing.",
+    "meta" : [ ]
+  } ]
+}

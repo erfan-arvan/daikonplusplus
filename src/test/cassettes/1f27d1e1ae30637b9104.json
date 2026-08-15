@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null",
+    "rationale" : "activeModule may be expected to be a meaningful module identifier and is unlikely intended to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription != null",
+    "rationale" : "activityDescription may be expected to provide a status description and is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activeModule.length() > 0",
+    "rationale" : "If activeModule is meant to represent a non-empty module, its length should be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "activityDescription.length() > 0",
+    "rationale" : "A meaningful activity description should be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!activeModule.equals(activityDescription)",
+    "rationale" : "It is likely that activeModule and activityDescription represent different concepts, so they should not be equal.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is used in the method without an explicit null check, suggesting a non-null contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to another method and likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is used immediately as an argument, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses instanceof HoodieData",
+    "rationale" : "writeStatuses is explicitly typed as HoodieData<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context is explicitly typed as HoodieEngineContext.",
+    "meta" : [ ]
+  } ]
+}

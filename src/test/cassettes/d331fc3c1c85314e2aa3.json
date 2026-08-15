@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method guarantees that if it returns, result has been successfully produced by bulkInsert, and non-nullness is likely ensured; otherwise, an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "Method return type enforces that result should always be a HoodieWriteMetadata at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || result.getClass().getSuperclass() == HoodieWriteMetadata.class",
+    "rationale" : "The returned object is a direct or indirect instance of HoodieWriteMetadata; useful if proxies or subclasses are possible.",
+    "meta" : [ ]
+  } ]
+}

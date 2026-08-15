@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (index < states.size - 1 && !states.get(index + 1).text.equals(currentText))",
+    "rationale" : "This invariant states precisely how result is computed in terms of parameters and object state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || index < states.size - 1",
+    "rationale" : "If result is true, then index must be less than states.size - 1, reflecting the first part of the method's return condition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || !states.get(index + 1).text.equals(currentText)",
+    "rationale" : "If result is true, then the next text in the stack differs from currentText, as required by the second part of the guard.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || index >= states.size - 1 || states.get(index + 1).text.equals(currentText)",
+    "rationale" : "If we do not allow redo, it's because either there is no further state or the next state's text matches the current text.",
+    "meta" : [ ]
+  } ]
+}

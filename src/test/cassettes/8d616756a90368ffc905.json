@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The final result is collected via Collectors.toList(), which produces a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each input element may at most contribute one output value; groupBy may reduce multiple elements with the same key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism for a parallel stream must be positive to have a meaningful value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The method streams data, so data must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapToPairFunc != null",
+    "rationale" : "mapToPairFunc is wrapped and used as the mapping function, so it must be non-null.",
+    "meta" : [ ]
+  } ]
+}

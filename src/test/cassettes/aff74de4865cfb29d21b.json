@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a BulkInsertPartitioner, either via JavaCustomColumnsSortPartitioner or via JavaBulkInsertInternalPartitionerFactory.get(...).",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is dereferenced in the method, so it must be non-null for correct execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is passed as an argument and used in HoodieSchemaUtils.addMetadataFields(schema), so it must be non-null if PLAN_STRATEGY_SORT_COLUMNS is present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!strategyParams.containsKey(\"sort_columns\") || result instanceof JavaCustomColumnsSortPartitioner",
+    "rationale" : "If the sort columns strategy param is present, we always return a JavaCustomColumnsSortPartitioner.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.containsKey(\"sort_columns\") || result instanceof BulkInsertPartitioner",
+    "rationale" : "If the sort columns strategy param is not present, we return an instance from JavaBulkInsertInternalPartitionerFactory.get(...), which also implements BulkInsertPartitioner.",
+    "meta" : [ ]
+  } ]
+}

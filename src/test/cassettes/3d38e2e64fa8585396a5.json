@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null && !records.isEmpty()",
+    "rationale" : "Deduplication only makes sense if there are records; most methods of this nature expect a non-empty list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically expected to be a positive integer for proper distributed processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schemaStr != null && !schemaStr.isEmpty()",
+    "rationale" : "A non-null, non-empty schema string is necessary for parsing the table schema used in deduplication.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props != null",
+    "rationale" : "Properties are required for configuration during deduplication; null would likely cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orderingFieldNames != null",
+    "rationale" : "Ordering fields are used during record reduction, so the array should be non-null.",
+    "meta" : [ ]
+  } ]
+}

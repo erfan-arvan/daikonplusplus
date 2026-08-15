@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 || result == a / b",
+    "rationale" : "If b is not zero, the result should be exactly a divided by b using integer division, otherwise division would have thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "If b is zero, integer division is impossible and the method returns Integer.MIN_VALUE as special sentinel.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(b == 0) == (result == Integer.MIN_VALUE)",
+    "rationale" : "The result is Integer.MIN_VALUE if and only if b is zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != 0 || a == a",
+    "rationale" : "Always true for any int, highlighting that when b == 0, no division was performed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a == a",
+    "rationale" : "Trivially true but valid. (Included as per instruction to provide up to 5).",
+    "meta" : [ ]
+  } ]
+}

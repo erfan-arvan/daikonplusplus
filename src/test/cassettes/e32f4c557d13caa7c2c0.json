@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A valid TiledMap instance should generally be returned by loadSync.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "FileHandle parameter should not be null during resource loading.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "Input resource file name should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager should be valid when called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof Parameters",
+    "rationale" : "Parameter is either null or an instance of the expected Parameters type.",
+    "meta" : [ ]
+  } ]
+}

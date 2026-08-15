@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "columnSizes != null",
+    "rationale" : "columnSizes is used for indexing and method calls, so it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getChildren() != null",
+    "rationale" : "getChildren() is used in the method, so it must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getPrefWidth() >= 0",
+    "rationale" : "prefWidth is used as a width value and widths are generally non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getWidth() >= 0",
+    "rationale" : "getWidth() represents a dimension and should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getHeight() >= 0",
+    "rationale" : "getHeight() represents a dimension and should not be negative.",
+    "meta" : [ ]
+  } ]
+}

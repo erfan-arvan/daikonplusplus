@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "result is used in the method and passed to other methods, so it must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "commit uses result.getWriteStatuses(), so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "WriteStatus entries should not be null for downstream processing.",
+    "meta" : [ ]
+  } ]
+}

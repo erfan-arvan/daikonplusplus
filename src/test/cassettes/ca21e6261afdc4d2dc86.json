@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "String idPfx is likely used to identify a partition or write context; it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Iterator<HoodieRecord<T>> recordItr is required for processing; it should be non-null upon entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!idPfx.isEmpty()",
+    "rationale" : "idPfx is intended to be a useful partition or operation prefix, so it being non-empty is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr.hasNext() || !recordItr.hasNext()",
+    "rationale" : "recordItr.hasNext() is conditionally used in the method, so it is safe to invoke and always returns a boolean (included to show safe use, but trivial).",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr instanceof Iterator",
+    "rationale" : "recordItr must be an instance of Iterator, or its subtype, for this method's semantics.",
+    "meta" : [ ]
+  } ]
+}

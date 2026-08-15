@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath will be used as a map key; null keys might not be supported depending on map implementation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath is typically a non-empty string representing a file system or table partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.trim().length() > 0",
+    "rationale" : "partitionPath likely represents a meaningful path and should not be whitespace only.",
+    "meta" : [ ]
+  } ]
+}

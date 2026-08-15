@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List<V> via stream().collect(...), which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(v -> v != null)",
+    "rationale" : "All values in the returned list were filtered to be non-null before collect.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.stream().map(p -> p.getKey()).distinct().count()",
+    "rationale" : "Each unique key in the input corresponds to at most one output value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each input Pair maps to one key, and the grouping cannot create more outputs than inputs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism parameter should always be positive for parallel stream processing.",
+    "meta" : [ ]
+  } ]
+}

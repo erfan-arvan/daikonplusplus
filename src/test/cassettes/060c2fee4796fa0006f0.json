@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "Method throws if profile is null, so it must be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getWorkloadSize() >= 0",
+    "rationale" : "Workload size is likely non-negative; commonly expected for profile objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "Partition paths are likely required by the upsert partitioner and typically non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths().size() > 0",
+    "rationale" : "If partitioning work is needed, at least one partition path should exist.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method will call parseRegionName(name), so name should not be null to avoid a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "If name is expected to identify a resource, it is likely non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.trim().length() == name.length()",
+    "rationale" : "Resource names may be required to have no leading or trailing whitespace.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.indexOf(' ') == -1",
+    "rationale" : "Resource keys often disallow embedded spaces; if so, this would be an invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.equals(name.trim())",
+    "rationale" : "Alternative way to ensure name has no leading or trailing spaces.",
+    "meta" : [ ]
+  } ]
+}

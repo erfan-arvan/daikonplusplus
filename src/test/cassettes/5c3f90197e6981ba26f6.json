@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatus != null",
+    "rationale" : "It is typical for method parameters to be non-null unless explicitly documented as nullable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is likely to be required for engine operations, so should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config encapsulates write configuration and should be non-null to ensure correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is generally expected to be a non-null string identifier for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "instantTime, as an identifier, is likely non-empty when used in commit/compaction operations.",
+    "meta" : [ ]
+  } ]
+}

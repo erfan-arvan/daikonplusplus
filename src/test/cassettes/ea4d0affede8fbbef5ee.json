@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns an instance of HoodieWriteMetadata, so result should not be null.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "result is not null after method exit"
+    } ]
+  }, {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "As a String parameter representing a timestamp, it is expected to be non-null for a valid clustering operation.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "Input parameter must not be null"
+    } ]
+  }, {
+    "expression" : "result.getCommitTime().equals(clusteringInstantTime)",
+    "rationale" : "The commit time in the result should correspond to the clusteringInstantTime used in the clustering operation.",
+    "meta" : [ {
+      "key" : "Relation",
+      "value" : "result commit time matches input clusteringInstantTime"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The list of WriteStatus objects in the result must exist to represent individual write statuses.",
+    "meta" : [ {
+      "key" : "Nullness",
+      "value" : "WriteStatuses list is not null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The list size of write statuses cannot be negative.",
+    "meta" : [ {
+      "key" : "Range",
+      "value" : "The size of write statuses list is non-negative"
+    } ]
+  } ]
+}

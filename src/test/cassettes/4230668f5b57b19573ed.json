@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The reduction with zeroValue should always yield a non-null result since zeroValue is required as an identity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "This method never assigns to data and expects a valid HoodieData input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "The reduce operation requires seqOp to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "The reduce operation requires combOp to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "The zeroValue is required as the identity for reduction, and null would typically not be a valid identity.",
+    "meta" : [ ]
+  } ]
+}

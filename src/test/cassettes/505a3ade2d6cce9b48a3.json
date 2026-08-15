@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "tmjFile != null",
+    "rationale" : "Null FileHandle would make loading impossible.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "tmjFile is necessary to access the map file and is used in filesystem operations."
+    } ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "Image references must be resolved for tilesets and layer loading.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "imageResolver is required to resolve images for tilesets."
+    } ]
+  }, {
+    "expression" : "parameter == null || parameter.projectFilePath != null",
+    "rationale" : "Safe access to parameter.projectFilePath in method body.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If parameter is present, its projectFilePath is used in loadProjectFile."
+    } ]
+  }, {
+    "expression" : "parameter == null || (parameter instanceof Object)",
+    "rationale" : "Parameter fields are accessed if not null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If parameter is non-null, it must be a valid object."
+    } ]
+  }, {
+    "expression" : "tmjFile.exists()",
+    "rationale" : "Loading requires an actual file.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The map file to be loaded should exist for processing."
+    } ]
+  } ]
+}

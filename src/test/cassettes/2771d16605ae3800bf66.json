@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "The method expects to operate on non-null input records; usually method contracts require non-null collections.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A HoodieEngineContext is required for distributed operations, so the method likely expects it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table is required to invoke getIndex() in the method body; passing null would result in failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords instanceof List",
+    "rationale" : "The method declares dedupedRecords as a List, so it should always be an instance of List at entry.",
+    "meta" : [ ]
+  } ]
+}

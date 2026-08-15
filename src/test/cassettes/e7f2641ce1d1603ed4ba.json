@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new Array<FileHandle> instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is always used to construct relative file handles, which would throw if null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array.size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size <= result.items.length",
+    "rationale" : "The Array implementation property: size does not exceed items array length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size == 0 || result.get(0) instanceof FileHandle",
+    "rationale" : "All elements of the result are FileHandle objects if present.",
+    "meta" : [ ]
+  } ]
+}

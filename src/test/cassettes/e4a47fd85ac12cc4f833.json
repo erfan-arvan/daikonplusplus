@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely critical for commit identification.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition is dereferenced in downstream method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner is downcast and invoked immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to method calls that expect valid iterators.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition >= 0",
+    "rationale" : "Partitions usually represent positive indices or identifiers.",
+    "meta" : [ ]
+  } ]
+}

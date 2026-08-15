@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Bucket numbers are typically non-negative as they are used as HashMap keys and represent partitions or buckets.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketInfoMap != null",
+    "rationale" : "The bucketInfoMap should be initialized before use to avoid NullPointerException when calling get.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "Update bucket mapping is expected to be initialized for partitioning operations and could be used in related methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "totalBuckets > 0",
+    "rationale" : "Having a positive number of total buckets suggests that partitioning is configured and bucket numbers are valid for lookup.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bucketNumber < totalBuckets",
+    "rationale" : "Bucket numbers used as keys are generally expected to be within the range of total buckets.",
+    "meta" : [ ]
+  } ]
+}

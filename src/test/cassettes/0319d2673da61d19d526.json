@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is produced by collecting as list, which should never be null unless an error occurs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "dedupedRecords is passed through to the helper methods and is required for tagging.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is used during the tagging process and must be non-null for method execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used to orchestrate the tagLocation invocation and must be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Restore actions require a non-null execution context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "Restore instant timestamp should be specified for a restore operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "Savepoint to restore timestamp should be specified if a restore is to a prior savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp.length() > 0",
+    "rationale" : "Empty string should not be used as a restore instant timestamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp.length() > 0",
+    "rationale" : "Empty string should not be used as a savepoint to restore timestamp.",
+    "meta" : [ ]
+  } ]
+}

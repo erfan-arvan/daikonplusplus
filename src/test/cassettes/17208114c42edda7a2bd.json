@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Within both the 'if' and 'else' branches, 'result' is always assigned to a valid HoodieWriteMetadata instance before being returned.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always returns a non-null result; either produced by deleteExecutor.execute or explicitly created."
+    } ]
+  }, {
+    "expression" : "result.getIndexLookupDuration() != null",
+    "rationale" : "After both return paths, setIndexLookupDuration(tagLocationDuration) is called before returning, ensuring index lookup duration is always set.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "setIndexLookupDuration is always called before returning, either after deleteExecutor.execute or in the else branch."
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "WriteStatuses is always set (either by execute or explicit assignment), so is never null at return.",
+    "meta" : [ {
+      "key" : "inference",
+      "value" : "getWriteStatuses returns a List, set either by deleteExecutor.execute or via setWriteStatuses with Collections.EMPTY_LIST"
+    } ]
+  }, {
+    "expression" : "deleteExecutor != null",
+    "rationale" : "Method requires deleteExecutor for both the main and fallback code paths.",
+    "meta" : [ {
+      "key" : "parameter-assumption",
+      "value" : "deleteExecutor is a required parameter and is always non-null."
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The fallback branch passes instantTime to another method, implying it is always non-null.",
+    "meta" : [ {
+      "key" : "parameter-requirement",
+      "value" : "instantTime is always passed and is required for deleteExecutor.saveWorkloadProfileMetadataToInflight."
+    } ]
+  } ]
+}

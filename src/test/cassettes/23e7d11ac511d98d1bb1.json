@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "Name strings are generally expected to be non-null for identifier purposes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.length() >= 0",
+    "rationale" : "String length is always non-negative if name is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.isEmpty() || !name.isEmpty()",
+    "rationale" : "Covers possible cases for the input string, but does not add deep information.",
+    "meta" : [ ]
+  } ]
+}

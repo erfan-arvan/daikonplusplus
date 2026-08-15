@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "data != null",
+    "rationale" : "The data list must be non-null for the stream operation to work.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The function must be non-null since it is used in the stream map operation.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "parallelism == null || parallelism >= 1",
+    "rationale" : "If parallelism is set, it should be positive.",
+    "meta" : [ {
+      "key" : "logical-check",
+      "value" : "optional parallelism"
+    } ]
+  }, {
+    "expression" : "data instanceof List",
+    "rationale" : "Data is declared as List, so it should be an instance of List.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "func instanceof SerializablePairFunction",
+    "rationale" : "Func is declared as SerializablePairFunction type.",
+    "meta" : [ {
+      "key" : "type-check",
+      "value" : "parameter"
+    } ]
+  } ]
+}

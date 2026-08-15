@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method accesses fields and methods on 'element', so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "The method passes 'tmjFile' to other methods and constructors, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "'imageResolver' is passed as an argument to 'addStaticTiles', indicating it is expected to be non-null when used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getString(\"firstgid\") != null ? element.getInt(\"firstgid\", 1) >= 0 : true",
+    "rationale" : "When 'firstgid' string is present, the associated int value used as a tile set identifier should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getString(\"firstgid\") != null ? element.getString(\"name\", null) == null || !element.getString(\"name\", null).isEmpty() : true",
+    "rationale" : "If there is a tileset ('firstgid' present), then the 'name' field is likely present and, if so, non-empty.",
+    "meta" : [ ]
+  } ]
+}

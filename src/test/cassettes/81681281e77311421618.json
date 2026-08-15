@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "rotation >= -360.0f && rotation <= 360.0f",
+    "rationale" : "Rotation is typically expressed in degrees, and it's common to keep it within one full revolution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(rotation)",
+    "rationale" : "Rotation values are generally expected to be valid numbers and not NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(rotation)",
+    "rationale" : "Rotation values should not be infinite to ensure valid object orientation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation == rotation",
+    "rationale" : "Ensures rotation is a number (not NaN); included for defensive programming, but may be redundant with the NaN check.",
+    "meta" : [ ]
+  } ]
+}

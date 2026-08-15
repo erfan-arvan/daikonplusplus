@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(parallaxX)",
+    "rationale" : "parallaxX should generally be a finite floating-point value when set.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "numeric domain"
+    } ]
+  }, {
+    "expression" : "parallaxX >= Float.NEGATIVE_INFINITY && parallaxX <= Float.POSITIVE_INFINITY",
+    "rationale" : "parallaxX must be within the representable float range.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "float range"
+    } ]
+  }, {
+    "expression" : "!Float.isNaN(parallaxX)",
+    "rationale" : "parallaxX being NaN is likely not meaningful for a parallax coordinate.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "sanity check"
+    } ]
+  }, {
+    "expression" : "parallaxX == parallaxX",
+    "rationale" : "Checks parallaxX is not NaN, as NaN != NaN; shows a simple float consistency.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "sanity-check"
+    } ]
+  } ]
+}

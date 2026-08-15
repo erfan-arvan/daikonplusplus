@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of a method call chain that should not return null, as it typically denotes an action type string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty()",
+    "rationale" : "The commit action type is expected to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.trim().length() > 0",
+    "rationale" : "Returned commit action type string should not be blank or empty after trimming.",
+    "meta" : [ ]
+  } ]
+}

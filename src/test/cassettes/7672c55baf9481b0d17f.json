@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "The StorageConfiguration conf is expected to be non-null to construct the metadata writer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is necessary to configure the writer and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for parallel operations and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "Option object should be non-null for safe usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inflightInstantTimestamp.isPresent() || inflightInstantTimestamp.get() != null",
+    "rationale" : "If the Option contains a value, that value should not be null.",
+    "meta" : [ ]
+  } ]
+}

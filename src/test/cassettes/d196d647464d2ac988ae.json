@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a non-null HoodieEngineContext to operate.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is not null"
+    } ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The parameter extraMetadata is an Option and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "extraMetadata is not null"
+    } ]
+  }, {
+    "expression" : "!extraMetadata.isPresent() || extraMetadata.get() != null",
+    "rationale" : "If extraMetadata is present, the contained Map should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Map inside extraMetadata is non-null if present"
+    } ]
+  } ]
+}

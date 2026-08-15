@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A non-null Cell is always returned as a new row is set up and returned according to the method logic.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result == rowDefaults",
+    "rationale" : "The value returned ('result') is always assigned from 'rowDefaults' before return.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "aliasing"
+    } ]
+  } ]
+}

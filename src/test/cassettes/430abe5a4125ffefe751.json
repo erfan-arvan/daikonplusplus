@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "alignment >= 0",
+    "rationale" : "Library conventions for alignment often require non-negative values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "alignment <= 32",
+    "rationale" : "In libGDX, alignment constants like Align.left, Align.right, etc., have values not exceeding 32.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(alignment & (alignment - 1)) == 0",
+    "rationale" : "Alignment constants are typically powers of two to allow combination with bitwise OR.",
+    "meta" : [ ]
+  } ]
+}

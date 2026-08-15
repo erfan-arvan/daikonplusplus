@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (index < states.size - 1 && !states.get(index + 1).text.equals(currentText))",
+    "rationale" : "Direct semantic correspondence between result and the method's return expression.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || (index < states.size - 1)",
+    "rationale" : "If canRedo returns true, index must be less than states.size - 1.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || !states.get(index + 1).text.equals(currentText)",
+    "rationale" : "If canRedo returns true, the text at the next state must not equal currentText.",
+    "meta" : [ ]
+  } ]
+}

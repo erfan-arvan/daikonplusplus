@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "The method requires a non-null config to function, as config.getBasePath() and other calls are made unguarded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method immediately calls context.getStorageConf(), so context must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "config.getBasePath() is passed to setBasePath(), which likely requires a valid non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getConsistencyGuardConfig() != null",
+    "rationale" : "config.getConsistencyGuardConfig() is required to build the metaClient, so should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTimeGeneratorConfig() != null",
+    "rationale" : "config.getTimeGeneratorConfig() is required as an argument in the builder.",
+    "meta" : [ ]
+  } ]
+}

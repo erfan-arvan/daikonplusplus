@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "jobId != null",
+    "rationale" : "jobId is a String parameter and job cancellation logic often requires a non-null jobId.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId.isEmpty() == false",
+    "rationale" : "If method expects a valid job ID, the string should not be empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "jobId.trim().length() > 0",
+    "rationale" : "jobId must contain at least one non-whitespace character to represent a valid job identifier.",
+    "meta" : [ ]
+  } ]
+}

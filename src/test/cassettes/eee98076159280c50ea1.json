@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partition != null",
+    "rationale" : "Method parameter 'partition' is a String and should not be null to proceed with clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partition.isEmpty()",
+    "rationale" : "The partition should be a non-empty string to denote a valid partition path for clustering.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition.trim().length() > 0",
+    "rationale" : "After trimming spaces, the partition should have content representing a valid path segment.",
+    "meta" : [ ]
+  } ]
+}

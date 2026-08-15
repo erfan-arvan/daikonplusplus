@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(offsetX)",
+    "rationale" : "Method likely expects a finite float value; using Float.isFinite enforces that offsetX is neither NaN nor infinity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(offsetX)",
+    "rationale" : "offsetX should not be NaN for meaningful offset assignment.",
+    "meta" : [ ]
+  }, {
+    "expression" : "offsetX >= -Float.MAX_VALUE && offsetX <= Float.MAX_VALUE",
+    "rationale" : "offsetX is a float, so it should be within the valid float range.",
+    "meta" : [ ]
+  } ]
+}

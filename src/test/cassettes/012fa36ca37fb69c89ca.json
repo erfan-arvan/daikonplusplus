@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "InputEvent event is likely always non-null when entering keyTyped, as it represents the event being processed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character >= 0",
+    "rationale" : "Java chars are unsigned 16-bit and always non-negative, so this is always true at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event instanceof InputEvent",
+    "rationale" : "event must be an InputEvent by the parameter type at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "character != '\\uffff'",
+    "rationale" : "It is very uncommon for character to be the all-ones Unicode char in input, suggesting it is likely not this sentinel value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event.getType() == InputEvent.Type.keyTyped",
+    "rationale" : "It is probable that only keyTyped events are passed to this method.",
+    "meta" : [ ]
+  } ]
+}

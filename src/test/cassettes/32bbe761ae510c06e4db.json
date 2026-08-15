@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "index == states.size - 1 || index == states.size",
+    "rationale" : "After incrementing, index is either exactly one less than states.size (if we removed the last element) or equal to states.size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "index >= 0",
+    "rationale" : "index is incremented and typically represents a position or count, thus should not be negative if used as array/list index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "states.size >= 0",
+    "rationale" : "The size of a collection is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "states.size == 0 || index < states.size",
+    "rationale" : "If states has elements, index is always less than its size (before possible removal), preserving non-out-of-bounds access.",
+    "meta" : [ ]
+  } ]
+}

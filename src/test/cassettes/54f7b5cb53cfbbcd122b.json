@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a non-null Option object by construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == (result.orElse(null) != null)",
+    "rationale" : "Option#isPresent is true iff Option#orElse does not return null (if safe).",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "Method parameter Option extraMetadata is assumed non-null by API contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required to schedule clustering and is likely never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required by downstream executor and likely never null.",
+    "meta" : [ ]
+  } ]
+}

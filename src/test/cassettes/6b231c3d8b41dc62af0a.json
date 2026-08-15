@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method requires a valid execution context to perform operations.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "context must be initialized for table operations"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is typically used to identify the transaction/commit and must not be null.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "instantTime marks a commit point and is required"
+    } ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The method processes a list of prepped records which must be provided.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "Records to upsert must be provided"
+    } ]
+  }, {
+    "expression" : "preppedRecords instanceof List",
+    "rationale" : "Function signature enforces that preppedRecords is a List.",
+    "meta" : [ {
+      "key" : "typecheck",
+      "value" : "preppedRecords type contract is List<HoodieRecord<T>>"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "An empty instantTime would likely be invalid for Hudi commit operations.",
+    "meta" : [ {
+      "key" : "strengthening",
+      "value" : "Non-empty instantTime expected"
+    } ]
+  } ]
+}

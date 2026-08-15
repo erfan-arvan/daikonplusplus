@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "The method expects a valid partition path; callers are likely to ensure it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.isEmpty() == false",
+    "rationale" : "Processing an empty partition path is likely undesirable for file-based operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "The config field is required by the method implementation and is expected to be initialized prior to method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The table field is used for fetching file and timeline information, so must be non-null at method entry.",
+    "meta" : [ ]
+  } ]
+}

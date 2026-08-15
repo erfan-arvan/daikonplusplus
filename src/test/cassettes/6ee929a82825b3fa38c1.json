@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "Ensures that the provided filename argument is not null, which is often required for file loading operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "Checks that the filename is not an empty string, since loading a resource typically requires a valid non-empty name.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.trim().length() == fileName.length()",
+    "rationale" : "Asserts that the filename does not have leading or trailing whitespace, which could cause file resolution issues.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.toLowerCase().endsWith(\".tmx\")",
+    "rationale" : "Suggests that the filename likely refers to a Tiled Map XML (.tmx) file, which is the expected input for this loader.",
+    "meta" : [ ]
+  } ]
+}

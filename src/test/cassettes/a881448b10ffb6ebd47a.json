@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "It is common practice to pass non-null keys to cache-related methods; in this context, null keys would typically be considered invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids != null",
+    "rationale" : "Varargs int... ids are never null when passed in from Java source unless reflection is used with null arguments.",
+    "meta" : [ ]
+  }, {
+    "expression" : "ids.length >= 0",
+    "rationale" : "Array length is always non-negative in Java.",
+    "meta" : [ ]
+  } ]
+}

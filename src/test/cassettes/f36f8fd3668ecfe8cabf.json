@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords must be non-null for proper clustering execution.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "numOutputGroups > 0",
+    "rationale" : "The number of output groups (parallelism) should be positive.",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "parallelism"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime denotes a clustering commit instant; must not be null.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is used to get partitioner; must be non-null for method logic.",
+    "meta" : [ {
+      "key" : "usage",
+      "value" : "strategy configuration"
+    } ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "A valid HoodieSchema is required to process clustering records.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "precondition"
+    } ]
+  } ]
+}

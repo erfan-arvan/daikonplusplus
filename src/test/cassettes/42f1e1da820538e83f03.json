@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeConfig != null",
+    "rationale" : "A null writeConfig would likely cause downstream errors; many factory or index methods assume non-null configuration.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "ensures method parameter is not null"
+    } ]
+  }, {
+    "expression" : "writeConfig.getSchema() != null",
+    "rationale" : "The write configuration schema is commonly required for computing index structure; thus, schema should be set.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "schema used in indexing is defined"
+    } ]
+  }, {
+    "expression" : "writeConfig.getIndexType() != null",
+    "rationale" : "Creating an index requires an explicit index type; this option must be available on the config.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "index type must be defined"
+    } ]
+  }, {
+    "expression" : "writeConfig.isIndexingEnabled()",
+    "rationale" : "Typically, creation of an index presupposes that indexing is enabled in the configuration.",
+    "meta" : [ {
+      "key" : "semantic",
+      "value" : "indexing is expected to be enabled when creating an index"
+    } ]
+  }, {
+    "expression" : "!writeConfig.getIndexType().equals(\"NONE\")",
+    "rationale" : "If the index type is explicitly 'NONE', index creation is not meaningful.",
+    "meta" : [ {
+      "key" : "semantic",
+      "value" : "cannot create index if type is NONE"
+    } ]
+  } ]
+}

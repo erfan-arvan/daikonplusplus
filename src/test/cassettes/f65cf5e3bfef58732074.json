@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b.doubleValue() != 0.0 || result == null",
+    "rationale" : "If divisor b is zero, method returns null, so result is null",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If divisor b is zero, method returns null"
+    } ]
+  }, {
+    "expression" : "a instanceof Integer || a instanceof Double",
+    "rationale" : "Method only supports Integer or Double input types for a",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method only supports Integer or Double inputs"
+    } ]
+  }, {
+    "expression" : "(a instanceof Integer && result instanceof Integer) || (a instanceof Double && result instanceof Double) || result == null",
+    "rationale" : "Result type corresponds to a's type or null if division by zero",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result type consistent with input type a, or null if division by zero"
+    } ]
+  }, {
+    "expression" : "b.doubleValue() != 0.0",
+    "rationale" : "Division happens only if b is non-zero",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Division only performed if b is not zero"
+    } ]
+  }, {
+    "expression" : "!(a instanceof Integer) || !(b instanceof Integer) || b.intValue() != 0",
+    "rationale" : "For Integer inputs, divisor integer value is not zero",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Integer division only if b intValue is not zero to avoid division by zero"
+    } ]
+  } ]
+}

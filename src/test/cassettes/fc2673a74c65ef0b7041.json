@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "width != null",
+    "rationale" : "The method immediately throws if width is null, implying width should not be null during normal execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height != null",
+    "rationale" : "The method immediately throws if height is null, implying height should not be null during normal execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width != height",
+    "rationale" : "In typical UI use, prefWidth and prefHeight are often set to different objects. Not guaranteed, but might often hold as an observed invariant.",
+    "meta" : [ ]
+  } ]
+}

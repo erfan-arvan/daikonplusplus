@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeConfig != null",
+    "rationale" : "The method requires a HoodieWriteConfig instance to function, so it is likely that the input is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig.getClass() == HoodieWriteConfig.class",
+    "rationale" : "At method entry, writeConfig is expected to be an instance of HoodieWriteConfig and not a subclass or proxy.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig instanceof HoodieWriteConfig",
+    "rationale" : "Ensures the parameter is an instance of the expected configuration class.",
+    "meta" : [ ]
+  } ]
+}

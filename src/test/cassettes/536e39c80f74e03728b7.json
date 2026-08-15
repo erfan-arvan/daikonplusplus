@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method calls parseRegionName(name); if 'name' were null, it would probably throw, indicating method expects non-null 'name'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == atlas.findRegion(parseRegionName(name))",
+    "rationale" : "The method returns atlas.findRegion(parseRegionName(name)), so result must be equal to that expression for any input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parseRegionName(name) != null",
+    "rationale" : "parseRegionName(name) produces the string used to look up the region; it is likely non-null as most region lookup would require a non-null key.",
+    "meta" : [ ]
+  } ]
+}

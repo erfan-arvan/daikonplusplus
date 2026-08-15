@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "width != null",
+    "rationale" : "The method throws if width is null, so it is guaranteed non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height != null",
+    "rationale" : "The method throws if height is null, so it is guaranteed non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', which is never null inside an instance method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method explicitly returns 'this', so at method exit result must be equal to this.",
+    "meta" : [ ]
+  } ]
+}

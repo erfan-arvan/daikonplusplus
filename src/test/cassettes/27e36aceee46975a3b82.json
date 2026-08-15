@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since the method constructs a new HoodieWriteMetadata object and returns it, the result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The method is expected to perform an insert for a given instantTime, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The list of records to insert should not be null when passed to the insert method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is required for performing insert actions, thus should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata should always contain a (possibly empty) list of WriteStatus objects after insertion.",
+    "meta" : [ ]
+  } ]
+}

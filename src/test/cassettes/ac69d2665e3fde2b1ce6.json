@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "pointer == -1",
+    "rationale" : "This method returns early unless pointer == -1, so at method exit this must hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(touchIndependent && Gdx.input.isTouched())",
+    "rationale" : "If touchIndependent && Gdx.input.isTouched() is true, the method returns early, so this must be false at normal exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(fromActor == null) || !fromActor.isDescendantOf(event.getListenerActor())",
+    "rationale" : "If fromActor != null && fromActor.isDescendantOf(actor) is true, the method returns early, so at method exit either fromActor is null or not a descendant.",
+    "meta" : [ ]
+  } ]
+}

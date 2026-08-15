@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method uses instantTime as an argument to a method, so it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "If instantTime is used for a timeline transition, it is likely expected to be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadataMetaClient.getActiveTimeline().containsInstant(instantTime)",
+    "rationale" : "The instantTime is likely to exist in the active timeline if a state transition is requested for it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadataMetaClient.getActiveTimeline().isTransitionRequested(instantTime)",
+    "rationale" : "Right before exit, a request to transition state for instantTime might still be recorded in the timeline.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadataMetaClient.getActiveTimeline().isInflight(instantTime)",
+    "rationale" : "After transitionRequestedToInflight is called, instantTime is expected to be in the inflight state in the active timeline.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned value is either fileId (which is expected to be non-null in usage) or the super implementation's result (which should also return non-null); this is typical for ID prefixes.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "result is never null with current code"
+    } ]
+  }, {
+    "expression" : "result.equals(fileId) || fileId == null",
+    "rationale" : "If fileId is not null, result is exactly fileId; otherwise, the super method's result is used.",
+    "meta" : [ {
+      "key" : "branch",
+      "value" : "Covers both cases: fileId provided or fallback to super."
+    } ]
+  }, {
+    "expression" : "fileId == null || result.equals(fileId)",
+    "rationale" : "When fileId is specified, it must be returned as result; otherwise, any value is possible depending on the super method.",
+    "meta" : [ {
+      "key" : "conditional-handling",
+      "value" : "Direct binding to fileId if non-null"
+    } ]
+  }, {
+    "expression" : "partitionId >= 0 || true",
+    "rationale" : "Partition IDs are typically non-negative. However, if negative values are allowed, this is always true, otherwise it constrains the domain.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "partitionId may be expected non-negative"
+    } ]
+  }, {
+    "expression" : "result.length() > 0",
+    "rationale" : "ID prefix strings for files are conventionally non-empty to be valid prefixes.",
+    "meta" : [ {
+      "key" : "string-properties",
+      "value" : "non-empty id prefix"
+    } ]
+  } ]
+}

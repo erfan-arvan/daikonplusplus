@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Configuration object is typically required and should not be null when invoking getIndex.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Engine context is required for many operations and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config instanceof HoodieWriteConfig",
+    "rationale" : "Method specifies a parameter of type HoodieWriteConfig; this should always hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "Method specifies a parameter of type HoodieEngineContext; this should always hold.",
+    "meta" : [ ]
+  } ]
+}

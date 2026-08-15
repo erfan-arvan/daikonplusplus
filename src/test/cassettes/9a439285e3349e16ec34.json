@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Padding values are typically non-negative in UI layout contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(result)",
+    "rationale" : "Padding should not be NaN for meaningful UI layout.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(result)",
+    "rationale" : "Infinite padding is unlikely to be meaningful and is probably avoided.",
+    "meta" : [ ]
+  } ]
+}

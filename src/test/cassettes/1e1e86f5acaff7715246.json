@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (actor == firstWidget || actor == secondWidget)",
+    "rationale" : "The method returns true iff the actor is firstWidget or secondWidget.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor != null",
+    "rationale" : "The method throws immediately if actor is null, so actor cannot be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || (!result && actor != firstWidget && actor != secondWidget)",
+    "rationale" : "If result is false, then actor was neither firstWidget nor secondWidget.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || super.removeActor(actor, unfocus)",
+    "rationale" : "If result is true, then super.removeActor was called (though return value not checked).",
+    "meta" : [ ]
+  } ]
+}

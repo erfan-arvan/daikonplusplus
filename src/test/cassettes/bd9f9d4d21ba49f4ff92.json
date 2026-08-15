@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "(x < 0 || x >= width || y < 0 || y >= height) ? result == null : true",
+    "rationale" : "If x or y are out of bounds, the method returns null; otherwise, this constraint does not apply.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(x >= 0 && x < width && y >= 0 && y < height) ? result == cells[x][y] : true",
+    "rationale" : "If x and y are in bounds, the method returns cells[x][y]; otherwise, this constraint does not apply.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x < width",
+    "rationale" : "The method guarantees it never returns unless x is less than width (if not, it returns early).",
+    "meta" : [ ]
+  }, {
+    "expression" : "y < height",
+    "rationale" : "The method guarantees it never returns unless y is less than height (if not, it returns early).",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0 && y >= 0",
+    "rationale" : "The method guarantees it never returns unless x and y are both non-negative (if not, it returns early).",
+    "meta" : [ ]
+  } ]
+}

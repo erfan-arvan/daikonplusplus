@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "result is assigned and used before the method exits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "setWriteStatuses is called on result with a potentially non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "setWriteStatuses is given statuses, which is a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "setIndexUpdateDuration is called with a Duration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "setPartitionToReplaceFileIds is called with the output of getPartitionToReplacedFileIds.",
+    "meta" : [ ]
+  } ]
+}

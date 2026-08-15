@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this' after updating the minWidth field.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.minWidth.equals(Fixed.valueOf(minWidth))",
+    "rationale" : "The minWidth field is assigned to Fixed.valueOf(minWidth) before return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.minWidth.equals(Fixed.valueOf(minWidth))",
+    "rationale" : "Because result == this, the minWidth of the result also equals Fixed.valueOf(minWidth).",
+    "meta" : [ ]
+  } ]
+}

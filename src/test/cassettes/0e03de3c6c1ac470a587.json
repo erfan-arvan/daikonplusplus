@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "disableX == x",
+    "rationale" : "At method exit, disableX is set to x unless an early return occurs when x == disableX and y == disableY.",
+    "meta" : [ ]
+  }, {
+    "expression" : "disableY == y",
+    "rationale" : "At method exit, disableY is set to y unless an early return occurs when x == disableX and y == disableY.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(x != disableX) || (y != disableY)",
+    "rationale" : "If the method reaches exit, the guard (x == disableX && y == disableY) was false, so at least one differs.",
+    "meta" : [ ]
+  } ]
+}

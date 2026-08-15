@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "true",
+    "rationale" : "At method entry, there are no constraints on the input integer parameter, so any value of partitionId is allowed and no preconditions are required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Integer.class.isInstance(partitionId)",
+    "rationale" : "partitionId is declared as int, so it must always be an integer at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "The method is an instance method, so 'this' cannot be null at entry.",
+    "meta" : [ ]
+  } ]
+}

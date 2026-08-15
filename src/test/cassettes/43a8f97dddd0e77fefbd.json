@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Option instance (never null).",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "return-value"
+    } ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "Option.isPresent() returns a boolean, and for any Option, one of these must be true.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "option-return"
+    } ]
+  }, {
+    "expression" : "streamingWrites == true || streamingWrites == false",
+    "rationale" : "streamingWrites is a boolean parameter.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-boolean-domain"
+    } ]
+  }, {
+    "expression" : "autoDetectAndDeleteMetadataPartitions == true || autoDetectAndDeleteMetadataPartitions == false",
+    "rationale" : "autoDetectAndDeleteMetadataPartitions is a boolean parameter.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-boolean-domain"
+    } ]
+  }, {
+    "expression" : "triggeringInstantTimestamp != null",
+    "rationale" : "triggeringInstantTimestamp is used in Option.of(triggeringInstantTimestamp); must not be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter-nullness"
+    } ]
+  } ]
+}

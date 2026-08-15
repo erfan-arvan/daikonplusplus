@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "properties is used in the method, so it is likely assumed non-null.",
+    "meta" : [ {
+      "key" : "recommended_check",
+      "value" : "safe usage of properties"
+    } ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "name is used as a key in properties.put; it is likely expected to be non-null.",
+    "meta" : [ {
+      "key" : "recommended_check",
+      "value" : "safe usage of name"
+    } ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "value is being parsed via Integer.parseInt(value), which requires non-null input.",
+    "meta" : [ {
+      "key" : "recommended_check",
+      "value" : "safe usage of value"
+    } ]
+  }, {
+    "expression" : "value == null || value.matches(\"-?\\\\d+\")",
+    "rationale" : "If value is not null, it is expected to be parseable as an int; this checks the precondition using a regex.",
+    "meta" : [ {
+      "key" : "motivating_context",
+      "value" : "parsing value as integer"
+    } ]
+  } ]
+}

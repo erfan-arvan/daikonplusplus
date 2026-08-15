@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a HoodieData instance wrapping the processed records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input parameter records is expected to be non-null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieData",
+    "rationale" : "Return type of the method is HoodieData, ensured by its construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for the operation and used in internal method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is needed for index tagging and is assumed to be valid.",
+    "meta" : [ ]
+  } ]
+}

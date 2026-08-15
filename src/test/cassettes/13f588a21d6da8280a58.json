@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method takes 'result' as a parameter and immediately uses it in a method call, indicating it should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The code uses result.getWriteStatuses() without a null check, so getWriteStatuses() is likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.getWriteStatuses().isEmpty() || result.getWriteStatuses().isEmpty()",
+    "rationale" : "This is always true for a List but checks that getWriteStatuses() is always a valid List at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "The implementation processes WriteStatus objects, so each WriteStatus in the returned List is likely non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "List.size() is always non-negative for a List; ensures that the List returned by getWriteStatuses() has a valid size.",
+    "meta" : [ ]
+  } ]
+}

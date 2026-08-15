@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method always throws an exception, so result can never be non-null.",
+    "meta" : [ {
+      "key" : "exception",
+      "value" : "method always throws"
+    } ]
+  }, {
+    "expression" : "false",
+    "rationale" : "No code path returns normally; this method always throws.",
+    "meta" : [ {
+      "key" : "exception",
+      "value" : "method always throws"
+    } ]
+  }, {
+    "expression" : "partitionFilePathAndSizeTriplet != null",
+    "rationale" : "Parameters are non-null for method invocation, assuming reasonable preconditions.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "method parameter non-null"
+    } ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "It is common for required parameters to be non-null.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "method parameter non-null"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Method expects non-null metaClient parameter.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "method parameter non-null"
+    } ]
+  } ]
+}

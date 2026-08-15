@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "Write client is generally required to perform operations; passing null would not be valid for upsertion/commit routines.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "An instant time identifier should always be present for any metadata commit operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "A list of prepared record inputs should never be null; empty if no records are needed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileGroupsIdsToUpdate != null",
+    "rationale" : "The file group ids to update need to be provided, if the operation supports selective updates.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs instanceof List",
+    "rationale" : "The type of preppedRecordInputs must be a List; required for expected interface behavior.",
+    "meta" : [ ]
+  } ]
+}

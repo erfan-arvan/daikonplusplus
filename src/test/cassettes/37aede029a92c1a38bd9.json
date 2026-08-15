@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result != null",
+    "rationale" : "This covers the only two valid states for result at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0 || result == null",
+    "rationale" : "If y is negative, getItemIndexAt(y) is likely to return -1, so result would be null, enforced by method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null || getItemIndexAt(y) == -1",
+    "rationale" : "If result is not returned as null, it implies the index is valid; otherwise, it's -1 as per method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || getItemIndexAt(y) >= 0",
+    "rationale" : "If result is not null, then the returned index must be valid (non-negative).",
+    "meta" : [ ]
+  }, {
+    "expression" : "getItemIndexAt(y) == -1 || result == items.get(getItemIndexAt(y))",
+    "rationale" : "If index is not -1, result is items.get(index); otherwise, result is null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "true // no precondition on a at method entry, all int values allowed for a",
+    "rationale" : "a is an int parameter, no restriction given at method entry.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "a can be any integer"
+    } ]
+  }, {
+    "expression" : "true // no precondition on b at method entry, all int values allowed for b",
+    "rationale" : "b can be zero as per method implementation, checked inside method.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "b can be zero or any int"
+    } ]
+  }, {
+    "expression" : "b == 0 || b != 0",
+    "rationale" : "b is int parameter and must be either zero or nonzero.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "b must be some int value"
+    } ]
+  } ]
+}

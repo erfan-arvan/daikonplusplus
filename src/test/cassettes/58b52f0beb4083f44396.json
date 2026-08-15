@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "actor.getX() == actorArea.x - (scrollX ? (int)visualAmountX : 0)",
+    "rationale" : "By construction, x is computed this way and set via actor.setPosition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor.getY() == actorArea.y - (int)(scrollY ? maxY - visualAmountY : maxY)",
+    "rationale" : "y is computed this way then set as the actor's position.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorArea.width == actorCullingArea.width",
+    "rationale" : "Width of actorCullingArea is set from actorArea.width when actor instanceof Cullable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorArea.height == actorCullingArea.height",
+    "rationale" : "Height of actorCullingArea is set from actorArea.height when actor instanceof Cullable.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(actor instanceof Cullable) || (((Cullable)actor).getCullingArea().equals(actorCullingArea))",
+    "rationale" : "If actor is Cullable, setCullingArea was called with actorCullingArea.",
+    "meta" : [ ]
+  } ]
+}

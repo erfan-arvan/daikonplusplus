@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "(b.doubleValue() == 0.0) == (result == null)",
+    "rationale" : "If and only if b is zero, the method returns null; otherwise, result is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == null) || (result instanceof Integer) || (result instanceof Double)",
+    "rationale" : "The result is always either null or an Integer or Double instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == null) || (a instanceof Integer) == (result instanceof Integer)",
+    "rationale" : "If result is non-null, then result has the same numeric type as a (for supported types).",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == null) || (a instanceof Double) == (result instanceof Double)",
+    "rationale" : "If result is non-null, then result has the same numeric type as a (for supported types).",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == null) || (b.doubleValue() != 0.0)",
+    "rationale" : "If result is not null, then b must not be zero.",
+    "meta" : [ ]
+  } ]
+}

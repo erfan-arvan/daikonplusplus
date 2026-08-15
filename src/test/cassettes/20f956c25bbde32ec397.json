@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Option, as Option is typically a non-null wrapper around the possible HoodieCompactionPlan result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The extraMetadata parameter is passed along to the executor and is expected to be non-null for safe operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required parameter used to schedule log compaction and should not be null for meaningful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for all table operations.",
+    "meta" : [ ]
+  } ]
+}

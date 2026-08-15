@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "padLeft != null",
+    "rationale" : "Method throws if padLeft is null, so it's guaranteed to be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', and 'this' is a valid instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The return statement is 'return this;'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.padLeft == padLeft",
+    "rationale" : "The field 'this.padLeft' is set to the input parameter.",
+    "meta" : [ ]
+  } ]
+}

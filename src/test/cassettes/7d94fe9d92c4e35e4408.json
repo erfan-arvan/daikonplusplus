@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "The 'args' array is non-null and has a non-negative length on method entry.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args is the main method parameter and is always non-null with a zero or positive length."
+    } ]
+  }, {
+    "expression" : "java.util.Arrays.stream(args).allMatch(s -> s != null)",
+    "rationale" : "If the program requires, all strings in args should be non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Checking that all elements in args array are non-null strings."
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "The length of the args array is non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args.length is always zero or greater."
+    } ]
+  } ]
+}

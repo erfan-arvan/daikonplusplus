@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is dereferenced for method calls and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is passed to a method expecting a List, so it should not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to multiple methods; it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.isCommitInFlight(instantTime) || writeClient.isCommitComplete(instantTime)",
+    "rationale" : "After commit, either the commit is in flight or already complete; this expresses that commit state.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() == (writeClient.bulkInsertPreppedRecords(preppedRecordInputs, instantTime, bulkInsertPartitioner).isEmpty())",
+    "rationale" : "If there is no input record, the output write status list should also be empty.",
+    "meta" : [ ]
+  } ]
+}

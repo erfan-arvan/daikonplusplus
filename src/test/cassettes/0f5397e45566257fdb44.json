@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "drawable == null",
+    "rationale" : "The incoming parameter 'drawable' is allowed to be null, based on the Javadoc and usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable != null || drawable == null",
+    "rationale" : "By type, 'drawable' may be null or non-null, indicating it's fully nullable at this entry point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(drawable != null && drawable == null)",
+    "rationale" : "Sanity: 'drawable' cannot be both null and non-null at the same time.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(drawable == null) || (drawable.getMinWidth() == drawable.getMinWidth())",
+    "rationale" : "Any method calls on 'drawable' must be guarded by null check for safety.",
+    "meta" : [ ]
+  }, {
+    "expression" : "drawable instanceof Drawable",
+    "rationale" : "By parameter type, 'drawable' is an instance of Drawable (or null).",
+    "meta" : [ ]
+  } ]
+}

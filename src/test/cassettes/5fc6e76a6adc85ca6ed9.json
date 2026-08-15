@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "getStage() == null",
+    "rationale" : "The method immediately checks if getStage() is null at entry, so it's plausible for this condition to potentially hold when the method is invoked.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() != null",
+    "rationale" : "If getStage() is not null, alternative behaviors will execute in the method, so it can also be true at entry.",
+    "meta" : [ ]
+  } ]
+}

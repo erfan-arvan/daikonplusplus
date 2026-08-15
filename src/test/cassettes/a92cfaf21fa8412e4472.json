@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == SortUtils.getComparableSortColumns(record, sortColumnNames, schema, suffixRecordKey, consistentLogicalTimestampEnabled)",
+    "rationale" : "This captures the direct result of the method, which delegates entirely to SortUtils.getComparableSortColumns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "record != null ? result != null : true",
+    "rationale" : "If input record is non-null, result should also not be null since the delegating method is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Since result is directly returned from a utility method, it's likely designed to never return null for a valid record.",
+    "meta" : [ ]
+  } ]
+}

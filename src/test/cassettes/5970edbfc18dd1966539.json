@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely used to represent a timestamp or commit instant, and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords is a required argument for bulk insert, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is wrapped in Option, so its reference is expected to be non-null (though it may represent an empty optional).",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context provides execution context for the engine, and should be non-null to correctly execute the operation.",
+    "meta" : [ ]
+  } ]
+}

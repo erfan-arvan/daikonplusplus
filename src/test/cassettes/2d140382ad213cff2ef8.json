@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is typically non-null as it identifies the partition to add an update bucket for.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "fileIdHint should be non-null as it is used as a key in a HashMap and for creating BucketInfo objects.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getSmallFiles(partitionPath) != null",
+    "rationale" : "Calling getSmallFiles with partitionPath should be safe if partitionPath is valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath is expected to be a non-empty string referring to a partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileIdHint.isEmpty()",
+    "rationale" : "fileIdHint is expected to be a non-empty string representing a file identifier.",
+    "meta" : [ ]
+  } ]
+}

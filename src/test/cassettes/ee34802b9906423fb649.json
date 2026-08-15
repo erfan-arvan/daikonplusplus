@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is passed as an identifier or prefix parameter, likely expected to be non-null to function correctly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is used in method calls (recordItr.hasNext()), so it must be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr instanceof Iterator",
+    "rationale" : "recordItr's static type is Iterator, so it should be an instance of Iterator at method entry.",
+    "meta" : [ ]
+  } ]
+}

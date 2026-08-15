@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context must be available to construct CleanPlanActionExecutor and perform operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata must not be null to be safely passed to CleanPlanActionExecutor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!extraMetadata.isPresent() || extraMetadata.get() != null",
+    "rationale" : "If extraMetadata is present, Map<String, String> it contains must not be null as per Option contract.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is used for field and method access in every return branch.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "createIndex returns new objects or results from static methods that return non-null for supported cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "Return value must be instance of HoodieIndex, as per static method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "StringUtils.isNullOrEmpty(config.getIndexClass()) || result.equals(HoodieIndexUtils.createUserDefinedIndex(config))",
+    "rationale" : "If config.getIndexClass is not null/empty, the result is the user-defined index.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!StringUtils.isNullOrEmpty(config.getIndexClass()) || (config.getIndexType() != null)",
+    "rationale" : "If not returning from the user-defined branch, config.getIndexType() is used in the switch.",
+    "meta" : [ ]
+  } ]
+}

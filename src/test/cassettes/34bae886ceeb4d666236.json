@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method operates on result, passing it to commit; result should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method calls result.getWriteStatuses(), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "The method maps over result.getWriteStatuses() elements, implying none should be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().map(WriteStatus::getStat).collect(java.util.stream.Collectors.toList()) != null",
+    "rationale" : "The method collects mapped stats into a list, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

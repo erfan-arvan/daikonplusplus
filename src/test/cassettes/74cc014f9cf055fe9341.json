@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "'style' is accessed immediately in the method, so it must be non-null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background == null || style.background.getMinHeight() >= 0",
+    "rationale" : "The return value uses background.getMinHeight() or 0; minHeight is likely non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.background == null || style.background.getMinHeight() == style.background.getMinHeight()",
+    "rationale" : "Method calls on style.background are safe if it's non-null; calling the same getter twice should return the same value.",
+    "meta" : [ ]
+  } ]
+}

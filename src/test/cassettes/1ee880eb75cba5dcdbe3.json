@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == !disabled",
+    "rationale" : "The method returns false if disabled is true, otherwise true.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "method summary"
+    } ]
+  }, {
+    "expression" : "result || disabled",
+    "rationale" : "If the method returns false, it must be because disabled is true.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "logical relationship"
+    } ]
+  }, {
+    "expression" : "!result || keyRepeatTask.isCancelled()",
+    "rationale" : "If the method returns true, keyRepeatTask.cancel() has been called, so the task is cancelled.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "side effect property"
+    } ]
+  }, {
+    "expression" : "result || !keyRepeatTask.isCancelled()",
+    "rationale" : "If the method returns false (early), keyRepeatTask.cancel() is not called, so isCancelled() may be false.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "side effect property"
+    } ]
+  }, {
+    "expression" : "event != null",
+    "rationale" : "Method requires a non-null InputEvent as a parameter (typical invariant for event handlers).",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input assumption"
+    } ]
+  } ]
+}

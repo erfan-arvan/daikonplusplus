@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method body always throws an exception and will never return normally, so result is always null at the exit point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "At this program point (method exit occurring only via exception), any boolean expression is technically true as the method never returns normally, but this tautology is excluded from suggestions.",
+    "meta" : [ ]
+  } ]
+}

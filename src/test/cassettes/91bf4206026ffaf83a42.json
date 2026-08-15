@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedRecords != null",
+    "rationale" : "A non-null preppedRecords list is expected as input for a bulk insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime typically marks the timeline instant for write operations and should be non-null and non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "The Option<BulkInsertPartitioner> parameter should be non-null to safely invoke Option methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!bulkInsertPartitioner.isPresent() || bulkInsertPartitioner.get() != null",
+    "rationale" : "If the Option is present, the wrapped value should not be null.",
+    "meta" : [ ]
+  } ]
+}

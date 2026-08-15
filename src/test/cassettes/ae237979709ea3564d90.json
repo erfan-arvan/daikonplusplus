@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partition != null",
+    "rationale" : "Partition is likely required to identify the file partition for clustering; null should probably be guarded against.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partition.isEmpty()",
+    "rationale" : "Partition names are typically non-empty to properly represent a data partition; empty partitions may be invalid or meaningless.",
+    "meta" : [ ]
+  } ]
+}

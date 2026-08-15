@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is typically a required identifier for inserts and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is the main data iterator and must be non-null for the operation to proceed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || recordItr.hasNext()",
+    "rationale" : "recordItr may or may not have elements at method entry; both possibilities are allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx.isEmpty() || !idPfx.isEmpty()",
+    "rationale" : "idPfx may be empty or non-empty; there is no evidence for a stricter constraint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(recordItr == null && idPfx == null)",
+    "rationale" : "At least one of recordItr or idPfx should be non-null for meaningful processing.",
+    "meta" : [ ]
+  } ]
+}

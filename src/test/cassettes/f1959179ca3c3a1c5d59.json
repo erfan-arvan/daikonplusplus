@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is produced by the execute() method and returned; should never be null, following Option usage convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context must be non-null to schedule compaction actions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is forwarded and used to schedule the compaction; chronic nulls would cause errors.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata is passed through; Option should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() || !result.isPresent()",
+    "rationale" : "Option is always present or not present. This is a tautology for Option, but it confirms that result is always a valid Option instance and not an uninitialized or corrupted object.",
+    "meta" : [ ]
+  } ]
+}

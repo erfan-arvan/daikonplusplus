@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "element == null || \"properties\".equals(element.name())",
+    "rationale" : "The method returns early unless element is null or has name 'properties'.",
+    "meta" : [ {
+      "key" : "key_point",
+      "value" : "return_guard"
+    } ]
+  }, {
+    "expression" : "element == null || element.isArray()",
+    "rationale" : "If not null, element is iterated over, so it must be an array.",
+    "meta" : [ {
+      "key" : "key_point",
+      "value" : "element_structure"
+    } ]
+  }, {
+    "expression" : "properties != null",
+    "rationale" : "properties is dereferenced and passed into methods, so it cannot be null.",
+    "meta" : [ {
+      "key" : "key_point",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "element == null || element.size > 0 || !element.iterator().hasNext()",
+    "rationale" : "If element is not null, either it has size or there is nothing to iterate.",
+    "meta" : [ {
+      "key" : "key_point",
+      "value" : "empty_element"
+    } ]
+  }, {
+    "expression" : "element == null || element.name() != null",
+    "rationale" : "If element is not null, element.name() is compared to \"properties\", so name() must not be null to pass the check.",
+    "meta" : [ {
+      "key" : "key_point",
+      "value" : "element_name"
+    } ]
+  } ]
+}

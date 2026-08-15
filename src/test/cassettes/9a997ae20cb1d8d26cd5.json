@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Result is always assigned by traversing upward/child in a FileHandle chain.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "file is dereferenced in 'file.parent()', implies non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "path != null",
+    "rationale" : "path is consumed by StringTokenizer on method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(path.isEmpty()) || result.equals(file.parent())",
+    "rationale" : "If the path is empty, tokenizer.hasMoreElements() is false, so 'result' is just file.parent().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof FileHandle",
+    "rationale" : "Return type and method logic guarantee result is a FileHandle instance.",
+    "meta" : [ ]
+  } ]
+}

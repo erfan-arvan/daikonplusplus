@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "prefWidth != null",
+    "rationale" : "Method explicitly throws on null prefWidth, so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The last statement is 'return this;', so result must be identical to this.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.prefWidth == prefWidth",
+    "rationale" : "this.prefWidth is set to prefWidth before returning this, so result (== this) has its prefWidth field equal to prefWidth at method exit.",
+    "meta" : [ ]
+  } ]
+}

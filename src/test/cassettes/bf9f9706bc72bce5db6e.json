@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0",
+    "rationale" : "Widths in UI code are commonly expected to be non-negative.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "common UI convention"
+    } ]
+  }, {
+    "expression" : "width <= Float.MAX_VALUE",
+    "rationale" : "Clamping to finite float range is typical for widths to prevent overflow issues.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "float range check"
+    } ]
+  }, {
+    "expression" : "!Float.isNaN(width)",
+    "rationale" : "NaN values are not meaningful for width and may cause bugs downstream.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "width must be a valid float"
+    } ]
+  } ]
+}

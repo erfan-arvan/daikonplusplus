@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "padTop >= 0",
+    "rationale" : "Padding values (such as padTop) are often expected to be non-negative in UI layout code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padTop <= Float.MAX_VALUE",
+    "rationale" : "float values passed as arguments are bounded above by Float.MAX_VALUE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "padTop == padTop",
+    "rationale" : "Reflexivity holds for float arguments; however, this checks for padTop not being NaN, as NaN != NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(padTop)",
+    "rationale" : "Padding with NaN would be unexpected; typically, UI code expects valid floats, not NaN.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(padTop < 0)",
+    "rationale" : "Equivalent to padTop >= 0, expressing that negative padding is usually not intended.",
+    "meta" : [ ]
+  } ]
+}

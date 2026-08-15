@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result of aggregate is produced by reducing potentially empty data with a zeroValue, so the output is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "seqOp != null",
+    "rationale" : "seqOp must be non-null to be used safely within the reduce operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "combOp != null",
+    "rationale" : "combOp must be non-null to be used as the combiner in the reduce operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data must be non-null to invoke collectAsList.",
+    "meta" : [ ]
+  }, {
+    "expression" : "zeroValue != null",
+    "rationale" : "zeroValue must be non-null as it is the initial value in the reduce operation.",
+    "meta" : [ ]
+  } ]
+}

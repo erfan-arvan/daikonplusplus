@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "props != null",
+    "rationale" : "Props parameter should be non-null as it is used to generate a KeyGenerator; passing null could cause NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "props instanceof TypedProperties",
+    "rationale" : "Guarantees the correct type passed to the method; expected by HoodieAvroKeyGeneratorFactory.createKeyGenerator(props).",
+    "meta" : [ ]
+  } ]
+}

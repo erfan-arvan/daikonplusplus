@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Method uses instantTime as a parameter for multiple method calls, so it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Commit and instant times are typically non-empty strings identifying timestamps or actions.",
+    "meta" : [ ]
+  } ]
+}

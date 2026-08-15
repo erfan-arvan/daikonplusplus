@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "newDrawable returns a Drawable object, so the result should not be null if the drawable with the given name exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "The name parameter is used to look up a drawable; it should not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "r >= 0f && r <= 1f",
+    "rationale" : "The red (r) component of a Color is typically between 0 and 1 in libGDX.",
+    "meta" : [ ]
+  }, {
+    "expression" : "g >= 0f && g <= 1f",
+    "rationale" : "The green (g) component of a Color is typically between 0 and 1 in libGDX.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b >= 0f && b <= 1f",
+    "rationale" : "The blue (b) component of a Color is typically between 0 and 1 in libGDX.",
+    "meta" : [ ]
+  } ]
+}

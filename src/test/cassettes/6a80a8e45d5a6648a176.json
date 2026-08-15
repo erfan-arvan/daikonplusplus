@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "cacheKey != null",
+    "rationale" : "Method parameter cacheKey is likely expected to be non-null to put cached data.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "ids >= 0",
+    "rationale" : "ids representing a count or identifier is often non-negative.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Methods returning Array<FileHandle> typically do not return null and instead return an (possibly empty) array.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "The method requires tmxFile as a parameter, and it is likely not nullable as it is needed for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset != null",
+    "rationale" : "tileset is used for logic and should be non-null for the method to operate properly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size >= 0",
+    "rationale" : "Array<FileHandle> size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

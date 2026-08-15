@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "resources == this.ownedResources",
+    "rationale" : "The method sets the ownedResources field to the resources parameter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.ownedResources != null || resources == null",
+    "rationale" : "ownedResources is set to resources, so their nullness matches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "resources == null || resources.size >= 0",
+    "rationale" : "If resources is non-null, its size should be valid (non-negative).",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.ownedResources == null || this.ownedResources.size >= 0",
+    "rationale" : "If ownedResources is non-null, its size is valid.",
+    "meta" : [ ]
+  } ]
+}

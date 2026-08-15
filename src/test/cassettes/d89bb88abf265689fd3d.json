@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism usually represents degree of parallel execution and is expected to be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The input data list should be non-null for mapping.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "A function to map over data must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || parallelism <= data.size()",
+    "rationale" : "The level of parallelism should not typically exceed the number of data elements for efficient processing (with zero data, any parallelism is okay).",
+    "meta" : [ ]
+  }, {
+    "expression" : "data.isEmpty() || data.stream().allMatch(x -> x != null)",
+    "rationale" : "If the data list is non-empty, it may be required that all elements are non-null before applying the mapping function.",
+    "meta" : [ ]
+  } ]
+}

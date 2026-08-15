@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "props != null",
+    "rationale" : "props is passed to a factory method, so the method likely expects a non-null argument.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "parameter"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "createKeyGenerator is expected to return a valid KeyGenerator instance (not null) on successful exit.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "factory return"
+    } ]
+  }, {
+    "expression" : "result instanceof KeyGenerator",
+    "rationale" : "result must implement KeyGenerator interface by method contract.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "return type"
+    } ]
+  }, {
+    "expression" : "result.equals(HoodieAvroKeyGeneratorFactory.createKeyGenerator(props))",
+    "rationale" : "The result is produced directly from the factory method with the same props.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "factory determinism"
+    } ]
+  }, {
+    "expression" : "result != props",
+    "rationale" : "result and props have different types and cannot be the same object.",
+    "meta" : [ {
+      "key" : "origin",
+      "value" : "type distinction"
+    } ]
+  } ]
+}

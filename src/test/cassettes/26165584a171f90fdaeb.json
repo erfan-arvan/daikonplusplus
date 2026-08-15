@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', which, being an instance method, is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method returns 'this' explicitly, so result is always the current instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.wrap == wrap",
+    "rationale" : "Immediately before returning, the field 'wrap' has been assigned the parameter value, so result.wrap reflects the argument.",
+    "meta" : [ ]
+  } ]
+}

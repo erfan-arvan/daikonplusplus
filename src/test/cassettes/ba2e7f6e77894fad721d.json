@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method unconditionally throws an exception and never returns a value, so 'result' must always be null at the exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionFilePathAndSizeTriplet != null",
+    "rationale" : "The method throws immediately, so its parameters are unchanged and should reflect typical method preconditions, such as not being null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "Likewise, safety in method logic would suggest this parameter is non-null on entry and, since the body does not change it, on exit too.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Method parameters are unchanged due to the method always throwing an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "Storage configuration is expected to be provided; since the method throws immediately, it remains in its initial state.",
+    "meta" : [ ]
+  } ]
+}

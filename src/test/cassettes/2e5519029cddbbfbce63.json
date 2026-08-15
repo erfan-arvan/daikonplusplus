@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "node != null",
+    "rationale" : "The method throws IllegalArgumentException if node is null, so node must never be null at return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (this == node || (this.parent != null && this.parent.isDescendantOf(node)))",
+    "rationale" : "The result is true if this is the specified node, or if any parent is the given node.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (this == node || (this.parent != null && this.parent == node) || (this.parent != null && this.parent.isDescendantOf(node)))",
+    "rationale" : "Result is true if node is this, or node is a parent, or recursively a parent of a parent.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || (!result && this != node)",
+    "rationale" : "If result is false, then this must not be the same as node.",
+    "meta" : [ ]
+  } ]
+}

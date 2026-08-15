@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as a key in BucketInfo, likely non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "partitionPath is not null"
+    } ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "fileIdHint is used as a key in updateLocationToBucket map, likely non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "fileIdHint is not null"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath is a non-empty string path.",
+    "meta" : [ {
+      "key" : "emptiness",
+      "value" : "partitionPath is not empty"
+    } ]
+  }, {
+    "expression" : "!fileIdHint.isEmpty()",
+    "rationale" : "fileIdHint is a file identifier, expected to be non-empty.",
+    "meta" : [ {
+      "key" : "emptiness",
+      "value" : "fileIdHint is not empty"
+    } ]
+  } ]
+}

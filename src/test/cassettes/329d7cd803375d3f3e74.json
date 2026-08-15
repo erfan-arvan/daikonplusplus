@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "o1 != null && o2 != null",
+    "rationale" : "Both input objects to compare are expected to be non-null at method entry.",
+    "meta" : [ {
+      "key" : "strength",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "o1 instanceof Comparable && o2 instanceof Comparable",
+    "rationale" : "Both inputs are expected to implement Comparable for sorting.",
+    "meta" : [ {
+      "key" : "typeCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!(o1 == null || o2 == null)",
+    "rationale" : "Ensures both objects are non-null.",
+    "meta" : [ {
+      "key" : "equivalentTo",
+      "value" : "o1 != null && o2 != null"
+    } ]
+  }, {
+    "expression" : "o1.getClass() == o2.getClass()",
+    "rationale" : "Both objects are of the same class to make them comparable.",
+    "meta" : [ {
+      "key" : "typeConsistency",
+      "value" : "true"
+    } ]
+  } ]
+}

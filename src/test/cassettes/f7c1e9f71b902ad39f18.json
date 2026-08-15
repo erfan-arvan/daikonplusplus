@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new HoodieJavaTable instance for recognized table types and does not allow null return.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nonnull"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieJavaTable",
+    "rationale" : "The return value is always an instance of HoodieJavaTable or its subclasses.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "type-invariant"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is dereferenced (getTableType()) before any return, so it cannot be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nonnull"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is passed to the returned class constructors, indicating it should not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nonnull"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is passed to the returned class constructors, indicating it should not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "nonnull"
+    } ]
+  } ]
+}

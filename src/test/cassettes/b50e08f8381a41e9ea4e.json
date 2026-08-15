@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The delete operation returns a valid list of WriteStatus objects, so result should not be null.",
+    "meta" : [ {
+      "key" : "NullSafety",
+      "value" : "result list is expected to be non-null after delete operation"
+    } ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The keys list is an input parameter and should be non-null when delete returns.",
+    "meta" : [ {
+      "key" : "ParameterConsistent",
+      "value" : "Input keys list must be non-null for delete"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a timestamp and should not be null after delete completes.",
+    "meta" : [ {
+      "key" : "ParameterConsistent",
+      "value" : "Instant time must be provided"
+    } ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "The write statuses returned represent results for each key; there cannot be more statuses than keys.",
+    "meta" : [ {
+      "key" : "LogicalConstraint",
+      "value" : "Number of write statuses cannot exceed keys"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(ws -> ws.getStat().getNumWrites() == 0) == false",
+    "rationale" : "Not all WriteStatus objects indicate zero writes; at least one deletion was processed.",
+    "meta" : [ {
+      "key" : "WriteStatusCheck",
+      "value" : "At least one record was attempted to be deleted"
+    } ]
+  } ]
+}

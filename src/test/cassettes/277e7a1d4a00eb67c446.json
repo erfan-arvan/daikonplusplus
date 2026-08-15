@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "actor == null || (actor.getWidth() == actor.getWidth() && actor.getHeight() == actor.getHeight())",
+    "rationale" : "If actor is not null, its getWidth() and getHeight() methods should be stable at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!scrollX || hScrollBounds.width >= 0) && (!scrollY || vScrollBounds.height >= 0)",
+    "rationale" : "If horizontal or vertical scrolling is enabled, the associated scrollbar bounds must be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actor == null || (actor.getWidth() >= 0 && actor.getHeight() >= 0)",
+    "rationale" : "Actor dimensions should be non-negative if actor exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(scrollX && !scrollY && actorArea.height < actor.getHeight())",
+    "rationale" : "If only horizontal scroll is enabled, vertical area should not be smaller than actor height.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(scrollY && !scrollX && actorArea.width < actor.getWidth())",
+    "rationale" : "If only vertical scroll is enabled, horizontal area should not be smaller than actor width.",
+    "meta" : [ ]
+  } ]
+}

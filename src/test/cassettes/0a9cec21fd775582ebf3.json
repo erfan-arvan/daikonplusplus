@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "Since args is the parameter of the main method, it is never null when the method is called and its length is non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "args array is never null at JVM program entry and length is >= 0"
+    } ]
+  }, {
+    "expression" : "java.util.Arrays.stream(args).allMatch(arg -> arg != null)",
+    "rationale" : "At method entry, it is valid to assert that args may contain no null elements.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Ensures that no element in the args array is null"
+    } ]
+  }, {
+    "expression" : "args.length <= 1000",
+    "rationale" : "Args length is bounded for practical command line constraints.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Typical server environments limit command line args length"
+    } ]
+  }, {
+    "expression" : "java.util.Objects.nonNull(args)",
+    "rationale" : "The method parameter args is non-null at method entry.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Checks args is not null"
+    } ]
+  } ]
+}

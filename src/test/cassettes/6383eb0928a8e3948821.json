@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "file != null",
+    "rationale" : "FileHandle file is expected to be non-null to perform a successful load.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "fileName should be a non-null, non-empty string to identify the file to load.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager manager must be non-null as it is required for asset loading operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || (parameter.textureMinFilter != null && parameter.textureMagFilter != null)",
+    "rationale" : "If parameter is not null, its texture filter fields should also be non-null for setTextureFilters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "file.exists()",
+    "rationale" : "The referenced FileHandle should point to an existing file for loading.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "Operation timestamps (instant times) should not be null for update/merge operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path must be specified for determining record location in the dataset.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "File ID should be present to identify the file which will be updated/merged.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The mapping of keys to new records must be present for an upsert/update operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "dataFileToBeMerged != null",
+    "rationale" : "There must be an existing base file to merge updates into during a merge/update operation.",
+    "meta" : [ ]
+  } ]
+}

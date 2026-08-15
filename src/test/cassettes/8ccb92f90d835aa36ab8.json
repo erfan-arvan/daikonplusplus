@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "projection != null",
+    "rationale" : "Projection matrix should be non-null to avoid runtime errors when used.",
+    "meta" : [ ]
+  }, {
+    "expression" : "width > 0",
+    "rationale" : "Width is expected to be positive, as it represents a dimension.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height > 0",
+    "rationale" : "Height is expected to be positive, as it represents a dimension.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x + width > x",
+    "rationale" : "Given positive width, the right edge exceeds x.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y + height > y",
+    "rationale" : "Given positive height, the top edge exceeds y.",
+    "meta" : [ ]
+  } ]
+}

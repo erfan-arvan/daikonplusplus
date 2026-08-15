@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new AvroReaderContextFactory instance, so result is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is a method parameter and is used to construct result, so it is expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof ReaderContextFactory",
+    "rationale" : "The return type of the method is ReaderContextFactory<IndexedRecord>, so result is always an instance of ReaderContextFactory.",
+    "meta" : [ ]
+  } ]
+}

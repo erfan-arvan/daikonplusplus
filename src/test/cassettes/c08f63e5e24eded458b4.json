@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= 0",
+    "rationale" : "x represents a horizontal coordinate, which is typically non-negative in a UI context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "y represents a vertical coordinate, which is typically non-negative in a UI context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x != Float.NaN",
+    "rationale" : "A UI coordinate should not be NaN for proper functionality.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y != Float.NaN",
+    "rationale" : "A UI coordinate should not be NaN for proper functionality.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x <= Float.MAX_VALUE && x >= -Float.MAX_VALUE",
+    "rationale" : "x should remain within valid float range to be a valid UI coordinate.",
+    "meta" : [ ]
+  } ]
+}

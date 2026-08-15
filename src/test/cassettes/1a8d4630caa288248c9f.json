@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method expects map to be a valid TiledMap object as it is immediately dereferenced. Null would lead to NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getProperties() != null",
+    "rationale" : "The method calls map.getProperties() several times, which suggests properties must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map.getLayers() != null",
+    "rationale" : "map.getLayers() is called and used, suggesting the layers list should not be null at entry.",
+    "meta" : [ ]
+  } ]
+}

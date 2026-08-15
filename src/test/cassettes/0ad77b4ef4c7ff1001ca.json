@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "name.equals(...) usage requires that name is not null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!name.isEmpty()",
+    "rationale" : "It's reasonable to expect that a tile set name is not empty since it is used for lookup and as an identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name.trim().length() > 0",
+    "rationale" : "A name consisting solely of whitespace is unlikely to be valid for tile set identification.",
+    "meta" : [ ]
+  } ]
+}

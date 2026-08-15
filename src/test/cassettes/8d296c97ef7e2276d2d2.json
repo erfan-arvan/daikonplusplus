@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "type != null",
+    "rationale" : "The method requires a Class<T> parameter as input, and code that calls resources.get(type) assumes type is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.size >= 0",
+    "rationale" : "If result is not null, then ObjectMap.size is non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.keys() != null",
+    "rationale" : "If result is not null, its keys() iterator must also be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.values() != null",
+    "rationale" : "If result is not null, its values() collection must also be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result.notEmpty() == (result.size > 0)",
+    "rationale" : "ObjectMap's notEmpty() is typically true iff its size is greater than zero; holds for all return values.",
+    "meta" : [ ]
+  } ]
+}

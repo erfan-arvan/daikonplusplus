@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new ArrayList is always returned, never null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "A new ArrayList is always returned, never null."
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Returns a List implementation by construction.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Returns a List implementation by construction."
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf != null)",
+    "rationale" : "All entries added are newly constructed SmallFile objects, never null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "All entries added are newly constructed SmallFile objects, never null."
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.sizeBytes < config.getParquetSmallFileLimit())",
+    "rationale" : "Only files smaller than the configured small-file threshold are added.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Only files smaller than the configured small-file threshold are added."
+    } ]
+  }, {
+    "expression" : "result.isEmpty() || partitionPath != null",
+    "rationale" : "Method takes partitionPath as parameter, and no files can be returned unless partitionPath is provided.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method takes partitionPath as parameter, and no files can be returned unless partitionPath is provided."
+    } ]
+  } ]
+}

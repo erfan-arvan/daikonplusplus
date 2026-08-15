@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (focusTraversal && (character == TAB || ((character == CARRIAGE_RETURN || character == NEWLINE) && (UIUtils.isAndroid || UIUtils.isIos))))",
+    "rationale" : "This expresses the method's return value, per the source code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result implies focusTraversal",
+    "rationale" : "Focus traversal must be true if the result is true, matching the short-circuit logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result implies (character == TAB || character == CARRIAGE_RETURN || character == NEWLINE)",
+    "rationale" : "Method can only return true when character is one of those three.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result implies (character == TAB || (character == CARRIAGE_RETURN || character == NEWLINE))",
+    "rationale" : "Restating that result=true implies character is one of the focus traversal triggers.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (focusTraversal && (character == TAB || ((character == CARRIAGE_RETURN || character == NEWLINE) && (UIUtils.isAndroid || UIUtils.isIos))))",
+    "rationale" : "Direct correspondence with the return statement logic.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a result from collect(Collectors.toList()), which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(java.util.Objects::nonNull)",
+    "rationale" : "The file IDs in result are extracted using getFileId(), which should not return null, so all elements should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().distinct().count() == result.size()",
+    "rationale" : "The stream applies distinct() before collecting, so all file IDs in result are unique.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty() || result.isEmpty()",
+    "rationale" : "If partitionPath is empty, likely there are no file slices and the result will be empty.",
+    "meta" : [ ]
+  } ]
+}

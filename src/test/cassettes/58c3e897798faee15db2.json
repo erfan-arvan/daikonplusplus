@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "style instanceof ImageTextButton.ImageTextButtonStyle",
+    "rationale" : "The method explicitly checks and enforces that 'style' is an ImageTextButtonStyle at entry; this is guaranteed at exit.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-safety"
+    } ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "The method would fail with a NullPointerException or IllegalArgumentException if style were null, so it is always non-null at method exit.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  } ]
+}

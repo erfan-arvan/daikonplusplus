@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result should not be null because it is returned from a method handling partition inserts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "Since the method return type is Iterator<List<WriteStatus>>, the result should always be an Iterator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Partition should not be null when invoking this method, to ensure proper processing of the insert partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Partitioner is required to properly partition workload records, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed through directly and is expected to be a valid, non-null iterator at all times.",
+    "meta" : [ ]
+  } ]
+}

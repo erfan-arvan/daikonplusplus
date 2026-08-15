@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The map is used for operations and method calls.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "parentLayers != null",
+    "rationale" : "parentLayers is used for adding layers later.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element is used in multiple method calls and field accesses.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used in resolving template objects.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "element.getName().equals(\"objectgroup\") || !element.getChildrenByName(\"object\").isEmpty() == false",
+    "rationale" : "If the element is not an object group, processing of its child objects does not occur.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "semantic"
+    } ]
+  } ]
+}

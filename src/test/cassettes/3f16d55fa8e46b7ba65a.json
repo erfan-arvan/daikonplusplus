@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a list constructed through streams and collects, and filters out nulls, so the result itself is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(Objects::nonNull)",
+    "rationale" : "The stream's filter(Objects::nonNull) ensures that all elements in result are non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "Each output record comes from merging one or more input records, so the output cannot have more records than the input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().noneMatch(r -> !records.contains(r))",
+    "rationale" : "Every result record is derived from input records and not invented, so all output records reference original input records.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism is typically required to be at least 1 (not static but implied by context for downstream operations).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should not be null when committing metadata.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is a String parameter"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should be non-null as it identifies the partition.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitionPath is a String parameter"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records should be non-null representing data to be committed.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "records is a HoodieData parameter"
+    } ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser should be non-null for index parsing.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "indexParser is a MetadataTableFileGroupIndexParser parameter"
+    } ]
+  }, {
+    "expression" : "!records.isEmpty()",
+    "rationale" : "The records data collection is expected to be non-empty on bulk commit.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "records is HoodieData and should contain data at commit"
+    } ]
+  } ]
+}

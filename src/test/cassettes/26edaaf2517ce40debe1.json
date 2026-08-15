@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an instance of BulkInsertPartitioner; there are no paths returning null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "The method accesses strategyParams regardless of which branch is taken (containsKey, get), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "The method uses schema (e.g., as an argument to HoodieSchemaUtils.addMetadataFields), so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams.containsKey(\"hoodie.clustering.plan.strategy.sorted.columns\") == (result instanceof JavaCustomColumnsSortPartitioner)",
+    "rationale" : "If the strategy parameter for sort columns is present, JavaCustomColumnsSortPartitioner is constructed; otherwise, a different partitioner is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(strategyParams.containsKey(\"hoodie.clustering.plan.strategy.sorted.columns\")) == !(result instanceof JavaCustomColumnsSortPartitioner)",
+    "rationale" : "Negation: the type of 'result' directly corresponds to the presence or absence of the sort columns parameter key.",
+    "meta" : [ ]
+  } ]
+}

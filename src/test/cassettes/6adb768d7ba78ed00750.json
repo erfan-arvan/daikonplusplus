@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option always non-null regardless of value, as per standard Java Option usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == (isMetadataTableExists && (config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()))",
+    "rationale" : "A non-empty Option result only occurs if the metadata table exists and is enabled or available.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isMetadataTable() || result.isEmpty()",
+    "rationale" : "If this instance is itself a metadata table, then the Option returned is always empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || (autoDetectAndDeleteMetadataPartitions == autoDetectAndDeleteMetadataPartitions)",
+    "rationale" : "No code path disables 'autoDetectAndDeleteMetadataPartitions' for present Option, thus if result is present, invariants about this flag hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || failedWritesCleaningPolicy != null",
+    "rationale" : "Creation of a non-empty Option requires a non-null policy parameter.",
+    "meta" : [ ]
+  } ]
+}

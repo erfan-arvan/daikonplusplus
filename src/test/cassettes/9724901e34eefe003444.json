@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "Option parameters are commonly non-null in method entry; avoids NullPointerException if used directly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is required for metadata table operations and is likely mandated to be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!inFlightInstantTimestamp.isPresent() || inFlightInstantTimestamp.get() != null",
+    "rationale" : "If an Option is present, its value should be non-null according to common Option contracts.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "By convention, methods returning Pair should not return null unless for error signaling, making non-null a reasonable invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is essential for clustering and is likely not null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "List of file slices should be provided for clustering; null would not be processed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() instanceof Boolean",
+    "rationale" : "The right value of the returned Pair should be a Boolean, as per method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The clustering plan returns a stream of clustering groups, which should be non-null if partitionPath and fileSlices are valid.",
+    "meta" : [ ]
+  } ]
+}

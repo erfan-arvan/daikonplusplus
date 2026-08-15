@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == removeActor(actor, true)",
+    "rationale" : "Directly follows from the implementation: the method simply calls removeActor(actor, true) and returns its result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "removeActor(actor, true) == result",
+    "rationale" : "Symmetric reasoning from the method body, reinforcing the first invariant.",
+    "meta" : [ ]
+  } ]
+}

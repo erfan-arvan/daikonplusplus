@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieData<WriteStatus> object, which is created by HoodieListData.eager, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieData",
+    "rationale" : "The result is expected to be a HoodieData as per the method's return type and construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "writeStatuses is a non-null method parameter; the method does not modify or nullify it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a non-null method parameter, required for the updateLocation operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "hoodieTable is a required method parameter and should not be null for the update operation to succeed.",
+    "meta" : [ ]
+  } ]
+}

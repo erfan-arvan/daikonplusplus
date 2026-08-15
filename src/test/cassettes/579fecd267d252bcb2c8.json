@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object which should not be null at exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "Since inputRecords is a parameter to the method, it is expected to be non-null at call and at exit.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "inputRecords is not null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The write status list within the result metadata should be initialized and non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "WriteStatuses list inside result is non-null"
+    } ]
+  }, {
+    "expression" : "inputRecords.isEmpty() == (result.getWriteStatuses().isEmpty())",
+    "rationale" : "If there are no input records, the write statuses in result should also be empty.",
+    "meta" : [ {
+      "key" : "emptiness",
+      "value" : "inputRecords and write statuses lists emptiness relation"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() <= inputRecords.size()",
+    "rationale" : "The number of write statuses should be at most the number of input records processed.",
+    "meta" : [ {
+      "key" : "sizeRelation",
+      "value" : "write statuses count limited by input records count"
+    } ]
+  } ]
+}

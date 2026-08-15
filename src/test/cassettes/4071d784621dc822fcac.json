@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0.0f && result <= 1.0f",
+    "rationale" : "The return value is clamped between 0 and 1 by MathUtils.clamp.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(maxX == 0) || result == 0.0f",
+    "rationale" : "If maxX is 0, the method returns 0.",
+    "meta" : [ ]
+  }, {
+    "expression" : "maxX == 0 || (result == MathUtils.clamp(amountX / maxX, 0, 1))",
+    "rationale" : "If maxX is not 0, the result is the clamped ratio.",
+    "meta" : [ ]
+  } ]
+}

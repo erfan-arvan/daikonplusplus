@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned iterator should not be null as the method returns a new iterator or delegates to another method.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "result"
+    } ]
+  }, {
+    "expression" : "!(result instanceof Iterator<?>) || true",
+    "rationale" : "Result is expected to be an Iterator.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "result instanceof Iterator<?>"
+    } ]
+  }, {
+    "expression" : "idPfx == null || idPfx instanceof String",
+    "rationale" : "idPfx is declared as String and should either be null or instance of String.",
+    "meta" : [ {
+      "key" : "type_check",
+      "value" : "idPfx instanceof String"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "The record iterator parameter is expected to be non-null when method returns.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "recordItr"
+    } ]
+  } ]
+}

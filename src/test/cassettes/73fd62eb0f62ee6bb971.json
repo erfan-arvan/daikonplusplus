@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "preppedInputRecord != null",
+    "rationale" : "The method relies on preppedInputRecord to perform bulk insert, so it is likely non-null on entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "Custom partitioning logic may depend on the Option being present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedInputRecord.size() >= 0",
+    "rationale" : "A List's size cannot be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner.isPresent() || !userDefinedBulkInsertPartitioner.isPresent()",
+    "rationale" : "Option is either present or not; placeholder invariant to express exhaustiveness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedInputRecord.isEmpty() || !preppedInputRecord.isEmpty()",
+    "rationale" : "List is either empty or not, expressing a basic invariant about its state.",
+    "meta" : [ ]
+  } ]
+}

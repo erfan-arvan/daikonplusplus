@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "spaceTop != null",
+    "rationale" : "The method throws an exception if spaceTop is null, so this must always be non-null on method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method returns 'this', which cannot be null, so result is always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The return value is unconditionally 'this', so result must always be equal to 'this'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.spaceTop == spaceTop",
+    "rationale" : "The method sets this.spaceTop to the parameter, so after return, the spaceTop field of result equals the argument.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "args is a String array passed to the main method and is typically non-null",
+    "meta" : [ {
+      "key" : "Null-safe check",
+      "value" : "args is non-null and can be empty"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is never negative",
+    "meta" : [ {
+      "key" : "Array length",
+      "value" : "args length non-negative"
+    } ]
+  }, {
+    "expression" : "java.util.Objects.nonNull(args)",
+    "rationale" : "Main method is expected to have a non-null argument array",
+    "meta" : [ {
+      "key" : "Null check",
+      "value" : "args should be non-null"
+    } ]
+  }, {
+    "expression" : "(args == null) || (args.length == 0) || (args[0] != null)",
+    "rationale" : "Avoids null pointer exceptions when accessing args[0]",
+    "meta" : [ {
+      "key" : "Safe indexing",
+      "value" : "If args is non-empty, first element is non-null"
+    } ]
+  }, {
+    "expression" : "args == null || args.length <= 1000",
+    "rationale" : "Typically the command-line argument list is not unboundedly large",
+    "meta" : [ {
+      "key" : "Array size upper bound",
+      "value" : "Reasonable upper bound on input args length"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata instance, never null, by wrapping the commit executor's result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The preppedRecords argument should be non-null upon method return as it's passed to another component for execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required and passed downstream, so it should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata always provides a non-null List<WriteStatus> for write status inspection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords.isEmpty() || result.getWriteStatuses().size() <= preppedRecords.size()",
+    "rationale" : "Typically, after processing, the number of write statuses returned should not exceed the number of processed records.",
+    "meta" : [ ]
+  } ]
+}

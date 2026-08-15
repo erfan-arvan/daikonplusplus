@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "context is used for engine actions and is expected to be non-null",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "context"
+    } ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "The instant timestamp representing the restore point is generally required",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "restoreInstantTimestamp"
+    } ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "The savepoint timestamp to restore to is generally required",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "savepointToRestoreTimestamp"
+    } ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "restoreInstantTimestamp should not be an empty string for a valid operation",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "restoreInstantTimestamp"
+    } ]
+  }, {
+    "expression" : "!savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "savepointToRestoreTimestamp should not be an empty string for a valid operation",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "savepointToRestoreTimestamp"
+    } ]
+  } ]
+}

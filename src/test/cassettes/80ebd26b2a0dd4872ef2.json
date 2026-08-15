@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "postWrite likely returns a non-null List<WriteStatus> as the API is expected to produce a result, and returning null is generally discouraged.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Method operates on preppedRecords, assuming non-null for success.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a parameter to multiple method calls, so null would likely fail.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Method contract promises a List<WriteStatus> return value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() == false || preppedRecords.isEmpty() == false",
+    "rationale" : "If preppedRecords is non-empty, result will likely contain write statuses, and if both are empty that's a valid no-op case.",
+    "meta" : [ ]
+  } ]
+}

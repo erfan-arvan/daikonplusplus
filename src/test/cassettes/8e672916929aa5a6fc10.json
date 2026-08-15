@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "sortMode != null",
+    "rationale" : "Switch statements in Java throw NullPointerException if the selector is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sortMode == BulkInsertSortMode.NONE || sortMode == BulkInsertSortMode.GLOBAL_SORT",
+    "rationale" : "Only these BulkInsertSortModes are supported in the method; other values cause an exception.",
+    "meta" : [ ]
+  } ]
+}

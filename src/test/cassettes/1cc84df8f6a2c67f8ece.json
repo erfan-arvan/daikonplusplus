@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Factory method called on valid inputs is expected to return a valid non-null handle.",
+    "meta" : [ {
+      "key" : "context",
+      "value" : "getUpdateHandle(Method_Exit)"
+    } ]
+  }, {
+    "expression" : "result.getPartitionPath().equals(partitionPath)",
+    "rationale" : "Partition path argument should be reflected in the resulting handle object.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "partitionPath carried to handle"
+    } ]
+  }, {
+    "expression" : "result.getFileId().equals(fileId)",
+    "rationale" : "File id argument should be the same as the file id in the returned merge handle.",
+    "meta" : [ {
+      "key" : "relationship",
+      "value" : "fileId carried to handle"
+    } ]
+  }, {
+    "expression" : "result.getClass().getSimpleName().contains(\"MergeHandle\")",
+    "rationale" : "The factory method always returns a subclass of HoodieMergeHandle.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result instanceof HoodieMergeHandle"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is assumed to be non-null for the handle creation to succeed.",
+    "meta" : [ {
+      "key" : "input",
+      "value" : "defensive-check"
+    } ]
+  } ]
+}

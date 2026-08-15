@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The 'instantTime' parameter is used in downstream methods, and is likely expected to be non-null to represent a timestamp for inflight transition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "It is expected that 'instantTime' is not an empty string to represent a valid commit or instant time.",
+    "meta" : [ ]
+  } ]
+}

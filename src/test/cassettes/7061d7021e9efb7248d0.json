@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "commitTimeline != null",
+    "rationale" : "commitTimeline is required to look up commit history, so it should not be null when the method is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "hoodieWriteConfig is required to obtain configuration parameters and should not be null before executing the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate() > 0",
+    "rationale" : "Estimated record size should be positive for partitioning and file size estimation to make sense.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getParquetSmallFileLimit() > 0",
+    "rationale" : "A positive file size limit is necessary for partitioning logic that follows.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig.getRecordSizeEstimationThreshold() >= 0.0",
+    "rationale" : "Thresholds for record size estimation should not be negative for valid calculations.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Since performClusteringWithRecordList (the call providing result) is likely contractually required to return a non-null List<WriteStatus>, it is important that runClusteringForGroup also never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method immediately dereferences clusteringGroup (calls getSlices()) and uses it for fetching input, so a null value would cause an exception before the exit point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "The method passes strategyParams directly to other methods, which would likely expect a non-null map.",
+    "meta" : [ ]
+  } ]
+}

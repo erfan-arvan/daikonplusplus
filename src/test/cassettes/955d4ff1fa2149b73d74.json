@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "Access to 'style.font' and 'style.background' in the method body assumes 'style' is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.font != null",
+    "rationale" : "'style.font' is dereferenced for 'getLineHeight()', so 'font' must be non-null.",
+    "meta" : [ ]
+  } ]
+}

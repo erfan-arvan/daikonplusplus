@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "order != null",
+    "rationale" : "The method expects a non-null order object to safely call methods on it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() >= 0",
+    "rationale" : "Quantity is generally expected to be non-negative for orders.",
+    "meta" : [ ]
+  }, {
+    "expression" : "order.getQuantity() < Integer.MAX_VALUE",
+    "rationale" : "Order quantity should be within the range of valid integer values.",
+    "meta" : [ ]
+  } ]
+}

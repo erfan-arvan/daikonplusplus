@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "src != null",
+    "rationale" : "The method typically expects a non-null JsonValue to clone.",
+    "meta" : [ ]
+  }, {
+    "expression" : "src.isValue() || src.isObject() || src.isArray()",
+    "rationale" : "JsonValue represents basic values, objects, or arrays, and must be at least one of these.",
+    "meta" : [ ]
+  }, {
+    "expression" : "src.type() != null",
+    "rationale" : "JsonValue.type() should always return a non-null enum value, as used in the method's switch.",
+    "meta" : [ ]
+  }, {
+    "expression" : "src.name() == null || src.name().length() >= 0",
+    "rationale" : "JsonValue's name can be null or a string of any length.",
+    "meta" : [ ]
+  }, {
+    "expression" : "src.isValue() == (src.type() == JsonValue.ValueType.stringValue || src.type() == JsonValue.ValueType.doubleValue || src.type() == JsonValue.ValueType.longValue || src.type() == JsonValue.ValueType.booleanValue || src.type() == JsonValue.ValueType.nullValue)",
+    "rationale" : "isValue() is true iff the type is a primitive or null as matched in the switch statement.",
+    "meta" : [ ]
+  } ]
+}

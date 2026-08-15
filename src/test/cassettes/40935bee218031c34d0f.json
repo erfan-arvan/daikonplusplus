@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method operates on the profile object, so it must not be null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method uses context as an argument to other methods, implying it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "The method populates partitionPathToInsertBucketInfos which should be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "totalBuckets >= 0",
+    "rationale" : "totalBuckets is only incremented or left unchanged, and is not allowed to be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "smallFiles != null",
+    "rationale" : "smallFiles is appended to and assumed initialized, so not null at method exit.",
+    "meta" : [ ]
+  } ]
+}

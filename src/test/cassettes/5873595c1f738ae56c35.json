@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The context parameter is required for engine operations and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter represents a commit or action instant and is required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() || !instantTime.isEmpty()",
+    "rationale" : "instantTime is a String and must have one of these two valid states.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() >= 0",
+    "rationale" : "Strings in Java have a non-negative length, provided they are not null.",
+    "meta" : [ ]
+  } ]
+}

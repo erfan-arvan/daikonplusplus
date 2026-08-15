@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "map != null",
+    "rationale" : "The method operates on the map and likely expects a non-null TiledMap.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "mapElement != null",
+    "rationale" : "mapElement is used immediately for getString, so it must not be null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "tmjFile != null",
+    "rationale" : "tmjFile is used to resolve the FileHandle for the template, so it is expected to be non-null.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "mapElement.isObject()",
+    "rationale" : "The method expects that mapElement is a JSON object to access fields and ensure correct merging.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "structure"
+    } ]
+  }, {
+    "expression" : "mapElement.has(\"template\")",
+    "rationale" : "The code extracts a string from mapElement with key \"template\", so this key must exist.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "structural"
+    } ]
+  } ]
+}

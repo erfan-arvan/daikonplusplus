@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The insert likely requires a valid commit instant, so instantTime should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath usually represents a directory or partition key and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId identifies the target file for the insert and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap holds the records to be inserted; the operation cannot proceed if it is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap.isEmpty() || recordMap.values().stream().allMatch(x -> x != null)",
+    "rationale" : "If there are records to insert, none should be null.",
+    "meta" : [ ]
+  } ]
+}

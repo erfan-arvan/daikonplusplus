@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The static factory method instantiates and returns a new JavaHoodieBackedTableMetadataWriter, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaHoodieBackedTableMetadataWriter",
+    "rationale" : "The returned object is constructed as a JavaHoodieBackedTableMetadataWriter, so this must hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "inflightInstantTimestamp is forwarded to the constructor and used directly; a null Option would be unusual and likely not allowed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "conf != null",
+    "rationale" : "conf is required as a constructor argument and is likely not expected to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is needed to create the writer and is used as a constructor argument.",
+    "meta" : [ ]
+  } ]
+}

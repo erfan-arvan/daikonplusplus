@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == totalBuckets - 1",
+    "rationale" : "The result is assigned from bucket which is the current totalBuckets before incrementing.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The returned bucket is the previous value of totalBuckets before increment."
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "To safely create BucketInfo, partitionPath must not be null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "partitionPath is passed to BucketInfo constructor, should not be null to avoid potential NullPointerException."
+    } ]
+  }, {
+    "expression" : "fileIdHint != null",
+    "rationale" : "fileIdHint must be non-null since it is used as a Map key and in bucketInfo creation.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "fileIdHint is used as a key in updateLocationToBucket Map and passed to BucketInfo constructor."
+    } ]
+  }, {
+    "expression" : "updateLocationToBucket.containsKey(fileIdHint)",
+    "rationale" : "After putting fileIdHint, it must be present as a key in updateLocationToBucket.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method call just put fileIdHint as a key in updateLocationToBucket."
+    } ]
+  }, {
+    "expression" : "bucketInfoMap.containsKey(result)",
+    "rationale" : "The bucketInfoMap uses totalBuckets before increment as key and the result return value equals that key.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "bucketInfoMap has an entry for the bucket index."
+    } ]
+  } ]
+}

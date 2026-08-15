@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "maxHeight >= 0",
+    "rationale" : "Maximum heights are typically expected to be non-negative in UI layout contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(maxHeight)",
+    "rationale" : "Finite values are likely required for UI layout sizing; infinities or NaNs would be unusual as maximum heights.",
+    "meta" : [ ]
+  } ]
+}

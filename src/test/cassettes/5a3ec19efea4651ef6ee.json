@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns result of bulkInsert, which should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is not null at method exit"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned HoodieWriteMetadata should have a non-null list of WriteStatus.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses list is not null"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "List size must be non-negative by definition.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "list size non-negative"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().contains(null)",
+    "rationale" : "WriteStatus list entries should be valid objects, not null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "no null elements in writeStatuses list"
+    } ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is essential for commit operations and generally should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The method expects a valid list of HoodieRecord inputs and passes it to external APIs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is used for method invocations, requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed as an argument to an API, so it should not be null as Option should not be null.",
+    "meta" : [ ]
+  } ]
+}

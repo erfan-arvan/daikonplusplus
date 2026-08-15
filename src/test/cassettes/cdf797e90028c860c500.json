@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new HashMap is always returned, regardless of if any parameters are added.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == 0 || result.containsKey(PLAN_STRATEGY_SORT_COLUMNS.key())",
+    "rationale" : "The only possible entry is inserted under PLAN_STRATEGY_SORT_COLUMNS.key().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.keySet().isEmpty() || result.get(PLAN_STRATEGY_SORT_COLUMNS.key()) != null",
+    "rationale" : "If an entry exists, its value is from getWriteConfig().getClusteringSortColumns(), which is non-empty if present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= 1",
+    "rationale" : "At most one parameter is ever put into the result map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() == !StringUtils.isNullOrEmpty(getWriteConfig().getClusteringSortColumns())",
+    "rationale" : "The map is non-empty iff clustering sort columns config is not empty.",
+    "meta" : [ ]
+  } ]
+}

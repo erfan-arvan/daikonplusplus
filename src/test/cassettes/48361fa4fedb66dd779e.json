@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method uses context, so it should not be null.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "context is used as a parameter cast to HoodieJavaEngineContext"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in constructing the executor and should be non-null.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "instantTime is passed to JavaInsertDeltaCommitActionExecutor constructor"
+    } ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "hoodieRecords is used as a parameter; should be initialized.",
+    "meta" : [ {
+      "key" : "null_safety",
+      "value" : "hoodieRecords is passed as a parameter"
+    } ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "List size is never negative.",
+    "meta" : [ {
+      "key" : "collection_size",
+      "value" : "hoodieRecords is a List"
+    } ]
+  } ]
+}

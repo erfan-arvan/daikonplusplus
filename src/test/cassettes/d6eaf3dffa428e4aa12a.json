@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "tileset != null",
+    "rationale" : "The method adds the tileset to a collection, which typically requires that the argument is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset.getCount() >= 0",
+    "rationale" : "Tile sets likely have a non-negative count of tiles.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset.getName() != null",
+    "rationale" : "Tile sets being added should have a name, so name is assumed non-null.",
+    "meta" : [ ]
+  } ]
+}

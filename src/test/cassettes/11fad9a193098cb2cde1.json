@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned HoodieWriteMetadata object should not be null as it is constructed and returned from a freshly executed action.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "List of preppedRecords given as parameter is required for insert and assumed to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should represent a specific commit instant and should not be null when performing an insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext represents the execution context which is necessary and should not be null during method execution and delegation.",
+    "meta" : [ ]
+  } ]
+}

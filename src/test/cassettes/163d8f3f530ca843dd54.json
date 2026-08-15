@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == price * 0.9",
+    "rationale" : "The returned value is always 90% of the input price, reflecting a 10% discount applied.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= price",
+    "rationale" : "Applying a discount cannot increase the price, so the result will always be less than or equal to the original price.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0",
+    "rationale" : "Assuming price is non-negative (as is typical with prices), the discounted result should also be non-negative.",
+    "meta" : [ ]
+  } ]
+}

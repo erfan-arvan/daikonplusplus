@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of postWrite(...), which is a List<WriteStatus> object.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result always non-null"
+    } ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "The return type of the method guarantees result is a List.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "result is List"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method is expected to process input records, so null would likely be rejected or handled earlier.",
+    "meta" : [ {
+      "key" : "input-nonnull",
+      "value" : "records never null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is dereferenced as Option.ofNullable(instantTime); later uses assume instantTime is non-null.",
+    "meta" : [ {
+      "key" : "input-nonnull",
+      "value" : "instantTime never null"
+    } ]
+  } ]
+}

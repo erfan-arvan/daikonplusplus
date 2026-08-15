@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always constructs and returns a TiledMap instance, so result should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is used unconditionally with resolve(fileName), so it must be non-null on any path that returns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter != null",
+    "rationale" : "parameter is dereferenced (parameter.textureMinFilter, parameter.textureMagFilter); null would cause NPE before any return.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getOwnedResources().contains(parameter.atlasResolver.getAtlas())",
+    "rationale" : "The atlas is wrapped in an owned resources array for the result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getOwnedResources().size > 0",
+    "rationale" : "The method adds the atlas as an owned resource, so this collection should be non-empty at exit.",
+    "meta" : [ ]
+  } ]
+}

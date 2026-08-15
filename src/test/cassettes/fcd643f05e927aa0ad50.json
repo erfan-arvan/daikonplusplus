@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "toMap always returns a non-null Map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "data.stream() is called unguarded, so data must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "func is passed to throwingMapToPairWrapper, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each key in the result is derived from an element in data (with possible key collisions), so result cannot have more entries than data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism != null",
+    "rationale" : "parallelism is used as an unguarded argument, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

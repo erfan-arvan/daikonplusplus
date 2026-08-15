@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "The inputRecords field is used as an argument to bulkInsert and must not be null for correct operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is concatenated in exception message and used as a method argument, requiring it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is passed as an argument to bulkInsert and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "config is required by bulkInsert; it must be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "The method is invoked on a valid object instance, so 'this' is never null at a non-static method's entry.",
+    "meta" : [ ]
+  } ]
+}

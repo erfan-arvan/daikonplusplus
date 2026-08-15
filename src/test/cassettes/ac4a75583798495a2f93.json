@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Method returns Integer.MIN_VALUE when b == 0, otherwise division a / b.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If the divisor is zero, the method returns Integer.MIN_VALUE"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Redundant but restates that result is Integer.MIN_VALUE if b is zero.",
+    "meta" : [ {
+      "key" : "note",
+      "value" : "Same as first invariant, left for clarity"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Reinforces that if b is zero, result must be Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Ensures when division by zero occurs, result equals the sentinel value"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "This invariant matches method's handling for b==0.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Reflects method's behavior on zero divisor"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Ensures the sentinel return when division cannot proceed due to zero divisor.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Matches method's condition for safe division"
+    } ]
+  } ]
+}

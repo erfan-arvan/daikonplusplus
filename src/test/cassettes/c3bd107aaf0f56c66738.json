@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "a != null",
+    "rationale" : "Method parameter 'a' is an Order object which is likely expected to be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getQuantity() >= 0",
+    "rationale" : "Order quantities are commonly non-negative in real-world scenarios.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getUnitPrice() >= 0.0",
+    "rationale" : "Prices are typically non-negative values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getQuantity() == (int) a.getQuantity()",
+    "rationale" : "Assuming getQuantity() returns an integer value; ensures the returned value is indeed an integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a.getUnitPrice() == (double) a.getUnitPrice()",
+    "rationale" : "Assuming getUnitPrice() returns a double value; ensures correct type and value of unit price.",
+    "meta" : [ ]
+  } ]
+}

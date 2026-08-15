@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the output of postWrite, which should return a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The method is called with non-null records (no indication of null check or allowance for null), and downstream code would fail otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used as a required argument in several method calls and shouldn't be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "By method signature and return statement, result must be a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A List's size is always non-negative; ensures there's never a negative-sized result.",
+    "meta" : [ ]
+  } ]
+}

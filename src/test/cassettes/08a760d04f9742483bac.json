@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a new instance via 'new', so the returned value ('result') cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof JavaHoodieBackedTableMetadataWriter",
+    "rationale" : "The method always returns an instance of JavaHoodieBackedTableMetadataWriter.",
+    "meta" : [ ]
+  }, {
+    "expression" : "conf != null",
+    "rationale" : "The StorageConfiguration is directly passed to the constructor and thus is required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "HoodieWriteConfig is required and passed to the constructed object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "HoodieEngineContext is used in the construction and should not be null.",
+    "meta" : [ ]
+  } ]
+}

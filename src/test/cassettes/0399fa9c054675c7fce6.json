@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method unconditionally throws an exception and never returns a value, so result will always be null at METHOD_EXIT.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true == false",
+    "rationale" : "Because the method always throws and never completes normally, any postcondition on result is vacuously true; as a result, any non-trivial expression is vacuously invariant but in practical terms, there is no reachable exit with a non-exceptional result.",
+    "meta" : [ ]
+  } ]
+}

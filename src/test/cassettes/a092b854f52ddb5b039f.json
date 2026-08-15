@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result list is the output of a collect operation, which returns a non-null list.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "result is non-null after mapping"
+    } ]
+  }, {
+    "expression" : "data != null || result == null",
+    "rationale" : "If the input data is null, the mapping would not produce a result list.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "if data is null, result is null"
+    } ]
+  }, {
+    "expression" : "result.size() == data.size()",
+    "rationale" : "Mapping over the data list produces a result list of the same length.",
+    "meta" : [ {
+      "key" : "size relation",
+      "value" : "result and data lists are the same size"
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is an integer indicating parallel threads; it must be positive to have effect.",
+    "meta" : [ {
+      "key" : "parameter constraint",
+      "value" : "parallelism must be positive"
+    } ]
+  }, {
+    "expression" : "func != null",
+    "rationale" : "The mapping function is required to not be null for the operation to succeed.",
+    "meta" : [ {
+      "key" : "parameter non-null",
+      "value" : "Mapping function is non-null"
+    } ]
+  } ]
+}

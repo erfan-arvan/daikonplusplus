@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method requires Batch batch as a parameter and uses it extensively; a null value would cause an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0.0f",
+    "rationale" : "Alpha values for rendering are semantically non-negative and parentAlpha is multiplied by color.a for composite opacity.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1.0f",
+    "rationale" : "Alpha values for blending are typically capped at 1.0 (fully opaque).",
+    "meta" : [ ]
+  }, {
+    "expression" : "getStage() != null",
+    "rationale" : "The method returns early if getStage() == null, so at the exit stage can't be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getColor() != null",
+    "rationale" : "getColor() is used unconditionally after the null-check for stage, making it safe to assume it is not null at exit.",
+    "meta" : [ ]
+  } ]
+}

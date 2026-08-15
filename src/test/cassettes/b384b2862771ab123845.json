@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to identify the timeline instant for the delete; it should typically be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method expects a list of HoodieKey objects to delete, which must be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!keys.isEmpty()",
+    "rationale" : "A delete operation should be invoked with non-empty keys list to have an effect.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is required for execution, so it should not be null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.stream().allMatch(k -> k != null)",
+    "rationale" : "The list of keys should not contain null entries for the delete operation to be meaningful.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The stream's collect(toList()) operation always produces a non-null list, regardless of input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null ? result.size() >= 0 : true",
+    "rationale" : "If data is non-null, collecting the flatMap always yields a non-negative result list size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result is explicitly produced as a List by the collect(toList()) terminal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0 ? result.size() >= 0 : result.size() >= 0",
+    "rationale" : "Regardless of parallelism value, the result list always has a non-negative size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null ? data.isEmpty() == result.isEmpty() : true",
+    "rationale" : "If data is empty, flatMap returns an empty result; if data is not empty, this does not guarantee a non-empty result, but equality holds when data is empty.",
+    "meta" : [ ]
+  } ]
+}

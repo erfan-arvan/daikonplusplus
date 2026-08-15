@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "minCheckCount >= 0",
+    "rationale" : "Minimum check count likely should not be negative, based on the intent and default value from documentation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "minCheckCount != this.minCheckCount",
+    "rationale" : "At method entry, the provided minCheckCount can differ from the current field (prior to assignment), reflecting a potential update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "minCheckCount == minCheckCount",
+    "rationale" : "Parameter identity holds, useful as a baseline/tautological invariant.",
+    "meta" : [ ]
+  } ]
+}

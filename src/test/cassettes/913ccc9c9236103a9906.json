@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "dedupedRecords != null",
+    "rationale" : "dedupedRecords is passed as an argument and is expected to be a valid List for correct method operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for operations in the method body and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "table is dereferenced immediately in the method; it must not be null for correct execution.",
+    "meta" : [ ]
+  } ]
+}

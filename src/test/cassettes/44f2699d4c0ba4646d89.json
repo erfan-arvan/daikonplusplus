@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result.length() == 8",
+    "rationale" : "Result is always a string of 8 hex digits for #RRGGBBAA per conversion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiledColor != null && result != null",
+    "rationale" : "Input must be non-null, and result is always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiledColor.startsWith(\"#\") && result.matches(\"[0-9a-fA-F]{8}\")",
+    "rationale" : "tiledColor always starts with # and the output is 8 hex digits.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiledColor.length() == 7 || tiledColor.length() == 9",
+    "rationale" : "Tiled input color is either #RRGGBB (7) or #AARRGGBB (9).",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.substring(0, 6).equals(tiledColor.length() == 9 ? tiledColor.substring(3) : tiledColor.substring(1))",
+    "rationale" : "The color (without alpha) part is always transferred to the first 6 chars of result.",
+    "meta" : [ ]
+  } ]
+}

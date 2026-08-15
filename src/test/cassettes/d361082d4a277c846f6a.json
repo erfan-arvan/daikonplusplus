@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "InputEvent event should be non-null when the clicked method is called.",
+    "meta" : [ ]
+  }, {
+    "expression" : "x >= 0",
+    "rationale" : "x represents a coordinate and is likely non-negative when referring to a UI position.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y >= 0",
+    "rationale" : "y represents a coordinate and is likely non-negative for UI components.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getTapCount() >= 0",
+    "rationale" : "Tap count should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getTapCount() % 4 >= 0 && getTapCount() % 4 < 4",
+    "rationale" : "Modulo operation with 4 ensures result is in the 0 to 3 range.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "The list of keys should be non-null to allow deletion operations to proceed safely.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used for table operations and should be non-null for correct initialization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!keys.isEmpty()",
+    "rationale" : "A delete operation must target at least one key for meaningful work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.stream().allMatch(k -> k != null)",
+    "rationale" : "Each HoodieKey must be non-null to avoid null dereference and ensure valid deletions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty string giving a valid timestamp for the delete operation.",
+    "meta" : [ ]
+  } ]
+}

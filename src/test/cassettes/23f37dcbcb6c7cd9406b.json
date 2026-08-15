@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "It is likely required that the records list is not null for an insert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime usually represents a required identifier (e.g., a commit time string), which must not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || instantTime != null",
+    "rationale" : "If there are records to insert, instantTime must be present to proceed safely with the operation.",
+    "meta" : [ ]
+  } ]
+}

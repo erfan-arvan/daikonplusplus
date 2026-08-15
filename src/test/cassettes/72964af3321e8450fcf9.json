@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "resources != null",
+    "rationale" : "Resource arrays passed into the setter are likely expected to be non-null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "resources.size >= 0",
+    "rationale" : "Array.size is always non-negative in LibGDX Array.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection-size"
+    } ]
+  } ]
+}

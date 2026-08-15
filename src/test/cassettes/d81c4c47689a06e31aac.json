@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == unitPrice",
+    "rationale" : "The method simply returns the value of unitPrice, so result is always exactly unitPrice.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this.unitPrice",
+    "rationale" : "Referencing unitPrice via 'this', result will always be this.unitPrice.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == getUnitPrice()",
+    "rationale" : "Calling getUnitPrice() at this point returns result, which is unitPrice.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Double.isFinite(result)",
+    "rationale" : "unitPrice is a double field, which is typically finite unless explicitly set otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Double.compare(result, 0.0) >= 0",
+    "rationale" : "It is plausible for unitPrice (and thus result) to be non-negative, as prices per item should not be negative in common order models.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Preventing null dereference in method logic, as records is used directly.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "records instanceof List",
+    "rationale" : "Parameter is explicitly typed as List<WriteStatus>, so type-safety holds.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-safety"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "size"
+    } ]
+  }, {
+    "expression" : "records.stream().allMatch(x -> x != null)",
+    "rationale" : "Element nullness may be a reasonable invariant for collections meant for processing.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "element-nullness"
+    } ]
+  } ]
+}

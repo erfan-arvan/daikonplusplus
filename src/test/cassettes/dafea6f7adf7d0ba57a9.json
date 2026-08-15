@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "smallFiles != null",
+    "rationale" : "The field smallFiles must be initialized to be used by the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "totalBuckets >= 0",
+    "rationale" : "The number of buckets is generally expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "workloadProfile != null",
+    "rationale" : "workloadProfile is a core structure used by the class, typically required to be initialized.",
+    "meta" : [ ]
+  }, {
+    "expression" : "updateLocationToBucket != null",
+    "rationale" : "HashMap fields are expected to be initialized before method use in typical class patterns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPathToInsertBucketInfos != null",
+    "rationale" : "partitionPathToInsertBucketInfos is used in inserts assignment, so it is likely to be initialized prior to this call.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The 'context' parameter is required for execution and is typically expected to be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The 'extraMetadata' parameter, although an Option, should itself not be null at entry, in line with typical usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata.isPresent() || !extraMetadata.isPresent()",
+    "rationale" : "The isPresent() method can always be called on a non-null Option, and the result must be true or false; this checks well-formedness.",
+    "meta" : [ ]
+  } ]
+}

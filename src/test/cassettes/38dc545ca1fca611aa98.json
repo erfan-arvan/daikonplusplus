@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "width >= 0.0f",
+    "rationale" : "Widths are typically non-negative for sizing UI components.",
+    "meta" : [ ]
+  }, {
+    "expression" : "height >= 0.0f",
+    "rationale" : "Heights are typically non-negative for sizing UI components.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(width))",
+    "rationale" : "Width parameter should not be NaN for sizing methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isNaN(height))",
+    "rationale" : "Height parameter should not be NaN for sizing methods.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(Float.isInfinite(width)) && !(Float.isInfinite(height))",
+    "rationale" : "Finite values are expected for width and height in sizing methods.",
+    "meta" : [ ]
+  } ]
+}

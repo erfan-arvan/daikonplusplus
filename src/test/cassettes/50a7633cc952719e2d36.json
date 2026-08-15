@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "true",
+    "rationale" : "The method unconditionally returns true, so at entry no information is required and the postcondition is that the result will always be true.",
+    "meta" : [ {
+      "key" : "method_contract",
+      "value" : "method_always_returns_true"
+    } ]
+  }, {
+    "expression" : "this != null",
+    "rationale" : "At method entry, the receiver object cannot be null.",
+    "meta" : [ {
+      "key" : "java_method_entry",
+      "value" : "instance_method_nonstatic"
+    } ]
+  } ]
+}

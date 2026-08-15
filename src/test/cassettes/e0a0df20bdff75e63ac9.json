@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "This is implied by the usage of instantTime as an argument to transitionRequestedToInflight, which likely expects a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "Instant time is typically a non-empty identifier for commit actions, so it is unlikely to be empty at this point.",
+    "meta" : [ ]
+  } ]
+}

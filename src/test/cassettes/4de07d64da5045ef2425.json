@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "params != null",
+    "rationale" : "params is freshly allocated as a new HashMap at method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "params is initialized to an empty HashMap"
+    } ]
+  }, {
+    "expression" : "params.isEmpty()",
+    "rationale" : "params has just been created and no entries have been inserted yet at method entry.",
+    "meta" : [ {
+      "key" : "initialization",
+      "value" : "params is empty before any conditional insertion"
+    } ]
+  } ]
+}

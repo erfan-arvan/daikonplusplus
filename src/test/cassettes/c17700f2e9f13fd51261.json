@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Average bytes per record cannot be negative as it represents a size estimate.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "commitTimeline != null",
+    "rationale" : "Parameter commitTimeline should not be null for the method to compute average bytes per record.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "Parameter hoodieWriteConfig should not be null as it is used to compute the average.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate()",
+    "rationale" : "The returned average is at most the estimate configured in hoodieWriteConfig.",
+    "meta" : [ {
+      "key" : "upper_bound",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result >= 0 && !commitTimeline.empty()",
+    "rationale" : "If commitTimeline is not empty, the result is still non-negative.",
+    "meta" : [ {
+      "key" : "conditional",
+      "value" : "true"
+    } ]
+  } ]
+}

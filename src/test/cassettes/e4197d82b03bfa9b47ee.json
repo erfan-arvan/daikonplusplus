@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result list is created via Collectors.toList(), which never returns null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method returns a non-null list as per collect(Collectors.toList())"
+    } ]
+  }, {
+    "expression" : "!result.contains(null)",
+    "rationale" : "The collected list does not contain null elements as they are filtered out by filter(Objects::nonNull).",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The stream filters out null values before collecting."
+    } ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "The number of reduced elements is at most the number of input pairs.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Each grouped key maps to one reduced value, so size cannot exceed original data size."
+    } ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is a positive integer controlling parallel execution.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Parallelism as number of threads must be positive to perform parallel stream"
+    } ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The input data list is required to be non-null for streaming.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Input data list must be non-null to perform stream operations"
+    } ]
+  } ]
+}

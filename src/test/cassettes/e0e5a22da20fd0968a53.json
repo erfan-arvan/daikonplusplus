@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method sorts the list, so it must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records is not null"
+    } ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Typically the number of output partitions should be positive.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "outputPartitions is positive"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "records has non-negative size"
+    } ]
+  }, {
+    "expression" : "records != null && (records.size() <= Integer.MAX_VALUE)",
+    "rationale" : "List size within int limits is always true.",
+    "meta" : [ {
+      "key" : "size_limit",
+      "value" : "records size fits in int"
+    } ]
+  }, {
+    "expression" : "outputPartitions <= records.size() + 1",
+    "rationale" : "Number of partitions generally does not exceed number of records + 1.",
+    "meta" : [ {
+      "key" : "size_relation",
+      "value" : "outputPartitions less or equal to records size + 1"
+    } ]
+  } ]
+}

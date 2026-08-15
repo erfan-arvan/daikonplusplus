@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath represents a folder or partition and is expected to be non-null for proper operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices != null",
+    "rationale" : "fileSlices should be non-null for clustering group computation to avoid NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileSlices.isEmpty() || partitionPath != null",
+    "rationale" : "If there are file slices to cluster, the partitionPath should be defined.",
+    "meta" : [ ]
+  } ]
+}

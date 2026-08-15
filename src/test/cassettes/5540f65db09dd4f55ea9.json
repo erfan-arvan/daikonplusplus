@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "table != null",
+    "rationale" : "The method accesses table.getMetaClient(), so table must not be null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "table.getMetaClient() != null",
+    "rationale" : "The method invokes getCommitActionType() on getMetaClient(), so getMetaClient() must not be null.",
+    "meta" : [ {
+      "key" : "certainty",
+      "value" : "high"
+    } ]
+  } ]
+}

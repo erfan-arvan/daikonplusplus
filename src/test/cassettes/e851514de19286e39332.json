@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Color from either style.disabledFontColor, style.overFontColor, or style.fontColor, all of which are expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == style.disabledFontColor || result == style.overFontColor || result == style.fontColor",
+    "rationale" : "The returned Color is always one of these three fields based on the method's logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!isDisabled() || result == style.disabledFontColor || result != style.disabledFontColor",
+    "rationale" : "If isDisabled() is true and style.disabledFontColor is not null, result must be style.disabledFontColor; otherwise, it is one of the other two.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isDisabled() && style.disabledFontColor != null ? result == style.disabledFontColor : true",
+    "rationale" : "If the button is disabled and a disabled color is configured, that color is always returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style.overFontColor != null && (isOver() || scrollPane.hasParent()) ? result == style.overFontColor : true",
+    "rationale" : "If the overFontColor is set and isOver() or scrollPane.hasParent() is true, result must be style.overFontColor.",
+    "meta" : [ ]
+  } ]
+}

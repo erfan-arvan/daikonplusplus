@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method validates and handles null specifically, so callers may supply null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "not null"
+    } ]
+  }, {
+    "expression" : "orders == null || orders.size() >= 0",
+    "rationale" : "List.size() is always non-negative if the list is non-null.",
+    "meta" : [ {
+      "key" : "collection",
+      "value" : "size is non-negative"
+    } ]
+  }, {
+    "expression" : "orders == null || orders.stream().allMatch(order -> order != null)",
+    "rationale" : "The validateOrders method likely ensures all elements are non-null.",
+    "meta" : [ {
+      "key" : "element nullness",
+      "value" : "no nulls in list (if non-null)"
+    } ]
+  }, {
+    "expression" : "orders == null || orders.stream().allMatch(order -> order.getQuantity() >= 0)",
+    "rationale" : "Order quantity should be non-negative, likely enforced by validation.",
+    "meta" : [ {
+      "key" : "order invariant",
+      "value" : "no negative quantity"
+    } ]
+  }, {
+    "expression" : "orders == null || orders.stream().allMatch(order -> order.getUnitPrice() >= 0.0)",
+    "rationale" : "Unit price should not be negative, also likely enforced by validation.",
+    "meta" : [ {
+      "key" : "order invariant",
+      "value" : "no negative prices"
+    } ]
+  } ]
+}

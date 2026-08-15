@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "values != null",
+    "rationale" : "The method operates over the 'values' array and uses it without a null check, implying it is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "values.size >= 0",
+    "rationale" : "Array.size in libGDX collections is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

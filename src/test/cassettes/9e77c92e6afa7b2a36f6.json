@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parentProps != null || templateProps != null",
+    "rationale" : "At least one of the input JsonValue objects is expected to be non-null, otherwise the merge would be meaningless.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentProps == null || parentProps.isArray()",
+    "rationale" : "parentProps is expected to be an array or null, as the method merges property arrays.",
+    "meta" : [ ]
+  }, {
+    "expression" : "templateProps == null || templateProps.isArray()",
+    "rationale" : "templateProps is expected to be an array or null, due to merging property arrays.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentProps != null || templateProps.isArray()",
+    "rationale" : "If parentProps is null, templateProps must be an array to return meaningful properties.",
+    "meta" : [ ]
+  }, {
+    "expression" : "templateProps != null || parentProps.isArray()",
+    "rationale" : "If templateProps is null, parentProps must be an array for correct behavior.",
+    "meta" : [ ]
+  } ]
+}

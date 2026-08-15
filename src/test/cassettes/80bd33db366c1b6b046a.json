@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "Accessing 'style' is needed within the method, so it is likely expected to be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(style == null) || (style.up == null || style.up.getMinHeight() >= 0)",
+    "rationale" : "If 'style.up' is not null, calling 'getMinHeight()' should not be negative, based on usual UI component conventions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(style == null) || (style.down == null || style.down.getMinHeight() >= 0)",
+    "rationale" : "Similarly, 'style.down.getMinHeight()' should be non-negative if 'style.down' is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(style == null) || (style.checked == null || style.checked.getMinHeight() >= 0)",
+    "rationale" : "Likewise, 'style.checked.getMinHeight()' should be non-negative if 'style.checked' is not null.",
+    "meta" : [ ]
+  } ]
+}

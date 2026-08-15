@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata instance from a factory method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "A typical contract is that write metadata should return a non-null list of WriteStatus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The return type of getWriteStatuses() should be a List by method definition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.hasErrors() || result.getWriteStatuses().size() > 0",
+    "rationale" : "If there are no errors, there should be at least one WriteStatus produced.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A collection size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

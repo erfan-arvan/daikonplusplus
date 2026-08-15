@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new merged Element unless template or parent is null, in which case it returns the non-null argument. All paths return non-null if either parameter is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(parent == null) != (template == null) ? result == (parent != null ? parent : template) : true",
+    "rationale" : "If exactly one of parent/template is null, result returns the non-null one; otherwise, a new merged result is returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getName().equals(template != null ? template.getName() : parent.getName())",
+    "rationale" : "The resulting Element's name is set based on the template's name if template is non-null, otherwise falls back to parent.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != parent && result != template",
+    "rationale" : "When both parent and template are non-null, result is a newly created Element and not either argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getChildCount() >= Math.max(parent != null ? parent.getChildCount() : 0, template != null ? template.getChildCount() : 0)",
+    "rationale" : "The merged element will have at least as many children as the maximum of parent or template.",
+    "meta" : [ ]
+  } ]
+}

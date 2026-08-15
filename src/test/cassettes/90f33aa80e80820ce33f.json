@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Partition counts usually must be positive to make sense for repartitioning operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The list of records should not be null to perform repartitioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.size() == 0",
+    "rationale" : "A list is either empty or its size equals zero, ensuring consistency of the list API.",
+    "meta" : [ ]
+  }, {
+    "expression" : "outputPartitions <= records.size() || records.isEmpty()",
+    "rationale" : "There may be no more partitions than records unless the list is empty.",
+    "meta" : [ ]
+  } ]
+}

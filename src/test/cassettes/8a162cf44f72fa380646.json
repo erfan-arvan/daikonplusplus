@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method parameter 'layer' must be non-null at the exit point as it is dereferenced in the method for field and method calls.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() != null",
+    "rationale" : "The method returns early if 'layer.getTextureRegion() == null', so at method exit this must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getX() == ((int)layer.getX() || (float)layer.getX())",
+    "rationale" : "'layer.getX()' is called and used in arithmetic; it must be a valid float at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.isRepeatX() || layer.isRepeatY() || (viewBounds.contains(imageBounds) || viewBounds.overlaps(imageBounds))",
+    "rationale" : "If neither 'layer.isRepeatX()' nor 'layer.isRepeatY()', the only rendering done is if the bounds contain/overlap. Otherwise, repeat rendering is attempted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getParallaxX() >= 0.0f && layer.getParallaxY() >= 0.0f",
+    "rationale" : "The parallax factors are used in an arithmetic expression and likely should be non-negative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "Method requires tile to be non-null to proceed without error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement != null",
+    "rationale" : "tileElement must be non-null as it is dereferenced for attribute access.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tile.getProperties() != null",
+    "rationale" : "tile.getProperties() is used repeatedly, so it is assumed to be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getAttribute(\"terrain\", null) == null || tile.getProperties().containsKey(\"terrain\")",
+    "rationale" : "If terrain attribute is present, the tile properties will contain 'terrain' key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElement.getAttribute(\"probability\", null) == null || tile.getProperties().containsKey(\"probability\")",
+    "rationale" : "If probability attribute is present, the tile properties will contain 'probability' key.",
+    "meta" : [ ]
+  } ]
+}

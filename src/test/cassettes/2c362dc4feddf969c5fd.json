@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new list using Collectors.toList(), which is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each element in result corresponds to a unique key after grouping; the number of unique keys cannot exceed the size of the input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is intended to control parallel stream behavior and should always be a positive integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The input data list is always used (e.g., data.stream()), indicating it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "mapToPairFunc != null && reduceFunc != null",
+    "rationale" : "Both functions are invoked (wrapped and passed to stream operations), so they must be non-null.",
+    "meta" : [ ]
+  } ]
+}

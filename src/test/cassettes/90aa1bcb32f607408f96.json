@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "(type == null || \"string\".equals(type) || \"file\".equals(type)) ? result.equals(value) : true",
+    "rationale" : "If type is null, 'string', or 'file', the method returns value, so result equals value; otherwise, this constraint need not hold.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-value relationship"
+    } ]
+  }, {
+    "expression" : "(\"int\".equals(type)) ? (result instanceof Integer) : true",
+    "rationale" : "If type is 'int', method returns Integer.valueOf(value), so result must be Integer.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-based return type"
+    } ]
+  }, {
+    "expression" : "(\"float\".equals(type)) ? (result instanceof Float) : true",
+    "rationale" : "If type is 'float', method returns Float.valueOf(value), so result must be Float.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-based return type"
+    } ]
+  }, {
+    "expression" : "(\"bool\".equals(type)) ? (result instanceof Boolean) : true",
+    "rationale" : "If type is 'bool', method returns Boolean.valueOf(value), so result must be Boolean.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-based return type"
+    } ]
+  }, {
+    "expression" : "(\"color\".equals(type)) ? (result instanceof Color) : true",
+    "rationale" : "If type is 'color', method returns Color.valueOf(...), so result must be a Color instance.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type-based return type"
+    } ]
+  } ]
+}

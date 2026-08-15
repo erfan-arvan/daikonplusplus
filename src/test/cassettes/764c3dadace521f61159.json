@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The return value is produced by calling a method, so 'result' is very likely never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != metadata",
+    "rationale" : "The method returns metadata.clone(...), producing a new object, so 'result' should not be the same object as 'metadata'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == metadata.getClass()",
+    "rationale" : "Both 'result' and 'metadata' are HoodieWriteMetadata objects, likely of the same type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "Result's statuses are returned as a List according to the method signature (HoodieWriteMetadata<List<WriteStatus>>).",
+    "meta" : [ ]
+  }, {
+    "expression" : "metadata.getWriteStatuses() != null",
+    "rationale" : "The method calls collectAsList() on metadata.getWriteStatuses(), so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "prefHeight >= 0",
+    "rationale" : "prefHeight likely represents a height and should be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefHeight < Float.POSITIVE_INFINITY",
+    "rationale" : "Height should not exceed positive infinity; ensures finite value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(prefHeight)",
+    "rationale" : "Height parameter should be a finite float value.",
+    "meta" : [ ]
+  } ]
+}

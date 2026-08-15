@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is likely used as an identifier for the update, so it should be non-null.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "instantTime"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath should refer to a directory or logical partition, which should not be null.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "partitionPath"
+    } ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId should uniquely identify a file and typically should not be null.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "fileId"
+    } ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "The map for updated records should be non-null, even if empty, to avoid NullPointerException.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "keyToNewRecords"
+    } ]
+  }, {
+    "expression" : "dataFileToBeMerged != null",
+    "rationale" : "A merge requires a base file; dataFileToBeMerged should not be null.",
+    "meta" : [ {
+      "key" : "param",
+      "value" : "dataFileToBeMerged"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be a valid timestamp string used in commit actions.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is typically a non-null string representing a timestamp."
+    } ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Handle partition as a valid Integer index.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partition is a method parameter of type Integer and should not be null at method entry."
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "Processing records requires a non-null iterator.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "recordItr is an input Iterator and should be non-null for the method to process records."
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "Must have a valid partitioner object to proceed.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitioner is a method argument responsible for partitioning logic."
+    } ]
+  }, {
+    "expression" : "partitioner instanceof JavaUpsertPartitioner",
+    "rationale" : "Method logic depends on partitioner being a JavaUpsertPartitioner instance.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "The cast in the method implies partitioner should be of type JavaUpsertPartitioner."
+    } ]
+  } ]
+}

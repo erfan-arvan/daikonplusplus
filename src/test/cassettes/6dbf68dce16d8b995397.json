@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of getCell(image), which is expected to return a Cell. Returning null may indicate that no image cell is present, but typically in UI code such a method is expected to return a valid cell.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof Cell",
+    "rationale" : "Since result is being returned as Cell, it is expected to be either null or an instance of Cell.",
+    "meta" : [ ]
+  } ]
+}

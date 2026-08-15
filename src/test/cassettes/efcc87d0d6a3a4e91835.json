@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "Parameters are typically not expected to be null when passed to this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "Parameters are typically not expected to be null when passed to this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient instanceof HoodieTableMetaClient",
+    "rationale" : "Type-checking parameter to ensure it matches expected type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex instanceof List",
+    "rationale" : "Ensure that columnsToIndex is of expected type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "columnsToIndex == null || columnsToIndex.isEmpty() || !columnsToIndex.isEmpty()",
+    "rationale" : "The method is a no-op, so columnsToIndex is unmodified; it can be empty or non-empty but no change occurs within the method.",
+    "meta" : [ ]
+  } ]
+}

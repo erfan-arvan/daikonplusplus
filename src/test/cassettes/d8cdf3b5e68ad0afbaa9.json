@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "id >= 0",
+    "rationale" : "Tile ids are commonly non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiles.get(id) == null",
+    "rationale" : "After removal, the tile with this id should not exist.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiles.containsKey(id) == false",
+    "rationale" : "After removal, the map should no longer have the tile.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tiles.size() >= 0",
+    "rationale" : "A map's size is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

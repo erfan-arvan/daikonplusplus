@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a reference to a HoodieIndex or throws an exception, so result is never null at exit.",
+    "meta" : [ {
+      "key" : "guarantee",
+      "value" : "method guarantees"
+    } ]
+  }, {
+    "expression" : "result instanceof HoodieIndex",
+    "rationale" : "The method only returns objects that are subclasses of HoodieIndex.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "correct"
+    } ]
+  }, {
+    "expression" : "config != null",
+    "rationale" : "Method requires a non-null config to proceed without NPE.",
+    "meta" : [ {
+      "key" : "input",
+      "value" : "required"
+    } ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "All index constructors appear to pass the provided config, so the index's config field should reference the argument.",
+    "meta" : [ {
+      "key" : "ownership",
+      "value" : "should hold if HoodieIndex passes config"
+    } ]
+  } ]
+}

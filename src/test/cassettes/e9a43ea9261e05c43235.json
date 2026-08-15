@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a non-null HoodieData input to tag locations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The context is required for distributed processing; null is likely invalid input.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "The hoodieTable is required to determine file and partition locations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof HoodieData",
+    "rationale" : "records parameter is used as HoodieData, so must be an instance of HoodieData.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context instanceof HoodieEngineContext",
+    "rationale" : "context is used as a HoodieEngineContext in the body, so this holds for valid use.",
+    "meta" : [ ]
+  } ]
+}

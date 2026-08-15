@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result object is updated and returned by the method, so it should not be null upon exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The result variable should always be a List<WriteStatus> as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "A list in Java cannot have negative size, so the returned list should have non-negative size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The writeStatuses parameter is used to update the index, so it should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == ((writeStatuses != null) ? table.getIndex().updateLocation(HoodieListData.eager(writeStatuses), context, table).collectAsList().size() : 0)",
+    "rationale" : "The returned list is the result of the index update, whose size should match the output of collectAsList on the corresponding updateLocation call.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tmxFile != null",
+    "rationale" : "FileHandle operations typically require non-null references.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset != null",
+    "rationale" : "Element operations and content extraction require non-null references.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "A valid dependency lookup is likely only meaningful if the file exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset.getName() != null",
+    "rationale" : "The Element should have a non-null name to identify the tileset.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileset.getChildCount() >= 0",
+    "rationale" : "Child count of an Element should be a non-negative integer.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "It is standard to check collections for null before operating.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The method likely requires a non-null instantTime for deletion to occur.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "The size of a List is always non-negative by specification.",
+    "meta" : [ ]
+  } ]
+}

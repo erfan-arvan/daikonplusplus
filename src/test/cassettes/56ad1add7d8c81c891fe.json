@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "indexInstantTime != null",
+    "rationale" : "Indexing is scheduled for a specific instant time, so a valid instant time is expected.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex != null",
+    "rationale" : "The partitions to index should be provided as a non-null list to proceed with indexing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPaths != null",
+    "rationale" : "A list of partition paths is required for scheduling indexing; a null list is likely invalid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionsToIndex.isEmpty() || partitionPaths != null",
+    "rationale" : "If there are no partitions to index, the requirement for partitionPaths might be relaxed, but if partitionsToIndex is not empty, partitionPaths should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPaths.isEmpty() || partitionsToIndex.isEmpty()",
+    "rationale" : "If there are no partition paths, we expect there should also be no partitions to index.",
+    "meta" : [ ]
+  } ]
+}

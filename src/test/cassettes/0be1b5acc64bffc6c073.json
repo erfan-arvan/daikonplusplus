@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new TextureRegion is always created and returned, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getTexture() == images.get(name)",
+    "rationale" : "The TextureRegion is created using images.get(name) as the texture, so its texture is always equal to that.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || images.get(name) == null || result.getTexture() == images.get(name)",
+    "rationale" : "If images.get(name) is null, the TextureRegion is still made with null; otherwise, it matches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof TextureRegion",
+    "rationale" : "Only a TextureRegion is ever returned from this method.",
+    "meta" : [ ]
+  } ]
+}

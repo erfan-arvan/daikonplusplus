@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "getCurrentFrame() != null",
+    "rationale" : "Method getOffsetX() immediately calls getCurrentFrame(); getCurrentFrame() must not be null to avoid NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getCurrentFrame().getOffsetX() >= 0",
+    "rationale" : "Offset values are often expected to be non-negative in tile-based graphics contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getCurrentFrame().getOffsetX() <= Float.MAX_VALUE",
+    "rationale" : "Float offset values should be within the maximum representable float value.",
+    "meta" : [ ]
+  } ]
+}

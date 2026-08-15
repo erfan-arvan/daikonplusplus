@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is likely required as a meaningful identifier and not expected to be null when invoking this method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "The partitions list should not be null for the method to perform its purpose (even though the body throws a not supported exception).",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.isEmpty() || partitions.size() > 0",
+    "rationale" : "A List may logically be empty or have elements at the method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "If non-null, instantTime is expected to be a non-empty timestamp or identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.stream().allMatch(x -> x != null)",
+    "rationale" : "If partitions is provided, its elements should be non-null partition type instances.",
+    "meta" : [ ]
+  } ]
+}

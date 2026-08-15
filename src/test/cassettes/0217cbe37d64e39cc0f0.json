@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option should not be null by contract; a non-null Option signals successful API usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required as a cluster scheduling boundary; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == (result.orElse(null) != null)",
+    "rationale" : "If result Option is present, the value it wraps is not null; ensures Option semantics.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "extraMetadata provided for clustering must not be null; using Option to represent possible absence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is required for parallel actions; cannot be null for execution.",
+    "meta" : [ ]
+  } ]
+}

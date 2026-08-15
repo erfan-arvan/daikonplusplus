@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Engine context is likely always required for delete operations and used to create executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "A non-null commit instant time is usually required for table mutations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "A non-null list of keys is required since delete logic acts on this collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.isEmpty() || keys.size() > 0",
+    "rationale" : "If keys is not empty, then its size is positive. (Basic property of List).",
+    "meta" : [ ]
+  }, {
+    "expression" : "!keys.isEmpty() || keys.size() == 0",
+    "rationale" : "If the list is empty, its size is zero. (Basic List property).",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The TableMetaClient argument should not be null to operate on a table's metadata.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "metaClient"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The list of columns to index should not be null in the method contract.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "columnsToIndex"
+    } ]
+  }, {
+    "expression" : "columnsToIndex instanceof java.util.List",
+    "rationale" : "The parameter columnsToIndex should always be a List.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "columnsToIndex"
+    } ]
+  }, {
+    "expression" : "metaClient instanceof org.apache.hudi.common.table.HoodieTableMetaClient",
+    "rationale" : "The parameter metaClient should always be an instance of HoodieTableMetaClient as per method signature.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "metaClient"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.isEmpty() || columnsToIndex.get(0) instanceof String",
+    "rationale" : "The List columnsToIndex should either be empty or contain Strings due to the declared type List<String>.",
+    "meta" : [ {
+      "key" : "parameter",
+      "value" : "columnsToIndex"
+    } ]
+  } ]
+}

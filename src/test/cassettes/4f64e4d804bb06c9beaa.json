@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The parameter writeStatuses is expected to be non-null when entering the method.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatuses is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The execution context is required and thus not null on method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "The hoodie table parameter is required and not null on method entry.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "hoodieTable is non-null at method entry"
+    } ]
+  } ]
+}

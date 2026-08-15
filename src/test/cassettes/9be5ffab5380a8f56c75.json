@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is created using stream().collect(), which never returns null for a List collector.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() == smallFiles.size()",
+    "rationale" : "Result list is produced by mapping each element of smallFiles to a String; thus, sizes match.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(id -> id != null)",
+    "rationale" : "Each id is produced with smallFile.location.getFileId(), and file IDs are expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "new java.util.HashSet<>(result).size() == result.size()",
+    "rationale" : "If no two smallFiles share the same location.getFileId(), then all IDs are unique.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return meaningful write metadata, which should not be null if execution completes normally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass().equals(HoodieWriteMetadata.class)",
+    "rationale" : "The returned object should always be an instance of HoodieWriteMetadata as per the declared return type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The collection of WriteStatus objects within the metadata should be present to describe the result of the write.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The number of write statuses should never be negative, since it is a list size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(result.getWriteStatuses().isEmpty())",
+    "rationale" : "A non-empty write status list is expected for a successful upsert operation.",
+    "meta" : [ ]
+  } ]
+}

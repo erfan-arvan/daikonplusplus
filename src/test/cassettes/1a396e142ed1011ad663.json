@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result == overNode.getValue()",
+    "rationale" : "Based on the method body: if overNode is null, result is null; otherwise, result is overNode.getValue().",
+    "meta" : [ ]
+  }, {
+    "expression" : "overNode == null || result == overNode.getValue()",
+    "rationale" : "If overNode is not null, result must be its value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "overNode != null || result == null",
+    "rationale" : "If overNode is null, result is null.",
+    "meta" : [ ]
+  } ]
+}

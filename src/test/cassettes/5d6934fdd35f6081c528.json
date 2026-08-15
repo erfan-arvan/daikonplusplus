@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "InputEvent event is passed to the method; typically not expected to be null during a drag event.",
+    "meta" : [ ]
+  }, {
+    "expression" : "pointer >= 0",
+    "rationale" : "Pointer indices in LibGDX input handling are zero-based and non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getCursorPosition() >= 0",
+    "rationale" : "The setCursorPosition method is called with x and y (likely related to text position); cursor position is expected to be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "isTouchable()",
+    "rationale" : "touchDragged is only called when the actor is touchable in scene2d; thus, isTouchable() should be true at exit.",
+    "meta" : [ ]
+  } ]
+}

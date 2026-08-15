@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= Integer.MIN_VALUE",
+    "rationale" : "x is an int so it is always greater or equal to Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "x is an int and can take any valid int value"
+    } ]
+  }, {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "If name is not null, its length must be non-negative.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "String length is always non-negative"
+    } ]
+  }, {
+    "expression" : "name == null || name.length() <= Integer.MAX_VALUE",
+    "rationale" : "The length of any string cannot exceed Integer.MAX_VALUE.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "length() returns an int bounded by Integer.MAX_VALUE"
+    } ]
+  }, {
+    "expression" : "name == null || name instanceof String",
+    "rationale" : "If name is not null, it is an instance of String.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "name is declared as String"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "This always holds true as a trivial invariant.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "placeholder invariant"
+    } ]
+  } ]
+}

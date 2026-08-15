@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a non-null metadata object as part of the write pipeline.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "Since 'preppedRecords' is passed down into the executor, it should be non-null to perform upsert operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "A valid instantTime is necessary for a commit; it is unlikely the upsert proceeds if it is missing or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The returned HoodieWriteMetadata should always provide a non-null collection of WriteStatuses.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null context is required for engine operations performed during upsert.",
+    "meta" : [ ]
+  } ]
+}

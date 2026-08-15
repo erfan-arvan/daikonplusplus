@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieWriteMetadata object created by a static helper, so result should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() should return the write status list, which is expected to be initialized when returning from JavaWriteHelper.write.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "The return type is parameterized as List<WriteStatus>, so getWriteStatuses() should produce a List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getClass() == HoodieWriteMetadata.class || HoodieWriteMetadata.class.isAssignableFrom(result.getClass())",
+    "rationale" : "Result is statically typed as HoodieWriteMetadata, but supporting inheritance is prudent.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result == records",
+    "rationale" : "Since the method returns the input list directly, result equals records.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The method returns records unchanged, so result should be records."
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The returned list (result) is non-null if the input records is non-null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "As the method returns records, which should be non-null."
+    } ]
+  }, {
+    "expression" : "result.size() == records.size()",
+    "rationale" : "The result and records are the same list, so both have the same size.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "The returned list is the same as the input list, so sizes match."
+    } ]
+  }, {
+    "expression" : "outputPartitions > 0",
+    "rationale" : "Output partitions is positive as valid partition number.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Partition count should be positive as a valid partition number."
+    } ]
+  }, {
+    "expression" : "!result.isEmpty() == !records.isEmpty()",
+    "rationale" : "The emptiness of result and records is the same as they are identical.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Result and records are the same list, so emptiness matches."
+    } ]
+  } ]
+}

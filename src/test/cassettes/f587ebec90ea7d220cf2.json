@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "y >= 0",
+    "rationale" : "Y-coordinates in UI frameworks are often non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(y)",
+    "rationale" : "Method likely expects a finite y coordinate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isNaN(y)",
+    "rationale" : "NaN is likely not a meaningful coordinate in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "y < getHeight()",
+    "rationale" : "Y should plausibly be within the tree's height, since getHeight() is passed.",
+    "meta" : [ ]
+  } ]
+}

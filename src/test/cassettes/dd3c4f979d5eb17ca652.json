@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == flipVertically",
+    "rationale" : "The method's return value precisely reflects the field value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !flipVertically == !result",
+    "rationale" : "The result is true exactly when the field is true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || flipVertically == result",
+    "rationale" : "If result is false, 'flipVertically' must also be false.",
+    "meta" : [ ]
+  } ]
+}

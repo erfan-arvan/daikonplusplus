@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The engine context is necessary for any table operation and is used to create an executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime identifies the commit time and should not be null or empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "A non-null record list is required to process insertions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "The Option object for BulkInsertPartitioner should be valid (non-null), even if empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords.size() >= 0",
+    "rationale" : "List size is always non-negative; this is always true in Java.",
+    "meta" : [ ]
+  } ]
+}

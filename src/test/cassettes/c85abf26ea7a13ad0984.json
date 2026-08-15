@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'map', which is presumably a constructed TiledMap instance, so result should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "The contract of loadSync is that it's only called with a non-null AssetManager, as it operates on existing assets.",
+    "meta" : [ ]
+  } ]
+}

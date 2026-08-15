@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null && result.getWriteStatuses() != null && !result.getWriteStatuses().isEmpty()",
+    "rationale" : "The result metadata should contain some write statuses after successful execution.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "After processing inputRecords, result should have recorded write statuses."
+    } ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "inputRecords must be non-null as it is processed in the method.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "inputRecords is used to build profiles and partition records; must not be null."
+    } ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer == null || sourceReadAndIndexTimer.isPresent()",
+    "rationale" : "The sourceReadAndIndexTimer option should either be empty or have a timer.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "sourceReadAndIndexTimer is an Option and can be empty or have a timer but not null in between."
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> !ws.hasErrors())",
+    "rationale" : "No write status should have errors at method end.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "WriteStatuses should not have errors after successful commit."
+    } ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || !result.getWriteStatuses().isEmpty()",
+    "rationale" : "If inputs exist, result should reflect non-empty write statuses.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "If there are input records, write statuses should not be empty."
+    } ]
+  } ]
+}

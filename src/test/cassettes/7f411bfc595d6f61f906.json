@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "src != null",
+    "rationale" : "src is directly dereferenced (src.type()) at method start, so cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "src.type() != nullValue || src.asString() == null",
+    "rationale" : "If src is of nullValue type, src.asString() returns null (used in clone construction).",
+    "meta" : [ ]
+  }, {
+    "expression" : "src.type() != stringValue || src.asString() != null",
+    "rationale" : "If src is of stringValue type, asString() must not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "src.type() != doubleValue || !Double.isNaN(src.asDouble())",
+    "rationale" : "If src is a doubleValue, src.asDouble() provides the value and is expected to be a valid number.",
+    "meta" : [ ]
+  }, {
+    "expression" : "src.type() != booleanValue || (src.asBoolean() == true || src.asBoolean() == false)",
+    "rationale" : "If src is booleanValue, asBoolean() returns a definite boolean value.",
+    "meta" : [ ]
+  } ]
+}

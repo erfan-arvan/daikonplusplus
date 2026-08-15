@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "keys != null",
+    "rationale" : "All keys passed for deletion must be non-null list.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "keys is not null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string marking this operation must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is not null"
+    } ]
+  }, {
+    "expression" : "!instantTime.isEmpty()",
+    "rationale" : "instantTime should be a non-empty identifier.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "instantTime not empty string"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context object must be non-null for operation.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is not null"
+    } ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "List size of keys is not negative, valid list.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "keys size non-negative"
+    } ]
+  } ]
+}

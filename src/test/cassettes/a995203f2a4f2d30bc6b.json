@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The commit operation likely requires a non-null instant time to track operations.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition paths should not be null for a meaningful bulk commit.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records passed to commit should not be null.",
+    "meta" : [ {
+      "key" : "type_safety",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "indexParser != null",
+    "rationale" : "indexParser is needed for parsing file groups and should not be null.",
+    "meta" : [ {
+      "key" : "type_safety",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "Partition path should be a valid non-empty string for a commit.",
+    "meta" : [ {
+      "key" : "usage_hint",
+      "value" : "partition identifier should be non-empty"
+    } ]
+  } ]
+}

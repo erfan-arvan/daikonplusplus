@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a List<WriteStatus> that should not be null after the postWrite step.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "The input records are expected to be non-null; method logic does not handle null preppedRecords.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in multiple method calls and passed to downstream components, implying it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List.size() is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || preppedRecords.isEmpty()",
+    "rationale" : "If result is empty, it is likely that the input preppedRecords was empty, as no write operations would have been performed.",
+    "meta" : [ ]
+  } ]
+}

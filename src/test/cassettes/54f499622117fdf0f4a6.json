@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of calling execute(), which is expected to return a non-null HoodieRestoreMetadata in normal operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "The restore operation generally requires a non-null instant timestamp to identify the restore point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "A non-null savepointToRestoreTimestamp is typically necessary to indicate the state to restore to.",
+    "meta" : [ ]
+  } ]
+}

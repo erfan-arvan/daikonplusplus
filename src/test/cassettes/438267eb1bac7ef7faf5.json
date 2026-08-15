@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a TiledMap object from a delegated loader, and never null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null return"
+    } ]
+  }, {
+    "expression" : "file != null",
+    "rationale" : "The file argument is required for loading the map and would not be null at this point.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "input non-null"
+    } ]
+  }, {
+    "expression" : "file.extension() != null",
+    "rationale" : "The extension is always computed from file, so it cannot be null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "string non-null"
+    } ]
+  }, {
+    "expression" : "file.extension().equalsIgnoreCase(\"tmx\") || file.extension().equalsIgnoreCase(\"tmj\")",
+    "rationale" : "The method only returns after loading a TMX or TMJ file; otherwise, it throws an exception.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "format support"
+    } ]
+  }, {
+    "expression" : "result instanceof TiledMap",
+    "rationale" : "Regardless of loader source, the result is always a TiledMap.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "return type"
+    } ]
+  } ]
+}

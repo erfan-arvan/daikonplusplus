@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns an instance from execute(), which is unlikely to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "HoodieWriteMetadata should provide non-null write status results reflecting operation outcome.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A List's size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null ? result.getWriteStatuses().size() <= keys.size() : true",
+    "rationale" : "The number of write statuses for delete operations cannot exceed the number of requested delete keys, if keys are provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToWriteStats() != null",
+    "rationale" : "HoodieWriteMetadata typically provides partition write stats; should not be null after operation.",
+    "meta" : [ ]
+  } ]
+}

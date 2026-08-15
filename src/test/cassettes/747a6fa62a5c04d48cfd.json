@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "this != null",
+    "rationale" : "The method is an instance method, so the receiver must not be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getWidth() >= 0",
+    "rationale" : "Widget widths are typically non-negative in UI components.",
+    "meta" : [ ]
+  }, {
+    "expression" : "glyphPositions != null",
+    "rationale" : "calculateOffsets uses this.glyphPositions, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getBackgroundDrawable() == null || (getBackgroundDrawable().getLeftWidth() >= 0 && getBackgroundDrawable().getRightWidth() >= 0)",
+    "rationale" : "Drawable widths should be non-negative if a background drawable exists.",
+    "meta" : [ ]
+  }, {
+    "expression" : "style != null",
+    "rationale" : "The style object is dereferenced later in the method for font data access.",
+    "meta" : [ ]
+  } ]
+}

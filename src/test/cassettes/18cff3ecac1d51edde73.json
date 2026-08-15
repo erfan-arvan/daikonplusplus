@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "The method always throws an exception, so it should never return a value, meaning 'result' must always be null at the exit point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionFilePathAndSizeTriplet != null",
+    "rationale" : "Non-nullness of input parameters is typically required for any real method logic to execute before the exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "It is standard in Hudi codebase to require index definitions to be non-null for index-related APIs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The meta client is a required context parameter for metadata operations, and methods typically assume it is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "throw new HoodieNotSupportedException(\"Expression index not supported for Java metadata table writer yet.\") != null == false",
+    "rationale" : "The method unconditionally throws, so no normal return path can be completed; expression symbolically asserts the unconditional throw.",
+    "meta" : [ ]
+  } ]
+}

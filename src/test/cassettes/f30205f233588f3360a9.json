@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns the result of a Collectors.toList() terminal operation, which always produces a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The input list is passed to HoodieListData.eager, which would throw a NullPointerException if hoodieRecords were null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> !r.isCurrentLocationKnown())",
+    "rationale" : "The method returns only those records from recordsWithLocation whose isCurrentLocationKnown() is false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= hoodieRecords.size()",
+    "rationale" : "The result is a filtered sublist of the input records, so its size cannot exceed the input size.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || hoodieRecords.stream().anyMatch(rec -> !getIndex().tagLocation(HoodieListData.eager(hoodieRecords), context, HoodieJavaTable.create(config, context)).collectAsList().stream().filter(v1 -> !v1.isCurrentLocationKnown()).collect(Collectors.toList()).contains(rec))",
+    "rationale" : "If result is not empty, there was at least one input record matching the filter condition.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is required for distributed operations and is passed to the executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime represents a commit instant and is used in downstream logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records are passed to the upsert operation for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records == null || !records.isEmpty()",
+    "rationale" : "records should likely be non-empty for upsert to perform useful work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is often expected to be a non-empty string for identifying commits.",
+    "meta" : [ ]
+  } ]
+}

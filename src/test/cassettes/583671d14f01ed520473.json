@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "object != null",
+    "rationale" : "MapObject should be non-null for safe method logic.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "object.isVisible()",
+    "rationale" : "Objects are often rendered only if visible.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "state predicate"
+    } ]
+  }, {
+    "expression" : "!object.isVisible() || object.getOpacity() > 0.0f",
+    "rationale" : "Visible objects should have non-zero opacity.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "logical implication"
+    } ]
+  }, {
+    "expression" : "object.getName() != null",
+    "rationale" : "A rendered MapObject may have a name for identification.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "naming"
+    } ]
+  }, {
+    "expression" : "object.getOpacity() >= 0.0f && object.getOpacity() <= 1.0f",
+    "rationale" : "Opacity is typically a normalized float in [0,1].",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "property range"
+    } ]
+  } ]
+}

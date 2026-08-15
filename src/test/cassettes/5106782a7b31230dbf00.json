@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method either returns 'fileId' or the result of BulkInsertPartitioner.super.getFileIdPfx(partitionId), both of which are expected to be non-null for correct downstream use.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(fileId != null) == (result.equals(fileId))",
+    "rationale" : "If fileId is not null, result must equal fileId, otherwise result is from the super call.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(fileId == null) == (!result.equals(fileId))",
+    "rationale" : "If fileId is null, result cannot be equal to fileId; otherwise, result equals fileId.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(fileId == null) == (BulkInsertPartitioner.super.getFileIdPfx(partitionId).equals(result))",
+    "rationale" : "If fileId is null, result must be what the superclass method returns; otherwise, it does not equal the super call result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(fileId != null) || (BulkInsertPartitioner.super.getFileIdPfx(partitionId) != null)",
+    "rationale" : "At least one of fileId or the super call result must be non-null if result is always non-null.",
+    "meta" : [ ]
+  } ]
+}

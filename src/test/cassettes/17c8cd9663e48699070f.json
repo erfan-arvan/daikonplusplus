@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeResult != null",
+    "rationale" : "Checking that writeResult is not null is common before usage, as methods may dereference it soon after.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses() != null",
+    "rationale" : "The method will immediately access writeResult.getWriteStatuses(), so its non-nullness is likely required.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult.getWriteStatuses().isEmpty() || writeResult.getWriteStatuses().stream().allMatch(status -> status != null)",
+    "rationale" : "If write statuses are present, none should be null as they will be processed directly by downstream code.",
+    "meta" : [ ]
+  } ]
+}

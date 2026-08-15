@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used as an argument to getLatestFileSlices; null may cause issues.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!partitionPath.isEmpty()",
+    "rationale" : "partitionPath is likely a required identifier for a partition and should not be empty.",
+    "meta" : [ ]
+  } ]
+}

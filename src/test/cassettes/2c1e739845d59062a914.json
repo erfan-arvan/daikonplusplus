@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null Iterator, either from Collections.singletonList(...).iterator() or as the result of IOUtils.runMerge.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result.hasNext()",
+    "rationale" : "If recordItr is empty, the returned iterator yields one empty list (so hasNext() true); otherwise, IOUtils.runMerge should return a non-empty iterator.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || fileId != null",
+    "rationale" : "A non-empty recordItr implies a merge, which requires a non-null fileId to properly produce an update handle and a result.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is always used to determine the update handle and is required to construct a valid result.",
+    "meta" : [ ]
+  } ]
+}

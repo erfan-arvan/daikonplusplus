@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "regionName != null",
+    "rationale" : "The method will concatenate regionName with other strings and use it as a key; null is legal but may be unusual. Including as a potential invariant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "regionName.length() >= 0",
+    "rationale" : "The length of a String is always non-negative in Java; ensures that regionName is a valid String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "regionName.isEmpty() || !regionName.isEmpty()",
+    "rationale" : "A String is either empty or not; included for completeness, but not very meaningful semantically.",
+    "meta" : [ ]
+  } ]
+}

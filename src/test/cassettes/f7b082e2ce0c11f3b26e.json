@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Methods operating over inputRecords (e.g., stream) require it to be non-null to prevent NullPointerExceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.isEmpty() || inputRecords.size() >= 0",
+    "rationale" : "List.size() is always non-negative, and if the list is empty, its size is zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(record -> record != null)",
+    "rationale" : "Subsequent map and method calls on elements suggest records are expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "!Float.isNaN(actorY)",
+    "rationale" : "actorY usually represents a physical Y coordinate, which in most graphics contexts is expected to be a valid number.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!Float.isInfinite(actorY)",
+    "rationale" : "Coordinates are rarely set to infinite values; this invariant reflects a likely precondition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actorY >= -Float.MAX_VALUE && actorY <= Float.MAX_VALUE",
+    "rationale" : "actorY is a float, so it must be within the representable float value range.",
+    "meta" : [ ]
+  } ]
+}

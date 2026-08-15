@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "The method accesses attributes and children of 'element', so 'element' must not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects != null",
+    "rationale" : "'objects' has methods called on it and an object is added to it, indicating it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "objects.size() >= 0",
+    "rationale" : "List sizes in Java are always non-negative; object is potentially added so size is at least zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "heightInPixels >= 0.0f",
+    "rationale" : "'heightInPixels' is subtracted to compute coordinates, likely representing a dimension and thus non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "map != null",
+    "rationale" : "'map' is dereferenced and its methods/fields are used in the method, so it must not be null.",
+    "meta" : [ ]
+  } ]
+}

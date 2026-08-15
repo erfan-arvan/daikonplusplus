@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Stream operations on inputRecords require it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(r -> r != null)",
+    "rationale" : "The code assumes elements are non-null (calls methods on them).",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords instanceof java.util.List",
+    "rationale" : "inputRecords is required to be a List at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.stream().allMatch(r -> r.getPartitionPath() != null)",
+    "rationale" : "getPartitionPath is used as a partition map key, likely assumed non-null.",
+    "meta" : [ ]
+  } ]
+}

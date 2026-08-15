@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "layer != null",
+    "rationale" : "The method operates on the 'layer' parameter, and field accesses/method calls indicate that 'layer' must be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getTextureRegion() != null",
+    "rationale" : "Control flow ensures that if layer.getTextureRegion() == null, the method returns early. At method exit, it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getCombinedTintColor() != null",
+    "rationale" : "The method directly uses layer.getCombinedTintColor() without null-checks, indicating it is non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layer.getOpacity() >= 0.0f",
+    "rationale" : "Opacity is commonly constrained to be non-negative in rendering contexts.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!layer.isRepeatX() || !layer.isRepeatY() || (layer.isRepeatX() && layer.isRepeatY())",
+    "rationale" : "Either or both repetition flags can be true, but the logic distinguishes between the non-repeating and repeating cases.",
+    "meta" : [ ]
+  } ]
+}

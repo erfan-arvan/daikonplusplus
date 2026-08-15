@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Configuration object must be provided for table creation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method should return a valid HoodieTable instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The table created should be associated with the provided configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipValidation || result.validate()",
+    "rationale" : "If validation is not skipped, the result table must validate successfully.",
+    "meta" : [ ]
+  }, {
+    "expression" : "storageConf != null",
+    "rationale" : "Storage configuration should be provided for table creation.",
+    "meta" : [ ]
+  } ]
+}

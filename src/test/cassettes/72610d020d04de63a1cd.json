@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The return value of upsert should not be null, as the typical contract is to return a list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a parameter that is passed into multiple operations and expected to identify the write; usually not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is a data input list, and it's used (via Option.of(HoodieListData.eager(records))) without a null check, so typically not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() >= 0",
+    "rationale" : "List.size() should always be non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List.size() should be non-negative, as that's enforced by the Java List contract.",
+    "meta" : [ ]
+  } ]
+}

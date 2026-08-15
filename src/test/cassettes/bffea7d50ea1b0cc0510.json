@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method execute is expected to return a non-null HoodieWriteMetadata<List<WriteStatus>> object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "As the input parameter, inputRecords should not be null for correct method functioning.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "A valid HoodieWriteMetadata object should have a non-null write status list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() instanceof List",
+    "rationale" : "getWriteStatuses returns a List since result is parameterized as HoodieWriteMetadata<List<WriteStatus>>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(inputRecords.isEmpty()) || !result.getWriteStatuses().isEmpty()",
+    "rationale" : "If there were input records, it is likely that write statuses will not be empty; if there were no input records, write statuses may still be non-empty due to other processing.",
+    "meta" : [ ]
+  } ]
+}

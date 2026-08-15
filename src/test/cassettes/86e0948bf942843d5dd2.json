@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a Pair object, constructed at the end.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft() != null",
+    "rationale" : "The left element, partitionPathStatMap, is always instantiated as a HashMap.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getRight() != null",
+    "rationale" : "The right element, globalStat, is always instantiated.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getLeft().values().stream().allMatch(Objects::nonNull)",
+    "rationale" : "All WorkloadStat values put into the map are non-null as new WorkloadStat is always assigned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords != null",
+    "rationale" : "The method expects inputRecords to be non-null to avoid NullPointerException.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Pref width is calculated from widget widths (never negative) and a min handle width.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "Computation only involves addition and Math.max of finite floats, so result is always finite.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should be non-null as it identifies the commit instant.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "instantTime is a String parameter representing a timestamp"
+    } ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "Integer parameter partition should not be null for bucket assignment.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partition is an Integer parameter"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr should be non-null to iterate input records.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "recordItr is an Iterator parameter for records"
+    } ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "partitioner should be non-null to determine bucket info.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "partitioner is a Partitioner parameter"
+    } ]
+  } ]
+}

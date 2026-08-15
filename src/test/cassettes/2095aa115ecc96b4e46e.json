@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config is passed to backend method that likely relies on it being non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "safe method invocation on config"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is passed down and is expected to be initialized.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "safe method invocation on metaClient"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "createTable is expected to produce and return a HoodieTable object.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "return value should be non-null"
+    } ]
+  }, {
+    "expression" : "result.getMetaClient() == metaClient",
+    "rationale" : "By convention, the created HoodieTable should use the metaClient provided.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "result links to the metaClient passed in"
+    } ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "The created table should reference the config passed as a parameter.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "result links to the config passed in"
+    } ]
+  } ]
+}

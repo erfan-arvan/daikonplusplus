@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null || result.getBucketNumber() == bucketNumber",
+    "rationale" : "If result is not null, its bucket number should match the bucketNumber parameter used for lookup.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "bucketNumber >= 0",
+    "rationale" : "Bucket numbers are expected to be non-negative indices.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "result == null || result.getPartitionPath() != null",
+    "rationale" : "If result is present, it should have a non-null partition path as part of its BucketInfo data.",
+    "meta" : [ {
+      "key" : "relevance",
+      "value" : "medium"
+    } ]
+  } ]
+}

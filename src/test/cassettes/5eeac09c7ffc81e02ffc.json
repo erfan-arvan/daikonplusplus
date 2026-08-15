@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "tileSet != null",
+    "rationale" : "tileSet is dereferenced via tileSet.getProperties() and for subsequent operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is used to resolve and load images in both branches.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tilewidth > 0 && tileheight > 0",
+    "rationale" : "tilewidth and tileheight are used as region sizes and as bounds/steps in loops, implying positive values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tileElements != null",
+    "rationale" : "tileElements is used in an enhanced for loop when image == null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "firstgid >= 0",
+    "rationale" : "firstgid is used as a base for tile IDs and likely non-negative.",
+    "meta" : [ ]
+  } ]
+}

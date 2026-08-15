@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "restore always returns a HoodieRestoreMetadata created by execute(), which likely guarantees non-nullness.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "restoreInstantTimestamp is a required parameter for restoring and is expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "savepointToRestoreTimestamp is expected to be non-null to perform a restore to a specific savepoint.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required engine parameter and expected to be non-null for operations.",
+    "meta" : [ ]
+  } ]
+}

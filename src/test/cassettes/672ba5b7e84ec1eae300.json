@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "spaceBottom >= 0",
+    "rationale" : "The method checks and rejects negative values of spaceBottom, so this must be non-negative on exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns 'this', a non-null receiver, so result cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The return statement is 'return this', so result must be the current object instance.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Returned list of WriteStatus should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Argument 'records' is required to perform bulk insert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should represent a valid instant; null would not be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "Result is explicitly typed as List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() == false ? result.size() <= records.size() : true",
+    "rationale" : "If input has records, the number of WriteStatus should not exceed record count; true is safe for empty input.",
+    "meta" : [ ]
+  } ]
+}

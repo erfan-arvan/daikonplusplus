@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method constructs and returns a HoodieWriteMetadata object, so result should not be null unless there is an unexpected failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "compactionInstantTime is required to identify the compaction instant and is passed to child components.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is necessary for the compaction executor and must be non-null.",
+    "meta" : [ ]
+  } ]
+}

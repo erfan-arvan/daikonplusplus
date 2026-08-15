@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The rollback method should return a HoodieRollbackMetadata object that is not null, reflecting a successful rollback operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A valid commitInstant must be provided when executing a rollback, as it identifies the instant being rolled back.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime != null && !rollbackInstantTime.isEmpty()",
+    "rationale" : "The rollback instant time should be a non-null and non-empty string to correctly record the rollback event.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The engine context is required for execution and must not be null.",
+    "meta" : [ ]
+  } ]
+}

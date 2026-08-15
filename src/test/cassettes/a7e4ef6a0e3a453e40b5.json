@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The upsert method always returns the result of the execute() method call, which is expected to be non-null HoodieWriteMetadata.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is required for delta commit actions, so it should be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieRecords != null",
+    "rationale" : "The list of hoodieRecords should be present to perform the upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The HoodieEngineContext is a required parameter for upsert and should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The result object must implement HoodieWriteMetadata as per the method's contract.",
+    "meta" : [ ]
+  } ]
+}

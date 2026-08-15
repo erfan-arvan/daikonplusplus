@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (flingTimer > 0)",
+    "rationale" : "The method's return value is true if and only if flingTimer is greater than zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result || (flingTimer > 0)",
+    "rationale" : "If the method returns true, flingTimer must be greater than zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || (flingTimer <= 0)",
+    "rationale" : "If flingTimer is less than or equal to zero, the result must be false.",
+    "meta" : [ ]
+  } ]
+}

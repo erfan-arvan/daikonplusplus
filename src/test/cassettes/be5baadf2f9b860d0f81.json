@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "this.objects == null",
+    "rationale" : "At method entry, the objects field may be null, as the method checks for nullity before initializing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.objects != null",
+    "rationale" : "At method entry, the objects field may already be initialized and not null. Both null and non-null are possible.",
+    "meta" : [ ]
+  } ]
+}

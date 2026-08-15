@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a constructed HoodieJavaTable instance for supported table types.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient.getTableType() == org.apache.hudi.common.table.TableType.COPY_ON_WRITE || metaClient.getTableType() == org.apache.hudi.common.table.TableType.MERGE_ON_READ",
+    "rationale" : "Only COPY_ON_WRITE and MERGE_ON_READ table types are supported; others result in an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getMetaClient() == metaClient",
+    "rationale" : "Constructors for HoodieJavaCopyOnWriteTable and HoodieJavaMergeOnReadTable pass metaClient as a parameter and likely set it as a member.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getConfig() == config",
+    "rationale" : "Constructors to HoodieJavaTable subclasses receive config and likely set it as a member.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getContext() == context",
+    "rationale" : "Constructors to HoodieJavaTable subclasses receive context and likely set it as a member.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "config must be non-null for HoodieJavaTable.create to work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context must be non-null for HoodieJavaTable.create to work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath() != null",
+    "rationale" : "A valid HoodieWriteConfig requires a non-null base path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getBasePath().length() > 0",
+    "rationale" : "Likely, the base path should be a non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "config.getTableName() != null",
+    "rationale" : "A table name is typically required for HoodieTable operations.",
+    "meta" : [ ]
+  } ]
+}

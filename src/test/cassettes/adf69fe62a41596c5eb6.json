@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "button != null",
+    "rationale" : "The method throws an exception if button is null, so button is guaranteed non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button.buttonGroup == this",
+    "rationale" : "The method sets button.buttonGroup = this before the method returns.",
+    "meta" : [ ]
+  }, {
+    "expression" : "buttons.contains(button)",
+    "rationale" : "button is added to buttons before the exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "button.getButtonGroup() == this",
+    "rationale" : "Assuming getButtonGroup returns button.buttonGroup, this will be true at method exit.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "style != null",
+    "rationale" : "'style' is dereferenced via 'style.font' immediately at method start.",
+    "meta" : [ ]
+  }, {
+    "expression" : "this.text != null",
+    "rationale" : "'this.text' is dereferenced via '.length()' soon after method begins.",
+    "meta" : [ ]
+  }, {
+    "expression" : "glyphPositions != null",
+    "rationale" : "'glyphPositions.clear()' is called unconditionally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "layout != null",
+    "rationale" : "'layout.setText' is called unconditionally in the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "visibleTextStart >= 0",
+    "rationale" : "'visibleTextStart' is used as an index and is clamped; negative indices are unlikely and typically prevented.",
+    "meta" : [ ]
+  } ]
+}

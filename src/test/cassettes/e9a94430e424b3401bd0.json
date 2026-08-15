@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns Collections.emptyList(), which is non-null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The method always returns Collections.emptyList(), which is always empty.",
+    "meta" : [ {
+      "key" : "emptyList",
+      "value" : "true"
+    } ]
+  } ]
+}

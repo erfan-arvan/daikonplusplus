@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns a non-null Iterator either directly or through a delegated super method.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is used as a parameter and typically expected to be non-null in identifier contexts.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is used as an argument to iterables and is expected to be non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "result instanceof Iterator",
+    "rationale" : "By method contract, result is always an Iterator of List<WriteStatus>.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "idPfx instanceof String",
+    "rationale" : "idPfx is a String parameter.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  } ]
+}

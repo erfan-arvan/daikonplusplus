@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The method dereferences writeClient, so it must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is used as an argument and must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to methods and must be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeClient.getClass() != null",
+    "rationale" : "If writeClient is non-null, its class object is also non-null; a safe, pure property.",
+    "meta" : [ ]
+  } ]
+}

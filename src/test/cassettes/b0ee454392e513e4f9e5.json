@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "!keepWithinStage || getStage() != null",
+    "rationale" : "If keepWithinStage is true, then getStage() has been checked to be non-null, otherwise the method returns early.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!keepWithinStage || getStage().getCamera() != null",
+    "rationale" : "If keepWithinStage is true, and getStage() is non-null, then getStage().getCamera() cannot cause a NullPointerException because otherwise the method would have returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!keepWithinStage || (getStage().getWidth() >= 0 && getStage().getHeight() >= 0)",
+    "rationale" : "If keepWithinStage is true, then getStage() is non-null and stage dimensions have been accessed.",
+    "meta" : [ ]
+  } ]
+}

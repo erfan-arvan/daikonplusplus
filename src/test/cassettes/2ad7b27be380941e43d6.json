@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Typically, method contract is to return a non-null metadata object after upsert.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "METHOD_EXIT"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required parameter for upsert operations and is likely expected to be non-null.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "METHOD_EXIT"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records are required to perform an upsert and should not be null.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "METHOD_EXIT"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The getWriteStatuses method on the returned metadata should always return a non-null list.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "METHOD_EXIT"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "Size of a list is always non-negative in Java.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "METHOD_EXIT"
+    } ]
+  } ]
+}

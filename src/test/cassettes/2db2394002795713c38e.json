@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Option is expected to never be null by convention.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == (config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()) && (isMetadataTableExists || metaClient.getStorage().exists(HoodieTableMetadata.getMetadataTableBasePath(metaClient.getBasePath()))) && !isMetadataTable()",
+    "rationale" : "A metadata writer is present only if the system is not a metadata table and the configuration/availability and existence checks pass.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!isMetadataTable() && (config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable())) == (result.isPresent() || result.equals(Option.empty()))",
+    "rationale" : "The result is Option.of(metadataWriter) or Option.empty() depending on the state of configuration and availability.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || !isMetadataTable()",
+    "rationale" : "If result is empty, it can be because it is a metadata table (early exit).",
+    "meta" : [ ]
+  }, {
+    "expression" : "autoDetectAndDeleteMetadataPartitions || true",
+    "rationale" : "The flag autoDetectAndDeleteMetadataPartitions is only used to trigger optional logic and does not affect the presence of result directly.",
+    "meta" : [ ]
+  } ]
+}

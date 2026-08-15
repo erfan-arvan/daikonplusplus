@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element.getString(\"type\", \"\").equals(\"objectgroup\") || !element.getString(\"type\", \"\").equals(\"objectgroup\")",
+    "rationale" : "This captures the dichotomy of the internal type condition that changes control flow—could be used for distinguishing cases.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getString(\"type\", \"\").equals(\"objectgroup\") || parentLayers != null",
+    "rationale" : "If the code did work, parentLayers must have been used safely; otherwise, the invariant holds vacuously.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getString(\"type\", \"\").equals(\"objectgroup\") || element.get(\"objects\") == null",
+    "rationale" : "If not an objectgroup, the 'objects' member may not be expected or processed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getString(\"type\", \"\").equals(\"objectgroup\") || element.get(\"properties\") == null",
+    "rationale" : "If not objectgroup, 'properties' are also not relevant for further processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getString(\"type\", \"\").equals(\"objectgroup\") || tmjFile != null",
+    "rationale" : "If no objectgroup, the file must have been usable as input, or the branch was never executed.",
+    "meta" : [ ]
+  } ]
+}

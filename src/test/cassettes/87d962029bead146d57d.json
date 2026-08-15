@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "A non-null fileName is a likely precondition for loading a Tiled map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile must be provided to load a tiled map, so it is likely required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parameter == null || parameter instanceof com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader.Parameters",
+    "rationale" : "parameter should be either null or an instance of the expected Parameters type.",
+    "meta" : [ ]
+  }, {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager is likely required for this method's asset loading process.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile.exists()",
+    "rationale" : "The FileHandle should reference an existing file to successfully load the tiled map.",
+    "meta" : [ ]
+  } ]
+}

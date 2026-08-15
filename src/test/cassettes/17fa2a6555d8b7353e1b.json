@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == partitionPathToInsertBucketInfos.get(partitionPath)",
+    "rationale" : "The method returns the value associated with the key partitionPath from partitionPathToInsertBucketInfos, so at exit, result must equal that.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath == null || partitionPathToInsertBucketInfos.containsKey(partitionPath) == (result != null)",
+    "rationale" : "If partitionPath is not in the map, get will return null; otherwise, it should return a non-null list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == null || result instanceof List",
+    "rationale" : "The map's values are lists, so anything returned will be a List or null.",
+    "meta" : [ ]
+  } ]
+}

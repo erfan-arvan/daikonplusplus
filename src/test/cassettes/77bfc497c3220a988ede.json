@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "config != null",
+    "rationale" : "Since config is used as a parameter to construct HoodieJavaWriteClient, it should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "config is non-null"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "Context is passed directly to the new HoodieJavaWriteClient instance and thus should be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null"
+    } ]
+  } ]
+}

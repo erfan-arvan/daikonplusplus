@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == this",
+    "rationale" : "The method always returns the current instance (this) for method chaining.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation == this.rotation",
+    "rationale" : "After assignment, this.rotation is equal to the rotation parameter passed in.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.rotation == rotation",
+    "rationale" : "The returned object has its rotation field set to the input value.",
+    "meta" : [ ]
+  } ]
+}

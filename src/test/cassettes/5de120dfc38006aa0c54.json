@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= -1.0f && result <= 1.0f",
+    "rationale" : "Knob percent is usually normalized between -1 and 1 to indicate leftmost, center, and rightmost positions.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "knob percent"
+    } ]
+  }, {
+    "expression" : "Float.isFinite(result)",
+    "rationale" : "The horizontal knob percent should always be a finite floating point number.",
+    "meta" : [ {
+      "key" : "value property",
+      "value" : "finite"
+    } ]
+  }, {
+    "expression" : "result == Math.max(-1.0f, Math.min(result, 1.0f))",
+    "rationale" : "The result should not exceed -1.0 or 1.0; it is clamped to that range.",
+    "meta" : [ {
+      "key" : "clamping",
+      "value" : "result"
+    } ]
+  } ]
+}

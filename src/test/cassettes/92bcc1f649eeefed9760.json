@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The final result is collected using Collectors.toList(), which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(Objects::nonNull)",
+    "rationale" : "The code filters out nulls in the pipeline, so all elements in result are non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each unique key in 'data' will produce at most one entry in result, meaning result cannot have more elements than data.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is used for .parallel(), which should be a positive integer.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "Method assumes data is not null since stream operations are invoked on it.",
+    "meta" : [ ]
+  } ]
+}

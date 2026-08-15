@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime should not be null since it designates a commit instant for the write operation.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "prevents NPE when passing to executor"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records should not be null to perform insertOverwrite, as an overwrite without records is meaningless.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "ensures iterable is not null during write"
+    } ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context must be provided to perform engine-bound parallel operations or scheduling.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "prevents NPE and context required for engine operations"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "An empty instantTime is likely invalid since commit instants are non-empty strings.",
+    "meta" : [ {
+      "key" : "well-formed",
+      "value" : "instantTime should not be empty"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List.size() must be non-negative by definition.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "List.size() is never negative"
+    } ]
+  } ]
+}

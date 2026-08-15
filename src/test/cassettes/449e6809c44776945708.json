@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "clusteringGroup is dereferenced in multiple places and passed to utility methods, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "strategyParams is used as a parameter and passed into performClusteringWithRecordList, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used in various calls such as readRecordsForGroup and performClusteringWithRecordList, thus required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getNumOutputFileGroups() > 0",
+    "rationale" : "Number of output file groups for clustering is likely to be positive to proceed with clustering work.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getSlices() != null",
+    "rationale" : "getSlices() is used with stream(), so it must return a non-null collection.",
+    "meta" : [ ]
+  } ]
+}

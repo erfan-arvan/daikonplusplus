@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Context is a required argument for scheduling compaction and should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time is a required argument and should be a valid String.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata != null",
+    "rationale" : "The Option object extraMetadata should not be null, even though its contained value may be absent.",
+    "meta" : [ ]
+  }, {
+    "expression" : "extraMetadata instanceof Option",
+    "rationale" : "The extraMetadata parameter is always an Option type by method contract.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "instantTime should be a non-empty String, as it usually represents a unique time or identifier.",
+    "meta" : [ ]
+  } ]
+}

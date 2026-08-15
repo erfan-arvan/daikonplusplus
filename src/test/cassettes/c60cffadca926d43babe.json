@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "writeClient is immediately dereferenced by method calls in the method body.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime is passed to writeClient and likely expected to be a meaningful, non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "preppedRecordInputs is used as a parameter; a null value would likely result in an exception.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed to downstream methods, so it should not be null (Option type may be empty but not null).",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecordInputs.isEmpty() || preppedRecordInputs.get(0) instanceof HoodieRecord",
+    "rationale" : "preppedRecordInputs is a List<HoodieRecord>, so when not empty, elements should be instances of HoodieRecord.",
+    "meta" : [ ]
+  } ]
+}

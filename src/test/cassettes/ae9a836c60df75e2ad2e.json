@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Ensures the records parameter is non-null, which is expected for an upsert operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Ensures the instantTime parameter is non-null, which is essential as it represents a commit instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty()",
+    "rationale" : "Upsert operations typically are no-ops when records is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.trim().length() > 0",
+    "rationale" : "instantTime is likely required to be a non-blank string, not just non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.stream().allMatch(r -> r != null)",
+    "rationale" : "All elements in the records list should be non-null HoodieRecord objects for processing.",
+    "meta" : [ ]
+  } ]
+}

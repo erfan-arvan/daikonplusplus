@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Method contract likely expects writeStatuses to be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Method expects a valid result reference to update.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.isEmpty() || writeStatuses.get(0) != null",
+    "rationale" : "If the list is not empty, its first element is expected to be non-null (typical for collection of result objects).",
+    "meta" : [ ]
+  } ]
+}

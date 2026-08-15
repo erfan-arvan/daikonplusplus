@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null iterator, either via JavaLazyInsertIterable or super.handleInsert.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is directly passed as an argument and used in downstream calls; it is required for correct record insertion.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is always passed to the returned iterable or to super.handleInsert, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.hasNext() == false || result.next() instanceof List",
+    "rationale" : "Iterator<List<WriteStatus>> produces elements which are Lists, if any.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(table.getIndex().canIndexLogFiles()) || result instanceof JavaLazyInsertIterable",
+    "rationale" : "If canIndexLogFiles is true, the result must be a JavaLazyInsertIterable.",
+    "meta" : [ ]
+  } ]
+}

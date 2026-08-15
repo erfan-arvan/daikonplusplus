@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "The method expects a valid HoodieEngineContext to operate; it is likely a required resource.",
+    "meta" : [ ]
+  }, {
+    "expression" : "restoreInstantTimestamp != null",
+    "rationale" : "A restore operation would expect the target instant to restore to be specified.",
+    "meta" : [ ]
+  }, {
+    "expression" : "savepointToRestoreTimestamp != null",
+    "rationale" : "A restore operation likely requires a source savepoint instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!restoreInstantTimestamp.isEmpty()",
+    "rationale" : "Timestamps are expected to be non-empty for restore operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!savepointToRestoreTimestamp.isEmpty()",
+    "rationale" : "The savepoint instant string should be non-empty to specify a valid restore point.",
+    "meta" : [ ]
+  } ]
+}

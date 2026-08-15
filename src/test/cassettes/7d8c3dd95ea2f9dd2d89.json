@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "orders != null",
+    "rationale" : "The method immediately returns for null orders, so at the exit point orders must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!orders.isEmpty()",
+    "rationale" : "If orders was empty, the method would have already returned 0.0, so it must be non-empty at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= 0.0",
+    "rationale" : "Total price is the sum of non-negative prices, optionally with discounts, so the result is always non-negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result > 0.0",
+    "rationale" : "If the method reaches the exit, orders is non-null and non-empty; as negative prices are unlikely, total will be positive.",
+    "meta" : [ ]
+  }, {
+    "expression" : "orders.size() > 0",
+    "rationale" : "Since isEmpty returned false paths lead here, orders must have at least one element at the exit point.",
+    "meta" : [ ]
+  } ]
+}

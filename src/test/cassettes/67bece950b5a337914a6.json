@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "result == null",
+    "rationale" : "Since the method always throws an exception, the result is never assigned a non-null value.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Method always throws exception, does not return normally"
+    } ]
+  }, {
+    "expression" : "compactionInstantTime != null",
+    "rationale" : "It is likely that the instant time parameter is required and non-null by the method contract.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Parameter non-null by contract or usage"
+    } ]
+  } ]
+}

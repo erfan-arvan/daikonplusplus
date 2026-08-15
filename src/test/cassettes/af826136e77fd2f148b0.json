@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns the result of HoodieListPairData.eager, which should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The method returns an empty HoodiePairData by construction via Collections.emptyList().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieListPairData",
+    "rationale" : "Result is constructed directly by HoodieListPairData.eager.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.count() == 0",
+    "rationale" : "As result is created from an emptyList, its count is zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.collectAsList().isEmpty()",
+    "rationale" : "Collecting the data as a list yields an empty list because the source was empty.",
+    "meta" : [ ]
+  } ]
+}

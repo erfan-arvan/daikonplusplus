@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is typically a positive integer used for partitioning or job distribution and is expected to be greater than zero.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method expects a list of HoodieKey objects; operating on a null list would cause a NullPointerException.",
+    "meta" : [ ]
+  }, {
+    "expression" : "table != null",
+    "rationale" : "The method uses 'table' immediately, so it must not be null to avoid exceptions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism <= keys.size()",
+    "rationale" : "In parallel operations, the degree of parallelism should not typically exceed the number of items processed.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys.size() >= 0",
+    "rationale" : "List.size() in Java cannot be negative.",
+    "meta" : [ ]
+  } ]
+}

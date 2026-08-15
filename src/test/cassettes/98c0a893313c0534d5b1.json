@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "list != null",
+    "rationale" : "The method accesses list, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "selectBox != null",
+    "rationale" : "selectBox.onHide(this) would dereference selectBox, so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hideListener != null",
+    "rationale" : "hideListener is passed to removeCaptureListener and must not be null for correct listener removal.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hasParent() || !list.isTouchable()",
+    "rationale" : "The method returns if (!list.isTouchable() || !hasParent()), so upon entry, if it doesn't return immediately, this must hold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "previousScrollFocus == null || previousScrollFocus.getStage() == null || previousScrollFocus.getStage() != null",
+    "rationale" : "The code checks (previousScrollFocus != null && previousScrollFocus.getStage() == null), thus previousScrollFocus may be null or have a stage.",
+    "meta" : [ ]
+  } ]
+}

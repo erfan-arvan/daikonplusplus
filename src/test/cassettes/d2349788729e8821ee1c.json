@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "It is typical for method parameters like List<WriteStatus> to be non-null, especially as this method uses it immediately.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The result (HoodieWriteMetadata) should not be null since it is a method parameter and is immediately mutated.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "A List's size() is always non-negative.",
+    "meta" : [ ]
+  } ]
+}

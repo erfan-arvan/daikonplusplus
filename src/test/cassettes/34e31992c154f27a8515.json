@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "event != null",
+    "rationale" : "InputEvent is expected to be non-null for event handling.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keycode >= 0",
+    "rationale" : "Keycodes are typically non-negative integers in input systems.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event.getStage() != null",
+    "rationale" : "InputEvent usually has an associated stage within the scene graph.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!event.isStopped()",
+    "rationale" : "Event should not be stopped prior to processing for a key event.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event.getListenerActor() != null",
+    "rationale" : "ListenerActor is generally set before event handlers are called.",
+    "meta" : [ ]
+  } ]
+}

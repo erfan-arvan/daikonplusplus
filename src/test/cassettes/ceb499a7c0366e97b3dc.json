@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method expects a non-null list of records to perform insertions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The instantTime parameter likely represents a commit time and should be a non-null, non-empty string.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "List.size() is always non-negative in Java, so this property always holds if records is a valid list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.get(0) != null",
+    "rationale" : "If there are any records in the list, the first record should not be null, assuming that the list represents valid input.",
+    "meta" : [ ]
+  } ]
+}

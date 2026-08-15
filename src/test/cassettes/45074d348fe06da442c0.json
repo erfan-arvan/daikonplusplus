@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "b == 0 || (a / b) * b + (a % b) == a",
+    "rationale" : "If b is not zero, integer division and modulus reconstruct a, otherwise division not evaluated.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b == 0 || b > Integer.MIN_VALUE",
+    "rationale" : "For all nonzero b, b may not be Integer.MIN_VALUE if special handling is required for edge-case division.",
+    "meta" : [ ]
+  }, {
+    "expression" : "a >= Integer.MIN_VALUE && a <= Integer.MAX_VALUE",
+    "rationale" : "Parameter a is an int, and so lies within int bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b >= Integer.MIN_VALUE && b <= Integer.MAX_VALUE",
+    "rationale" : "Parameter b is an int, and so lies within int bounds.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b == 0 || a / b <= a",
+    "rationale" : "For positive b, integer division result is less than or equal to a; safe because b == 0 is guarded.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "rotation % 90 == 0",
+    "rationale" : "Rotation is specified to be in 90 degree increments; this ensures it is a multiple of 90.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation >= 0",
+    "rationale" : "Rotation is likely non-negative as negative rotations may not be meaningful in this context.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation < 360",
+    "rationale" : "Rotation in degrees often represents values in the range [0, 360), corresponding to the four 90-degree rotations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rotation == 0 || rotation == 90 || rotation == 180 || rotation == 270",
+    "rationale" : "These are the only valid 90 degree increments in a full circle.",
+    "meta" : [ ]
+  } ]
+}

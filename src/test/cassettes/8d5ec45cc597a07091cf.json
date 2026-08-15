@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "properties is written to and methods are called, must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element != null",
+    "rationale" : "element methods are called, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getName() != null",
+    "rationale" : "element.getName().equals() is called, so getName() should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getChildrenByName(\"Property\") != null",
+    "rationale" : "element.getChildrenByName() is iterated over, so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getChildrenByName(\"Property\").size() >= 0",
+    "rationale" : "Size of children collections in Java are always nonnegative.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method must return a valid List<WriteStatus>, not null, as per standard Java conventions for return values.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is used to identify the operation instant and is required to interact with the table and pre/post write routines.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is passed in to perform the bulk insert, and it would not make sense to perform an insert with a null record set.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "non-null parameter"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method contract guarantees the result is a List of WriteStatus.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(ws -> ws != null)",
+    "rationale" : "WriteStatus elements in the result list should be non-null to accurately reflect the success/failure of record writes.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "element non-null"
+    } ]
+  } ]
+}

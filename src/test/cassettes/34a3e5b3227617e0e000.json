@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method cannot execute meaningfully if the clustering group is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "Strategy parameter map should not be null, as it is required for configuration.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime string should be non-null to identify the clustering operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime.isEmpty() == false",
+    "rationale" : "instantTime is typically required to be a non-empty string to be used as an identifier.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringGroup.getNumOutputFileGroups() > 0",
+    "rationale" : "A valid clustering group is expected to have at least one output file group.",
+    "meta" : [ ]
+  } ]
+}

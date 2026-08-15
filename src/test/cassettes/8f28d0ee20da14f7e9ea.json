@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "A new ArrayList is always created and returned, so result is never null.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "nullness"
+    } ]
+  }, {
+    "expression" : "result instanceof java.util.List",
+    "rationale" : "Result is declared as List<SmallFile> and is always either a new ArrayList or the same local variable.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type"
+    } ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "Partition path is always passed to sub-methods that require non-null argument; otherwise, the code would throw.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "precondition"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf != null)",
+    "rationale" : "Whenever elements are added to smallFileLocations, they are non-null SmallFile objects.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "collection contents"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(sf -> sf.sizeBytes < config.getParquetSmallFileLimit())",
+    "rationale" : "Only files with file size less than the configured small file limit are added to the result list.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "business logic"
+    } ]
+  } ]
+}

@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "inFlightInstantTimestamp != null",
+    "rationale" : "Option values are typically not null, and the method is called with inFlightInstantTimestamp of type Option<String>.",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "inFlightInstantTimestamp"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "The method requires metaClient to invoke operations like reloadTableConfig().",
+    "meta" : [ {
+      "key" : "variable",
+      "value" : "metaClient"
+    } ]
+  } ]
+}

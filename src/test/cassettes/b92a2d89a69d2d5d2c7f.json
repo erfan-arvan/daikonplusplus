@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null List, as both branches return a constructed List (deduplicatedKeys or keys).",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "new HashSet<>(result).size() == result.size()",
+    "rationale" : "The method ensures that the returned List<HoodieKey> is deduplicated, so converting it to a HashSet should not reduce the number of elements.",
+    "meta" : [ {
+      "key" : "deduplication",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The return type is always a List<HoodieKey>.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "List<HoodieKey>"
+    } ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "In many distributed scenarios, parallelism is expected to be at least 1.",
+    "meta" : [ {
+      "key" : "assumption",
+      "value" : "parallelism"
+    } ]
+  }, {
+    "expression" : "result.stream().allMatch(k -> k != null)",
+    "rationale" : "Lists created from keys or populated via forEach do not insert null elements, assuming keys itself does not contain nulls.",
+    "meta" : [ {
+      "key" : "element-nonnull",
+      "value" : "true"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result.isPresent() == false",
+    "rationale" : "The method always returns Option.empty(), so result is never present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "Option.empty() always returns true for isEmpty().",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.orElse(null) == null",
+    "rationale" : "Since Option.empty() contains no value, orElse(null) will return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.orElse(\"default\") == \"default\"",
+    "rationale" : "orElse(x) returns the default value when the Option is empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isPresent()",
+    "rationale" : "Negated form of isPresent() == false, restating absence of a value.",
+    "meta" : [ ]
+  } ]
+}

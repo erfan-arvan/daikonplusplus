@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The method expects a non-null commit time as an identifier for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "An iterator of records must be supplied; otherwise, the upsert/insert operation would not be meaningful.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition != null",
+    "rationale" : "The partition should be specified and non-null for partitioned data write operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitioner != null",
+    "rationale" : "The Partitioner is likely required to distribute work across partitions and must be present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partition instanceof Integer",
+    "rationale" : "By type contract, 'partition' is an Integer.",
+    "meta" : [ ]
+  } ]
+}

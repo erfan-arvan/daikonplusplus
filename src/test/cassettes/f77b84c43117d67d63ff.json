@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method parameter; null input would likely be a programming error or handled elsewhere.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer != null",
+    "rationale" : "Method parameter; null likely indicates a programming error as Option should represent absence explicitly.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords instanceof List",
+    "rationale" : "inputRecords typing is List<HoodieRecord<T>> and likely always an implementation of List.",
+    "meta" : [ ]
+  }, {
+    "expression" : "sourceReadAndIndexTimer instanceof Option",
+    "rationale" : "sourceReadAndIndexTimer typing is Option<HoodieTimer>, so expected to be an Option object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords.size() >= 0",
+    "rationale" : "List.size() can never be negative in Java.",
+    "meta" : [ ]
+  } ]
+}

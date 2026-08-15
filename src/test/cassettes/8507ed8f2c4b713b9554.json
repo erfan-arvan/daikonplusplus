@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method sets multiple fields on 'result', so it is expected to be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeStatuses != null",
+    "rationale" : "The method accesses 'writeStatuses' (passed as argument), so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "'setWriteStatuses' is called on 'result', assigning a non-null list, so this field should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getIndexUpdateDuration() != null",
+    "rationale" : "'setIndexUpdateDuration' is invoked with a Duration value, so the duration should be non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "'setPartitionToReplaceFileIds' is called with the return value of a method, so this field is expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

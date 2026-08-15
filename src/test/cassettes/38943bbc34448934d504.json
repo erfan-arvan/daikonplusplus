@@ -1,0 +1,10 @@
+{
+  "invariants" : [ {
+    "expression" : "props != null",
+    "rationale" : "The createKeyGenerator method is likely to require a non-null props to function correctly, given it is directly passed to a factory method.",
+    "meta" : [ {
+      "key" : "safety",
+      "value" : "Prevents NullPointerException when using props inside the method."
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a HoodieCleanMetadata object resulting from execute(), which typically should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cleanInstantTime != null",
+    "rationale" : "cleanInstantTime parameter is used in constructing the CleanActionExecutor, so it is expected to be non-null at the return point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context parameter is forwarded to CleanActionExecutor and thus is expected to be non-null at method exit.",
+    "meta" : [ ]
+  } ]
+}

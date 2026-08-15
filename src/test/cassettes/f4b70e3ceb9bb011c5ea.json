@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == disableX",
+    "rationale" : "The method is a one-line getter returning the value of disableX, so the returned result always equals disableX.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !result",
+    "rationale" : "Result is boolean, so must always be either true or false; this is semantically valid but not deep.",
+    "meta" : [ ]
+  }, {
+    "expression" : "disableX == result",
+    "rationale" : "Redundant with first, but shows canonical direction.",
+    "meta" : [ ]
+  } ]
+}

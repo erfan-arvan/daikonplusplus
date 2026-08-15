@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Method always returns an Iterator, which should not be null by construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "idPfx != null",
+    "rationale" : "idPfx is required as an argument to downstream iterables and likely must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is always passed to constructors or methods without null checks, implying it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!recordItr.hasNext() || result.hasNext()",
+    "rationale" : "If recordItr is not empty, result typically produces output for input records, so result should also have content if recordItr does.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "batch != null",
+    "rationale" : "The method immediately dereferences batch (calling batch.setColor), so it must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha >= 0f",
+    "rationale" : "parentAlpha is multiplied into a color alpha component, which typically is a non-negative value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parentAlpha <= 1f",
+    "rationale" : "parentAlpha often represents an opacity value that is clamped to 1.",
+    "meta" : [ ]
+  } ]
+}

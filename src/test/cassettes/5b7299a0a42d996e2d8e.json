@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The parameter records must not be null to avoid NullPointerException when passed to HoodieListData.lazy.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "records is not null on method entry"
+    } ]
+  }, {
+    "expression" : "records instanceof java.util.List",
+    "rationale" : "records is declared as a List, so this should always hold on method entry.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "records is of type List"
+    } ]
+  }, {
+    "expression" : "records.size() >= 0",
+    "rationale" : "A List size is always non-negative.",
+    "meta" : [ {
+      "key" : "range",
+      "value" : "size is non-negative"
+    } ]
+  } ]
+}

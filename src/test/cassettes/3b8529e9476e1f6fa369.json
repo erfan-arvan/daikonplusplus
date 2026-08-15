@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "triggeringInstantTimestamp != null",
+    "rationale" : "The timestamp parameter is expected to be provided and non-null for the method to function properly.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "triggeringInstantTimestamp not null at entry"
+    } ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "The cleaning policy parameter is likely mandatory and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "failedWritesCleaningPolicy not null at entry"
+    } ]
+  }, {
+    "expression" : "streamingWrites == true || streamingWrites == false",
+    "rationale" : "streamingWrites is a boolean parameter, so it must be true or false.",
+    "meta" : [ {
+      "key" : "boolean",
+      "value" : "streamingWrites is a boolean"
+    } ]
+  }, {
+    "expression" : "autoDetectAndDeleteMetadataPartitions == true || autoDetectAndDeleteMetadataPartitions == false",
+    "rationale" : "autoDetectAndDeleteMetadataPartitions is a boolean parameter, so it must be true or false.",
+    "meta" : [ {
+      "key" : "boolean",
+      "value" : "autoDetectAndDeleteMetadataPartitions is a boolean"
+    } ]
+  } ]
+}

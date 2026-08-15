@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a non-null HoodieWriteMetadata object as it returns the result of an execute() method which is expected to produce a write metadata instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A non-null context is required for method execution, as it is cast and passed along.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime parameter is passed through and likely necessary for meaningful execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null",
+    "rationale" : "preppedRecords is used and passed on to the executor, implying it should not be null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "bulkInsertPartitioner is passed unconditionally to the executor, suggesting it should not be null (Option may be empty but not null).",
+    "meta" : [ ]
+  } ]
+}

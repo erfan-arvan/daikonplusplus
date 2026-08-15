@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "It is likely that the context parameter is not null before method execution.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "context parameter is expected to be provided when method is called"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The timestamp string instantTime should not be null before the method invocation.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime is expected to be a valid timestamp string"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "The records parameter is expected to be non-null before the insertOverwrite method runs.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "records list should be provided to insert data"
+    } ]
+  }, {
+    "expression" : "records.isEmpty() || !records.isEmpty()",
+    "rationale" : "Records list can be either empty or non-empty but not null.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "records list may be empty or not, both are possible valid states"
+    } ]
+  }, {
+    "expression" : "instantTime instanceof String",
+    "rationale" : "instantTime is declared as a String parameter, so it is always an instance of String.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "instantTime declared as String, so check type consistency"
+    } ]
+  } ]
+}

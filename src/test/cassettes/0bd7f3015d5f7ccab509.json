@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "tile != null",
+    "rationale" : "Protects against null assignment, common in setter contracts and usage.",
+    "meta" : [ {
+      "key" : "null-safety",
+      "value" : "safe usage of tile reference"
+    } ]
+  }, {
+    "expression" : "!(tile == null)",
+    "rationale" : "Equivalent alternative form emphasizing avoidance of null for tile parameter.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "tile non-null constraint alternative"
+    } ]
+  } ]
+}

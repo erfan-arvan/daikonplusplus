@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "spaceLeft != null",
+    "rationale" : "The method throws an exception if spaceLeft is null, so it must be non-null at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == this",
+    "rationale" : "The method always returns 'this', so result must always reference this object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.spaceLeft == spaceLeft",
+    "rationale" : "The method assigns this.spaceLeft = spaceLeft and returns this, so result.spaceLeft must be equal to the parameter spaceLeft.",
+    "meta" : [ ]
+  } ]
+}

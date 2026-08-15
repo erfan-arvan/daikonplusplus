@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null && metaClient != null",
+    "rationale" : "The method assumes valid objects are passed; both arguments are likely required for metadata table initialization.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(instantTime == null && metaClient == null)",
+    "rationale" : "It is unlikely both arguments are null, as the operation would not be meaningful with both absent.",
+    "meta" : [ ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "metaClient is often required to interact with the metadata table.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime == null || instantTime.isPresent() || !instantTime.isPresent()",
+    "rationale" : "If instantTime is non-null, it must be either present or not present per Option contract.",
+    "meta" : [ ]
+  } ]
+}

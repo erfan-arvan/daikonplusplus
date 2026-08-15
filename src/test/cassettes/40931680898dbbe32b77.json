@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "properties != null",
+    "rationale" : "properties is used in properties.put(), so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name != null",
+    "rationale" : "name is used as a key for the properties map.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value != null",
+    "rationale" : "value is passed into Integer.parseInt(), which throws if value is null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "value.matches(\"-?\\\\d+\")",
+    "rationale" : "value must be parseable as an integer or an exception is thrown.",
+    "meta" : [ ]
+  }, {
+    "expression" : "properties.containsKey(name) == false",
+    "rationale" : "At method exit, the value is only added after runOnEndOfLoadTiled is executed, so properties does not contain the key yet.",
+    "meta" : [ ]
+  } ]
+}

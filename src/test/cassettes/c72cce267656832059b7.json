@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is typically required to identify the partition for the update, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "Each file update is identified by fileId, which is expected to be non-null at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "An update operation requires an iterator of records; recordItr must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath.length() > 0",
+    "rationale" : "partitionPath should not be the empty string, as it denotes a valid partition.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId.length() > 0",
+    "rationale" : "fileId is expected to uniquely identify a file and thus should be a non-empty string.",
+    "meta" : [ ]
+  } ]
+}

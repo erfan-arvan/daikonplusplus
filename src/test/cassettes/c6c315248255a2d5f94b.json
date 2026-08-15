@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "fileName != null",
+    "rationale" : "fileName is passed as an argument to another method without null checking; null would likely cause a failure.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.length() > 0",
+    "rationale" : "A valid file name for loading a map is likely required to be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!fileName.trim().isEmpty()",
+    "rationale" : "Ensures the file name does not consist only of whitespace.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName.endsWith(\".tmx\")",
+    "rationale" : "The loader method is likely designed to work with TMX format files.",
+    "meta" : [ ]
+  } ]
+}

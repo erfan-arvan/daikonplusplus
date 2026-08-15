@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "manager != null",
+    "rationale" : "AssetManager is used to construct AssetManagerAtlasResolver; must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "tmxFile is used in getAtlasFileHandle and loadTiledMap and so must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getAtlasFileHandle(tmxFile) != null",
+    "rationale" : "Atlas file handle is required for resolver construction.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileName != null && !fileName.isEmpty()",
+    "rationale" : "fileName is typically required for identifying the map file and is likely non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "atlasResolver != null && map != null",
+    "rationale" : "Both atlasResolver and map fields are assigned in this method and should be non-null by exit.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The execute method always returns the result of JavaWriteHelper.newInstance().write(...), which should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() returns the list of WriteStatus objects produced by the write operation and should not be null if write() succeeded.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "A list's size is always non-negative; this captures the range on the output list.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getPartitionToReplaceFileIds() != null",
+    "rationale" : "Partition to replace file IDs information is expected to be present in a valid HoodieWriteMetadata instance.",
+    "meta" : [ ]
+  }, {
+    "expression" : "getPartitionToReplacedFileIds(result) != null",
+    "rationale" : "The helper method should not return null if passed a valid write metadata, reflecting a successful internal API postcondition.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always constructs a HoodieWriteMetadata instance and returns it, so result is never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The method always calls setWriteStatuses with HoodieListData.eager(writeStatusList); getWriteStatuses should never be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "The method would NPE early if clusteringPlan were null, so this is a reasonable invariant at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "Method requires schema for clustering, and there are no safe guards for null, so schema should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required for clustering and always passed down; the method does not handle null values.",
+    "meta" : [ ]
+  } ]
+}

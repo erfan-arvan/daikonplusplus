@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "activeModule != null",
+    "rationale" : "Method parameters are often expected to be non-null unless documented otherwise.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter non-null"
+    } ]
+  }, {
+    "expression" : "activityDescription != null",
+    "rationale" : "Method parameters are often expected to be non-null unless documented otherwise.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "parameter non-null"
+    } ]
+  }, {
+    "expression" : "activeModule instanceof String",
+    "rationale" : "activeModule is declared as String, so it should always be an instance of String.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type invariant"
+    } ]
+  }, {
+    "expression" : "activityDescription instanceof String",
+    "rationale" : "activityDescription is declared as String, so it should always be an instance of String.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "type invariant"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No code in the method affects the parameters, so no stronger invariant can be guaranteed beyond type.",
+    "meta" : [ {
+      "key" : "category",
+      "value" : "trivial"
+    } ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "b.doubleValue() != 0.0",
+    "rationale" : "Since method returns null if b.doubleValue() == 0.0, at entry point b.doubleValue() is not zero to proceed safely.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "To avoid division by zero when executing the method."
+    } ]
+  }, {
+    "expression" : "a instanceof Integer || a instanceof Double",
+    "rationale" : "The method throws IllegalArgumentException if a is not Integer or Double, so a must be one of these types at entry.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Method supports only Integer or Double types for a."
+    } ]
+  }, {
+    "expression" : "a != null",
+    "rationale" : "a must be non-null to safely call instance methods.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Since method calls a.intValue() or a.doubleValue(), a should not be null."
+    } ]
+  }, {
+    "expression" : "b != null",
+    "rationale" : "b must be non-null to safely call methods on it.",
+    "meta" : [ {
+      "key" : "rationale",
+      "value" : "Since method calls b.doubleValue() and potentially b.intValue(), b should not be null."
+    } ]
+  } ]
+}

@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "values.containsKey(actor)",
+    "rationale" : "After inserting the mapping, the map should contain the actor as a key.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "data structure updated"
+    } ]
+  }, {
+    "expression" : "values.get(actor) == object",
+    "rationale" : "The object's mapping for the given actor should reference the provided object value.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "object mapping"
+    } ]
+  }, {
+    "expression" : "actor != null",
+    "rationale" : "A null actor would not make sense as a key in the map; likely the contract avoids this.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "null check"
+    } ]
+  }, {
+    "expression" : "!values.isEmpty()",
+    "rationale" : "After at least one insertion, the map should not be empty.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "data structure non-empty"
+    } ]
+  } ]
+}

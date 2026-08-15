@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is often expected to be a positive integer for processing.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "concurrency"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should represent an operation timestamp and is generally non-null and non-empty.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "temporal"
+    } ]
+  }, {
+    "expression" : "partitionFilePathAndSizeTriplet != null && !partitionFilePathAndSizeTriplet.isEmpty()",
+    "rationale" : "A non-empty list of partition/path/size tuples is typically required to build index records.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "input structure"
+    } ]
+  }, {
+    "expression" : "indexDefinition != null",
+    "rationale" : "A valid index definition is likely required to generate index records.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "indexing"
+    } ]
+  }, {
+    "expression" : "metaClient != null",
+    "rationale" : "A valid metaClient is necessary for metadata operations.",
+    "meta" : [ {
+      "key" : "domain",
+      "value" : "metadata"
+    } ]
+  } ]
+}

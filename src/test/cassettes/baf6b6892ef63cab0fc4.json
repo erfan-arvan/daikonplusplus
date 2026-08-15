@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "name == null || !name.isEmpty()",
+    "rationale" : "It's typical to ensure that name, if not null, is not empty, as empty names are often semantically meaningless.",
+    "meta" : [ {
+      "key" : "kind",
+      "value" : "recommended precondition"
+    } ]
+  }, {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "A String's length is always zero or higher; this is universally true if name is not null.",
+    "meta" : [ {
+      "key" : "safe method call",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "name == null || name.trim().length() >= 0",
+    "rationale" : "Even when trimmed, a String's length is never negative, ensuring safe interaction with the 'name' parameter.",
+    "meta" : [ {
+      "key" : "safe method call",
+      "value" : "true"
+    } ]
+  } ]
+}

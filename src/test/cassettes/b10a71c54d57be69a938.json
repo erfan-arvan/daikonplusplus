@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method throws if profile is null, so profile is never null at the return.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "required-by-defensive-check"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new Partitioner, so result is never null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "no-null-return"
+    } ]
+  }, {
+    "expression" : "result instanceof Partitioner",
+    "rationale" : "Result is created with 'new JavaUpsertPartitioner', which implements/extends Partitioner.",
+    "meta" : [ {
+      "key" : "instance-type",
+      "value" : "always-a-Partitioner"
+    } ]
+  } ]
+}

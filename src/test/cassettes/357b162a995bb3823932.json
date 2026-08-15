@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method assumes profile is used to access partition paths and workload statistics, so it should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "The method uses context to retrieve small files for partitions and thus requires it to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths() != null",
+    "rationale" : "The method immediately assigns profile.getPartitionPaths() to a Set and iterates over it, implying it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!profile.getPartitionPaths().isEmpty()",
+    "rationale" : "The method performs logic per partition path; it is meaningful to expect that there is at least one partition path.",
+    "meta" : [ ]
+  }, {
+    "expression" : "profile.getPartitionPaths().stream().allMatch(p -> profile.getWorkloadStat(p) != null)",
+    "rationale" : "For each partition path, profile.getWorkloadStat(p) is used; it should not be null for correct downstream usage.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "skinFile != null",
+    "rationale" : "Method requires a valid FileHandle to load the JSON, and uses it for file operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skinFile.exists()",
+    "rationale" : "The method will use skinFile to find resources; it is sensible to expect the provided file should exist at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skinFile.isDirectory() == false",
+    "rationale" : "Expected use as a skin configuration file suggests it should be a file, not a directory.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skinFile.parent() != null",
+    "rationale" : "The method often accesses skinFile.parent(); parent reference should be available for directory navigation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "skinFile.path().endsWith(\".json\")",
+    "rationale" : "Skin files are typically JSON files; this form validates the file extension.",
+    "meta" : [ ]
+  } ]
+}

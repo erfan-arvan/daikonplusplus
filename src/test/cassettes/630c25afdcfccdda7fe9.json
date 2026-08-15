@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "Standard behavior of the Java main method; args is a non-null array.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "The args array is never null when main starts, and it can have zero or more elements."
+    } ]
+  }, {
+    "expression" : "java.util.Arrays.stream(args).allMatch(s -> s != null)",
+    "rationale" : "Java specification ensures args elements are non-null strings at program start.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "All elements in the args array are non-null strings."
+    } ]
+  }, {
+    "expression" : "args.length <= 1000",
+    "rationale" : "To assert a realistic upper bound for program arguments count at entry.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Typical reasonable upper bound on args length for command line input."
+    } ]
+  }, {
+    "expression" : "java.util.Arrays.stream(args).noneMatch(String::isEmpty)",
+    "rationale" : "Common expectation that command line arguments are meaningful, non-empty strings.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "Args strings are typically non-empty."
+    } ]
+  }, {
+    "expression" : "c == null",
+    "rationale" : "To ensure that the instance variable is not defined yet at method entry.",
+    "meta" : [ {
+      "key" : "explanation",
+      "value" : "There is no 'c' variable in scope before method executes."
+    } ]
+  } ]
+}

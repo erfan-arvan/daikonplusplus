@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (focusTraversal && character == TAB)",
+    "rationale" : "Directly reflects the method's return value based on inputs.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || !focusTraversal || character != TAB",
+    "rationale" : "Encodes the logical implication: if focusTraversal is true and character is TAB, then result must be true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!focusTraversal || character != TAB) || result",
+    "rationale" : "Alternative implication form: if the precondition for traversal does not hold, result could be any value; if it holds, result must be true.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == (character == TAB && focusTraversal)",
+    "rationale" : "Equivalent to the actual return logic; order of operands matches method control flow.",
+    "meta" : [ ]
+  } ]
+}

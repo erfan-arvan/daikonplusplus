@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "metaClient != null",
+    "rationale" : "The metaClient parameter should be non-null at method entry to operate on the table metadata.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "columnsToIndex != null",
+    "rationale" : "The columnsToIndex list should be non-null to update columns to index.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "columnsToIndex.stream().allMatch(col -> col != null)",
+    "rationale" : "All strings in columnsToIndex should be non-null to specify valid column names.",
+    "meta" : [ {
+      "key" : "stream",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "!columnsToIndex.isEmpty()",
+    "rationale" : "columnsToIndex should not be empty to have effect in updating index columns.",
+    "meta" : [ {
+      "key" : "non_empty",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "metaClient.getTableName() != null",
+    "rationale" : "Table name from metaClient should be non-null as a basic consistency invariant.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "true"
+    } ]
+  } ]
+}

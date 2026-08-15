@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "Ensures that records is initialized, which is necessary for further processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "instantTime should be a valid, non-empty string as it represents a time marker for the operation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "Option types are typically non-null containers for Optionals.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records.isEmpty() || records.get(0) != null",
+    "rationale" : "If records is non-empty, its first element should not be null, indicating proper population.",
+    "meta" : [ ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner.isPresent() || !userDefinedBulkInsertPartitioner.isPresent()",
+    "rationale" : "An Option can either be present or not, illustrating complete state coverage of Option type.",
+    "meta" : [ ]
+  } ]
+}

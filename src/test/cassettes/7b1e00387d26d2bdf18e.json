@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result >= 0",
+    "rationale" : "Record size estimates and computations related to bytes and records written should not be negative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result <= hoodieWriteConfig.getParquetSmallFileLimit()",
+    "rationale" : "Resulting average record size should not typically exceed the small file limit, as that is used in the threshold.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result >= hoodieWriteConfig.getCopyOnWriteRecordSizeEstimate()",
+    "rationale" : "If no suitable commit records found, the method returns the estimate from config; otherwise, it is computed and the result must be at least that estimate.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitTimeline != null",
+    "rationale" : "commitTimeline is dereferenced early without null check, indicating it should be non-null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieWriteConfig != null",
+    "rationale" : "hoodieWriteConfig is dereferenced for field reads and method calls, so it must be not null.",
+    "meta" : [ ]
+  } ]
+}

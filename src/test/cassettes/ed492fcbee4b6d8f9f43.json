@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "parallelism > 0",
+    "rationale" : "Parallelism is expected to be positive when partitioning work across threads or processes.",
+    "meta" : [ ]
+  }, {
+    "expression" : "data != null",
+    "rationale" : "The data Stream must not be null to perform operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "flatMapToPairFunc != null",
+    "rationale" : "The flatMapToPairFunc function must not be null to map the partitions.",
+    "meta" : [ ]
+  }, {
+    "expression" : "reduceFunc != null",
+    "rationale" : "The reduceFunc must not be null for reduction by key.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "records != null",
+    "rationale" : "The method receives 'records' as a parameter and immediately calls a method on it, suggesting it is generally expected not to be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records instanceof HoodieData",
+    "rationale" : "'records' should always be of type HoodieData<HoodieRecord> as per the method signature.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!records.isEmpty() || records.count() == 0",
+    "rationale" : "If 'records' is not empty, its count should not be zero; this expresses the relationship between isEmpty() and count().",
+    "meta" : [ ]
+  } ]
+}

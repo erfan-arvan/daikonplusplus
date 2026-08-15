@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method's contract is to return a non-null List since it uses collect(Collectors.toList()) on a stream, which never returns null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "Input records is assumed to be non-null for stream operation to succeed without NPE.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.stream().allMatch(r -> r != null)",
+    "rationale" : "All elements added to the result list are non-null, due to the .filter(Objects::nonNull) before collection.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= records.size()",
+    "rationale" : "Deduplication reduces or keeps the number of records, never increases it.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism >= 1",
+    "rationale" : "Parallelism is typically required to be at least 1 for parallel processing; negative or zero parallelism would not make sense in normal operation.",
+    "meta" : [ ]
+  } ]
+}

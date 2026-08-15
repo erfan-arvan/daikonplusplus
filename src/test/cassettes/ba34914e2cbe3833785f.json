@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "conf != null",
+    "rationale" : "The method creates a new writer instance using conf, so it likely expects conf to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeConfig != null",
+    "rationale" : "writeConfig is used as an argument to the constructor, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "failedWritesCleaningPolicy != null",
+    "rationale" : "failedWritesCleaningPolicy is passed to the constructor, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is used as an argument to the constructor, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inflightInstantTimestamp != null",
+    "rationale" : "inflightInstantTimestamp is required for the constructor and is used as an Option, so it is likely expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

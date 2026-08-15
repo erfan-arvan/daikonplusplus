@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result == true || result == false",
+    "rationale" : "Since the method returns a boolean, result can only be true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "event != null",
+    "rationale" : "The parameter 'event' is used throughout the method and must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keycode >= 0",
+    "rationale" : "Keycodes are typically non-negative as per standard usage.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == true || !hasKeyboardFocus() || disabled",
+    "rationale" : "If the method returns false, it must either be because the component is disabled or doesn't have keyboard focus.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == false || hasKeyboardFocus()",
+    "rationale" : "If the method returns true, then it must have keyboard focus.",
+    "meta" : [ ]
+  } ]
+}

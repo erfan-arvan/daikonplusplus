@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "Float.isFinite(prefWidth)",
+    "rationale" : "Input width should be a finite float for meaningful layout parameters.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefWidth >= 0",
+    "rationale" : "Preferred widths in UI layouts are commonly nonnegative.",
+    "meta" : [ ]
+  }, {
+    "expression" : "prefWidth != Float.NaN",
+    "rationale" : "NaN values for layout dimensions are generally considered invalid.",
+    "meta" : [ ]
+  } ]
+}

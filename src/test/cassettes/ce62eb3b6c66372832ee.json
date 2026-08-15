@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "scale > 0",
+    "rationale" : "Scale factors are typically positive to ensure drawable sizes remain meaningful and non-inverted.",
+    "meta" : [ ]
+  }, {
+    "expression" : "scale != 0",
+    "rationale" : "A scale of zero may not make sense in the context of drawable sizing as it could cause invisible or collapsed UI elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "Float.isFinite(scale)",
+    "rationale" : "Scale should be finite to ensure drawable sizing calculations do not propagate NaN or infinite values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "scale <= 10.0f",
+    "rationale" : "A reasonable upper bound on scale to avoid unreasonably large UI scaling; the specific maximum may vary by application.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns a new HoodieWriteMetadata object, which is not null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "writeStatuses is always set using HoodieListData.eager so cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().count() == clusteringPlan.getInputGroups().stream().mapToLong(inputGroup -> runClusteringForGroup(inputGroup, clusteringPlan.getStrategy().getStrategyParams(), Option.ofNullable(clusteringPlan.getPreserveHoodieMetadata()).orElse(true), instantTime).size()).sum()",
+    "rationale" : "The number of WriteStatus objects in the result matches the sum of WriteStatus produced by clustering per group.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringPlan != null",
+    "rationale" : "Since clusteringPlan is always dereferenced, it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "schema != null",
+    "rationale" : "schema is passed in and assumed non-null per its use in clustering.",
+    "meta" : [ ]
+  } ]
+}

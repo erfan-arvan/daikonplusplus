@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method returns a HoodieWriteMetadata object, so before returning it should not be null.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "necessary for safe evaluation"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "The result's internal list of WriteStatus should be initialized.",
+    "meta" : [ {
+      "key" : "nullCheck",
+      "value" : "necessary to avoid NullPointerException"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().size() >= 0",
+    "rationale" : "The size of the WriteStatus list should be zero or more.",
+    "meta" : [ {
+      "key" : "sizeCheck",
+      "value" : "reasonable assumption"
+    } ]
+  }, {
+    "expression" : "!result.getWriteStatuses().contains(null)",
+    "rationale" : "The list of WriteStatus should not contain null elements.",
+    "meta" : [ {
+      "key" : "containmentCheck",
+      "value" : "to ensure no null WriteStatus"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getWriteErrors() != null) == false",
+    "rationale" : "The intention was to check something about elements but lambdas/streams are disallowed; thus no such invariant included.",
+    "meta" : [ {
+      "key" : "streamForbidden",
+      "value" : "stream is not allowed at this program point"
+    } ]
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "The instant time is expected to be provided for rollback operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "A rollback must be associated with a specific commit instant; this parameter should be provided.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid execution context is needed to carry out the rollback logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "rollbackInstantTime.length() > 0",
+    "rationale" : "Rollback instant time should be a non-empty string, indicating a valid instant.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!(deleteInstants && skipLocking)",
+    "rationale" : "It is likely not expected to delete instants and skip locking at the same time to ensure data consistency.",
+    "meta" : [ ]
+  } ]
+}

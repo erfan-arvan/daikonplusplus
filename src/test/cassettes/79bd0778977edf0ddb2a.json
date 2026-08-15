@@ -1,0 +1,32 @@
+{
+  "invariants" : [ {
+    "expression" : "rollbackInstantTime != null",
+    "rationale" : "rollbackInstantTime is likely required to identify the rollback instant.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "rollbackInstantTime"
+    } ]
+  }, {
+    "expression" : "commitInstant != null",
+    "rationale" : "commitInstant is an input representing a commit and expected to be non-null.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "commitInstant"
+    } ]
+  }, {
+    "expression" : "!deleteInstants || deleteInstants == true",
+    "rationale" : "deleteInstants is a boolean parameter and can only be true or false.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!skipLocking || skipLocking == true",
+    "rationale" : "skipLocking is a boolean parameter; it cannot hold other values.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context should be non-null as a parameter representing execution context.",
+    "meta" : [ {
+      "key" : "null-check",
+      "value" : "context"
+    } ]
+  } ]
+}

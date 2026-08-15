@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "This holds as the method always returns a non-null iterator either from super.handleUpdate(...) or Collections.singletonList(...).iterator().",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is used in log statements and lookups without any null checks, implying it is never null at this point.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used to construct an AppendHandle or passed into the super method, both expect a non-null value.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordItr != null",
+    "rationale" : "recordItr is passed to downstream methods (super.handleUpdate and HoodieAppendHandle ctor) without null checks, so it is expected to be non-null.",
+    "meta" : [ ]
+  } ]
+}

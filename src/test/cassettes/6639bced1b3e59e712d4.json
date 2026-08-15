@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "Collections.emptyList() never returns null; thus result is always non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty()",
+    "rationale" : "The method always returns Collections.emptyList(), which is always empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "cacheKey != null",
+    "rationale" : "The method signature does not accept null as cacheKey. Even if passed, it wouldn't affect the return value, so cacheKey is expected non-null.",
+    "meta" : [ ]
+  } ]
+}

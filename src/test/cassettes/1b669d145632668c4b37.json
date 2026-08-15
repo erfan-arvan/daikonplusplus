@@ -1,0 +1,11 @@
+{
+  "invariants" : [ {
+    "expression" : "stage == null",
+    "rationale" : "At exit, if the passed stage is null, the method adds a focus listener, which is a meaningful control flow branch.",
+    "meta" : [ ]
+  }, {
+    "expression" : "stage != null",
+    "rationale" : "At exit, if the passed stage is not null, the method removes a focus listener, which is a meaningful control flow branch.",
+    "meta" : [ ]
+  } ]
+}

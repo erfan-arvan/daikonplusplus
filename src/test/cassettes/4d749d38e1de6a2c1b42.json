@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "tooltip != null",
+    "rationale" : "The method operates on the tooltip parameter directly without null checks, suggesting tooltip is non-null at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.container.getTransform() == true",
+    "rationale" : "The method always sets tooltip.container.setTransform(true), so the transform should be enabled at exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.container.getColor().a == 0.2f",
+    "rationale" : "The alpha component is explicitly set, so it should hold at method exit.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tooltip.container.getScaleX() == 0.05f || tooltip.container.getScaleY() == 0.05f",
+    "rationale" : "Both scale values are set to 0.05 before the exit, pending any further immediate updates in addAction.",
+    "meta" : [ ]
+  } ]
+}

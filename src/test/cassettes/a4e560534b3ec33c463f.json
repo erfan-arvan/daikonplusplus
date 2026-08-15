@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "element != null",
+    "rationale" : "element is used to retrieve attributes and children, so it must not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "tmxFile != null",
+    "rationale" : "getRelativeFileHandle and possibly other file operations require tmxFile to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "imageResolver != null",
+    "rationale" : "imageResolver is passed to addStaticTiles, so a null value would likely cause an error.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getName() != null",
+    "rationale" : "element.getName() is dereferenced and tested for equals, so it should be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "element.getChildCount() >= 0",
+    "rationale" : "element may have any number of children but cannot have negative.",
+    "meta" : [ ]
+  } ]
+}

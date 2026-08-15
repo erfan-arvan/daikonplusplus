@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to always return a valid metadata result object.",
+    "meta" : [ ]
+  }, {
+    "expression" : "preppedRecords != null && (!preppedRecords.isEmpty() || preppedRecords.isEmpty())",
+    "rationale" : "Input preppedRecords should be a valid collection; non-null for processing.",
+    "meta" : [ ]
+  }, {
+    "expression" : "bulkInsertPartitioner != null",
+    "rationale" : "Option parameters must be non-null for safe option handling.",
+    "meta" : [ ]
+  } ]
+}

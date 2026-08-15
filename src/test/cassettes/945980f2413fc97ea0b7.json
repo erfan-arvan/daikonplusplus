@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "(result != null)",
+    "rationale" : "Every return path explicitly constructs an Option object, so result is non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isPresent() == (isMetadataTableExists && (config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable()))",
+    "rationale" : "result is only present if metadata table exists and metadata is enabled or available, reflecting the guarded return in code.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!isMetadataTable() && (config.isMetadataTableEnabled() || metaClient.getTableConfig().isMetadataTableAvailable())) == result.isPresent()",
+    "rationale" : "If not a metadata table and config signals the table is enabled or available, result is present; otherwise, it's empty.",
+    "meta" : [ ]
+  } ]
+}

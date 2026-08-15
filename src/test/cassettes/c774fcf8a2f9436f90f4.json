@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "HoodieData<WriteStatus> is expected to be provided for location update operations.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "A valid HoodieEngineContext is required for the update operation to execute.",
+    "meta" : [ ]
+  }, {
+    "expression" : "hoodieTable != null",
+    "rationale" : "An instance of HoodieTable must be supplied for index updates to be performed.",
+    "meta" : [ ]
+  } ]
+}

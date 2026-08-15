@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The returned list of WriteStatus should not be null; a non-null collection is expected for further processing.",
+    "meta" : [ {
+      "key" : "importance",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "The operation is based on a valid instant time, which should be a non-null and non-empty string.",
+    "meta" : [ {
+      "key" : "precondition",
+      "value" : "true"
+    } ]
+  }, {
+    "expression" : "records != null",
+    "rationale" : "records is an input parameter and should not be null for a meaningful bulk insert.",
+    "meta" : [ {
+      "key" : "input",
+      "value" : "records"
+    } ]
+  }, {
+    "expression" : "result instanceof List",
+    "rationale" : "The method contract and implementation guarantee that result is a List of WriteStatus.",
+    "meta" : [ {
+      "key" : "type",
+      "value" : "WriteStatus"
+    } ]
+  }, {
+    "expression" : "userDefinedBulkInsertPartitioner != null",
+    "rationale" : "Option parameters are typically non-null even if they may be empty.",
+    "meta" : [ {
+      "key" : "option",
+      "value" : "Option type non-null"
+    } ]
+  } ]
+}

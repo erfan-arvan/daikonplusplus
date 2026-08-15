@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is a required identifier in hoodie operations and is unlikely to be null at entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions != null",
+    "rationale" : "partitions is a required argument; nulls are typically checked or prevented at call sites.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitions.isEmpty() || partitions.size() > 0",
+    "rationale" : "If the partitions list is not empty, then its size must be greater than zero.",
+    "meta" : [ ]
+  } ]
+}

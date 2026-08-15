@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "name != null",
+    "rationale" : "The method is called with a String parameter, and checking for non-null input is common at method entry.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "If name is not null, its length is non-negative for all Java strings.",
+    "meta" : [ ]
+  }, {
+    "expression" : "name == null || !name.isEmpty() || name.isEmpty()",
+    "rationale" : "This expresses that calling isEmpty() is safe if name is not null.",
+    "meta" : [ ]
+  } ]
+}

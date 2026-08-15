@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeClient != null",
+    "rationale" : "The writeClient parameter is required for method operations and hence is non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeClient is non-null at method exit"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is used in method calls and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null at method exit"
+    } ]
+  }, {
+    "expression" : "preppedRecordInputs != null",
+    "rationale" : "The preppedRecordInputs list is passed to upsertPreppedRecords and should not be null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "preppedRecordInputs is non-null at method exit"
+    } ]
+  }, {
+    "expression" : "writeStatusJavaRDD != null",
+    "rationale" : "The list of WriteStatus returned by upsertPreppedRecords is non-null by contract.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "writeStatusJavaRDD is non-null after upsertPreppedRecords call"
+    } ]
+  }, {
+    "expression" : "writeStatusJavaRDD.size() <= preppedRecordInputs.size()",
+    "rationale" : "The returned write status list corresponds to input records and should not be larger.",
+    "meta" : [ {
+      "key" : "sizeRelation",
+      "value" : "number of write statuses does not exceed number of input records"
+    } ]
+  } ]
+}

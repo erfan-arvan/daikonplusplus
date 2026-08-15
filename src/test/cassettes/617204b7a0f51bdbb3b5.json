@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "The instantTime is used to construct the HoodieCreateHandle, and is likely to be required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is used for partitioning, and as an input, it's typically required to be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId identifies the target file and is used in record creation, so is likely to be required non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap != null",
+    "rationale" : "recordMap is passed to the record creation and must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "recordMap.isEmpty() || recordMap.size() > 0",
+    "rationale" : "recordMap is a Map, so it must either be empty or have a size above zero (covers all possibilities for collection size).",
+    "meta" : [ ]
+  } ]
+}

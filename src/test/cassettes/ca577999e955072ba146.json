@@ -1,0 +1,31 @@
+{
+  "invariants" : [ {
+    "expression" : "clusteringGroup != null",
+    "rationale" : "The method expects a valid clustering group to run clustering.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Clustering group parameter is non-null"
+    } ]
+  }, {
+    "expression" : "strategyParams != null",
+    "rationale" : "A non-null map parameter is required to hold clustering configurations.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Strategy parameters map is non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null && !instantTime.isEmpty()",
+    "rationale" : "Instant time string must be present for clustering instant identification.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "Instant time string is non-null and not empty"
+    } ]
+  }, {
+    "expression" : "preserveHoodieMetadata == true || preserveHoodieMetadata == false",
+    "rationale" : "PreserveHoodieMetadata is a boolean parameter, thus always true or false.",
+    "meta" : [ {
+      "key" : "boolean",
+      "value" : "PreserveHoodieMetadata is boolean"
+    } ]
+  } ]
+}

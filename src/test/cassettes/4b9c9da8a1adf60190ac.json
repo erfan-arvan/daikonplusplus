@@ -1,0 +1,17 @@
+{
+  "invariants" : [ {
+    "expression" : "key != null",
+    "rationale" : "Null keys may not be supported for removal; ensures safe semantics.",
+    "meta" : [ {
+      "key" : "null_check",
+      "value" : "defensive"
+    } ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No other meaningful invariants can be generated with only 'key' in-scope and no access to the properties map or its state.",
+    "meta" : [ {
+      "key" : "placeholder",
+      "value" : "The method does not expose information to check further relations."
+    } ]
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result == (resources.get(type) != null && resources.get(type).containsKey(name))",
+    "rationale" : "Reflects the method's logic for returning true or false based on resource presence.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(!result) == (resources.get(type) == null || !resources.get(type).containsKey(name))",
+    "rationale" : "The result is false if the type mapping is missing or name is not present.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result || resources.get(type) == null || resources.get(type).containsKey(name)",
+    "rationale" : "If result is false, then the resources for this type are missing or the name is absent.",
+    "meta" : [ ]
+  } ]
+}

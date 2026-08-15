@@ -1,0 +1,19 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method is expected to return a non-null HoodieWriteMetadata object after a clustering operation, barring exceptional or abnormal execution.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HoodieWriteMetadata",
+    "rationale" : "The returned result should always be of type HoodieWriteMetadata since that is the static return type of the method.",
+    "meta" : [ ]
+  }, {
+    "expression" : "clusteringInstantTime != null",
+    "rationale" : "clusteringInstantTime is a required parameter for clustering and is passed directly to the underlying action executor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "context != null",
+    "rationale" : "context is a required engine context and is used directly in the operation, so should not be null.",
+    "meta" : [ ]
+  } ]
+}

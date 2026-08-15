@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns the result of postWrite, which is expected to produce a non-null List<WriteStatus>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keys != null",
+    "rationale" : "The method accesses keys in downstream table.delete and expects a non-null argument.",
+    "meta" : [ ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is passed to preWrite and table.delete and likely cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= keys.size()",
+    "rationale" : "Each key at most produces one WriteStatus to delete, so number of statuses cannot exceed number of keys.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || !keys.isEmpty()",
+    "rationale" : "If there are any delete results, there must have been input keys to delete.",
+    "meta" : [ ]
+  } ]
+}

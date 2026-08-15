@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "inputRecords != null",
+    "rationale" : "Method parameters are typically assumed non-null unless explicitly stated otherwise.",
+    "meta" : [ ]
+  }, {
+    "expression" : "inputRecords instanceof List",
+    "rationale" : "inputRecords is explicitly typed as List<HoodieRecord<T>>.",
+    "meta" : [ ]
+  }, {
+    "expression" : "true",
+    "rationale" : "No preconditions on inputRecords are specified, so the method can be called with any argument.",
+    "meta" : [ ]
+  } ]
+}

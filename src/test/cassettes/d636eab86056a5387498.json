@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method always returns either style.disabledKnobAfter or style.knobAfter, both likely to be non-null based on typical style resource provision.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result == style.disabledKnobAfter || result == style.knobAfter",
+    "rationale" : "By inspection, only these two values can ever be returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(result == style.disabledKnobAfter) == (disabled && style.disabledKnobAfter != null)",
+    "rationale" : "Ensures that only when the 'disabled' flag is set and 'disabledKnobAfter' is present does that specific drawable get returned.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!((disabled && style.disabledKnobAfter != null) && (result != style.disabledKnobAfter))",
+    "rationale" : "If the 'disabled' condition is met, 'result' must be 'style.disabledKnobAfter'.",
+    "meta" : [ ]
+  }, {
+    "expression" : "(disabled && style.disabledKnobAfter == null) || !disabled || (result == style.disabledKnobAfter)",
+    "rationale" : "Ensures when 'disabled' is true but 'disabledKnobAfter' is null, method does not return the null value; otherwise, if disabled, result matches 'disabledKnobAfter'.",
+    "meta" : [ ]
+  } ]
+}

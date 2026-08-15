@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The implementation always initializes and returns a non-null map—even if empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.isEmpty() || result.keySet().size() > 0",
+    "rationale" : "A returned map is either empty or contains at least one partition key.",
+    "meta" : [ ]
+  }, {
+    "expression" : "writeResult != null",
+    "rationale" : "The method requires a valid metadata object and never assigns or creates one locally.",
+    "meta" : [ ]
+  }, {
+    "expression" : "!result.isEmpty() || FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()) == null || FSUtils.getAllPartitionPaths(context, table.getMetaClient(), config.isMetadataTableEnabled()).size() == 0",
+    "rationale" : "If the partition paths are null or empty, result is empty; otherwise, result may be non-empty.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result instanceof HashMap",
+    "rationale" : "The returned map is always assigned as a HashMap in the method implementation.",
+    "meta" : [ ]
+  } ]
+}

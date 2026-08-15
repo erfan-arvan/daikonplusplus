@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "actors == null || actors.length >= 0",
+    "rationale" : "If actors is not null, actors.length is always non-negative for arrays in Java.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actors == null || actors.getClass().isArray()",
+    "rationale" : "If actors is not null, it must be an array of Actor.",
+    "meta" : [ ]
+  }, {
+    "expression" : "actors == null || (actors instanceof Actor[])",
+    "rationale" : "If actors is not null, it must be of type Actor[].",
+    "meta" : [ ]
+  } ]
+}

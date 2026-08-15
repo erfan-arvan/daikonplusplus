@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "instantTime != null",
+    "rationale" : "instantTime is required for identifying the commit/instant for the update and is likely never null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "partitionPath != null",
+    "rationale" : "partitionPath is needed to locate the records; a null partition is likely disallowed in practice.",
+    "meta" : [ ]
+  }, {
+    "expression" : "fileId != null",
+    "rationale" : "fileId is needed to identify the data file to update; null fileId is unlikely to be valid.",
+    "meta" : [ ]
+  }, {
+    "expression" : "keyToNewRecords != null",
+    "rationale" : "Updates require a mapping from keys to records; the map should not be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "oldDataFile != null",
+    "rationale" : "oldDataFile points to the base file being updated and should not be null for update processing.",
+    "meta" : [ ]
+  } ]
+}

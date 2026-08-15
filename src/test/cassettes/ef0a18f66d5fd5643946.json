@@ -1,0 +1,23 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The method accesses result and its methods; therefore, result must be non-null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "getWriteStatuses() is called on result and further used; thus, it should not return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws != null)",
+    "rationale" : "The code operates on each WriteStatus; thus, none should be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().allMatch(ws -> ws.getStat() != null)",
+    "rationale" : "The code calls getStat() on each WriteStatus, implying none should return null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.getWriteStatuses().stream().map(WriteStatus::getStat).collect(Collectors.toList()).size() == result.getWriteStatuses().size()",
+    "rationale" : "Mapping getStat over all WriteStatus should yield a list of the same size.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "context != null",
+    "rationale" : "Method requires a valid context to operate.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "context is non-null"
+    } ]
+  }, {
+    "expression" : "instantTime != null",
+    "rationale" : "Instant time parameter must be provided for the method to function.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "instantTime is non-null"
+    } ]
+  }, {
+    "expression" : "instantTime.length() > 0",
+    "rationale" : "Instant time string is expected to be non-empty.",
+    "meta" : [ {
+      "key" : "string",
+      "value" : "instantTime is non-empty"
+    } ]
+  } ]
+}

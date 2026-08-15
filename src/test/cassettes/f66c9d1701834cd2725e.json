@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "writeStatuses != null",
+    "rationale" : "Method receives writeStatuses parameter; must not be null to proceed.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "result != null",
+    "rationale" : "Result parameter passed to method and used multiple times; expected non-null.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "high"
+    } ]
+  }, {
+    "expression" : "writeStatuses.size() >= 0",
+    "rationale" : "List size is always non-negative.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "medium"
+    } ]
+  }, {
+    "expression" : "result.getWriteStatuses() != null",
+    "rationale" : "result.setWriteStatuses(statuses) is called before running precommit validators, so write statuses are initialized.",
+    "meta" : [ {
+      "key" : "location",
+      "value" : "post index update before precommit validations"
+    } ]
+  }, {
+    "expression" : "!writeStatuses.isEmpty() || writeStatuses.isEmpty()",
+    "rationale" : "Syntactically trivial but placeholder for other invariants.",
+    "meta" : [ {
+      "key" : "confidence",
+      "value" : "low"
+    } ]
+  } ]
+}

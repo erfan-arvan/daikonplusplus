@@ -1,0 +1,15 @@
+{
+  "invariants" : [ {
+    "expression" : "result != null",
+    "rationale" : "The result is the return value of the method, constructed via stream pipeline, so it cannot be null.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result.size() <= data.size()",
+    "rationale" : "Each element in data may produce at most one value in result after grouping by key and reducing, but keys may be fewer than elements.",
+    "meta" : [ ]
+  }, {
+    "expression" : "parallelism > 0",
+    "rationale" : "User-provided parallelism should be positive for parallel processing to be meaningful.",
+    "meta" : [ ]
+  } ]
+}

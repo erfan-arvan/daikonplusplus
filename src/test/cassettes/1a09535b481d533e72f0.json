@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "profile != null",
+    "rationale" : "The method parameter must be non-null to operate on it.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "profile is non-null at method entry"
+    } ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap() != null",
+    "rationale" : "The method uses getInputPartitionPathStatMap() without null checks, so it must be non-null.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "input partition stats map is non-null"
+    } ]
+  }, {
+    "expression" : "profile.getOutputPartitionPathStatMap() != null",
+    "rationale" : "The code calls getOutputPartitionPathStatMap() and expects a non-null map.",
+    "meta" : [ {
+      "key" : "nullness",
+      "value" : "output partition stats map is non-null"
+    } ]
+  }, {
+    "expression" : "profile.getInputPartitionPathStatMap().entrySet().size() >= 0",
+    "rationale" : "Entry sets are never negative in size.",
+    "meta" : [ {
+      "key" : "size",
+      "value" : "entry set is non-negative in size"
+    } ]
+  }, {
+    "expression" : "profile.hasOutputWorkLoadStats() == (profile.getOutputPartitionPathStatMap() != null)",
+    "rationale" : "Presence of output workload stats typically requires a valid output stats map.",
+    "meta" : [ {
+      "key" : "consistency",
+      "value" : "presence of output stats implies non-null output stats map"
+    } ]
+  } ]
+}
