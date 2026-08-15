@@ -1,6 +1,5 @@
 package edu.njit.jerse.daikonplusplus;
 
-import edu.njit.jerse.daikonplusplus.filter.TestFailureLogParser;
 import edu.njit.jerse.daikonplusplus.results.LogParser;
 import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil;
 import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil.JError;
@@ -46,12 +45,7 @@ public final class JavaRunner {
      */
     STALE_KILLED,
     /** Hard wall-clock timeout elapsed before the process finished, process killed. */
-    HARD_TIMEOUT,
-    /**
-     * The target test failure (passed via {@code targetFailure}) reappeared in the streamed output;
-     * process was killed immediately rather than waiting for natural completion.
-     */
-    TEST_FAILURE_KILLED
+    HARD_TIMEOUT
   }
 
   private JavaRunner() {}
@@ -493,7 +487,7 @@ public final class JavaRunner {
       long staleCheckMinutes)
       throws IOException, InterruptedException {
     return runExternalScript(
-        script, workDir, fullRunCp, runLog, timeoutMinutes, staleCheckMinutes, null, null);
+        script, workDir, fullRunCp, runLog, timeoutMinutes, staleCheckMinutes, null);
   }
 
   public static RunResult runExternalScript(
@@ -504,102 +498,6 @@ public final class JavaRunner {
       long timeoutMinutes,
       long staleCheckMinutes,
       @Nullable Path disabledFile)
-      throws IOException, InterruptedException {
-    return runExternalScript(
-        script, workDir, fullRunCp, runLog, timeoutMinutes, staleCheckMinutes, disabledFile, null);
-  }
-
-  public static RunResult runExternalScript(
-      Path script,
-      Path workDir,
-      String fullRunCp,
-      Path runLog,
-      long timeoutMinutes,
-      long staleCheckMinutes,
-      @Nullable Path disabledFile,
-      @Nullable Path shmDir)
-      throws IOException, InterruptedException {
-    return runExternalScript(
-        script,
-        workDir,
-        fullRunCp,
-        runLog,
-        timeoutMinutes,
-        staleCheckMinutes,
-        disabledFile,
-        shmDir,
-        null);
-  }
-
-  /**
-   * Form of {@link #runExternalScript} supporting real-time test-failure detection against a
-   * specific, already-known failure: if {@code targetFailure} is non-null, every line streamed from
-   * the child process is checked (via {@link TestFailureLogParser#matchLine} + {@link
-   * TestFailureLogParser#isSameFailure}) as it arrives, and the process is killed the instant a
-   * recurrence of that same failure is seen — without waiting for the run to finish naturally.
-   */
-  public static RunResult runExternalScript(
-      Path script,
-      Path workDir,
-      String fullRunCp,
-      Path runLog,
-      long timeoutMinutes,
-      long staleCheckMinutes,
-      @Nullable Path disabledFile,
-      @Nullable Path shmDir,
-      TestFailureLogParser.@Nullable FailureMatch targetFailure)
-      throws IOException, InterruptedException {
-    return runExternalScript(
-        script,
-        workDir,
-        fullRunCp,
-        runLog,
-        timeoutMinutes,
-        staleCheckMinutes,
-        disabledFile,
-        shmDir,
-        targetFailure,
-        false,
-        null);
-  }
-
-  /**
-   * Full form of {@link #runExternalScript}, supporting real-time test-failure detection — as an
-   * addition to the existing async output reader and stale-detector, not a separate implementation
-   * — in two modes:
-   *
-   * <ul>
-   *   <li>{@code targetFailure} non-null: kill the instant a line reproduces that <em>same</em>
-   *       failure (see {@link TestFailureLogParser#isSameFailure}) — used once a specific failure
-   *       is already known (e.g. delta-debugging trials).
-   *   <li>{@code detectAnyFailure} true (with {@code targetFailure} null): kill the instant any
-   *       recognized failure format is seen — used when no specific failure is known yet (e.g. the
-   *       very first run of the suite), so a failure is caught online rather than only after the
-   *       run finishes and its log is scanned after the fact.
-   * </ul>
-   *
-   * Either mode reuses the exact same stale-detector and hard-timeout machinery as every other run
-   * — every rerun (trial or original) gets identical stuck-invariant recovery.
-   *
-   * @param targetFailure the specific failure to watch for, or null
-   * @param detectAnyFailure if true (and {@code targetFailure} is null), kill on the first
-   *     recognized failure of any format
-   * @param matchedFailureOut if non-null, populated with the failure that triggered the kill (only
-   *     meaningful when the result is {@link RunResult#TEST_FAILURE_KILLED})
-   */
-  public static RunResult runExternalScript(
-      Path script,
-      Path workDir,
-      String fullRunCp,
-      Path runLog,
-      long timeoutMinutes,
-      long staleCheckMinutes,
-      @Nullable Path disabledFile,
-      @Nullable Path shmDir,
-      TestFailureLogParser.@Nullable FailureMatch targetFailure,
-      boolean detectAnyFailure,
-      java.util.concurrent.atomic.@Nullable AtomicReference<TestFailureLogParser.FailureMatch>
-          matchedFailureOut)
       throws IOException, InterruptedException {
 
     if (!Files.isRegularFile(script)) {
@@ -638,27 +536,6 @@ public final class JavaRunner {
 
     Path invDir = workDir.resolve(".daikonpp-events");
     Files.createDirectories(invDir);
-    // Clear sidecar files from any previous tool run so stale UUIDs from a prior
-    // invocation don't bleed into this run's executed set via appendDpEvents.
-    // Within-run recovery iterations are unaffected: iteration N+1's child JVM
-    // pre-populates SEEN from shm/ex/ and its shutdown-hook sidecar captures the
-    // full accumulated set, so no data from earlier iterations is lost.
-    try (var __dpSidecarStream = Files.list(invDir)) {
-      __dpSidecarStream
-          .filter(
-              __p -> {
-                Path __fn = __p.getFileName();
-                return __fn != null && __fn.toString().startsWith("dp-events-");
-              })
-          .forEach(
-              __p -> {
-                try {
-                  Files.deleteIfExists(__p);
-                } catch (IOException ignored) {
-                }
-              });
-    } catch (IOException ignored) {
-    }
 
     env.put("DP_INV_DIR", invDir.toAbsolutePath().toString());
 
@@ -677,15 +554,6 @@ public final class JavaRunner {
       env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + disabledArg).trim());
     }
 
-    if (shmDir != null) {
-      String shmPath = shmDir.toAbsolutePath().toString();
-      String shmArg = "-DDP_SHM_DIR=" + shmPath;
-      env.put("DP_SHM_DIR", shmPath);
-      env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + shmArg).trim());
-      env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + shmArg).trim());
-      env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + shmArg).trim());
-    }
-
     pb.redirectErrorStream(true);
 
     // Capture log size BEFORE starting the process so the stale detector
@@ -700,7 +568,6 @@ public final class JavaRunner {
     Process p = pb.start();
 
     // ---- ASYNC OUTPUT READER ----
-    AtomicBoolean testFailureKilled = new AtomicBoolean(false);
     Thread readerThread =
         new Thread(
             () -> {
@@ -715,7 +582,6 @@ public final class JavaRunner {
                           StandardOpenOption.APPEND)) {
 
                 String line;
-                int lineNumber = 0;
                 while (true) {
                   if (Thread.currentThread().isInterrupted()) break;
 
@@ -734,31 +600,6 @@ public final class JavaRunner {
                   w.write(line);
                   w.newLine();
                   w.flush();
-                  lineNumber++;
-
-                  if (targetFailure != null || detectAnyFailure) {
-                    int ln = lineNumber;
-                    TestFailureLogParser.matchLine(line, ln)
-                        .filter(
-                            m ->
-                                targetFailure != null
-                                    ? TestFailureLogParser.isSameFailure(targetFailure, m)
-                                    : true)
-                        .ifPresent(
-                            m -> {
-                              testFailureKilled.set(true);
-                              if (matchedFailureOut != null) {
-                                matchedFailureOut.set(m);
-                              }
-                              try {
-                                w.write("\n[DP] Test failure detected online — killing runner\n");
-                                w.flush();
-                              } catch (IOException ignored) {
-                              }
-                              killProcessTree(p);
-                            });
-                    if (testFailureKilled.get()) break;
-                  }
                 }
 
               } catch (IOException ignored) {
@@ -769,15 +610,9 @@ public final class JavaRunner {
     readerThread.start();
 
     // ---- STALE INVARIANT DETECTOR ----
-    // Two independent kill conditions, checked every 60 seconds:
-    //
-    // Mode 1 — open invariant (safety net): an EXD appeared with no matching DON for
-    //   staleCheckMinutes. With the new shm-based design this rarely fires (EXD/DON are no longer
-    //   printed to stdout), but is kept as a no-op safety net.
-    //
-    // Mode 2 — log-growth silence: the run log file stops growing for staleCheckMinutes.
-    //   Catches stuck invariant expressions, deadlocks, or tests that loop without producing
-    // output.
+    // Polls every 60 seconds. Kills the process when the same UUID has been the
+    // last-executed invariant continuously for staleCheckMinutes. Fires after exactly
+    // staleCheckMinutes of no progress (not 2x like the old two-observation design).
     AtomicBoolean staleKilled = new AtomicBoolean(false);
     Thread staleThread = null;
     if (staleCheckMinutes > 0) {
@@ -791,14 +626,8 @@ public final class JavaRunner {
       staleThread =
           new Thread(
               () -> {
-                // Mode 1 state (open-invariant safety net)
                 UUID trackedId = null;
                 long trackedSince = 0;
-
-                // Mode 2 state (log-growth silence)
-                long lastLogSize = -1;
-                long lastLogGrowthMs = System.currentTimeMillis();
-
                 while (!Thread.currentThread().isInterrupted() && p.isAlive()) {
                   try {
                     Thread.sleep(pollMs);
@@ -807,83 +636,72 @@ public final class JavaRunner {
                   }
                   if (!p.isAlive()) break;
 
-                  long now = System.currentTimeMillis();
-
-                  // ---- Mode 1: open invariant safety net (EXD without DON) ----
+                  // Only consider an invariant stuck if it has an open EXD with no DON —
+                  // i.e., evaluation started but never returned. If every EXD has a DON
+                  // the process is idle between test batches (normal Gradle overhead) and
+                  // must never be killed.
                   UUID currentId;
                   try {
                     currentId =
                         LogParser.readOpenInvariantIdFrom(runLog, logStartOffset).orElse(null);
                   } catch (Exception e) {
                     System.err.println("[DP] Stale detector: error reading log: " + e.getMessage());
-                    currentId = null;
+                    continue;
                   }
 
+                  long now = System.currentTimeMillis();
+
                   if (currentId == null) {
+                    // No open invariant — process is between tests, not stuck. Reset.
                     if (trackedId != null) {
                       System.out.println("[DP] Stale detector: open invariant closed — resetting");
                       trackedId = null;
                     }
-                  } else if (!currentId.equals(trackedId)) {
-                    trackedId = currentId;
-                    trackedSince = now;
-                    System.out.println("[DP] Stale detector: tracking open invariant " + currentId);
-                  } else {
-                    long stuckForMs = now - trackedSince;
-                    System.out.println(
-                        "[DP] Stale detector: "
-                            + currentId
-                            + " mid-evaluation for "
-                            + (stuckForMs / 60_000)
-                            + " min"
-                            + " (threshold "
-                            + staleCheckMinutes
-                            + " min)");
-                    if (stuckForMs >= thresholdMs) {
-                      killStale(
-                          runLog,
-                          p,
-                          staleKilled,
-                          "Stale invariant (mid-evaluation for "
-                              + staleCheckMinutes
-                              + " min, id="
-                              + currentId
-                              + ")");
-                      break;
-                    }
+                    continue;
                   }
 
-                  // ---- Mode 2: log-growth silence ----
-                  long currentLogSize = 0;
-                  try {
-                    currentLogSize = Files.exists(runLog) ? Files.size(runLog) : 0;
-                  } catch (IOException ignored) {
-                  }
-                  if (currentLogSize > lastLogSize) {
-                    lastLogSize = currentLogSize;
-                    lastLogGrowthMs = now;
-                  } else {
-                    long silentMs = now - lastLogGrowthMs;
+                  if (!currentId.equals(trackedId)) {
+                    // Different open invariant — reset the clock
+                    trackedId = currentId;
+                    trackedSince = now;
                     System.out.println(
-                        "[DP] Stale detector: log silent for "
-                            + (silentMs / 60_000)
-                            + " min (size="
-                            + currentLogSize
-                            + ", threshold "
-                            + staleCheckMinutes
-                            + " min)");
-                    if (silentMs >= thresholdMs) {
-                      killStale(
+                        "[DP] Stale detector: tracking open invariant " + currentId);
+                    continue;
+                  }
+
+                  long stuckForMs = now - trackedSince;
+                  System.out.println(
+                      "[DP] Stale detector: "
+                          + currentId
+                          + " mid-evaluation for "
+                          + (stuckForMs / 60_000)
+                          + " min"
+                          + " (threshold "
+                          + staleCheckMinutes
+                          + " min)");
+
+                  if (stuckForMs >= thresholdMs) {
+                    try {
+                      Files.writeString(
                           runLog,
-                          p,
-                          staleKilled,
-                          "No log output for "
+                          "\n[DP] Stale invariant detected ("
+                              + currentId
+                              + ") - mid-evaluation for "
                               + staleCheckMinutes
-                              + " min (log size="
-                              + currentLogSize
-                              + " bytes, process stuck)");
-                      break;
+                              + " min, killing run\n",
+                          StandardOpenOption.CREATE,
+                          StandardOpenOption.APPEND);
+                    } catch (IOException ignored) {
                     }
+                    System.err.println(
+                        "[DP] Stale invariant detected ("
+                            + currentId
+                            + ") mid-evaluation for "
+                            + staleCheckMinutes
+                            + " min. Killing runner.");
+                    staleKilled.set(true);
+                    p.destroyForcibly();
+                    break;
                   }
                 }
                 System.out.println(
@@ -910,21 +728,18 @@ public final class JavaRunner {
           StandardOpenOption.CREATE,
           StandardOpenOption.APPEND);
 
-      killProcessTree(p);
+      p.destroyForcibly();
       p.waitFor();
       readerThread.interrupt();
-    } else if (staleKilled.get() || testFailureKilled.get()) {
-      // Process was killed by the stale detector or the real-time failure watcher;
-      // it already exited, just drain.
+    } else if (staleKilled.get()) {
+      // Process was killed by stale detector; it already exited, just drain
       readerThread.interrupt();
     }
 
     RunResult runResult =
         !finished
             ? RunResult.HARD_TIMEOUT
-            : testFailureKilled.get()
-                ? RunResult.TEST_FAILURE_KILLED
-                : staleKilled.get() ? RunResult.STALE_KILLED : RunResult.NORMAL;
+            : staleKilled.get() ? RunResult.STALE_KILLED : RunResult.NORMAL;
 
     int exit;
 
@@ -970,33 +785,6 @@ public final class JavaRunner {
         StandardOpenOption.CREATE,
         StandardOpenOption.APPEND);
     System.out.println("[DP] Disabled stuck invariant " + stuckId + " → " + disabledFile);
-  }
-
-  private static void killStale(Path runLog, Process p, AtomicBoolean staleKilled, String reason) {
-    try {
-      Files.writeString(
-          runLog,
-          "\n[DP] Stale kill: " + reason + "\n",
-          StandardOpenOption.CREATE,
-          StandardOpenOption.APPEND);
-    } catch (IOException ignored) {
-    }
-    System.err.println("[DP] Stale kill: " + reason + ". Killing runner.");
-    staleKilled.set(true);
-    killProcessTree(p);
-  }
-
-  /**
-   * Kills {@code p} and every descendant process it has spawned (e.g. {@code bash script.sh} →
-   * {@code ./gradlew} → forked test-worker JVMs). {@link Process#destroyForcibly()} alone only
-   * SIGKILLs the immediate child — for a runner script that shells out to a build tool, that leaves
-   * the actual work (and any locks it holds on the working directory / build output) orphaned and
-   * still running, which then blocks or starves the *next* trial's fresh invocation. Descendants
-   * are killed before the process itself so none of them can be reparented away and missed.
-   */
-  private static void killProcessTree(Process p) {
-    p.descendants().forEach(ProcessHandle::destroyForcibly);
-    p.destroyForcibly();
   }
 
   public static boolean removeRegionById(Path srcRoot, UUID stuckId) {

@@ -1,7 +1,5 @@
 package edu.njit.jerse.daikonplusplus.parse.context;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
@@ -10,18 +8,15 @@ import com.github.javaparser.resolution.types.ResolvedType;
 import edu.njit.jerse.daikonplusplus.model.ProgramPoint;
 import edu.njit.jerse.daikonplusplus.model.ProgramPointKind;
 import edu.njit.jerse.daikonplusplus.parse.MethodSignatureUtil;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Utility methods for extracting contextual information from source code for a given program point.
@@ -283,220 +278,25 @@ public final class ContextUtils {
   }
 
   /**
-   * Cache of parsed call-site index files, keyed by file path, so each is read only once per run.
-   */
-  private static final Map<String, Map<String, List<Map<String, String>>>> CALL_SITE_INDEX_CACHE =
-      new ConcurrentHashMap<>();
-
-  /** Maximum number of call sites to include as context for a single program point. */
-  private static final int MAX_CALL_SITES = 5;
-
-  /**
-   * Loads (and caches) a pre-built call-site index from disk.
-   *
-   * <p>The index is a JSON object mapping a callee's key (in the same {@code
-   * pkg.Class#name(paramTypes):returnType} format produced by {@link
-   * edu.njit.jerse.daikonplusplus.model.ProgramElementId#toString()}) to a list of caller records,
-   * each with {@code callerKey}, {@code callerJavadoc}, and {@code callSite} fields.
-   *
-   * @param path path to the call-site index JSON file
-   * @return parsed index, or an empty map if the file is missing or unparsable
-   */
-  private static Map<String, List<Map<String, String>>> loadCallSiteIndex(String path) {
-    return CALL_SITE_INDEX_CACHE.computeIfAbsent(
-        path,
-        p -> {
-          try {
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(
-                new File(p), new TypeReference<Map<String, List<Map<String, String>>>>() {});
-          } catch (Exception e) {
-            return Map.of();
-          }
-        });
-  }
-
-  /**
-   * Locates the source declaration of a caller method identified by a {@code
-   * pkg.Class#name(paramTypes):returnType} key, matching by declaring class and parameter count.
-   *
-   * @param callerKey caller identifier in {@code pkg.Class#name(paramTypes):returnType} format
-   * @param srcRoot root directory of the source code
-   * @return the caller's method declaration if it can be located
-   */
-  private static Optional<MethodDeclaration> findCallerDeclaration(String callerKey, Path srcRoot) {
-    int hash = callerKey.indexOf('#');
-    if (hash < 0) return Optional.empty();
-
-    String qualifiedClass = callerKey.substring(0, hash);
-    String desc = callerKey.substring(hash + 1);
-
-    int paren = desc.indexOf('(');
-    int closeParen = desc.indexOf(')');
-    if (paren < 0 || closeParen < paren) return Optional.empty();
-
-    String methodName = desc.substring(0, paren);
-    String paramsPart = desc.substring(paren + 1, closeParen);
-    int paramCount = paramsPart.isBlank() ? 0 : paramsPart.split(",").length;
-
-    Optional<ClassOrInterfaceDeclaration> maybeClass = findClassInProject(qualifiedClass, srcRoot);
-    if (maybeClass.isEmpty()) return Optional.empty();
-
-    return maybeClass.get().getMethodsByName(methodName).stream()
-        .filter(m -> m.getParameters().size() == paramCount)
-        .findFirst();
-  }
-
-  /**
-   * Extracts call-site context for a program point, using a pre-built call-site index.
-   *
-   * <p>The index is expected to have been produced offline (e.g. via static call-graph analysis)
-   * and configured via {@code DP_CALL_SITES_INDEX} / {@code dp.callSitesIndex}. For each of the
-   * program point's recorded callers (up to {@link #MAX_CALL_SITES}), this includes the caller's
-   * javadoc (if any) and its method implementation.
+   * Extracts call-site context for a program point.
    *
    * @param point program point
    * @param srcRoot root directory of the source code
-   * @param callSitesIndexPath path to the call-site index JSON file, or {@code null} if unset
    * @return call-site context if available
    */
-  public static Optional<String> extractCallSiteContext(
-      ProgramPoint point, Path srcRoot, @Nullable String callSitesIndexPath) {
-
-    if (callSitesIndexPath == null || callSitesIndexPath.isBlank()) {
-      return Optional.empty();
-    }
-
-    Map<String, List<Map<String, String>>> index = loadCallSiteIndex(callSitesIndexPath);
-    if (index.isEmpty()) return Optional.empty();
-
-    String key = point.elementId().toString();
-    List<Map<String, String>> callers = index.get(key);
-    if (callers == null || callers.isEmpty()) return Optional.empty();
-
-    StringBuilder sb = new StringBuilder();
-    int included = 0;
-
-    for (Map<String, String> caller : callers) {
-      if (included >= MAX_CALL_SITES) break;
-
-      String callerKey = caller.get("callerKey");
-      if (callerKey == null || callerKey.isBlank()) continue;
-
-      Optional<MethodDeclaration> callerMethodOpt = findCallerDeclaration(callerKey, srcRoot);
-      if (callerMethodOpt.isEmpty()) continue;
-
-      MethodDeclaration callerMethod = callerMethodOpt.get();
-      Optional<String> body = callerMethod.getBody().map(Object::toString);
-      if (body.isEmpty()) continue;
-
-      String javadoc = caller.getOrDefault("callerJavadoc", "");
-      if (javadoc == null || javadoc.isBlank()) {
-        javadoc = callerMethod.getJavadoc().map(j -> j.toText().strip()).orElse("");
-      }
-
-      if (included > 0) sb.append("\n\n");
-      sb.append("Caller: ").append(callerKey).append("\n");
-      if (!javadoc.isBlank()) {
-        sb.append("Javadoc: ").append(javadoc).append("\n");
-      }
-      sb.append("Implementation:\n").append(body.get());
-
-      included++;
-    }
-
-    if (included == 0) return Optional.empty();
-    return Optional.of(sb.toString());
+  public static Optional<String> extractCallSiteContext(ProgramPoint point, Path srcRoot) {
+    return Optional.empty(); // TODO later
   }
 
   /**
-   * Cache of parsed I/O-examples index files, keyed by file path, so each is read only once per
-   * run.
-   */
-  private static final Map<String, Map<String, List<Map<String, Object>>>> IO_EXAMPLES_INDEX_CACHE =
-      new ConcurrentHashMap<>();
-
-  /** Maximum number of input-output examples to include as context for a single program point. */
-  private static final int MAX_IO_EXAMPLES = 5;
-
-  /**
-   * Loads (and caches) a pre-built input-output examples index from disk.
-   *
-   * <p>The index is a JSON object mapping a method's key (in the same {@code
-   * pkg.Class#name(paramTypes):returnType} format produced by {@link
-   * edu.njit.jerse.daikonplusplus.model.ProgramElementId#toString()}) to a list of example records,
-   * each with an {@code args} object (parameter name to observed value) and a {@code return} value,
-   * as captured by Daikon's Chicory front end from a real test run.
-   *
-   * @param path path to the I/O-examples index JSON file
-   * @return parsed index, or an empty map if the file is missing or unparsable
-   */
-  private static Map<String, List<Map<String, Object>>> loadIOExamplesIndex(String path) {
-    return IO_EXAMPLES_INDEX_CACHE.computeIfAbsent(
-        path,
-        p -> {
-          try {
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(
-                new File(p), new TypeReference<Map<String, List<Map<String, Object>>>>() {});
-          } catch (Exception e) {
-            return Map.of();
-          }
-        });
-  }
-
-  /**
-   * Extracts input-output examples for a program point, using a pre-built I/O-examples index.
-   *
-   * <p>The index is expected to have been produced offline (e.g. via Daikon's Chicory
-   * instrumentation of a real test run) and configured via {@code DP_IO_EXAMPLES_INDEX} / {@code
-   * dp.ioExamplesIndex}. Up to {@link #MAX_IO_EXAMPLES} recorded examples are rendered as
-   * argument/return value pairs.
+   * Extracts input-output examples for a program point.
    *
    * @param point program point
-   * @param srcRoot root directory of the source code (unused; kept for signature symmetry with
-   *     other {@code extract*} methods)
-   * @param ioExamplesIndexPath path to the I/O-examples index JSON file, or {@code null} if unset
-   * @return input-output example context if available
+   * @param srcRoot root directory of the source code
+   * @return examples if available
    */
-  public static Optional<String> extractIOExamples(
-      ProgramPoint point, Path srcRoot, @Nullable String ioExamplesIndexPath) {
-
-    if (ioExamplesIndexPath == null || ioExamplesIndexPath.isBlank()) {
-      return Optional.empty();
-    }
-
-    Map<String, List<Map<String, Object>>> index = loadIOExamplesIndex(ioExamplesIndexPath);
-    if (index.isEmpty()) return Optional.empty();
-
-    String key = point.elementId().toString();
-    List<Map<String, Object>> examples = index.get(key);
-    if (examples == null || examples.isEmpty()) return Optional.empty();
-
-    StringBuilder sb = new StringBuilder();
-    int included = 0;
-
-    for (Map<String, Object> example : examples) {
-      if (included >= MAX_IO_EXAMPLES) break;
-
-      Object argsObj = example.get("args");
-      if (!(argsObj instanceof Map)) continue;
-      @SuppressWarnings("unchecked")
-      Map<String, Object> args = (Map<String, Object>) argsObj;
-
-      if (included > 0) sb.append("\n");
-      sb.append("Example ").append(included + 1).append(": ");
-      sb.append(
-          args.entrySet().stream()
-              .map(e -> e.getKey() + "=" + e.getValue())
-              .collect(Collectors.joining(", ")));
-      sb.append(" -> return=").append(example.get("return"));
-
-      included++;
-    }
-
-    if (included == 0) return Optional.empty();
-    return Optional.of(sb.toString());
+  public static Optional<String> extractIOExamples(ProgramPoint point, Path srcRoot) {
+    return Optional.empty(); // TODO later
   }
 
   /**

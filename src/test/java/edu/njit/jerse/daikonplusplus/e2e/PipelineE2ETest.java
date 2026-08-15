@@ -4,15 +4,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.njit.jerse.daikonplusplus.App;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.*;
-import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.TestFactory;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * End-to-end regression test runner.
@@ -58,14 +57,7 @@ public class PipelineE2ETest {
 
   private static final ObjectMapper M = new ObjectMapper();
 
-  /**
-   * Discovers runnable cases and produces one dynamic test per case.
-   *
-   * @return a stream of dynamic tests, one per discovered case
-   * @throws IOException if listing or probing the cases directory fails
-   */
-  @TestFactory
-  Stream<DynamicTest> runAllCases() throws IOException {
+  static Stream<Path> caseProvider() throws IOException {
     assertTrue(Files.isDirectory(CASES_ROOT), "Missing cases root: " + CASES_ROOT);
 
     // --- Deterministic replay guards ---
@@ -73,16 +65,12 @@ public class PipelineE2ETest {
         firstNonBlank(
             System.getProperty("DP_DISABLE_REAL_LLM"), System.getenv("DP_DISABLE_REAL_LLM"), "");
     assertTrue(
-        isTruthy(disableReal),
-        "DP_DISABLE_REAL_LLM must be truthy for deterministic replay.\n"
-            + "Run via Gradle (./gradlew test) or set DP_DISABLE_REAL_LLM=1.");
+        isTruthy(disableReal), "DP_DISABLE_REAL_LLM must be truthy for deterministic replay.");
 
     String casEnv =
         firstNonBlank(
             System.getProperty("DP_LLM_CASSETTES"), System.getenv("DP_LLM_CASSETTES"), "");
-    assertFalse(
-        casEnv.isBlank(),
-        "DP_LLM_CASSETTES must be set to your cassette directory (e.g., src/test/cassettes).");
+    assertFalse(casEnv.isBlank(), "DP_LLM_CASSETTES must be set.");
 
     Path cassetteDir = Paths.get(casEnv).toAbsolutePath().normalize();
     assertTrue(
@@ -91,25 +79,23 @@ public class PipelineE2ETest {
 
     final Set<String> onlyCases = parseCaseFilter(System.getProperty("dp.cases", "").trim());
 
-    final List<Path> caseDirs;
     try (Stream<Path> s = Files.list(CASES_ROOT)) {
-      caseDirs =
+      List<Path> cases =
           s.filter(Files::isDirectory)
               .filter(PipelineE2ETest::hasInputAndExpected)
               .filter(p -> onlyCases.isEmpty() || onlyCases.contains(p.getFileName().toString()))
               .sorted(Comparator.comparing(p -> p.getFileName().toString()))
               .collect(Collectors.toList());
-    }
-    assertFalse(
-        caseDirs.isEmpty(),
-        "No runnable cases under: "
-            + CASES_ROOT
-            + (onlyCases.isEmpty() ? "" : " matching filter " + onlyCases));
 
-    return caseDirs.stream()
-        .map(
-            dir ->
-                DynamicTest.dynamicTest(dir.getFileName().toString(), () -> runCaseCompare(dir)));
+      assertFalse(cases.isEmpty(), "No runnable E2E cases found");
+      return cases.stream();
+    }
+  }
+
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("caseProvider")
+  void runCase(Path caseDir) throws Exception {
+    runCaseCompare(caseDir);
   }
 
   // ---------- Small helpers (env parsing, filtering) ----------
@@ -205,14 +191,14 @@ public class PipelineE2ETest {
 
     CfgLite cfg = loadCfg(caseDir.resolve("config.json"));
 
-    Map<String, String> prev = snapshotAndSetCaseProps(buildRegistry, buildOutcomes, cfg.dpProps);
+    Properties prev = snapshotAndSetCaseProps(buildRegistry, buildOutcomes);
+
     try {
-      final List<String> args;
+      List<String> args;
+
       if ("external".equals(cfg.execMode)) {
-        assertFalse(cfg.command.isEmpty(), "External mode requires a non-empty command list");
-        // Extract runner script name (last element of command, e.g. "run.sh" from
-        // ["bash","run.sh"])
-        String scriptName = cfg.command.get(cfg.command.size() - 1);
+        assertFalse(cfg.command.isEmpty(), "External mode requires command");
+
         args =
             List.of(
                 "--external-project",
@@ -221,11 +207,54 @@ public class PipelineE2ETest {
                 "--main-src",
                 ".",
                 "--runner-script",
-                scriptName);
+                "run.sh");
+
       } else {
         args = List.of(inputDir.toString(), "", cfg.mainClass, String.valueOf(cfg.maxK));
       }
-      App.main(args.toArray(new String[0]));
+
+      for (int ai = 0; ai < args.size(); ai++) {
+        System.out.println("  [" + ai + "] = '" + args.get(ai) + "'");
+      }
+      System.out.println("=====================");
+
+      List<String> cmd = new ArrayList<>();
+
+      cmd.add(Path.of(System.getProperty("java.home"), "bin", "java").toString());
+
+      // ✅ CRITICAL: pass ALL dp configs
+      cmd.add("-Ddp.registry=" + buildRegistry.toAbsolutePath());
+      cmd.add("-Ddp.outcomes=" + buildOutcomes.toAbsolutePath());
+      cmd.add("-Ddp.registryReset=true");
+
+      for (Map.Entry<String, String> e : cfg.dpProps.entrySet()) {
+        cmd.add("-Ddp." + e.getKey() + "=" + e.getValue());
+      }
+
+      // classpath
+      cmd.add("-cp");
+      cmd.add(System.getProperty("java.class.path"));
+
+      // main
+      cmd.add("edu.njit.jerse.daikonplusplus.App");
+
+      // args
+      cmd.addAll(args);
+
+      ProcessBuilder pb = new ProcessBuilder(cmd);
+      pb.directory(Path.of("").toAbsolutePath().toFile());
+      pb.inheritIO();
+
+      Map<String, String> penv = pb.environment();
+      penv.put("DP_DISABLE_REAL_LLM", "1");
+      penv.put(
+          "DP_LLM_CASSETTES",
+          firstNonBlank(
+              System.getProperty("DP_LLM_CASSETTES"), System.getenv("DP_LLM_CASSETTES"), ""));
+
+      Process p = pb.start();
+      int exit = p.waitFor();
+      assertEquals(0, exit, "App subprocess failed");
 
       assertTrue(Files.exists(buildRegistry), "Pipeline produced no registry at " + buildRegistry);
       if (Files.notExists(buildOutcomes)) {
@@ -352,32 +381,23 @@ public class PipelineE2ETest {
 
   /** Minimal per-case configuration. */
   private static final class CfgLite {
-    /** Fully-qualified main class to execute (e.g., {@code com.example.Main}). */
     final String mainClass;
-
-    /** Max K (domain-specific pipeline parameter). */
     final int maxK;
-
-    /** Extra {@code dp.*} system properties from the {@code dp} section of config.json. */
+    final String execMode; // "native" | "external"
+    final List<String> command; // only for external
     final Map<String, String> dpProps;
-
-    /** Execution mode: {@code null} / {@code "native"} or {@code "external"}. */
-    final String execMode;
-
-    /** Command to run in external mode (e.g., {@code ["bash", "run.sh"]}). */
-    final List<String> command;
 
     CfgLite(
         String mainClass,
         int maxK,
-        Map<String, String> dpProps,
         String execMode,
-        List<String> command) {
+        List<String> command,
+        final Map<String, String> dpProps) {
       this.mainClass = mainClass;
       this.maxK = maxK;
-      this.dpProps = dpProps;
       this.execMode = execMode;
       this.command = command;
+      this.dpProps = dpProps;
     }
   }
 
@@ -393,86 +413,113 @@ public class PipelineE2ETest {
   private static CfgLite loadCfg(Path jsonPath) throws IOException {
     String mainClass = "com.example.Main";
     int maxK = 5;
+    String execMode = "native";
+    List<String> command = List.of();
+
     Map<String, String> dpProps = new LinkedHashMap<>();
-    String execMode = null;
-    List<String> command = new ArrayList<>();
+
     if (Files.isRegularFile(jsonPath)) {
       JsonNode j = OM.readTree(jsonPath.toFile());
-      if (j.hasNonNull("mainClass")) mainClass = j.get("mainClass").asText();
-      if (j.hasNonNull("maxK")) maxK = j.get("maxK").asInt(5);
-      if (j.hasNonNull("execMode")) execMode = j.get("execMode").asText();
-      if (j.hasNonNull("command") && j.get("command").isArray()) {
-        j.get("command").forEach(el -> command.add(el.asText()));
+
+      if (j.hasNonNull("mainClass")) {
+        mainClass = j.get("mainClass").asText();
+      }
+
+      if (j.hasNonNull("maxK")) {
+        maxK = j.get("maxK").asInt(5);
+      }
+
+      if (j.hasNonNull("execMode")) {
+        execMode = j.get("execMode").asText();
+      }
+
+      if (j.hasNonNull("command")) {
+        command = new ArrayList<>();
+        for (JsonNode c : j.get("command")) {
+          command.add(c.asText());
+        }
       }
       JsonNode dp = j.get("dp");
+
       if (dp != null && dp.isObject()) {
-        dp.fields()
-            .forEachRemaining(
-                e -> {
-                  JsonNode v = e.getValue();
-                  if (v.isTextual()) {
-                    dpProps.put(e.getKey(), v.asText());
-                  } else if (v.isArray()) {
-                    // Serialize array values as comma-separated strings
-                    List<String> items = new ArrayList<>();
-                    v.forEach(el -> items.add(el.asText()));
-                    dpProps.put(e.getKey(), String.join(",", items));
-                  } else {
-                    dpProps.put(e.getKey(), v.asText());
-                  }
-                });
+        Iterator<Map.Entry<String, JsonNode>> fields = dp.fields();
+
+        while (fields.hasNext()) {
+          Map.Entry<String, JsonNode> e = fields.next();
+
+          String key = e.getKey();
+          JsonNode val = e.getValue();
+
+          if (val.isArray()) {
+            List<String> list = new ArrayList<>();
+            for (JsonNode x : val) list.add(x.asText());
+            dpProps.put(key, String.join(",", list));
+          } else {
+            dpProps.put(key, val.asText());
+          }
+        }
       }
     }
-    return new CfgLite(mainClass, maxK, dpProps, execMode, command);
+
+    return new CfgLite(mainClass, maxK, execMode, command, dpProps);
   }
 
   // ---------- System property scoping ----------
 
   /**
-   * Sets per-case system properties and returns a snapshot of the previous values.
-   *
-   * <p>Each entry maps a key to its previous value, or {@code null} if the key was absent before
-   * this call. Pass the result to {@link #restoreProps(Map)} in a finally block.
+   * Points the pipeline to per-case output files by setting system properties.
    *
    * @param buildRegistry destination path for the registry
    * @param buildOutcomes destination path for the outcomes
-   * @param dpProps extra {@code dp.*} props from the case config's {@code dp} section
-   * @return snapshot of all modified keys (null value = was absent)
+   * @return snapshot of previous values so they can be restored
    */
-  private static Map<String, String> snapshotAndSetCaseProps(
-      Path buildRegistry, Path buildOutcomes, Map<String, String> dpProps) {
-    Map<String, String> prev = new LinkedHashMap<>();
-    // Core props
-    prev.put("dp.registry", System.getProperty("dp.registry"));
-    prev.put("dp.outcomes", System.getProperty("dp.outcomes"));
-    prev.put("dp.registryReset", System.getProperty("dp.registryReset"));
-    for (String key : dpProps.keySet()) {
-      prev.put("dp." + key, System.getProperty("dp." + key));
-    }
+  private static Properties snapshotAndSetCaseProps(Path buildRegistry, Path buildOutcomes) {
+    Properties prev = new Properties();
+    copyIfSet(prev, "dp.registry");
+    copyIfSet(prev, "dp.outcomes");
+    copyIfSet(prev, "dp.registryReset");
+    //    copyIfSet(prev, "dp.contexts");
 
     System.setProperty("dp.registry", buildRegistry.toAbsolutePath().toString());
     System.setProperty("dp.outcomes", buildOutcomes.toAbsolutePath().toString());
     System.setProperty("dp.registryReset", "true");
-    for (Map.Entry<String, String> e : dpProps.entrySet()) {
-      System.setProperty("dp." + e.getKey(), e.getValue());
-    }
     return prev;
   }
 
   /**
-   * Restores system properties to the state captured by {@link #snapshotAndSetCaseProps}.
+   * Copies a system property into a {@link Properties} map if it is currently set.
    *
-   * <p>A {@code null} value in the map means the key was absent before the test and is cleared.
-   *
-   * @param prev snapshot produced by {@link #snapshotAndSetCaseProps}
+   * @param dst destination to receive the snapshot
+   * @param key system property name
    */
-  private static void restoreProps(Map<String, String> prev) {
-    for (Map.Entry<String, String> e : prev.entrySet()) {
-      if (e.getValue() != null) {
-        System.setProperty(e.getKey(), e.getValue());
-      } else {
-        System.clearProperty(e.getKey());
-      }
+  private static void copyIfSet(Properties dst, String key) {
+    String v = System.getProperty(key);
+    if (v != null) dst.setProperty(key, v);
+  }
+
+  /**
+   * Restores system properties that were previously snapshotted.
+   *
+   * @param prev prior values captured by {@link #snapshotAndSetCaseProps(Path, Path)}
+   */
+  private static void restoreProps(Properties prev) {
+    restoreKey(prev, "dp.registry");
+    restoreKey(prev, "dp.outcomes");
+    restoreKey(prev, "dp.registryReset");
+    //    restoreKey(prev, "dp.contexts");
+  }
+
+  /**
+   * Restores a single system property to a prior value or clears it if none was present.
+   *
+   * @param prev snapshot map
+   * @param key system property name
+   */
+  private static void restoreKey(Properties prev, String key) {
+    if (prev.containsKey(key)) {
+      System.setProperty(key, prev.getProperty(key));
+    } else {
+      System.clearProperty(key);
     }
   }
 }

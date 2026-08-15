@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -218,134 +216,8 @@ public final class LogParser {
   }
 
   /**
-   * Returns the set of invariant UUIDs that were executed in a prior run, by listing filenames in
-   * {@code shmDir/ex/}. Each filename is expected to be a UUID string; non-UUID filenames are
-   * silently skipped.
-   */
-  public static Set<UUID> readExecutedIdsFromShm(Path shmDir) {
-    Set<UUID> out = new HashSet<>();
-    Path exDir = shmDir.resolve("ex");
-    if (!Files.exists(exDir)) return out;
-    try (var s = Files.list(exDir)) {
-      s.forEach(
-          p -> {
-            Path fn = p.getFileName();
-            if (fn == null) return;
-            try {
-              out.add(UUID.fromString(fn.toString()));
-            } catch (IllegalArgumentException ignore) {
-            }
-          });
-    } catch (IOException e) {
-      throw new RuntimeException("Failed to list shm/ex: " + e.getMessage(), e);
-    }
-    return out;
-  }
-
-  /**
-   * One invariant's execution marker read from {@code shmDir/ex/<uuid>}: the file's OS-assigned
-   * last-modified time (millis since epoch), which is also its creation time since {@code
-   * daikonpp.DpRuntime.recordExecuted} writes it exactly once, on first execution.
-   */
-  public record TimedInvariant(UUID id, long millis) {}
-
-  /**
-   * Returns every invariant executed in a prior run, ordered by execution time (earliest first),
-   * using each {@code shmDir/ex/<uuid>} marker file's OS-assigned last-modified timestamp.
-   *
-   * @param shmDir shm directory used for the run
-   * @return invariants in execution order, earliest first
-   */
-  public static List<TimedInvariant> readExecutedOrderedFromShm(Path shmDir) {
-    List<TimedInvariant> out = new ArrayList<>();
-    Path exDir = shmDir.resolve("ex");
-    if (!Files.exists(exDir)) return out;
-
-    try (var s = Files.list(exDir)) {
-      for (Path p : (Iterable<Path>) s::iterator) {
-        Path fn = p.getFileName();
-        if (fn == null) continue;
-
-        UUID id;
-        try {
-          id = UUID.fromString(fn.toString());
-        } catch (IllegalArgumentException ignore) {
-          continue;
-        }
-
-        long millis = 0L;
-        try {
-          millis = Files.getLastModifiedTime(p).toMillis();
-        } catch (IOException ignore) {
-          // file vanished between listing and stat — keep millis=0 fallback
-        }
-
-        out.add(new TimedInvariant(id, millis));
-      }
-    } catch (IOException e) {
-      throw new RuntimeException("Failed to list shm/ex: " + e.getMessage(), e);
-    }
-
-    out.sort(Comparator.comparingLong(TimedInvariant::millis));
-    return out;
-  }
-
-  /**
-   * Returns the set of invariant UUIDs that failed in a prior run, by listing {@code *.json}
-   * filenames in {@code shmDir/fail/}. The {@code .json} suffix is stripped before UUID parsing;
-   * non-conforming filenames are silently skipped.
-   */
-  public static Set<UUID> readFalsifiedIdsFromShm(Path shmDir) {
-    Set<UUID> out = new HashSet<>();
-    Path failDir = shmDir.resolve("fail");
-    if (!Files.exists(failDir)) return out;
-    try (var s = Files.list(failDir)) {
-      s.forEach(
-          p -> {
-            Path fn = p.getFileName();
-            if (fn == null) return;
-            String name = fn.toString();
-            if (!name.endsWith(".json")) return;
-            try {
-              out.add(UUID.fromString(name.substring(0, name.length() - 5)));
-            } catch (IllegalArgumentException ignore) {
-            }
-          });
-    } catch (IOException e) {
-      throw new RuntimeException("Failed to list shm/fail: " + e.getMessage(), e);
-    }
-    return out;
-  }
-
-  /**
-   * Returns the UUID of the invariant currently mid-evaluation (the "stuck" invariant) by reading
-   * the first filename in {@code shmDir/current/}. Each invariant writes a marker to this directory
-   * before evaluation and deletes it after; a file surviving a kill indicates the stuck invariant.
-   * Returns empty if the directory is absent or contains no valid UUID filenames.
-   */
-  public static Optional<UUID> readCurrentInvariantFromShm(Path shmDir) {
-    Path currentDir = shmDir.resolve("current");
-    if (!Files.exists(currentDir)) return Optional.empty();
-    try (var s = Files.list(currentDir)) {
-      java.util.Iterator<Path> it = s.iterator();
-      while (it.hasNext()) {
-        Path entry = it.next();
-        Path fn = entry.getFileName();
-        if (fn == null) continue;
-        try {
-          return Optional.of(UUID.fromString(fn.toString()));
-        } catch (IllegalArgumentException ignore) {
-        }
-      }
-      return Optional.empty();
-    } catch (IOException e) {
-      throw new RuntimeException("Failed to list shm/current: " + e.getMessage(), e);
-    }
-  }
-
-  /**
    * Scans instrumented source files for lines commented out due to javac errors. Returns the set of
-   * IDs in blocks marked with {@code // [DP] disabled invariant ::}.
+   * IDs marked with //Failed Invariant in Compilation: ...
    */
   public static Set<UUID> readNonCompiledIds(Path srcRoot) {
     Set<UUID> out = new HashSet<>();
@@ -360,7 +232,7 @@ public final class LogParser {
                 try (BufferedReader br = Files.newBufferedReader(pth, StandardCharsets.UTF_8)) {
                   String ln;
                   while ((ln = br.readLine()) != null) {
-                    if (!ln.contains("// [DP] disabled invariant ::")) continue;
+                    if (!ln.contains("//Failed Invariant in Compilation:")) continue;
                     Matcher m = p.matcher(ln);
                     while (m.find()) {
                       final String g = m.group(1); // may be null per annotations

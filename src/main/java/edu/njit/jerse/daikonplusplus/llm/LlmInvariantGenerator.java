@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonClassDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.github.javaparser.StaticJavaParser;
 import com.openai.models.ChatModel;
-import edu.njit.jerse.daikonplusplus.App.FilterStats;
 import edu.njit.jerse.daikonplusplus.config.DpConfig;
 import edu.njit.jerse.daikonplusplus.llm.prompt.Prompt;
 import edu.njit.jerse.daikonplusplus.llm.prompt.PromptContext;
@@ -110,8 +109,7 @@ public final class LlmInvariantGenerator {
       String typeDoc,
       String callSiteContext,
       String inputOutputExamples,
-      String calleeDoc,
-      FilterStats stats) {
+      String calleeDoc) {
 
     final boolean isExit = point.kind() == ProgramPointKind.METHOD_EXIT;
 
@@ -159,22 +157,16 @@ public final class LlmInvariantGenerator {
       // ----- Parse + filter + dedup + limit -----
       List<InvariantSpec> kept = new ArrayList<>(Math.min(items.size(), maxInvariants));
       Set<String> seenExprs = new LinkedHashSet<>();
-      stats.rawFromLlm.addAndGet(items.size());
 
-      for (int __i = 0; __i < items.size(); __i++) {
-        InvariantsOut.Item it = items.get(__i);
+      for (InvariantsOut.Item it : items) {
         String expr = (it.expression == null) ? "" : it.expression.trim();
-        if (expr.isEmpty()) {
-          stats.dropEmpty.incrementAndGet();
-          continue;
-        }
+        if (expr.isEmpty()) continue;
 
         // Skip unparseable expressions
         Optional<String> parsed = parseableExpression(expr);
 
         if (parsed.isEmpty()) {
           if (config.debug()) System.out.println("[DP-LLM] drop(parse): " + expr);
-          stats.dropParse.incrementAndGet();
           continue;
         }
 
@@ -187,15 +179,11 @@ public final class LlmInvariantGenerator {
         // Skip low-quality ones unless filter disabled
         if (!config.noQualityFilter() && !InvariantQualityFilter.keep(expr, inScope, isExit)) {
           if (config.debug()) System.out.println("[DP-LLM] drop(filter): " + expr);
-          stats.dropQuality.incrementAndGet();
           continue;
         }
 
         // Deduplicate
-        if (!seenExprs.add(expr)) {
-          stats.dropPerPointDedup.incrementAndGet();
-          continue;
-        }
+        if (!seenExprs.add(expr)) continue;
 
         // Normalize metadata
         final Map<String, String> meta =
@@ -209,11 +197,7 @@ public final class LlmInvariantGenerator {
 
         kept.add(new InvariantSpec(expr, (it.rationale == null ? "" : it.rationale), meta));
 
-        if (kept.size() >= maxInvariants) {
-          // remaining items after cap are not processed
-          stats.dropMaxK.addAndGet(items.size() - __i - 1);
-          break;
-        }
+        if (kept.size() >= maxInvariants) break;
       }
 
       if (config.debug()) {
@@ -303,7 +287,49 @@ public final class LlmInvariantGenerator {
   private static LlmClient buildLlmFromEnv(DpConfig config) {
 
     // ------------------------------
-    // 1. Cassette / replay logic
+    // 1. Choose REAL backend
+    // ------------------------------
+    LlmClient realClient;
+
+    if (config.llmProvider().equals("local")) {
+
+      if (config.debug()) {
+        System.out.println(
+            "[DP-LLM] Using LOCAL backend: "
+                + config.llmLocalBackend()
+                + " @ "
+                + config.llmLocalUrl());
+      }
+
+      realClient = new LocalLlmClient(config);
+
+      if (!printedModelOnce) {
+        printedModelOnce = true;
+        System.out.println("[DP-LLM] Using LOCAL model: " + config.llmLocalModel());
+      }
+
+    } else {
+
+      ChatModel model =
+          resolveModel(config.openaiModel())
+              .orElseGet(
+                  () -> {
+                    if (config.debug()) {
+                      System.out.println("[DP-LLM] Unknown model, fallback GPT_4_1_MINI");
+                    }
+                    return ChatModel.GPT_4_1_MINI;
+                  });
+
+      if (!printedModelOnce) {
+        printedModelOnce = true;
+        System.out.println("[DP-LLM] Using model: " + model);
+      }
+
+      realClient = new RealOpenAILlmClient(model);
+    }
+
+    // ------------------------------
+    // 2. KEEP cassette logic EXACTLY
     // ------------------------------
     String cassetteDir = config.llmCassettesDir();
     boolean disableReal = config.disableRealLlm();
@@ -313,53 +339,13 @@ public final class LlmInvariantGenerator {
       LlmClient replay = new ReplayingLlmClient(dir);
 
       if (disableReal) {
-        // Replay-only mode — do not create the real client (no API key needed).
         return replay;
       }
 
-      // Recording mode: fall through to build the real client, then wrap it.
-      LlmClient realClient = buildRealClient(config);
       return new RecordingCompositeLlmClient(replay, realClient, dir);
     }
 
-    // ------------------------------
-    // 2. No cassette dir → real client
-    // ------------------------------
-    return buildRealClient(config);
-  }
-
-  private static LlmClient buildRealClient(DpConfig config) {
-    if (config.llmProvider().equals("local")) {
-      if (config.debug()) {
-        System.out.println(
-            "[DP-LLM] Using LOCAL backend: "
-                + config.llmLocalBackend()
-                + " @ "
-                + config.llmLocalUrl());
-      }
-      if (!printedModelOnce) {
-        printedModelOnce = true;
-        System.out.println("[DP-LLM] Using LOCAL model: " + config.llmLocalModel());
-      }
-      return new LocalLlmClient(config);
-    }
-
-    ChatModel model =
-        resolveModel(config.openaiModel())
-            .orElseGet(
-                () -> {
-                  if (config.debug()) {
-                    System.out.println("[DP-LLM] Unknown model, fallback GPT_4_1_MINI");
-                  }
-                  return ChatModel.GPT_4_1_MINI;
-                });
-
-    if (!printedModelOnce) {
-      printedModelOnce = true;
-      System.out.println("[DP-LLM] Using model: " + model);
-    }
-
-    return new RealOpenAILlmClient(model);
+    return realClient;
   }
 
   private static LlmClient buildLlmFromEnv(DpConfig config, ChatModel model) {

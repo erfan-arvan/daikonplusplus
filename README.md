@@ -13,6 +13,15 @@ Daikon++ instruments Java programs to check candidate invariants at **method ent
 
 ---
 
+## Setup
+
+Make all shell scripts executable:
+
+```bash
+find . -type f -name "*.sh" -exec chmod +x {} +
+```
+---
+
 ## Build the fat JAR
 
     ./gradlew clean shadowJar
@@ -52,6 +61,166 @@ Daikon++ instruments Java programs to check candidate invariants at **method ent
 
 ---
 
+# Execution Modes
+
+Daikon++ supports two modes depending on your project.
+
+## Native Mode (default)
+
+Use this when:
+- You have plain Java source files
+- You can compile with `javac`
+
+Behavior:
+- Daikon++ compiles using `javac`
+- Runs using `java`
+- No external scripts required
+
+## External Project Configuration (Compile + Test Runner)
+
+In **external-project mode**, Daikon++ does not compile or run your project itself.  
+Instead, **you provide scripts** that define how to compile and how to run tests.
+
+There are **two ways** to provide these:
+
+---
+
+### 1. Test Runner (Required)
+
+You must provide a **test runner script** via CLI:
+
+```
+--runner-script <path-to-script>
+```
+
+This script is executed by Daikon++ to run your test suite.
+
+#### Requirements
+
+- Must be **executable**
+- Must **exit with code 0 on success**, non-zero on failure
+- Runs from the **project root**
+- Should run the full test suite (or the relevant subset)
+
+#### Example
+
+```bash
+#!/usr/bin/env bash
+set -e
+
+mvn -q \
+  -pl hudi-client/hudi-java-client \
+  -DskipITs \
+  -Duser.timezone=UTC \
+  test
+```
+
+---
+
+### 2. Compile Script (Optional but Recommended)
+
+You can provide compile scripts via environment variables:
+
+```
+DP_COMPILE_MAIN_SCRIPT
+DP_COMPILE_TEST_SCRIPT
+```
+
+If provided, Daikon++ will use them for **auto-filter compilation** instead of `javac`.
+
+#### Requirements
+
+- Must be **executable**
+- Must compile the project
+- Must **fail (non-zero exit)** if compilation fails
+- Must use `$DP_PROJECT_ROOT` as working directory
+
+#### Example
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$DP_PROJECT_ROOT"
+
+mvn \
+  -pl hudi-client/hudi-java-client \
+  -am \
+  -DskipTests \
+  compile
+```
+
+---
+
+### 3. Required Environment Variables
+
+#### Compile classpath (required)
+
+```
+DP_EXTERNAL_COMPILE_CP
+```
+
+This is used internally by Daikon++ during filtering.
+
+Example:
+
+```
+export DP_EXTERNAL_COMPILE_CP=/path/to/module/target/classes
+```
+
+---
+
+### 4. How Everything Connects
+
+When you run:
+
+```
+java -jar daikonplusplus.jar \
+  --external-project \
+  --project-root <projectRoot> \
+  --main-src <mainSrc> \
+  --test-src <testSrc> \
+  --runner-script <runner.sh>
+```
+
+Daikon++ will:
+
+1. Copy the project to a working directory
+2. Inject invariants into source files
+3. Run **compile auto-filter**:
+    - Uses `DP_COMPILE_*_SCRIPT` if provided
+    - Otherwise falls back to internal compilation
+4. Run the **test runner script**
+5. Collect invariant execution + failures
+6. (Optional) Run **test-based filtering** using the same runner script
+
+---
+
+### 5. Important Notes
+
+- The **runner script is used multiple times**:
+    - Initial execution
+    - Each test-filter attempt
+    - Final validation
+
+- The **compile script is only used during auto-filtering**, not during test runs
+
+- Daikon++ injects these environment variables when running scripts:
+    - `DP_PROJECT_ROOT`
+    - `DP_RUN_LOG`
+    - `DP_INV_DIR`
+
+---
+
+### Summary
+
+| Component         | How user provides it          | Required |
+|------------------|------------------------------|----------|
+| Test runner      | `--runner-script`            | Yes      |
+| Compile script   | `DP_COMPILE_MAIN_SCRIPT`     | No       |
+| Compile classpath| `DP_EXTERNAL_COMPILE_CP`     | Yes      |
+---
+
 ## Running with Gradle
 
     export OPENAI_API_KEY=sk-...your-key...
@@ -65,29 +234,167 @@ Daikon++ instruments Java programs to check candidate invariants at **method ent
 
 ## Configuration (Environment Variables)
 
-Defaults are chosen for a smooth out-of-the-box run. You can override any of these per run.
+Configuration precedence:
 
-| Variable            | Default                         | Purpose |
-|---------------------|---------------------------------|---------|
-| `OPENAI_API_KEY`    | — (required)                    | OpenAI API key used by the client. |
-| `DP_REGISTRY`       | `build/daikonpp_registry.jsonl` | Path to the append-only registry file. (System prop `-Ddp.registry=...` also supported.) |
-| `DP_INCLUDE_BODY`   | `1` (on)                        | Send the **full method body** (incl. comments) to the LLM as context for invariant proposals. |
-| `DP_KEEP_WORK`      | `1` (on)                        | Keep the **working copy** folder after the run for inspection. |
-| `DP_DEBUG`          | `1` (on)                        | Verbose logs (scopes, decisions, counts). |
-| `DP_REGISTRY_RESET` | `1` (on)                        | Clear the registry file at the start of the run. |
+1. `dpconfig.properties`
+2. JVM flags (`-Ddp.xxx`)
+3. Environment variables (`DP_XXX`)
+4. Defaults
 
-Set to `0`/`false`/`off` to disable (e.g., `DP_DEBUG=0`).
+---
+
+### Core
+
+| Variable | Default |
+|----------|--------|
+| `DP_THREADS` | available processors |
+| `DP_REGISTRY` | build/daikonpp_registry.jsonl |
+| `DP_OUTCOMES` | build/daikonpp_outcomes.jsonl |
+
+---
+
+### Feature flags
+
+| Variable | Default |
+|----------|--------|
+| `DP_INCLUDE_BODY` | 1 |
+| `DP_KEEP_WORK` | 1 |
+| `DP_DEBUG` | 0 |
+| `DP_REGISTRY_RESET` | 1 |
+| `DP_NO_QUALITY_FILTER` | 0 |
+
+---
+
+### LLM
+
+| Variable | Default |
+|----------|--------|
+| `DP_LLM_PROVIDER` | openai |
+| `DP_OPENAI_MODEL` | gpt-4.1 |
+| `DP_LLM_CASSETTES` | (unset) |
+| `DP_DISABLE_REAL_LLM` | 0 |
+
+---
+
+### Local LLM
+
+| Variable | Default |
+|----------|--------|
+| `DP_LLM_LOCAL_BACKEND` | ollama |
+| `DP_LLM_LOCAL_URL` | http://localhost:11434 |
+| `DP_LLM_LOCAL_MODEL` | qwen2.5:7b |
+
+---
+
+### Timeouts
+
+| Variable | Default |
+|----------|--------|
+| `DP_LLM_TOTAL_TIMEOUT_SEC` | 180 |
+| `DP_LLM_REQ_TIMEOUT_SEC` | 45 |
+| `DP_LLM_POLL_STEP_MS` | 1500 |
+
+---
+
+### Prompting
+
+| Variable | Default |
+|----------|--------|
+| `DP_PROMPT_STRATEGY` | baseline |
+
+Options:
+
+- baseline
+- naive
+- fewshot
+- cot
+- stepwise
+- self_refine
+- multi_sample
+
+---
+
+### Context control
+
+| Variable | Default |
+|----------|--------|
+| `DP_CONTEXTS` | all enabled |
+
+Values:
+
+- METHOD_BODY
+- SCOPE
+- METHOD_JAVADOC
+- CLASS_DOC
+- TYPE_DOC
+- CALL_SITE
+- IO_EXAMPLES
+- CALLEE_DOC
+
+---
+
+### External mode
+
+| Variable | Description |
+|----------|------------|
+| `DP_COMPILE_MAIN_SCRIPT` | compile script |
+| `DP_COMPILE_TEST_SCRIPT` | test compile script |
+| `DP_EXTERNAL_COMPILE_CP` | classpath |
+
+---
+
+### Test filtering
+
+| Variable | Default |
+|----------|--------|
+| `DP_TEST_FILTER` | 0 |
+| `DP_TEST_FILTER_METHOD_BATCH_SIZE` | 1 |
+
+---
+
+### Scan filtering
+
+| Variable | Description |
+|----------|------------|
+| `DP_SCAN_INCLUDES` | whitelist packages |
 
 ---
 
 ## What the Tool Does (Pipeline)
 
-1. Scan sources (JavaParser) → discover program points (**METHOD_ENTRY** & **METHOD_EXIT**) and in-scope names/types. If `DP_INCLUDE_BODY=1`, capture the **entire** method body as additional context for the LLM.
-2. Propose invariants via OpenAI chat **structured** completions (ENTRY and EXIT prompts are distinct). Calls are issued **in parallel**.
-3. Filter & deduplicate deterministically: drop tautologies/trivialities, expressions with unknown identifiers, EXIT expressions that rely on `result` where none exists, etc.
-4. Inject guards into a **working copy** of the source tree. EXIT guards are inserted **before every return**; `void` methods get a tail block to cover fall-through. Exceptions from guard evaluation are caught and logged so the program keeps running.
-5. Compile & run the working copy with `javac`/`java` using your classpath.
-6. Parse logs of falsifications and report **held** invariants, grouped by method and phase (ENTRY/EXIT).
+1. Scan sources → extract program points (**METHOD_ENTRY**, **METHOD_EXIT**)
+2. LLM proposes invariants
+3. Deterministic filtering (syntax + heuristics)
+4. Inject into working copy
+5. Compile (auto-filter removes non-compilable invariants)
+6. Execute program / tests
+7. Parse logs → classify invariants:
+    - HELD
+    - FALSIFIED
+    - NEVER_EXECUTED
+    - FAILED_TO_COMPILE
+8. **(External mode only, optional)** Run test-based filtering to remove invariants that cause test failures
+
+---
+## Test-Based Filtering (Post-Execution)
+
+When enabled (`DP_TEST_FILTER=1` in external mode), Daikon++ performs an additional refinement step to identify invariants that cause test failures.
+
+### Algorithm
+
+1. Take a snapshot of the injected project
+2. Extract **executed invariant IDs** from the initial run
+3. Map invariants to their **containing methods**
+4. Group methods into batches (todo: make it smarter)
+5. Perform a **sliding-window search** over contiguous sequences of batches:
+    - Start with window size `k = 1`
+    - Disable all invariants in the selected window of batches
+    - Re-run the test suite
+    - If tests fail, slide the window forward
+    - If no window of size `k` succeeds, increase `k`
+    - Stop at the first configuration that makes tests pass
+
+6. Produce the final results by removing those invariants.
 
 ---
 
@@ -96,10 +403,10 @@ Set to `0`/`false`/`off` to disable (e.g., `DP_DEBUG=0`).
 Under the Daikon++ project’s `build/` directory:
 
 - `daikonpp_work/src-<timestamp>/` — working copy with instrumented sources
-  - `daikonpp-classes/` — compiled classes
-  - `daikonpp-classes/dp_sources.txt` — source list fed to `javac`
-  - `daikonpp-run.log` — JSON lines of **falsified** invariants at runtime
-  - `daikonpp-run.err` — your program’s stderr (if any)
+    - `daikonpp-classes/` — compiled classes
+    - `daikonpp-classes/dp_sources.txt` — source list fed to `javac`
+    - `daikonpp-run.log` — JSON lines of **falsified** invariants at runtime
+    - `daikonpp-run.err` — your program’s stderr (if any)
 - `daikonpp_registry.jsonl` — append-only registry of **all accepted** invariants (UUID, phase, element, expr, file, timestamp)
 
 Console output includes the scan summary, LLM progress, injection/compile/run summaries, and a final section like:
@@ -116,7 +423,7 @@ Console output includes the scan summary, LLM progress, injection/compile/run su
 # E2E Test Suite (Record → Replay)
 
 The end-to-end tests verify that Daikon++ produces stable results by comparing pipeline outputs
-against versioned snapshots.  
+against versioned snapshots.
 
 The workflow:
 1. **Record** snapshots with real LLM calls (writes `expected/` + cassettes)
@@ -148,7 +455,7 @@ Simply run:
 ```
 
 Gradle automatically sets:
-- `DP_DISABLE_REAL_LLM=1`  
+- `DP_DISABLE_REAL_LLM=1`
 - `DP_LLM_CASSETTES=src/test/cassettes`
 
 No manual flag management required.

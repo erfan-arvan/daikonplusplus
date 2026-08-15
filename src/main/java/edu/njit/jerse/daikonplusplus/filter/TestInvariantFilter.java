@@ -1,6 +1,5 @@
 package edu.njit.jerse.daikonplusplus.filter;
 
-import edu.njit.jerse.daikonplusplus.JavaRunner;
 import edu.njit.jerse.daikonplusplus.results.LogParser;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -12,58 +11,11 @@ import java.util.regex.*;
 /**
  * Test-based invariant filtering that removes invariants causing test failures.
  *
- * <p>Strategy: failures are caught <em>online</em>, as a run's output streams, starting from the
- * very first run of the suite — not discovered after the fact by scanning a completed log. The
- * caller (see {@code App}'s main recovery loop) watches every run in real time for any recognized
- * {@link TestFailureLogParser} signature and kills the process the instant one appears; if that
- * happened, the already-known failure is passed in directly via {@code preKnownFailure} and this
- * method skips straight to isolating its cause. Only when no failure was ever caught live (e.g. the
- * caller doesn't watch, or a failure format slips through undetected until the run's natural exit)
- * does this method fall back to the old post-hoc path: exit code first, and only if non-zero,
- * scanning the completed log once for a recognized signature.
+ * <p>This class performs a search over groups of invariants (batched by method) and disables them
+ * in the injected source until the external test suite passes.
  *
- * <p>If a failure is confirmed, the candidate pool of invariants to search over is seeded directly
- * from what already executed — from the initial run's shm directory when the failure was caught
- * online mid-run (the most reliable source, since a killed process never gets to run its normal
- * shutdown-hook log sidecar), or otherwise from the completed initial run's log (every {@code
- * INV_EXD} entry) — <em>not</em> by rerunning the whole suite again, since that run already paid
- * the cost of executing everything up to that point and already recorded the result.
- *
- * <p>From there, <a href="https://www.debuggingbook.org/html/DeltaDebugger.html">delta
- * debugging</a> ({@code ddmin}) isolates a 1-minimal culprit set: candidates are disabled/enabled
- * in shrinking, targeted subsets, each checked with a real-time monitored rerun directly against
- * {@code injectedProjectRoot}'s own already-built working directory — the same directory the main
- * pipeline's own recovery loop reuses across its iterations — with which invariants are active
- * driven purely at runtime via {@code DP_DISABLED_FILE} ({@code daikonpp.DpRuntime.DISABLED}),
- * never by editing source. A previous version of this class cloned a fresh, disposable copy of the
- * project and commented invariant blocks out of its source for every single trial; that guaranteed
- * every trial re-paid a full, cold recompile from scratch, which is exactly the condition under
- * which the main pipeline's own first two recovery iterations also stalled — its third iteration
- * only got past that same stall because it reused an already-compiled, warm build. Disabling via
- * {@code DP_DISABLED_FILE} only ever removes an invariant check from running — it can never
- * introduce new behavior — so reusing one warm working directory across every trial is safe, and
- * lets every trial run under the same warm conditions the main pipeline's recovery loop enjoys
- * instead of always repeating its first, cold attempt. As the runner's output streams in, each line
- * is checked against the same failure signature, and the instant the <em>same</em> failure (see
- * {@link TestFailureLogParser#isSameFailure}) reappears, the process is killed immediately rather
- * than waiting for the rest of the trial's suite run to finish.
- *
- * <p>Before trusting that search, each failure is sanity-checked: disabling <em>every</em>
- * candidate invariant must actually make it stop reproducing. If it doesn't — e.g. a build/lint
- * failure (a Checkstyle rule, say) that no invariant's enabled/disabled state could ever affect —
- * the failure isn't attributable to any invariant, and the search for it stops rather than
- * pretending {@code ddmin} found a meaningful minimal set.
- *
- * <p>A project can have more than one distinct failing test. After isolating and disabling one
- * failure's culprit set, the suite is rerun once more; if a <em>different</em> recognized failure
- * shows up, the whole process repeats for it — seeding a fresh candidate pool, sanity-checking, and
- * running {@code ddmin} again — continuing until a rerun shows no more recognized failures, a
- * failure turns out not to be attributable, or a safety cap on rounds is hit.
- *
- * <p>Every trial and confirming rerun above executes directly against {@code injectedProjectRoot};
- * none of them ever edit its source. Only the final result (see {@link Result#finalProjectRoot}) is
- * built as a fresh copy with the isolated culprit set's marker-based regions actually commented out
- * of the source, once, at the very end.
+ * <p>The process operates on copies of the project to avoid mutating the original injected code and
+ * uses marker-based regions to selectively disable invariants.
  */
 public final class TestInvariantFilter {
 
@@ -78,30 +30,19 @@ public final class TestInvariantFilter {
 
   private TestInvariantFilter() {}
 
-  /** Safety cap on how many distinct failures one call to {@link #run} will chase. */
-  private static final int MAX_FAILURE_ROUNDS = 20;
-
   /**
    * Executes test-based filtering to identify and remove invariants that break tests.
+   *
+   * <p>The algorithm: - Takes a snapshot of the injected project - Identifies executed invariants
+   * from the initial run log - Groups invariants by method and batches them - Iteratively disables
+   * batches and reruns tests - Stops when a combination yields a passing test run
    *
    * @param injectedProjectRoot root of the project with injected invariants
    * @param mainSrcRoot source root containing instrumented Java files
    * @param registryPath registry mapping invariant IDs to program elements
-   * @param initialRunLog log from the initial execution, already produced by the caller
+   * @param initialRunLog log from the initial execution containing executed invariant IDs
    * @param runnerScript external test runner script
-   * @param methodBatchSize unused by the current (delta-debugging) strategy; kept for source
-   *     compatibility with existing callers/config
-   * @param timeoutMinutes wall-clock timeout applied to every rerun, identical to the timeout used
-   *     for the original run — see {@link JavaRunner#runExternalScript}
-   * @param staleCheckMinutes stale/hang-detection threshold applied to every rerun, identical to
-   *     the threshold used for the original run — see {@link JavaRunner#runExternalScript}
-   * @param preKnownFailure a failure already caught online (mid-run) by the caller, if any — when
-   *     present, the post-hoc exit-code/log-scan check below is skipped entirely, since the caller
-   *     already killed that run the instant this failure was seen
-   * @param initialShmDir shm directory used by the initial run, if the caller has one — used to
-   *     seed round-1 candidates reliably when {@code preKnownFailure} is present (a process killed
-   *     mid-run never gets to write its normal log sidecar, so shm is the only complete source);
-   *     ignored when {@code preKnownFailure} is empty
+   * @param methodBatchSize number of methods per batch during search
    * @return result object describing the final filtered project and removed invariants
    * @throws Exception if execution fails
    */
@@ -111,856 +52,191 @@ public final class TestInvariantFilter {
       Path registryPath,
       Path initialRunLog,
       Path runnerScript,
-      int methodBatchSize,
-      long timeoutMinutes,
-      long staleCheckMinutes,
-      Optional<TestFailureLogParser.FailureMatch> preKnownFailure,
-      @org.checkerframework.checker.nullness.qual.Nullable Path initialShmDir)
+      int methodBatchSize)
       throws Exception {
 
     System.out.println("\n[DP-TEST-FILTER] ===== START TEST-BASED FILTERING =====");
-    System.out.println("[DP-TEST-FILTER] strategy = real-time-detection + delta-debugging");
+
+    Path snapshot = makeSnapshot(injectedProjectRoot);
+
+    Path snapshotMainSrc =
+        snapshot.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
 
     Map<UUID, String> idToMethod = readRegistryMethods(registryPath);
+    Set<UUID> executed = LogParser.readExecutedIds(initialRunLog);
 
-    Optional<TestFailureLogParser.FailureMatch> firstFailure;
-    List<UUID> round1CandidatesOverride = null;
+    BlockIndex index = scanInvariantBlocks(snapshotMainSrc);
 
-    if (preKnownFailure.isPresent()) {
-      firstFailure = preKnownFailure;
-      System.out.println(
-          "[DP-TEST-FILTER] Failure already caught online during the initial run — skipping "
-              + "post-hoc exit-code/log-scan check: "
-              + firstFailure.get().format()
-              + " :: "
-              + firstFailure.get().line());
-      if (initialShmDir != null && Files.isDirectory(initialShmDir.resolve("ex"))) {
-        round1CandidatesOverride = new ArrayList<>(LogParser.readExecutedIdsFromShm(initialShmDir));
-        System.out.println(
-            "[DP-TEST-FILTER] Round 1 candidates seeded from initial run's shm ("
-                + round1CandidatesOverride.size()
-                + " executed invariant(s) up to the kill point)");
-      }
-    } else {
-      System.out.println("[DP-TEST-FILTER] Checking initial run exit status: " + initialRunLog);
+    Map<String, List<UUID>> methodGroups = new TreeMap<>();
 
-      if (!exitedNonZero(initialRunLog)) {
-        System.out.println(
-            "[DP-TEST-FILTER] Initial run exited cleanly (exit=0) — nothing to filter "
-                + "(skipping log scan and project copy)");
-        System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
-        return noopResult(injectedProjectRoot, mainSrcRoot, initialRunLog, 0);
-      }
+    for (UUID id : executed) {
+      String method = idToMethod.get(id);
+      if (method == null) continue;
+      if (!index.blocks.containsKey(id)) continue;
 
-      System.out.println(
-          "[DP-TEST-FILTER] Initial run exited non-zero — scanning log for a recognized "
-              + "test-failure signature: "
-              + initialRunLog);
-      String initialLogText = readIfExists(initialRunLog);
-      firstFailure = TestFailureLogParser.firstFailure(initialLogText);
+      methodGroups.computeIfAbsent(method, __ -> new ArrayList<>()).add(id);
+    }
 
-      if (firstFailure.isEmpty()) {
-        System.out.println(
-            "[DP-TEST-FILTER] Initial run failed (exit!=0) but no recognized test-failure "
-                + "signature was found — cannot safely attribute to an invariant, nothing to "
-                + "filter (skipping project copy)");
-        System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
-        return noopResult(injectedProjectRoot, mainSrcRoot, initialRunLog, 1);
+    List<List<UUID>> batches = makeMethodBatches(methodGroups, methodBatchSize);
+
+    System.out.println("[DP-TEST-FILTER] snapshot=" + snapshot);
+    System.out.println("[DP-TEST-FILTER] executed ids=" + executed.size());
+    System.out.println("[DP-TEST-FILTER] ids with source blocks=" + index.blocks.size());
+    System.out.println("[DP-TEST-FILTER] method groups=" + methodGroups.size());
+    System.out.println("[DP-TEST-FILTER] batches=" + batches.size());
+
+    Set<UUID> removed = new LinkedHashSet<>();
+    List<String> removedMethods = new ArrayList<>();
+
+    boolean solved = false;
+
+    for (int k = 1; k <= batches.size() && !solved; k++) {
+
+      System.out.println("[DP-TEST-FILTER] Trying k=" + k + " batches");
+
+      for (int start = 0; start + k <= batches.size(); start++) {
+
+        List<UUID> combined = new ArrayList<>();
+
+        for (int j = start; j < start + k; j++) {
+          combined.addAll(batches.get(j));
+        }
+
+        Path attempt = freshCopy(snapshot, "test-filter-k" + k + "-start" + start);
+
+        Path attemptMainSrc =
+            attempt.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
+
+        BlockIndex attemptIndex = scanInvariantBlocks(attemptMainSrc);
+
+        disableIds(attemptIndex, combined);
+
+        Path attemptLog = attempt.resolve("daikonpp-test-filter-k" + k + "-start" + start + ".log");
+
+        int exit = runExternalTestRunner(runnerScript, attempt, attemptLog);
+
+        String label = describeBatch(combined, idToMethod);
+
+        if (exit == 0) {
+          System.out.println("[DP-TEST-FILTER] SUCCESS with k=" + k + " → " + label);
+
+          removed.addAll(combined);
+          removedMethods.add(label);
+
+          solved = true;
+          break;
+        } else {
+          System.out.println("[DP-TEST-FILTER] FAIL k=" + k + " start=" + start);
+        }
       }
     }
 
-    // No single "working copy" is created here anymore. Every individual rerun below (sanity
-    // trial, ddmin trial, confirming rerun, and every stale-retry of one) instead clones its own
-    // fresh, pristine copy straight from injectedProjectRoot right before it runs, and deletes
-    // that copy right after — so a rerun's environment (build caches, incremental-compile state,
-    // leftover daemons/ports/temp files from the previous run in that same directory) is always
-    // identical to the very first run's, never polluted by whatever the prior rerun left behind.
-    // See disableBlocks()/testConfig() below. BlockIndex positions are copy-invariant (same file
-    // content, same line numbers in every clone), so it's built once here, up front, straight from
-    // the pristine mainSrcRoot — no working copy needed just to scan it.
-    BlockIndex idx = scanInvariantBlocks(mainSrcRoot);
-
-    // Lightweight session directory: holds only trial logs, never a project copy, so it stays
-    // cheap to keep around for the whole call.
-    Path sessionDir =
-        Files.createTempDirectory(sessionParentDir(injectedProjectRoot), "test-filter-session-");
-    // shmDir must live on tmpfs (/dev/shm), exactly like App's own main recovery loop picks for
-    // the initial run (see App.java's DP_SHM_BASE/"/dev/shm" selection) — not under sessionDir,
-    // which sits on the same scratch/network filesystem as the project itself. Every invariant
-    // check does a real file create/delete against this directory (recordExecuted/markCurrent/
-    // clearCurrent), so putting it on scratch instead of tmpfs was a real, standing difference
-    // between how a trial runs versus how the initial run runs.
-    Path shmDir = resolveShmDir(injectedProjectRoot);
-    Files.createDirectories(shmDir);
-    System.out.println("[DP-TEST-FILTER] Session dir (logs only): " + sessionDir);
-    System.out.println("[DP-TEST-FILTER] shm dir (tmpfs): " + shmDir);
-
-    Set<UUID> disabledSoFar = new LinkedHashSet<>();
-    List<String> allTrialLog = new ArrayList<>();
-    TrialCounter trialCounter = new TrialCounter();
-    List<String> failuresHandled = new ArrayList<>();
-
-    Path currentLog = initialRunLog;
-    // Tracks the shm dir matching currentLog, updated in lockstep with it (only right after a
-    // confirmRoundClean call, at the same place currentLog itself is updated) — shmDir is one
-    // continuously-reused/reset directory shared by every trial and confirm attempt in this call,
-    // so reading it "as of whenever run() happens to return" can pick up a *different*, unrelated
-    // run's data (e.g. a later round's sanity trial) than whatever currentLog points to. null
-    // means "no shm run corresponds to currentLog" (true for initialRunLog itself).
-    @org.checkerframework.checker.nullness.qual.Nullable Path currentLogShmDir = null;
-    Optional<TestFailureLogParser.FailureMatch> currentFailure = firstFailure;
-    int finalExit = 1;
-    int round = 0;
-    boolean confirmationInconclusive = false;
-    // Shared across every rerun in this call — sanity trial, ddmin trials, confirming reruns — so
-    // the escalating-threshold strategy matches the main pipeline's exactly (see StaleBudget).
-    StaleBudget staleBudget = new StaleBudget(staleCheckMinutes);
-    // Candidate pool for the *next* round, seeded from a reliable shm source rather than a
-    // (possibly online-killed, and so incomplete) log — round 1 from the initial run's shm (see
-    // round1CandidatesOverride above), later rounds from this call's shared shm dir, which is
-    // reset immediately before each confirming rerun so its content matches that run exactly.
-    List<UUID> nextCandidatesOverride = round1CandidatesOverride;
-
-    while (currentFailure.isPresent() && round < MAX_FAILURE_ROUNDS) {
-      round++;
-      TestFailureLogParser.FailureMatch target = currentFailure.get();
-      List<UUID> candidatesForThisRound = nextCandidatesOverride;
-      nextCandidatesOverride = null;
-      System.out.println(
-          "\n[DP-TEST-FILTER] ----- Round "
-              + round
-              + ": targeting failure ["
-              + target.format()
-              + "] :: "
-              + target.line()
-              + " -----");
-
-      FailureRoundResult roundResult =
-          handleOneFailure(
-              runnerScript,
-              injectedProjectRoot,
-              mainSrcRoot,
-              idx,
-              sessionDir,
-              shmDir,
-              target,
-              currentLog,
-              candidatesForThisRound,
-              disabledSoFar,
-              idToMethod,
-              allTrialLog,
-              trialCounter,
-              round,
-              timeoutMinutes,
-              staleBudget);
-
-      if (!roundResult.attributable) {
-        System.out.println(
-            "[DP-TEST-FILTER] Round "
-                + round
-                + ": failure not attributable to any candidate invariant — stopping (this "
-                + "failure, and any behind it in the suite, will remain unaddressed)");
-        break;
-      }
-
-      disabledSoFar.addAll(roundResult.culprits);
-      failuresHandled.add(
-          "Round "
-              + round
-              + ": ["
-              + target.format()
-              + "] :: "
-              + target.line()
-              + " -> disabled "
-              + roundResult.culprits.size()
-              + " invariant(s) in "
-              + roundResult.trialsUsed
-              + " trial(s)");
-
-      // Confirming rerun with every culprit found so far disabled, watched online for *any*
-      // recognized failure (no specific target — which failure, if any, shows up next isn't known
-      // in advance) so it's caught and killed the instant it appears, just like the very first run.
-      // Retries (with an escalating stale threshold) whenever the run is inconclusive — killed by
-      // an unrelated stale/hung test rather than by actually finishing — so that never gets
-      // silently mistaken for "no failures remain".
-      ConfirmResult confirm =
-          confirmRoundClean(
-              runnerScript,
-              injectedProjectRoot,
-              mainSrcRoot,
-              idx,
-              disabledSoFar,
-              sessionDir,
-              shmDir,
-              round,
-              timeoutMinutes,
-              staleBudget);
-      finalExit = confirm.exit;
-      currentLog = confirm.logPath;
-      // shmDir was just reset-then-used by this same confirmRoundClean call (its last attempt),
-      // so it matches currentLog exactly at this point — safe to associate the two.
-      currentLogShmDir = shmDir;
-
-      if (confirm.runResult == JavaRunner.RunResult.STALE_KILLED
-          || confirm.runResult == JavaRunner.RunResult.HARD_TIMEOUT) {
-        System.out.println(
-            "[DP-TEST-FILTER] Round "
-                + round
-                + ": could not confirm the suite's status — stopping without claiming success "
-                + "(invariants disabled so far in this round are kept, since they were isolated "
-                + "against real evidence; whether anything remains unverified)");
-        confirmationInconclusive = true;
-        break;
-      }
-
-      if (confirm.exit == 0) {
-        System.out.println("[DP-TEST-FILTER] Round " + round + ": PASSED — no failures remain");
-        currentFailure = Optional.empty();
-        continue;
-      }
-
-      // Reset immediately before this confirming run, so shm/ex now holds exactly what executed
-      // during it — reliable even if the run was killed online (a killed process never gets to
-      // write its normal log sidecar, so shm is the source of truth here, same as round 1).
-      if (Files.isDirectory(shmDir.resolve("ex"))) {
-        nextCandidatesOverride = new ArrayList<>(LogParser.readExecutedIdsFromShm(shmDir));
-      }
-
-      Optional<TestFailureLogParser.FailureMatch> next = confirm.matched;
-
-      if (next.isPresent() && TestFailureLogParser.isSameFailure(target, next.get())) {
-        System.out.println(
-            "[DP-TEST-FILTER] Round "
-                + round
-                + ": the same failure is still present after disabling its isolated culprit "
-                + "set — stopping to avoid looping");
-        break;
-      }
-
-      currentFailure = next;
+    if (!solved) {
+      System.out.println("[DP-TEST-FILTER] ❌ No combination made tests pass");
     }
 
-    if (round >= MAX_FAILURE_ROUNDS && currentFailure.isPresent()) {
-      System.out.println(
-          "[DP-TEST-FILTER] Reached the "
-              + MAX_FAILURE_ROUNDS
-              + "-round safety cap with a failure still present — stopping");
-    }
-
-    System.out.println("\n[DP-TEST-FILTER] ===== SUMMARY =====");
-    System.out.println("[DP-TEST-FILTER] failures handled: " + failuresHandled.size());
-    for (String f : failuresHandled) {
-      System.out.println("[DP-TEST-FILTER]   " + f);
-    }
-    System.out.println("[DP-TEST-FILTER] total invariants disabled: " + disabledSoFar.size());
-    System.out.println("[DP-TEST-FILTER] total ddmin trials: " + trialCounter.count);
-    if (confirmationInconclusive) {
-      System.out.println(
-          "[DP-TEST-FILTER] WARNING: the last round's confirming rerun never reached a "
-              + "conclusive pass/fail outcome (repeated unrelated stale-kills) — the suite's "
-              + "current clean/failing status is UNVERIFIED, not confirmed clean");
-    }
-    // One last pristine clone, with exactly the final disabled set applied — this is the only
-    // project copy that survives the call; every clone made for an individual trial/confirm rerun
-    // above was already deleted right after that rerun finished.
-    Path finalProject = freshCopy(injectedProjectRoot, "test-filter-final");
+    Path finalProject = freshCopy(snapshot, "test-filter-final");
     Path finalMainSrc =
         finalProject.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
-    disableBlocks(idx, disabledSoFar, finalMainSrc);
 
+    BlockIndex finalIndex = scanInvariantBlocks(finalMainSrc);
+    disableIds(finalIndex, removed);
+
+    Path finalLog = finalProject.resolve("daikonpp-test-filter-final.log");
+    int finalExit = runExternalTestRunner(runnerScript, finalProject, finalLog);
+
+    System.out.println("[DP-TEST-FILTER] removed ids=" + removed.size());
+    System.out.println("[DP-TEST-FILTER] final test exit=" + finalExit);
     System.out.println("[DP-TEST-FILTER] final project=" + finalProject);
-    System.out.println("[DP-TEST-FILTER] final log=" + currentLog);
+    System.out.println("[DP-TEST-FILTER] final log=" + finalLog);
     System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
 
     return new Result(
-        injectedProjectRoot,
-        finalProject,
-        finalMainSrc,
-        currentLog,
-        disabledSoFar,
-        allTrialLog,
-        finalExit,
-        currentLogShmDir);
-  }
-
-  /** Outcome of chasing a single failure down to a minimal culprit set (or ruling it out). */
-  private static final class FailureRoundResult {
-    final boolean attributable;
-    final List<UUID> culprits;
-    final int trialsUsed;
-
-    FailureRoundResult(boolean attributable, List<UUID> culprits, int trialsUsed) {
-      this.attributable = attributable;
-      this.culprits = culprits;
-      this.trialsUsed = trialsUsed;
-    }
+        snapshot, finalProject, finalMainSrc, finalLog, removed, removedMethods, finalExit);
   }
 
   /**
-   * Isolates the minimal set of invariants responsible for one specific failure.
+   * Groups invariants into batches based on their associated methods.
    *
-   * <p>Seeds a candidate pool from {@code candidateSourceLog}'s executed-invariants (minus anything
-   * already disabled in an earlier round), sanity-checks that disabling every candidate actually
-   * makes the failure stop reproducing, and — only if that holds — runs {@code ddmin} to narrow it
-   * down.
+   * <p>Methods are sorted by decreasing number of invariants, and batches are formed by grouping a
+   * fixed number of methods together.
    *
-   * @param candidateSourceLog the most recent completed run's log to seed candidates from, used
-   *     unless {@code explicitCandidates} is given
-   * @param explicitCandidates when non-null, used as the candidate pool directly instead of reading
-   *     {@code candidateSourceLog} — used for round 1 when the failure was caught online mid-run,
-   *     so candidates come from the initial run's shm state instead of a (possibly incomplete,
-   *     since the process was killed) log
-   * @param alreadyDisabled invariants disabled in earlier rounds (excluded from this round's pool)
+   * @param methodGroups mapping from method identifier to invariant IDs
+   * @param methodBatchSize number of methods per batch
+   * @return list of invariant batches
    */
-  private static FailureRoundResult handleOneFailure(
-      Path runnerScript,
-      Path injectedProjectRoot,
-      Path mainSrcRoot,
-      BlockIndex idx,
-      Path sessionDir,
-      Path shmDir,
-      TestFailureLogParser.FailureMatch target,
-      Path candidateSourceLog,
-      @org.checkerframework.checker.nullness.qual.Nullable List<UUID> explicitCandidates,
-      Set<UUID> alreadyDisabled,
-      Map<UUID, String> idToMethod,
-      List<String> trialLog,
-      TrialCounter trialCounter,
-      int round,
-      long timeoutMinutes,
-      StaleBudget staleBudget)
-      throws IOException, InterruptedException {
+  private static List<List<UUID>> makeMethodBatches(
+      Map<String, List<UUID>> methodGroups, int methodBatchSize) {
 
-    List<UUID> candidates =
-        explicitCandidates != null
-            ? new ArrayList<>(explicitCandidates)
-            : new ArrayList<>(LogParser.readExecutedIds(candidateSourceLog));
-    candidates.removeAll(alreadyDisabled);
-    System.out.println(
-        "[DP-TEST-FILTER] Round " + round + ": candidate pool size = " + candidates.size());
+    int size = Math.max(1, methodBatchSize);
 
-    if (candidates.isEmpty()) {
-      System.out.println(
-          "[DP-TEST-FILTER] Round " + round + ": no candidate invariants — cannot attribute");
-      return new FailureRoundResult(false, List.of(), 0);
+    List<Map.Entry<String, List<UUID>>> methods = new ArrayList<>(methodGroups.entrySet());
+
+    methods.sort((a, b) -> Integer.compare(b.getValue().size(), a.getValue().size()));
+
+    List<List<UUID>> batches = new ArrayList<>();
+
+    for (int i = 0; i < methods.size(); i += size) {
+      List<UUID> batch = new ArrayList<>();
+
+      for (int j = i; j < Math.min(i + size, methods.size()); j++) {
+        batch.addAll(methods.get(j).getValue());
+      }
+
+      batches.add(batch);
     }
 
-    int sanityTrial = ++trialCounter.count;
-    boolean stillFailsWithAllDisabled =
-        testConfig(
-            sanityTrial,
-            "sanity-all-disabled",
-            candidates,
-            Set.of(),
-            candidates,
-            runnerScript,
-            injectedProjectRoot,
-            mainSrcRoot,
-            idx,
-            alreadyDisabled,
-            sessionDir,
-            shmDir,
-            target,
-            trialLog,
-            timeoutMinutes,
-            staleBudget);
-
-    if (stillFailsWithAllDisabled) {
-      System.out.println(
-          "[DP-TEST-FILTER] Round "
-              + round
-              + ": failure still reproduces with every candidate invariant disabled — not "
-              + "caused by any injected invariant (e.g. a build/lint failure, or unrelated code) "
-              + "— not attributable");
-      // Nothing to undo: every trial above ran on its own disposable pristine clone, so
-      // injectedProjectRoot/mainSrcRoot were never touched.
-      return new FailureRoundResult(false, List.of(), trialCounter.count);
-    }
-
-    List<UUID> culprits =
-        ddmin(
-            runnerScript,
-            injectedProjectRoot,
-            mainSrcRoot,
-            idx,
-            alreadyDisabled,
-            sessionDir,
-            shmDir,
-            candidates,
-            target,
-            idToMethod,
-            trialLog,
-            trialCounter,
-            timeoutMinutes,
-            staleBudget);
-
-    for (UUID id : culprits) {
-      String method = idToMethod.getOrDefault(id, "(unknown method)");
-      trialLog.add(
-          "Round "
-              + round
-              + ": disabled "
-              + id
-              + " ["
-              + method
-              + "] — isolated via delta debugging against target ["
-              + target.format()
-              + "] :: "
-              + target.line());
-      System.out.println(
-          "[DP-TEST-FILTER]   -> Round " + round + " disabled " + id + " [" + method + "]");
-    }
-
-    return new FailureRoundResult(true, culprits, trialCounter.count);
-  }
-
-  private static Result noopResult(
-      Path injectedProjectRoot, Path mainSrcRoot, Path initialRunLog, int exitCode) {
-    return new Result(
-        injectedProjectRoot,
-        injectedProjectRoot,
-        mainSrcRoot,
-        initialRunLog,
-        Set.of(),
-        List.of(),
-        exitCode,
-        null);
-  }
-
-  // =====================================================================================
-  // Delta debugging (ddmin)
-  // =====================================================================================
-
-  private static final class TrialCounter {
-    int count = 0;
-  }
-
-  /** Upper bound on the escalating stale-check threshold — same cap the main pipeline uses. */
-  private static final long MAX_STALE_CHECK_MINUTES = 10L;
-
-  /**
-   * Shared, ever-escalating stale-check threshold used by every rerun within one {@link #run} call
-   * — the sanity trial, every ddmin trial, and every confirming rerun all read and update the same
-   * instance. Mirrors the main pipeline's own stale-recovery backoff exactly: doubles (capped at
-   * {@link #MAX_STALE_CHECK_MINUTES}) whenever a run is stale-killed or hard-timed-out, and never
-   * resets for the rest of the call — so once the environment's real behavior (e.g. how long a
-   * clean compile/startup actually takes) is learned from one kill, every later rerun benefits from
-   * it instead of repeating the same premature kill at the original threshold.
-   */
-  private static final class StaleBudget {
-    long minutes;
-
-    StaleBudget(long initial) {
-      this.minutes = initial;
-    }
-
-    void escalate() {
-      minutes = Math.min(minutes * 2, MAX_STALE_CHECK_MINUTES);
-    }
+    return batches;
   }
 
   /**
-   * Isolates a 1-minimal subset of {@code delta} whose presence (enabled, with everything else in
-   * {@code delta} disabled) reproduces {@code target}. {@code delta} is assumed to reproduce the
-   * failure when fully enabled — that's how it was built (from a run that just reproduced it).
+   * Produces a human-readable description of a batch of invariants.
    *
-   * <p>Classic {@code ddmin}: split into {@code n} chunks; try each chunk alone; if none
-   * reproduces, try each chunk's complement (i.e. removing just that chunk); if that doesn't narrow
-   * things either, increase granularity (double {@code n}) and retry, until {@code n} reaches
-   * {@code delta.size()} with no further progress — at which point {@code delta} is 1-minimal.
-   *
-   * @return the isolated minimal culprit set (in original execution order)
+   * @param ids invariant IDs in the batch
+   * @param idToMethod mapping from invariant IDs to method identifiers
+   * @return string representation of affected methods
    */
-  private static List<UUID> ddmin(
-      Path runnerScript,
-      Path injectedProjectRoot,
-      Path mainSrcRoot,
-      BlockIndex idx,
-      Set<UUID> alreadyDisabled,
-      Path sessionDir,
-      Path shmDir,
-      List<UUID> deltaInit,
-      TestFailureLogParser.FailureMatch target,
-      Map<UUID, String> idToMethod,
-      List<String> trialLog,
-      TrialCounter trialCounter,
-      long timeoutMinutes,
-      StaleBudget staleBudget)
-      throws IOException, InterruptedException {
-
-    List<UUID> delta = new ArrayList<>(deltaInit);
-    int n = 2;
-
-    while (delta.size() > 1) {
-      n = Math.min(n, delta.size());
-      // Candidates come from the initial run's executed-invariants log (a set, not an ordered
-      // sequence — see the comment where `candidates` is built), so chunk order here carries no
-      // proximity-to-failure meaning; it's just a deterministic split, not a search heuristic.
-      List<List<UUID>> chunks = splitInto(delta, n);
-
-      boolean reduced = false;
-
-      for (List<UUID> chunk : chunks) {
-        if (chunk.isEmpty()) continue;
-        int trialNum = ++trialCounter.count;
-        boolean fail =
-            testConfig(
-                trialNum,
-                "alone",
-                chunk,
-                new LinkedHashSet<>(chunk),
-                delta,
-                runnerScript,
-                injectedProjectRoot,
-                mainSrcRoot,
-                idx,
-                alreadyDisabled,
-                sessionDir,
-                shmDir,
-                target,
-                trialLog,
-                timeoutMinutes,
-                staleBudget);
-        if (fail) {
-          delta = new ArrayList<>(chunk);
-          n = 2;
-          reduced = true;
-          break;
-        }
-      }
-
-      if (!reduced) {
-        for (List<UUID> chunk : chunks) {
-          if (chunk.isEmpty() || chunk.size() == delta.size()) continue;
-          int trialNum = ++trialCounter.count;
-          List<UUID> complement = new ArrayList<>(delta);
-          complement.removeAll(chunk);
-          boolean fail =
-              testConfig(
-                  trialNum,
-                  "without",
-                  chunk,
-                  new LinkedHashSet<>(complement),
-                  delta,
-                  runnerScript,
-                  injectedProjectRoot,
-                  mainSrcRoot,
-                  idx,
-                  alreadyDisabled,
-                  sessionDir,
-                  shmDir,
-                  target,
-                  trialLog,
-                  timeoutMinutes,
-                  staleBudget);
-          if (fail) {
-            delta = complement;
-            n = Math.max(n - 1, 2);
-            reduced = true;
-            break;
-          }
-        }
-      }
-
-      if (!reduced) {
-        if (n >= delta.size()) break; // 1-minimal — no chunk alone or complement helps
-        n = Math.min(n * 2, delta.size());
-      }
+  private static String describeBatch(List<UUID> ids, Map<UUID, String> idToMethod) {
+    Set<String> methods = new TreeSet<>();
+    for (UUID id : ids) {
+      String m = idToMethod.get(id);
+      if (m != null) methods.add(m);
     }
-
-    return delta;
-  }
-
-  /** How many times one trial's stale/inconclusive kill is retried before giving up on it. */
-  private static final int MAX_TRIAL_STALE_RETRIES = 5;
-
-  /**
-   * Runs one ddmin trial configuration (exactly {@code enabled} from {@code deltaAll} is enabled,
-   * the rest — plus everything already disabled in an earlier round — is disabled) against {@code
-   * injectedProjectRoot}'s own already-built working directory, with real-time monitoring, and
-   * records the outcome.
-   *
-   * <p>Retries on an inconclusive kill (stale/hard-timeout) up to {@link #MAX_TRIAL_STALE_RETRIES}
-   * times, same as {@link #confirmRoundClean} already does for confirming reruns — an unrelated
-   * slow/hung spot elsewhere in the suite proves nothing about whether {@code target} reproduces
-   * under this configuration, so one inconclusive kill must not be recorded as "no reproduction".
-   * {@code shmDir} is reset once, before the first attempt, and deliberately <em>not</em> reset
-   * between retries of this same trial: every retry keeps the same enabled/disabled set, so an
-   * invariant that already fired safely in an earlier attempt staying memoized as {@code SEEN} (and
-   * so skipped, inert, on the retry) changes nothing about what this trial is testing — it's the
-   * same mechanism (shm never reset across iterations) that lets the main pipeline's own recovery
-   * loop get past a stale point a single cold attempt can't.
-   *
-   * @return true if the target failure reproduced with this configuration
-   */
-  private static boolean testConfig(
-      int trialNum,
-      String kind,
-      List<UUID> chunk,
-      Set<UUID> enabled,
-      List<UUID> deltaAll,
-      Path runnerScript,
-      Path injectedProjectRoot,
-      Path mainSrcRoot,
-      BlockIndex idx,
-      Set<UUID> alreadyDisabled,
-      Path sessionDir,
-      Path shmDir,
-      TestFailureLogParser.FailureMatch target,
-      List<String> trialLog,
-      long timeoutMinutes,
-      StaleBudget staleBudget)
-      throws IOException, InterruptedException {
-
-    Set<UUID> toDisable = new LinkedHashSet<>(alreadyDisabled);
-    for (UUID id : deltaAll) {
-      if (!enabled.contains(id)) {
-        toDisable.add(id);
-      }
-    }
-
-    // Give this trial its own fresh copy of injectedProjectRoot — the same starting condition
-    // the main pipeline's own initial run gets (a pristine copy, never before executed against).
-    // copyTree() copies build/ along with everything else, so the copy still carries
-    // injectedProjectRoot's already-compiled classes (no cold recompile) — what it does NOT carry
-    // is any of Gradle's incremental-build/test-result/daemon-lock state that running dozens of
-    // trials back-to-back in one shared directory accumulates. Which invariants are active is
-    // still driven purely at runtime via DP_DISABLED_FILE (daikonpp.DpRuntime.DISABLED), never a
-    // source edit, so the copy's source is untouched. Deleted right after the trial finishes.
-    Path disabledFile =
-        writeDisabledFile(sessionDir, "daikonpp-disabled-trial" + trialNum + ".txt", toDisable);
-    resetShmDir(shmDir);
-
-    Path trialWorkDir = freshCopy(injectedProjectRoot, "test-filter-trial" + trialNum);
-    MonitorResult mr;
-    try {
-      mr =
-          runTrialWithRetries(
-              trialNum,
-              kind,
-              chunk.size(),
-              deltaAll.size(),
-              runnerScript,
-              trialWorkDir,
-              disabledFile,
-              shmDir,
-              target,
-              sessionDir,
-              timeoutMinutes,
-              staleBudget,
-              alreadyDisabled);
-    } finally {
-      deleteTreeQuietly(trialWorkDir);
-    }
-
-    String desc =
-        "Trial "
-            + trialNum
-            + " ("
-            + kind
-            + " "
-            + chunk.size()
-            + " of "
-            + deltaAll.size()
-            + "): "
-            + (mr.reproduced ? "FAIL (reproduced)" : "no reproduction")
-            + " exit="
-            + mr.exitCode;
-    trialLog.add(desc);
-    System.out.println("[DP-TEST-FILTER]   -> " + desc);
-
-    return mr.reproduced;
+    return methods.toString();
   }
 
   /**
-   * Runs one trial configuration, retrying on an inconclusive kill (stale/hard-timeout) up to
-   * {@link #MAX_TRIAL_STALE_RETRIES} times — see {@link #testConfig} for why. {@code shmDir} is
-   * <em>not</em> reset between attempts here (the caller already reset it once, before the first
-   * attempt): every retry keeps the same {@code disabledFile}, so accumulating {@code SEEN} state
-   * across retries only ever makes an already-proven-safe invariant inert on a later attempt,
-   * exactly like the main pipeline's own recovery loop.
+   * Disables invariant blocks corresponding to the given IDs by commenting them out.
    *
-   * <p>On each inconclusive kill, the invariant that was actually stuck (per {@code shm/current/})
-   * is identified and permanently disabled — in {@code disabledFile} for this trial's own next
-   * attempt, and in {@code globalDisabled} for every later trial and round in this call — instead
-   * of being merely reruled-on via SEEN memoization. This mirrors {@code App}'s own recovery loop,
-   * which never rewaits on the same stuck invariant twice.
-   */
-  private static MonitorResult runTrialWithRetries(
-      int trialNum,
-      String kind,
-      int chunkSize,
-      int deltaAllSize,
-      Path runnerScript,
-      Path injectedProjectRoot,
-      Path disabledFile,
-      Path shmDir,
-      TestFailureLogParser.FailureMatch target,
-      Path sessionDir,
-      long timeoutMinutes,
-      StaleBudget staleBudget,
-      Set<UUID> globalDisabled)
-      throws IOException, InterruptedException {
-
-    for (int attempt = 1; ; attempt++) {
-      Path trialLogFile =
-          sessionDir.resolve(
-              "daikonpp-test-filter-ddmin"
-                  + trialNum
-                  + (attempt > 1 ? "-retry" + attempt : "")
-                  + ".log");
-      System.out.println(
-          "[DP-TEST-FILTER] Trial "
-              + trialNum
-              + " ("
-              + kind
-              + " "
-              + chunkSize
-              + " of "
-              + deltaAllSize
-              + "): executing against warm build "
-              + injectedProjectRoot
-              + " (attempt "
-              + attempt
-              + "/"
-              + MAX_TRIAL_STALE_RETRIES
-              + ", stale threshold "
-              + staleBudget.minutes
-              + " min), log -> "
-              + trialLogFile);
-
-      MonitorResult mr =
-          runMonitored(
-              runnerScript,
-              injectedProjectRoot,
-              trialLogFile,
-              shmDir,
-              disabledFile,
-              target,
-              timeoutMinutes,
-              staleBudget);
-
-      boolean inconclusive =
-          mr.runResult == JavaRunner.RunResult.STALE_KILLED
-              || mr.runResult == JavaRunner.RunResult.HARD_TIMEOUT;
-
-      if (!inconclusive) {
-        return mr;
-      }
-
-      Optional<UUID> stuckId = disableStuckInvariant(shmDir, disabledFile, globalDisabled);
-
-      if (attempt >= MAX_TRIAL_STALE_RETRIES) {
-        System.out.println(
-            "[DP-TEST-FILTER] Trial "
-                + trialNum
-                + ": still inconclusive after "
-                + MAX_TRIAL_STALE_RETRIES
-                + " attempts — recording as no reproduction, but this configuration was never "
-                + "actually confirmed clean");
-        return mr;
-      }
-
-      System.out.println(
-          "[DP-TEST-FILTER] Trial "
-              + trialNum
-              + ": inconclusive ("
-              + mr.runResult
-              + ") — retrying this same configuration"
-              + (stuckId.isPresent()
-                  ? " with " + stuckId.get() + " now disabled"
-                  : " (shm not reset, so anything that already fired safely stays memoized)")
-              + " with stale threshold "
-              + staleBudget.minutes
-              + " min");
-    }
-  }
-
-  /**
-   * On an inconclusive (stale/hard-timeout) kill, identifies the invariant that was mid-evaluation
-   * from {@code shmDir}'s {@code current/} marker — written before eval, deleted after, so it
-   * survives the SIGKILL — the exact same mechanism {@link edu.njit.jerse.daikonplusplus.App}'s own
-   * recovery loop uses to find a stuck invariant. If found, it is disabled in two places: {@code
-   * disabledFile} (so an immediate retry of this same trial excludes it) and {@code globalDisabled}
-   * — the one set shared across every trial and round in this {@link #run} call — so it stays
-   * excluded from every later trial too, in this round and any round after it, instead of being
-   * rediscovered and re-waited-on from scratch each time.
+   * <p>Blocks are grouped per file and processed in reverse order to preserve line offsets during
+   * modification.
    *
-   * @return the identified stuck UUID, if any
+   * @param index index of invariant blocks
+   * @param ids invariant IDs to disable
+   * @throws IOException if file modification fails
    */
-  private static Optional<UUID> disableStuckInvariant(
-      Path shmDir, Path disabledFile, Set<UUID> globalDisabled) throws IOException {
-    Optional<UUID> stuckId = LogParser.readCurrentInvariantFromShm(shmDir);
-    if (stuckId.isPresent()) {
-      UUID id = stuckId.get();
-      System.out.println(
-          "[DP-TEST-FILTER] Stuck invariant identified from shm/current/: "
-              + id
-              + " — disabling permanently for the rest of this call");
-      JavaRunner.disableInvariant(disabledFile, id);
-      globalDisabled.add(id);
-      try {
-        Files.deleteIfExists(shmDir.resolve("current").resolve(id.toString()));
-      } catch (IOException ignored) {
-      }
-    } else {
-      System.out.println(
-          "[DP-TEST-FILTER] Inconclusive kill but no stuck invariant found in shm/current/ — "
-              + "SEEN pre-population will still skip already-checked invariants on retry");
-    }
-    return stuckId;
-  }
+  private static void disableIds(BlockIndex index, Collection<UUID> ids) throws IOException {
+    Map<Path, List<Block>> byFile = new HashMap<>();
 
-  /** Splits {@code list} into {@code n} contiguous, roughly-equal, non-empty chunks. */
-  private static List<List<UUID>> splitInto(List<UUID> list, int n) {
-    List<List<UUID>> chunks = new ArrayList<>();
-    int size = list.size();
-    int base = size / n;
-    int rem = size % n;
-    int idx = 0;
-    for (int i = 0; i < n && idx < size; i++) {
-      int chunkSize = base + (i < rem ? 1 : 0);
-      if (chunkSize == 0) continue;
-      chunks.add(new ArrayList<>(list.subList(idx, idx + chunkSize)));
-      idx += chunkSize;
-    }
-    return chunks;
-  }
-
-  /** Prefix marking a block line commented out by {@link #disableBlocks}. */
-  private static final String DISABLED_LINE_PREFIX = "// [DP] test-filter disabled :: ";
-
-  /**
-   * Comments out every block in {@code toDisable} within {@code targetMainSrcRoot} — a fresh,
-   * pristine clone's source tree, so every line is guaranteed to still hold its original, enabled
-   * text before this runs. Unlike the old approach of toggling blocks back and forth in one
-   * long-lived working copy, this is one-way (disable only) and never needs to "restore" a block to
-   * enabled, since every trial starts from its own untouched clone.
-   *
-   * @param idx block positions, scanned once from the pristine mainSrcRoot with paths stored
-   *     relative to it (see {@link #scanInvariantBlocks}) — resolved here against whichever clone's
-   *     {@code targetMainSrcRoot} is passed in
-   */
-  private static void disableBlocks(BlockIndex idx, Set<UUID> toDisable, Path targetMainSrcRoot)
-      throws IOException {
-
-    Map<Path, List<UUID>> byFile = new HashMap<>();
-    for (UUID id : toDisable) {
-      Block b = idx.blocks.get(id);
+    for (UUID id : ids) {
+      Block b = index.blocks.get(id);
       if (b == null) continue;
-      byFile.computeIfAbsent(b.file, __ -> new ArrayList<>()).add(id);
+      byFile.computeIfAbsent(b.file, __ -> new ArrayList<>()).add(b);
     }
 
-    for (Map.Entry<Path, List<UUID>> e : byFile.entrySet()) {
-      Path file = targetMainSrcRoot.resolve(e.getKey()).normalize();
+    for (Map.Entry<Path, List<Block>> e : byFile.entrySet()) {
+      Path file = e.getKey();
       List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
 
-      for (UUID id : e.getValue()) {
-        Block b = idx.blocks.get(id);
-        if (b == null) continue;
+      List<Block> blocks = e.getValue();
+      blocks.sort((a, b) -> Integer.compare(b.beginLine, a.beginLine));
 
-        for (int lineIdx = b.beginLine; lineIdx <= b.endLine && lineIdx < lines.size(); lineIdx++) {
-          lines.set(lineIdx, DISABLED_LINE_PREFIX + lines.get(lineIdx));
+      for (Block b : blocks) {
+        for (int i = b.beginLine; i <= b.endLine && i < lines.size(); i++) {
+          String line = lines.get(i);
+          if (!line.trim().startsWith("// [DP] test-filter disabled")) {
+            lines.set(i, "// [DP] test-filter disabled :: " + line);
+          }
         }
       }
 
@@ -968,196 +244,10 @@ public final class TestInvariantFilter {
     }
   }
 
-  // =====================================================================================
-  // Real-time monitored execution (kill-on-detect)
-  // =====================================================================================
-
-  /** Outcome of a real-time monitored run: whether the target failure reproduced, and how. */
-  private static final class MonitorResult {
-    final boolean reproduced;
-    final int exitCode;
-    final Optional<TestFailureLogParser.FailureMatch> matched;
-    final JavaRunner.RunResult runResult;
-
-    MonitorResult(
-        boolean reproduced,
-        int exitCode,
-        Optional<TestFailureLogParser.FailureMatch> matched,
-        JavaRunner.RunResult runResult) {
-      this.reproduced = reproduced;
-      this.exitCode = exitCode;
-      this.matched = matched;
-      this.runResult = runResult;
-    }
-  }
-
-  /**
-   * Runs the external test runner via {@link JavaRunner#runExternalScript}, the exact same shared
-   * run path (and its existing stale/hang-detector + hard-timeout protection) used for the original
-   * run — with real-time failure detection layered on as an addition to that existing path, not a
-   * separate implementation. The instant a streamed line matches the <em>same</em> failure (see
-   * {@link TestFailureLogParser#isSameFailure}), the process is killed immediately — no need to
-   * wait for the rest of the suite.
-   *
-   * <p>Uses (and, on a stale-kill or hard-timeout, escalates) the shared {@link StaleBudget} — the
-   * same ever-increasing threshold strategy the main pipeline uses for its own first run, applied
-   * here across every trial rerun too, so a threshold that turns out to be too tight for this
-   * project's normal (non-hung) behavior only ever gets hit once before every later rerun benefits
-   * from the higher value.
-   *
-   * @param script external test runner script
-   * @param workDir working directory for execution
-   * @param runLog output log file
-   * @param shmDir shm directory for this run (already reset by the caller)
-   * @param target the failure being chased; a run "reproduces" only if the same failure recurs
-   * @param timeoutMinutes wall-clock timeout, identical to the original run's
-   * @param staleBudget shared, escalating stale-check threshold (read for this call, and escalated
-   *     in place if this call is stale-killed or hard-timed-out)
-   * @return whether the target failure reproduced, and the run's exit code
-   */
-  private static MonitorResult runMonitored(
-      Path script,
-      Path workDir,
-      Path runLog,
-      Path shmDir,
-      Path disabledFile,
-      TestFailureLogParser.FailureMatch target,
-      long timeoutMinutes,
-      StaleBudget staleBudget)
-      throws IOException, InterruptedException {
-
-    JavaRunner.RunResult result =
-        JavaRunner.runExternalScript(
-            script,
-            workDir,
-            "",
-            runLog,
-            timeoutMinutes,
-            staleBudget.minutes,
-            disabledFile,
-            shmDir,
-            target);
-
-    if (result == JavaRunner.RunResult.STALE_KILLED
-        || result == JavaRunner.RunResult.HARD_TIMEOUT) {
-      staleBudget.escalate();
-      System.out.println(
-          "[DP-TEST-FILTER] Stale threshold escalated to " + staleBudget.minutes + " min");
-    }
-
-    boolean reproduced = result == JavaRunner.RunResult.TEST_FAILURE_KILLED;
-    Optional<TestFailureLogParser.FailureMatch> matched = Optional.empty();
-
-    if (reproduced) {
-      // The kill was already confirmed line-by-line inside runExternalScript; re-derive the
-      // matched line from the log for logging/diagnostics purposes.
-      matched = TestFailureLogParser.firstFailure(readIfExists(runLog));
-    } else if (result == JavaRunner.RunResult.NORMAL) {
-      // Safety net: exited non-zero without the real-time path catching a matching line (e.g.
-      // buffering). Do one full-log scan before concluding it didn't reproduce.
-      String fullText = readIfExists(runLog);
-      Optional<TestFailureLogParser.FailureMatch> fallback =
-          TestFailureLogParser.firstFailure(fullText);
-      if (fallback.isPresent() && TestFailureLogParser.isSameFailure(target, fallback.get())) {
-        reproduced = true;
-        matched = fallback;
-      }
-    }
-
-    // runExternalScript doesn't return the child's raw exit code; recover pass/fail from the same
-    // marker it appends to the log whenever the exit code is non-zero (exitedNonZero() below),
-    // which every other exit-status check in this class already relies on.
-    int exit =
-        reproduced
-            ? -1
-            : (result == JavaRunner.RunResult.NORMAL && !exitedNonZero(runLog) ? 0 : -1);
-
-    return new MonitorResult(reproduced, exit, matched, result);
-  }
-
-  // =====================================================================================
-  // Shared helpers
-  // =====================================================================================
-
-  /**
-   * Deletes and recreates {@code ex/}, {@code fail/}, and {@code current/} under {@code shmDir}.
-   */
-  private static void resetShmDir(Path shmDir) throws IOException {
-    for (String sub : new String[] {"ex", "fail", "current"}) {
-      Path dir = shmDir.resolve(sub);
-      if (Files.isDirectory(dir)) {
-        try (var s = Files.list(dir)) {
-          for (Path p : (Iterable<Path>) s::iterator) {
-            Files.deleteIfExists(p);
-          }
-        }
-      }
-      Files.createDirectories(dir);
-    }
-  }
-
-  /**
-   * Writes {@code disabled} (one UUID per line) to {@code sessionDir}/{@code name}, for use as a
-   * {@code DP_DISABLED_FILE} — the same runtime skip-list mechanism {@link
-   * JavaRunner#disableInvariant} writes for the main pipeline's recovery loop. Each call writes a
-   * distinct file (named per trial/attempt) so a run's log/shm can always be correlated back to
-   * exactly which set was active for it.
-   */
-  private static Path writeDisabledFile(Path sessionDir, String name, Set<UUID> disabled)
-      throws IOException {
-    Path file = sessionDir.resolve(name);
-    List<String> lines = new ArrayList<>(disabled.size());
-    for (UUID id : disabled) {
-      lines.add(id.toString());
-    }
-    Files.write(file, lines, StandardCharsets.UTF_8);
-    return file;
-  }
-
-  private static String readIfExists(Path file) throws IOException {
-    return Files.isRegularFile(file) ? Files.readString(file, StandardCharsets.UTF_8) : "";
-  }
-
-  /**
-   * Marker {@link edu.njit.jerse.daikonplusplus.JavaRunner} appends to a run log, once, only when
-   * the external runner exits with a non-zero code (see {@code JavaRunner.runExternalScript}).
-   */
-  private static final String NON_ZERO_EXIT_MARKER = "[DP] External runner exited with code";
-
-  private static final int TAIL_CHECK_BYTES = 8192;
-
-  /**
-   * Cheaply determines whether a run's process exited non-zero, without reading the whole log file
-   * — only the last {@link #TAIL_CHECK_BYTES} bytes are inspected for {@link
-   * #NON_ZERO_EXIT_MARKER}, which the runner always appends at the very end of the log when its
-   * exit code is non-zero.
-   *
-   * @param runLog the run's log file
-   * @return true if the marker was found in the file's tail (exit was non-zero)
-   * @throws IOException if the file cannot be read
-   */
-  private static boolean exitedNonZero(Path runLog) throws IOException {
-    if (!Files.isRegularFile(runLog)) return false;
-
-    long size = Files.size(runLog);
-    int tailSize = (int) Math.min(size, TAIL_CHECK_BYTES);
-    if (tailSize == 0) return false;
-
-    byte[] buf = new byte[tailSize];
-    try (RandomAccessFile raf = new RandomAccessFile(runLog.toFile(), "r")) {
-      raf.seek(size - tailSize);
-      raf.readFully(buf);
-    }
-
-    return new String(buf, StandardCharsets.UTF_8).contains(NON_ZERO_EXIT_MARKER);
-  }
-
   /**
    * Scans source files to locate invariant blocks and associate them with UUIDs.
    *
-   * <p>Blocks are identified using begin/end markers and mapped to their source file locations,
-   * stored relative to {@code mainSrcRoot} (see {@link Block}) so the resulting index is reusable
-   * against any later clone of this same source tree, not just the one scanned here.
+   * <p>Blocks are identified using begin/end markers and mapped to their source file locations.
    *
    * @param mainSrcRoot root of the source tree
    * @return index mapping invariant IDs to source blocks
@@ -1205,7 +295,7 @@ public final class TestInvariantFilter {
           Matcher m = UUID_PATTERN.matcher(blockText.toString());
           while (m.find()) {
             UUID id = UUID.fromString(m.group());
-            index.blocks.put(id, new Block(id, mainSrcRoot.relativize(file), beginLine, endLine));
+            index.blocks.put(id, new Block(id, file, beginLine, endLine));
           }
 
           i = endLine + 1;
@@ -1275,211 +365,132 @@ public final class TestInvariantFilter {
   }
 
   /**
-   * Outcome of a confirming rerun: exit status, any failure caught online, and the raw {@link
-   * JavaRunner.RunResult} — callers need the latter to tell a genuine pass/fail signal apart from
-   * an inconclusive stale-kill/timeout (which proves nothing about whether the target failure is
-   * gone).
-   */
-  private static final class ConfirmResult {
-    final int exit;
-    final Optional<TestFailureLogParser.FailureMatch> matched;
-    final JavaRunner.RunResult runResult;
-    final Path logPath;
-
-    ConfirmResult(
-        int exit,
-        Optional<TestFailureLogParser.FailureMatch> matched,
-        JavaRunner.RunResult runResult,
-        Path logPath) {
-      this.exit = exit;
-      this.matched = matched;
-      this.runResult = runResult;
-      this.logPath = logPath;
-    }
-  }
-
-  /**
-   * Executes an external test runner script via {@link JavaRunner#runExternalScript} — the same
-   * shared run path (with its stale/hang-detector + hard-timeout protection) used for every other
-   * run — watching online for <em>any</em> recognized test-failure signature (no specific target,
-   * since which failure — if any — will show up next isn't known in advance) so a subsequent
-   * failure is caught and the run killed the instant it appears, exactly like the very first run,
-   * rather than only discovered after this rerun finishes and its log is scanned. Used for the
-   * confirming reruns once a round's culprit set is already known.
+   * Executes an external test runner script and captures its output.
+   *
+   * <p>The method sets required environment variables and appends invariant execution events to the
+   * log.
    *
    * @param script executable test runner script
    * @param workDir working directory for execution
    * @param runLog output log file
-   * @param shmDir shm directory for this run (already created/reset by the caller)
-   * @param timeoutMinutes wall-clock timeout, identical to the original run's
-   * @param staleCheckMinutes stale/hang-detection threshold to use for this one call
-   * @return exit status (0 clean pass, -1 any non-normal outcome) and the failure caught online, if
-   *     any
+   * @return exit code of the test run
    * @throws IOException if execution fails
    * @throws InterruptedException if execution is interrupted
    */
-  private static ConfirmResult runExternalTestRunner(
-      Path script,
-      Path workDir,
-      Path runLog,
-      Path shmDir,
-      Path disabledFile,
-      long timeoutMinutes,
-      long staleCheckMinutes)
+  private static int runExternalTestRunner(Path script, Path workDir, Path runLog)
       throws IOException, InterruptedException {
 
-    java.util.concurrent.atomic.AtomicReference<TestFailureLogParser.FailureMatch> matchedOut =
-        new java.util.concurrent.atomic.AtomicReference<>();
-
-    JavaRunner.RunResult result =
-        JavaRunner.runExternalScript(
-            script,
-            workDir,
-            "",
-            runLog,
-            timeoutMinutes,
-            staleCheckMinutes,
-            disabledFile,
-            shmDir,
-            null,
-            true,
-            matchedOut);
-
-    if (result == JavaRunner.RunResult.TEST_FAILURE_KILLED) {
-      return new ConfirmResult(-1, Optional.ofNullable(matchedOut.get()), result, runLog);
+    if (!Files.isRegularFile(script)) {
+      throw new IllegalArgumentException("[DP-TEST-FILTER] runner not found: " + script);
     }
-    if (result != JavaRunner.RunResult.NORMAL) {
-      return new ConfirmResult(-1, Optional.empty(), result, runLog);
+
+    if (!Files.isExecutable(script)) {
+      throw new IllegalArgumentException("[DP-TEST-FILTER] runner not executable: " + script);
     }
-    boolean failed = exitedNonZero(runLog);
-    return new ConfirmResult(
-        failed ? -1 : 0,
-        failed ? TestFailureLogParser.firstFailure(readIfExists(runLog)) : Optional.empty(),
-        result,
-        runLog);
+
+    Files.createDirectories(Optional.ofNullable(runLog.getParent()).orElse(Path.of(".")));
+
+    Path invDir = workDir.resolve(".daikonpp-events");
+    Files.createDirectories(invDir);
+
+    ProcessBuilder pb = new ProcessBuilder(script.toAbsolutePath().toString());
+    pb.directory(workDir.toFile());
+    pb.redirectErrorStream(true);
+
+    Map<String, String> env = pb.environment();
+    env.put("DP_RUN_LOG", runLog.toAbsolutePath().toString());
+    env.put("DP_INV_DIR", invDir.toAbsolutePath().toString());
+
+    String jvmArgs = "-DDP_INV_DIR=" + invDir.toAbsolutePath();
+
+    env.put("JAVA_OPTS", (env.getOrDefault("JAVA_OPTS", "") + " " + jvmArgs).trim());
+    env.put("_JAVA_OPTIONS", (env.getOrDefault("_JAVA_OPTIONS", "") + " " + jvmArgs).trim());
+    env.put("GRADLE_OPTS", (env.getOrDefault("GRADLE_OPTS", "") + " " + jvmArgs).trim());
+
+    Process p = pb.start();
+
+    try (BufferedReader r =
+            new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
+        BufferedWriter w =
+            Files.newBufferedWriter(
+                runLog,
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING)) {
+
+      String line;
+      while ((line = r.readLine()) != null) {
+        w.write(line);
+        w.newLine();
+      }
+    }
+
+    int exit = p.waitFor();
+
+    appendDpEvents(invDir, runLog);
+
+    if (exit != 0) {
+      Files.writeString(
+          runLog,
+          "\n[DP-TEST-FILTER] External runner exited with code " + exit + "\n",
+          StandardCharsets.UTF_8,
+          StandardOpenOption.CREATE,
+          StandardOpenOption.APPEND);
+    }
+
+    return exit;
   }
 
-  /** How many times a confirming rerun that's inconclusive (stale/timeout) is retried. */
-  private static final int MAX_CONFIRM_STALE_RETRIES = 5;
+  /**
+   * Appends recorded invariant event files to the main run log.
+   *
+   * @param invDir directory containing event files
+   * @param runLog log file to append to
+   */
+  private static void appendDpEvents(Path invDir, Path runLog) {
+    try {
+      if (!Files.isDirectory(invDir)) return;
+
+      List<Path> files = new ArrayList<>();
+
+      try (var s = Files.list(invDir)) {
+        s.filter(
+                p -> {
+                  Path name = p.getFileName();
+                  return name != null && name.toString().startsWith("dp-events-");
+                })
+            .sorted()
+            .forEach(files::add);
+      }
+
+      for (Path f : files) {
+        Files.writeString(
+            runLog,
+            Files.readString(f, StandardCharsets.UTF_8),
+            StandardOpenOption.CREATE,
+            StandardOpenOption.APPEND);
+      }
+    } catch (Exception ignored) {
+    }
+  }
 
   /**
-   * Runs the round-{@code round} confirming rerun, retrying whenever the run is inconclusive —
-   * killed by the stale detector or hard timeout rather than by finishing (cleanly or with a
-   * recognized failure). An inconclusive kill proves nothing about whether the target failure is
-   * actually gone; some unrelated slow/looping test elsewhere in the suite can trip the stale
-   * detector at roughly the same point on every attempt. Silently treating that as "no failure
-   * found" would falsely declare the round done without ever having confirmed a clean run.
+   * Creates a full copy of the project for isolated modification.
    *
-   * <p>Uses (and, on every inconclusive attempt, escalates) the same shared {@link StaleBudget}
-   * passed down from {@link #run} — the identical ever-increasing-threshold strategy the main
-   * pipeline's own first run uses, so a threshold this environment turns out to need (e.g. because
-   * a clean compile/startup alone takes longer than the base threshold) is learned once — whether
-   * that happens during a ddmin trial or here — and every later rerun in this call, of either kind,
-   * benefits from it instead of repeating the same premature kill.
-   *
-   * @return the first conclusive result (a real pass, a real failure, or a failure caught online),
-   *     or — if every retry was also inconclusive — the last inconclusive result, with {@link
-   *     ConfirmResult#runResult} still {@code STALE_KILLED}/{@code HARD_TIMEOUT} so the caller can
-   *     tell the difference and must not treat it as a clean pass
+   * @param projectRoot original project root
+   * @return path to snapshot copy
+   * @throws IOException if copying fails
    */
-  private static ConfirmResult confirmRoundClean(
-      Path runnerScript,
-      Path injectedProjectRoot,
-      Path mainSrcRoot,
-      BlockIndex idx,
-      Set<UUID> disabledSoFar,
-      Path sessionDir,
-      Path shmDir,
-      int round,
-      long timeoutMinutes,
-      StaleBudget staleBudget)
-      throws IOException, InterruptedException {
-
-    for (int attempt = 1; ; attempt++) {
-      resetShmDir(shmDir);
-      Path roundLog =
-          sessionDir.resolve(
-              "daikonpp-test-filter-round"
-                  + round
-                  + "-confirm"
-                  + (attempt > 1 ? "-retry" + attempt : "")
-                  + ".log");
-      System.out.println(
-          "[DP-TEST-FILTER] Round "
-              + round
-              + ": confirming run (attempt "
-              + attempt
-              + "/"
-              + MAX_CONFIRM_STALE_RETRIES
-              + ", stale threshold "
-              + staleBudget.minutes
-              + " min), log -> "
-              + roundLog);
-
-      // Fresh copy per attempt — see testConfig() for why: a pristine copy of
-      // injectedProjectRoot's already-compiled classes (no cold recompile), but none of the
-      // incremental-build/test-result state that reusing one shared directory across every
-      // round/attempt in this call accumulates.
-      Path disabledFile =
-          writeDisabledFile(
-              sessionDir,
-              "daikonpp-disabled-round" + round + "-confirm" + attempt + ".txt",
-              disabledSoFar);
-      Path confirmWorkDir =
-          freshCopy(injectedProjectRoot, "test-filter-round" + round + "-confirm" + attempt);
-      ConfirmResult result;
-      try {
-        result =
-            runExternalTestRunner(
-                runnerScript,
-                confirmWorkDir,
-                roundLog,
-                shmDir,
-                disabledFile,
-                timeoutMinutes,
-                staleBudget.minutes);
-      } finally {
-        deleteTreeQuietly(confirmWorkDir);
-      }
-
-      boolean inconclusive =
-          result.runResult == JavaRunner.RunResult.STALE_KILLED
-              || result.runResult == JavaRunner.RunResult.HARD_TIMEOUT;
-
-      if (!inconclusive) {
-        return result;
-      }
-
-      staleBudget.escalate();
-      // disabledSoFar is the same shared set threaded through every trial/round in this call, so
-      // permanently disabling the stuck invariant here also excludes it from every later ddmin
-      // trial and round — not just this confirming rerun's own retries.
-      Optional<UUID> stuckId = disableStuckInvariant(shmDir, disabledFile, disabledSoFar);
-
-      if (attempt >= MAX_CONFIRM_STALE_RETRIES) {
-        System.out.println(
-            "[DP-TEST-FILTER] Round "
-                + round
-                + ": confirming run still inconclusive after "
-                + MAX_CONFIRM_STALE_RETRIES
-                + " attempts — giving up; the suite's clean/failing status could not be "
-                + "verified");
-        return result;
-      }
-
-      System.out.println(
-          "[DP-TEST-FILTER] Round "
-              + round
-              + ": confirming run inconclusive ("
-              + result.runResult
-              + ") — "
-              + (stuckId.isPresent()
-                  ? "disabled stuck invariant " + stuckId.get()
-                  : "an unrelated stale/hung test, not the target failure")
-              + "; retrying with stale threshold "
-              + staleBudget.minutes
-              + " min");
+  private static Path makeSnapshot(Path projectRoot) throws IOException {
+    Path parent = projectRoot.getParent();
+    if (parent == null) {
+      parent = Path.of(System.getProperty("java.io.tmpdir"));
     }
+
+    Path snapshot =
+        parent.resolve(projectRoot.getFileName() + "-injected-snapshot-" + System.nanoTime());
+    copyTree(projectRoot, snapshot);
+    return snapshot;
   }
 
   /**
@@ -1542,63 +553,6 @@ public final class TestInvariantFilter {
         });
   }
 
-  /**
-   * Directory a project copy's parent should live under — the same parent {@link #freshCopy} uses
-   * for project clones, so the lightweight session directory (logs + shm only) sits alongside them
-   * rather than under a filesystem with different space/permissions characteristics.
-   */
-  private static Path sessionParentDir(Path snapshot) {
-    Path parent = snapshot.getParent();
-    return parent != null ? parent : Path.of(System.getProperty("java.io.tmpdir"));
-  }
-
-  /**
-   * Picks a tmpfs-backed shm directory for this call's trials, using the exact same selection
-   * {@code App}'s own main recovery loop uses for the initial run: {@code DP_SHM_BASE} if set,
-   * otherwise {@code /dev/shm} if writable. Falls back to a directory under {@code
-   * sessionParentDir} only if neither is available (e.g. a sandbox with no tmpfs), matching App's
-   * own log-only-fallback behavior in spirit.
-   */
-  private static Path resolveShmDir(Path injectedProjectRoot) {
-    String shmBase = System.getenv("DP_SHM_BASE");
-    if (shmBase != null && !shmBase.isBlank()) {
-      return Path.of(shmBase).resolve("daikonpp-test-filter-" + ProcessHandle.current().pid());
-    }
-    Path devShm = Path.of("/dev/shm");
-    if (Files.isDirectory(devShm) && Files.isWritable(devShm)) {
-      return devShm.resolve("daikonpp-test-filter-" + ProcessHandle.current().pid());
-    }
-    return sessionParentDir(injectedProjectRoot)
-        .resolve("daikonpp-test-filter-shm-" + ProcessHandle.current().pid());
-  }
-
-  /** Recursively deletes a directory tree, logging (not throwing) on failure. */
-  private static void deleteTreeQuietly(Path root) {
-    try {
-      if (!Files.exists(root)) return;
-      Files.walkFileTree(
-          root,
-          new SimpleFileVisitor<>() {
-            @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-                throws IOException {
-              Files.deleteIfExists(file);
-              return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult postVisitDirectory(Path dir, IOException exc)
-                throws IOException {
-              Files.deleteIfExists(dir);
-              return FileVisitResult.CONTINUE;
-            }
-          });
-    } catch (IOException e) {
-      System.err.println(
-          "[DP-TEST-FILTER] Warning: failed to delete trial copy " + root + ": " + e.getMessage());
-    }
-  }
-
   /** Index of invariant blocks keyed by their UUID. */
   private static final class BlockIndex {
     final Map<UUID, Block> blocks = new HashMap<>();
@@ -1607,9 +561,7 @@ public final class TestInvariantFilter {
   /**
    * Represents a contiguous invariant block in a source file.
    *
-   * <p>{@code file} is stored <em>relative</em> to the mainSrcRoot the index was scanned from — not
-   * absolute — so the same {@link BlockIndex}, built once from the pristine source, can be resolved
-   * against any fresh clone's own mainSrcRoot (see {@link #disableBlocks}).
+   * <p>Includes file location and line range.
    */
   private static final class Block {
     final UUID id;
@@ -1640,31 +592,13 @@ public final class TestInvariantFilter {
     public final int finalExitCode;
 
     /**
-     * shm directory reflecting exactly the run {@link #finalRunLog} came from — {@code null} unless
-     * {@code finalRunLog} is a {@code confirmRoundClean} rerun's log, since {@code shmDir} is one
-     * directory continuously reset and reused by every trial and confirm attempt in one {@link
-     * #run} call; only right after a {@code confirmRoundClean} call do the two definitely
-     * correspond to the same run (e.g. a later round's sanity/ddmin trial can leave unrelated data
-     * in {@code shmDir} while {@code finalRunLog} still points at an earlier round's confirm log —
-     * see where {@code currentLogShmDir} is set in {@link #run}). A killed (stale/hard-timeout)
-     * final rerun never runs {@code DpRuntime}'s shutdown-hook log sidecar, so {@code finalRunLog}
-     * alone can under-report; this directory's {@code ex}/{@code fail} subdirectories are written
-     * to live, per invariant, as each one executes/falsifies, so they survive a SIGKILL and remain
-     * the more reliable source — same shm-first/log-fallback pattern {@code App} already uses for
-     * the initial run.
-     */
-    public final @org.checkerframework.checker.nullness.qual.Nullable Path finalShmDir;
-
-    /**
      * @param snapshotProjectRoot initial snapshot of the injected project
      * @param finalProjectRoot project after filtering
      * @param finalMainSrcRoot final main source directory
      * @param finalRunLog log from final test execution
      * @param removedIds set of invariant IDs that were disabled
-     * @param removedMethodBatches human-readable descriptions of each disabled invariant and why
+     * @param removedMethodBatches descriptions of removed method groups
      * @param finalExitCode exit code of final test run
-     * @param finalShmDir shm directory matching the final confirming rerun, or {@code null} if no
-     *     rerun happened
      */
     Result(
         Path snapshotProjectRoot,
@@ -1673,8 +607,7 @@ public final class TestInvariantFilter {
         Path finalRunLog,
         Set<UUID> removedIds,
         List<String> removedMethodBatches,
-        int finalExitCode,
-        @org.checkerframework.checker.nullness.qual.Nullable Path finalShmDir) {
+        int finalExitCode) {
 
       this.snapshotProjectRoot = snapshotProjectRoot;
       this.finalProjectRoot = finalProjectRoot;
@@ -1683,7 +616,6 @@ public final class TestInvariantFilter {
       this.removedIds = Set.copyOf(removedIds);
       this.removedMethodBatches = List.copyOf(removedMethodBatches);
       this.finalExitCode = finalExitCode;
-      this.finalShmDir = finalShmDir;
     }
   }
 }
