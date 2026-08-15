@@ -107,6 +107,66 @@ public class ContextUtilsIOExamplesTest {
   }
 
   @Test
+  void filtersOutReceiverStateWhenSourceIsResolvable(@TempDir Path tempDir) throws Exception {
+    // Real Chicory traces record `this` and its fields alongside the method's actual
+    // parameters (see hudi's addUpdateBucket trace). When the method's source is resolvable,
+    // extractIOExamples should keep only the declared parameters, preferring each parameter's
+    // ".toString" variant (the human-readable value) over its raw identity-hashcode form.
+    Files.createDirectories(tempDir.resolve("com/example"));
+    Files.writeString(
+        tempDir.resolve("com/example/Bucketer.java"),
+        """
+        package com.example;
+        public class Bucketer {
+          int total;
+          int addBucket(String path, String hint) {
+            return total;
+          }
+        }
+        """);
+
+    String json =
+        """
+        {
+          "com.example.Bucketer#addBucket(String,String):int" : [
+            {
+              "args": {
+                "this": "375185496",
+                "this.total": "0",
+                "path": "2021259757",
+                "path.toString": "\\"2016/03/15\\"",
+                "hint": "194904056",
+                "hint.toString": "\\"f554b964-c0b3\\""
+              },
+              "return": "0"
+            }
+          ]
+        }
+        """;
+    Path indexFile = writeIOExamplesIndex(tempDir, json);
+
+    var id =
+        ProgramElementId.forMethod(
+            "com.example",
+            "Bucketer",
+            "",
+            "com/example/Bucketer.java",
+            "addBucket(String,String):int");
+    ProgramPoint point = new ProgramPointImpl(id, ProgramPointKind.METHOD_ENTRY);
+
+    Optional<String> result = ContextUtils.extractIOExamples(point, tempDir, indexFile.toString());
+
+    assertTrue(result.isPresent(), "expected IO examples to be found");
+    String text = result.get();
+
+    assertTrue(
+        text.contains("path=\"2016/03/15\", hint=\"f554b964-c0b3\" -> return=0"),
+        "expected only the declared parameters (preferring .toString values), got: " + text);
+    assertFalse(text.contains("this"), "receiver state should be filtered out, got: " + text);
+    assertFalse(text.contains("total"), "receiver field should be filtered out, got: " + text);
+  }
+
+  @Test
   void ioExamplesAreRenderedIntoPrompt(@TempDir Path tempDir) throws Exception {
     String json =
         """

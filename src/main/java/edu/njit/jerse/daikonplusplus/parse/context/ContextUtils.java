@@ -473,6 +473,13 @@ public final class ContextUtils {
     List<Map<String, Object>> examples = index.get(key);
     if (examples == null || examples.isEmpty()) return Optional.empty();
 
+    // Chicory's dtrace records every variable observable at the program point, not just the
+    // method's own arguments -- e.g. `this` and each of its fields (this.config, this.table,
+    // ...) show up in "args" alongside the actual declared parameters. Resolving the method's
+    // real parameter names lets us keep the index's raw args (useful for other tooling) while
+    // showing the model only the actual inputs here, instead of the receiver's internal state.
+    List<String> paramNames = resolveParameterNames(point, srcRoot);
+
     StringBuilder sb = new StringBuilder();
     int included = 0;
 
@@ -484,10 +491,14 @@ public final class ContextUtils {
       @SuppressWarnings("unchecked")
       Map<String, Object> args = (Map<String, Object>) argsObj;
 
+      Map<String, Object> shown =
+          paramNames.isEmpty() ? args : filterToParameters(args, paramNames);
+      if (shown.isEmpty()) continue;
+
       if (included > 0) sb.append("\n");
       sb.append("Example ").append(included + 1).append(": ");
       sb.append(
-          args.entrySet().stream()
+          shown.entrySet().stream()
               .map(e -> e.getKey() + "=" + e.getValue())
               .collect(Collectors.joining(", ")));
       sb.append(" -> return=").append(example.get("return"));
@@ -497,6 +508,61 @@ public final class ContextUtils {
 
     if (included == 0) return Optional.empty();
     return Optional.of(sb.toString());
+  }
+
+  /**
+   * Resolves the declared parameter names of the method at {@code point}, by re-parsing its source
+   * file and matching on JVM descriptor.
+   *
+   * @param point program point identifying the method
+   * @param srcRoot root directory of the source code
+   * @return declared parameter names in order, or an empty list if the method could not be resolved
+   *     (in which case callers should fall back to showing all recorded variables)
+   */
+  private static List<String> resolveParameterNames(ProgramPoint point, Path srcRoot) {
+    try {
+      Path file = srcRoot.resolve(point.elementId().filePath()).normalize();
+      CompilationUnit cu = StaticJavaParser.parse(file);
+      String targetDesc = point.elementId().jvmDescriptor();
+
+      for (ClassOrInterfaceDeclaration cls : cu.findAll(ClassOrInterfaceDeclaration.class)) {
+        for (MethodDeclaration m : cls.getMethods()) {
+          if (!MethodSignatureUtil.jvmDescriptorBestEffort(m).equals(targetDesc)) continue;
+          return m.getParameters().stream().map(p -> p.getNameAsString()).toList();
+        }
+      }
+    } catch (Exception e) {
+      // fall through to empty -- caller shows all recorded variables instead
+    }
+    return List.of();
+  }
+
+  /**
+   * Restricts a recorded example's {@code args} to the method's actual declared parameters,
+   * dropping receiver ({@code this}) state and any other incidentally-recorded variables.
+   *
+   * <p>Daikon/Chicory records both a variable's raw value (e.g. an object's identity hashcode) and,
+   * for many reference types, a derived {@code <name>.toString} variant. The human-readable {@code
+   * .toString} value is preferred when present.
+   *
+   * @param args raw args map from the I/O-examples index
+   * @param paramNames declared parameter names, in order
+   * @return filtered args map, in parameter order; a parameter with no matching recorded variable
+   *     is omitted
+   */
+  private static Map<String, Object> filterToParameters(
+      Map<String, Object> args, List<String> paramNames) {
+    Map<String, Object> filtered = new LinkedHashMap<>();
+    for (String param : paramNames) {
+      Object viaToString = args.get(param + ".toString");
+      Object viaRaw = args.get(param);
+      if (viaToString != null) {
+        filtered.put(param, viaToString);
+      } else if (viaRaw != null) {
+        filtered.put(param, viaRaw);
+      }
+    }
+    return filtered;
   }
 
   /**
