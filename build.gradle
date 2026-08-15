@@ -77,6 +77,11 @@ tasks.test {
 
     environment "DP_LLM_CASSETTES", cassetteDir
     environment "DP_DISABLE_REAL_LLM", "1"   // offline, pure replay
+
+    // Pass through any -Dregenerate.baseline=true flag for baseline regeneration
+    if (System.getProperty("regenerate.baseline") != null) {
+        systemProperty "regenerate.baseline", System.getProperty("regenerate.baseline")
+    }
 }
 
 // Convenience task to run only the E2E regression class

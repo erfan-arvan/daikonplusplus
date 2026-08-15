@@ -65,12 +65,17 @@ public final class InvariantRegistry {
 
   // ----- Append & read -----
 
-  /** Append only if this (kind|element|expr) hasn't been seen in this registry file. */
-  public synchronized void appendIfNew(InvariantRecord rec) {
+  /**
+   * Append only if this (kind|element|expr) hasn't been seen in this registry file.
+   *
+   * @return true if the record was new and appended, false if it was a duplicate
+   */
+  public synchronized boolean appendIfNew(InvariantRecord rec) {
     String key = keyOf(rec);
-    if (seenKeys.contains(key)) return; // skip duplicate across runs
+    if (seenKeys.contains(key)) return false;
     append(rec);
     seenKeys.add(key);
+    return true;
   }
 
   /** Append the record to the registry JSONL. */
