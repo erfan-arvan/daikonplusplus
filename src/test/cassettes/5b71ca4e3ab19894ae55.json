@@ -1,0 +1,29 @@
+{
+  "invariants" : [ {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "When divisor b is zero, method returns Integer.MIN_VALUE.",
+    "meta" : [ {
+      "key" : "source",
+      "value" : "this ensures safe divide returns MIN_VALUE when divisor is zero"
+    } ]
+  }, {
+    "expression" : "b != 0 || result == Integer.MIN_VALUE",
+    "rationale" : "Directly matches method logic.",
+    "meta" : [ ]
+  }, {
+    "expression" : "b != 0 && result * b == a",
+    "rationale" : "When b is not zero, result times b equals dividend a.",
+    "meta" : [ {
+      "key" : "notes",
+      "value" : "no remainder division assumed"
+    } ]
+  }, {
+    "expression" : "b == 0 || (result * b <= a + (b > 0 ? b - 1 : 1 - b))",
+    "rationale" : "Result is consistent with integer division truncation.",
+    "meta" : [ ]
+  }, {
+    "expression" : "result != Integer.MIN_VALUE || b == 0",
+    "rationale" : "If result is MIN_VALUE then b must have been zero.",
+    "meta" : [ ]
+  } ]
+}

@@ -1,0 +1,24 @@
+{
+  "invariants" : [ {
+    "expression" : "args != null",
+    "rationale" : "The args array is never null at the main method entry.",
+    "meta" : [ {
+      "key" : "nonNull",
+      "value" : "args is never null at method entry"
+    } ]
+  }, {
+    "expression" : "args.length >= 0",
+    "rationale" : "Array length is always non-negative.",
+    "meta" : [ {
+      "key" : "length",
+      "value" : "args length is non-negative"
+    } ]
+  }, {
+    "expression" : "args != null && args.length >= 0",
+    "rationale" : "Both the non-nullness and length constraints on the args array.",
+    "meta" : [ {
+      "key" : "combined",
+      "value" : "args not null and length non-negative"
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "invariants" : [ {
+    "expression" : "x >= Integer.MIN_VALUE",
+    "rationale" : "x is an int parameter without further restrictions.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "x is an int parameter, so it ranges from Integer.MIN_VALUE to Integer.MAX_VALUE."
+    } ]
+  }, {
+    "expression" : "name == null || name.length() >= 0",
+    "rationale" : "String length is never negative.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "If name is non-null, length() returns a non-negative int."
+    } ]
+  }, {
+    "expression" : "name == null || name.length() <= 2147483647",
+    "rationale" : "String length is within valid int range.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Maximum length of a Java String is Integer.MAX_VALUE."
+    } ]
+  }, {
+    "expression" : "name == null || name.length() + x >= Integer.MIN_VALUE",
+    "rationale" : "Sum of valid integers within int range.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Sum of two ints remains >= Integer.MIN_VALUE."
+    } ]
+  }, {
+    "expression" : "name == null || name.length() + x <= Integer.MAX_VALUE",
+    "rationale" : "Sum valid int addition without overflow.",
+    "meta" : [ {
+      "key" : "reason",
+      "value" : "Sum does not overflow int max value."
+    } ]
+  } ]
+}

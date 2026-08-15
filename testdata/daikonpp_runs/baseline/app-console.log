@@ -1,0 +1,36 @@
+>>> Working copy created at: /Users/erfanarvan/daikonplusplus/build/daikonpp_work/src-20251024-133426
+>>> Registry reset: /Users/erfanarvan/daikonplusplus/build/daikonpp_registry.jsonl
+>>> Scanning sources under (WORKING COPY): /Users/erfanarvan/daikonplusplus/build/daikonpp_work/src-20251024-133426
+>>> Points — ENTRY: 3  EXIT: 3  TOTAL: 6
+>>> Proposed invariant expressions (post-parse filter): 9
+>>> Files to inject: 2
+>>> To inject — ENTRY: 3  EXIT: 6
+>>> Injection done. Updated files: 2
+>>> Compiling with javac (pass 1): /Users/erfanarvan/.sdkman/candidates/java/current/bin/javac -encoding UTF-8 -g -cp build/libs/daikonplusplus.jar:. -d /Users/erfanarvan/daikonplusplus/build/daikonpp_work/src-20251024-133426/daikonpp-classes @/Users/erfanarvan/daikonplusplus/build/daikonpp_work/src-20251024-133426/daikonpp-classes/dp_sources.txt
+>>> javac OK on pass 1
+>>> Running with java: /Users/erfanarvan/.sdkman/candidates/java/current/bin/java -Dfile.encoding=UTF-8 -Xshare:off -cp build/libs/daikonplusplus.jar:/Users/erfanarvan/daikonplusplus/build/daikonpp_work/src-20251024-133426/daikonpp-classes:. sample.Main
+>>> Run log — EXIT events: 0
+>>> Totals: all=9 compiled=9 non-compiled=0 executed=9 falsified=0 observed-held=9 never-executed=0
+>>> OBSERVED-HELD invariants by method (ENTRY & EXIT):
+  - sample.Main#main(String[]):void
+      [METHOD_ENTRY] 06eca5a1-52a2-4d1c-a739-1914d630ed25 :: args.length >= 0
+      [METHOD_ENTRY] 4f688a30-85d4-4042-a504-a84f59a1dc38 :: args != null
+      [METHOD_EXIT] 2dce125c-4649-4d31-ae43-8341f79536d3 :: args != null
+      [METHOD_EXIT] 792b430a-ca45-4102-b456-c92dbf605892 :: args.length >= 0
+  - sample.MathUtils#max(int,int):int
+      [METHOD_EXIT] aeac8e11-4738-4655-a374-c7800b333ad7 :: result >= a
+      [METHOD_EXIT] 4cf47b4b-730d-419d-ae60-e38447db0a92 :: result >= b
+      [METHOD_EXIT] a2fcdc36-7ec9-4e26-b4e7-fb51103655e0 :: result == a || result == b
+  - sample.MathUtils#sum(int,int):int
+      [METHOD_EXIT] ca653e6a-045e-4849-acc9-54008d8e9bfa :: result == a + b
+      [METHOD_ENTRY] d64ce820-c1e1-41ee-89b6-c0cdfa402334 :: a >= 0
+>>> FALSIFIED invariants by method (ENTRY & EXIT):
+>>> FAILED-TO-COMPILE invariants by method:
+>>> NEVER-EXECUTED invariants by method (compiled but never observed):
+>>> SUMMARY (IDs)
+  COMPILED IDs: 06eca5a1-52a2-4d1c-a739-1914d630ed25, 2dce125c-4649-4d31-ae43-8341f79536d3, 4cf47b4b-730d-419d-ae60-e38447db0a92, 4f688a30-85d4-4042-a504-a84f59a1dc38, 792b430a-ca45-4102-b456-c92dbf605892, a2fcdc36-7ec9-4e26-b4e7-fb51103655e0, aeac8e11-4738-4655-a374-c7800b333ad7, ca653e6a-045e-4849-acc9-54008d8e9bfa, d64ce820-c1e1-41ee-89b6-c0cdfa402334
+  EXECUTED IDs: 06eca5a1-52a2-4d1c-a739-1914d630ed25, 2dce125c-4649-4d31-ae43-8341f79536d3, 4cf47b4b-730d-419d-ae60-e38447db0a92, 4f688a30-85d4-4042-a504-a84f59a1dc38, 792b430a-ca45-4102-b456-c92dbf605892, a2fcdc36-7ec9-4e26-b4e7-fb51103655e0, aeac8e11-4738-4655-a374-c7800b333ad7, ca653e6a-045e-4849-acc9-54008d8e9bfa, d64ce820-c1e1-41ee-89b6-c0cdfa402334
+  HELD∩EXECUTED∩COMPILED IDs: 06eca5a1-52a2-4d1c-a739-1914d630ed25, 2dce125c-4649-4d31-ae43-8341f79536d3, 4cf47b4b-730d-419d-ae60-e38447db0a92, 4f688a30-85d4-4042-a504-a84f59a1dc38, 792b430a-ca45-4102-b456-c92dbf605892, a2fcdc36-7ec9-4e26-b4e7-fb51103655e0, aeac8e11-4738-4655-a374-c7800b333ad7, ca653e6a-045e-4849-acc9-54008d8e9bfa, d64ce820-c1e1-41ee-89b6-c0cdfa402334
+>>> Registry: /Users/erfanarvan/daikonplusplus/build/daikonpp_registry.jsonl
+>>> Run log: /Users/erfanarvan/daikonplusplus/build/daikonpp_work/src-20251024-133426/daikonpp-run.log
+>>> Keeping working copy (DP_KEEP_WORK=1): /Users/erfanarvan/daikonplusplus/build/daikonpp_work/src-20251024-133426

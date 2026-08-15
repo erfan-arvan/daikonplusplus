@@ -2,7 +2,11 @@ plugins {
     id 'com.diffplug.spotless' version '6.25.0'
     id 'application'
     id 'org.checkerframework' version '0.6.56'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
+
+group = 'edu.njit.jerse'
+version = '0.1.0'
 
 repositories {
     mavenCentral()
@@ -20,13 +24,69 @@ application {
 
 dependencies {
     implementation 'com.google.guava:guava:32.1.1-jre'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    implementation 'com.github.javaparser:javaparser-core:3.26.2'
+
+    implementation 'com.openai:openai-java:3.0.3'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.18.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.18.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.18.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2'
+
+    implementation 'org.slf4j:slf4j-api:2.0.16'
+    runtimeOnly  'org.slf4j:slf4j-simple:2.0.16'
+
     checkerFramework 'org.checkerframework:checker:3.49.5'
-    compileOnly 'org.checkerframework:checker-qual:3.49.5'
+    compileOnly      'org.checkerframework:checker-qual:3.49.5'
+
+    // --- TEST ONLY ---
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation "org.mockito:mockito-core:5.13.0"
 }
 
-test {
+// In build.gradle
+
+tasks.test {
     useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+    }
+
+    // Prefer repo-stable cassettes under src/test/cassettes.
+    def cassetteDir = providers
+            .environmentVariable("DP_LLM_CASSETTES")
+            .orElse("$projectDir/src/test/cassettes")
+            .get()
+
+    environment "DP_LLM_CASSETTES", cassetteDir
+    environment "DP_DISABLE_REAL_LLM", "1"   // offline, pure replay
+}
+
+// Convenience task to run only the E2E regression class
+tasks.register("e2e", Test) {
+    useJUnitPlatform()
+    include "**/PipelineE2ETest.class"
+    environment "DP_DISABLE_REAL_LLM", "1"
+    workingDir = rootDir
+}
+
+tasks.named("e2e").configure {
+    def cassetteDir = providers
+            .environmentVariable("DP_LLM_CASSETTES")
+            .orElse("$projectDir/src/test/cassettes")
+            .get()
+
+    environment "DP_LLM_CASSETTES", cassetteDir
+    environment "DP_DISABLE_REAL_LLM", "1"
+}
+
+
+tasks.withType(Test).configureEach {
+    workingDir = rootDir
 }
 
 spotless {
@@ -41,10 +101,24 @@ checkerFramework {
         'org.checkerframework.checker.nullness.NullnessChecker',
         'org.checkerframework.checker.interning.InterningChecker'
     ]
-    
-    // Exclude test files from analysis
     excludeTests = true
 }
 
-// Automatically apply formatting when building
-build.dependsOn 'spotlessApply'
+// Run Spotless before every Java compile/test task
+tasks.withType(JavaCompile).configureEach { dependsOn tasks.named("spotlessApply") }
+tasks.withType(Test).configureEach { dependsOn tasks.named("spotlessApply") }
+
+tasks.named("jar") { configure { enabled = false } }
+
+tasks.named("assemble") { dependsOn tasks.named("shadowJar") }
+
+// shadow (fat JAR)
+tasks.named('shadowJar') {
+    archiveBaseName.set('daikonplusplus')
+    archiveVersion.set('')
+    archiveClassifier.set('')
+    manifest { attributes 'Main-Class': application.mainClass.get() }
+    dependsOn tasks.test // ensure tests (replay) pass before packaging
+}
+
+build.dependsOn tasks.named('shadowJar')
