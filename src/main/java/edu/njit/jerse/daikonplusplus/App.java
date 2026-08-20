@@ -4,6 +4,7 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.*;
 import edu.njit.jerse.daikonplusplus.config.*;
+import edu.njit.jerse.daikonplusplus.filter.TestFailureLogParser;
 import edu.njit.jerse.daikonplusplus.filter.TestInvariantFilter;
 import edu.njit.jerse.daikonplusplus.inject.DpRuntimeWriter;
 import edu.njit.jerse.daikonplusplus.inject.FileWriteCoordinator;
@@ -24,6 +25,8 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Entry point for the Daikon++ pipeline.
@@ -84,10 +87,6 @@ import java.util.concurrent.*;
  */
 public final class App {
 
-  private static final DpConfig BASE_CFG = DpConfig.fromEnv();
-
-  private static final boolean DEBUG = BASE_CFG.debug();
-
   private enum ExecMode {
     NATIVE,
     EXTERNAL_PROJECT
@@ -96,17 +95,28 @@ public final class App {
   private static final java.util.Set<String> RUN_DEDUP =
       java.util.concurrent.ConcurrentHashMap.newKeySet();
 
+  public static final class FilterStats {
+    public final AtomicLong rawFromLlm = new AtomicLong();
+    public final AtomicLong dropEmpty = new AtomicLong();
+    public final AtomicLong dropParse = new AtomicLong();
+    public final AtomicLong dropQuality = new AtomicLong();
+    public final AtomicLong dropPerPointDedup = new AtomicLong();
+    public final AtomicLong dropMaxK = new AtomicLong();
+    public final AtomicLong dropRunDedup = new AtomicLong();
+    public final AtomicLong dropRegistryDedup = new AtomicLong();
+  }
+
   private static String keyFor(ProgramPoint pt, String expr) {
     String norm = expr.trim().replaceAll("\\s+", " "); // normalize whitespace
     return pt.kind().name() + "|" + pt.elementId().toString() + "|" + norm;
   }
 
   public static void main(String[] args) throws Exception {
+    // Read config fresh each invocation so in-process test runs pick up updated system properties.
+    final DpConfig BASE_CFG = DpConfig.fromEnv();
     // reset per pipeline invocation
     RUN_DEDUP.clear();
-    if (BASE_CFG.debug()) {
-      BASE_CFG.printSummary();
-    }
+    BASE_CFG.printSummary();
 
     final Path externalMainCompileScript =
         Optional.ofNullable(BASE_CFG.compileMainScript()).map(Path::of).orElse(null);
@@ -319,7 +329,7 @@ public final class App {
       // NOT the entire project root
 
       // CORRECT: copy the ENTIRE project
-      workProjectRoot = prepareWorkingCopy(userProjectRoot);
+      workProjectRoot = prepareWorkingCopy(userProjectRoot, BASE_CFG);
 
       // Main/test roots are SUBPATHS inside the copied project
       mainSrcRoot = workProjectRoot.resolve(relMainSrc).normalize();
@@ -347,8 +357,8 @@ public final class App {
 
     } else {
       // Native behavior: copy source trees (exactly as before)
-      mainSrcRoot = prepareWorkingCopy(userMainSrcRoot);
-      testSrcRoot = splitMode ? prepareWorkingCopy(userTestSrcRoot) : mainSrcRoot;
+      mainSrcRoot = prepareWorkingCopy(userMainSrcRoot, BASE_CFG);
+      testSrcRoot = splitMode ? prepareWorkingCopy(userTestSrcRoot, BASE_CFG) : mainSrcRoot;
       workProjectRoot =
           mainSrcRoot; // non-null placeholder; not used as "project root" in native mode
 
@@ -434,8 +444,10 @@ public final class App {
     final CompletionService<List<InvariantRecord>> ecs = new ExecutorCompletionService<>(pool);
     final List<Future<List<InvariantRecord>>> allFutures = new ArrayList<>();
 
+    final FilterStats filterStats = new FilterStats();
     for (ProgramPoint pt : points) {
-      allFutures.add(ecs.submit(() -> processPoint(pt, mainSrcRoot, llm, registry)));
+      allFutures.add(
+          ecs.submit(() -> processPoint(pt, mainSrcRoot, llm, registry, BASE_CFG, filterStats)));
     }
 
     final Map<Path, List<InvariantRecord>> byFile = new ConcurrentHashMap<>();
@@ -495,7 +507,33 @@ public final class App {
     }
     pool.shutdownNow();
 
-    System.out.println(">>> Proposed invariant expressions (post-parse filter): " + totalSpecs);
+    long passedLlm =
+        filterStats.rawFromLlm.get()
+            - filterStats.dropEmpty.get()
+            - filterStats.dropParse.get()
+            - filterStats.dropQuality.get()
+            - filterStats.dropPerPointDedup.get()
+            - filterStats.dropMaxK.get();
+    long totalDropped =
+        filterStats.dropEmpty.get()
+            + filterStats.dropParse.get()
+            + filterStats.dropQuality.get()
+            + filterStats.dropPerPointDedup.get()
+            + filterStats.dropMaxK.get()
+            + filterStats.dropRunDedup.get()
+            + filterStats.dropRegistryDedup.get();
+    System.out.println(">>> LLM filter breakdown:");
+    System.out.println("    raw from LLM:              " + filterStats.rawFromLlm.get());
+    System.out.println("    dropped (empty expr):      " + filterStats.dropEmpty.get());
+    System.out.println("    dropped (parse fail):      " + filterStats.dropParse.get());
+    System.out.println("    dropped (quality filter):  " + filterStats.dropQuality.get());
+    System.out.println("    dropped (per-point dedup): " + filterStats.dropPerPointDedup.get());
+    System.out.println("    dropped (maxK cap):        " + filterStats.dropMaxK.get());
+    System.out.println("    → passed LLM filters:      " + passedLlm);
+    System.out.println("    dropped (run dedup):       " + filterStats.dropRunDedup.get());
+    System.out.println("    dropped (registry dedup):  " + filterStats.dropRegistryDedup.get());
+    System.out.println("    → total dropped:           " + totalDropped);
+    System.out.println("    → proposed (into injection): " + totalSpecs);
     System.out.println(">>> Files to inject (MAIN only): " + byFile.size());
 
     long injectEntry =
@@ -549,6 +587,12 @@ public final class App {
     // --- Phase 3: compile and run ---
 
     final Path runLog;
+    // Set in external-project mode; null in native mode and when /dev/shm is unavailable.
+    Path shmDir = null;
+    // Set when BASE_CFG.enableTestFilter() catches a recognized test failure live, as it streams
+    // from *any* run (including the very first one) — rather than discovering it only after that
+    // run finishes by scanning its completed log.
+    Optional<TestFailureLogParser.FailureMatch> onlineDetectedFailure = Optional.empty();
 
     if (execMode == ExecMode.EXTERNAL_PROJECT) {
       // Run from PROJECT ROOT so ./gradlew works
@@ -582,22 +626,45 @@ public final class App {
       // Recovery loop: run the external test script, removing stuck invariants until
       // the suite completes normally.
       //
-      // On both STALE_KILLED and HARD_TIMEOUT the last executed invariant is identified
-      // from the run log and its region is removed from source before restarting.
-      // Stale detection (fixed interval, default 15 min) catches invariants whose UUID
-      // has not changed between two consecutive checks — they are in an infinite loop.
-      // Hard timeout is a coarser fallback for when a stuck invariant is reached too
-      // close to the deadline for stale to observe it twice; on each hard timeout the
-      // limit doubles (capped at maxTimeoutMinutes) so the suite gets progressively
-      // more room.  There is no cap on the number of removals.
+      // Shm-based invariant tracking: each child JVM receives DP_SHM_DIR pointing to a
+      // shared-memory directory. Execution events are written as files (shm/ex/<uuid>)
+      // and survive SIGKILL. On JVM restart, DpRuntime pre-populates SEEN from shm/ex/
+      // so already-checked invariants are skipped without re-evaluation.
       //
-      // All removed-stale UUIDs are recorded in .daikonpp-stale-removed.txt for stats.
+      // On STALE_KILLED: the stuck UUID is read from shm/current/ (written before eval,
+      // deleted after) and added to the disabled list. Since it's also in shm/ex/ the
+      // SEEN guard would skip it anyway, but DISABLED ensures it's skipped even if shm
+      // is unavailable on a future run.
+      //
+      // On HARD_TIMEOUT: only disable if readCurrentInvariantFromShm finds a stuck UUID
+      // in shm/current/; if nothing is found (process was between invariant checks) just
+      // rerun — SEEN pre-population ensures the suite makes forward progress.
+      //
+      // All disabled UUIDs are recorded in .daikonpp-stale-removed.txt for stats.
       final String fullRunCp = "";
       long currentTimeoutMinutes = JavaRunner.EXTERNAL_RUN_TIMEOUT_MINUTES;
       final long maxTimeoutMinutes = BASE_CFG.maxTimeoutMinutes();
       final long staleCheckMinutes = BASE_CFG.staleCheckMinutes();
       long currentStaleCheckMinutes = staleCheckMinutes;
       final long maxStaleCheckMinutes = 10L;
+
+      // Auto-detect shm directory: DP_SHM_BASE env, or /dev/shm if writable
+      {
+        String shmBase = System.getenv("DP_SHM_BASE");
+        if (shmBase != null && !shmBase.isBlank()) {
+          shmDir = Path.of(shmBase).resolve("daikonpp-" + ProcessHandle.current().pid());
+        } else {
+          Path devShm = Path.of("/dev/shm");
+          if (Files.isDirectory(devShm) && Files.isWritable(devShm)) {
+            shmDir = devShm.resolve("daikonpp-" + ProcessHandle.current().pid());
+          }
+        }
+        if (shmDir != null) {
+          System.out.println("[DP] SHM directory: " + shmDir);
+        } else {
+          System.out.println("[DP] SHM not available; using log-only fallback");
+        }
+      }
 
       final Set<UUID> staleRemovedIds = new java.util.LinkedHashSet<>();
       final Path staleRecordFile = workProjectRoot.resolve(".daikonpp-stale-removed.txt");
@@ -615,54 +682,123 @@ public final class App {
               "[DP] Archived run " + (runIteration - 1) + " log → " + archivedLog.getFileName());
         }
 
+        // With test filtering enabled, every run — including this very first one — is watched
+        // online for a recognized test-failure signature as its output streams, so a failure is
+        // caught (and the run killed) the instant it appears rather than only discovered after
+        // the run finishes and its completed log is scanned.
+        boolean watchForAnyFailure = BASE_CFG.enableTestFilter();
+        AtomicReference<TestFailureLogParser.FailureMatch> matchedFailureOut =
+            watchForAnyFailure ? new AtomicReference<>() : null;
+
         JavaRunner.RunResult result =
-            JavaRunner.runExternalScript(
-                resolvedScript,
-                workProjectRoot,
-                fullRunCp,
-                runLog,
-                currentTimeoutMinutes,
-                currentStaleCheckMinutes,
-                disabledFile);
+            watchForAnyFailure
+                ? JavaRunner.runExternalScript(
+                    resolvedScript,
+                    workProjectRoot,
+                    fullRunCp,
+                    runLog,
+                    currentTimeoutMinutes,
+                    currentStaleCheckMinutes,
+                    disabledFile,
+                    shmDir,
+                    null,
+                    true,
+                    matchedFailureOut)
+                : JavaRunner.runExternalScript(
+                    resolvedScript,
+                    workProjectRoot,
+                    fullRunCp,
+                    runLog,
+                    currentTimeoutMinutes,
+                    currentStaleCheckMinutes,
+                    disabledFile,
+                    shmDir);
+
+        if (result == JavaRunner.RunResult.TEST_FAILURE_KILLED) {
+          onlineDetectedFailure =
+              matchedFailureOut == null
+                  ? Optional.empty()
+                  : Optional.ofNullable(matchedFailureOut.get());
+          System.out.println(
+              "[DP] Test failure detected online during run "
+                  + runIteration
+                  + " — stopping this run immediately: "
+                  + onlineDetectedFailure.map(TestFailureLogParser.FailureMatch::line).orElse("?"));
+          break;
+        }
 
         if (result == JavaRunner.RunResult.NORMAL) break;
 
-        // Both STALE_KILLED and HARD_TIMEOUT: identify and remove the stuck invariant
-        String cause =
-            result == JavaRunner.RunResult.HARD_TIMEOUT
-                ? "Hard timeout (" + currentTimeoutMinutes + " min)"
-                : "Stale kill (" + currentStaleCheckMinutes + " min no progress)";
-        System.err.println("[DP] " + cause + " — removing last executed invariant");
+        // Identify stuck invariant via shm/current/ (written before eval, deleted after).
+        // Fall back to log-based detection if shm not available.
+        Optional<UUID> stuckId =
+            (shmDir != null)
+                ? LogParser.readCurrentInvariantFromShm(shmDir)
+                : LogParser.readLastExecutedId(runLog);
 
-        Optional<UUID> stuckId = LogParser.readLastExecutedId(runLog);
-        if (stuckId.isEmpty()) {
-          System.err.println(
-              "[DP] No INV_EXD in log; cannot identify stuck invariant. Proceeding with partial log.");
-          break;
-        }
-        System.out.println("[DP] Disabling stuck invariant: " + stuckId.get());
-        JavaRunner.disableInvariant(disabledFile, stuckId.get());
+        if (result == JavaRunner.RunResult.STALE_KILLED) {
+          System.err.println("[DP] Stale kill (" + currentStaleCheckMinutes + " min no progress)");
+          if (stuckId.isPresent()) {
+            System.out.println("[DP] Disabling stuck invariant: " + stuckId.get());
+            JavaRunner.disableInvariant(disabledFile, stuckId.get());
+            // Clean up the current/ marker so next iteration doesn't re-detect it
+            if (shmDir != null) {
+              try {
+                Files.deleteIfExists(shmDir.resolve("current").resolve(stuckId.get().toString()));
+              } catch (IOException ignored) {
+              }
+            }
+            staleRemovedIds.add(stuckId.get());
+            try {
+              Files.writeString(
+                  staleRecordFile,
+                  stuckId.get().toString() + "\n",
+                  java.nio.file.StandardOpenOption.CREATE,
+                  java.nio.file.StandardOpenOption.APPEND);
+            } catch (IOException ignore) {
+            }
+            System.out.println(
+                "[DP] Stale record updated: " + staleRemovedIds.size() + " invariant(s) recorded");
+          } else {
+            System.err.println(
+                "[DP] No stuck invariant identified — SEEN pre-population will skip "
+                    + "already-checked invariants on rerun");
+          }
+          currentStaleCheckMinutes = Math.min(currentStaleCheckMinutes * 2, maxStaleCheckMinutes);
+          System.out.println("[DP] Next stale threshold: " + currentStaleCheckMinutes + " min");
 
-        staleRemovedIds.add(stuckId.get());
-        try {
-          java.nio.file.Files.writeString(
-              staleRecordFile,
-              stuckId.get().toString() + "\n",
-              java.nio.file.StandardOpenOption.CREATE,
-              java.nio.file.StandardOpenOption.APPEND);
-        } catch (IOException ignore) {
-        }
-        System.out.println(
-            "[DP] Stale record updated: " + staleRemovedIds.size() + " invariant(s) recorded");
-
-        if (result == JavaRunner.RunResult.HARD_TIMEOUT) {
+        } else { // HARD_TIMEOUT
+          System.err.println("[DP] Hard timeout (" + currentTimeoutMinutes + " min)");
+          if (stuckId.isPresent()) {
+            // A specific invariant was mid-evaluation when the timeout fired — disable it
+            System.out.println("[DP] Disabling stuck invariant: " + stuckId.get());
+            JavaRunner.disableInvariant(disabledFile, stuckId.get());
+            if (shmDir != null) {
+              try {
+                Files.deleteIfExists(shmDir.resolve("current").resolve(stuckId.get().toString()));
+              } catch (IOException ignored) {
+              }
+            }
+            staleRemovedIds.add(stuckId.get());
+            try {
+              Files.writeString(
+                  staleRecordFile,
+                  stuckId.get().toString() + "\n",
+                  java.nio.file.StandardOpenOption.CREATE,
+                  java.nio.file.StandardOpenOption.APPEND);
+            } catch (IOException ignore) {
+            }
+          } else {
+            // Timeout between invariant checks: SEEN pre-population ensures the suite
+            // makes forward progress without disabling any invariant
+            System.out.println(
+                "[DP] No invariant mid-evaluation at timeout — rerunning with SEEN recovery");
+          }
           currentTimeoutMinutes = Math.min(currentTimeoutMinutes * 2, maxTimeoutMinutes);
           System.out.println("[DP] Next timeout: " + currentTimeoutMinutes + " min");
+          currentStaleCheckMinutes = Math.min(currentStaleCheckMinutes * 2, maxStaleCheckMinutes);
+          System.out.println("[DP] Next stale threshold: " + currentStaleCheckMinutes + " min");
         }
-        // Both events double the stale threshold so a legitimately slow test suite
-        // isn't killed prematurely after the first removal.
-        currentStaleCheckMinutes = Math.min(currentStaleCheckMinutes * 2, maxStaleCheckMinutes);
-        System.out.println("[DP] Next stale threshold: " + currentStaleCheckMinutes + " min");
       }
 
       System.out.println(">>> Stale-removed invariants this run: " + staleRemovedIds.size());
@@ -732,11 +868,32 @@ public final class App {
       System.out.println(">>> Run log — EXIT events: " + exitLines);
     }
 
-    // --- Phase 4: parse run log and generate the results (same as before) ---
+    // --- Phase 4: parse run log and generate the results ---
+    // Prefer shm-based reading in external mode (survives SIGKILL; more complete than log).
+    // Fall back to log-based reading for native mode or when shm is unavailable.
 
-    final Set<UUID> falsified = LogParser.readFalsifiedIds(runLog);
-    final Set<UUID> executed = LogParser.readExecutedIds(runLog);
+    final Set<UUID> falsified;
+    final Set<UUID> executed;
+    if (execMode == ExecMode.EXTERNAL_PROJECT
+        && shmDir != null
+        && Files.isDirectory(shmDir.resolve("ex"))) {
+      executed = LogParser.readExecutedIdsFromShm(shmDir);
+      falsified = LogParser.readFalsifiedIdsFromShm(shmDir);
+      // Also merge any sidecar events from normally-exiting JVMs (belt-and-suspenders)
+      executed.addAll(LogParser.readExecutedIds(runLog));
+      falsified.addAll(LogParser.readFalsifiedIds(runLog));
+      System.out.println(
+          "[DP] Results read from shm ("
+              + executed.size()
+              + " executed, "
+              + falsified.size()
+              + " falsified) + log fallback");
+    } else {
+      falsified = LogParser.readFalsifiedIds(runLog);
+      executed = LogParser.readExecutedIds(runLog);
+    }
     final Set<UUID> nonCompiled = LogParser.readNonCompiledIds(mainSrcRoot);
+    final Set<UUID> disabledByStale = readDisabledIds(disabledFile);
 
     final Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> all =
         parseRegistryLite(cfg.registryPath());
@@ -779,6 +936,8 @@ public final class App {
     Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> failedCompileByMethod =
         new TreeMap<>();
 
+    int disabledStaleNeverExecCount = 0;
+
     for (var r : all.values()) {
       boolean isCompiled = compiledIds.contains(r.id);
       boolean wasExecuted = executed.contains(r.id);
@@ -800,6 +959,9 @@ public final class App {
         falsByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
       } else if (isCompiled && !wasExecuted) {
         neverExecByMethod.computeIfAbsent(r.element, __ -> new ArrayList<>()).add(r);
+        if (disabledByStale.contains(r.id)) {
+          disabledStaleNeverExecCount++;
+        }
       }
     }
 
@@ -808,6 +970,7 @@ public final class App {
     int neverExecCount = neverExecByMethod.values().stream().mapToInt(List::size).sum();
     int compiledCount = compiledByMethod.values().stream().mapToInt(List::size).sum();
     int executedCount = execByMethod.values().stream().mapToInt(List::size).sum();
+    int unreachedCount = neverExecCount - disabledStaleNeverExecCount;
 
     System.out.println(
         ">>> Totals: "
@@ -824,7 +987,12 @@ public final class App {
             + " observed-held="
             + heldCount
             + " never-executed="
-            + neverExecCount);
+            + neverExecCount
+            + " (disabled-stale="
+            + disabledStaleNeverExecCount
+            + " unreached="
+            + unreachedCount
+            + ")");
 
     System.out.println(">>> OBSERVED-HELD invariants by method (ENTRY & EXIT):");
     for (var e : heldByMethod.entrySet()) {
@@ -888,14 +1056,23 @@ public final class App {
               cfg.registryPath(),
               runLog,
               resolvedScript,
-              BASE_CFG.testFilterMethodBatchSize());
+              BASE_CFG.testFilterMethodBatchSize(),
+              JavaRunner.EXTERNAL_RUN_TIMEOUT_MINUTES,
+              BASE_CFG.staleCheckMinutes(),
+              onlineDetectedFailure,
+              shmDir);
+
+      System.out.println(
+          ">>> TEST-FILTER: "
+              + filterResult.removedIds.size()
+              + " invariant(s) disabled due to test failures");
 
       System.out.println(">>> TEST-FILTER REMOVED IDS:");
       for (UUID id : filterResult.removedIds.stream().sorted().toList()) {
         System.out.println("  " + id);
       }
 
-      System.out.println(">>> TEST-FILTER REMOVED METHOD BATCHES:");
+      System.out.println(">>> TEST-FILTER REMOVAL REASONS (one per disabled invariant):");
       for (String m : filterResult.removedMethodBatches) {
         System.out.println("  " + m);
       }
@@ -903,8 +1080,27 @@ public final class App {
       System.out.println(">>> TEST-FILTER FINAL PROJECT: " + filterResult.finalProjectRoot);
       System.out.println(">>> TEST-FILTER FINAL LOG: " + filterResult.finalRunLog);
 
-      Set<UUID> filteredFalsified = LogParser.readFalsifiedIds(filterResult.finalRunLog);
-      Set<UUID> filteredExecuted = LogParser.readExecutedIds(filterResult.finalRunLog);
+      // Prefer shm-based reading (survives SIGKILL; more complete than the log's shutdown-hook
+      // sidecar, which never runs on a stale/hard-timeout-killed final rerun) — same pattern used
+      // for the initial run above.
+      final Set<UUID> filteredFalsified;
+      final Set<UUID> filteredExecuted;
+      if (filterResult.finalShmDir != null
+          && Files.isDirectory(filterResult.finalShmDir.resolve("ex"))) {
+        filteredExecuted = LogParser.readExecutedIdsFromShm(filterResult.finalShmDir);
+        filteredFalsified = LogParser.readFalsifiedIdsFromShm(filterResult.finalShmDir);
+        filteredExecuted.addAll(LogParser.readExecutedIds(filterResult.finalRunLog));
+        filteredFalsified.addAll(LogParser.readFalsifiedIds(filterResult.finalRunLog));
+        System.out.println(
+            "[DP] Filtered results read from shm ("
+                + filteredExecuted.size()
+                + " executed, "
+                + filteredFalsified.size()
+                + " falsified) + log fallback");
+      } else {
+        filteredFalsified = LogParser.readFalsifiedIds(filterResult.finalRunLog);
+        filteredExecuted = LogParser.readExecutedIds(filterResult.finalRunLog);
+      }
       Set<UUID> filteredNonCompiled = LogParser.readNonCompiledIds(filterResult.finalMainSrcRoot);
 
       System.out.println(">>> TEST-FILTER FINAL TOTALS:");
@@ -912,6 +1108,65 @@ public final class App {
       System.out.println("  falsified=" + filteredFalsified.size());
       System.out.println("  non-compiled=" + filteredNonCompiled.size());
       System.out.println("  removed-by-test-filter=" + filterResult.removedIds.size());
+      System.out.println(
+          "  final test run: "
+              + (filterResult.finalExitCode == 0 ? "PASSED" : "FAILED")
+              + " (exit="
+              + filterResult.finalExitCode
+              + ")");
+
+      // Full post-filter breakdown, in the same shape as the pre-filter ">>> Totals:" line
+      // above, but recomputed against the final (filtered) run so it reflects invariants
+      // disabled due to test failures the same way the pre-filter line reflects
+      // stale/timeout-disabled invariants.
+      Set<UUID> filteredCompiledIds = new HashSet<>(all.keySet());
+      filteredCompiledIds.removeAll(filteredNonCompiled);
+
+      int filteredHeldCount = 0;
+      int filteredFalsCount = 0;
+      int filteredNeverExecCount = 0;
+      int disabledTestFilterNeverExecCount = 0;
+
+      for (UUID id : all.keySet()) {
+        boolean isCompiled = filteredCompiledIds.contains(id);
+        boolean wasExecuted = filteredExecuted.contains(id);
+        boolean wasFalsified = filteredFalsified.contains(id);
+
+        if (wasExecuted && !wasFalsified) {
+          filteredHeldCount++;
+        } else if (wasFalsified) {
+          filteredFalsCount++;
+        } else if (isCompiled && !wasExecuted) {
+          filteredNeverExecCount++;
+          if (filterResult.removedIds.contains(id)) {
+            disabledTestFilterNeverExecCount++;
+          }
+        }
+      }
+
+      int filteredUnreachedCount = filteredNeverExecCount - disabledTestFilterNeverExecCount;
+
+      System.out.println(
+          ">>> TEST-FILTER Totals: "
+              + "all="
+              + all.size()
+              + " compiled="
+              + filteredCompiledIds.size()
+              + " non-compiled="
+              + filteredNonCompiled.size()
+              + " executed="
+              + filteredExecuted.size()
+              + " falsified="
+              + filteredFalsCount
+              + " observed-held="
+              + filteredHeldCount
+              + " never-executed="
+              + filteredNeverExecCount
+              + " (disabled-test-filter="
+              + disabledTestFilterNeverExecCount
+              + " unreached="
+              + filteredUnreachedCount
+              + ")");
     }
 
     if (!BASE_CFG.keepWork()) {
@@ -925,6 +1180,10 @@ public final class App {
             deleteTree(testSrcRoot);
           }
           System.out.println(">>> Cleaned working copy(ies)");
+        }
+        if (shmDir != null && Files.exists(shmDir)) {
+          deleteTree(shmDir);
+          System.out.println(">>> Cleaned shm directory: " + shmDir);
         }
       } catch (IOException ioe) {
         System.err.println("Warning: failed to delete working copy: " + ioe.getMessage());
@@ -971,7 +1230,12 @@ public final class App {
    * @return a list of newly generated invariant records (may be empty)
    */
   private static List<InvariantRecord> processPoint(
-      ProgramPoint point, Path srcRoot, LlmInvariantGenerator llm, InvariantRegistry registry) {
+      ProgramPoint point,
+      Path srcRoot,
+      LlmInvariantGenerator llm,
+      InvariantRegistry registry,
+      DpConfig BASE_CFG,
+      FilterStats stats) {
 
     try {
       Map<String, String> inScope = ContextUtils.extractScope(point, srcRoot);
@@ -1000,12 +1264,14 @@ public final class App {
 
       String callSite =
           enabled.contains(ContextKind.CALL_SITE)
-              ? ContextUtils.extractCallSiteContext(point, srcRoot).orElse("")
+              ? ContextUtils.extractCallSiteContext(point, srcRoot, BASE_CFG.callSitesIndexPath())
+                  .orElse("")
               : "";
 
       String ioExamples =
           enabled.contains(ContextKind.IO_EXAMPLES)
-              ? ContextUtils.extractIOExamples(point, srcRoot).orElse("")
+              ? ContextUtils.extractIOExamples(point, srcRoot, BASE_CFG.ioExamplesIndexPath())
+                  .orElse("")
               : "";
 
       String calleeDoc =
@@ -1023,7 +1289,8 @@ public final class App {
               typeDoc,
               callSite,
               ioExamples,
-              calleeDoc);
+              calleeDoc,
+              stats);
 
       if (specs.isEmpty()) return List.of();
 
@@ -1034,13 +1301,18 @@ public final class App {
       for (InvariantSpec spec : specs) {
         // run-level dedup
         String key = keyFor(point, spec.expression());
-        if (!RUN_DEDUP.add(key)) continue;
+        if (!RUN_DEDUP.add(key)) {
+          stats.dropRunDedup.incrementAndGet();
+          continue;
+        }
 
         InvariantRecord rec =
             new InvariantRecord(java.util.UUID.randomUUID(), spec, point, fileRel, now);
 
         // registry-level dedup
-        registry.appendIfNew(rec);
+        if (!registry.appendIfNew(rec)) {
+          stats.dropRegistryDedup.incrementAndGet();
+        }
         out.add(rec);
       }
 
@@ -1061,6 +1333,23 @@ public final class App {
    * @param registryJsonl path to the registry file (JSONL format)
    * @return map from invariant UUID to lightweight record
    */
+  private static Set<UUID> readDisabledIds(Path disabledFile) {
+    Set<UUID> out = new HashSet<>();
+    if (!Files.exists(disabledFile)) return out;
+    try {
+      for (String line : Files.readAllLines(disabledFile)) {
+        if (line.isBlank()) continue;
+        try {
+          out.add(UUID.fromString(line.trim()));
+        } catch (IllegalArgumentException ignore) {
+        }
+      }
+    } catch (IOException e) {
+      System.err.println("[DP] Warning: could not read disabled file: " + e.getMessage());
+    }
+    return out;
+  }
+
   private static Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> parseRegistryLite(
       Path registryJsonl) {
     Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> out = new HashMap<>();
@@ -1115,7 +1404,7 @@ public final class App {
    * @return path to the newly created working copy
    * @throws IOException if copying fails
    */
-  private static Path prepareWorkingCopy(Path userSrcRoot) throws IOException {
+  private static Path prepareWorkingCopy(Path userSrcRoot, DpConfig BASE_CFG) throws IOException {
     String base = BASE_CFG.workDir();
     Path baseDir = Path.of(base).toAbsolutePath().normalize();
     Files.createDirectories(baseDir);
