@@ -348,7 +348,7 @@ Values:
 | Variable | Default |
 |----------|--------|
 | `DP_TEST_FILTER` | 0 |
-| `DP_TEST_FILTER_METHOD_BATCH_SIZE` | 1 |
+| `DP_TEST_FILTER_METHOD_BATCH_SIZE` | 1 (initial `ddmin` chunk count, clamped to ≥2) |
 
 ---
 
@@ -382,19 +382,21 @@ When enabled (`DP_TEST_FILTER=1` in external mode), Daikon++ performs an additio
 
 ### Algorithm
 
-1. Take a snapshot of the injected project
-2. Extract **executed invariant IDs** from the initial run
-3. Map invariants to their **containing methods**
-4. Group methods into batches (todo: make it smarter)
-5. Perform a **sliding-window search** over contiguous sequences of batches:
-    - Start with window size `k = 1`
-    - Disable all invariants in the selected window of batches
-    - Re-run the test suite
-    - If tests fail, slide the window forward
-    - If no window of size `k` succeeds, increase `k`
-    - Stop at the first configuration that makes tests pass
+Daikon++ isolates the culprit invariants using [delta debugging](https://www.debuggingbook.org/html/DeltaDebugger.html) (`ddmin`):
 
-6. Produce the final results by removing those invariants.
+1. Take a snapshot of the injected project
+2. Extract **executed invariant IDs** from the initial run, and the recognized failure signature (if any) from its log
+3. If no failure was recognized, or no executed invariant has a matching source block, stop — nothing to isolate
+4. **Sanity trial**: disable every candidate invariant and re-run; if the failure still reproduces, it isn't caused by any injected invariant (e.g. a build/lint failure) — stop, not attributable
+5. **`ddmin` search**: starting from the full candidate set, repeatedly test shrinking subsets and their complements against fresh copies of the project:
+    - Split the current candidate set into `n` chunks (`n` starts at `DP_TEST_FILTER_METHOD_BATCH_SIZE`, clamped to ≥2)
+    - Try each chunk alone (all other candidates disabled); if the *same* failure reproduces, narrow to that chunk and restart at `n = 2`
+    - Otherwise try each chunk's complement (that chunk disabled, the rest enabled); if the *same* failure reproduces, narrow to that complement
+    - If neither narrows the set, double `n` and retry
+    - Stop once `n` reaches the candidate set's size with no further narrowing — the set is 1-minimal
+    - A trial only counts as reproducing the failure if the run fails **and** the first recognized failure in its log matches the original signature — an unrelated/flaky failure elsewhere in the suite is not mistaken for evidence
+
+6. Produce the final result by disabling exactly the isolated 1-minimal culprit set.
 
 ---
 
