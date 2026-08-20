@@ -11,8 +11,15 @@ import java.util.regex.*;
 /**
  * Test-based invariant filtering that removes invariants causing test failures.
  *
- * <p>This class performs a search over groups of invariants (batched by method) and disables them
- * in the injected source until the external test suite passes.
+ * <p>This class isolates the culprit invariants via <a
+ * href="https://www.debuggingbook.org/html/DeltaDebugger.html">delta debugging</a> ({@code ddmin}):
+ * starting from every invariant that executed in the initial run, it repeatedly tests shrinking
+ * subsets (and their complements) against fresh copies of the project, keeping only the failure
+ * signature that matches the original ({@link TestFailureLogParser#isSameFailure}) as evidence of
+ * reproduction, until a 1-minimal culprit set is reached — i.e. one where no single invariant can
+ * be dropped without the failure stopping. Before searching, a sanity trial confirms the failure is
+ * actually attributable to some invariant (disabling every candidate must make it stop
+ * reproducing); otherwise the failure is left alone.
  *
  * <p>The process operates on copies of the project to avoid mutating the original injected code and
  * uses marker-based regions to selectively disable invariants.
@@ -34,15 +41,18 @@ public final class TestInvariantFilter {
    * Executes test-based filtering to identify and remove invariants that break tests.
    *
    * <p>The algorithm: - Takes a snapshot of the injected project - Identifies executed invariants
-   * from the initial run log - Groups invariants by method and batches them - Iteratively disables
-   * batches and reruns tests - Stops when a combination yields a passing test run
+   * from the initial run log and the failure signature they reproduced - Sanity-checks that the
+   * failure is attributable to some invariant - Runs {@code ddmin} delta debugging to isolate a
+   * 1-minimal culprit set - Disables exactly that set in the final result
    *
    * @param injectedProjectRoot root of the project with injected invariants
    * @param mainSrcRoot source root containing instrumented Java files
    * @param registryPath registry mapping invariant IDs to program elements
-   * @param initialRunLog log from the initial execution containing executed invariant IDs
+   * @param initialRunLog log from the initial execution containing executed invariant IDs and, if
+   *     the run failed, the failure to isolate
    * @param runnerScript external test runner script
-   * @param methodBatchSize number of methods per batch during search
+   * @param ddminInitialChunks number of chunks {@code ddmin} splits the candidate pool into at the
+   *     start of its search (clamped to at least 2); classic {@code ddmin} starts at {@code n = 2}
    * @return result object describing the final filtered project and removed invariants
    * @throws Exception if execution fails
    */
@@ -52,92 +62,96 @@ public final class TestInvariantFilter {
       Path registryPath,
       Path initialRunLog,
       Path runnerScript,
-      int methodBatchSize)
+      int ddminInitialChunks)
       throws Exception {
 
-    System.out.println("\n[DP-TEST-FILTER] ===== START TEST-BASED FILTERING =====");
+    System.out.println(
+        "\n[DP-TEST-FILTER] ===== START TEST-BASED FILTERING (delta debugging / ddmin) =====");
 
     Path snapshot = makeSnapshot(injectedProjectRoot);
 
-    Path snapshotMainSrc =
-        snapshot.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
+    Path relMainSrc = injectedProjectRoot.relativize(mainSrcRoot);
+    Path snapshotMainSrc = snapshot.resolve(relMainSrc).normalize();
 
     Map<UUID, String> idToMethod = readRegistryMethods(registryPath);
     Set<UUID> executed = LogParser.readExecutedIds(initialRunLog);
 
     BlockIndex index = scanInvariantBlocks(snapshotMainSrc);
 
-    Map<String, List<UUID>> methodGroups = new TreeMap<>();
-
+    List<UUID> candidates = new ArrayList<>();
     for (UUID id : executed) {
-      String method = idToMethod.get(id);
-      if (method == null) continue;
-      if (!index.blocks.containsKey(id)) continue;
-
-      methodGroups.computeIfAbsent(method, __ -> new ArrayList<>()).add(id);
+      if (index.blocks.containsKey(id)) {
+        candidates.add(id);
+      }
     }
+    candidates.sort(Comparator.comparing(UUID::toString));
 
-    List<List<UUID>> batches = makeMethodBatches(methodGroups, methodBatchSize);
+    String initialLogText =
+        Files.isRegularFile(initialRunLog)
+            ? Files.readString(initialRunLog, StandardCharsets.UTF_8)
+            : "";
+    Optional<TestFailureLogParser.FailureMatch> target =
+        TestFailureLogParser.firstFailure(initialLogText);
 
     System.out.println("[DP-TEST-FILTER] snapshot=" + snapshot);
     System.out.println("[DP-TEST-FILTER] executed ids=" + executed.size());
-    System.out.println("[DP-TEST-FILTER] ids with source blocks=" + index.blocks.size());
-    System.out.println("[DP-TEST-FILTER] method groups=" + methodGroups.size());
-    System.out.println("[DP-TEST-FILTER] batches=" + batches.size());
+    System.out.println(
+        "[DP-TEST-FILTER] candidate ids (executed with source blocks)=" + candidates.size());
+    System.out.println(
+        "[DP-TEST-FILTER] target failure="
+            + target.map(f -> f.format() + " :: " + f.line()).orElse("(none recognized)"));
 
     Set<UUID> removed = new LinkedHashSet<>();
-    List<String> removedMethods = new ArrayList<>();
+    List<String> removedMethodBatches = new ArrayList<>();
+    int[] trialCounter = {0};
 
-    boolean solved = false;
+    if (target.isEmpty()) {
+      System.out.println(
+          "[DP-TEST-FILTER] No recognized failure in the initial run — nothing to isolate");
+    } else if (candidates.isEmpty()) {
+      System.out.println("[DP-TEST-FILTER] No candidate invariants — cannot attribute the failure");
+    } else {
+      boolean stillFailsWithAllDisabled =
+          testConfig(
+              ++trialCounter[0],
+              "sanity-all-disabled",
+              Set.of(),
+              candidates,
+              runnerScript,
+              snapshot,
+              relMainSrc,
+              target.get());
 
-    for (int k = 1; k <= batches.size() && !solved; k++) {
+      if (stillFailsWithAllDisabled) {
+        System.out.println(
+            "[DP-TEST-FILTER] Failure still reproduces with every candidate invariant disabled — "
+                + "not caused by any injected invariant — not attributable");
+      } else {
+        List<UUID> culprits =
+            ddmin(
+                runnerScript,
+                snapshot,
+                relMainSrc,
+                candidates,
+                target.get(),
+                Math.max(2, ddminInitialChunks),
+                trialCounter);
 
-      System.out.println("[DP-TEST-FILTER] Trying k=" + k + " batches");
+        removed.addAll(culprits);
+        removedMethodBatches.add(describeBatch(culprits, idToMethod));
 
-      for (int start = 0; start + k <= batches.size(); start++) {
-
-        List<UUID> combined = new ArrayList<>();
-
-        for (int j = start; j < start + k; j++) {
-          combined.addAll(batches.get(j));
-        }
-
-        Path attempt = freshCopy(snapshot, "test-filter-k" + k + "-start" + start);
-
-        Path attemptMainSrc =
-            attempt.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
-
-        BlockIndex attemptIndex = scanInvariantBlocks(attemptMainSrc);
-
-        disableIds(attemptIndex, combined);
-
-        Path attemptLog = attempt.resolve("daikonpp-test-filter-k" + k + "-start" + start + ".log");
-
-        int exit = runExternalTestRunner(runnerScript, attempt, attemptLog);
-
-        String label = describeBatch(combined, idToMethod);
-
-        if (exit == 0) {
-          System.out.println("[DP-TEST-FILTER] SUCCESS with k=" + k + " → " + label);
-
-          removed.addAll(combined);
-          removedMethods.add(label);
-
-          solved = true;
-          break;
-        } else {
-          System.out.println("[DP-TEST-FILTER] FAIL k=" + k + " start=" + start);
-        }
+        System.out.println(
+            "[DP-TEST-FILTER] delta debugging isolated "
+                + culprits.size()
+                + " culprit invariant(s) after "
+                + trialCounter[0]
+                + " trial(s): "
+                + describeBatch(culprits, idToMethod));
       }
     }
 
-    if (!solved) {
-      System.out.println("[DP-TEST-FILTER] ❌ No combination made tests pass");
-    }
-
     Path finalProject = freshCopy(snapshot, "test-filter-final");
-    Path finalMainSrc =
-        finalProject.resolve(injectedProjectRoot.relativize(mainSrcRoot)).normalize();
+    Path finalMainSrc = finalProject.resolve(relMainSrc).normalize();
 
     BlockIndex finalIndex = scanInvariantBlocks(finalMainSrc);
     disableIds(finalIndex, removed);
@@ -146,57 +160,199 @@ public final class TestInvariantFilter {
     int finalExit = runExternalTestRunner(runnerScript, finalProject, finalLog);
 
     System.out.println("[DP-TEST-FILTER] removed ids=" + removed.size());
+    System.out.println("[DP-TEST-FILTER] trials used=" + trialCounter[0]);
     System.out.println("[DP-TEST-FILTER] final test exit=" + finalExit);
     System.out.println("[DP-TEST-FILTER] final project=" + finalProject);
     System.out.println("[DP-TEST-FILTER] final log=" + finalLog);
     System.out.println("[DP-TEST-FILTER] ===== END TEST-BASED FILTERING =====\n");
 
     return new Result(
-        snapshot, finalProject, finalMainSrc, finalLog, removed, removedMethods, finalExit);
+        snapshot, finalProject, finalMainSrc, finalLog, removed, removedMethodBatches, finalExit);
   }
 
   /**
-   * Groups invariants into batches based on their associated methods.
+   * Classic {@code ddmin}: isolates a 1-minimal subset of {@code deltaInit} whose presence
+   * (enabled, with every other candidate disabled) reproduces {@code target}. {@code deltaInit} is
+   * assumed to reproduce the failure when fully enabled — that's how it was built (from a run that
+   * just reproduced it, confirmed attributable by the caller's sanity trial).
    *
-   * <p>Methods are sorted by decreasing number of invariants, and batches are formed by grouping a
-   * fixed number of methods together.
+   * <p>Split {@code delta} into {@code n} chunks; try each chunk alone; if none reproduces, try
+   * each chunk's complement (i.e. everything except that chunk); if that doesn't narrow things
+   * either, increase granularity (double {@code n}) and retry, until {@code n} reaches {@code
+   * delta.size()} with no further progress — at which point {@code delta} is 1-minimal.
    *
-   * @param methodGroups mapping from method identifier to invariant IDs
-   * @param methodBatchSize number of methods per batch
-   * @return list of invariant batches
+   * @return the isolated minimal culprit set
    */
-  private static List<List<UUID>> makeMethodBatches(
-      Map<String, List<UUID>> methodGroups, int methodBatchSize) {
+  private static List<UUID> ddmin(
+      Path runnerScript,
+      Path snapshot,
+      Path relMainSrc,
+      List<UUID> deltaInit,
+      TestFailureLogParser.FailureMatch target,
+      int initialN,
+      int[] trialCounter)
+      throws IOException, InterruptedException {
 
-    int size = Math.max(1, methodBatchSize);
+    List<UUID> delta = new ArrayList<>(deltaInit);
+    int n = Math.min(initialN, delta.size());
 
-    List<Map.Entry<String, List<UUID>>> methods = new ArrayList<>(methodGroups.entrySet());
+    while (delta.size() > 1) {
+      n = Math.min(n, delta.size());
+      List<List<UUID>> chunks = splitInto(delta, n);
 
-    methods.sort((a, b) -> Integer.compare(b.getValue().size(), a.getValue().size()));
+      boolean reduced = false;
 
-    List<List<UUID>> batches = new ArrayList<>();
+      for (List<UUID> chunk : chunks) {
+        if (chunk.isEmpty()) continue;
 
-    for (int i = 0; i < methods.size(); i += size) {
-      List<UUID> batch = new ArrayList<>();
+        boolean fail =
+            testConfig(
+                ++trialCounter[0],
+                "alone (" + chunk.size() + "/" + delta.size() + ")",
+                new LinkedHashSet<>(chunk),
+                deltaInit,
+                runnerScript,
+                snapshot,
+                relMainSrc,
+                target);
 
-      for (int j = i; j < Math.min(i + size, methods.size()); j++) {
-        batch.addAll(methods.get(j).getValue());
+        if (fail) {
+          delta = new ArrayList<>(chunk);
+          n = 2;
+          reduced = true;
+          break;
+        }
       }
 
-      batches.add(batch);
+      if (!reduced) {
+        for (List<UUID> chunk : chunks) {
+          if (chunk.isEmpty() || chunk.size() == delta.size()) continue;
+
+          List<UUID> complement = new ArrayList<>(delta);
+          complement.removeAll(chunk);
+
+          boolean fail =
+              testConfig(
+                  ++trialCounter[0],
+                  "without (" + chunk.size() + "/" + delta.size() + ")",
+                  new LinkedHashSet<>(complement),
+                  deltaInit,
+                  runnerScript,
+                  snapshot,
+                  relMainSrc,
+                  target);
+
+          if (fail) {
+            delta = complement;
+            n = Math.max(n - 1, 2);
+            reduced = true;
+            break;
+          }
+        }
+      }
+
+      if (!reduced) {
+        if (n >= delta.size()) break; // 1-minimal — no chunk alone or complement helps
+        n = Math.min(n * 2, delta.size());
+      }
     }
 
-    return batches;
+    return delta;
   }
 
   /**
-   * Produces a human-readable description of a batch of invariants.
+   * Runs one trial: exactly {@code enabled} (a subset of {@code allCandidates}) stays active in a
+   * fresh copy of {@code snapshot}, everything else in {@code allCandidates} is disabled by
+   * commenting its source block out, and the external test runner is executed once against it.
    *
-   * @param ids invariant IDs in the batch
+   * <p>A trial counts as reproducing {@code target} only if the run fails <em>and</em> the first
+   * recognized failure in its log is the same failure ({@link TestFailureLogParser#isSameFailure})
+   * — a different, unrelated failure (e.g. a flaky, unrelated test) must not be mistaken for
+   * evidence about {@code target}.
+   *
+   * @return true if {@code target} reproduced with this configuration
+   */
+  private static boolean testConfig(
+      int trialNum,
+      String kind,
+      Set<UUID> enabled,
+      List<UUID> allCandidates,
+      Path runnerScript,
+      Path snapshot,
+      Path relMainSrc,
+      TestFailureLogParser.FailureMatch target)
+      throws IOException, InterruptedException {
+
+    List<UUID> toDisable = new ArrayList<>();
+    for (UUID id : allCandidates) {
+      if (!enabled.contains(id)) {
+        toDisable.add(id);
+      }
+    }
+
+    Path attempt = freshCopy(snapshot, "test-filter-trial" + trialNum);
+    try {
+      Path attemptMainSrc = attempt.resolve(relMainSrc).normalize();
+      BlockIndex attemptIndex = scanInvariantBlocks(attemptMainSrc);
+      disableIds(attemptIndex, toDisable);
+
+      Path attemptLog = attempt.resolve("daikonpp-test-filter-trial" + trialNum + ".log");
+      int exit = runExternalTestRunner(runnerScript, attempt, attemptLog);
+
+      boolean reproduced = false;
+      if (exit != 0) {
+        String logText = Files.readString(attemptLog, StandardCharsets.UTF_8);
+        Optional<TestFailureLogParser.FailureMatch> found =
+            TestFailureLogParser.firstFailure(logText);
+        reproduced = found.isPresent() && TestFailureLogParser.isSameFailure(target, found.get());
+      }
+
+      System.out.println(
+          "[DP-TEST-FILTER]   Trial "
+              + trialNum
+              + " ("
+              + kind
+              + "): "
+              + (reproduced ? "FAIL (reproduced)" : "no reproduction")
+              + " exit="
+              + exit);
+
+      return reproduced;
+    } finally {
+      deleteTreeQuietly(attempt);
+    }
+  }
+
+  /**
+   * Splits {@code list} into {@code n} contiguous, roughly-equal, non-empty chunks (fewer than
+   * {@code n} if {@code list} is too small to split that finely).
+   */
+  private static List<List<UUID>> splitInto(List<UUID> list, int n) {
+    List<List<UUID>> chunks = new ArrayList<>();
+    int size = list.size();
+    int chunkCount = Math.max(1, Math.min(n, size));
+
+    int base = size / chunkCount;
+    int remainder = size % chunkCount;
+
+    int idx = 0;
+    for (int i = 0; i < chunkCount; i++) {
+      int len = base + (i < remainder ? 1 : 0);
+      chunks.add(new ArrayList<>(list.subList(idx, idx + len)));
+      idx += len;
+    }
+
+    return chunks;
+  }
+
+  /**
+   * Produces a human-readable description of a set of invariants.
+   *
+   * @param ids invariant IDs
    * @param idToMethod mapping from invariant IDs to method identifiers
    * @return string representation of affected methods
    */
-  private static String describeBatch(List<UUID> ids, Map<UUID, String> idToMethod) {
+  private static String describeBatch(Collection<UUID> ids, Map<UUID, String> idToMethod) {
     Set<String> methods = new TreeSet<>();
     for (UUID id : ids) {
       String m = idToMethod.get(id);
@@ -551,6 +707,37 @@ public final class TestInvariantFilter {
             return FileVisitResult.CONTINUE;
           }
         });
+  }
+
+  /**
+   * Recursively deletes a directory tree, swallowing any failure — used to clean up per-trial
+   * working copies, where a leftover directory is a nuisance, not a correctness problem.
+   *
+   * @param root directory to delete
+   */
+  private static void deleteTreeQuietly(Path root) {
+    try {
+      if (!Files.exists(root)) return;
+
+      Files.walkFileTree(
+          root,
+          new SimpleFileVisitor<>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+                throws IOException {
+              Files.deleteIfExists(file);
+              return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc)
+                throws IOException {
+              Files.deleteIfExists(dir);
+              return FileVisitResult.CONTINUE;
+            }
+          });
+    } catch (IOException ignored) {
+    }
   }
 
   /** Index of invariant blocks keyed by their UUID. */
