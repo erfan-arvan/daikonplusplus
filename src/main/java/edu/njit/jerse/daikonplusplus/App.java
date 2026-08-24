@@ -14,8 +14,10 @@ import edu.njit.jerse.daikonplusplus.model.*;
 import edu.njit.jerse.daikonplusplus.parse.JavaProjectScanner;
 import edu.njit.jerse.daikonplusplus.parse.context.ContextKind;
 import edu.njit.jerse.daikonplusplus.parse.context.ContextUtils;
+import edu.njit.jerse.daikonplusplus.results.InvariantMetrics;
 import edu.njit.jerse.daikonplusplus.results.InvariantRegistry;
 import edu.njit.jerse.daikonplusplus.results.LogParser;
+import edu.njit.jerse.daikonplusplus.results.ProjectMethodIndex;
 import edu.njit.jerse.daikonplusplus.util.PhaseTimer;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -1019,6 +1021,8 @@ public final class App {
       }
     }
 
+    writeInvariantMetrics(heldByMethod, mainSrcRoot, cfg.outcomesPath());
+
     System.out.println(">>> FALSIFIED invariants by method (ENTRY & EXIT):");
     for (var e : falsByMethod.entrySet()) {
       System.out.println("  - " + e.getKey());
@@ -1368,6 +1372,73 @@ public final class App {
       System.err.println("[DP] Warning: could not read disabled file: " + e.getMessage());
     }
     return out;
+  }
+
+  /**
+   * Computes variable-count and project-specific-method-call metrics for every observed-held
+   * invariant and writes them to their own JSONL file, sibling to (but separate from) the outcomes
+   * file — one JSON object per invariant: {@code id}, {@code kind}, {@code element}, {@code expr},
+   * {@code varCount1} (distinct variables), {@code varCount2} (total variable occurrences), {@code
+   * pspmCount}, and {@code pspmCalls}.
+   */
+  private static void writeInvariantMetrics(
+      Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> heldByMethod,
+      Path mainSrcRoot,
+      Path outcomesPath) {
+    Path metricsPath = outcomesPath.resolveSibling("daikonpp_invariant_metrics.jsonl");
+    Set<String> projectMethods = ProjectMethodIndex.collect(mainSrcRoot);
+
+    try {
+      Path parent = metricsPath.getParent();
+      if (parent != null) Files.createDirectories(parent);
+
+      try (var w =
+          Files.newBufferedWriter(
+              metricsPath,
+              java.nio.charset.StandardCharsets.UTF_8,
+              java.nio.file.StandardOpenOption.CREATE,
+              java.nio.file.StandardOpenOption.TRUNCATE_EXISTING)) {
+        for (var e : heldByMethod.entrySet()) {
+          for (var r : e.getValue()) {
+            InvariantMetrics m = InvariantMetrics.compute(r.expr, projectMethods);
+            w.write(
+                "{"
+                    + jsonKv("id", r.id.toString())
+                    + ","
+                    + jsonKv("kind", r.kind)
+                    + ","
+                    + jsonKv("element", r.element)
+                    + ","
+                    + jsonKv("expr", r.expr)
+                    + ",\"varCount1\":"
+                    + m.varCount1()
+                    + ",\"varCount2\":"
+                    + m.varCount2()
+                    + ",\"pspmCount\":"
+                    + m.pspmCount()
+                    + ",\"pspmCalls\":["
+                    + m.pspmCalls().stream()
+                        .map(s -> "\"" + jsonEsc(s) + "\"")
+                        .reduce((a, b) -> a + "," + b)
+                        .orElse("")
+                    + "]}");
+            w.newLine();
+          }
+        }
+      }
+    } catch (IOException ioe) {
+      throw new RuntimeException("Failed to write invariant metrics: " + ioe.getMessage(), ioe);
+    }
+
+    System.out.println(">>> Invariant metrics: " + metricsPath.toAbsolutePath());
+  }
+
+  private static String jsonKv(String k, String v) {
+    return "\"" + jsonEsc(k) + "\":\"" + jsonEsc(v) + "\"";
+  }
+
+  private static String jsonEsc(String s) {
+    return s.replace("\\", "\\\\").replace("\"", "\\\"");
   }
 
   private static Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> parseRegistryLite(
