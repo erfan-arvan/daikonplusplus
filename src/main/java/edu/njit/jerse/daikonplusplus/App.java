@@ -1013,15 +1013,33 @@ public final class App {
             + unreachedCount
             + ")");
 
+    Set<String> heldInvariantProjectMethods = ProjectMethodIndex.collect(mainSrcRoot);
+
     System.out.println(">>> OBSERVED-HELD invariants by method (ENTRY & EXIT):");
     for (var e : heldByMethod.entrySet()) {
       System.out.println("  - " + e.getKey());
       for (var r : e.getValue()) {
-        System.out.println("      [" + r.kind + "] " + r.id + " :: " + r.expr);
+        InvariantMetrics m = InvariantMetrics.compute(r.expr, heldInvariantProjectMethods);
+        System.out.println(
+            "      ["
+                + r.kind
+                + "] "
+                + r.id
+                + " :: "
+                + r.expr
+                + "   (varCount1="
+                + m.varCount1()
+                + ", varCount2="
+                + m.varCount2()
+                + ", pspmCount="
+                + m.pspmCount()
+                + ", pspmCalls="
+                + m.pspmCalls()
+                + ")");
       }
     }
 
-    writeInvariantMetrics(heldByMethod, mainSrcRoot, cfg.outcomesPath());
+    writeInvariantMetrics(heldByMethod, heldInvariantProjectMethods, cfg.outcomesPath());
 
     System.out.println(">>> FALSIFIED invariants by method (ENTRY & EXIT):");
     for (var e : falsByMethod.entrySet()) {
@@ -1383,10 +1401,9 @@ public final class App {
    */
   private static void writeInvariantMetrics(
       Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> heldByMethod,
-      Path mainSrcRoot,
+      Set<String> projectMethods,
       Path outcomesPath) {
     Path metricsPath = outcomesPath.resolveSibling("daikonpp_invariant_metrics.jsonl");
-    Set<String> projectMethods = ProjectMethodIndex.collect(mainSrcRoot);
 
     try {
       Path parent = metricsPath.getParent();
