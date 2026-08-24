@@ -1033,8 +1033,14 @@ public final class App {
                 + m.varCount2()
                 + ", pspmCount="
                 + m.pspmCount()
+                + ", pspmCallCount="
+                + m.pspmCallCount()
                 + ", pspmCalls="
                 + m.pspmCalls()
+                + ", allCallCount="
+                + m.allCallCount()
+                + ", allCalls="
+                + m.allCalls()
                 + ")");
       }
     }
@@ -1433,12 +1439,15 @@ public final class App {
                     + m.varCount2()
                     + ",\"pspmCount\":"
                     + m.pspmCount()
-                    + ",\"pspmCalls\":["
-                    + m.pspmCalls().stream()
-                        .map(s -> "\"" + jsonEsc(s) + "\"")
-                        .reduce((a, b) -> a + "," + b)
-                        .orElse("")
-                    + "]}");
+                    + ",\"pspmCallCount\":"
+                    + m.pspmCallCount()
+                    + ",\"pspmCalls\":"
+                    + jsonStringArray(m.pspmCalls())
+                    + ",\"allCallCount\":"
+                    + m.allCallCount()
+                    + ",\"allCalls\":"
+                    + jsonStringArray(m.allCalls())
+                    + "}");
             w.newLine();
           }
         }
@@ -1452,6 +1461,15 @@ public final class App {
 
   private static String jsonKv(String k, String v) {
     return "\"" + jsonEsc(k) + "\":\"" + jsonEsc(v) + "\"";
+  }
+
+  private static String jsonStringArray(Set<String> values) {
+    return "["
+        + values.stream()
+            .map(s -> "\"" + jsonEsc(s) + "\"")
+            .reduce((a, b) -> a + "," + b)
+            .orElse("")
+        + "]";
   }
 
   private static String jsonEsc(String s) {
