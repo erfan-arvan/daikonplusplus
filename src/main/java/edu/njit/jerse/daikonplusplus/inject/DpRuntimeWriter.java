@@ -31,6 +31,7 @@ public final class DpRuntimeWriter {
   public static void write(Path srcRoot) throws IOException {
     Path pkg = srcRoot.resolve("daikonpp");
     Files.createDirectories(pkg);
+    writeNullMarkingPackageInfoIfRequested(pkg);
     Path file = pkg.resolve("DpRuntime.java");
     String src =
         "package daikonpp;\n"
@@ -196,5 +197,34 @@ public final class DpRuntimeWriter {
             + "}\n";
     Files.writeString(file, src, StandardCharsets.UTF_8);
     System.out.println("[DP] Wrote DpRuntime helper → " + file);
+  }
+
+  /**
+   * Some target projects (e.g. spring-framework) put {@code org.jspecify:jspecify} on the compile
+   * classpath, which causes an auto-discovered annotation processor to require every top-level
+   * class to be explicitly null-marked (directly, via package, or via module) -- our generated
+   * {@code daikonpp} package has none of those, so {@code DpRuntime.java} fails to compile with
+   * {@code [RequireExplicitNullMarking]}, and the autofilter can't self-repair it (it isn't
+   * instrumented target code with an "original" to restore).
+   *
+   * <p>Unconditionally importing {@code org.jspecify.annotations.NullUnmarked} would break any
+   * project that doesn't have jspecify on its classpath (Dubbo, Netty, ...) with a hard "package
+   * does not exist" error, so this is opt-in via {@code DP_JSPECIFY_NULL_MARKING=true}, which the
+   * external-project driver script sets only for projects known to require it.
+   *
+   * @param pkg the {@code daikonpp} package directory to receive {@code package-info.java}
+   * @throws IOException if the file cannot be written
+   */
+  private static void writeNullMarkingPackageInfoIfRequested(Path pkg) throws IOException {
+    String flag = System.getenv("DP_JSPECIFY_NULL_MARKING");
+    if (flag == null || !flag.trim().equalsIgnoreCase("true")) {
+      return;
+    }
+    Path file = pkg.resolve("package-info.java");
+    String src =
+        "@org.jspecify.annotations.NullUnmarked\n"
+            + "package daikonpp;\n";
+    Files.writeString(file, src, StandardCharsets.UTF_8);
+    System.out.println("[DP] Wrote JSpecify null-marking package-info → " + file);
   }
 }
