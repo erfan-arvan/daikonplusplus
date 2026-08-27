@@ -74,8 +74,12 @@ public final class ExternalCompileRunner {
       env.put("DP_PROJECT_ROOT", workProjectRoot.toAbsolutePath().toString());
 
       pb.directory(workProjectRoot.toFile());
+      // Merge stderr into stdout before redirecting so the two streams can't race on
+      // separate file descriptors writing to the same file, which corrupts lines
+      // (observed truncating file paths mid-word in javac diagnostics under Gradle's
+      // concurrent build-progress + compiler output).
+      pb.redirectErrorStream(true);
       pb.redirectOutput(errLog.toFile());
-      pb.redirectError(errLog.toFile());
 
       int exit = pb.start().waitFor();
       System.out.println("[DP] external compile exit code: " + exit);
