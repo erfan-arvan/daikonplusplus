@@ -93,6 +93,49 @@ public final class LogParser {
   }
 
   /**
+   * Reads a log file and returns the invariants that appeared in {@code INV_EXD:<uuid>} lines,
+   * ordered by execution order (earliest first) as they appear in the log, deduplicated on first
+   * occurrence.
+   *
+   * <p>Used to seed {@code ddmin}'s candidate pool so invariants that executed closest to the
+   * failure (i.e. last, right before the run died) are prioritized first — see {@link
+   * #readExecutedOrderedFromShm} for the shm-based equivalent, used when a run was killed online
+   * before it could write this log's normal sidecar.
+   */
+  public static List<UUID> readExecutedIdsOrdered(Path logFile) {
+    List<UUID> out = new ArrayList<>();
+    Set<UUID> seen = new java.util.LinkedHashSet<>();
+    if (!Files.exists(logFile)) return out;
+
+    final Pattern p =
+        Pattern.compile(
+            "INV_EXD:([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})");
+
+    try (BufferedReader br = Files.newBufferedReader(logFile, StandardCharsets.UTF_8)) {
+      String ln;
+      while ((ln = br.readLine()) != null) {
+        Matcher m = p.matcher(ln);
+        while (m.find()) {
+          String idStr = m.group(1);
+          if (idStr == null || idStr.isEmpty()) continue;
+          try {
+            UUID id = UUID.fromString(idStr);
+            if (seen.add(id)) {
+              out.add(id);
+            }
+          } catch (IllegalArgumentException ignore) {
+            // skip malformed
+          }
+        }
+      }
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to read run log: " + e.getMessage(), e);
+    }
+
+    return out;
+  }
+
+  /**
    * Reads the run log from the end and returns the UUID from the very last {@code INV_EXD:<uuid>}
    * line. This identifies the most recently started invariant check — the one most likely to be
    * stuck in an infinite loop when a timeout fires.
