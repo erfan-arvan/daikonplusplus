@@ -9,7 +9,7 @@ public class MathUtils {
       ;
       try {
           String __dp_id = "d64ce820-c1e1-41ee-89b6-c0cdfa402334";
-          if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id)) {
+          if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_FAIL.contains(__dp_id)) {
               daikonpp.DpRuntime.recordExecuted(__dp_id);
               daikonpp.DpRuntime.markCurrent(__dp_id);
               boolean __dp_ok = true;
@@ -43,7 +43,7 @@ public class MathUtils {
             ;
             try {
                 String __dp_id = "ca653e6a-045e-4849-acc9-54008d8e9bfa";
-                if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id)) {
+                if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_FAIL.contains(__dp_id)) {
                     daikonpp.DpRuntime.recordExecuted(__dp_id);
                     daikonpp.DpRuntime.markCurrent(__dp_id);
                     boolean __dp_ok = true;
@@ -82,7 +82,7 @@ public class MathUtils {
             ;
             try {
                 String __dp_id = "aeac8e11-4738-4655-a374-c7800b333ad7";
-                if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id)) {
+                if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_FAIL.contains(__dp_id)) {
                     daikonpp.DpRuntime.recordExecuted(__dp_id);
                     daikonpp.DpRuntime.markCurrent(__dp_id);
                     boolean __dp_ok = true;
@@ -113,7 +113,7 @@ public class MathUtils {
             ;
             try {
                 String __dp_id = "4cf47b4b-730d-419d-ae60-e38447db0a92";
-                if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id)) {
+                if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_FAIL.contains(__dp_id)) {
                     daikonpp.DpRuntime.recordExecuted(__dp_id);
                     daikonpp.DpRuntime.markCurrent(__dp_id);
                     boolean __dp_ok = true;
@@ -144,7 +144,7 @@ public class MathUtils {
             ;
             try {
                 String __dp_id = "a2fcdc36-7ec9-4e26-b4e7-fb51103655e0";
-                if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id)) {
+                if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_FAIL.contains(__dp_id)) {
                     daikonpp.DpRuntime.recordExecuted(__dp_id);
                     daikonpp.DpRuntime.markCurrent(__dp_id);
                     boolean __dp_ok = true;

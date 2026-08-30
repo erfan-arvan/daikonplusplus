@@ -926,15 +926,16 @@ public final class JavaRunner {
                 ? RunResult.TEST_FAILURE_KILLED
                 : staleKilled.get() ? RunResult.STALE_KILLED : RunResult.NORMAL;
 
-    int exit;
+    // The child process has already exited (or been killed) by this point, but the async reader
+    // thread copying its stdout/stderr into runLog polls with r.ready() + a 50ms sleep rather
+    // than a blocking read, so it can still be catching up -- under CPU contention this lag is
+    // enough for a caller reading runLog right after this method returns to race ahead of the
+    // last few lines (e.g. an uncaught exception's stack trace printed right before the JVM
+    // exits). Join it on every path, not just the killed/timeout ones, so runLog is guaranteed
+    // complete before we return.
+    readerThread.join(20000);
 
-    if (runResult != RunResult.NORMAL) {
-      // killed by timeout or stale detector → give reader a short chance to drain
-      readerThread.join(20000);
-      exit = -1;
-    } else {
-      exit = p.exitValue();
-    }
+    int exit = (runResult != RunResult.NORMAL) ? -1 : p.exitValue();
 
     appendDpEvents(invDir, runLog);
 

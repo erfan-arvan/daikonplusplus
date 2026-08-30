@@ -326,4 +326,103 @@ public class ShmRecoveryTest {
             + "skipped because it already held on calls 1 and 2 -- process output:\n"
             + output);
   }
+
+  @Test
+  public void injectedGuard_stopsReevaluatingOnceFalsifiedInSameRun(@TempDir Path shmDir)
+      throws Exception {
+    // Companion to the test above: once an invariant IS falsified, there is no need to keep
+    // re-checking it -- it's already refuted by an input. The guard must skip it on every later
+    // call from then on (distinct from a merely-held invariant, which must keep being checked).
+    //
+    // The invariant expression itself increments a counter as a side effect, so we can observe
+    // exactly how many times it was actually evaluated (not just how many times the checkpoint
+    // was reached).
+
+    Path srcDir = tmp.resolve("src");
+    Path pkgDir = srcDir.resolve("sample2");
+    Files.createDirectories(pkgDir);
+
+    edu.njit.jerse.daikonplusplus.inject.DpRuntimeWriter.write(srcDir);
+
+    Path checkerFile = pkgDir.resolve("Checker2.java");
+    Files.writeString(
+        checkerFile,
+        "package sample2;\n"
+            + "import java.util.concurrent.atomic.AtomicInteger;\n"
+            + "public class Checker2 {\n"
+            + "    public static final AtomicInteger EVAL_COUNT = new AtomicInteger();\n"
+            + "    public static boolean evalAndCheck(int n) {\n"
+            + "        EVAL_COUNT.incrementAndGet();\n"
+            + "        return n < 2;\n"
+            + "    }\n"
+            + "    public static void check(int n) {\n"
+            + "    }\n"
+            + "}\n",
+        StandardCharsets.UTF_8);
+
+    edu.njit.jerse.daikonplusplus.model.ProgramElementId peid =
+        edu.njit.jerse.daikonplusplus.model.ProgramElementId.forMethod(
+            "sample2", "Checker2", "", "sample2/Checker2.java", "check(int):void");
+    edu.njit.jerse.daikonplusplus.model.ProgramPoint point =
+        new edu.njit.jerse.daikonplusplus.model.ProgramPointImpl(
+            peid, edu.njit.jerse.daikonplusplus.model.ProgramPointKind.METHOD_ENTRY);
+    edu.njit.jerse.daikonplusplus.model.InvariantSpec spec =
+        new edu.njit.jerse.daikonplusplus.model.InvariantSpec(
+            "Checker2.evalAndCheck(n)", "", Map.of());
+    UUID invId = UUID.randomUUID();
+    edu.njit.jerse.daikonplusplus.model.InvariantRecord rec =
+        new edu.njit.jerse.daikonplusplus.model.InvariantRecord(
+            invId, spec, point, "sample2/Checker2.java", java.time.Instant.now());
+
+    edu.njit.jerse.daikonplusplus.inject.JavaParserInjector injector =
+        new edu.njit.jerse.daikonplusplus.inject.JavaParserInjector(
+            new edu.njit.jerse.daikonplusplus.inject.FileWriteCoordinator());
+    injector.injectGuards(checkerFile, List.of(rec));
+
+    Path mainFile = srcDir.resolve("Main2.java");
+    Files.writeString(
+        mainFile,
+        "public class Main2 {\n"
+            + "    public static void main(String[] a) throws Exception {\n"
+            + "        sample2.Checker2.check(1);\n" // n=1: holds, evaluated
+            + "        sample2.Checker2.check(2);\n" // n=2: falsified, evaluated
+            + "        sample2.Checker2.check(3);\n" // n=3: must NOT be evaluated anymore
+            + "        sample2.Checker2.check(4);\n" // n=4: must NOT be evaluated anymore
+            + "        System.out.println(\"EVAL_COUNT:\" + sample2.Checker2.EVAL_COUNT.get());\n"
+            + "    }\n"
+            + "}\n",
+        StandardCharsets.UTF_8);
+
+    Path classesDir = tmp.resolve("classes");
+    Files.createDirectories(classesDir);
+    List<String> javacCmd =
+        List.of(
+            "javac",
+            "-d",
+            classesDir.toString(),
+            srcDir.resolve("daikonpp").resolve("DpRuntime.java").toString(),
+            checkerFile.toString(),
+            mainFile.toString());
+    int compileExit = new ProcessBuilder(javacCmd).start().waitFor();
+    assertEquals(0, compileExit, "Compilation of injected Checker2/Main2 failed");
+
+    List<String> javaCmd =
+        List.of(
+            "java",
+            "-DDP_SHM_DIR=" + shmDir.toAbsolutePath(),
+            "-cp",
+            classesDir.toString(),
+            "Main2");
+    ProcessBuilder pb = new ProcessBuilder(javaCmd);
+    pb.redirectErrorStream(true);
+    Process proc = pb.start();
+    String output = new String(proc.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+    proc.waitFor();
+
+    assertTrue(
+        output.contains("EVAL_COUNT:2"),
+        "Invariant should be evaluated exactly twice (call 1: holds, call 2: falsified) and "
+            + "never again after being falsified (calls 3 and 4 must be skipped) -- output:\n"
+            + output);
+  }
 }

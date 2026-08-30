@@ -11,12 +11,15 @@ import java.nio.file.Path;
  *
  * <p>DpRuntime uses /dev/shm (or a configured DP_SHM_DIR) to persist invariant execution and
  * failure events as files so they survive SIGKILL. On JVM startup, existing shm files are loaded
- * into SEEN/SEEN_FAIL, and a frozen snapshot of that pre-population is kept in SEEN_AT_START.
- * SEEN_AT_START — not SEEN — is what the injected guard consults, so only invariants a *prior,
- * killed* process already checked are skipped on rerun (recovery); SEEN itself keeps growing live
- * during this run (for idempotent shm/ex writes and the shutdown-hook sidecar) without gating
- * re-evaluation of the same invariant on later calls within this same run. No events are written to
- * stdout — the shm directory is the sole record during a live run.
+ * into SEEN/SEEN_FAIL, and a frozen snapshot of SEEN's pre-population is kept in SEEN_AT_START. The
+ * injected guard skips a checkpoint when: it's in DISABLED (explicitly turned off), or in
+ * SEEN_AT_START (a *prior, killed* process already checked it — recovery), or in SEEN_FAIL (this
+ * invariant has already been falsified by some input, in this run or a prior one — once refuted,
+ * there's nothing left to learn from re-checking it). It deliberately does *not* skip a checkpoint
+ * just because SEEN (which keeps growing live all run, for idempotent shm/ex writes and the
+ * shutdown-hook sidecar) contains it — an invariant that merely *held* on an earlier call must
+ * still be re-evaluated on every later call, since a later input could still falsify it. No events
+ * are written to stdout — the shm directory is the sole record during a live run.
  *
  * <p>Fallback: when DP_SHM_DIR is not set, SHM_EX_DIR/SHM_FAIL_DIR/SHM_CURRENT_DIR are null. In
  * that case results are persisted only via the shutdown-hook sidecar written to DP_INV_DIR (picked
