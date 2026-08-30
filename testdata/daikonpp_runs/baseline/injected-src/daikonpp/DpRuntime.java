@@ -9,6 +9,7 @@ public final class DpRuntime {
         java.util.Collections.newSetFromMap(new ConcurrentHashMap<>());
     public static final java.util.Set<String> SEEN_FAIL =
         java.util.Collections.newSetFromMap(new ConcurrentHashMap<>());
+    public static final java.util.Set<String> SEEN_AT_START;
     public static final ThreadLocal<AtomicBoolean> GUARD =
         ThreadLocal.withInitial(() -> new AtomicBoolean(false));
     public static final java.util.Set<String> DISABLED = loadDisabled();
@@ -49,6 +50,8 @@ public final class DpRuntime {
                 }
             } catch (Exception ignored) {}
         }
+        SEEN_AT_START = java.util.Collections.unmodifiableSet(
+            new java.util.HashSet<>(SEEN));
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
                 try {

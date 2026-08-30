@@ -7,7 +7,7 @@ public class Main {
       ;
       try {
           String __dp_id = "4f688a30-85d4-4042-a504-a84f59a1dc38";
-          if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN.contains(__dp_id)) {
+          if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id)) {
               daikonpp.DpRuntime.recordExecuted(__dp_id);
               daikonpp.DpRuntime.markCurrent(__dp_id);
               boolean __dp_ok = true;
@@ -38,7 +38,7 @@ public class Main {
       ;
       try {
           String __dp_id = "06eca5a1-52a2-4d1c-a739-1914d630ed25";
-          if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN.contains(__dp_id)) {
+          if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id)) {
               daikonpp.DpRuntime.recordExecuted(__dp_id);
               daikonpp.DpRuntime.markCurrent(__dp_id);
               boolean __dp_ok = true;
@@ -78,7 +78,7 @@ public class Main {
         ;
         try {
             String __dp_id = "2dce125c-4649-4d31-ae43-8341f79536d3";
-            if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN.contains(__dp_id)) {
+            if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id)) {
                 daikonpp.DpRuntime.recordExecuted(__dp_id);
                 daikonpp.DpRuntime.markCurrent(__dp_id);
                 boolean __dp_ok = true;
@@ -109,7 +109,7 @@ public class Main {
         ;
         try {
             String __dp_id = "792b430a-ca45-4102-b456-c92dbf605892";
-            if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN.contains(__dp_id)) {
+            if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id) && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id)) {
                 daikonpp.DpRuntime.recordExecuted(__dp_id);
                 daikonpp.DpRuntime.markCurrent(__dp_id);
                 boolean __dp_ok = true;

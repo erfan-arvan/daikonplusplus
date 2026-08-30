@@ -11,8 +11,12 @@ import java.nio.file.Path;
  *
  * <p>DpRuntime uses /dev/shm (or a configured DP_SHM_DIR) to persist invariant execution and
  * failure events as files so they survive SIGKILL. On JVM startup, existing shm files are loaded
- * into SEEN/SEEN_FAIL so already-checked invariants are skipped on rerun (recovery). No events are
- * written to stdout — the shm directory is the sole record during a live run.
+ * into SEEN/SEEN_FAIL, and a frozen snapshot of that pre-population is kept in SEEN_AT_START.
+ * SEEN_AT_START — not SEEN — is what the injected guard consults, so only invariants a *prior,
+ * killed* process already checked are skipped on rerun (recovery); SEEN itself keeps growing live
+ * during this run (for idempotent shm/ex writes and the shutdown-hook sidecar) without gating
+ * re-evaluation of the same invariant on later calls within this same run. No events are written to
+ * stdout — the shm directory is the sole record during a live run.
  *
  * <p>Fallback: when DP_SHM_DIR is not set, SHM_EX_DIR/SHM_FAIL_DIR/SHM_CURRENT_DIR are null. In
  * that case results are persisted only via the shutdown-hook sidecar written to DP_INV_DIR (picked
@@ -46,6 +50,11 @@ public final class DpRuntimeWriter {
             + "        java.util.Collections.newSetFromMap(new ConcurrentHashMap<>());\n"
             + "    public static final java.util.Set<String> SEEN_FAIL =\n"
             + "        java.util.Collections.newSetFromMap(new ConcurrentHashMap<>());\n"
+            // --- frozen snapshot of SEEN taken right after shm/ex pre-population, before this
+            // process evaluates anything itself; this (not the live-growing SEEN) is what the
+            // injected guard checks, so a same-run re-execution is never mistaken for a
+            // previous, killed process having already checked it ---
+            + "    public static final java.util.Set<String> SEEN_AT_START;\n"
             // --- re-entrancy guard (per-thread) ---
             + "    public static final ThreadLocal<AtomicBoolean> GUARD =\n"
             + "        ThreadLocal.withInitial(() -> new AtomicBoolean(false));\n"
@@ -92,6 +101,11 @@ public final class DpRuntimeWriter {
             + "                }\n"
             + "            } catch (Exception ignored) {}\n"
             + "        }\n"
+            // snapshot SEEN now — before any invariant in this process has run — so later
+            // in-run calls to recordExecuted() (which keep adding to SEEN) never leak into what
+            // the guard treats as \"already checked by a previous process\"
+            + "        SEEN_AT_START = java.util.Collections.unmodifiableSet(\n"
+            + "            new java.util.HashSet<>(SEEN));\n"
             // register shutdown-hook sidecar fallback (fires only when JVM exits normally)
             + "        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {\n"
             + "            public void run() {\n"
