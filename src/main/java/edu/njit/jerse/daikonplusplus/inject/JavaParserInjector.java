@@ -267,7 +267,7 @@ public final class JavaParserInjector {
             + id
             + "\";\n"
             + "  if (!daikonpp.DpRuntime.DISABLED.contains(__dp_id)\n"
-            + "      && !daikonpp.DpRuntime.SEEN.contains(__dp_id)) {\n"
+            + "      && !daikonpp.DpRuntime.SEEN_AT_START.contains(__dp_id)) {\n"
             + "    daikonpp.DpRuntime.recordExecuted(__dp_id);\n"
             + "    daikonpp.DpRuntime.markCurrent(__dp_id);\n"
             + "    boolean __dp_ok = true;\n"

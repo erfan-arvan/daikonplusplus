@@ -233,4 +233,97 @@ public class ShmRecoveryTest {
         output.contains("SEEN_PRE_POPULATED"),
         "Expected SEEN to be pre-populated with " + preSeenId + " but got: " + output);
   }
+
+  // ---- Live re-evaluation: the injected guard must not skip after the first call ----
+
+  @Test
+  public void injectedGuard_reevaluatesInvariantOnEveryCallWithinSameRun(@TempDir Path shmDir)
+      throws Exception {
+    // Regression test for a bug where the injected guard treated DpRuntime.SEEN (populated on
+    // the *first* call to a checkpoint) as a reason to skip every later call to that same
+    // checkpoint in the same process -- so an invariant that held on call 1 but was violated on
+    // a later call (e.g. call 3) was never actually evaluated, and the violation was silently
+    // missed. The guard must instead only skip invariants already checked by a *prior, killed*
+    // process (recovered from shm/ex at JVM startup), never ones seen earlier in this same run.
+
+    Path srcDir = tmp.resolve("src");
+    Path pkgDir = srcDir.resolve("sample");
+    Files.createDirectories(pkgDir);
+
+    edu.njit.jerse.daikonplusplus.inject.DpRuntimeWriter.write(srcDir);
+
+    Path checkerFile = pkgDir.resolve("Checker.java");
+    Files.writeString(
+        checkerFile,
+        "package sample;\n"
+            + "public class Checker {\n"
+            + "    public static void check(int n) {\n"
+            + "    }\n"
+            + "}\n",
+        StandardCharsets.UTF_8);
+
+    edu.njit.jerse.daikonplusplus.model.ProgramElementId peid =
+        edu.njit.jerse.daikonplusplus.model.ProgramElementId.forMethod(
+            "sample", "Checker", "", "sample/Checker.java", "check(int):void");
+    edu.njit.jerse.daikonplusplus.model.ProgramPoint point =
+        new edu.njit.jerse.daikonplusplus.model.ProgramPointImpl(
+            peid, edu.njit.jerse.daikonplusplus.model.ProgramPointKind.METHOD_ENTRY);
+    edu.njit.jerse.daikonplusplus.model.InvariantSpec spec =
+        new edu.njit.jerse.daikonplusplus.model.InvariantSpec("n < 3", "", Map.of());
+    UUID invId = UUID.randomUUID();
+    edu.njit.jerse.daikonplusplus.model.InvariantRecord rec =
+        new edu.njit.jerse.daikonplusplus.model.InvariantRecord(
+            invId, spec, point, "sample/Checker.java", java.time.Instant.now());
+
+    edu.njit.jerse.daikonplusplus.inject.JavaParserInjector injector =
+        new edu.njit.jerse.daikonplusplus.inject.JavaParserInjector(
+            new edu.njit.jerse.daikonplusplus.inject.FileWriteCoordinator());
+    injector.injectGuards(checkerFile, List.of(rec));
+
+    Path mainFile = srcDir.resolve("Main.java");
+    Files.writeString(
+        mainFile,
+        "public class Main {\n"
+            + "    public static void main(String[] a) throws Exception {\n"
+            + "        sample.Checker.check(1);\n" // holds
+            + "        sample.Checker.check(2);\n" // holds
+            + "        sample.Checker.check(3);\n" // violates n < 3
+            + "        Thread.sleep(200);\n" // let the shutdown hook path settle either way
+            + "    }\n"
+            + "}\n",
+        StandardCharsets.UTF_8);
+
+    Path classesDir = tmp.resolve("classes");
+    Files.createDirectories(classesDir);
+    List<String> javacCmd =
+        List.of(
+            "javac",
+            "-d",
+            classesDir.toString(),
+            srcDir.resolve("daikonpp").resolve("DpRuntime.java").toString(),
+            checkerFile.toString(),
+            mainFile.toString());
+    int compileExit = new ProcessBuilder(javacCmd).start().waitFor();
+    assertEquals(0, compileExit, "Compilation of injected Checker/Main failed");
+
+    List<String> javaCmd =
+        List.of(
+            "java",
+            "-DDP_SHM_DIR=" + shmDir.toAbsolutePath(),
+            "-cp",
+            classesDir.toString(),
+            "Main");
+    ProcessBuilder pb = new ProcessBuilder(javaCmd);
+    pb.redirectErrorStream(true);
+    Process proc = pb.start();
+    String output = new String(proc.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+    proc.waitFor();
+
+    Path failFile = shmDir.resolve("fail").resolve(invId + ".json");
+    assertTrue(
+        Files.exists(failFile),
+        "Invariant should have been re-evaluated (and caught failing) on the 3rd call, not "
+            + "skipped because it already held on calls 1 and 2 -- process output:\n"
+            + output);
+  }
 }
