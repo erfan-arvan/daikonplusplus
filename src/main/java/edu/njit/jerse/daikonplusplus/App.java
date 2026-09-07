@@ -104,6 +104,8 @@ public final class App {
     public final AtomicLong dropMaxK = new AtomicLong();
     public final AtomicLong dropRunDedup = new AtomicLong();
     public final AtomicLong dropRegistryDedup = new AtomicLong();
+    public final AtomicLong pointsWithCallSiteContext = new AtomicLong();
+    public final AtomicLong pointsWithIoExamples = new AtomicLong();
   }
 
   private static String keyFor(ProgramPoint pt, String expr) {
@@ -534,6 +536,10 @@ public final class App {
     System.out.println("    dropped (registry dedup):  " + filterStats.dropRegistryDedup.get());
     System.out.println("    → total dropped:           " + totalDropped);
     System.out.println("    → proposed (into injection): " + totalSpecs);
+    System.out.println(
+        ">>> Points with non-empty call-site context: " + filterStats.pointsWithCallSiteContext.get());
+    System.out.println(
+        ">>> Points with non-empty I/O examples:      " + filterStats.pointsWithIoExamples.get());
     System.out.println(">>> Files to inject (MAIN only): " + byFile.size());
 
     long injectEntry =
@@ -1267,12 +1273,14 @@ public final class App {
               ? ContextUtils.extractCallSiteContext(point, srcRoot, BASE_CFG.callSitesIndexPath())
                   .orElse("")
               : "";
+      if (!callSite.isBlank()) stats.pointsWithCallSiteContext.incrementAndGet();
 
       String ioExamples =
           enabled.contains(ContextKind.IO_EXAMPLES)
               ? ContextUtils.extractIOExamples(point, srcRoot, BASE_CFG.ioExamplesIndexPath())
                   .orElse("")
               : "";
+      if (!ioExamples.isBlank()) stats.pointsWithIoExamples.incrementAndGet();
 
       String calleeDoc =
           enabled.contains(ContextKind.CALLEE_DOC)
