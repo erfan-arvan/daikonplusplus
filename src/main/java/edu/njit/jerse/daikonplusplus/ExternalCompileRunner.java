@@ -74,8 +74,17 @@ public final class ExternalCompileRunner {
       env.put("DP_PROJECT_ROOT", workProjectRoot.toAbsolutePath().toString());
 
       pb.directory(workProjectRoot.toFile());
+      // Merge stderr into stdout at the OS level before redirecting to a single
+      // file. Redirecting stdout and stderr to the same file via two separate
+      // redirectOutput/redirectError calls opens two independent file
+      // descriptors onto that path -- concurrent writes from the two streams
+      // then race at the OS level and clobber each other's bytes, corrupting
+      // compiler diagnostics (e.g. dropping the "file:line: error:" line while
+      // leaving its "symbol:"/"location:" continuation lines intact), which
+      // in turn makes the javac-error parser see no errors even though the
+      // build genuinely failed.
+      pb.redirectErrorStream(true);
       pb.redirectOutput(errLog.toFile());
-      pb.redirectError(errLog.toFile());
 
       int exit = pb.start().waitFor();
       System.out.println("[DP] external compile exit code: " + exit);
