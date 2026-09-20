@@ -6,12 +6,18 @@ public final class DpRuntime {
     public static final java.nio.file.Path SHM_FAIL_DIR;
     public static final java.nio.file.Path SHM_CURRENT_DIR;
     public static final java.util.Set<String> SEEN =
-        java.util.Collections.newSetFromMap(new ConcurrentHashMap<>());
+        java.util.Collections.newSetFromMap(
+            new ConcurrentHashMap<String, Boolean>());
     public static final java.util.Set<String> SEEN_FAIL =
-        java.util.Collections.newSetFromMap(new ConcurrentHashMap<>());
+        java.util.Collections.newSetFromMap(
+            new ConcurrentHashMap<String, Boolean>());
     public static final java.util.Set<String> SEEN_AT_START;
     public static final ThreadLocal<AtomicBoolean> GUARD =
-        ThreadLocal.withInitial(() -> new AtomicBoolean(false));
+        new ThreadLocal<AtomicBoolean>() {
+            protected AtomicBoolean initialValue() {
+                return new AtomicBoolean(false);
+            }
+        };
     public static final java.util.Set<String> DISABLED = loadDisabled();
     public static final String INV_DIR = System.getProperty("DP_INV_DIR");
     static {
@@ -30,28 +36,41 @@ public final class DpRuntime {
                 java.nio.file.Files.createDirectories(failDir);
                 java.nio.file.Files.createDirectories(currentDir);
                 final java.nio.file.Path fEx = exDir;
-                try (java.util.stream.Stream<java.nio.file.Path> s =
-                        java.nio.file.Files.list(fEx)) {
-                    s.forEach(p -> {
-                        java.nio.file.Path fn = p.getFileName();
-                        if (fn != null) SEEN.add(fn.toString());
-                    });
+                java.util.stream.Stream<java.nio.file.Path> exS =
+                    java.nio.file.Files.list(fEx);
+                try {
+                    exS.forEach(
+                        new java.util.function.Consumer<java.nio.file.Path>() {
+                            public void accept(java.nio.file.Path p) {
+                                java.nio.file.Path fn = p.getFileName();
+                                if (fn != null) SEEN.add(fn.toString());
+                            }
+                        });
+                } finally {
+                    exS.close();
                 }
                 final java.nio.file.Path fFail = failDir;
-                try (java.util.stream.Stream<java.nio.file.Path> s =
-                        java.nio.file.Files.list(fFail)) {
-                    s.forEach(p -> {
-                        java.nio.file.Path fn = p.getFileName();
-                        if (fn == null) return;
-                        String name = fn.toString();
-                        if (name.endsWith(".json"))
-                            SEEN_FAIL.add(name.substring(0, name.length() - 5));
-                    });
+                java.util.stream.Stream<java.nio.file.Path> failS =
+                    java.nio.file.Files.list(fFail);
+                try {
+                    failS.forEach(
+                        new java.util.function.Consumer<java.nio.file.Path>() {
+                            public void accept(java.nio.file.Path p) {
+                                java.nio.file.Path fn = p.getFileName();
+                                if (fn == null) return;
+                                String name = fn.toString();
+                                if (name.endsWith(".json"))
+                                    SEEN_FAIL.add(
+                                        name.substring(0, name.length() - 5));
+                            }
+                        });
+                } finally {
+                    failS.close();
                 }
             } catch (Exception ignored) {}
         }
         SEEN_AT_START = java.util.Collections.unmodifiableSet(
-            new java.util.HashSet<>(SEEN));
+            new java.util.HashSet<String>(SEEN));
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
                 try {
@@ -61,22 +80,35 @@ public final class DpRuntime {
                     dir.mkdirs();
                     java.io.File out = new java.io.File(dir,
                         "dp-events-" + java.util.UUID.randomUUID() + ".log");
-                    StringBuilder sb = new StringBuilder();
+                    final StringBuilder sb = new StringBuilder();
                     for (String k : SEEN) {
                         sb.append("INV_EXD:").append(k).append('\n');
                     }
                     if (SHM_FAIL_DIR != null) {
-                        try (java.util.stream.Stream<java.nio.file.Path> s =
-                                java.nio.file.Files.list(SHM_FAIL_DIR)) {
-                            s.forEach(p -> {
-                                try {
-                                    String content = new String(
-                                        java.nio.file.Files.readAllBytes(p),
-                                        java.nio.charset.StandardCharsets.UTF_8);
-                                    if (!content.trim().isEmpty())
-                                        sb.append(content.trim()).append('\n');
-                                } catch (Exception __ig) {}
-                            });
+                        try {
+                            java.util.stream.Stream<java.nio.file.Path> s =
+                                java.nio.file.Files.list(SHM_FAIL_DIR);
+                            try {
+                                s.forEach(
+                                    new java.util.function.Consumer<
+                                        java.nio.file.Path>() {
+                                        public void accept(
+                                                java.nio.file.Path p) {
+                                            try {
+                                                String content = new String(
+                                                    java.nio.file.Files
+                                                        .readAllBytes(p),
+                                                    java.nio.charset
+                                                        .StandardCharsets.UTF_8);
+                                                if (!content.trim().isEmpty())
+                                                    sb.append(content.trim())
+                                                        .append('\n');
+                                            } catch (Exception __ig) {}
+                                        }
+                                    });
+                            } finally {
+                                s.close();
+                            }
                         } catch (Exception __ig) {}
                     }
                     if (sb.length() > 0) {
@@ -97,7 +129,8 @@ public final class DpRuntime {
     }
     private static java.util.Set<String> loadDisabled() {
         java.util.Set<String> s =
-            java.util.Collections.newSetFromMap(new ConcurrentHashMap<>());
+            java.util.Collections.newSetFromMap(
+                new ConcurrentHashMap<String, Boolean>());
         String f = System.getProperty("DP_DISABLED_FILE");
         if (f == null || f.trim().isEmpty()) f = System.getenv("DP_DISABLED_FILE");
         if (f != null && !f.trim().isEmpty()) {
