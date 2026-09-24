@@ -7,6 +7,8 @@ import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil.JError;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
+import java.nio.file.attribute.FileTime;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -374,6 +376,13 @@ public final class JavaRunner {
           broken,
           StandardCopyOption.REPLACE_EXISTING,
           StandardCopyOption.COPY_ATTRIBUTES);
+
+      // See the identical fix/comment in ExternalCompileRunner.restoreOriginalFile:
+      // COPY_ATTRIBUTES preserves the original pre-instrumentation file's old
+      // mtime, which can make the build's incremental up-to-date check skip
+      // recompiling a genuinely-fixed file, leaving stale broken bytecode in
+      // place and causing the same compile error to recur on later passes.
+      Files.setLastModifiedTime(broken, FileTime.from(Instant.now()));
       return 1;
 
     } catch (Exception e) {

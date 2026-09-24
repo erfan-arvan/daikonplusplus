@@ -5,6 +5,8 @@ import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil.JError;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
+import java.nio.file.attribute.FileTime;
+import java.time.Instant;
 import java.util.*;
 
 /**
@@ -296,6 +298,17 @@ public final class ExternalCompileRunner {
           brokenFile,
           StandardCopyOption.REPLACE_EXISTING,
           StandardCopyOption.COPY_ATTRIBUTES);
+
+      // COPY_ATTRIBUTES above preserves the ORIGINAL (pre-instrumentation)
+      // file's old last-modified time. That time can be older than (or equal
+      // to) the already-compiled .class file left over from a previous
+      // failed pass, so the build's incremental up-to-date check sees a
+      // source file that isn't newer than its compiled output and skips
+      // recompiling it -- leaving the stale, still-broken bytecode in place.
+      // The identical compile error then keeps recurring on later passes
+      // even though the source was genuinely restored. Forcing the mtime to
+      // now guarantees the build always detects the change and recompiles.
+      Files.setLastModifiedTime(brokenFile, FileTime.from(Instant.now()));
 
       System.out.println("[DP] restored: " + brokenFile);
       return 1;
