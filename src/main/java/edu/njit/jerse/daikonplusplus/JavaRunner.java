@@ -173,6 +173,30 @@ public final class JavaRunner {
       String classpath,
       int maxModifyPasses)
       throws Exception {
+    compileWithAutoFilter(workSrcRoot, originalSrcRoot, classesDir, classpath, maxModifyPasses, 20);
+  }
+
+  /**
+   * Same as {@link #compileWithAutoFilter(Path, Path, Path, String, int)}, with an explicit budget
+   * for the restore-only fallback phase.
+   *
+   * @param workSrcRoot root of the instrumented source tree
+   * @param originalSrcRoot root of the original source tree
+   * @param classesDir output directory for compiled classes
+   * @param classpath classpath for compilation
+   * @param maxModifyPasses maximum number of passes that attempt invariant removal
+   * @param maxExtraPasses additional passes allotted to the restore-only fallback phase, on top of
+   *     {@code maxModifyPasses} (total budget = {@code maxModifyPasses + maxExtraPasses})
+   * @throws Exception if compilation ultimately fails
+   */
+  public static void compileWithAutoFilter(
+      Path workSrcRoot,
+      Path originalSrcRoot,
+      Path classesDir,
+      String classpath,
+      int maxModifyPasses,
+      int maxExtraPasses)
+      throws Exception {
 
     Files.createDirectories(classesDir);
 
@@ -215,7 +239,7 @@ public final class JavaRunner {
     Path errLog = classesDir.resolve("dp-javac.err");
 
     int pass = 1;
-    int maxTotalPasses = maxModifyPasses + 20;
+    int maxTotalPasses = maxModifyPasses + maxExtraPasses;
 
     while (true) {
 

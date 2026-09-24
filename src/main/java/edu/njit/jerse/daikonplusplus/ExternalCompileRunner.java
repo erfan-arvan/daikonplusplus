@@ -39,6 +39,8 @@ public final class ExternalCompileRunner {
    * @param originalSrcRoot root of the original source tree
    * @param compileScript executable script used for compilation
    * @param maxModifyPasses number of passes that attempt invariant-level removal before fallback
+   * @param maxExtraPasses additional passes allotted to the restore-only fallback phase, on top of
+   *     {@code maxModifyPasses} (total budget = {@code maxModifyPasses + maxExtraPasses})
    * @throws Exception if compilation ultimately fails
    */
   public static void compileWithAutoFilter(
@@ -46,7 +48,8 @@ public final class ExternalCompileRunner {
       Path workSrcRoot,
       Path originalSrcRoot,
       Path compileScript,
-      int maxModifyPasses)
+      int maxModifyPasses,
+      int maxExtraPasses)
       throws Exception {
 
     if (!Files.isExecutable(compileScript)) {
@@ -56,7 +59,7 @@ public final class ExternalCompileRunner {
     Path errLog = workProjectRoot.resolve("dp-external-compile.err");
 
     int pass = 1;
-    int maxTotalPasses = maxModifyPasses + 20;
+    int maxTotalPasses = maxModifyPasses + maxExtraPasses;
 
     while (true) {
 

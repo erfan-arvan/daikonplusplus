@@ -74,6 +74,10 @@ public final class DpConfig {
   private final int staleCheckMinutes;
   private final int maxTimeoutMinutes;
 
+  // ---- autofilter pass budget ----
+  private final int autofilterMaxModifyPasses;
+  private final int autofilterMaxExtraPasses;
+
   private DpConfig(
       int threads,
       Path registryPath,
@@ -106,7 +110,9 @@ public final class DpConfig {
       boolean enableTestFilter,
       int testFilterMethodBatchSize,
       int staleCheckMinutes,
-      int maxTimeoutMinutes) {
+      int maxTimeoutMinutes,
+      int autofilterMaxModifyPasses,
+      int autofilterMaxExtraPasses) {
 
     this.threads = threads;
     this.registryPath = registryPath;
@@ -140,6 +146,8 @@ public final class DpConfig {
     this.testFilterMethodBatchSize = testFilterMethodBatchSize;
     this.staleCheckMinutes = staleCheckMinutes;
     this.maxTimeoutMinutes = maxTimeoutMinutes;
+    this.autofilterMaxModifyPasses = autofilterMaxModifyPasses;
+    this.autofilterMaxExtraPasses = autofilterMaxExtraPasses;
   }
 
   public Set<String> scanIncludes() {
@@ -273,6 +281,22 @@ public final class DpConfig {
   /** hard cap on the run timeout after doubling (default 480 min / 8 h) */
   public int maxTimeoutMinutes() {
     return maxTimeoutMinutes;
+  }
+
+  /**
+   * number of invariant auto-filter passes that attempt line-level invariant removal before falling
+   * back to whole-file restoration (default 10)
+   */
+  public int autofilterMaxModifyPasses() {
+    return autofilterMaxModifyPasses;
+  }
+
+  /**
+   * additional invariant auto-filter passes allotted to the restore-only fallback phase, on top of
+   * {@link #autofilterMaxModifyPasses()} (default 20)
+   */
+  public int autofilterMaxExtraPasses() {
+    return autofilterMaxExtraPasses;
   }
 
   /**
@@ -466,6 +490,17 @@ public final class DpConfig {
     int maxTimeoutMinutes =
         Math.max(1, getInt("dp.maxTimeoutMinutes", "DP_MAX_TIMEOUT_MINUTES", 480, env, file));
 
+    int autofilterMaxModifyPasses =
+        Math.max(
+            0,
+            getInt(
+                "dp.autofilterMaxModifyPasses", "DP_AUTOFILTER_MAX_MODIFY_PASSES", 10, env, file));
+
+    int autofilterMaxExtraPasses =
+        Math.max(
+            0,
+            getInt("dp.autofilterMaxExtraPasses", "DP_AUTOFILTER_MAX_EXTRA_PASSES", 20, env, file));
+
     return new DpConfig(
         threads,
         Path.of(regPath).toAbsolutePath().normalize(),
@@ -498,7 +533,9 @@ public final class DpConfig {
         enableTestFilter,
         testFilterMethodBatchSize,
         staleCheckMinutes,
-        maxTimeoutMinutes);
+        maxTimeoutMinutes,
+        autofilterMaxModifyPasses,
+        autofilterMaxExtraPasses);
   }
 
   /**
@@ -687,6 +724,9 @@ public final class DpConfig {
     System.out.println("testFilterMethodBatchSize = " + testFilterMethodBatchSize);
     System.out.println("staleCheckMinutes = " + staleCheckMinutes);
     System.out.println("maxTimeoutMinutes = " + maxTimeoutMinutes);
+
+    System.out.println("autofilterMaxModifyPasses = " + autofilterMaxModifyPasses);
+    System.out.println("autofilterMaxExtraPasses = " + autofilterMaxExtraPasses);
 
     System.out.println("=========================");
   }

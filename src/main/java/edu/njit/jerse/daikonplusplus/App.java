@@ -544,7 +544,8 @@ public final class App {
     System.out.println("    → total dropped:           " + totalDropped);
     System.out.println("    → proposed (into injection): " + totalSpecs);
     System.out.println(
-        ">>> Points with non-empty call-site context: " + filterStats.pointsWithCallSiteContext.get());
+        ">>> Points with non-empty call-site context: "
+            + filterStats.pointsWithCallSiteContext.get());
     System.out.println(
         ">>> Points with non-empty I/O examples:      " + filterStats.pointsWithIoExamples.get());
     System.out.println(">>> Files to inject (MAIN only): " + byFile.size());
@@ -634,7 +635,8 @@ public final class App {
           userProjectRoot.resolve(relMainSrc),
           classesDir,
           BASE_CFG.externalCompileClasspath(),
-          10,
+          BASE_CFG.autofilterMaxModifyPasses(),
+          BASE_CFG.autofilterMaxExtraPasses(),
           externalMainCompileScript);
 
       System.out.println(">>> Invariant auto-filter finished (external-project mode)");
@@ -841,7 +843,8 @@ public final class App {
             userMainSrcRoot,
             classesDir,
             mainClasspath,
-            10,
+            BASE_CFG.autofilterMaxModifyPasses(),
+            BASE_CFG.autofilterMaxExtraPasses(),
             externalMainCompileScript);
 
         System.out.println(">>> Main compilation phase finished successfully");
@@ -856,6 +859,7 @@ public final class App {
             classesDir,
             testCompileCp,
             0,
+            BASE_CFG.autofilterMaxExtraPasses(),
             externalTestCompileScript);
 
         System.out.println(">>> Test compilation phase finished successfully");
@@ -869,7 +873,8 @@ public final class App {
             userMainSrcRoot,
             classesDir,
             mainClasspath,
-            10,
+            BASE_CFG.autofilterMaxModifyPasses(),
+            BASE_CFG.autofilterMaxExtraPasses(),
             externalMainCompileScript);
 
         System.out.println(">>> Compilation phase finished successfully");
@@ -1652,7 +1657,9 @@ public final class App {
    * @param userSrcRoot original source root (used for reference)
    * @param classesDir output directory for compiled classes (native mode)
    * @param classpath classpath used for compilation
-   * @param maxPasses maximum number of filtering passes
+   * @param maxPasses maximum number of filtering passes that attempt invariant-level removal
+   * @param maxExtraPasses additional passes allotted to the restore-only fallback phase, on top of
+   *     {@code maxPasses}
    * @param externalCompileScript optional external compile script (null for native mode)
    * @throws Exception if compilation fails irrecoverably
    */
@@ -1664,6 +1671,7 @@ public final class App {
       Path classesDir,
       String classpath,
       int maxPasses,
+      int maxExtraPasses,
       @org.checkerframework.checker.nullness.qual.Nullable Path externalCompileScript)
       throws Exception {
 
@@ -1671,10 +1679,11 @@ public final class App {
     if (externalCompileScript != null) {
       // User-provided compile script IS the compiler
       ExternalCompileRunner.compileWithAutoFilter(
-          workProjectRoot, srcRoot, userSrcRoot, externalCompileScript, maxPasses);
+          workProjectRoot, srcRoot, userSrcRoot, externalCompileScript, maxPasses, maxExtraPasses);
     } else {
       // Native javac-based autofilter
-      JavaRunner.compileWithAutoFilter(srcRoot, userSrcRoot, classesDir, classpath, maxPasses);
+      JavaRunner.compileWithAutoFilter(
+          srcRoot, userSrcRoot, classesDir, classpath, maxPasses, maxExtraPasses);
     }
     PhaseTimer.finish(phaseLabel, compilePhaseStart);
   }
