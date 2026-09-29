@@ -28,6 +28,7 @@ public final class DpConfig {
   private final boolean debug;
   private final boolean keepWork;
   private final boolean noQualityFilter;
+  private final QualityFilterRules qualityFilterRules;
 
   // ---- LLM / limits ----
   private final int llmTotalTimeoutSec;
@@ -87,6 +88,7 @@ public final class DpConfig {
       boolean debug,
       boolean keepWork,
       boolean noQualityFilter,
+      QualityFilterRules qualityFilterRules,
       int llmTotalTimeoutSec,
       int llmPerReqTimeoutSec,
       int bodyMaxChars,
@@ -122,6 +124,7 @@ public final class DpConfig {
     this.debug = debug;
     this.keepWork = keepWork;
     this.noQualityFilter = noQualityFilter;
+    this.qualityFilterRules = qualityFilterRules;
     this.llmTotalTimeoutSec = llmTotalTimeoutSec;
     this.llmPerReqTimeoutSec = llmPerReqTimeoutSec;
     this.bodyMaxChars = bodyMaxChars;
@@ -184,6 +187,11 @@ public final class DpConfig {
 
   public boolean noQualityFilter() {
     return noQualityFilter;
+  }
+
+  /** per-rule switches for the invariant quality filter (all enabled by default) */
+  public QualityFilterRules qualityFilterRules() {
+    return qualityFilterRules;
   }
 
   public int llmTotalTimeoutSec() {
@@ -339,6 +347,76 @@ public final class DpConfig {
     boolean keepWork = getBool("dp.keepWork", "DP_KEEP_WORK", true, env, file);
     boolean noQualityFilter =
         getBool("dp.noQualityFilter", "DP_NO_QUALITY_FILTER", false, env, file);
+
+    QualityFilterRules qualityFilterRules =
+        new QualityFilterRules(
+            getBool("dp.qualityFilterMaxLength", "DP_QUALITY_FILTER_MAX_LENGTH", true, env, file),
+            getBool(
+                "dp.qualityFilterAlwaysTrueLiteral",
+                "DP_QUALITY_FILTER_ALWAYS_TRUE_LITERAL",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterTautologyNotXOrX",
+                "DP_QUALITY_FILTER_TAUTOLOGY_NOT_X_OR_X",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterFullRangeComparison",
+                "DP_QUALITY_FILTER_FULL_RANGE_COMPARISON",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterSelfComparison",
+                "DP_QUALITY_FILTER_SELF_COMPARISON",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterTrivialDisjunction",
+                "DP_QUALITY_FILTER_TRIVIAL_DISJUNCTION",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterNoStatements", "DP_QUALITY_FILTER_NO_STATEMENTS", true, env, file),
+            getBool(
+                "dp.qualityFilterNoAssignment", "DP_QUALITY_FILTER_NO_ASSIGNMENT", true, env, file),
+            getBool(
+                "dp.qualityFilterForbiddenConstructs",
+                "DP_QUALITY_FILTER_FORBIDDEN_CONSTRUCTS",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterRequireInScopeName",
+                "DP_QUALITY_FILTER_REQUIRE_IN_SCOPE_NAME",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterRequireResultAtExit",
+                "DP_QUALITY_FILTER_REQUIRE_RESULT_AT_EXIT",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterPrimitiveNullComparison",
+                "DP_QUALITY_FILTER_PRIMITIVE_NULL_COMPARISON",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterUnknownIdentifier",
+                "DP_QUALITY_FILTER_UNKNOWN_IDENTIFIER",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterParseCheck", "DP_QUALITY_FILTER_PARSE_CHECK", true, env, file));
 
     int llmTotalTimeoutSec =
         getInt("dp.llmTotalTimeoutSec", "DP_LLM_TOTAL_TIMEOUT_SEC", 180, env, file);
@@ -510,6 +588,7 @@ public final class DpConfig {
         debug,
         keepWork,
         noQualityFilter,
+        qualityFilterRules,
         llmTotalTimeoutSec,
         llmPerReqTimeoutSec,
         bodyMaxChars,
@@ -689,6 +768,7 @@ public final class DpConfig {
     System.out.println("debug = " + debug);
     System.out.println("keepWork = " + keepWork);
     System.out.println("noQualityFilter = " + noQualityFilter);
+    System.out.println("qualityFilterRules = " + qualityFilterRules);
 
     System.out.println("llmTotalTimeoutSec = " + llmTotalTimeoutSec);
     System.out.println("llmPerReqTimeoutSec = " + llmPerReqTimeoutSec);

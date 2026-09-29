@@ -185,7 +185,8 @@ public final class LlmInvariantGenerator {
         expr = parsed.get();
 
         // Skip low-quality ones unless filter disabled
-        if (!config.noQualityFilter() && !InvariantQualityFilter.keep(expr, inScope, isExit)) {
+        if (!config.noQualityFilter()
+            && !InvariantQualityFilter.keep(expr, inScope, isExit, config.qualityFilterRules())) {
           if (config.debug()) System.out.println("[DP-LLM] drop(filter): " + expr);
           stats.dropQuality.incrementAndGet();
           continue;
