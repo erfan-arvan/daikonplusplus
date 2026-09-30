@@ -129,7 +129,8 @@ public final class LlmInvariantGenerator {
               callSiteContext,
               inputOutputExamples,
               calleeDoc,
-              maxInvariants);
+              maxInvariants,
+              config.promptExtendedInstructions());
 
       Prompt prompt = promptStrategy.buildPrompt(ctx);
 

@@ -13,6 +13,9 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * <p>All context fields are optional and may be {@code null} depending on which context extractors
  * are enabled.
+ *
+ * <p>{@code extendedInstructions} appends the extended shared guidance to prompts built by {@link
+ * AbstractPromptStrategy} (see {@code dp.promptExtendedInstructions}).
  */
 public record PromptContext(
     ProgramPoint point,
@@ -24,4 +27,32 @@ public record PromptContext(
     @Nullable String callSiteContext,
     @Nullable String inputOutputExamples,
     @Nullable String calleeDoc,
-    int maxInvariants) {}
+    int maxInvariants,
+    boolean extendedInstructions) {
+
+  /** Creates a context without the extended shared instructions. */
+  public PromptContext(
+      ProgramPoint point,
+      Map<String, String> inScope,
+      @Nullable String methodImplementation,
+      @Nullable String methodJavadoc,
+      @Nullable String enclosingClassDocumentation,
+      @Nullable String typeLevelDocumentation,
+      @Nullable String callSiteContext,
+      @Nullable String inputOutputExamples,
+      @Nullable String calleeDoc,
+      int maxInvariants) {
+    this(
+        point,
+        inScope,
+        methodImplementation,
+        methodJavadoc,
+        enclosingClassDocumentation,
+        typeLevelDocumentation,
+        callSiteContext,
+        inputOutputExamples,
+        calleeDoc,
+        maxInvariants,
+        false);
+  }
+}

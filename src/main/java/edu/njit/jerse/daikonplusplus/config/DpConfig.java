@@ -29,6 +29,7 @@ public final class DpConfig {
   private final boolean keepWork;
   private final boolean noQualityFilter;
   private final QualityFilterRules qualityFilterRules;
+  private final boolean promptExtendedInstructions;
 
   // ---- LLM / limits ----
   private final int llmTotalTimeoutSec;
@@ -89,6 +90,7 @@ public final class DpConfig {
       boolean keepWork,
       boolean noQualityFilter,
       QualityFilterRules qualityFilterRules,
+      boolean promptExtendedInstructions,
       int llmTotalTimeoutSec,
       int llmPerReqTimeoutSec,
       int bodyMaxChars,
@@ -125,6 +127,7 @@ public final class DpConfig {
     this.keepWork = keepWork;
     this.noQualityFilter = noQualityFilter;
     this.qualityFilterRules = qualityFilterRules;
+    this.promptExtendedInstructions = promptExtendedInstructions;
     this.llmTotalTimeoutSec = llmTotalTimeoutSec;
     this.llmPerReqTimeoutSec = llmPerReqTimeoutSec;
     this.bodyMaxChars = bodyMaxChars;
@@ -192,6 +195,11 @@ public final class DpConfig {
   /** per-rule switches for the invariant quality filter (all enabled by default) */
   public QualityFilterRules qualityFilterRules() {
     return qualityFilterRules;
+  }
+
+  /** whether prompts include the extended shared instructions (default false) */
+  public boolean promptExtendedInstructions() {
+    return promptExtendedInstructions;
   }
 
   public int llmTotalTimeoutSec() {
@@ -418,6 +426,10 @@ public final class DpConfig {
             getBool(
                 "dp.qualityFilterParseCheck", "DP_QUALITY_FILTER_PARSE_CHECK", true, env, file));
 
+    boolean promptExtendedInstructions =
+        getBool(
+            "dp.promptExtendedInstructions", "DP_PROMPT_EXTENDED_INSTRUCTIONS", false, env, file);
+
     int llmTotalTimeoutSec =
         getInt("dp.llmTotalTimeoutSec", "DP_LLM_TOTAL_TIMEOUT_SEC", 180, env, file);
 
@@ -589,6 +601,7 @@ public final class DpConfig {
         keepWork,
         noQualityFilter,
         qualityFilterRules,
+        promptExtendedInstructions,
         llmTotalTimeoutSec,
         llmPerReqTimeoutSec,
         bodyMaxChars,
@@ -769,6 +782,7 @@ public final class DpConfig {
     System.out.println("keepWork = " + keepWork);
     System.out.println("noQualityFilter = " + noQualityFilter);
     System.out.println("qualityFilterRules = " + qualityFilterRules);
+    System.out.println("promptExtendedInstructions = " + promptExtendedInstructions);
 
     System.out.println("llmTotalTimeoutSec = " + llmTotalTimeoutSec);
     System.out.println("llmPerReqTimeoutSec = " + llmPerReqTimeoutSec);

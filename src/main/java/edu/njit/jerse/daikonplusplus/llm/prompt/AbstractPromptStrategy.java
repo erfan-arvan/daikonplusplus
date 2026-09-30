@@ -11,6 +11,35 @@ package edu.njit.jerse.daikonplusplus.llm.prompt;
 public abstract class AbstractPromptStrategy implements PromptStrategy {
 
   private static final boolean DEBUG_PRINT_FIRST_PROMPT = true;
+
+  /**
+   * Extended shared guidance appended to the program-point constraints when {@link
+   * PromptContext#extendedInstructions()} is set.
+   */
+  static final String EXTENDED_INSTRUCTIONS =
+      """
+      - Consider receiver state (this and its accessible fields), parameter
+        values and fields, and the return value when available.
+      - Consider equality, inequality, numeric bounds, ranges, signs,
+        ordering, boolean values, and nullness.
+      - Consider comparisons with literals and named constants when
+        supported by the available context.
+      - Consider array lengths, collection sizes, emptiness, and relationships
+        between sizes, fields, parameters, and results.
+      - Consider array-element relationships and membership properties when
+        expressible as safe, side-effect-free Java expressions.
+      - Consider conditional properties, expressed as (!condition || property).
+      - Include simple properties of individual values or fields;
+        an invariant need not involve multiple variables.
+      - At METHOD_EXIT, invariants may describe object or parameter state
+        without mentioning result.
+      - Diversify candidates across applicable property types.
+        Do not fill the quota with equivalent variants.
+      - Avoid properties tied to a particular execution's timestamp,
+        random output, identity hash code, or generated identifier.
+      - Guard dereferences and array accesses when needed for safe evaluation.
+      """;
+
   private static boolean printedOnce = false;
 
   @Override
@@ -103,6 +132,10 @@ public abstract class AbstractPromptStrategy implements PromptStrategy {
         - Do not focus solely on nullness-related invariants.
         - Prioritize invariants that capture meaningful relationships among the in-scope names and reflect the behavior of the method at this program point.
         """);
+
+    if (ctx.extendedInstructions()) {
+      sb.append(EXTENDED_INSTRUCTIONS);
+    }
 
     String extraBeforeContext = extraUserInstructionsBeforeContext(ctx);
     if (!extraBeforeContext.isBlank()) {
