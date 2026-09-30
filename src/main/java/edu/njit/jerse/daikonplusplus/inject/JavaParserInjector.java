@@ -131,6 +131,10 @@ public final class JavaParserInjector {
     BlockStmt body = md.getBody().get();
     boolean isVoid = md.getType().isVoidType();
 
+    // Decide on the original body, before returns are rewritten into blocks: guards appended
+    // after a body that cannot complete normally would be unreachable code.
+    boolean endReachable = isVoid && CompletionAnalysis.canCompleteNormally(body);
+
     List<ReturnStmt> returns = body.findAll(ReturnStmt.class);
     int[] counter = {0};
 
@@ -146,14 +150,12 @@ public final class JavaParserInjector {
       }
     }
 
-    // Tail guards for void methods that fall through
-    if (isVoid) {
+    // Tail guards for void methods whose body can fall through its end
+    if (endReachable) {
       List<Statement> stmts = body.getStatements();
-      if (stmts.isEmpty() || !(stmts.get(stmts.size() - 1) instanceof ReturnStmt)) {
-        for (InvariantRecord rec : exits) {
-          String exVar = "__dp_ex_" + rec.id().toString().replace("-", "") + "_tail";
-          stmts.add(guardStatement(rec, "EXIT", exVar));
-        }
+      for (InvariantRecord rec : exits) {
+        String exVar = "__dp_ex_" + rec.id().toString().replace("-", "") + "_tail";
+        stmts.add(guardStatement(rec, "EXIT", exVar));
       }
     }
   }
