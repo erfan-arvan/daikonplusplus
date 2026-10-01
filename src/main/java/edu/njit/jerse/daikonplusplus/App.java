@@ -566,21 +566,18 @@ public final class App {
     // --- Phase 2: Injection on MAIN working copy ---
     final Instant injectionPhaseStart = PhaseTimer.start("Injection phase");
     final ExecutorService injPool = Executors.newFixedThreadPool(Math.min(cfg.threads(), 8));
-    final List<Future<?>> injFutures = new ArrayList<>();
+    final Map<Path, Future<Set<UUID>>> injFutures = new LinkedHashMap<>();
+    // Candidates whose guard could not be generated; they are never injected anywhere.
+    final Set<UUID> failedToInject = new HashSet<>();
     for (Map.Entry<Path, List<InvariantRecord>> e : byFile.entrySet()) {
       Path file = e.getKey();
       List<InvariantRecord> recs = e.getValue();
-      injFutures.add(
-          injPool.submit(
-              () -> {
-                injector.injectGuards(file, recs);
-                return null;
-              }));
+      injFutures.put(file, injPool.submit(() -> injector.injectGuards(file, recs)));
     }
     int injectedFiles = 0;
-    for (Future<?> f : injFutures) {
+    for (Map.Entry<Path, Future<Set<UUID>>> e : injFutures.entrySet()) {
       try {
-        f.get();
+        failedToInject.addAll(e.getValue().get());
         injectedFiles++;
       } catch (ExecutionException ee) {
         Throwable cause = ee.getCause();
@@ -588,11 +585,12 @@ public final class App {
             (cause == null)
                 ? ee.toString()
                 : (cause.getMessage() == null ? cause.toString() : cause.getMessage());
-        System.err.println("Injection error: " + msg);
+        System.err.println("Injection error in " + e.getKey() + ": " + msg);
       }
     }
     injPool.shutdown();
     System.out.println(">>> Injection done. Updated MAIN files: " + injectedFiles);
+    System.out.println(">>> Candidates failed to inject: " + failedToInject.size());
     PhaseTimer.finish("Injection phase", injectionPhaseStart);
 
     // Write DpRuntime helper so injected guards can compile without System.getProperties()
@@ -930,6 +928,7 @@ public final class App {
 
     final Set<UUID> compiledIds = new HashSet<>(all.keySet());
     compiledIds.removeAll(nonCompiled);
+    compiledIds.removeAll(failedToInject);
 
     Map<UUID, InvariantRegistry.Outcome> outcomes = new HashMap<>();
     for (var e : all.entrySet()) {
@@ -938,7 +937,11 @@ public final class App {
       boolean exec = executed.contains(id);
 
       InvariantRegistry.Verdict verdict;
-      if (nonCompiled.contains(id)) {
+      if (failedToInject.contains(id)) {
+        // Never injected, so it can be neither held nor falsified.
+        exec = false;
+        verdict = InvariantRegistry.Verdict.FAILED_TO_INJECT;
+      } else if (nonCompiled.contains(id)) {
         verdict = InvariantRegistry.Verdict.FAILED_TO_COMPILE;
       } else if (exec && falsified.contains(id)) {
         verdict = InvariantRegistry.Verdict.FALSIFIED;
@@ -969,6 +972,9 @@ public final class App {
     int disabledStaleNeverExecCount = 0;
 
     for (var r : all.values()) {
+      if (failedToInject.contains(r.id)) {
+        continue;
+      }
       boolean isCompiled = compiledIds.contains(r.id);
       boolean wasExecuted = executed.contains(r.id);
       boolean wasFalsified = falsified.contains(r.id);
@@ -1010,6 +1016,8 @@ public final class App {
             + compiledCount
             + " non-compiled="
             + nonCompiled.size()
+            + " failed-to-inject="
+            + failedToInject.size()
             + " executed="
             + executedCount
             + " falsified="
@@ -1179,6 +1187,7 @@ public final class App {
       // stale/timeout-disabled invariants.
       Set<UUID> filteredCompiledIds = new HashSet<>(all.keySet());
       filteredCompiledIds.removeAll(filteredNonCompiled);
+      filteredCompiledIds.removeAll(failedToInject);
 
       int filteredHeldCount = 0;
       int filteredFalsCount = 0;
@@ -1186,6 +1195,9 @@ public final class App {
       int disabledTestFilterNeverExecCount = 0;
 
       for (UUID id : all.keySet()) {
+        if (failedToInject.contains(id)) {
+          continue;
+        }
         boolean isCompiled = filteredCompiledIds.contains(id);
         boolean wasExecuted = filteredExecuted.contains(id);
         boolean wasFalsified = filteredFalsified.contains(id);
@@ -1212,6 +1224,8 @@ public final class App {
               + filteredCompiledIds.size()
               + " non-compiled="
               + filteredNonCompiled.size()
+              + " failed-to-inject="
+              + failedToInject.size()
               + " executed="
               + filteredExecuted.size()
               + " falsified="

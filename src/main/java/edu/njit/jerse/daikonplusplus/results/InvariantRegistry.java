@@ -27,7 +27,9 @@ public final class InvariantRegistry {
     HELD,
     FALSIFIED,
     NEVER_EXECUTED,
-    FAILED_TO_COMPILE
+    FAILED_TO_COMPILE,
+    /** The candidate's guard could not be generated, so it was never injected. */
+    FAILED_TO_INJECT
   }
 
   /** Simple immutable structure to update outcomes after execution. */
