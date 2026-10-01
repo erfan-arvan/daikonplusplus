@@ -18,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Injects invariant checks into Java source code using JavaParser.
@@ -28,6 +29,9 @@ public final class JavaParserInjector {
 
   /** Stand-in name spliced out of the guard template and replaced by the candidate expression. */
   private static final String EXPR_PLACEHOLDER = "__DP_INVARIANT_EXPR__";
+
+  /** Name of the throwaway type used to re-parse a single method. */
+  private static final String WRAPPER_TYPE = "__DpInjectWrapper__";
 
   private final FileWriteCoordinator coordinator;
 
@@ -76,7 +80,6 @@ public final class JavaParserInjector {
         file,
         () -> {
           String src = Files.readString(file, StandardCharsets.UTF_8);
-          CompilationUnit cu = LexicalPreservingPrinter.setup(StaticJavaParser.parse(src));
 
           Map<String, List<InvariantRecord>> entryMap = new HashMap<>();
           Map<String, List<InvariantRecord>> exitMap = new HashMap<>();
@@ -95,28 +98,176 @@ public final class JavaParserInjector {
             target.computeIfAbsent(key, __ -> new ArrayList<>()).add(r);
           }
 
-          // For each method, attach entry/exit invariants if present
-          for (MethodDeclaration md : cu.findAll(MethodDeclaration.class)) {
-            if (!md.getBody().isPresent()) {
-              continue;
-            }
-
-            String desc = MethodSignatureUtil.jvmDescriptorBestEffort(md);
-
-            List<InvariantRecord> entries = entryMap.get(desc);
-            List<InvariantRecord> exits = exitMap.get(desc);
-
-            if (entries != null && !entries.isEmpty()) {
-              injectEntry(md, entries);
-            }
-            if (exits != null && !exits.isEmpty()) {
-              injectExit(md, exits);
-            }
+          String out = injectPerMethod(src, entryMap, exitMap);
+          if (out == null) {
+            out = injectWholeFile(src, entryMap, exitMap);
           }
-
-          Files.writeString(file, LexicalPreservingPrinter.print(cu), StandardCharsets.UTF_8);
+          Files.writeString(file, out, StandardCharsets.UTF_8);
           return failed;
         });
+  }
+
+  /**
+   * Injects by re-parsing each affected method on its own and splicing its new text back into the
+   * file.
+   *
+   * <p>{@link LexicalPreservingPrinter} keeps the text of the whole tree it observes in linked
+   * lists, and every inserted guard walks them, so observing the whole file made injection
+   * quadratic in the number of guards per file (hours for large files with many candidates).
+   * Observing one method at a time bounds that work by the method's size; the inserted code and the
+   * surrounding text are the same as with whole-file observation.
+   *
+   * @return the new file text, or null if a method's text could not be located reliably
+   */
+  private @Nullable String injectPerMethod(
+      String src,
+      Map<String, List<InvariantRecord>> entryMap,
+      Map<String, List<InvariantRecord>> exitMap) {
+    CompilationUnit cu = StaticJavaParser.parse(src);
+
+    List<MethodDeclaration> targets = new ArrayList<>();
+    for (MethodDeclaration md : cu.findAll(MethodDeclaration.class)) {
+      if (md.getBody().isPresent() && hasCandidates(md, entryMap, exitMap)) {
+        targets.add(md);
+      }
+    }
+
+    // Methods nested in another target (e.g. in an anonymous class) are handled with it.
+    List<MethodDeclaration> roots = new ArrayList<>();
+    for (MethodDeclaration md : targets) {
+      if (targets.stream().noneMatch(md::isDescendantOf)) {
+        roots.add(md);
+      }
+    }
+
+    int[] lineStarts = lineStarts(src);
+    // Keep the file's line separator so inserted lines match the surrounding text.
+    String eol = src.contains("\r\n") ? "\r\n" : "\n";
+    List<int[]> spans = new ArrayList<>();
+    List<String> texts = new ArrayList<>();
+    for (MethodDeclaration root : roots) {
+      if (root.getBegin().isEmpty() || root.getEnd().isEmpty()) {
+        return null;
+      }
+      int start = offset(lineStarts, root.getBegin().get().line, root.getBegin().get().column);
+      int end = offset(lineStarts, root.getEnd().get().line, root.getEnd().get().column) + 1;
+      if (start < 0 || end > src.length() || start >= end || src.charAt(end - 1) != '}') {
+        return null;
+      }
+
+      // Re-parse inside a minimal wrapper type that reproduces the whitespace in front of the
+      // method, so the lexical-preserving printer infers the same indentation for new statements.
+      String indent = src.substring(lineStarts[root.getBegin().get().line - 1], start);
+      if (!indent.isBlank()) {
+        indent = "";
+      }
+      CompilationUnit wrapper;
+      MethodDeclaration copy;
+      try {
+        wrapper =
+            StaticJavaParser.parse(
+                "class "
+                    + WRAPPER_TYPE
+                    + " {"
+                    + eol
+                    + indent
+                    + src.substring(start, end)
+                    + eol
+                    + "}"
+                    + eol);
+        copy =
+            wrapper.getType(0).getMembers().size() == 1
+                ? wrapper.getType(0).getMember(0).toMethodDeclaration().orElse(null)
+                : null;
+      } catch (ParseProblemException ppe) {
+        return null;
+      }
+      if (copy == null
+          || !MethodSignatureUtil.jvmDescriptorBestEffort(copy)
+              .equals(MethodSignatureUtil.jvmDescriptorBestEffort(root))) {
+        return null;
+      }
+
+      LexicalPreservingPrinter.setup(wrapper);
+      for (MethodDeclaration md : copy.findAll(MethodDeclaration.class)) {
+        applyCandidates(md, entryMap, exitMap);
+      }
+      spans.add(new int[] {start, end});
+      texts.add(LexicalPreservingPrinter.print(copy));
+    }
+
+    // Splice from the end of the file backwards so earlier offsets stay valid.
+    StringBuilder out = new StringBuilder(src);
+    for (int i = spans.size() - 1; i >= 0; i--) {
+      out.replace(spans.get(i)[0], spans.get(i)[1], texts.get(i));
+    }
+    return out.toString();
+  }
+
+  /** Previous strategy, observing the whole file; used only if a method cannot be re-parsed. */
+  private String injectWholeFile(
+      String src,
+      Map<String, List<InvariantRecord>> entryMap,
+      Map<String, List<InvariantRecord>> exitMap) {
+    CompilationUnit cu = LexicalPreservingPrinter.setup(StaticJavaParser.parse(src));
+    for (MethodDeclaration md : cu.findAll(MethodDeclaration.class)) {
+      applyCandidates(md, entryMap, exitMap);
+    }
+    return LexicalPreservingPrinter.print(cu);
+  }
+
+  private static boolean hasCandidates(
+      MethodDeclaration md,
+      Map<String, List<InvariantRecord>> entryMap,
+      Map<String, List<InvariantRecord>> exitMap) {
+    String desc = MethodSignatureUtil.jvmDescriptorBestEffort(md);
+    return entryMap.containsKey(desc) || exitMap.containsKey(desc);
+  }
+
+  /** Attaches the entry/exit candidates matching this method's descriptor, if any. */
+  private void applyCandidates(
+      MethodDeclaration md,
+      Map<String, List<InvariantRecord>> entryMap,
+      Map<String, List<InvariantRecord>> exitMap) {
+    if (!md.getBody().isPresent()) {
+      return;
+    }
+
+    String desc = MethodSignatureUtil.jvmDescriptorBestEffort(md);
+
+    List<InvariantRecord> entries = entryMap.get(desc);
+    List<InvariantRecord> exits = exitMap.get(desc);
+
+    if (entries != null && !entries.isEmpty()) {
+      injectEntry(md, entries);
+    }
+    if (exits != null && !exits.isEmpty()) {
+      injectExit(md, exits);
+    }
+  }
+
+  /** Offsets of the first character of each line (lines end at '\n', so CRLF is handled). */
+  private static int[] lineStarts(String src) {
+    List<Integer> starts = new ArrayList<>();
+    starts.add(0);
+    for (int i = 0; i < src.length(); i++) {
+      if (src.charAt(i) == '\n') {
+        starts.add(i + 1);
+      }
+    }
+    int[] a = new int[starts.size()];
+    for (int i = 0; i < a.length; i++) {
+      a[i] = starts.get(i);
+    }
+    return a;
+  }
+
+  /** Converts a 1-based JavaParser line/column (tab size 1) into a string offset, or -1. */
+  private static int offset(int[] lineStarts, int line, int column) {
+    if (line < 1 || line > lineStarts.length || column < 1) {
+      return -1;
+    }
+    return lineStarts[line - 1] + column - 1;
   }
 
   /**
