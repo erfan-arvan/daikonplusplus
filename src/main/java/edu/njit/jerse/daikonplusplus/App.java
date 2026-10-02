@@ -322,6 +322,13 @@ public final class App {
       }
     }
 
+    // Dry run: build and count the LLM prompts only. Nothing is copied, sent, injected or run, so
+    // the user's sources are scanned in place (read-only).
+    final boolean dryRun = BASE_CFG.llmDryRun();
+    if (dryRun) {
+      System.out.println(">>> LLM DRY RUN: prompts are counted, not sent; stopping after LM phase");
+    }
+
     // ============================================================
     // Prepare working copies
     // ============================================================
@@ -335,7 +342,7 @@ public final class App {
       // NOT the entire project root
 
       // CORRECT: copy the ENTIRE project
-      workProjectRoot = prepareWorkingCopy(userProjectRoot, BASE_CFG);
+      workProjectRoot = dryRun ? userProjectRoot : prepareWorkingCopy(userProjectRoot, BASE_CFG);
 
       // Main/test roots are SUBPATHS inside the copied project
       mainSrcRoot = workProjectRoot.resolve(relMainSrc).normalize();
@@ -363,8 +370,11 @@ public final class App {
 
     } else {
       // Native behavior: copy source trees (exactly as before)
-      mainSrcRoot = prepareWorkingCopy(userMainSrcRoot, BASE_CFG);
-      testSrcRoot = splitMode ? prepareWorkingCopy(userTestSrcRoot, BASE_CFG) : mainSrcRoot;
+      mainSrcRoot = dryRun ? userMainSrcRoot : prepareWorkingCopy(userMainSrcRoot, BASE_CFG);
+      testSrcRoot =
+          !splitMode
+              ? mainSrcRoot
+              : dryRun ? userTestSrcRoot : prepareWorkingCopy(userTestSrcRoot, BASE_CFG);
       workProjectRoot =
           mainSrcRoot; // non-null placeholder; not used as "project root" in native mode
 
@@ -382,7 +392,7 @@ public final class App {
     if (!cfg.scanIncludes().isEmpty()) {
       System.out.println(">>> Scan include filter: " + cfg.scanIncludes());
     }
-    if (BASE_CFG.registryReset()) {
+    if (BASE_CFG.registryReset() && !dryRun) {
       try {
         java.nio.file.Files.deleteIfExists(BASE_CFG.registryPath());
         System.out.println(">>> Registry reset: " + BASE_CFG.registryPath().toAbsolutePath());
@@ -515,6 +525,21 @@ public final class App {
       if (!f.isDone()) f.cancel(true);
     }
     pool.shutdownNow();
+
+    final edu.njit.jerse.daikonplusplus.llm.DryRunTokenCounter dryRunCounter = llm.dryRunCounter();
+    if (dryRunCounter != null) {
+      PhaseTimer.finish("LM phase", lmPhaseStart);
+      dryRunCounter.printSummary(System.out, points.size());
+      Path tsv = BASE_CFG.outcomesPath().resolveSibling("daikonpp_dry_run_tokens.tsv");
+      try {
+        dryRunCounter.writeTsv(tsv);
+        System.out.println(">>> Per-prompt token counts: " + tsv);
+      } catch (IOException ioe) {
+        System.err.println("Warning: couldn't write " + tsv + ": " + ioe.getMessage());
+      }
+      System.out.println(">>> LLM DRY RUN finished; injection, compilation and tests skipped.");
+      return;
+    }
 
     long passedLlm =
         filterStats.rawFromLlm.get()

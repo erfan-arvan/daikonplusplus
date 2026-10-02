@@ -43,6 +43,9 @@ public final class LlmInvariantGenerator {
   private final DpConfig config;
   private final PromptStrategy promptStrategy;
 
+  /** Set in dry-run mode: prompts are counted here and never sent. */
+  private final @Nullable DryRunTokenCounter dryRunCounter;
+
   private static boolean printedModelOnce = false;
   private static boolean printedStrategyOnce = false;
 
@@ -55,7 +58,8 @@ public final class LlmInvariantGenerator {
   public LlmInvariantGenerator(DpConfig config, int maxInvariants) {
     this.config = Objects.requireNonNull(config);
     this.maxInvariants = Math.max(1, maxInvariants);
-    this.llm = buildLlmFromEnv(config);
+    this.dryRunCounter = newDryRunCounter(config);
+    this.llm = dryRunCounter != null ? DRY_RUN_CLIENT : buildLlmFromEnv(config);
     this.promptStrategy = PromptStrategyFactory.create(config.promptStrategy());
   }
 
@@ -69,7 +73,8 @@ public final class LlmInvariantGenerator {
   public LlmInvariantGenerator(DpConfig config, ChatModel model, int maxInvariants) {
     this.config = Objects.requireNonNull(config);
     this.maxInvariants = Math.max(1, maxInvariants);
-    this.llm = buildLlmFromEnv(config, model);
+    this.dryRunCounter = newDryRunCounter(config);
+    this.llm = dryRunCounter != null ? DRY_RUN_CLIENT : buildLlmFromEnv(config, model);
     this.promptStrategy = PromptStrategyFactory.create(config.promptStrategy());
   }
 
@@ -85,6 +90,27 @@ public final class LlmInvariantGenerator {
     this.llm = Objects.requireNonNull(llm);
     this.maxInvariants = Math.max(1, maxInvariants);
     this.promptStrategy = PromptStrategyFactory.create(config.promptStrategy());
+    this.dryRunCounter = newDryRunCounter(config);
+  }
+
+  /** Never called: in dry-run mode prompts go to the counter instead of an LLM. */
+  private static final LlmClient DRY_RUN_CLIENT =
+      (system, user) -> {
+        throw new java.io.IOException("LLM dry run: nothing is sent");
+      };
+
+  private static @Nullable DryRunTokenCounter newDryRunCounter(DpConfig config) {
+    if (!config.llmDryRun()) return null;
+    String model =
+        config.llmProvider().equals("local") ? config.llmLocalModel() : config.openaiModel();
+    String cassettes = config.llmCassettesDir();
+    return new DryRunTokenCounter(
+        model, (cassettes == null || cassettes.isBlank()) ? null : Path.of(cassettes));
+  }
+
+  /** The dry-run token counter, or null when not in dry-run mode. */
+  public @Nullable DryRunTokenCounter dryRunCounter() {
+    return dryRunCounter;
   }
 
   /**
@@ -146,6 +172,12 @@ public final class LlmInvariantGenerator {
         if (!inScope.isEmpty()) {
           System.out.println("[DP] Scope: " + inScope);
         }
+      }
+
+      // ----- Dry run: count the prompt's tokens, send nothing -----
+      if (dryRunCounter != null) {
+        dryRunCounter.record(point, system, user);
+        return List.of();
       }
 
       // ----- Structured request via pluggable LlmClient -----

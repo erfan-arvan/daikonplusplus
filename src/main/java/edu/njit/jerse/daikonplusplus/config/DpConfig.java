@@ -79,6 +79,9 @@ public final class DpConfig {
   private final int autofilterMaxModifyPasses;
   private final int autofilterMaxExtraPasses;
 
+  // ---- dry run: build prompts and count their tokens, never call the LLM ----
+  private final boolean llmDryRun;
+
   private DpConfig(
       int threads,
       Path registryPath,
@@ -114,7 +117,8 @@ public final class DpConfig {
       int staleCheckMinutes,
       int maxTimeoutMinutes,
       int autofilterMaxModifyPasses,
-      int autofilterMaxExtraPasses) {
+      int autofilterMaxExtraPasses,
+      boolean llmDryRun) {
 
     this.threads = threads;
     this.registryPath = registryPath;
@@ -151,6 +155,7 @@ public final class DpConfig {
     this.maxTimeoutMinutes = maxTimeoutMinutes;
     this.autofilterMaxModifyPasses = autofilterMaxModifyPasses;
     this.autofilterMaxExtraPasses = autofilterMaxExtraPasses;
+    this.llmDryRun = llmDryRun;
   }
 
   public Set<String> scanIncludes() {
@@ -187,6 +192,14 @@ public final class DpConfig {
 
   public boolean noQualityFilter() {
     return noQualityFilter;
+  }
+
+  /**
+   * When true, the pipeline scans program points and builds every LLM prompt, but sends nothing: it
+   * counts the prompts' tokens, prints a summary, and stops before injection.
+   */
+  public boolean llmDryRun() {
+    return llmDryRun;
   }
 
   /** per-rule switches for the invariant quality filter (all enabled by default) */
@@ -579,6 +592,8 @@ public final class DpConfig {
             0,
             getInt("dp.autofilterMaxExtraPasses", "DP_AUTOFILTER_MAX_EXTRA_PASSES", 20, env, file));
 
+    boolean llmDryRun = getBool("dp.llmDryRun", "DP_LLM_DRY_RUN", false, env, file);
+
     return new DpConfig(
         threads,
         Path.of(regPath).toAbsolutePath().normalize(),
@@ -614,7 +629,8 @@ public final class DpConfig {
         staleCheckMinutes,
         maxTimeoutMinutes,
         autofilterMaxModifyPasses,
-        autofilterMaxExtraPasses);
+        autofilterMaxExtraPasses,
+        llmDryRun);
   }
 
   /**
@@ -807,6 +823,8 @@ public final class DpConfig {
 
     System.out.println("autofilterMaxModifyPasses = " + autofilterMaxModifyPasses);
     System.out.println("autofilterMaxExtraPasses = " + autofilterMaxExtraPasses);
+
+    System.out.println("llmDryRun = " + llmDryRun);
 
     System.out.println("=========================");
   }
