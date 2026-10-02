@@ -105,7 +105,10 @@ public final class LlmInvariantGenerator {
         config.llmProvider().equals("local") ? config.llmLocalModel() : config.openaiModel();
     String cassettes = config.llmCassettesDir();
     return new DryRunTokenCounter(
-        model, (cassettes == null || cassettes.isBlank()) ? null : Path.of(cassettes));
+        model,
+        (cassettes == null || cassettes.isBlank()) ? null : Path.of(cassettes),
+        config.llmPriceInputPerM(),
+        config.llmPriceOutputPerM());
   }
 
   /** The dry-run token counter, or null when not in dry-run mode. */

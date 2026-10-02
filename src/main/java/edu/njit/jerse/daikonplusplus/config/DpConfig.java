@@ -81,6 +81,8 @@ public final class DpConfig {
 
   // ---- dry run: build prompts and count their tokens, never call the LLM ----
   private final boolean llmDryRun;
+  private final double llmPriceInputPerM;
+  private final double llmPriceOutputPerM;
 
   private DpConfig(
       int threads,
@@ -118,7 +120,9 @@ public final class DpConfig {
       int maxTimeoutMinutes,
       int autofilterMaxModifyPasses,
       int autofilterMaxExtraPasses,
-      boolean llmDryRun) {
+      boolean llmDryRun,
+      double llmPriceInputPerM,
+      double llmPriceOutputPerM) {
 
     this.threads = threads;
     this.registryPath = registryPath;
@@ -156,6 +160,8 @@ public final class DpConfig {
     this.autofilterMaxModifyPasses = autofilterMaxModifyPasses;
     this.autofilterMaxExtraPasses = autofilterMaxExtraPasses;
     this.llmDryRun = llmDryRun;
+    this.llmPriceInputPerM = llmPriceInputPerM;
+    this.llmPriceOutputPerM = llmPriceOutputPerM;
   }
 
   public Set<String> scanIncludes() {
@@ -200,6 +206,16 @@ public final class DpConfig {
    */
   public boolean llmDryRun() {
     return llmDryRun;
+  }
+
+  /** USD per 1M input tokens for the dry-run cost estimate, or negative when not set. */
+  public double llmPriceInputPerM() {
+    return llmPriceInputPerM;
+  }
+
+  /** USD per 1M output tokens for the dry-run cost estimate, or negative when not set. */
+  public double llmPriceOutputPerM() {
+    return llmPriceOutputPerM;
   }
 
   /** per-rule switches for the invariant quality filter (all enabled by default) */
@@ -593,6 +609,10 @@ public final class DpConfig {
             getInt("dp.autofilterMaxExtraPasses", "DP_AUTOFILTER_MAX_EXTRA_PASSES", 20, env, file));
 
     boolean llmDryRun = getBool("dp.llmDryRun", "DP_LLM_DRY_RUN", false, env, file);
+    double llmPriceInputPerM =
+        getDouble("dp.llmPriceInputPerM", "DP_LLM_PRICE_INPUT_PER_M", -1, env, file);
+    double llmPriceOutputPerM =
+        getDouble("dp.llmPriceOutputPerM", "DP_LLM_PRICE_OUTPUT_PER_M", -1, env, file);
 
     return new DpConfig(
         threads,
@@ -630,7 +650,9 @@ public final class DpConfig {
         maxTimeoutMinutes,
         autofilterMaxModifyPasses,
         autofilterMaxExtraPasses,
-        llmDryRun);
+        llmDryRun,
+        llmPriceInputPerM,
+        llmPriceOutputPerM);
   }
 
   /**
@@ -681,6 +703,21 @@ public final class DpConfig {
    * @param file configuration file entries
    * @return resolved integer value
    */
+  private static double getDouble(
+      String sysKey, String envKey, double def, Map<String, String> env, Map<String, String> file) {
+
+    String v = file.get(sysKey);
+    if (v == null) v = System.getProperty(sysKey);
+    if (v == null) v = env.get(envKey);
+    if (v == null || v.isBlank()) return def;
+
+    try {
+      return Double.parseDouble(v.trim());
+    } catch (NumberFormatException e) {
+      return def;
+    }
+  }
+
   private static int getInt(
       String sysKey, String envKey, int def, Map<String, String> env, Map<String, String> file) {
 
@@ -825,6 +862,8 @@ public final class DpConfig {
     System.out.println("autofilterMaxExtraPasses = " + autofilterMaxExtraPasses);
 
     System.out.println("llmDryRun = " + llmDryRun);
+    System.out.println("llmPriceInputPerM = " + llmPriceInputPerM);
+    System.out.println("llmPriceOutputPerM = " + llmPriceOutputPerM);
 
     System.out.println("=========================");
   }
