@@ -11,8 +11,15 @@ import java.nio.file.Path;
  *
  * <p>DpRuntime uses /dev/shm (or a configured DP_SHM_DIR) to persist invariant execution and
  * failure events as files so they survive SIGKILL. On JVM startup, existing shm files are loaded
- * into SEEN/SEEN_FAIL so already-checked invariants are skipped on rerun (recovery). No events are
- * written to stdout — the shm directory is the sole record during a live run.
+ * into SEEN/SEEN_FAIL, and a frozen snapshot of SEEN's pre-population is kept in SEEN_AT_START. The
+ * injected guard skips a checkpoint when: it's in DISABLED (explicitly turned off), or in
+ * SEEN_AT_START (a *prior, killed* process already checked it — recovery), or in SEEN_FAIL (this
+ * invariant has already been falsified by some input, in this run or a prior one — once refuted,
+ * there's nothing left to learn from re-checking it). It deliberately does *not* skip a checkpoint
+ * just because SEEN (which keeps growing live all run, for idempotent shm/ex writes and the
+ * shutdown-hook sidecar) contains it — an invariant that merely *held* on an earlier call must
+ * still be re-evaluated on every later call, since a later input could still falsify it. No events
+ * are written to stdout — the shm directory is the sole record during a live run.
  *
  * <p>Fallback: when DP_SHM_DIR is not set, SHM_EX_DIR/SHM_FAIL_DIR/SHM_CURRENT_DIR are null. In
  * that case results are persisted only via the shutdown-hook sidecar written to DP_INV_DIR (picked
@@ -31,6 +38,7 @@ public final class DpRuntimeWriter {
   public static void write(Path srcRoot) throws IOException {
     Path pkg = srcRoot.resolve("daikonpp");
     Files.createDirectories(pkg);
+    writeNullMarkingPackageInfoIfRequested(pkg);
     Path file = pkg.resolve("DpRuntime.java");
     String src =
         "package daikonpp;\n"
@@ -42,13 +50,32 @@ public final class DpRuntimeWriter {
             + "    public static final java.nio.file.Path SHM_FAIL_DIR;\n"
             + "    public static final java.nio.file.Path SHM_CURRENT_DIR;\n"
             // --- in-memory dedup sets ---
+            // NOTE: explicit <String, Boolean> (not diamond) and anonymous-class/try-finally
+            // forms throughout this generated source are deliberate, NOT stylistic -- some
+            // Defects4J subjects (e.g. commons-cli) compile with -source/-target as old as 1.6,
+            // and this file is compiled alongside that project's own sources under its own Ant
+            // build settings. Diamond operator, lambdas, and try-with-resources all require
+            // -source 7/8+; keep this file syntactically valid under -source 6 so it never
+            // becomes a project-specific point of failure. Semantics are unchanged from a
+            // lambda-based version -- these are the exact same operations spelled out longhand.
             + "    public static final java.util.Set<String> SEEN =\n"
-            + "        java.util.Collections.newSetFromMap(new ConcurrentHashMap<>());\n"
+            + "        java.util.Collections.newSetFromMap(\n"
+            + "            new ConcurrentHashMap<String, Boolean>());\n"
             + "    public static final java.util.Set<String> SEEN_FAIL =\n"
-            + "        java.util.Collections.newSetFromMap(new ConcurrentHashMap<>());\n"
+            + "        java.util.Collections.newSetFromMap(\n"
+            + "            new ConcurrentHashMap<String, Boolean>());\n"
+            // --- frozen snapshot of SEEN taken right after shm/ex pre-population, before this
+            // process evaluates anything itself; this (not the live-growing SEEN) is what the
+            // injected guard checks, so a same-run re-execution is never mistaken for a
+            // previous, killed process having already checked it ---
+            + "    public static final java.util.Set<String> SEEN_AT_START;\n"
             // --- re-entrancy guard (per-thread) ---
             + "    public static final ThreadLocal<AtomicBoolean> GUARD =\n"
-            + "        ThreadLocal.withInitial(() -> new AtomicBoolean(false));\n"
+            + "        new ThreadLocal<AtomicBoolean>() {\n"
+            + "            protected AtomicBoolean initialValue() {\n"
+            + "                return new AtomicBoolean(false);\n"
+            + "            }\n"
+            + "        };\n"
             // --- disabled invariants ---
             + "    public static final java.util.Set<String> DISABLED = loadDisabled();\n"
             // --- DP_INV_DIR for shutdown-hook sidecar fallback ---
@@ -71,27 +98,45 @@ public final class DpRuntimeWriter {
             + "                java.nio.file.Files.createDirectories(currentDir);\n"
             // pre-populate SEEN from existing ex/ files (SIGKILL recovery)
             + "                final java.nio.file.Path fEx = exDir;\n"
-            + "                try (java.util.stream.Stream<java.nio.file.Path> s =\n"
-            + "                        java.nio.file.Files.list(fEx)) {\n"
-            + "                    s.forEach(p -> {\n"
-            + "                        java.nio.file.Path fn = p.getFileName();\n"
-            + "                        if (fn != null) SEEN.add(fn.toString());\n"
-            + "                    });\n"
+            + "                java.util.stream.Stream<java.nio.file.Path> exS =\n"
+            + "                    java.nio.file.Files.list(fEx);\n"
+            + "                try {\n"
+            + "                    exS.forEach(\n"
+            + "                        new java.util.function.Consumer<java.nio.file.Path>() {\n"
+            + "                            public void accept(java.nio.file.Path p) {\n"
+            + "                                java.nio.file.Path fn = p.getFileName();\n"
+            + "                                if (fn != null) SEEN.add(fn.toString());\n"
+            + "                            }\n"
+            + "                        });\n"
+            + "                } finally {\n"
+            + "                    exS.close();\n"
             + "                }\n"
             // pre-populate SEEN_FAIL from existing fail/ files
             + "                final java.nio.file.Path fFail = failDir;\n"
-            + "                try (java.util.stream.Stream<java.nio.file.Path> s =\n"
-            + "                        java.nio.file.Files.list(fFail)) {\n"
-            + "                    s.forEach(p -> {\n"
-            + "                        java.nio.file.Path fn = p.getFileName();\n"
-            + "                        if (fn == null) return;\n"
-            + "                        String name = fn.toString();\n"
-            + "                        if (name.endsWith(\".json\"))\n"
-            + "                            SEEN_FAIL.add(name.substring(0, name.length() - 5));\n"
-            + "                    });\n"
+            + "                java.util.stream.Stream<java.nio.file.Path> failS =\n"
+            + "                    java.nio.file.Files.list(fFail);\n"
+            + "                try {\n"
+            + "                    failS.forEach(\n"
+            + "                        new java.util.function.Consumer<java.nio.file.Path>() {\n"
+            + "                            public void accept(java.nio.file.Path p) {\n"
+            + "                                java.nio.file.Path fn = p.getFileName();\n"
+            + "                                if (fn == null) return;\n"
+            + "                                String name = fn.toString();\n"
+            + "                                if (name.endsWith(\".json\"))\n"
+            + "                                    SEEN_FAIL.add(\n"
+            + "                                        name.substring(0, name.length() - 5));\n"
+            + "                            }\n"
+            + "                        });\n"
+            + "                } finally {\n"
+            + "                    failS.close();\n"
             + "                }\n"
             + "            } catch (Exception ignored) {}\n"
             + "        }\n"
+            // snapshot SEEN now — before any invariant in this process has run — so later
+            // in-run calls to recordExecuted() (which keep adding to SEEN) never leak into what
+            // the guard treats as \"already checked by a previous process\"
+            + "        SEEN_AT_START = java.util.Collections.unmodifiableSet(\n"
+            + "            new java.util.HashSet<String>(SEEN));\n"
             // register shutdown-hook sidecar fallback (fires only when JVM exits normally)
             + "        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {\n"
             + "            public void run() {\n"
@@ -102,22 +147,35 @@ public final class DpRuntimeWriter {
             + "                    dir.mkdirs();\n"
             + "                    java.io.File out = new java.io.File(dir,\n"
             + "                        \"dp-events-\" + java.util.UUID.randomUUID() + \".log\");\n"
-            + "                    StringBuilder sb = new StringBuilder();\n"
+            + "                    final StringBuilder sb = new StringBuilder();\n"
             + "                    for (String k : SEEN) {\n"
             + "                        sb.append(\"INV_EXD:\").append(k).append('\\n');\n"
             + "                    }\n"
             + "                    if (SHM_FAIL_DIR != null) {\n"
-            + "                        try (java.util.stream.Stream<java.nio.file.Path> s =\n"
-            + "                                java.nio.file.Files.list(SHM_FAIL_DIR)) {\n"
-            + "                            s.forEach(p -> {\n"
-            + "                                try {\n"
-            + "                                    String content = new String(\n"
-            + "                                        java.nio.file.Files.readAllBytes(p),\n"
-            + "                                        java.nio.charset.StandardCharsets.UTF_8);\n"
-            + "                                    if (!content.trim().isEmpty())\n"
-            + "                                        sb.append(content.trim()).append('\\n');\n"
-            + "                                } catch (Exception __ig) {}\n"
-            + "                            });\n"
+            + "                        try {\n"
+            + "                            java.util.stream.Stream<java.nio.file.Path> s =\n"
+            + "                                java.nio.file.Files.list(SHM_FAIL_DIR);\n"
+            + "                            try {\n"
+            + "                                s.forEach(\n"
+            + "                                    new java.util.function.Consumer<\n"
+            + "                                        java.nio.file.Path>() {\n"
+            + "                                        public void accept(\n"
+            + "                                                java.nio.file.Path p) {\n"
+            + "                                            try {\n"
+            + "                                                String content = new String(\n"
+            + "                                                    java.nio.file.Files\n"
+            + "                                                        .readAllBytes(p),\n"
+            + "                                                    java.nio.charset\n"
+            + "                                                        .StandardCharsets.UTF_8);\n"
+            + "                                                if (!content.trim().isEmpty())\n"
+            + "                                                    sb.append(content.trim())\n"
+            + "                                                        .append('\\n');\n"
+            + "                                            } catch (Exception __ig) {}\n"
+            + "                                        }\n"
+            + "                                    });\n"
+            + "                            } finally {\n"
+            + "                                s.close();\n"
+            + "                            }\n"
             + "                        } catch (Exception __ig) {}\n"
             + "                    }\n"
             + "                    if (sb.length() > 0) {\n"
@@ -139,7 +197,8 @@ public final class DpRuntimeWriter {
             // --- loadDisabled ---
             + "    private static java.util.Set<String> loadDisabled() {\n"
             + "        java.util.Set<String> s =\n"
-            + "            java.util.Collections.newSetFromMap(new ConcurrentHashMap<>());\n"
+            + "            java.util.Collections.newSetFromMap(\n"
+            + "                new ConcurrentHashMap<String, Boolean>());\n"
             + "        String f = System.getProperty(\"DP_DISABLED_FILE\");\n"
             + "        if (f == null || f.trim().isEmpty()) f = System.getenv(\"DP_DISABLED_FILE\");\n"
             + "        if (f != null && !f.trim().isEmpty()) {\n"
@@ -196,5 +255,32 @@ public final class DpRuntimeWriter {
             + "}\n";
     Files.writeString(file, src, StandardCharsets.UTF_8);
     System.out.println("[DP] Wrote DpRuntime helper → " + file);
+  }
+
+  /**
+   * Some target projects (e.g. spring-framework) put {@code org.jspecify:jspecify} on the compile
+   * classpath, which causes an auto-discovered annotation processor to require every top-level
+   * class to be explicitly null-marked (directly, via package, or via module) -- our generated
+   * {@code daikonpp} package has none of those, so {@code DpRuntime.java} fails to compile with
+   * {@code [RequireExplicitNullMarking]}, and the autofilter can't self-repair it (it isn't
+   * instrumented target code with an "original" to restore).
+   *
+   * <p>Unconditionally importing {@code org.jspecify.annotations.NullUnmarked} would break any
+   * project that doesn't have jspecify on its classpath (Dubbo, Netty, ...) with a hard "package
+   * does not exist" error, so this is opt-in via {@code DP_JSPECIFY_NULL_MARKING=true}, which the
+   * external-project driver script sets only for projects known to require it.
+   *
+   * @param pkg the {@code daikonpp} package directory to receive {@code package-info.java}
+   * @throws IOException if the file cannot be written
+   */
+  private static void writeNullMarkingPackageInfoIfRequested(Path pkg) throws IOException {
+    String flag = System.getenv("DP_JSPECIFY_NULL_MARKING");
+    if (flag == null || !flag.trim().equalsIgnoreCase("true")) {
+      return;
+    }
+    Path file = pkg.resolve("package-info.java");
+    String src = "@org.jspecify.annotations.NullUnmarked\n" + "package daikonpp;\n";
+    Files.writeString(file, src, StandardCharsets.UTF_8);
+    System.out.println("[DP] Wrote JSpecify null-marking package-info → " + file);
   }
 }

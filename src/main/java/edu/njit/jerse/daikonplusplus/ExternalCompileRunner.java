@@ -5,6 +5,8 @@ import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil.JError;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
+import java.nio.file.attribute.FileTime;
+import java.time.Instant;
 import java.util.*;
 
 /**
@@ -37,6 +39,8 @@ public final class ExternalCompileRunner {
    * @param originalSrcRoot root of the original source tree
    * @param compileScript executable script used for compilation
    * @param maxModifyPasses number of passes that attempt invariant-level removal before fallback
+   * @param maxExtraPasses additional passes allotted to the restore-only fallback phase, on top of
+   *     {@code maxModifyPasses} (total budget = {@code maxModifyPasses + maxExtraPasses})
    * @throws Exception if compilation ultimately fails
    */
   public static void compileWithAutoFilter(
@@ -44,7 +48,8 @@ public final class ExternalCompileRunner {
       Path workSrcRoot,
       Path originalSrcRoot,
       Path compileScript,
-      int maxModifyPasses)
+      int maxModifyPasses,
+      int maxExtraPasses)
       throws Exception {
 
     if (!Files.isExecutable(compileScript)) {
@@ -54,7 +59,7 @@ public final class ExternalCompileRunner {
     Path errLog = workProjectRoot.resolve("dp-external-compile.err");
 
     int pass = 1;
-    int maxTotalPasses = maxModifyPasses + 20;
+    int maxTotalPasses = maxModifyPasses + maxExtraPasses;
 
     while (true) {
 
@@ -74,8 +79,17 @@ public final class ExternalCompileRunner {
       env.put("DP_PROJECT_ROOT", workProjectRoot.toAbsolutePath().toString());
 
       pb.directory(workProjectRoot.toFile());
+      // Merge stderr into stdout at the OS level before redirecting to a single
+      // file. Redirecting stdout and stderr to the same file via two separate
+      // redirectOutput/redirectError calls opens two independent file
+      // descriptors onto that path -- concurrent writes from the two streams
+      // then race at the OS level and clobber each other's bytes, corrupting
+      // compiler diagnostics (e.g. dropping the "file:line: error:" line while
+      // leaving its "symbol:"/"location:" continuation lines intact), which
+      // in turn makes the javac-error parser see no errors even though the
+      // build genuinely failed.
+      pb.redirectErrorStream(true);
       pb.redirectOutput(errLog.toFile());
-      pb.redirectError(errLog.toFile());
 
       int exit = pb.start().waitFor();
       System.out.println("[DP] external compile exit code: " + exit);
@@ -287,6 +301,17 @@ public final class ExternalCompileRunner {
           brokenFile,
           StandardCopyOption.REPLACE_EXISTING,
           StandardCopyOption.COPY_ATTRIBUTES);
+
+      // COPY_ATTRIBUTES above preserves the ORIGINAL (pre-instrumentation)
+      // file's old last-modified time. That time can be older than (or equal
+      // to) the already-compiled .class file left over from a previous
+      // failed pass, so the build's incremental up-to-date check sees a
+      // source file that isn't newer than its compiled output and skips
+      // recompiling it -- leaving the stale, still-broken bytecode in place.
+      // The identical compile error then keeps recurring on later passes
+      // even though the source was genuinely restored. Forcing the mtime to
+      // now guarantees the build always detects the change and recompiles.
+      Files.setLastModifiedTime(brokenFile, FileTime.from(Instant.now()));
 
       System.out.println("[DP] restored: " + brokenFile);
       return 1;

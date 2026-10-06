@@ -14,8 +14,11 @@ import edu.njit.jerse.daikonplusplus.model.*;
 import edu.njit.jerse.daikonplusplus.parse.JavaProjectScanner;
 import edu.njit.jerse.daikonplusplus.parse.context.ContextKind;
 import edu.njit.jerse.daikonplusplus.parse.context.ContextUtils;
+import edu.njit.jerse.daikonplusplus.results.InvariantMetrics;
 import edu.njit.jerse.daikonplusplus.results.InvariantRegistry;
 import edu.njit.jerse.daikonplusplus.results.LogParser;
+import edu.njit.jerse.daikonplusplus.results.ProjectMethodIndex;
+import edu.njit.jerse.daikonplusplus.util.PhaseTimer;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -23,6 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -104,6 +108,8 @@ public final class App {
     public final AtomicLong dropMaxK = new AtomicLong();
     public final AtomicLong dropRunDedup = new AtomicLong();
     public final AtomicLong dropRegistryDedup = new AtomicLong();
+    public final AtomicLong pointsWithCallSiteContext = new AtomicLong();
+    public final AtomicLong pointsWithIoExamples = new AtomicLong();
   }
 
   private static String keyFor(ProgramPoint pt, String expr) {
@@ -316,6 +322,13 @@ public final class App {
       }
     }
 
+    // Dry run: build and count the LLM prompts only. Nothing is copied, sent, injected or run, so
+    // the user's sources are scanned in place (read-only).
+    final boolean dryRun = BASE_CFG.llmDryRun();
+    if (dryRun) {
+      System.out.println(">>> LLM DRY RUN: prompts are counted, not sent; stopping after LM phase");
+    }
+
     // ============================================================
     // Prepare working copies
     // ============================================================
@@ -329,7 +342,7 @@ public final class App {
       // NOT the entire project root
 
       // CORRECT: copy the ENTIRE project
-      workProjectRoot = prepareWorkingCopy(userProjectRoot, BASE_CFG);
+      workProjectRoot = dryRun ? userProjectRoot : prepareWorkingCopy(userProjectRoot, BASE_CFG);
 
       // Main/test roots are SUBPATHS inside the copied project
       mainSrcRoot = workProjectRoot.resolve(relMainSrc).normalize();
@@ -357,8 +370,11 @@ public final class App {
 
     } else {
       // Native behavior: copy source trees (exactly as before)
-      mainSrcRoot = prepareWorkingCopy(userMainSrcRoot, BASE_CFG);
-      testSrcRoot = splitMode ? prepareWorkingCopy(userTestSrcRoot, BASE_CFG) : mainSrcRoot;
+      mainSrcRoot = dryRun ? userMainSrcRoot : prepareWorkingCopy(userMainSrcRoot, BASE_CFG);
+      testSrcRoot =
+          !splitMode
+              ? mainSrcRoot
+              : dryRun ? userTestSrcRoot : prepareWorkingCopy(userTestSrcRoot, BASE_CFG);
       workProjectRoot =
           mainSrcRoot; // non-null placeholder; not used as "project root" in native mode
 
@@ -376,7 +392,7 @@ public final class App {
     if (!cfg.scanIncludes().isEmpty()) {
       System.out.println(">>> Scan include filter: " + cfg.scanIncludes());
     }
-    if (BASE_CFG.registryReset()) {
+    if (BASE_CFG.registryReset() && !dryRun) {
       try {
         java.nio.file.Files.deleteIfExists(BASE_CFG.registryPath());
         System.out.println(">>> Registry reset: " + BASE_CFG.registryPath().toAbsolutePath());
@@ -416,7 +432,9 @@ public final class App {
 
     // Scan only MAIN sources for program points
     System.out.println(">>> Scanning MAIN sources under (WORKING COPY): " + mainSrcRoot);
+    final Instant scanPhaseStart = PhaseTimer.start("Scan phase");
     final List<ProgramPoint> allPoints = scanner.scanMethodEntryExit(mainSrcRoot);
+    PhaseTimer.finish("Scan phase", scanPhaseStart);
 
     final Set<String> scanIncludes = cfg.scanIncludes();
 
@@ -440,6 +458,7 @@ public final class App {
         ">>> Points — ENTRY: " + nEntry + "  EXIT: " + nExit + "  TOTAL: " + points.size());
 
     // --- Phase 1: parallel LLM proposals ---
+    final Instant lmPhaseStart = PhaseTimer.start("LM phase");
     final ExecutorService pool = Executors.newFixedThreadPool(cfg.threads());
     final CompletionService<List<InvariantRecord>> ecs = new ExecutorCompletionService<>(pool);
     final List<Future<List<InvariantRecord>>> allFutures = new ArrayList<>();
@@ -507,6 +526,21 @@ public final class App {
     }
     pool.shutdownNow();
 
+    final edu.njit.jerse.daikonplusplus.llm.DryRunTokenCounter dryRunCounter = llm.dryRunCounter();
+    if (dryRunCounter != null) {
+      PhaseTimer.finish("LM phase", lmPhaseStart);
+      dryRunCounter.printSummary(System.out, points.size());
+      Path tsv = BASE_CFG.outcomesPath().resolveSibling("daikonpp_dry_run_tokens.tsv");
+      try {
+        dryRunCounter.writeTsv(tsv);
+        System.out.println(">>> Per-prompt token counts: " + tsv);
+      } catch (IOException ioe) {
+        System.err.println("Warning: couldn't write " + tsv + ": " + ioe.getMessage());
+      }
+      System.out.println(">>> LLM DRY RUN finished; injection, compilation and tests skipped.");
+      return;
+    }
+
     long passedLlm =
         filterStats.rawFromLlm.get()
             - filterStats.dropEmpty.get()
@@ -534,6 +568,11 @@ public final class App {
     System.out.println("    dropped (registry dedup):  " + filterStats.dropRegistryDedup.get());
     System.out.println("    → total dropped:           " + totalDropped);
     System.out.println("    → proposed (into injection): " + totalSpecs);
+    System.out.println(
+        ">>> Points with non-empty call-site context: "
+            + filterStats.pointsWithCallSiteContext.get());
+    System.out.println(
+        ">>> Points with non-empty I/O examples:      " + filterStats.pointsWithIoExamples.get());
     System.out.println(">>> Files to inject (MAIN only): " + byFile.size());
 
     long injectEntry =
@@ -547,24 +586,23 @@ public final class App {
             .filter(r -> r.point().kind() == ProgramPointKind.METHOD_EXIT)
             .count();
     System.out.println(">>> To inject — ENTRY: " + injectEntry + "  EXIT: " + injectExit);
+    PhaseTimer.finish("LM phase", lmPhaseStart);
 
     // --- Phase 2: Injection on MAIN working copy ---
+    final Instant injectionPhaseStart = PhaseTimer.start("Injection phase");
     final ExecutorService injPool = Executors.newFixedThreadPool(Math.min(cfg.threads(), 8));
-    final List<Future<?>> injFutures = new ArrayList<>();
+    final Map<Path, Future<Set<UUID>>> injFutures = new LinkedHashMap<>();
+    // Candidates whose guard could not be generated; they are never injected anywhere.
+    final Set<UUID> failedToInject = new HashSet<>();
     for (Map.Entry<Path, List<InvariantRecord>> e : byFile.entrySet()) {
       Path file = e.getKey();
       List<InvariantRecord> recs = e.getValue();
-      injFutures.add(
-          injPool.submit(
-              () -> {
-                injector.injectGuards(file, recs);
-                return null;
-              }));
+      injFutures.put(file, injPool.submit(() -> injector.injectGuards(file, recs)));
     }
     int injectedFiles = 0;
-    for (Future<?> f : injFutures) {
+    for (Map.Entry<Path, Future<Set<UUID>>> e : injFutures.entrySet()) {
       try {
-        f.get();
+        failedToInject.addAll(e.getValue().get());
         injectedFiles++;
       } catch (ExecutionException ee) {
         Throwable cause = ee.getCause();
@@ -572,11 +610,13 @@ public final class App {
             (cause == null)
                 ? ee.toString()
                 : (cause.getMessage() == null ? cause.toString() : cause.getMessage());
-        System.err.println("Injection error: " + msg);
+        System.err.println("Injection error in " + e.getKey() + ": " + msg);
       }
     }
     injPool.shutdown();
     System.out.println(">>> Injection done. Updated MAIN files: " + injectedFiles);
+    System.out.println(">>> Candidates failed to inject: " + failedToInject.size());
+    PhaseTimer.finish("Injection phase", injectionPhaseStart);
 
     // Write DpRuntime helper so injected guards can compile without System.getProperties()
     DpRuntimeWriter.write(mainSrcRoot);
@@ -612,12 +652,14 @@ public final class App {
       final Path classesDir = workProjectRoot.resolve(".daikonpp-classes");
 
       runAutoFilterCompile(
+          "Invariant auto-filter compilation phase",
           workProjectRoot,
           mainSrcRoot,
           userProjectRoot.resolve(relMainSrc),
           classesDir,
           BASE_CFG.externalCompileClasspath(),
-          10,
+          BASE_CFG.autofilterMaxModifyPasses(),
+          BASE_CFG.autofilterMaxExtraPasses(),
           externalMainCompileScript);
 
       System.out.println(">>> Invariant auto-filter finished (external-project mode)");
@@ -670,6 +712,7 @@ public final class App {
       final Path staleRecordFile = workProjectRoot.resolve(".daikonpp-stale-removed.txt");
       int runIteration = 0;
 
+      final Instant executionPhaseStart = PhaseTimer.start("Execution phase");
       while (true) {
         runIteration++;
         // Rotate the previous run's log to an intermediate file so each call to
@@ -800,6 +843,7 @@ public final class App {
           System.out.println("[DP] Next stale threshold: " + currentStaleCheckMinutes + " min");
         }
       }
+      PhaseTimer.finish("Execution phase", executionPhaseStart);
 
       System.out.println(">>> Stale-removed invariants this run: " + staleRemovedIds.size());
       if (!staleRemovedIds.isEmpty()) {
@@ -816,12 +860,14 @@ public final class App {
       final String fullRunCp;
       if (splitMode) {
         runAutoFilterCompile(
+            "Main compilation phase",
             workProjectRoot,
             mainSrcRoot,
             userMainSrcRoot,
             classesDir,
             mainClasspath,
-            10,
+            BASE_CFG.autofilterMaxModifyPasses(),
+            BASE_CFG.autofilterMaxExtraPasses(),
             externalMainCompileScript);
 
         System.out.println(">>> Main compilation phase finished successfully");
@@ -829,12 +875,14 @@ public final class App {
         final String testCompileCp =
             JavaRunner.joinCp(classesDir.toString(), mainClasspath, testClasspath);
         runAutoFilterCompile(
+            "Test compilation phase",
             workProjectRoot,
             testSrcRoot,
             userTestSrcRoot,
             classesDir,
             testCompileCp,
             0,
+            BASE_CFG.autofilterMaxExtraPasses(),
             externalTestCompileScript);
 
         System.out.println(">>> Test compilation phase finished successfully");
@@ -842,12 +890,14 @@ public final class App {
         fullRunCp = JavaRunner.joinCp(selfCp, classesDir.toString(), mainClasspath, testClasspath);
       } else {
         runAutoFilterCompile(
+            "Compilation phase",
             workProjectRoot,
             mainSrcRoot,
             userMainSrcRoot,
             classesDir,
             mainClasspath,
-            10,
+            BASE_CFG.autofilterMaxModifyPasses(),
+            BASE_CFG.autofilterMaxExtraPasses(),
             externalMainCompileScript);
 
         System.out.println(">>> Compilation phase finished successfully");
@@ -855,7 +905,9 @@ public final class App {
       }
 
       runLog = mainSrcRoot.resolve("daikonpp-run.log");
+      final Instant executionPhaseStart = PhaseTimer.start("Execution phase");
       JavaRunner.run(entryClass, fullRunCp, programArgs, runLog, disabledFile);
+      PhaseTimer.finish("Execution phase", executionPhaseStart);
     }
 
     if (execMode == ExecMode.NATIVE) {
@@ -871,6 +923,7 @@ public final class App {
     // --- Phase 4: parse run log and generate the results ---
     // Prefer shm-based reading in external mode (survives SIGKILL; more complete than log).
     // Fall back to log-based reading for native mode or when shm is unavailable.
+    final Instant resultsPhaseStart = PhaseTimer.start("Results phase");
 
     final Set<UUID> falsified;
     final Set<UUID> executed;
@@ -900,6 +953,7 @@ public final class App {
 
     final Set<UUID> compiledIds = new HashSet<>(all.keySet());
     compiledIds.removeAll(nonCompiled);
+    compiledIds.removeAll(failedToInject);
 
     Map<UUID, InvariantRegistry.Outcome> outcomes = new HashMap<>();
     for (var e : all.entrySet()) {
@@ -908,7 +962,11 @@ public final class App {
       boolean exec = executed.contains(id);
 
       InvariantRegistry.Verdict verdict;
-      if (nonCompiled.contains(id)) {
+      if (failedToInject.contains(id)) {
+        // Never injected, so it can be neither held nor falsified.
+        exec = false;
+        verdict = InvariantRegistry.Verdict.FAILED_TO_INJECT;
+      } else if (nonCompiled.contains(id)) {
         verdict = InvariantRegistry.Verdict.FAILED_TO_COMPILE;
       } else if (exec && falsified.contains(id)) {
         verdict = InvariantRegistry.Verdict.FALSIFIED;
@@ -939,6 +997,9 @@ public final class App {
     int disabledStaleNeverExecCount = 0;
 
     for (var r : all.values()) {
+      if (failedToInject.contains(r.id)) {
+        continue;
+      }
       boolean isCompiled = compiledIds.contains(r.id);
       boolean wasExecuted = executed.contains(r.id);
       boolean wasFalsified = falsified.contains(r.id);
@@ -980,6 +1041,8 @@ public final class App {
             + compiledCount
             + " non-compiled="
             + nonCompiled.size()
+            + " failed-to-inject="
+            + failedToInject.size()
             + " executed="
             + executedCount
             + " falsified="
@@ -994,13 +1057,39 @@ public final class App {
             + unreachedCount
             + ")");
 
+    Set<String> heldInvariantProjectMethods = ProjectMethodIndex.collect(mainSrcRoot);
+
     System.out.println(">>> OBSERVED-HELD invariants by method (ENTRY & EXIT):");
     for (var e : heldByMethod.entrySet()) {
       System.out.println("  - " + e.getKey());
       for (var r : e.getValue()) {
-        System.out.println("      [" + r.kind + "] " + r.id + " :: " + r.expr);
+        InvariantMetrics m = InvariantMetrics.compute(r.expr, heldInvariantProjectMethods);
+        System.out.println(
+            "      ["
+                + r.kind
+                + "] "
+                + r.id
+                + " :: "
+                + r.expr
+                + "   (varCount1="
+                + m.varCount1()
+                + ", varCount2="
+                + m.varCount2()
+                + ", pspmCount="
+                + m.pspmCount()
+                + ", pspmCallCount="
+                + m.pspmCallCount()
+                + ", pspmCalls="
+                + m.pspmCalls()
+                + ", allCallCount="
+                + m.allCallCount()
+                + ", allCalls="
+                + m.allCalls()
+                + ")");
       }
     }
+
+    writeInvariantMetrics(heldByMethod, heldInvariantProjectMethods, cfg.outcomesPath());
 
     System.out.println(">>> FALSIFIED invariants by method (ENTRY & EXIT):");
     for (var e : falsByMethod.entrySet()) {
@@ -1042,8 +1131,10 @@ public final class App {
     System.out.println(">>> Registry: " + cfg.registryPath().toAbsolutePath());
     System.out.println(">>> Outcomes: " + cfg.outcomesPath().toAbsolutePath());
     System.out.println(">>> Run log: " + runLog.toAbsolutePath());
+    PhaseTimer.finish("Results phase", resultsPhaseStart);
 
     if (execMode == ExecMode.EXTERNAL_PROJECT && BASE_CFG.enableTestFilter()) {
+      final Instant testFilterPhaseStart = PhaseTimer.start("Test-filter phase");
       final Path resolvedScript =
           runnerScriptPath.isAbsolute()
               ? runnerScriptPath.toAbsolutePath().normalize()
@@ -1121,6 +1212,7 @@ public final class App {
       // stale/timeout-disabled invariants.
       Set<UUID> filteredCompiledIds = new HashSet<>(all.keySet());
       filteredCompiledIds.removeAll(filteredNonCompiled);
+      filteredCompiledIds.removeAll(failedToInject);
 
       int filteredHeldCount = 0;
       int filteredFalsCount = 0;
@@ -1128,6 +1220,9 @@ public final class App {
       int disabledTestFilterNeverExecCount = 0;
 
       for (UUID id : all.keySet()) {
+        if (failedToInject.contains(id)) {
+          continue;
+        }
         boolean isCompiled = filteredCompiledIds.contains(id);
         boolean wasExecuted = filteredExecuted.contains(id);
         boolean wasFalsified = filteredFalsified.contains(id);
@@ -1154,6 +1249,8 @@ public final class App {
               + filteredCompiledIds.size()
               + " non-compiled="
               + filteredNonCompiled.size()
+              + " failed-to-inject="
+              + failedToInject.size()
               + " executed="
               + filteredExecuted.size()
               + " falsified="
@@ -1167,6 +1264,7 @@ public final class App {
               + " unreached="
               + filteredUnreachedCount
               + ")");
+      PhaseTimer.finish("Test-filter phase", testFilterPhaseStart);
     }
 
     if (!BASE_CFG.keepWork()) {
@@ -1267,12 +1365,14 @@ public final class App {
               ? ContextUtils.extractCallSiteContext(point, srcRoot, BASE_CFG.callSitesIndexPath())
                   .orElse("")
               : "";
+      if (!callSite.isBlank()) stats.pointsWithCallSiteContext.incrementAndGet();
 
       String ioExamples =
           enabled.contains(ContextKind.IO_EXAMPLES)
               ? ContextUtils.extractIOExamples(point, srcRoot, BASE_CFG.ioExamplesIndexPath())
                   .orElse("")
               : "";
+      if (!ioExamples.isBlank()) stats.pointsWithIoExamples.incrementAndGet();
 
       String calleeDoc =
           enabled.contains(ContextKind.CALLEE_DOC)
@@ -1348,6 +1448,84 @@ public final class App {
       System.err.println("[DP] Warning: could not read disabled file: " + e.getMessage());
     }
     return out;
+  }
+
+  /**
+   * Computes variable-count and project-specific-method-call metrics for every observed-held
+   * invariant and writes them to their own JSONL file, sibling to (but separate from) the outcomes
+   * file — one JSON object per invariant: {@code id}, {@code kind}, {@code element}, {@code expr},
+   * {@code varCount1} (distinct variables), {@code varCount2} (total variable occurrences), {@code
+   * pspmCount}, and {@code pspmCalls}.
+   */
+  private static void writeInvariantMetrics(
+      Map<String, List<edu.njit.jerse.daikonplusplus.App.RecordLite>> heldByMethod,
+      Set<String> projectMethods,
+      Path outcomesPath) {
+    Path metricsPath = outcomesPath.resolveSibling("daikonpp_invariant_metrics.jsonl");
+
+    try {
+      Path parent = metricsPath.getParent();
+      if (parent != null) Files.createDirectories(parent);
+
+      try (var w =
+          Files.newBufferedWriter(
+              metricsPath,
+              java.nio.charset.StandardCharsets.UTF_8,
+              java.nio.file.StandardOpenOption.CREATE,
+              java.nio.file.StandardOpenOption.TRUNCATE_EXISTING)) {
+        for (var e : heldByMethod.entrySet()) {
+          for (var r : e.getValue()) {
+            InvariantMetrics m = InvariantMetrics.compute(r.expr, projectMethods);
+            w.write(
+                "{"
+                    + jsonKv("id", r.id.toString())
+                    + ","
+                    + jsonKv("kind", r.kind)
+                    + ","
+                    + jsonKv("element", r.element)
+                    + ","
+                    + jsonKv("expr", r.expr)
+                    + ",\"varCount1\":"
+                    + m.varCount1()
+                    + ",\"varCount2\":"
+                    + m.varCount2()
+                    + ",\"pspmCount\":"
+                    + m.pspmCount()
+                    + ",\"pspmCallCount\":"
+                    + m.pspmCallCount()
+                    + ",\"pspmCalls\":"
+                    + jsonStringArray(m.pspmCalls())
+                    + ",\"allCallCount\":"
+                    + m.allCallCount()
+                    + ",\"allCalls\":"
+                    + jsonStringArray(m.allCalls())
+                    + "}");
+            w.newLine();
+          }
+        }
+      }
+    } catch (IOException ioe) {
+      throw new RuntimeException("Failed to write invariant metrics: " + ioe.getMessage(), ioe);
+    }
+
+    System.out.println(">>> Invariant metrics: " + metricsPath.toAbsolutePath());
+  }
+
+  private static String jsonKv(String k, String v) {
+    return "\"" + jsonEsc(k) + "\":\"" + jsonEsc(v) + "\"";
+  }
+
+  private static String jsonStringArray(Set<String> values) {
+    return "["
+        + values.stream()
+            .map(s -> "\"" + jsonEsc(s) + "\"")
+            .reduce((a, b) -> a + "," + b)
+            .orElse("")
+        + "]";
+  }
+
+  private static String jsonEsc(String s) {
+    return s.replace("\\", "\\\\").replace("\"", "\\\"");
   }
 
   private static Map<UUID, edu.njit.jerse.daikonplusplus.App.RecordLite> parseRegistryLite(
@@ -1518,28 +1696,35 @@ public final class App {
    * @param userSrcRoot original source root (used for reference)
    * @param classesDir output directory for compiled classes (native mode)
    * @param classpath classpath used for compilation
-   * @param maxPasses maximum number of filtering passes
+   * @param maxPasses maximum number of filtering passes that attempt invariant-level removal
+   * @param maxExtraPasses additional passes allotted to the restore-only fallback phase, on top of
+   *     {@code maxPasses}
    * @param externalCompileScript optional external compile script (null for native mode)
    * @throws Exception if compilation fails irrecoverably
    */
   private static void runAutoFilterCompile(
+      String phaseLabel,
       Path workProjectRoot,
       Path srcRoot,
       Path userSrcRoot,
       Path classesDir,
       String classpath,
       int maxPasses,
+      int maxExtraPasses,
       @org.checkerframework.checker.nullness.qual.Nullable Path externalCompileScript)
       throws Exception {
 
+    final Instant compilePhaseStart = PhaseTimer.start(phaseLabel);
     if (externalCompileScript != null) {
       // User-provided compile script IS the compiler
       ExternalCompileRunner.compileWithAutoFilter(
-          workProjectRoot, srcRoot, userSrcRoot, externalCompileScript, maxPasses);
+          workProjectRoot, srcRoot, userSrcRoot, externalCompileScript, maxPasses, maxExtraPasses);
     } else {
       // Native javac-based autofilter
-      JavaRunner.compileWithAutoFilter(srcRoot, userSrcRoot, classesDir, classpath, maxPasses);
+      JavaRunner.compileWithAutoFilter(
+          srcRoot, userSrcRoot, classesDir, classpath, maxPasses, maxExtraPasses);
     }
+    PhaseTimer.finish(phaseLabel, compilePhaseStart);
   }
 
   /**

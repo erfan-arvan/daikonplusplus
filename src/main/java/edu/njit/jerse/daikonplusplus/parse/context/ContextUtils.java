@@ -475,6 +475,7 @@ public final class ContextUtils {
 
     StringBuilder sb = new StringBuilder();
     int included = 0;
+    Set<String> seen = new HashSet<>();
 
     for (Map<String, Object> example : examples) {
       if (included >= MAX_IO_EXAMPLES) break;
@@ -484,13 +485,19 @@ public final class ContextUtils {
       @SuppressWarnings("unchecked")
       Map<String, Object> args = (Map<String, Object>) argsObj;
 
-      if (included > 0) sb.append("\n");
-      sb.append("Example ").append(included + 1).append(": ");
-      sb.append(
+      String argsRendered =
           args.entrySet().stream()
               .map(e -> e.getKey() + "=" + e.getValue())
-              .collect(Collectors.joining(", ")));
-      sb.append(" -> return=").append(example.get("return"));
+              .collect(Collectors.joining(", "));
+      Object returnValue = example.get("return");
+
+      String signature = argsRendered + " -> return=" + returnValue;
+      if (!seen.add(signature)) continue;
+
+      if (included > 0) sb.append("\n");
+      sb.append("Example ").append(included + 1).append(": ");
+      sb.append(argsRendered);
+      sb.append(" -> return=").append(returnValue);
 
       included++;
     }

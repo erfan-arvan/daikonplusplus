@@ -175,7 +175,9 @@ public final class InvariantAutoFilterUtil {
    * <ul>
    *   <li>Filters out common non-error noise lines
    *   <li>Supports absolute-path javac errors: {@code /path/File.java:line: error}
-   *   <li>Supports Maven-style errors: {@code /path/File.java:[line,column]}
+   *   <li>Supports Maven-style errors: {@code /path/File.java:[line,column]} or {@code
+   *       /path/File.java:[line]} (column omitted, e.g. for structural errors like "class,
+   *       interface, or enum expected")
    * </ul>
    *
    * <p>Only file and line number are extracted; error messages are ignored.
@@ -189,7 +191,7 @@ public final class InvariantAutoFilterUtil {
 
     Pattern JAVAC = Pattern.compile("(/[^:\\s]+\\.java):(\\d+):\\s*error");
 
-    Pattern MAVEN = Pattern.compile("(/[^:\\s]+\\.java):\\[(\\d+),(\\d+)\\]");
+    Pattern MAVEN = Pattern.compile("(/[^:\\s]+\\.java):\\[(\\d+)(?:,(\\d+))?\\]");
 
     for (String rawLine : output.split("\n")) {
       String line = rawLine.trim();

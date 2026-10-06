@@ -135,11 +135,13 @@ public final class TestInvariantFilter {
               + " :: "
               + firstFailure.get().line());
       if (initialShmDir != null && Files.isDirectory(initialShmDir.resolve("ex"))) {
-        round1CandidatesOverride = new ArrayList<>(LogParser.readExecutedIdsFromShm(initialShmDir));
+        round1CandidatesOverride =
+            timedClosestToFailureFirst(LogParser.readExecutedOrderedFromShm(initialShmDir));
         System.out.println(
             "[DP-TEST-FILTER] Round 1 candidates seeded from initial run's shm ("
                 + round1CandidatesOverride.size()
-                + " executed invariant(s) up to the kill point)");
+                + " executed invariant(s) up to the kill point, ordered closest-to-failure "
+                + "first)");
       }
     } else {
       System.out.println("[DP-TEST-FILTER] Checking initial run exit status: " + initialRunLog);
@@ -323,7 +325,8 @@ public final class TestInvariantFilter {
       // during it — reliable even if the run was killed online (a killed process never gets to
       // write its normal log sidecar, so shm is the source of truth here, same as round 1).
       if (Files.isDirectory(shmDir.resolve("ex"))) {
-        nextCandidatesOverride = new ArrayList<>(LogParser.readExecutedIdsFromShm(shmDir));
+        nextCandidatesOverride =
+            timedClosestToFailureFirst(LogParser.readExecutedOrderedFromShm(shmDir));
       }
 
       Optional<TestFailureLogParser.FailureMatch> next = confirm.matched;
@@ -434,7 +437,7 @@ public final class TestInvariantFilter {
     List<UUID> candidates =
         explicitCandidates != null
             ? new ArrayList<>(explicitCandidates)
-            : new ArrayList<>(LogParser.readExecutedIds(candidateSourceLog));
+            : closestToFailureFirst(LogParser.readExecutedIdsOrdered(candidateSourceLog));
     candidates.removeAll(alreadyDisabled);
     System.out.println(
         "[DP-TEST-FILTER] Round " + round + ": candidate pool size = " + candidates.size());
@@ -593,9 +596,11 @@ public final class TestInvariantFilter {
 
     while (delta.size() > 1) {
       n = Math.min(n, delta.size());
-      // Candidates come from the initial run's executed-invariants log (a set, not an ordered
-      // sequence — see the comment where `candidates` is built), so chunk order here carries no
-      // proximity-to-failure meaning; it's just a deterministic split, not a search heuristic.
+      // `delta` is ordered closest-to-failure first (see closestToFailureFirst(), applied where
+      // `candidates`/`deltaInit` is built) — the invariant that executed last, right before the
+      // failure, comes before ones that ran earlier in the method. splitInto() keeps that ordering
+      // within each contiguous chunk, so the earliest chunks tried below are the ones weighted
+      // toward failure-proximate invariants, biasing the search toward finding them first.
       List<List<UUID>> chunks = splitInto(delta, n);
 
       boolean reduced = false;
@@ -909,6 +914,29 @@ public final class TestInvariantFilter {
               + "SEEN pre-population will still skip already-checked invariants on retry");
     }
     return stuckId;
+  }
+
+  /**
+   * Reverses an execution-ordered (earliest-first) list of invariant IDs so the invariant that ran
+   * <em>last</em> — closest in time to the failure — comes first. {@code ddmin} below chunks its
+   * candidate list contiguously and tries earlier chunks/configurations before later ones, so
+   * putting failure-proximate invariants at the front means they're the first ones isolated and
+   * tested "alone" — the invariant most likely to be the actual culprit gets checked before ones
+   * that ran early in the method and are less likely related to a failure raised near the end of
+   * the run.
+   */
+  private static List<UUID> closestToFailureFirst(List<UUID> executionOrderEarliestFirst) {
+    List<UUID> reversed = new ArrayList<>(executionOrderEarliestFirst);
+    Collections.reverse(reversed);
+    return reversed;
+  }
+
+  private static List<UUID> timedClosestToFailureFirst(List<LogParser.TimedInvariant> timed) {
+    List<UUID> ids = new ArrayList<>(timed.size());
+    for (int i = timed.size() - 1; i >= 0; i--) {
+      ids.add(timed.get(i).id());
+    }
+    return ids;
   }
 
   /** Splits {@code list} into {@code n} contiguous, roughly-equal, non-empty chunks. */

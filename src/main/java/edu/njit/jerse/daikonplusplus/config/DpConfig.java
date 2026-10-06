@@ -28,6 +28,7 @@ public final class DpConfig {
   private final boolean debug;
   private final boolean keepWork;
   private final boolean noQualityFilter;
+  private final QualityFilterRules qualityFilterRules;
 
   // ---- LLM / limits ----
   private final int llmTotalTimeoutSec;
@@ -74,6 +75,15 @@ public final class DpConfig {
   private final int staleCheckMinutes;
   private final int maxTimeoutMinutes;
 
+  // ---- autofilter pass budget ----
+  private final int autofilterMaxModifyPasses;
+  private final int autofilterMaxExtraPasses;
+
+  // ---- dry run: build prompts and count their tokens, never call the LLM ----
+  private final boolean llmDryRun;
+  private final double llmPriceInputPerM;
+  private final double llmPriceOutputPerM;
+
   private DpConfig(
       int threads,
       Path registryPath,
@@ -83,6 +93,7 @@ public final class DpConfig {
       boolean debug,
       boolean keepWork,
       boolean noQualityFilter,
+      QualityFilterRules qualityFilterRules,
       int llmTotalTimeoutSec,
       int llmPerReqTimeoutSec,
       int bodyMaxChars,
@@ -106,7 +117,12 @@ public final class DpConfig {
       boolean enableTestFilter,
       int testFilterMethodBatchSize,
       int staleCheckMinutes,
-      int maxTimeoutMinutes) {
+      int maxTimeoutMinutes,
+      int autofilterMaxModifyPasses,
+      int autofilterMaxExtraPasses,
+      boolean llmDryRun,
+      double llmPriceInputPerM,
+      double llmPriceOutputPerM) {
 
     this.threads = threads;
     this.registryPath = registryPath;
@@ -116,6 +132,7 @@ public final class DpConfig {
     this.debug = debug;
     this.keepWork = keepWork;
     this.noQualityFilter = noQualityFilter;
+    this.qualityFilterRules = qualityFilterRules;
     this.llmTotalTimeoutSec = llmTotalTimeoutSec;
     this.llmPerReqTimeoutSec = llmPerReqTimeoutSec;
     this.bodyMaxChars = bodyMaxChars;
@@ -140,6 +157,11 @@ public final class DpConfig {
     this.testFilterMethodBatchSize = testFilterMethodBatchSize;
     this.staleCheckMinutes = staleCheckMinutes;
     this.maxTimeoutMinutes = maxTimeoutMinutes;
+    this.autofilterMaxModifyPasses = autofilterMaxModifyPasses;
+    this.autofilterMaxExtraPasses = autofilterMaxExtraPasses;
+    this.llmDryRun = llmDryRun;
+    this.llmPriceInputPerM = llmPriceInputPerM;
+    this.llmPriceOutputPerM = llmPriceOutputPerM;
   }
 
   public Set<String> scanIncludes() {
@@ -176,6 +198,29 @@ public final class DpConfig {
 
   public boolean noQualityFilter() {
     return noQualityFilter;
+  }
+
+  /**
+   * When true, the pipeline scans program points and builds every LLM prompt, but sends nothing: it
+   * counts the prompts' tokens, prints a summary, and stops before injection.
+   */
+  public boolean llmDryRun() {
+    return llmDryRun;
+  }
+
+  /** USD per 1M input tokens for the dry-run cost estimate, or negative when not set. */
+  public double llmPriceInputPerM() {
+    return llmPriceInputPerM;
+  }
+
+  /** USD per 1M output tokens for the dry-run cost estimate, or negative when not set. */
+  public double llmPriceOutputPerM() {
+    return llmPriceOutputPerM;
+  }
+
+  /** per-rule switches for the invariant quality filter (all enabled by default) */
+  public QualityFilterRules qualityFilterRules() {
+    return qualityFilterRules;
   }
 
   public int llmTotalTimeoutSec() {
@@ -276,6 +321,22 @@ public final class DpConfig {
   }
 
   /**
+   * number of invariant auto-filter passes that attempt line-level invariant removal before falling
+   * back to whole-file restoration (default 10)
+   */
+  public int autofilterMaxModifyPasses() {
+    return autofilterMaxModifyPasses;
+  }
+
+  /**
+   * additional invariant auto-filter passes allotted to the restore-only fallback phase, on top of
+   * {@link #autofilterMaxModifyPasses()} (default 20)
+   */
+  public int autofilterMaxExtraPasses() {
+    return autofilterMaxExtraPasses;
+  }
+
+  /**
    * Creates a configuration instance from file, system properties, environment variables, and
    * defaults.
    *
@@ -315,6 +376,76 @@ public final class DpConfig {
     boolean keepWork = getBool("dp.keepWork", "DP_KEEP_WORK", true, env, file);
     boolean noQualityFilter =
         getBool("dp.noQualityFilter", "DP_NO_QUALITY_FILTER", false, env, file);
+
+    QualityFilterRules qualityFilterRules =
+        new QualityFilterRules(
+            getBool("dp.qualityFilterMaxLength", "DP_QUALITY_FILTER_MAX_LENGTH", true, env, file),
+            getBool(
+                "dp.qualityFilterAlwaysTrueLiteral",
+                "DP_QUALITY_FILTER_ALWAYS_TRUE_LITERAL",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterTautologyNotXOrX",
+                "DP_QUALITY_FILTER_TAUTOLOGY_NOT_X_OR_X",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterFullRangeComparison",
+                "DP_QUALITY_FILTER_FULL_RANGE_COMPARISON",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterSelfComparison",
+                "DP_QUALITY_FILTER_SELF_COMPARISON",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterTrivialDisjunction",
+                "DP_QUALITY_FILTER_TRIVIAL_DISJUNCTION",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterNoStatements", "DP_QUALITY_FILTER_NO_STATEMENTS", true, env, file),
+            getBool(
+                "dp.qualityFilterNoAssignment", "DP_QUALITY_FILTER_NO_ASSIGNMENT", true, env, file),
+            getBool(
+                "dp.qualityFilterForbiddenConstructs",
+                "DP_QUALITY_FILTER_FORBIDDEN_CONSTRUCTS",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterRequireInScopeName",
+                "DP_QUALITY_FILTER_REQUIRE_IN_SCOPE_NAME",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterRequireResultAtExit",
+                "DP_QUALITY_FILTER_REQUIRE_RESULT_AT_EXIT",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterPrimitiveNullComparison",
+                "DP_QUALITY_FILTER_PRIMITIVE_NULL_COMPARISON",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterUnknownIdentifier",
+                "DP_QUALITY_FILTER_UNKNOWN_IDENTIFIER",
+                true,
+                env,
+                file),
+            getBool(
+                "dp.qualityFilterParseCheck", "DP_QUALITY_FILTER_PARSE_CHECK", true, env, file));
 
     int llmTotalTimeoutSec =
         getInt("dp.llmTotalTimeoutSec", "DP_LLM_TOTAL_TIMEOUT_SEC", 180, env, file);
@@ -466,6 +597,23 @@ public final class DpConfig {
     int maxTimeoutMinutes =
         Math.max(1, getInt("dp.maxTimeoutMinutes", "DP_MAX_TIMEOUT_MINUTES", 480, env, file));
 
+    int autofilterMaxModifyPasses =
+        Math.max(
+            0,
+            getInt(
+                "dp.autofilterMaxModifyPasses", "DP_AUTOFILTER_MAX_MODIFY_PASSES", 10, env, file));
+
+    int autofilterMaxExtraPasses =
+        Math.max(
+            0,
+            getInt("dp.autofilterMaxExtraPasses", "DP_AUTOFILTER_MAX_EXTRA_PASSES", 20, env, file));
+
+    boolean llmDryRun = getBool("dp.llmDryRun", "DP_LLM_DRY_RUN", false, env, file);
+    double llmPriceInputPerM =
+        getDouble("dp.llmPriceInputPerM", "DP_LLM_PRICE_INPUT_PER_M", -1, env, file);
+    double llmPriceOutputPerM =
+        getDouble("dp.llmPriceOutputPerM", "DP_LLM_PRICE_OUTPUT_PER_M", -1, env, file);
+
     return new DpConfig(
         threads,
         Path.of(regPath).toAbsolutePath().normalize(),
@@ -475,6 +623,7 @@ public final class DpConfig {
         debug,
         keepWork,
         noQualityFilter,
+        qualityFilterRules,
         llmTotalTimeoutSec,
         llmPerReqTimeoutSec,
         bodyMaxChars,
@@ -498,7 +647,12 @@ public final class DpConfig {
         enableTestFilter,
         testFilterMethodBatchSize,
         staleCheckMinutes,
-        maxTimeoutMinutes);
+        maxTimeoutMinutes,
+        autofilterMaxModifyPasses,
+        autofilterMaxExtraPasses,
+        llmDryRun,
+        llmPriceInputPerM,
+        llmPriceOutputPerM);
   }
 
   /**
@@ -549,6 +703,21 @@ public final class DpConfig {
    * @param file configuration file entries
    * @return resolved integer value
    */
+  private static double getDouble(
+      String sysKey, String envKey, double def, Map<String, String> env, Map<String, String> file) {
+
+    String v = file.get(sysKey);
+    if (v == null) v = System.getProperty(sysKey);
+    if (v == null) v = env.get(envKey);
+    if (v == null || v.isBlank()) return def;
+
+    try {
+      return Double.parseDouble(v.trim());
+    } catch (NumberFormatException e) {
+      return def;
+    }
+  }
+
   private static int getInt(
       String sysKey, String envKey, int def, Map<String, String> env, Map<String, String> file) {
 
@@ -652,6 +821,7 @@ public final class DpConfig {
     System.out.println("debug = " + debug);
     System.out.println("keepWork = " + keepWork);
     System.out.println("noQualityFilter = " + noQualityFilter);
+    System.out.println("qualityFilterRules = " + qualityFilterRules);
 
     System.out.println("llmTotalTimeoutSec = " + llmTotalTimeoutSec);
     System.out.println("llmPerReqTimeoutSec = " + llmPerReqTimeoutSec);
@@ -687,6 +857,13 @@ public final class DpConfig {
     System.out.println("testFilterMethodBatchSize = " + testFilterMethodBatchSize);
     System.out.println("staleCheckMinutes = " + staleCheckMinutes);
     System.out.println("maxTimeoutMinutes = " + maxTimeoutMinutes);
+
+    System.out.println("autofilterMaxModifyPasses = " + autofilterMaxModifyPasses);
+    System.out.println("autofilterMaxExtraPasses = " + autofilterMaxExtraPasses);
+
+    System.out.println("llmDryRun = " + llmDryRun);
+    System.out.println("llmPriceInputPerM = " + llmPriceInputPerM);
+    System.out.println("llmPriceOutputPerM = " + llmPriceOutputPerM);
 
     System.out.println("=========================");
   }

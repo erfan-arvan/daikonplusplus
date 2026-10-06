@@ -1,6 +1,7 @@
 package edu.njit.jerse.daikonplusplus.llm;
 
 import com.github.javaparser.StaticJavaParser;
+import edu.njit.jerse.daikonplusplus.config.QualityFilterRules;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -80,47 +81,75 @@ public final class InvariantQualityFilter {
    */
   public static boolean keep(
       @NonNull String exprString, Map<String, String> inScope, boolean isExit) {
+    return keep(exprString, inScope, isExit, QualityFilterRules.ALL_ENABLED);
+  }
+
+  /**
+   * Decides whether an invariant expression should be kept, applying only the enabled rules.
+   *
+   * @param exprString candidate expression
+   * @param inScope variables available at the program point (name → type)
+   * @param isExit whether the point is a method exit
+   * @param rules which rules to apply
+   * @return true if the expression is acceptable
+   */
+  public static boolean keep(
+      @NonNull String exprString,
+      Map<String, String> inScope,
+      boolean isExit,
+      QualityFilterRules rules) {
     String e = exprString.trim();
     if (e.isEmpty()) return false;
 
     // 0) keep expressions reasonably compact
-    if (e.length() > 200) return false;
+    if (rules.maxLength && e.length() > 200) return false;
 
     // 1) trivialities / tautologies
-    if (ALWAYS_TRUE_LITERALS.contains(e)) return false;
-    if (TAUTOLOGY_SIMPLE.matcher(e).matches()) return false;
-    if (ALWAYS_TRUE_RANGES.matcher(e).find()) return false;
+    if (rules.alwaysTrueLiteral && ALWAYS_TRUE_LITERALS.contains(e)) return false;
+    if (rules.tautologyNotXOrX && TAUTOLOGY_SIMPLE.matcher(e).matches()) return false;
+    if (rules.fullRangeComparison && ALWAYS_TRUE_RANGES.matcher(e).find()) return false;
     //    if (NONNEG_LENGTH.matcher(e).find()) return false;
     //    if (BOOL_EQ.matcher(e).find()) return false; // "... == true/false" or "!= true/false"
-    if (SELF_COMPARISON.matcher(e).find()) return false;
-    if (isTrivialDisjunction(e)) return false;
+    if (rules.selfComparison && SELF_COMPARISON.matcher(e).find()) return false;
+    if (rules.trivialDisjunction && isTrivialDisjunction(e)) return false;
 
     //    if (LARGE_CONSTANT.matcher(e).find()) return false;
 
     // 2) structural constraints
-    if (ILLEGAL_CHARS.matcher(e).find()) return false; // no blocks or statements
-    if (BARE_ASSIGN.matcher(e).find()) return false; // no assignments
+    if (rules.noStatements && ILLEGAL_CHARS.matcher(e).find()) {
+      return false; // no blocks or statements
+    }
+    if (rules.noAssignment && BARE_ASSIGN.matcher(e).find()) return false; // no assignments
 
     // 3) no heavy/fragile constructs that add imports or helper needs
-    for (String bad : FORBIDDEN_SUBSTRINGS) {
-      if (e.contains(bad)) return false;
+    if (rules.forbiddenConstructs) {
+      for (String bad : FORBIDDEN_SUBSTRINGS) {
+        if (e.contains(bad)) return false;
+      }
     }
 
     // 4) must reference at least one in-scope name (wrap keySet for CF
     // compatibility)
     // Require relationships between variables (not single-variable trivialities)
-    if (!mentionsAny(e, new ArrayList<>(inScope.keySet()))) return false;
+    if (rules.requireInScopeName && !mentionsAny(e, new ArrayList<>(inScope.keySet()))) {
+      return false;
+    }
 
     // Require relationships between variables (not single-variable trivialities)
     //    if (!isLikelyMeaningful(e, inScope)) return false;
 
     // 5) for EXIT with non-void methods (caller supplies 'result' in scope),
     // require 'result'
-    if (isExit && inScope.containsKey("result") && !containsWord(e, "result")) return false;
+    if (rules.requireResultAtExit
+        && isExit
+        && inScope.containsKey("result")
+        && !containsWord(e, "result")) {
+      return false;
+    }
 
     // 6) reject null-comparisons on primitives (e.g., "result != null" when
     // result is int/boolean)
-    {
+    if (rules.primitiveNullComparison) {
       Matcher nm = NULL_CMP.matcher(e);
       while (nm.find()) {
         final String name = nm.group(1);
@@ -133,52 +162,56 @@ public final class InvariantQualityFilter {
     }
 
     // 7) light "unknown identifier" screen
-    Set<String> known = new HashSet<>(inScope.keySet());
-    known.addAll(
-        Set.of(
-            "null",
-            "true",
-            "false",
-            "Math",
-            "Integer",
-            "Long",
-            "Double",
-            "Short",
-            "Byte",
-            "Character",
-            "Objects"));
-    boolean allowLib = ALLOWED_PREFIXES.stream().anyMatch(e::contains);
+    if (rules.unknownIdentifier) {
+      Set<String> known = new HashSet<>(inScope.keySet());
+      known.addAll(
+          Set.of(
+              "null",
+              "true",
+              "false",
+              "Math",
+              "Integer",
+              "Long",
+              "Double",
+              "Short",
+              "Byte",
+              "Character",
+              "Objects"));
+      boolean allowLib = ALLOWED_PREFIXES.stream().anyMatch(e::contains);
 
-    Matcher m = WORD.matcher(e);
-    while (m.find()) {
-      final String w = m.group(1);
-      if (w == null) continue; // for Checker Framework
-      if (known.contains(w)) continue;
-      if (Character.isDigit(w.charAt(0))) continue;
-      // allow as part of qualified call/field: ".w"
-      int pos = m.start();
-      if (pos > 0 && e.charAt(pos - 1) == '.') continue;
-      // allow permitted library qualifiers
-      if (allowLib
-          && (w.equals("Math")
-              || w.equals("Integer")
-              || w.equals("Objects")
-              || w.equals("Long")
-              || w.equals("Double")
-              || w.equals("Short")
-              || w.equals("Byte")
-              || w.equals("Character"))) {
-        continue;
+      Matcher m = WORD.matcher(e);
+      while (m.find()) {
+        final String w = m.group(1);
+        if (w == null) continue; // for Checker Framework
+        if (known.contains(w)) continue;
+        if (Character.isDigit(w.charAt(0))) continue;
+        // allow as part of qualified call/field: ".w"
+        int pos = m.start();
+        if (pos > 0 && e.charAt(pos - 1) == '.') continue;
+        // allow permitted library qualifiers
+        if (allowLib
+            && (w.equals("Math")
+                || w.equals("Integer")
+                || w.equals("Objects")
+                || w.equals("Long")
+                || w.equals("Double")
+                || w.equals("Short")
+                || w.equals("Byte")
+                || w.equals("Character"))) {
+          continue;
+        }
+        // Unknown standalone symbol → reject
+        return false;
       }
-      // Unknown standalone symbol → reject
-      return false;
     }
 
     // 8) parse to ensure it's syntactically valid Java expression
-    try {
-      StaticJavaParser.parseExpression(e);
-    } catch (Exception parseErr) {
-      return false;
+    if (rules.parseCheck) {
+      try {
+        StaticJavaParser.parseExpression(e);
+      } catch (Exception parseErr) {
+        return false;
+      }
     }
 
     return true;

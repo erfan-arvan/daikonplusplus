@@ -7,6 +7,8 @@ import edu.njit.jerse.daikonplusplus.util.InvariantAutoFilterUtil.JError;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
+import java.nio.file.attribute.FileTime;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -171,6 +173,30 @@ public final class JavaRunner {
       String classpath,
       int maxModifyPasses)
       throws Exception {
+    compileWithAutoFilter(workSrcRoot, originalSrcRoot, classesDir, classpath, maxModifyPasses, 20);
+  }
+
+  /**
+   * Same as {@link #compileWithAutoFilter(Path, Path, Path, String, int)}, with an explicit budget
+   * for the restore-only fallback phase.
+   *
+   * @param workSrcRoot root of the instrumented source tree
+   * @param originalSrcRoot root of the original source tree
+   * @param classesDir output directory for compiled classes
+   * @param classpath classpath for compilation
+   * @param maxModifyPasses maximum number of passes that attempt invariant removal
+   * @param maxExtraPasses additional passes allotted to the restore-only fallback phase, on top of
+   *     {@code maxModifyPasses} (total budget = {@code maxModifyPasses + maxExtraPasses})
+   * @throws Exception if compilation ultimately fails
+   */
+  public static void compileWithAutoFilter(
+      Path workSrcRoot,
+      Path originalSrcRoot,
+      Path classesDir,
+      String classpath,
+      int maxModifyPasses,
+      int maxExtraPasses)
+      throws Exception {
 
     Files.createDirectories(classesDir);
 
@@ -213,7 +239,7 @@ public final class JavaRunner {
     Path errLog = classesDir.resolve("dp-javac.err");
 
     int pass = 1;
-    int maxTotalPasses = maxModifyPasses + 20;
+    int maxTotalPasses = maxModifyPasses + maxExtraPasses;
 
     while (true) {
 
@@ -374,6 +400,13 @@ public final class JavaRunner {
           broken,
           StandardCopyOption.REPLACE_EXISTING,
           StandardCopyOption.COPY_ATTRIBUTES);
+
+      // See the identical fix/comment in ExternalCompileRunner.restoreOriginalFile:
+      // COPY_ATTRIBUTES preserves the original pre-instrumentation file's old
+      // mtime, which can make the build's incremental up-to-date check skip
+      // recompiling a genuinely-fixed file, leaving stale broken bytecode in
+      // place and causing the same compile error to recur on later passes.
+      Files.setLastModifiedTime(broken, FileTime.from(Instant.now()));
       return 1;
 
     } catch (Exception e) {
@@ -926,15 +959,16 @@ public final class JavaRunner {
                 ? RunResult.TEST_FAILURE_KILLED
                 : staleKilled.get() ? RunResult.STALE_KILLED : RunResult.NORMAL;
 
-    int exit;
+    // The child process has already exited (or been killed) by this point, but the async reader
+    // thread copying its stdout/stderr into runLog polls with r.ready() + a 50ms sleep rather
+    // than a blocking read, so it can still be catching up -- under CPU contention this lag is
+    // enough for a caller reading runLog right after this method returns to race ahead of the
+    // last few lines (e.g. an uncaught exception's stack trace printed right before the JVM
+    // exits). Join it on every path, not just the killed/timeout ones, so runLog is guaranteed
+    // complete before we return.
+    readerThread.join(20000);
 
-    if (runResult != RunResult.NORMAL) {
-      // killed by timeout or stale detector → give reader a short chance to drain
-      readerThread.join(20000);
-      exit = -1;
-    } else {
-      exit = p.exitValue();
-    }
+    int exit = (runResult != RunResult.NORMAL) ? -1 : p.exitValue();
 
     appendDpEvents(invDir, runLog);
 
